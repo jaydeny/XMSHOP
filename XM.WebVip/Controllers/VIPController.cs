@@ -119,6 +119,7 @@ namespace XM.WebVip.Controllers
             string vip_mp = Request["vip_mp"];
             string vip_Email = Request["vip_Email"];
             string status_id = Request["status_id"];
+            string agent_id = Request["agent_id"];
 
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("pi", pageindex);
@@ -128,6 +129,7 @@ namespace XM.WebVip.Controllers
             param.Add("vip_mp", vip_mp);
             param.Add("vip_Email", vip_Email);
             param.Add("status_id", status_id);
+            param.Add("agent_id", agent_id);
 
 
             string result = DALUtility.Vip.QryAllVIP(param, out int ICount);

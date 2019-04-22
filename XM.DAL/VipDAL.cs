@@ -300,6 +300,7 @@ namespace XM.DAL
             builder.AddWhereAndParameter(paras, "vip_mp");
             builder.AddWhereAndParameter(paras, "vip_Email", "vip_Email", "LIKE", "'%'+@vip_Email+'%'");
             builder.AddWhereAndParameter(paras, "status_id");
+            builder.AddWhereAndParameter(paras, "agent_id");
 
             System.Diagnostics.Debug.WriteLine(builder);
             var s = SortAndPage(builder, grid, out iCount);
