@@ -75,7 +75,7 @@ namespace XM.DAL
         {
             iCount = 0;
             WhereBuilder builder = new WhereBuilder();
-            builder.FromSql = "v_Agoods_list";
+            builder.FromSql = "tbAgoods";
             GridData grid = new GridData()
             {
                 PageIndex = Convert.ToInt32(paras["pi"]),

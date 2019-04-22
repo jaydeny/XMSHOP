@@ -190,7 +190,7 @@ namespace XM.DAL
         {
             iCount = 0;
             WhereBuilder builder = new WhereBuilder();
-            builder.FromSql = "v_vip_list";
+            builder.FromSql = "tbvip";
             GridData grid = new GridData()
             {
                 PageIndex = Convert.ToInt32(paras["pi"]),

@@ -35,7 +35,7 @@ namespace XM.DAL
         {
             iCount = 0;
             WhereBuilder builder = new WhereBuilder();
-            builder.FromSql = "v_remainder_list";
+            builder.FromSql = "tbremainder";
             GridData grid = new GridData()
             {
                 PageIndex = Convert.ToInt32(paras["pi"]),

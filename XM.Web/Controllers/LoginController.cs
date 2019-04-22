@@ -22,12 +22,12 @@ namespace XM.Web.Controllers
         /// <param name="userInfo"></param>
         /// <param name="CookieExpires">cookie有效期</param>
         /// <returns></returns>
-        public ActionResult CheckUserLogin(UserEntity userInfo, string CookieExpires)
+        public ActionResult CheckUserLogin( string CookieExpires)
         {
             try
             {
                 var iUserDal = DALUtility.User;
-                var currentUser = iUserDal.UserLogin(userInfo.UserAccountName, userInfo.UserPassword);
+                var currentUser = iUserDal.UserLogin(Request["user_AN"], Request["user_pwd"]);
                 if (currentUser != null)
                 {
                     //记录登录cookie

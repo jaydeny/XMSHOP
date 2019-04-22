@@ -236,7 +236,7 @@ namespace XM.DAL
         {
             iCount = 0;
             WhereBuilder builder = new WhereBuilder();
-            builder.FromSql = "v_user_list";
+            builder.FromSql = "tbuser";
             GridData grid = new GridData()
             {
                 PageIndex = Convert.ToInt32(paras["pi"]),
@@ -244,7 +244,7 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString(),
                 SortDirection = paras["order"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "userid", "user_AN", "LIKE", "'%'+@userid+'%'");
+            builder.AddWhereAndParameter(paras, "userAn", "user_AN", "LIKE", "'%'+@userAn+'%'");
             //builder.AddWhereAndParameter(paras, "username", "RealName", "LIKE", "'%'+@username+'%'");
             //builder.AddWhereAndParameter(paras, "IsAble");
             //builder.AddWhereAndParameter(paras, "IfChangePwd");

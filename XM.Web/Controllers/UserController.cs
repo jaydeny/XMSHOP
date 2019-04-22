@@ -56,7 +56,7 @@ namespace XM.Web.Controllers
             //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-            string userAn = Request["user_an"] == null ? "" : Request["user_an"];
+            string userAn = Request["user_AN"] == null ? "" : Request["user_AN"];
             string userMp = Request["user_mp"] == null ? "" : Request["user_mp"];
             string userEmail = Request["user_email"] == null ? "" : Request["user_email"];
             string statusId = Request["status_id"] == null ? "" : Request["status_id"];
