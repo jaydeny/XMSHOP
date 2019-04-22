@@ -89,5 +89,6 @@ namespace XM.DALFactory
             get { return LoadAssamblyType<IVipDAL>("VipDAL"); }
         }
         
+        
     }
 }

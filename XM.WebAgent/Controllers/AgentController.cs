@@ -1,0 +1,145 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using XM.Model;
+using XM.Web.Controllers;
+
+namespace XM.WebAgent.Controllers
+{
+    public class AgentController : BaseController
+    {
+        // GET: Agent
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(string AN, string pwd)
+        {
+            try
+            {
+                Dictionary<string, object> paras = new Dictionary<string, object>();
+                paras["agent_AN"] = AN;
+                paras["agent_pwd"] = pwd;
+
+                var agent = DALUtility.Agent.QryAgentToLogin<AgentEntity>(paras);
+                if (agent != null)
+                {
+                    if (agent.StatusID == 2)
+                    {
+                        return OperationReturn(false, "用户已被禁用，请您联系管理员");
+                    }
+                    return OperationReturn(true, "登录成功");
+                }
+                else
+                {
+                    return OperationReturn(false, "用户名密码错误，请您检查");
+                }
+            }
+            catch (Exception ex)
+            {
+                return OperationReturn(false, "登录异常," + ex.Message);
+            }
+        }
+
+        //注册时,返回注册页面
+        public ActionResult Signin()
+        {
+            return View();
+        }
+
+        //注册
+        [HttpPost]
+        public ActionResult Signin(AgentEntity agent)
+        {
+            return save(agent, 0);
+        }
+
+        //修改代理
+        public ActionResult Update()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Update(AgentEntity agent)
+        {
+            return save(agent, 1);
+        }
+
+        //注册或者修改代理信息时,检查邮箱,email,联系方式舒服重复
+        public ActionResult save(AgentEntity agent, int ID)
+        {
+            Dictionary<string, object> paras = new Dictionary<string, object>();
+            paras["ID"] = ID;
+            paras["agent_AN"] = agent.AgentAccountName;
+            paras["agent_mp"] = agent.MobliePhone;
+            paras["agent_email"] = agent.Email;
+
+            int iCheck = DALUtility.Agent.checkANandMBandEmail(paras);
+
+            if (iCheck > 0)
+            {
+                return OperationReturn(false, iCheck == 1 ? "所输入的用户名重复,请重新输入!" : (iCheck == 2 ? "所输入的手机号码重复,请重新输入!" : "所输入的邮箱重复,请重新输入!"));
+            }
+            else
+            {
+                paras["agent_pwd"] = agent.AgentPassword;
+                paras["agent_CBY"] = agent.CreateBy;
+                paras["agent_CDT"] = DateTime.Now;
+                paras["status_id"] = agent.StatusID;
+                int result = DALUtility.Agent.saveAgent(paras);
+                return OperationReturn(result > 0);
+            }
+        }
+
+        public ActionResult GetAllVIP()
+        {
+            string sort = Request["sort"] == null ? "agent_id" : Request["sort"];
+            string order = Request["order"] == null ? "asc" : Request["order"];
+            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+
+            string agent_AN = Request["agent_AN"];
+            string agent_mp = Request["agent_mp"];
+            string agent_email = Request["agent_email"];
+            string status_id = Request["status_id"];
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("pi", pageindex);
+            param.Add("pageSize", pagesize);
+            param.Add("sort", sort);
+            param.Add("agent_AN", agent_AN);
+            param.Add("agent_mp", agent_mp);
+            param.Add("agent_email", agent_email);
+            param.Add("status_id", status_id);
+
+
+            string result = DALUtility.Agent.QryAllAgent(param, out int ICount);
+            return Content(result);
+        }
+
+        //未完成
+        public ActionResult MakeGoods(AgentGoodsEntity agoods, string Id)
+        {
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("Id", Id);
+            param.Add("goods_id", agoods.GoodsID);
+            param.Add("agent_AN", agoods.AgentAccountName);
+            return View();
+        }
+
+        public ActionResult CheckRecharge(int vip_id, decimal recharge_price,DateTime recharge_time)
+        {
+            return OperationReturn(true, "用户:"+vip_id+"于"+recharge_time+"充值:"+recharge_price+"元!充值成功!!");
+        }
+    }
+}

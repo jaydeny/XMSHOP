@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -13,6 +14,80 @@ namespace XM.DAL
 {
     public class AgentDAL : BaseDal,IAgentDAL
     {
+        /// <summary>
+        /// 注册代理商时,检查是否有登录名,邮箱,手机重复
+        /// owen
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns>
+        /// 返回:
+        /// 0:无重复
+        /// 1:AN重复
+        /// 2:MB重复
+        /// 3:Email重复
+        /// </returns>
+        public int checkANandMBandEmail(Dictionary<string, object> paras)
+        {
+            return QuerySingle<int>("P_tbagent_checkANandMBandEmail", paras, CommandType.StoredProcedure);
+        }
+
+        /// <summary>
+        /// 添加和修改代理商共用的方法,区别在于id是否为0
+        /// owen
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public int saveAgent(Dictionary<string, object> paras)
+        {
+            return StandardInsertOrUpdate("tbagent", paras);
+        }
+
+        /// <summary>
+        /// 查询代理商数据以登录
+        /// owen
+        /// </summary>
+        /// <typeparam name="VIPEntity">vip</typeparam>
+        /// <param name="paras">参数:登入名,密码</param>
+        /// <returns>返回一个对象,指vip</returns>
+        public T QryAgentToLogin<T>(Dictionary<string, object> paras)
+        {
+            return QuerySingle<T>("SELECT * FROM tbagent WHERE agent_AN=@agent_AN AND agent_pwd=@agent_pwd", paras, CommandType.Text);
+        }
+
+        /// <summary>
+        /// 查询会员,分页
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public string QryAllAgent(Dictionary<string, object> paras, out int iCount)
+        {
+            WhereBuilder builder = new WhereBuilder();
+            builder.FromSql = "tbagent";
+            GridData grid = new GridData()
+            {
+                PageIndex = Convert.ToInt32(paras["pi"]),
+                PageSize = Convert.ToInt32(paras["pageSize"]),
+                SortField = paras["sort"].ToString()
+            };
+            builder.AddWhereAndParameter(paras, "agent_AN", "agent_AN", "LIKE", "'%'+@agent_AN+'%'");
+            builder.AddWhereAndParameter(paras, "agent_mp");
+            builder.AddWhereAndParameter(paras, "agent_email", "agent_email", "LIKE", "'%'+@agent_email+'%'");
+            builder.AddWhereAndParameter(paras, "status_id");
+
+            System.Diagnostics.Debug.WriteLine(builder);
+            var s = SortAndPage(builder, grid, out iCount);
+            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
+            return retData;
+        }
+
+        public int MakeGoods(Dictionary<string, object> paras)
+        {
+            return QuerySingle<int>("P_tbagent_checkANandMBandEmail", paras, CommandType.StoredProcedure);
+        }
+
+
+
+
         /// <summary>
         /// 根据用户id获取用户
         /// </summary>
@@ -271,6 +346,20 @@ namespace XM.DAL
         public int Save(Dictionary<string, object> paras)
         {
             return StandardInsertOrUpdate("tbAgent", paras);
+        }
+
+        /// <summary>
+        /// 会员充值
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public int Recharge(Dictionary<string, object> paras)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("insert into tbrecharge(recharge_name,recharge_price,recharge_time,agent_id,vip_id) ");
+            strSql.Append("values(recharge_name=@recharge_name, recharge_price=@recharge_price, recharge_time=@recharge_time,agent_id=@agent_id,vip_id=@vip_id )");
+            
+            return QuerySingle<int>( strSql.ToString(), paras, CommandType.Text);
         }
     }
 }
