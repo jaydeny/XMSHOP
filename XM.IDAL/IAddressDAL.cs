@@ -8,6 +8,6 @@ namespace XM.IDAL
 {
     public interface IAddressDAL
     {
-
+        
     }
 }

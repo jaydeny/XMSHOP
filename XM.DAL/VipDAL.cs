@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using XM.DAL.comm;
 using XM.IDAL;
 using XM.Model;
@@ -237,6 +236,85 @@ namespace XM.DAL
         public int Save(Dictionary<string, object> paras)
         {
             return StandardInsertOrUpdate("tbvip", paras);
+        }
+
+
+
+
+        /// <summary>
+        /// 注册vip时,检查是否有登录名,邮箱,手机重复
+        /// owen
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns>
+        /// 返回:
+        /// 0:无重复
+        /// 1:AN重复
+        /// 2:MB重复
+        /// 3:Email重复
+        /// </returns>
+        public int checkANandMBandEmail(Dictionary<string, object> paras)
+        {
+            return QuerySingle<int>("P_tbvip_checkANandMBandEmail", paras, CommandType.StoredProcedure);
+        }
+
+        /// <summary>
+        /// 添加和修改vip共用的方法,区别在于id是否为0
+        /// owen
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public int saveVIP(Dictionary<string, object> paras)
+        {
+            return StandardInsertOrUpdate("tbvip", paras);
+        }
+
+        /// <summary>
+        /// 查询vip数据以登录
+        /// owen
+        /// </summary>
+        /// <typeparam name="VIPEntity">vip</typeparam>
+        /// <param name="paras">参数:登入名,密码</param>
+        /// <returns>返回一个对象,指vip</returns>
+        public T QryVipToLogin<T>(Dictionary<string, object> paras)
+        {
+            return QuerySingle<T>("SELECT * FROM tbvip WHERE vip_AN=@vip_AN AND vip_pwd=@vip_pwd", paras, CommandType.Text);
+        }
+
+        /// <summary>
+        /// 查询会员,分页
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public string QryAllVIP(Dictionary<string, object> paras, out int iCount)
+        {
+            WhereBuilder builder = new WhereBuilder();
+            builder.FromSql = "tbvip";
+            GridData grid = new GridData()
+            {
+                PageIndex = Convert.ToInt32(paras["pi"]),
+                PageSize = Convert.ToInt32(paras["pageSize"]),
+                SortField = paras["sort"].ToString()
+            };
+            builder.AddWhereAndParameter(paras, "vip_AN", "vip_AN", "LIKE", "'%'+@vip_AN+'%'");
+            builder.AddWhereAndParameter(paras, "vip_mp");
+            builder.AddWhereAndParameter(paras, "vip_Email", "vip_Email", "LIKE", "'%'+@vip_Email+'%'");
+            builder.AddWhereAndParameter(paras, "status_id");
+
+            System.Diagnostics.Debug.WriteLine(builder);
+            var s = SortAndPage(builder, grid, out iCount);
+            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
+            return retData;
+        }
+
+        /// <summary>
+        /// 购物
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public int BuyGoods(Dictionary<string, object> paras)
+        {
+            return QuerySingle<int>("P_tbvip_checkANandMBandEmail", paras, CommandType.StoredProcedure);
         }
     }
 }

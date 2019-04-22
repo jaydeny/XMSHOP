@@ -11,6 +11,53 @@ namespace XM.IDAL
     public interface IAgentDAL
     {
         /// <summary>
+        /// 注册代理商时,检查是否有登录名,邮箱,手机重复
+        /// owen
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns>
+        /// 返回:
+        /// 0:无重复
+        /// 1:AN重复
+        /// 2:MB重复
+        /// 3:Email重复
+        /// </returns>
+        int checkANandMBandEmail(Dictionary<string, object> paras);
+
+        /// <summary>
+        /// 添加和修改代理商共用的方法,区别在于id是否为0
+        /// owen
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        int saveAgent(Dictionary<string, object> paras);
+
+        /// <summary>
+        /// 查询代理商数据以登录
+        /// owen
+        /// </summary>
+        /// <typeparam name="VIPEntity">vip</typeparam>
+        /// <param name="paras">参数:登入名,密码</param>
+        /// <returns>返回一个对象,指vip</returns>
+        T QryAgentToLogin<T>(Dictionary<string, object> paras);
+
+        /// <summary>
+        /// 查询所有的代理商
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        string QryAllAgent(Dictionary<string, object> paras, out int iCount);
+
+        /// <summary>
+        /// 代理商给商品定价或者修改状态
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        int MakeGoods(Dictionary<string, object> paras);
+
+
+
+        /// <summary>
         /// 根据用户id获取用户
         /// </summary>
         AgentEntity GetUserByUserId(string userId);
@@ -90,5 +137,12 @@ namespace XM.IDAL
         /// <param name="paras"></param>
         /// <returns></returns>
         int Save(Dictionary<string, object> paras);
+
+        /// <summary>
+        /// 会员充值
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        int Recharge(Dictionary<string, object> paras);
     }
 }

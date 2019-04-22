@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XM.Web", "XM.Web\XM.Web.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{37E33332-C461-40D7-8C64-53D2955D624F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XM.WebVip", "XM.WebVip\XM.WebVip.csproj", "{91E5E04E-3DC3-4EFF-9241-80890FA86457}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XM.WebAgent", "XM.WebAgent\XM.WebAgent.csproj", "{FE76AA75-E3A0-413B-BA47-A5D3DE5EBA1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{37E33332-C461-40D7-8C64-53D2955D624F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37E33332-C461-40D7-8C64-53D2955D624F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37E33332-C461-40D7-8C64-53D2955D624F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91E5E04E-3DC3-4EFF-9241-80890FA86457}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91E5E04E-3DC3-4EFF-9241-80890FA86457}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91E5E04E-3DC3-4EFF-9241-80890FA86457}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91E5E04E-3DC3-4EFF-9241-80890FA86457}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE76AA75-E3A0-413B-BA47-A5D3DE5EBA1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE76AA75-E3A0-413B-BA47-A5D3DE5EBA1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE76AA75-E3A0-413B-BA47-A5D3DE5EBA1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE76AA75-E3A0-413B-BA47-A5D3DE5EBA1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
