@@ -52,6 +52,9 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -104,9 +107,6 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -193,6 +193,10 @@
     <ProjectReference Include="..\XM.DALFactory\XM.DALFactory.csproj">
       <Project>{1C00C967-0E30-4ABE-A08E-4B5044CBFA8E}</Project>
       <Name>XM.DALFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XM.DAL\XM.DAL.csproj">
+      <Project>{a265c94d-42c3-425b-b2b0-7f6a236fb104}</Project>
+      <Name>XM.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\XM.IDAL\XM.IDAL.csproj">
       <Project>{01AF0C24-F915-4430-BD6F-BC769C89D140}</Project>
