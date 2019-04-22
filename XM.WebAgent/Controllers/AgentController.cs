@@ -103,7 +103,7 @@ namespace XM.WebAgent.Controllers
 
         public ActionResult GetAllVIP()
         {
-            string sort = Request["sort"] == null ? "agent_id" : Request["sort"];
+            string sort = Request["sort"] == null ? "id" : Request["sort"];
             string order = Request["order"] == null ? "asc" : Request["order"];
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
