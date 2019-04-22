@@ -1,0 +1,242 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using XM.DAL.comm;
+using XM.IDAL;
+using XM.Model;
+
+namespace XM.DAL
+{
+    public class VipDAL : BaseDal, IVipDAL
+    {
+        /// <summary>
+        /// 根据用户id获取用户
+        /// </summary>
+        public VipEntity GetUserByUserId(string userId)
+        {
+            const string sql = "select top 1 vip_id,vip_AN,[vip_pwd],vip_email,vip_mp,vip_CDT,agent_id,status_id from tbvip where vip_id = @UserId";
+            return QuerySingle<VipEntity>(sql, new { UserId = userId });
+        }
+
+        /// <summary>
+        /// 根据id获取用户
+        /// </summary>
+        public VipEntity GetUserById(string id)
+        {
+            string sql = "select vip_id,vip_AN,[vip_pwd],vip_email,vip_mp,vip_CDT,agent_id,status_id from tbvip where user_id = @ID";
+            return QuerySingle<VipEntity>(sql, new { ID = id });
+        }
+
+
+        /// <summary>
+        /// 用户登录
+        /// </summary>
+        public VipEntity UserLogin(string loginId, string loginPwd)
+        {
+            StringBuilder sbSql = new StringBuilder();
+            sbSql.Append("select top 1 vip_id,vip_AN,[vip_pwd],vip_email,vip_mp,vip_CDT,agent_id,status_id from tbvip ");
+            sbSql.Append("where vip_AN=@UserId and vip_pwd=@UserPwd");
+            SqlParameter[] paras = {
+                                       new SqlParameter("@UserId",loginId),
+                                       new SqlParameter("@UserPwd",loginPwd)
+                                       };
+            VipEntity user = null;
+            DataTable dt = SqlHelper.GetDataTable(SqlHelper.connStr, CommandType.Text, sbSql.ToString(), paras);
+            if (dt.Rows.Count > 0)
+            {
+                user = new VipEntity();
+
+                if (!DBNull.Value.Equals(dt.Rows[0]["vip_id"]))
+                    user.VipID = int.Parse(dt.Rows[0]["vip_id"].ToString());
+                if (!DBNull.Value.Equals(dt.Rows[0]["vip_AN"]))
+                    user.VipAccountName = dt.Rows[0]["vip_AN"].ToString();
+                if (!DBNull.Value.Equals(dt.Rows[0]["vip_pwd"]))
+                    user.VipPassword = dt.Rows[0]["vip_pwd"].ToString();
+                if (!DBNull.Value.Equals(dt.Rows[0]["vip_mp"]))
+                    user.VipMobliePhone = dt.Rows[0]["vip_mp"].ToString();
+                if (!DBNull.Value.Equals(dt.Rows[0]["vip_email"]))
+                    user.VipEmail = dt.Rows[0]["vip_email"].ToString();
+                if (!DBNull.Value.Equals(dt.Rows[0]["status_id"]))
+                    user.StatusID = int.Parse(dt.Rows[0]["status_id"].ToString());
+                return user;
+            }
+            return user;
+        }
+
+
+
+        /// <summary>
+        /// 添加用户
+        /// </summary>
+        public int AddUser(VipEntity user)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("insert into tbVip(vip_AN,[vip_pwd],vip_email,vip_mp,vip_CDT,agent_id,status_id)");
+            strSql.Append(" values ");
+            strSql.Append("(@UserAcountName,@UserPassword,@UserMobliePhone,@UserEmail,@UserCreateBy,@UserCreateDate,@RoleID,@StatusID)");
+            strSql.Append(";SELECT @@IDENTITY");   //返回插入用户的主键
+            SqlParameter[] paras = {
+                                   new SqlParameter("@UserAcountName",user.VipAccountName),
+                                   new SqlParameter("@UserPassword",user.VipPassword),
+                                   new SqlParameter("@UserMobliePhone",user.VipMobliePhone),
+                                   new SqlParameter("@UserEmail",user.VipEmail),
+                                   new SqlParameter("@UserCreateDate",user.CreateTime),
+                                   new SqlParameter("@RoleID",user.AgentID),
+                                   new SqlParameter("@StatusID",user.StatusID)
+                                   };
+            return Convert.ToInt32(SqlHelper.ExecuteScalar(SqlHelper.connStr, CommandType.Text, strSql.ToString(), paras));
+        }
+
+        /// <summary>
+        /// 删除用户（可批量删除，删除用户同时删除对应的权限和所处的部门）
+        /// </summary>
+        public bool DeleteUser(string idList)
+        {
+            List<string> list = new List<string>();
+            list.Add("delete from tbvip where vip_id in (" + idList + ")");
+
+            try
+            {
+                int count = SqlHelper.ExecuteNonQuery(SqlHelper.connStr, list);
+                if (count > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 修改用户
+        /// </summary>
+        public bool EditUser(VipEntity user)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("update tbvip set ");
+            strSql.Append("vip_AN=@AccountName,vip_mp=@MobilePhone,vip_email=@Email,status_id=@StatusID,agent_id=@RoleID");
+            strSql.Append(" where vip_id=@Id");
+
+            SqlParameter[] paras = { 
+                                   new SqlParameter("@UserAcountName",user.VipAccountName),
+                                   new SqlParameter("@UserMobliePhone",user.VipMobliePhone),
+                                   new SqlParameter("@Email",user.VipEmail),
+                                   new SqlParameter("@StatusID",user.StatusID),
+                                   new SqlParameter("@RoleID",user.AgentID),
+                                   new SqlParameter("@Id",user.VipID),
+                                   };
+            object obj = SqlHelper.ExecuteNonQuery(SqlHelper.connStr, CommandType.Text, strSql.ToString(), paras);
+            if (Convert.ToInt32(obj) > 0)
+                return true;
+            else
+                return false;
+        }
+
+        /// <summary>
+        /// 获取用户信息（“我的信息”）
+        /// </summary>
+        public DataTable GetUserInfo(int userId)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select vip_AN,vip_CBY from tbVip ");
+            strSql.Append(" where vip_id = @userId");
+            return SqlHelper.GetDataTable(SqlHelper.connStr, CommandType.Text, strSql.ToString(), new SqlParameter("@userId", userId));
+        }
+
+        /// <summary>
+        /// 把DataRow行转成实体类对象
+        /// </summary>
+        private void DataRowToModel(VipEntity model, DataRow dr)
+        {
+            if (!DBNull.Value.Equals(dr["vip_id"]))
+                model.VipID = int.Parse(dr["vip_id"].ToString());
+
+            if (!DBNull.Value.Equals(dr["vip_AN"]))
+                model.VipAccountName = dr["vip_AN"].ToString();
+
+            if (!DBNull.Value.Equals(dr["vip_pwd"]))
+                model.VipPassword = dr["vip_pwd"].ToString();
+
+
+            if (!DBNull.Value.Equals(dr["vip_mp"]))
+                model.VipMobliePhone = dr["vip_mp"].ToString();
+
+            if (!DBNull.Value.Equals(dr["vip_email"]))
+                model.VipEmail = dr["vip_email"].ToString();
+
+            if (!DBNull.Value.Equals(dr["vip_CDT"]))
+                model.CreateTime = Convert.ToDateTime(dr["vip_CDT"]);
+
+            if (!DBNull.Value.Equals(dr["agent_id"]))
+                model.AgentID = int.Parse(dr["agent_id"].ToString());
+
+            if (!DBNull.Value.Equals(dr["status_id"]))
+                model.StatusID = int.Parse(dr["status_id"].ToString());
+
+
+        }
+
+        public IEnumerable<T> QryUsers<T>(Dictionary<string, object> paras, out int iCount)
+        {
+            iCount = 0;
+            WhereBuilder builder = new WhereBuilder();
+            builder.FromSql = "v_vip_list";
+            GridData grid = new GridData()
+            {
+                PageIndex = Convert.ToInt32(paras["pi"]),
+                PageSize = Convert.ToInt32(paras["pageSize"]),
+                SortField = paras["sort"].ToString(),
+                SortDirection = paras["order"].ToString()
+            };
+            builder.AddWhereAndParameter(paras, "userid", "vip_AN", "LIKE", "'%'+@userid+'%'");
+            //builder.AddWhereAndParameter(paras, "username", "RealName", "LIKE", "'%'+@username+'%'");
+            //builder.AddWhereAndParameter(paras, "IsAble");
+            //builder.AddWhereAndParameter(paras, "IfChangePwd");
+            //builder.AddWhereAndParameter(paras, "RoleID");
+            //builder.AddWhereAndParameter(paras, "adddatestart", "CreateTime", ">");
+            //builder.AddWhereAndParameter(paras, "adddateend", "CreateTime", "<");
+            return SortAndPage<T>(builder, grid, out iCount);
+        }
+
+        /// <summary>
+        /// 查询用户资料
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public T QryUserInfo<T>(Dictionary<string, object> paras)
+        {
+            return QuerySingle<T>("SELECT * FROM v_user_info WHERE vip_id=@ID", paras, CommandType.Text);
+        }
+
+        /// <summary>
+        /// 检查账号、邮箱是否存在重复
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public int CheckUseridAndEmail(Dictionary<string, object> paras)
+        {
+            return QuerySingle<int>("P_Vip_CheckUseridAndEmail", paras, CommandType.StoredProcedure);
+        }
+
+        /// <summary>
+        /// 新增/修改用户
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public int Save(Dictionary<string, object> paras)
+        {
+            return StandardInsertOrUpdate("tbvip", paras);
+        }
+    }
+}
