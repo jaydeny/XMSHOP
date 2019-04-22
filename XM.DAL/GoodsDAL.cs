@@ -37,7 +37,7 @@ namespace XM.DAL
         public bool DeleteGoods(string id)
         {
             List<string> list = new List<string>();
-            list.Add("delete from tbGoods where goods_id in (" + id + ")");
+            list.Add("delete from tbGoods where id in (" + id + ")");
             try
             {
                 int count = SqlHelper.ExecuteNonQuery(SqlHelper.connStr, list);
@@ -61,7 +61,7 @@ namespace XM.DAL
             StringBuilder strSql = new StringBuilder();
             strSql.Append("update tbGoods set");
             strSql.Append("goods_name=@GoodsName,goods_intro=@GoodsIntro,goods_CP=@Goodsprice,goods_CBY=@CreateBy,goodsCDT=@CreateDateTime,goods_pic=@Picture,type_id=@TypeId");
-            strSql.Append("where goods_id = @GoodsId");
+            strSql.Append("where id = @GoodsId");
             SqlParameter[] paras =
             {
                 new SqlParameter("@GoodsName",goods.GoodsName),
@@ -82,8 +82,18 @@ namespace XM.DAL
         }
         public IEnumerable<T> QryGoods<T>(Dictionary<string, object> paras, out int iCount)
         {
-
-            throw new NotImplementedException();
+            iCount = 0;
+            WhereBuilder builder = new WhereBuilder();
+            builder.FromSql = "v_goods_list";
+            GridData grid = new GridData()
+            {
+                PageIndex = Convert.ToInt32(paras["pi"]),
+                PageSize = Convert.ToInt32(paras["pageSize"]),
+                SortField = paras["sort"].ToString(),
+                SortDirection = paras["order"].ToString()
+            };
+            builder.AddWhereAndParameter(paras, "GoodsName", "goods_name", "LIKE", "'%'+@GoodsName+'%'");
+            return SortAndPage<T>(builder, grid, out iCount);
         }
 
         public T QryGoodsInfo<T>(Dictionary<string, object> paras)

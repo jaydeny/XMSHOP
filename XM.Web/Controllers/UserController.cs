@@ -56,13 +56,18 @@ namespace XM.Web.Controllers
             //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-            string userid = Request["accountid"] == null ? "" : Request["accountid"];
+            string userAn = Request["user_an"] == null ? "" : Request["user_an"];
+            string userMp = Request["user_mp"] == null ? "" : Request["user_mp"];
+            string userEmail = Request["user_email"] == null ? "" : Request["user_email"];
+            string statusId = Request["status_id"] == null ? "" : Request["status_id"];
+
+
 
             int totalCount;   //输出参数
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["pi"] = pageindex;
             paras["pageSize"] = pagesize;
-            paras["userid"] = userid;
+            paras["userAn"] = userAn;
             paras["sort"] = sort;
             paras["order"] = order;
             //if (roleid > 0)

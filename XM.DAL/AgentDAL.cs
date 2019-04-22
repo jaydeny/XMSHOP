@@ -18,7 +18,7 @@ namespace XM.DAL
         /// </summary>
         public AgentEntity GetUserByUserId(string userId)
         {
-            const string sql = "select top 1 agent_id,agent_AN,[agent_pwd],agent_email,agent_mp,agent_CBY,agent_CDT,status_id from tbAgent where agent_id = @UserId";
+            const string sql = "select top 1 id,agent_AN,[agent_pwd],agent_email,agent_mp,agent_CBY,agent_CDT,status_id from tbAgent where id = @UserId";
             return QuerySingle<AgentEntity>(sql, new { UserId = userId });
         }
 
@@ -27,7 +27,7 @@ namespace XM.DAL
         /// </summary>
         public AgentEntity GetUserById(string id)
         {
-            string sql = "select agent_id,agent_AN,[agent_pwd],agent_email,agent_mp,agent_CBY,agent_CDT,status_id from tbAgent where agent_id = @ID";
+            string sql = "select id,agent_AN,[agent_pwd],agent_email,agent_mp,agent_CBY,agent_CDT,status_id from tbAgent where id = @ID";
             return QuerySingle<AgentEntity>(sql, new { ID = id });
         }
 
@@ -36,7 +36,7 @@ namespace XM.DAL
         /// </summary>
         public bool InitUserPwd(AgentEntity user)
         {
-            string sql = "update tbVip set [agent_pwd] = @UserPwd where agent_id = @ID";
+            string sql = "update tbVip set [agent_pwd] = @UserPwd where id = @ID";
             return Execute(sql, new { UserPwd = user.AgentPassword, ID = user.AgentID }) > 0;
         }
 
@@ -45,7 +45,7 @@ namespace XM.DAL
         /// </summary>
         public bool ChangePwd(AgentEntity user)
         {
-            string sql = "update tbAgent set agent_pwd = @UserPwd,status_id=1 where agent_id = @Id";
+            string sql = "update tbAgent set agent_pwd = @UserPwd,status_id=1 where id = @Id";
             SqlParameter[] paras = {
                                    new SqlParameter("@UserPwd",user.AgentPassword),
                                    new SqlParameter("@Id",user.AgentID)
@@ -63,7 +63,7 @@ namespace XM.DAL
         public AgentEntity UserLogin(string loginId, string loginPwd)
         {
             StringBuilder sbSql = new StringBuilder();
-            sbSql.Append("select top 1 agent_id,agent_AN,[agent_pwd],agent_email,agent_mp,agent_CBY,agent_CDT,status_id from tbAgent ");
+            sbSql.Append("select top 1 id,agent_AN,[agent_pwd],agent_email,agent_mp,agent_CBY,agent_CDT,status_id from tbAgent ");
             sbSql.Append("where agent_AN=@UserId and agent_pwd=@UserPwd");
             SqlParameter[] paras = {
                                        new SqlParameter("@UserId",loginId),
@@ -75,8 +75,8 @@ namespace XM.DAL
             {
                 user = new AgentEntity();
 
-                if (!DBNull.Value.Equals(dt.Rows[0]["agent_id"]))
-                    user.AgentID = int.Parse(dt.Rows[0]["agent_id"].ToString());
+                if (!DBNull.Value.Equals(dt.Rows[0]["id"]))
+                    user.AgentID = int.Parse(dt.Rows[0]["id"].ToString());
                 if (!DBNull.Value.Equals(dt.Rows[0]["agent_AN"]))
                     user.AgentAccountName = dt.Rows[0]["agent_AN"].ToString();
                 if (!DBNull.Value.Equals(dt.Rows[0]["agent_pwd"]))
@@ -97,7 +97,7 @@ namespace XM.DAL
         /// </summary>
         public AgentEntity CheckLoginByUserId(string userId)
         {
-            string sql = "select top 1 agent_id,agent_AN,[agent_pwd],agent_email,agent_mp,agent_CBY,agent_CDT,status_id from tbVip where agent_AN=@UserId";
+            string sql = "select top 1 id,agent_AN,[agent_pwd],agent_email,agent_mp,agent_CBY,agent_CDT,status_id from tbVip where agent_AN=@UserId";
             AgentEntity user = null;
             DataTable dt = SqlHelper.GetDataTable(SqlHelper.connStr, CommandType.Text, sql, new SqlParameter("@UserId", userId));
             if (dt.Rows.Count > 0)
@@ -138,7 +138,7 @@ namespace XM.DAL
         public bool DeleteUser(string idList)
         {
             List<string> list = new List<string>();
-            list.Add("delete from tbAgent where agent_id in (" + idList + ")");
+            list.Add("delete from tbAgent where id in (" + idList + ")");
 
             try
             {
@@ -166,7 +166,7 @@ namespace XM.DAL
             StringBuilder strSql = new StringBuilder();
             strSql.Append("update tbAgent set ");
             strSql.Append("agent_AN=@AccountName,agent_mp=@MobilePhone,agent_email=@Email,status_id=@StatusID");
-            strSql.Append(" where agent_id=@Id");
+            strSql.Append(" where id=@Id");
 
             SqlParameter[] paras = {
                                    new SqlParameter("@UserAcountName",user.AgentAccountName),
@@ -189,7 +189,7 @@ namespace XM.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select agent_AN,agent_CBY from tbUser u");
-            strSql.Append(" where agent_id = @userId");
+            strSql.Append(" where id = @userId");
             return SqlHelper.GetDataTable(SqlHelper.connStr, CommandType.Text, strSql.ToString(), new SqlParameter("@userId", userId));
         }
 
@@ -198,8 +198,8 @@ namespace XM.DAL
         /// </summary>
         private void DataRowToModel(AgentEntity model, DataRow dr)
         {
-            if (!DBNull.Value.Equals(dr["agent_id"]))
-                model.AgentID = int.Parse(dr["agent_id"].ToString());
+            if (!DBNull.Value.Equals(dr["id"]))
+                model.AgentID = int.Parse(dr["id"].ToString());
 
             if (!DBNull.Value.Equals(dr["agent_AN"]))
                 model.AgentAccountName = dr["agent_AN"].ToString();
@@ -238,13 +238,7 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString(),
                 SortDirection = paras["order"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "userid", "agent_AN", "LIKE", "'%'+@userid+'%'");
-            //builder.AddWhereAndParameter(paras, "username", "RealName", "LIKE", "'%'+@username+'%'");
-            //builder.AddWhereAndParameter(paras, "IsAble");
-            //builder.AddWhereAndParameter(paras, "IfChangePwd");
-            //builder.AddWhereAndParameter(paras, "RoleID");
-            //builder.AddWhereAndParameter(paras, "adddatestart", "CreateTime", ">");
-            //builder.AddWhereAndParameter(paras, "adddateend", "CreateTime", "<");
+            builder.AddWhereAndParameter(paras, "AgentName", "agent_AN", "LIKE", "'%'+@AgentName+'%'");
             return SortAndPage<T>(builder, grid, out iCount);
         }
 
@@ -256,7 +250,7 @@ namespace XM.DAL
         /// <returns></returns>
         public T QryUserInfo<T>(Dictionary<string, object> paras)
         {
-            return QuerySingle<T>("SELECT * FROM v_agent_info WHERE agent_id=@ID", paras, CommandType.Text);
+            return QuerySingle<T>("SELECT * FROM v_agent_info WHERE id=@ID", paras, CommandType.Text);
         }
 
         /// <summary>

@@ -18,7 +18,7 @@ namespace XM.DAL
         /// </summary>
         public UserEntity GetUserByUserId(string userId)
         {
-            const string sql = "select top 1 user_id,user_AN,[user_pwd],user_email,user_mp,user_CBY,user_CDT,role_id,status_id from tbUser where user_id = @UserId";
+            const string sql = "select top 1 id,user_AN,[user_pwd],user_email,user_mp,user_CBY,user_CDT,role_id,status_id from tbUser where id = @UserId";
             return QuerySingle<UserEntity>(sql, new { UserId = userId });
         }
 
@@ -27,7 +27,7 @@ namespace XM.DAL
         /// </summary>
         public UserEntity GetUserById(string id)
         {
-            string sql = "select user_id,user_AN,[user_pwd],user_email,user_mp,user_CBY,user_CDT,role_id,status_id from tbUser where user_id = @ID";
+            string sql = "select id,user_AN,[user_pwd],user_email,user_mp,user_CBY,user_CDT,role_id,status_id from tbUser where id = @ID";
             return QuerySingle<UserEntity>(sql, new { ID = id });
         }
 
@@ -36,7 +36,7 @@ namespace XM.DAL
         /// </summary>
         public bool InitUserPwd(UserEntity user)
         {
-            string sql = "update tbUser set [user_pwd] = @UserPwd where user_id = @ID";
+            string sql = "update tbUser set [user_pwd] = @UserPwd where id = @ID";
             return Execute(sql, new { UserPwd = user.UserPassword, ID = user.UserID }) > 0;
         }
 
@@ -45,7 +45,7 @@ namespace XM.DAL
         /// </summary>
         public bool ChangePwd(UserEntity user)
         {
-            string sql = "update tbUser set user_pwd = @UserPwd,status_id=1 where user_id = @Id";
+            string sql = "update tbUser set user_pwd = @UserPwd,status_id=1 where id = @Id";
             SqlParameter[] paras = {
                                    new SqlParameter("@UserPwd",user.UserPassword),
                                    new SqlParameter("@Id",user.UserID)
@@ -63,7 +63,7 @@ namespace XM.DAL
         public UserEntity UserLogin(string loginId, string loginPwd)
         {
             StringBuilder sbSql = new StringBuilder();
-            sbSql.Append("select top 1 user_id,user_AN,[user_pwd],user_email,user_mp,user_CBY,user_CDT,role_id,status_id from tbUser ");
+            sbSql.Append("select top 1 id,user_AN,[user_pwd],user_email,user_mp,user_CBY,user_CDT,role_id,status_id from tbUser ");
             sbSql.Append("where user_AN=@UserId and user_pwd=@UserPwd");
             SqlParameter[] paras = {
                                        new SqlParameter("@UserId",loginId),
@@ -75,8 +75,8 @@ namespace XM.DAL
             {
                 user = new UserEntity();
 
-                if (!DBNull.Value.Equals(dt.Rows[0]["user_id"]))
-                    user.UserID = int.Parse(dt.Rows[0]["user_id"].ToString());
+                if (!DBNull.Value.Equals(dt.Rows[0]["id"]))
+                    user.UserID = int.Parse(dt.Rows[0]["id"].ToString());
                 if (!DBNull.Value.Equals(dt.Rows[0]["user_AN"]))
                     user.UserAccountName = dt.Rows[0]["user_AN"].ToString();
                 if (!DBNull.Value.Equals(dt.Rows[0]["user_pwd"]))
@@ -97,7 +97,7 @@ namespace XM.DAL
         /// </summary>
         public UserEntity CheckLoginByUserId(string userId)
         {
-            string sql = "select top 1 user_id,user_AN,[user_pwd],user_email,user_mp,user_CBY,user_CDT,role_id,status_id from tbUser where AccountName=@UserId";
+            string sql = "select top 1 id,user_AN,[user_pwd],user_email,user_mp,user_CBY,user_CDT,role_id,status_id from tbUser where AccountName=@UserId";
             UserEntity user = null;
             DataTable dt = SqlHelper.GetDataTable(SqlHelper.connStr, CommandType.Text, sql, new SqlParameter("@UserId", userId));
             if (dt.Rows.Count > 0)
@@ -139,7 +139,7 @@ namespace XM.DAL
         public bool DeleteUser(string idList)
         {
             List<string> list = new List<string>();
-            list.Add("delete from tbUser where user_id in (" + idList + ")");
+            list.Add("delete from tbUser where id in (" + idList + ")");
 
             try
             {
@@ -167,7 +167,7 @@ namespace XM.DAL
             StringBuilder strSql = new StringBuilder();
             strSql.Append("update tbUser set ");
             strSql.Append("user_AN=@AccountName,user_mp=@MobilePhone,user_email=@Email,status_id=@StatusID,role_id=@RoleID");
-            strSql.Append(" where user_id=@Id");
+            strSql.Append(" where id=@Id");
 
             SqlParameter[] paras = {
                                    new SqlParameter("@UserAcountName",user.UserAccountName),
@@ -191,8 +191,8 @@ namespace XM.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select u.user_AN,u.user_CBY,r.role_name from tbUser u");
-            strSql.Append(" left join tbRole r on u.role_id = r.role_id");
-            strSql.Append(" where u.user_id = @userId");
+            strSql.Append(" left join tbRole r on u.role_id = r.id");
+            strSql.Append(" where u.id = @userId");
             return SqlHelper.GetDataTable(SqlHelper.connStr, CommandType.Text, strSql.ToString(), new SqlParameter("@userId", userId));
         }
 
@@ -201,8 +201,8 @@ namespace XM.DAL
         /// </summary>
         private void DataRowToModel(UserEntity model, DataRow dr)
         {
-            if (!DBNull.Value.Equals(dr["user_id"]))
-                model.UserID = int.Parse(dr["user_id"].ToString());
+            if (!DBNull.Value.Equals(dr["id"]))
+                model.UserID = int.Parse(dr["id"].ToString());
 
             if (!DBNull.Value.Equals(dr["user_AN"]))
                 model.UserAccountName = dr["user_AN"].ToString();
@@ -262,7 +262,7 @@ namespace XM.DAL
         /// <returns></returns>
         public T QryUserInfo<T>(Dictionary<string, object> paras)
         {
-            return QuerySingle<T>("SELECT * FROM v_user_info WHERE user_id=@ID", paras, CommandType.Text);
+            return QuerySingle<T>("SELECT * FROM v_user_info WHERE id=@ID", paras, CommandType.Text);
         }
 
         /// <summary>

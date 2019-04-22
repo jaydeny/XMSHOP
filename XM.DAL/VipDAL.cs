@@ -18,7 +18,7 @@ namespace XM.DAL
         /// </summary>
         public VipEntity GetUserByUserId(string userId)
         {
-            const string sql = "select top 1 vip_id,vip_AN,[vip_pwd],vip_email,vip_mp,vip_CDT,agent_id,status_id from tbvip where vip_id = @UserId";
+            const string sql = "select top 1 id,vip_AN,[vip_pwd],vip_email,vip_mp,vip_CDT,agent_id,status_id from tbvip where id = @UserId";
             return QuerySingle<VipEntity>(sql, new { UserId = userId });
         }
 
@@ -27,7 +27,7 @@ namespace XM.DAL
         /// </summary>
         public VipEntity GetUserById(string id)
         {
-            string sql = "select vip_id,vip_AN,[vip_pwd],vip_email,vip_mp,vip_CDT,agent_id,status_id from tbvip where user_id = @ID";
+            string sql = "select id,vip_AN,[vip_pwd],vip_email,vip_mp,vip_CDT,agent_id,status_id from tbvip where id = @ID";
             return QuerySingle<VipEntity>(sql, new { ID = id });
         }
 
@@ -38,7 +38,7 @@ namespace XM.DAL
         public VipEntity UserLogin(string loginId, string loginPwd)
         {
             StringBuilder sbSql = new StringBuilder();
-            sbSql.Append("select top 1 vip_id,vip_AN,[vip_pwd],vip_email,vip_mp,vip_CDT,agent_id,status_id from tbvip ");
+            sbSql.Append("select top 1 id,vip_AN,[vip_pwd],vip_email,vip_mp,vip_CDT,agent_id,status_id from tbvip ");
             sbSql.Append("where vip_AN=@UserId and vip_pwd=@UserPwd");
             SqlParameter[] paras = {
                                        new SqlParameter("@UserId",loginId),
@@ -50,8 +50,8 @@ namespace XM.DAL
             {
                 user = new VipEntity();
 
-                if (!DBNull.Value.Equals(dt.Rows[0]["vip_id"]))
-                    user.VipID = int.Parse(dt.Rows[0]["vip_id"].ToString());
+                if (!DBNull.Value.Equals(dt.Rows[0]["id"]))
+                    user.VipID = int.Parse(dt.Rows[0]["id"].ToString());
                 if (!DBNull.Value.Equals(dt.Rows[0]["vip_AN"]))
                     user.VipAccountName = dt.Rows[0]["vip_AN"].ToString();
                 if (!DBNull.Value.Equals(dt.Rows[0]["vip_pwd"]))
@@ -97,7 +97,7 @@ namespace XM.DAL
         public bool DeleteUser(string idList)
         {
             List<string> list = new List<string>();
-            list.Add("delete from tbvip where vip_id in (" + idList + ")");
+            list.Add("delete from tbvip where id in (" + idList + ")");
 
             try
             {
@@ -125,7 +125,7 @@ namespace XM.DAL
             StringBuilder strSql = new StringBuilder();
             strSql.Append("update tbvip set ");
             strSql.Append("vip_AN=@AccountName,vip_mp=@MobilePhone,vip_email=@Email,status_id=@StatusID,agent_id=@RoleID");
-            strSql.Append(" where vip_id=@Id");
+            strSql.Append(" where id=@Id");
 
             SqlParameter[] paras = { 
                                    new SqlParameter("@UserAcountName",user.VipAccountName),
@@ -149,7 +149,7 @@ namespace XM.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select vip_AN,vip_CBY from tbVip ");
-            strSql.Append(" where vip_id = @userId");
+            strSql.Append(" where id = @userId");
             return SqlHelper.GetDataTable(SqlHelper.connStr, CommandType.Text, strSql.ToString(), new SqlParameter("@userId", userId));
         }
 
@@ -158,8 +158,8 @@ namespace XM.DAL
         /// </summary>
         private void DataRowToModel(VipEntity model, DataRow dr)
         {
-            if (!DBNull.Value.Equals(dr["vip_id"]))
-                model.VipID = int.Parse(dr["vip_id"].ToString());
+            if (!DBNull.Value.Equals(dr["id"]))
+                model.VipID = int.Parse(dr["id"].ToString());
 
             if (!DBNull.Value.Equals(dr["vip_AN"]))
                 model.VipAccountName = dr["vip_AN"].ToString();
@@ -198,13 +198,7 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString(),
                 SortDirection = paras["order"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "userid", "vip_AN", "LIKE", "'%'+@userid+'%'");
-            //builder.AddWhereAndParameter(paras, "username", "RealName", "LIKE", "'%'+@username+'%'");
-            //builder.AddWhereAndParameter(paras, "IsAble");
-            //builder.AddWhereAndParameter(paras, "IfChangePwd");
-            //builder.AddWhereAndParameter(paras, "RoleID");
-            //builder.AddWhereAndParameter(paras, "adddatestart", "CreateTime", ">");
-            //builder.AddWhereAndParameter(paras, "adddateend", "CreateTime", "<");
+            builder.AddWhereAndParameter(paras, "vip_AN", "vip_AN", "LIKE", "'%'+@vip_AN+'%'");
             return SortAndPage<T>(builder, grid, out iCount);
         }
 
@@ -216,7 +210,7 @@ namespace XM.DAL
         /// <returns></returns>
         public T QryUserInfo<T>(Dictionary<string, object> paras)
         {
-            return QuerySingle<T>("SELECT * FROM v_user_info WHERE vip_id=@ID", paras, CommandType.Text);
+            return QuerySingle<T>("SELECT * FROM v_user_info WHERE id=@ID", paras, CommandType.Text);
         }
 
         /// <summary>

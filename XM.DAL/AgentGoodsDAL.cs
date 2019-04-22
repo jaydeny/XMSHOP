@@ -36,7 +36,7 @@ namespace XM.DAL
             StringBuilder strSql = new StringBuilder();
             strSql.Append("update tbAGoods set");
             strSql.Append("status_id=@StatusID");
-            strSql.Append("where Agoods_id = @AgentGoodsId");
+            strSql.Append("where id = @AgentGoodsId");
             SqlParameter[] paras =
             {
                 new SqlParameter("@StatusID",goods.StatusID),
@@ -54,7 +54,7 @@ namespace XM.DAL
             StringBuilder strSql = new StringBuilder();
             strSql.Append("update tbAGoods set");
             strSql.Append("goods_id=@GoodsId,status_id=@StatusID,price=@Price,up_time=@UPTime,agent_AN=@AgentAccountName");
-            strSql.Append("where Agoods_id = @AgentGoodsID");
+            strSql.Append("where id = @AgentGoodsID");
             SqlParameter[] paras =
             {
                 new SqlParameter("@GoodsId",goods.GoodsID),
@@ -73,7 +73,18 @@ namespace XM.DAL
 
         public IEnumerable<T> QryGoods<T>(Dictionary<string, object> paras, out int iCount)
         {
-            throw new NotImplementedException();
+            iCount = 0;
+            WhereBuilder builder = new WhereBuilder();
+            builder.FromSql = "v_Agoods_list";
+            GridData grid = new GridData()
+            {
+                PageIndex = Convert.ToInt32(paras["pi"]),
+                PageSize = Convert.ToInt32(paras["pageSize"]),
+                SortField = paras["sort"].ToString(),
+                SortDirection = paras["order"].ToString()
+            };
+            builder.AddWhereAndParameter(paras, "AgentName", "agent_AN", "LIKE", "'%'+@AgentName+'%'");
+            return SortAndPage<T>(builder, grid, out iCount);
         }
 
         public T QryGoodsInfo<T>(Dictionary<string, object> paras)
