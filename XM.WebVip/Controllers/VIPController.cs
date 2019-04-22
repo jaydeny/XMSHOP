@@ -38,7 +38,7 @@ namespace XM.WebVip.Controllers
                     {
                         return OperationReturn(false, "用户已被禁用，请您联系管理员");
                     }
-                    return OperationReturn(true, "登录成功");
+                    return OperationReturn(true, "登录成功,vip_id:"+vip.VipID+";vip_AN:"+vip.VipAccountName);
                 }
                 else
                 {

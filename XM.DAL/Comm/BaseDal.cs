@@ -103,39 +103,39 @@ namespace XM.DAL.comm
         /// <param name="paras">参数</param>
         /// <param name="keyFild">主键字段</param>
         /// <returns></returns>
-        protected int StandardInsertOrUpdate(string tabName, Dictionary<string, object> paras, string keyFild = "ID")
-        {
-            var fields = GetFieldsFromDictionary(paras, keyFild);
-            var sql = "";
-            if (paras[keyFild].ToString().Equals("0"))
-            {
-                var fieldsSql1 = String.Join(",", fields);
-                var fieldsSql2 = String.Join(",", fields.Select(field => "@" + field));
-                sql = String.Format("INSERT {0} ({1}) VALUES ({2});", tabName, fieldsSql1, fieldsSql2);
-            }
-            else
-            {
-                var fieldsSql = String.Join(",", fields.Select(field => field + " = @" + field));
-                sql = String.Format("UPDATE {0} SET {1} WHERE {2} = @{2}", tabName, fieldsSql, keyFild);
-            }
-            using (IDbConnection dbConnection = GetConnection())
-            {
-                return dbConnection.Execute(sql, paras);
-            }
-        }
+        //protected int StandardInsertOrUpdate(string tabName, Dictionary<string, object> paras, string keyFild = "ID")
+        //{
+        //    var fields = GetFieldsFromDictionary(paras, keyFild);
+        //    var sql = "";
+        //    if (paras[keyFild].ToString().Equals("0"))
+        //    {
+        //        var fieldsSql1 = String.Join(",", fields);
+        //        var fieldsSql2 = String.Join(",", fields.Select(field => "@" + field));
+        //        sql = String.Format("INSERT {0} ({1}) VALUES ({2});", tabName, fieldsSql1, fieldsSql2);
+        //    }
+        //    else
+        //    {
+        //        var fieldsSql = String.Join(",", fields.Select(field => field + " = @" + field));
+        //        sql = String.Format("UPDATE {0} SET {1} WHERE {2} = @{2}", tabName, fieldsSql, keyFild);
+        //    }
+        //    using (IDbConnection dbConnection = GetConnection())
+        //    {
+        //        return dbConnection.Execute(sql, paras);
+        //    }
+        //}
 
-        private string[] GetFieldsFromDictionary(Dictionary<string, object> keyValues, string keyFild = "")
-        {
-            var result = new List<string>();
-            foreach (var entry in keyValues)
-            {
-                if (entry.Key != keyFild)
-                {
-                    result.Add(entry.Key);
-                }
-            }
-            return result.ToArray();
-        }
+        //private string[] GetFieldsFromDictionary(Dictionary<string, object> keyValues, string keyFild = "")
+        //{
+        //    var result = new List<string>();
+        //    foreach (var entry in keyValues)
+        //    {
+        //        if (entry.Key != keyFild)
+        //        {
+        //            result.Add(entry.Key);
+        //        }
+        //    }
+        //    return result.ToArray();
+        //}
 
         void FormartSqlToSortAndPage(GridData grid, ref string sql, ref string countSql, ref WhereBuilder builder)
         {
@@ -162,6 +162,65 @@ namespace XM.DAL.comm
             #endregion
             //builder.Parameters.Add("PageSize", grid.PageSize * grid.PageIndex);
             //builder.Parameters.Add("PageStartIndex", grid.PageSize * (grid.PageIndex - 1) + 1);
+        }
+
+
+        /// <summary>
+        /// 执行标准单表Insert&Update操作
+        /// owen修改
+        /// </summary>
+        /// <param name="connectionString"></param>
+        /// <param name="tabName">表名</param>
+        /// <param name="paras">参数</param>
+        /// <param name="keyFild">主键字段</param>
+        /// <returns></returns>
+        protected int StandardInsertOrUpdate(string tabName, Dictionary<string, object> paras, string keyFild = "ID", string choose = "_AN")
+        {
+            var fields = GetFieldsFromDictionary(paras, keyFild);
+            var sql = "";
+            if (paras[keyFild].ToString().Equals("0"))
+            {
+                var fieldsSql1 = String.Join(",", fields);
+                var fieldsSql2 = String.Join(",", fields.Select(field => "@" + field));
+                sql = String.Format("INSERT {0} ({1}) VALUES ({2});", tabName, fieldsSql1, fieldsSql2);
+            }
+            else
+            {
+                var info = getInfo(paras, "ID");
+                var key = tabName.Substring(2);
+                var fieldsSql = String.Join(",", info.Select(field => field + " = @" + field));
+                sql = String.Format("UPDATE {0} SET {1} WHERE {2} = @{2}", tabName, fieldsSql, key + choose);
+            }
+            using (IDbConnection dbConnection = GetConnection())
+            {
+                return dbConnection.Execute(sql, paras);
+            }
+        }
+
+        private string[] getInfo(Dictionary<string, object> keyValues, string keyFild = "")
+        {
+            var result = new List<string>();
+            foreach (var entry in keyValues)
+            {
+                if (entry.Key != keyFild && entry.Key != "vip_CDT")
+                {
+                    result.Add(entry.Key);
+                }
+            }
+            return result.ToArray();
+        }
+
+        private string[] GetFieldsFromDictionary(Dictionary<string, object> keyValues, string keyFild = "")
+        {
+            var result = new List<string>();
+            foreach (var entry in keyValues)
+            {
+                if (entry.Key != keyFild && entry.Key != "ID")
+                {
+                    result.Add(entry.Key);
+                }
+            }
+            return result.ToArray();
         }
     }
 }
