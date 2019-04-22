@@ -61,7 +61,7 @@ namespace XM.WebVip.Controllers
         [HttpPost]
         public ActionResult Signin(VipEntity vip)
         {
-            return save(vip, 0);
+            return save(0);
         }
 
         //修改会员
@@ -73,17 +73,17 @@ namespace XM.WebVip.Controllers
         [HttpPost]
         public ActionResult Update(VipEntity vip)
         {
-            return save(vip, 1);
+            return save(vip.VipID);
         }
 
         //注册或者修改会员信息时,检查邮箱,email,联系方式舒服重复
-        public ActionResult save(VipEntity vip, int ID)
+        public ActionResult save(int ID)
         {
             Dictionary<string, object> paras = new Dictionary<string, object>();
-            paras["ID"] = ID;
-            paras["vip_AN"] = vip.VipAccountName;
-            paras["vip_mp"] = vip.VipMobliePhone;
-            paras["vip_Email"] = vip.VipEmail;
+            paras["id"] = Request["vip_id"];
+            paras["vip_AN"] = Request["vip_AN"];
+            paras["vip_mp"] = Request["vip_mp"];
+            paras["vip_Email"] = Request["vip_Email"];
 
             int iCheck = DALUtility.Vip.checkANandMBandEmail(paras);
 
@@ -93,10 +93,10 @@ namespace XM.WebVip.Controllers
             }
             else
             {
-                paras["vip_pwd"] = vip.VipPassword;
+                paras["vip_pwd"] = Request["vip_pwd"];
                 paras["vip_CDT"] = DateTime.Now;
-                paras["status_id"] = vip.StatusID;
-                paras["agent_id"] = vip.AgentID;
+                paras["status_id"] = Request["status_id"];
+                paras["agent_id"] = Request["agent_id"];
                 int result = DALUtility.Vip.saveVIP(paras);
                 return OperationReturn(result > 0);
             }
@@ -138,24 +138,24 @@ namespace XM.WebVip.Controllers
 
 
         //未完成,需要代理端同意
-        public ActionResult Recharge(RechargeEntity recharge)
+        public ActionResult Recharge()
         {
             DateTime date = DateTime.Now;
 
             Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("recharge_name", recharge.RechargeName);
-            param.Add("recharge_price", recharge.RechargePrice);
+            param.Add("recharge_name", Request["recharge_name"]);
+            param.Add("recharge_price", Request["recharge_price"]);
             param.Add("recharge_time", date);
-            param.Add("agent_id", recharge.AgentID);
-            param.Add("vip_id", recharge.VipID);
+            param.Add("agent_id", Request["agent_id"]);
+            param.Add("vip_id", Request["vip_id"]);
 
             int iCheck = DALUtility.Agent.Recharge(param);
 
             if(iCheck > 0)
             {
                 Url.Action("CheckRecharge","Agent",new RouteValueDictionary {
-                    { "vip_id",recharge.VipID},
-                    { "recharge_price",recharge.RechargePrice},
+                    { "vip_id",Request["vip_id"]},
+                    { "recharge_price",Request["recharge_price"]},
                     { "recharge_time", date}
                 });
 

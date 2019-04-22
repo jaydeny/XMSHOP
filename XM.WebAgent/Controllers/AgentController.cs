@@ -60,7 +60,7 @@ namespace XM.WebAgent.Controllers
         [HttpPost]
         public ActionResult Signin(AgentEntity agent)
         {
-            return save(agent, 0);
+            return save(0);
         }
 
         //修改代理
@@ -72,17 +72,17 @@ namespace XM.WebAgent.Controllers
         [HttpPost]
         public ActionResult Update(AgentEntity agent)
         {
-            return save(agent, 1);
+            return save(agent.AgentID);
         }
 
         //注册或者修改代理信息时,检查邮箱,email,联系方式舒服重复
-        public ActionResult save(AgentEntity agent, int ID)
+        public ActionResult save(int ID)
         {
             Dictionary<string, object> paras = new Dictionary<string, object>();
-            paras["ID"] = ID;
-            paras["agent_AN"] = agent.AgentAccountName;
-            paras["agent_mp"] = agent.MobliePhone;
-            paras["agent_email"] = agent.Email;
+            paras["id"] = Request["agent_id"];
+            paras["agent_AN"] = Request["agent_AN"];
+            paras["agent_mp"] = Request["agent_mp"];
+            paras["agent_email"] = Request["agent_email"];
 
             int iCheck = DALUtility.Agent.checkANandMBandEmail(paras);
 
@@ -92,10 +92,10 @@ namespace XM.WebAgent.Controllers
             }
             else
             {
-                paras["agent_pwd"] = agent.AgentPassword;
-                paras["agent_CBY"] = agent.CreateBy;
+                paras["agent_pwd"] = Request["agent_pwd"];
+                paras["agent_CBY"] = Request["agent_CBY"];
                 paras["agent_CDT"] = DateTime.Now;
-                paras["status_id"] = agent.StatusID;
+                paras["status_id"] = Request["status_id"];
                 int result = DALUtility.Agent.saveAgent(paras);
                 return OperationReturn(result > 0);
             }
@@ -128,10 +128,10 @@ namespace XM.WebAgent.Controllers
         }
 
         //未完成
-        public ActionResult MakeGoods(AgentGoodsEntity agoods, string Id)
+        public ActionResult MakeGoods(AgentGoodsEntity agoods, string Make)
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("Id", Id);
+            param.Add("Make", Make);
             param.Add("goods_id", agoods.GoodsID);
             param.Add("agent_AN", agoods.AgentAccountName);
             return View();
