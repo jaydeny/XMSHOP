@@ -13,6 +13,7 @@ namespace XM.WebAgent.Controllers
         // GET: Agent
         public ActionResult Index()
         {
+
             return View();
         }
 
