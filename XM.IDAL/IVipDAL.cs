@@ -82,6 +82,8 @@ namespace XM.IDAL
 
 
 
+
+
         /// <summary>
         /// 注册vip时,检查是否有登录名,邮箱,手机重复
         /// owen
@@ -121,10 +123,22 @@ namespace XM.IDAL
         string QryAllVIP(Dictionary<string, object> paras, out int iCount);
 
         /// <summary>
-        /// 购物
+        /// 会员充值
         /// </summary>
         /// <param name="paras"></param>
         /// <returns></returns>
-        int BuyGoods(Dictionary<string, object> paras);
+        int Recharge(Dictionary<string, object> paras);
+
+        /// <summary>
+        /// 检查余额,购物
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns>
+        /// 0:成功
+        /// 1:余额不足
+        /// 2:事务出错
+        /// </returns>
+        int Buy(Dictionary<string, object> paras);
+        
     }
 }

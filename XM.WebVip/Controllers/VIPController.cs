@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Diagnostics;
 using System.Web.Mvc;
 using System.Web.Routing;
 using XM.Model;
@@ -11,6 +10,7 @@ namespace XM.WebVip.Controllers
 {
     public class VIPController : BaseController
     {
+
         public ActionResult Index()
         {
             return View();
@@ -149,7 +149,7 @@ namespace XM.WebVip.Controllers
             param.Add("agent_id", Request["agent_id"]);
             param.Add("vip_id", Request["vip_id"]);
 
-            int iCheck = DALUtility.Agent.Recharge(param);
+            int iCheck = DALUtility.Vip.Recharge(param);
 
             if(iCheck > 0)
             {
@@ -162,6 +162,40 @@ namespace XM.WebVip.Controllers
                 return OperationReturn(true, "等待中");
             }
             return OperationReturn(false,"充值失败");
+        }
+
+        /// <summary>
+        /// 查看余额
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult CheckRemainder()
+        {
+            DateTime date = DateTime.Now;
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("order_date", date);
+            param.Add("order_address", Request["order_address"]);
+            param.Add("order_mp", Request["order_mp"]);
+            param.Add("vip_AN", Request["vip_AN"]);
+            param.Add("agent_AN", Request["agent_AN"]);
+            param.Add("order_total", Request["order_total"]);
+
+
+            param.Add("buy_time", date);
+            param.Add("buy_count", Request["buy_count"]);
+            param.Add("buy_AN", Request["buy_AN"]);
+            param.Add("goods_id", Request["goods_id"]);
+            param.Add("buy_total", Request["buy_total"]);
+
+            int iCheck = DALUtility.Vip.Buy(param);
+
+            Debug.WriteLine(iCheck);
+
+            if(iCheck > 0)
+            {
+                return OperationReturn(false, iCheck == 1 ? "用户余额不足,请充值后从试!" :  "购物出错,请重试!");
+            }
+            return OperationReturn(true,"购物成功");
         }
     }
 }

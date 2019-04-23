@@ -303,13 +303,27 @@ namespace XM.DAL
         }
 
         /// <summary>
-        /// 购物
+        /// 会员充值
         /// </summary>
         /// <param name="paras"></param>
         /// <returns></returns>
-        public int BuyGoods(Dictionary<string, object> paras)
+        public int Recharge(Dictionary<string, object> paras)
         {
-            return QuerySingle<int>("P_tbvip_checkANandMBandEmail", paras, CommandType.StoredProcedure);
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("insert into tbrecharge(recharge_name,recharge_price,recharge_time,agent_id,vip_id) ");
+            strSql.Append("values(recharge_name=@recharge_name, recharge_price=@recharge_price, recharge_time=@recharge_time,agent_id=@agent_id,vip_id=@vip_id )");
+
+            return QuerySingle<int>(strSql.ToString(), paras, CommandType.Text);
+        }
+
+        /// <summary>
+        /// 检查余额
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public int Buy(Dictionary<string, object> paras)
+        {
+            return QuerySingle<int>("P_tbvip_Shopping", paras, CommandType.StoredProcedure);
         }
     }
 }

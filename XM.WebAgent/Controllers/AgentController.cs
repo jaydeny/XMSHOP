@@ -127,19 +127,46 @@ namespace XM.WebAgent.Controllers
             return Content(result);
         }
 
-        //未完成
-        public ActionResult MakeGoods(AgentGoodsEntity agoods, string Make)
+        
+        public ActionResult MakeGoods()
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("Make", Make);
-            param.Add("goods_id", agoods.GoodsID);
-            param.Add("agent_AN", agoods.AgentAccountName);
-            return View();
+            param.Add("id", Request["Agooods_id"]);
+            param.Add("goods_id", Request["goods_id"]);
+            param.Add("status_id", Request["status_id"]);
+            param.Add("price", Request["price"]);
+            param.Add("up_time", Request["up_time"]);
+            param.Add("Agent_AN", Request["Agent_AN"]);
+
+            int iCheck = DALUtility.Agent.MakeGoods(param);
+            return OperationReturn(true, iCheck == 0 ? "上架成功" : (iCheck == 1 ? "修改成功!" : "当前操作失败,请重新尝试!"));
         }
 
+        //代理商处理充值
         public ActionResult CheckRecharge(int vip_id, decimal recharge_price,DateTime recharge_time)
         {
             return OperationReturn(true, "用户:"+vip_id+"于"+recharge_time+"充值:"+recharge_price+"元!充值成功!!");
+        }
+
+
+        public ActionResult QryReportForm()
+        {
+            string sort = Request["sort"] == null ? "id" : Request["sort"];
+            string order = Request["order"] == null ? "asc" : Request["order"];
+            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+            
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("pi", pageindex);
+            param.Add("pageSize", pagesize);
+            param.Add("sort", sort);
+            param.Add("startTime", Request["startTime"]);
+            param.Add("endTime", Request["endTime"]);
+            param.Add("agent_AN", Request["agent_AN"]);
+
+            string result = DALUtility.Agent.QryReportForm(param, out int ICount);
+            return Content(result);
         }
     }
 }
