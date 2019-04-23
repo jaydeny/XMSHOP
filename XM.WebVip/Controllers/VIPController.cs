@@ -80,7 +80,7 @@ namespace XM.WebVip.Controllers
         public ActionResult save(int ID)
         {
             Dictionary<string, object> paras = new Dictionary<string, object>();
-            paras["id"] = Request["vip_id"];
+            paras["id"] = ID;
             paras["vip_AN"] = Request["vip_AN"];
             paras["vip_mp"] = Request["vip_mp"];
             paras["vip_Email"] = Request["vip_Email"];
