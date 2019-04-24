@@ -17,7 +17,7 @@ namespace XM.DAL
         /// </summary>
         public VipEntity GetUserByUserId(string userId)
         {
-            const string sql = "select top 1 id,vip_AN,[vip_pwd],vip_email,vip_mp,vip_CDT,agent_id,status_id from tbvip where id = @UserId";
+            const string sql = "select top 1 * from v_vip_list where id = @UserId";
             return QuerySingle<VipEntity>(sql, new { UserId = userId });
         }
 
@@ -26,7 +26,7 @@ namespace XM.DAL
         /// </summary>
         public VipEntity GetUserById(string id)
         {
-            string sql = "select id,vip_AN,[vip_pwd],vip_email,vip_mp,vip_CDT,agent_id,status_id from tbvip where id = @ID";
+            string sql = "select * from v_vip_list where id = @ID";
             return QuerySingle<VipEntity>(sql, new { ID = id });
         }
 
@@ -147,7 +147,7 @@ namespace XM.DAL
         public DataTable GetUserInfo(int userId)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select vip_AN,vip_CBY from tbVip ");
+            strSql.Append("select vip_AN,vip_CBY from v_vip_list ");
             strSql.Append(" where id = @userId");
             return SqlHelper.GetDataTable(SqlHelper.connStr, CommandType.Text, strSql.ToString(), new SqlParameter("@userId", userId));
         }
@@ -219,7 +219,7 @@ namespace XM.DAL
         /// <returns></returns>
         public int CheckUseridAndEmail(Dictionary<string, object> paras)
         {
-            return QuerySingle<int>("P_Vip_CheckUseridAndEmail", paras, CommandType.StoredProcedure);
+            return QuerySingle<int>("P_tbvip_checkANandMBandEmail", paras, CommandType.StoredProcedure);
         }
 
         /// <summary>

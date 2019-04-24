@@ -89,7 +89,7 @@ namespace XM.DAL
 
         public T QryGoodsInfo<T>(Dictionary<string, object> paras)
         {
-            throw new NotImplementedException();
+            return QuerySingle<T>("SELECT * FROM v_Agoods_list WHERE id=@ID", paras, CommandType.Text);
         }
 
         public int Save(Dictionary<string, object> paras)

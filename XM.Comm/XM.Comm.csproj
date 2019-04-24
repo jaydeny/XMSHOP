@@ -49,6 +49,7 @@
     <Compile Include="ConvertUtil.cs" />
     <Compile Include="CookiesHelper.cs" />
     <Compile Include="DataConvert.cs" />
+    <Compile Include="EmailHelper.cs" />
     <Compile Include="ImgHelper.cs" />
     <Compile Include="JsonHelper.cs" />
     <Compile Include="Md5.cs" />

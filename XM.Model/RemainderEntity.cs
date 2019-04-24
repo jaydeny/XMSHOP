@@ -8,7 +8,7 @@ namespace XM.Model
 {
     public class RemainderEntity
     {
-        public int VipID { get; set; }
+        public string VipID { get; set; }
         public decimal Remainder { get; set; }
     }
 }
