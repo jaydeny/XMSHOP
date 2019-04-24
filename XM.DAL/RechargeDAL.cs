@@ -44,7 +44,10 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString(),
                 SortDirection = paras["order"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "AgentID", "agent_id", "=", "@AgentID");
+            builder.AddWhereAndParameter(paras, "AgentID", "AgentID", "=", "@AgentID");
+            builder.AddWhereAndParameter(paras, "VipID", "VipID", "=", "@VipID");
+            builder.AddWhereAndParameter(paras, "startTime", "REchargeTime", ">");
+            builder.AddWhereAndParameter(paras, "endTime", "REchargeTime", "<");
             return SortAndPage<T>(builder, grid, out iCount);
         }
 

@@ -93,5 +93,17 @@ namespace XM.DALFactory
         {
             get { return LoadAssamblyType<IGoodsDAL>("GoodsDAL"); }
         }
+        public IGoodsTypeDAL Type
+        {
+            get { return LoadAssamblyType<IGoodsTypeDAL>("GoodsTypeDAL"); }
+        }
+        public IOrderDAL Order
+        {
+            get { return LoadAssamblyType<IOrderDAL>("OrderDAL"); }
+        }
+        public IRechargeDAL Recharge
+        {
+            get { return LoadAssamblyType<IRechargeDAL>("RechargeDAL"); }
+        }
     }
 }

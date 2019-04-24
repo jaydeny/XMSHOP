@@ -45,7 +45,7 @@ namespace XM.Web.Controllers
 
 
         /// <summary>
-        /// 新增 用户
+        /// 新增 产品
         /// </summary>
         /// <returns></returns>
         public ActionResult AddGoods()
@@ -56,7 +56,7 @@ namespace XM.Web.Controllers
 
 
         /// <summary>
-        /// 编辑 用户
+        /// 编辑 产品
         /// </summary>
         /// <returns></returns>
         public ActionResult EditGoods()
