@@ -11,7 +11,7 @@ namespace XM.Model
         /// <summary>
         /// 主键 Id
         /// </summary>
-        public int UserID { get; set; }
+        public int id { get; set; }
 
         /// <summary>
         /// 用户登录 UserId

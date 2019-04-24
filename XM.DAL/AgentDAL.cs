@@ -230,7 +230,7 @@ namespace XM.DAL
         {
             iCount = 0;
             WhereBuilder builder = new WhereBuilder();
-            builder.FromSql = "tbagent";
+            builder.FromSql = "v_agent_list";
             GridData grid = new GridData()
             {
                 PageIndex = Convert.ToInt32(paras["pi"]),
@@ -250,7 +250,7 @@ namespace XM.DAL
         /// <returns></returns>
         public T QryUserInfo<T>(Dictionary<string, object> paras)
         {
-            return QuerySingle<T>("SELECT * FROM v_agent_info WHERE id=@ID", paras, CommandType.Text);
+            return QuerySingle<T>("SELECT * FROM v_agent_list WHERE id=@ID", paras, CommandType.Text);
         }
 
         /// <summary>
@@ -260,7 +260,7 @@ namespace XM.DAL
         /// <returns></returns>
         public int CheckUseridAndEmail(Dictionary<string, object> paras)
         {
-            return QuerySingle<int>("P_agent_CheckUseridAndEmail", paras, CommandType.StoredProcedure);
+            return QuerySingle<int>("P_tbagent_checkANandMBandEmail", paras, CommandType.StoredProcedure);
         }
 
         /// <summary>

@@ -75,7 +75,7 @@ namespace XM.DAL
         {
             iCount = 0;
             WhereBuilder builder = new WhereBuilder();
-            builder.FromSql = "tbAgoods";
+            builder.FromSql = "v_Agoods_list";
             GridData grid = new GridData()
             {
                 PageIndex = Convert.ToInt32(paras["pi"]),
@@ -89,7 +89,7 @@ namespace XM.DAL
 
         public T QryGoodsInfo<T>(Dictionary<string, object> paras)
         {
-            throw new NotImplementedException();
+            return QuerySingle<T>("SELECT * FROM v_Agoods_list WHERE id=@ID", paras, CommandType.Text);
         }
 
         public int Save(Dictionary<string, object> paras)

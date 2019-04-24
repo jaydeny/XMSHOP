@@ -27,8 +27,8 @@ namespace XM.Web.Controllers
             UserEntity uInfo = ViewData["Account"] as UserEntity;
 
             UserEntity userChangePwd = new UserEntity();
-            userChangePwd.UserID = uInfo.UserID;
-            userChangePwd.UserPassword = NewPwd;  
+            userChangePwd.id = uInfo.id;
+            userChangePwd.UserPassword = NewPwd;
 
             if (UserPwd == uInfo.UserPassword)
             {
@@ -50,7 +50,7 @@ namespace XM.Web.Controllers
 
         public ActionResult GetAllUserInfo()
         {
-            string sort = Request["sort"] == null ? "ID" : Request["sort"];
+            string sort = Request["sort"] == null ? "id" : Request["sort"];
             string order = Request["order"] == null ? "asc" : Request["order"];
 
             //首先获取前台传递过来的参数
@@ -59,7 +59,8 @@ namespace XM.Web.Controllers
             string userAn = Request["user_AN"] == null ? "" : Request["user_AN"];
             string userMp = Request["user_mp"] == null ? "" : Request["user_mp"];
             string userEmail = Request["user_email"] == null ? "" : Request["user_email"];
-            string statusId = Request["status_id"] == null ? "" : Request["status_id"];
+            int statusId = Request["status_id"] == null ? 1 : Convert.ToInt32(Request["status_id"]);
+            int roleid = Request["role_id "] == null ? 0 : Convert.ToInt32(Request["role_id"]);
 
 
 
@@ -70,10 +71,10 @@ namespace XM.Web.Controllers
             paras["userAn"] = userAn;
             paras["sort"] = sort;
             paras["order"] = order;
-            //if (roleid > 0)
-            //{
-            //    paras["RoleID"] = roleid;
-            //}
+            if (roleid > 0)
+            {
+                paras["role_id"] = roleid;
+            }
             var users = DALUtility.User.QryUsers<UserEntity>(paras, out totalCount);
             return PagerData(totalCount, users);
         }
@@ -103,25 +104,17 @@ namespace XM.Web.Controllers
         private ActionResult SaveUser()
         {
             int id = Convert.ToInt32(Request["id"]);
-            string userid = Request["UserID"];
-            string mobilephone = Request["MobilePhone"];
-            string email = Request["Email"];
-            int roleID = Convert.ToInt32(Request["roleId"]);
-            int statusID = Convert.ToInt32(Request["statusId"]);
+            string userid = Request["user_AN"];
+            string mobilephone = Request["user_mp"];
+            string email = Request["user_email"];
+            int roleID = Convert.ToInt32(Request["role_id"]);
+            int statusID = Convert.ToInt32(Request["status_id"]);
 
             Dictionary<string, object> paras = new Dictionary<string, object>();
-            paras["ID"] = id;
-            paras["AccountName"] = userid;
-            paras["RoleID"] = roleID;
-            paras["MobilePhone"] = mobilephone;
-            paras["Email"] = email;
+            paras["id"] = id;
+            paras["user_AN"] = userid;
+            paras["user_email"] = email;
 
-            if (id == 0)
-            {
-                paras["Password"] = "xm123456";
-                paras["CreateBy"] = "admin";
-                paras["CreateTime"] = DateTime.Now;
-            }
             int iCheck = DALUtility.User.CheckUseridAndEmail(paras);
             if (iCheck > 0)
             {
@@ -129,13 +122,23 @@ namespace XM.Web.Controllers
             }
             else
             {
-                return OperationReturn(DALUtility.User.Save(paras) > 0);
+                paras["role_id"] = roleID;
+                paras["user_mp"] = mobilephone;
+                paras["status_id"] = statusID;
+                if (id == 0)
+                {
+                    paras["user_pwd"] = "xm123456";
+                    paras["user_CBY"] = "admin";
+                    paras["user_CDT"] = DateTime.Now;
+                    return OperationReturn(DALUtility.User.Save(paras) > 0, "添加成功！初始密码：" + paras["user_pwd"]);
+                }
+                return OperationReturn(DALUtility.User.Save(paras) > 0, "修改成功！" );
             }
         }
 
         public ActionResult DelUserByIDs()
         {
-            string Ids = Request["IDs"] == null ? "" : Request["IDs"];
+            string Ids = Request["id"] == null ? "" : Request["id"];
             if (!string.IsNullOrEmpty(Ids))
             {
                 return OperationReturn(DALUtility.User.DeleteUser(Ids));

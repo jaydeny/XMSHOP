@@ -84,7 +84,7 @@ namespace XM.DAL
         {
             iCount = 0;
             WhereBuilder builder = new WhereBuilder();
-            builder.FromSql = "tbgoods";
+            builder.FromSql = "v_goods_list";
             GridData grid = new GridData()
             {
                 PageIndex = Convert.ToInt32(paras["pi"]),
@@ -92,7 +92,7 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString(),
                 SortDirection = paras["order"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "GoodsName", "goods_name", "LIKE", "'%'+@GoodsName+'%'");
+            builder.AddWhereAndParameter(paras, "goods_name", "goods_name", "LIKE", "'%'+@goods_name+'%'");
             return SortAndPage<T>(builder, grid, out iCount);
         }
 

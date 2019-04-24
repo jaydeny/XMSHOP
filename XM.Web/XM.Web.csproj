@@ -96,9 +96,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AgentController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\GoodsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\VipController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -117,9 +120,12 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Agent\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Goods\" />
     <Folder Include="Views\Login\" />
     <Folder Include="Views\User\" />
+    <Folder Include="Views\Vip\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XM.Comm\XM.Comm.csproj">

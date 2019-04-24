@@ -103,7 +103,7 @@ namespace XM.DAL.comm
         /// <param name="paras">参数</param>
         /// <param name="keyFild">主键字段</param>
         /// <returns></returns>
-        protected int StandardInsertOrUpdate(string tabName, Dictionary<string, object> paras, string keyFild = "ID")
+        protected int StandardInsertOrUpdate(string tabName, Dictionary<string, object> paras, string keyFild = "id")
         {
             var fields = GetFieldsFromDictionary(paras, keyFild);
             var sql = "";
@@ -136,6 +136,7 @@ namespace XM.DAL.comm
             }
             return result.ToArray();
         }
+
 
         void FormartSqlToSortAndPage(GridData grid, ref string sql, ref string countSql, ref WhereBuilder builder)
         {
