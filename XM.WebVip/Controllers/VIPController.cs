@@ -159,7 +159,7 @@ namespace XM.WebVip.Controllers
                     { "recharge_time", date}
                 });
 
-                return OperationReturn(true, "等待中");
+                return OperationReturn(true, "充值成功");
             }
             return OperationReturn(false,"充值失败");
         }

@@ -80,7 +80,7 @@ namespace XM.WebAgent.Controllers
         public ActionResult save(int ID)
         {
             Dictionary<string, object> paras = new Dictionary<string, object>();
-            paras["id"] = Request["agent_id"];
+            paras["id"] = ID;
             paras["agent_AN"] = Request["agent_AN"];
             paras["agent_mp"] = Request["agent_mp"];
             paras["agent_email"] = Request["agent_email"];
