@@ -37,8 +37,16 @@ namespace XM.Web.Controllers
             paras["endTime"] = endTime;
             paras["sort"] = sort;
             paras["order"] = order;
-            var type = DALUtility.Recharge.QryRecharge<RechargeEntity>(paras, out totalCount);
-            return PagerData(totalCount, type);
+            var charge = DALUtility.Recharge.QryRecharge<RechargeEntity>(paras, out totalCount);
+            if(charge != null)
+            {
+                log(Session["user_AN"].ToString(), "查询充值营收表", "true", "查询成功");
+            }
+            else
+            {
+                log(Session["user_AN"].ToString(), "查询充值营收表", "false", "查询失败");
+            }
+            return PagerData(totalCount, charge);
         }
         public ActionResult GetGoodsRevenue()
         {
@@ -62,8 +70,16 @@ namespace XM.Web.Controllers
             paras["endTime"] = endTime;
             paras["sort"] = sort;
             paras["order"] = order;
-            var type = DALUtility.Order.QryOrder<OrderEntity>(paras, out totalCount);
-            return PagerData(totalCount, type);
+            var goods = DALUtility.Order.QryOrder<OrderEntity>(paras, out totalCount);
+            if(goods != null)
+            {
+                log(Session["user_AN"].ToString(), "查询所有的商品营收", "true", "查询成功");
+            }
+            else
+            {
+                log(Session["user_AN"].ToString(), "查询所有的商品营收", "false", "查询失败");
+            }
+            return PagerData(totalCount, goods);
         }
     }
 }

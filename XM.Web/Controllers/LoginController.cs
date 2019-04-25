@@ -34,16 +34,18 @@ namespace XM.Web.Controllers
                 {
                     //记录登录cookie
                     CookiesHelper.SetCookie("UserID", AES.EncryptStr(currentUser.id.ToString()));
-
+                    log(Request["user_AN"].ToString(), "账号登录", "true", "登录成功");
                     return OperationReturn(true, "登录成功！"); 
                 }
                 else
                 {
+                    log(Request["user_AN"].ToString(), "账号登录", "false", "用户名或者密码错误");
                     return OperationReturn(false, "登录失败！用户名或者密码错误！");
                 }
             }
             catch (Exception ex)
             {
+                log(Request["user_AN"].ToString(), "账号登录", "false", "登录异常,"+ex.Message);
                 return OperationReturn(false,"登录异常," + ex.Message);
             }
         }
@@ -60,36 +62,15 @@ namespace XM.Web.Controllers
             {
                 f = EmailHelper.send(currrentUser.UserEmail, "验证码", mailContent);
             }
-
+            log(Request["user_AN"].ToString(), "忘记密码", "true", "邮件发送成功");
             return OperationReturn(f,"邮件已发送！");
         }
         public ActionResult UserLoginOut()
         {
             //清空cookie
             CookiesHelper.AddCookie("UserID", System.DateTime.Now.AddDays(-1));
+            log(Request["user_AN"].ToString(), "退出账号", "true", "退出成功");
             return OperationReturn(true,"退出成功！");
-        }
-
-
-
-        public static string RandCode(int n)
-        {
-            char[] arrChar = new char[]{
-           'a','b','d','c','e','f','g','h','i','j','k','l','m','n','p','r','q','s','t','u','v','w','z','y','x',
-           '0','1','2','3','4','5','6','7','8','9',
-           'A','B','C','D','E','F','G','H','I','J','K','L','M','N','Q','P','R','T','S','V','U','W','X','Y','Z'
-          };
-
-            StringBuilder num = new StringBuilder();
-
-            Random rnd = new Random(DateTime.Now.Millisecond);
-            for (int i = 0; i < n; i++)
-            {
-                num.Append(arrChar[rnd.Next(0, arrChar.Length)].ToString());
-
-            }
-
-            return num.ToString();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,6 +13,7 @@ namespace XM.Web.Controllers
         // GET: Vip
         public ActionResult Index()
         {
+
             return View();
         }
         
@@ -29,6 +31,7 @@ namespace XM.Web.Controllers
             int statusId = Request["status_id"] == null ? 1 : Convert.ToInt32(Request["status_id"]);
             string createDateTime = Request["vip_CDT"] == null ? "" : Request["vip_CDT"];
             int agentId = Request["agent_id"] == null ? 1 : Convert.ToInt32(Request["agent_id"]);
+            
 
 
 
@@ -41,8 +44,16 @@ namespace XM.Web.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var users = DALUtility.Vip.QryUsers<VipEntity>(paras, out totalCount);
+            if (users != null)
+            {
+                log(HttpContext.Session["user_AN"].ToString(), "查询所有vip用户信息", "true", "查询成功");
+            }
+            else
+            {
+                log(HttpContext.Session["user_AN"].ToString(), "查询所有vip用户信息", "false", "查询失败");
+            }
             return PagerData(totalCount, users);
-        }
+        } 
 
 
         /// <summary>
@@ -85,19 +96,43 @@ namespace XM.Web.Controllers
             int iCheck = DALUtility.Vip.CheckUseridAndEmail(paras);
             if (iCheck > 0)
             {
+                log(HttpContext.Session["user_AN"].ToString(), "修改\\添加vip用户", "false", "用户名或邮箱重复 ");
                 return OperationReturn(false, iCheck == 1 ? "用户名重复" : "邮箱重复");
             }
             else
             {
+                int num;
                 paras["status_id"] = statusID;
                 paras["agent_id"] = agentId;
                 if (id == 0)
                 {
                     paras["vip_pwd"] = "xm123456";
                     paras["vip_CDT"] = DateTime.Now;
-                    return OperationReturn(DALUtility.Vip.Save(paras) > 0, "添加成功！初始密码：" + paras["vip_pwd"]);
+                    num = DALUtility.Vip.Save(paras);
+                    if (num > 0)
+                    {
+                        log(HttpContext.Session["user_AN"].ToString(), "添加vip用户", "true", "添加成功");
+                        return OperationReturn(true, "添加成功！初始密码：" + paras["vip_pwd"]);
+                    }
+                    else
+                    {
+                        log(HttpContext.Session["user_AN"].ToString(), "添加vip用户", "false", "添加失败");
+                        return OperationReturn(false, "添加失败");
+                    }
+                    
                 }
-                return OperationReturn(DALUtility.Vip.Save(paras) > 0, "修改成功！");
+                num = DALUtility.Vip.Save(paras);
+                if (num > 0)
+                {
+                    log(HttpContext.Session["user_AN"].ToString(), "修改vip用户", "true", "修改成功");
+                    return OperationReturn(true, "修改成功！");
+                }
+                else
+                {
+                    log(HttpContext.Session["user_AN"].ToString(), "修改vip用户", "false", "修改失败 ");
+                    return OperationReturn(false, "修改失败！");
+                }
+                
             }
         }
 
@@ -106,11 +141,13 @@ namespace XM.Web.Controllers
             string Ids = Request["id"] == null ? "" : Request["id"];
             if (!string.IsNullOrEmpty(Ids))
             {
-                return OperationReturn(DALUtility.Vip.DeleteUser(Ids));
+                log(HttpContext.Session["user_AN"].ToString(), "删除vip用户", "true", "删除成功 ");
+                return OperationReturn(DALUtility.Vip.DeleteUser(Ids),"删除成功");
             }
             else
             {
-                return OperationReturn(false);
+                log(HttpContext.Session["user_AN"].ToString(), "删除vip用户", "false", "删除失败 ");
+                return OperationReturn(false,"删除失败");
             }
         }
     }

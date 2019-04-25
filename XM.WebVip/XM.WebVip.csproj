@@ -186,6 +186,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Framework.MongoDB\Framework.MongoDB.csproj">
+      <Project>{64C0579A-CF14-47ED-9700-76014528262F}</Project>
+      <Name>Framework.MongoDB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XM.Comm\XM.Comm.csproj">
       <Project>{bd869537-bdc8-4ccf-9c9e-da217dcd52e6}</Project>
       <Name>XM.Comm</Name>
@@ -203,7 +207,7 @@
       <Name>XM.IDAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\XM.Model\XM.Model.csproj">
-      <Project>{A67EB676-D000-4E12-9E1B-D4F178EC497C}</Project>
+      <Project>{a67eb676-d000-4e12-9e1b-d4f178ec497c}</Project>
       <Name>XM.Model</Name>
     </ProjectReference>
   </ItemGroup>

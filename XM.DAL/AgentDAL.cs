@@ -17,10 +17,12 @@ namespace XM.DAL
         /// <summary>
         /// 根据用户id获取用户
         /// </summary>
-        public AgentEntity GetUserByUserId(string userId)
+        public agent GetUserByUserId(int userId)
         {
-            const string sql = "select top 1 id,agent_AN,[agent_pwd],agent_email,agent_mp,agent_CBY,agent_CDT,status_id from tbAgent where id = @UserId";
-            return QuerySingle<AgentEntity>(sql, new { UserId = userId });
+            
+                //const string sql = "select v.*,a.AgentAccountName from v_vip_list v join v_agent_list a on v.AgentID = a.AgentID where a.AgentID = 2";
+            const string sql = "select  * from v_agent_list where AgentID = @UserId";
+            return QuerySingle<agent>(sql, new { UserId = userId });
         }
 
         /// <summary>
@@ -239,7 +241,7 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString(),
                 SortDirection = paras["order"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "AgentName", "agent_AN", "LIKE", "'%'+@AgentName+'%'");
+            builder.AddWhereAndParameter(paras, "AgentName", "AgentAccountName", "LIKE", "'%'+@AgentName+'%'");
             return SortAndPage<T>(builder, grid, out iCount);
         }
 

@@ -250,7 +250,7 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString(),
                 SortDirection = paras["order"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "userAn", "user_AN", "LIKE", "'%'+@userAn+'%'");
+            builder.AddWhereAndParameter(paras, "userAn", "UserAccountName", "LIKE", "'%'+@userAn+'%'");
             //builder.AddWhereAndParameter(paras, "username", "RealName", "LIKE", "'%'+@username+'%'");
             //builder.AddWhereAndParameter(paras, "IsAble");
             //builder.AddWhereAndParameter(paras, "IfChangePwd");

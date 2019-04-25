@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FrameWork.MongoDB;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Web.Mvc;
@@ -36,17 +37,21 @@ namespace XM.WebVip.Controllers
                 {
                     if (vip.StatusID == 2)
                     {
+                        log(AN, "vip登入","false", "用户已被禁用，请您联系管理员");
                         return OperationReturn(false, "用户已被禁用，请您联系管理员");
                     }
+                    log(AN, "vip登入", "true", "登录成功");
                     return OperationReturn(true, "登录成功,vip_id:"+vip.VipID+";vip_AN:"+vip.VipAccountName);
                 }
                 else
                 {
+                    log(AN, "vip登入", "false", "用户名密码错误，请您检查");
                     return OperationReturn(false, "用户名密码错误，请您检查");
                 }
             }
             catch (Exception ex)
             {
+                log(AN, "vip登入", "false", "登录异常");
                 return OperationReturn(false, "登录异常," + ex.Message);
             }
         }
@@ -89,17 +94,48 @@ namespace XM.WebVip.Controllers
 
             if (iCheck > 0)
             {
+                log(Request["vip_AN"], "vip添加", "false", "操作异常");
                 return OperationReturn(false, iCheck == 1 ? "所输入的用户名重复,请重新输入!" : (iCheck == 2 ? "所输入的手机号码重复,请重新输入!" : "所输入的邮箱重复,请重新输入!"));
             }
             else
             {
-                paras["vip_pwd"] = Request["vip_pwd"];
-                paras["vip_CDT"] = DateTime.Now;
-                paras["status_id"] = Request["status_id"];
-                paras["agent_id"] = Request["agent_id"];
-                int result = DALUtility.Vip.saveVIP(paras);
-                return OperationReturn(result > 0);
+
+                int result;
+                if (ID == 0)
+                {
+                    paras["vip_pwd"] = Request["vip_pwd"];
+                    paras["vip_CDT"] = DateTime.Now;
+                    paras["status_id"] = 1;
+                    paras["agent_id"] = 1;
+                    result = DALUtility.Vip.saveVIP(paras);
+                    if (result > 0)
+                    {
+                        log(Request["vip_AN"].ToString(), "注册vip用户", "true", "注册成功");
+                        return OperationReturn(true, "注册成功");
+                    }
+                    else
+                    {
+                        log(Request["vip_AN"].ToString(), "注册vip用户", "false", "注册失败");
+                        return OperationReturn(false, "注册失败");
+                    }
+
+                }
+                result = DALUtility.Vip.Save(paras);
+                if (result > 0)
+                {
+                    log(Request["vip_AN"].ToString(), "修改信息", "true", "修改成功");
+                    return OperationReturn(true, "修改成功！");
+                }
+                else
+                {
+                    log(Request["vip_AN"].ToString(), "修改信息", "false", "修改失败 ");
+                    return OperationReturn(false, "修改失败！");
+                }
+
             }
+            //log(Request["vip_AN"], "vip添加", "true", "成功");
+            //    return OperationReturn(result > 0);
+            
         }
 
         public ActionResult Invitation(string vip_AN)
@@ -133,6 +169,7 @@ namespace XM.WebVip.Controllers
 
 
             string result = DALUtility.Vip.QryAllVIP(param, out int ICount);
+            //log(Request["vip_AN"], "vip添加", "false", "成功");
             return Content(result);
         }
 
@@ -158,9 +195,10 @@ namespace XM.WebVip.Controllers
                     { "recharge_price",Request["recharge_price"]},
                     { "recharge_time", date}
                 });
-
+                log(HttpContext.Session["vip_AN"].ToString(), "vip充值", "true", "成功");
                 return OperationReturn(true, "充值成功");
             }
+            log(HttpContext.Session["vip_AN"].ToString(), "vip充值", "false", "失败");
             return OperationReturn(false,"充值失败");
         }
 
@@ -189,13 +227,17 @@ namespace XM.WebVip.Controllers
 
             int iCheck = DALUtility.Vip.Buy(param);
 
-            Debug.WriteLine(iCheck);
+            //Debug.WriteLine(iCheck);
 
             if(iCheck > 0)
             {
+                log(Request["vip_AN"], "vip购物", "false", "用户余额不足,请充值后从试");
                 return OperationReturn(false, iCheck == 1 ? "用户余额不足,请充值后从试!" :  "购物出错,请重试!");
             }
+            log(Request["vip_AN"], "vip购物", "true", "购物成功");
             return OperationReturn(true,"购物成功");
         }
+        
+        
     }
 }

@@ -40,6 +40,14 @@ namespace XM.Web.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var goods = DALUtility.Goods.QryGoods<GoodsEntity>(paras, out totalCount);
+            if (goods != null)
+            {
+                log(Session["user_AN"].ToString(), "获取所有商品信息", "true", "获取成功");
+            }
+            else
+            {
+                log(Session["user_AN"].ToString(), "获取所有商品信息", "false", "获取失败");
+            }
             return PagerData(totalCount, goods);
         }
 
@@ -86,8 +94,10 @@ namespace XM.Web.Controllers
             {
                 paras["goods_CBY"] = createBy;
                 paras["goods_CDT"] = DateTime.Now;
+                log(Session["user_AN"].ToString(), "添加商品", "true", "添加成功");
                 return OperationReturn(DALUtility.Goods.Save(paras) > 0, "添加成功！" );
             }
+            log(Session["user_AN"].ToString(), "修改商品信息", "true", "修改成功");
             return OperationReturn(DALUtility.Goods.Save(paras) > 0, "修改成功！");
 
         }
@@ -97,11 +107,12 @@ namespace XM.Web.Controllers
             string Ids = Request["id"] == null ? "" : Request["id"];
             if (!string.IsNullOrEmpty(Ids))
             {
+                log(Session["user_AN"].ToString(), "删除商品信息", "true", "删除成功");
                 return OperationReturn(DALUtility.Goods.DeleteGoods(Ids),"删除成功！");
             }
             else
             {
-                return OperationReturn(false,"删除失败！");
+                return OperationReturn(false,"删除失败");
             }
         }
     }

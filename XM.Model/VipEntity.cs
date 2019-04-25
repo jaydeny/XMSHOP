@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FrameWork.MongoDB.MongoDbConfig;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace XM.Model
 {
-    public class VipEntity
+    public class VipEntity : MongoEntity
     {
         public int VipID { get; set; }
         public string VipAccountName { get; set; }

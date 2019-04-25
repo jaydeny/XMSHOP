@@ -13,7 +13,7 @@ namespace XM.IDAL
         /// <summary>
         /// 根据用户id获取用户
         /// </summary>
-        AgentEntity GetUserByUserId(string userId);
+        agent GetUserByUserId(int userId);
 
         /// <summary>
         /// 根据id获取用户
