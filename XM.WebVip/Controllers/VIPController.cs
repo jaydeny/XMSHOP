@@ -75,7 +75,7 @@ namespace XM.WebVip.Controllers
         [HttpPost]
         public ActionResult Update(VipEntity vip)
         {
-            return save(vip.VipID);
+            return save(int.Parse(Request["vip_id"]));
         }
 
         //注册或者修改会员信息时,检查邮箱,email,联系方式是否重复

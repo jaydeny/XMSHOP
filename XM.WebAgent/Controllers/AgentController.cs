@@ -73,7 +73,7 @@ namespace XM.WebAgent.Controllers
         [HttpPost]
         public ActionResult Update(AgentEntity agent)
         {
-            return save(agent.AgentID);
+            return save(int.Parse(Request["agent_id"]));
         }
 
         //注册或者修改代理信息时,检查邮箱,email,联系方式舒服重复
