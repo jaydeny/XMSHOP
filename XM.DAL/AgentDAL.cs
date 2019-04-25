@@ -327,7 +327,7 @@ namespace XM.DAL
         /// <returns>返回一个对象,指vip</returns>
         public T QryAgentToLogin<T>(Dictionary<string, object> paras)
         {
-            return QuerySingle<T>("SELECT * FROM tbagent WHERE agent_AN=@agent_AN AND agent_pwd=@agent_pwd", paras, CommandType.Text);
+            return QuerySingle<T>("SELECT * FROM v_agent_info WHERE AgentAccountName=@agent_AN AND AgentPassword=@agent_pwd", paras, CommandType.Text);
         }
 
         /// <summary>

@@ -272,7 +272,7 @@ namespace XM.DAL
         /// <returns>返回一个对象,指vip</returns>
         public T QryVipToLogin<T>(Dictionary<string, object> paras)
         {
-            return QuerySingle<T>("SELECT * FROM tbvip WHERE vip_AN=@vip_AN AND vip_pwd=@vip_pwd", paras, CommandType.Text);
+            return QuerySingle<T>("SELECT * FROM v_vip_info WHERE VipAccountName=@vip_AN AND VipPassword=@vip_pwd", paras, CommandType.Text);
         }
 
         /// <summary>
