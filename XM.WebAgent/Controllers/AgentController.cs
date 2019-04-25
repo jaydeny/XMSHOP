@@ -38,7 +38,7 @@ namespace XM.WebAgent.Controllers
                     {
                         return OperationReturn(false, "用户已被禁用，请您联系管理员");
                     }
-                    return OperationReturn(true, "登录成功,agent_id:" + AN + ";agent_AN:" + pwd);
+                    return OperationReturn(true, "登录成功,agent_id:" + agent.AgentID + ";agent_AN:" + AN);
                 }
                 else
                 {
@@ -73,7 +73,7 @@ namespace XM.WebAgent.Controllers
         [HttpPost]
         public ActionResult Update(AgentEntity agent)
         {
-            return save(agent.AgentID);
+            return save(int.Parse(Request["agent_id"]));
         }
 
         //注册或者修改代理信息时,检查邮箱,email,联系方式舒服重复
@@ -204,5 +204,26 @@ namespace XM.WebAgent.Controllers
             string result = DALUtility.Agent.QryReportForm(param, out int ICount);
             return Content(result);
         }
+
+
+        public ActionResult QryAgoods()
+        {
+            string sort = Request["sort"] == null ? "id" : Request["sort"];
+            string order = Request["order"] == null ? "asc" : Request["order"];
+            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("pi", pageindex);
+            param.Add("pageSize", pagesize);
+            param.Add("sort", sort);
+            param.Add("agent_AN", Request["agent_AN"]);
+
+            string result = DALUtility.Agent.QryAgoods(param, out int ICount);
+            return Content(result);
+        }
+
+
     }
 }

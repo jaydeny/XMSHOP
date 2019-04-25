@@ -40,7 +40,7 @@ namespace XM.WebVip.Controllers
                     {
                         return OperationReturn(false, "用户已被禁用，请您联系管理员");
                     } 
-                    return OperationReturn(true, "登录成功,vip_id:" + AN + ";vip_AN:" + pwd);
+                    return OperationReturn(true, "登录成功,vip_id:" + vip.VipID + ";vip_AN:" + AN);
                 }
                 else
                 {
@@ -75,7 +75,7 @@ namespace XM.WebVip.Controllers
         [HttpPost]
         public ActionResult Update(VipEntity vip)
         {
-            return save(vip.VipID);
+            return save(int.Parse(Request["vip_id"]));
         }
 
         //注册或者修改会员信息时,检查邮箱,email,联系方式是否重复

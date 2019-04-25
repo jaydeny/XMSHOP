@@ -329,7 +329,7 @@ namespace XM.DAL
         /// <returns>返回一个对象,指vip</returns>
         public T QryAgentToLogin<T>(Dictionary<string, object> paras)
         {
-            return QuerySingle<T>("SELECT * FROM tbagent WHERE agent_AN=@agent_AN AND agent_pwd=@agent_pwd", paras, CommandType.Text);
+            return QuerySingle<T>("SELECT * FROM v_agent_info WHERE AgentAccountName=@agent_AN AND AgentPassword=@agent_pwd", paras, CommandType.Text);
         }
 
         /// <summary>
@@ -385,7 +385,30 @@ namespace XM.DAL
             builder.AddWhereAndParameter(paras, "startTime", "order_date", ">", "@startTime");
             builder.AddWhereAndParameter(paras, "endTime", "order_date", "<", "@endTime");
             builder.AddWhereAndParameter(paras, "agent_AN");
- 
+
+            var s = SortAndPage(builder, grid, out iCount);
+            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
+            return retData;
+        }
+
+
+        /// <summary>
+        /// 查询所有的代理商商品
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public string QryAgoods(Dictionary<string, object> paras, out int iCount)
+        {
+            WhereBuilder builder = new WhereBuilder();
+            builder.FromSql = "tbAgoods";
+            GridData grid = new GridData()
+            {
+                PageIndex = Convert.ToInt32(paras["pi"]),
+                PageSize = Convert.ToInt32(paras["pageSize"]),
+                SortField = paras["sort"].ToString()
+            };
+            builder.AddWhereAndParameter(paras, "agent_AN");
+
             var s = SortAndPage(builder, grid, out iCount);
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
             return retData;
