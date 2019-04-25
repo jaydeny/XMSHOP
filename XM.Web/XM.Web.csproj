@@ -125,6 +125,8 @@
     <Compile Include="Controllers\AgentController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\GoodsController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JuriMenuController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RevenueController.cs" />
     <Compile Include="Controllers\TypeController.cs" />
@@ -158,6 +160,8 @@
     <Folder Include="Views\Agent\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Goods\" />
+    <Folder Include="Views\Home\" />
+    <Folder Include="Views\JuriMenu\" />
     <Folder Include="Views\Revenue\" />
     <Folder Include="Views\Type\" />
     <Folder Include="Views\User\" />

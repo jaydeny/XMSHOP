@@ -40,11 +40,11 @@ namespace XM.Web.Controllers
             var charge = DALUtility.Recharge.QryRecharge<RechargeEntity>(paras, out totalCount);
             if(charge != null)
             {
-                log(Session["user_AN"].ToString(), "查询充值营收表", "true", "查询成功");
+                log(HttpContext.Session["user_AN"].ToString(), "查询充值营收表", "true", "查询成功");
             }
             else
             {
-                log(Session["user_AN"].ToString(), "查询充值营收表", "false", "查询失败");
+                log(HttpContext.Session["user_AN"].ToString(), "查询充值营收表", "false", "查询失败");
             }
             return PagerData(totalCount, charge);
         }
@@ -73,11 +73,11 @@ namespace XM.Web.Controllers
             var goods = DALUtility.Order.QryOrder<OrderEntity>(paras, out totalCount);
             if(goods != null)
             {
-                log(Session["user_AN"].ToString(), "查询所有的商品营收", "true", "查询成功");
+                log(HttpContext.Session["user_AN"].ToString(), "查询所有的商品营收", "true", "查询成功");
             }
             else
             {
-                log(Session["user_AN"].ToString(), "查询所有的商品营收", "false", "查询失败");
+                log(HttpContext.Session["user_AN"].ToString(), "查询所有的商品营收", "false", "查询失败");
             }
             return PagerData(totalCount, goods);
         }

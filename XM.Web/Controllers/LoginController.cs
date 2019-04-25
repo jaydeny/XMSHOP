@@ -51,6 +51,10 @@ namespace XM.Web.Controllers
         }
         public ActionResult ForgetPwd()
         {
+            return View();
+        }
+        public ActionResult PwdForget()
+        {
             bool f = false;
             string user = Request["user_AN"];
             var iUserDal = DALUtility.User;

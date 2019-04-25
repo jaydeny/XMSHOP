@@ -39,11 +39,14 @@ namespace XM.Web.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var users = DALUtility.Agent.QryUsers<AgentEntity>(paras, out totalCount);
-            log(Session["user_AN"].ToString(), "查询所有代理", "true", "查询成功");
+            log(HttpContext.Session["user_AN"].ToString(), "查询所有代理", "true", "查询成功");
             return PagerData(totalCount, users);
         }
 
-
+        public ActionResult AddAgent()
+        {
+            return View();
+        }
         /// <summary>
         /// 新增 用户
         /// </summary>
@@ -54,7 +57,10 @@ namespace XM.Web.Controllers
 
         }
 
-
+        public ActionResult EditAgent()
+        {
+            return View();
+        }
         /// <summary>
         /// 编辑 用户
         /// </summary>
@@ -83,7 +89,7 @@ namespace XM.Web.Controllers
             int iCheck = DALUtility.Agent.CheckUseridAndEmail(paras);
             if (iCheck > 0)
             {
-                log(Session["user_AN"].ToString(), "修改\\添加代理", "false", "邮箱或者用户名重复");
+                log(HttpContext.Session["user_AN"].ToString(), "修改\\添加代理", "false", "邮箱或者用户名重复");
                 return OperationReturn(false, iCheck == 1 ? "用户名重复" : "邮箱重复");
             }
             else
@@ -94,10 +100,10 @@ namespace XM.Web.Controllers
                     paras["agent_pwd"] = "xm123456";
                     paras["agent_CBY"] = "admin";
                     paras["agent_CDT"] = DateTime.Now;
-                    log(Session["user_AN"].ToString(), "添加代理", "true", "添加成功");
+                    log(HttpContext.Session["user_AN"].ToString(), "添加代理", "true", "添加成功");
                     return OperationReturn(DALUtility.Agent.Save(paras) > 0, "添加成功！初始密码：" + paras["agent_pwd"]);
                 }
-                log(Session["user_AN"].ToString(), "修改代理信息", "true", "修改成功");
+                log(HttpContext.Session["user_AN"].ToString(), "修改代理信息", "true", "修改成功");
                 return OperationReturn(DALUtility.Agent.Save(paras) > 0, "修改成功！");
             }
 
@@ -111,12 +117,12 @@ namespace XM.Web.Controllers
             string Ids = Request["id"] == null ? "" : Request["id"];
             if (!string.IsNullOrEmpty(Ids))
             {
-                log(Session["user_AN"].ToString(), "删除代理", "true", "删除成功");
+                log(HttpContext.Session["user_AN"].ToString(), "删除代理", "true", "删除成功");
                 return OperationReturn(DALUtility.Agent.DeleteUser(Ids));
             }
             else
             {
-                log(Session["user_AN"].ToString(), "删除代理", "true", "删除失败");
+                log(HttpContext.Session["user_AN"].ToString(), "删除代理", "true", "删除失败");
                 return OperationReturn(false);
             }
         }

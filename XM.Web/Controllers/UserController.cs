@@ -15,6 +15,10 @@ namespace XM.Web.Controllers
         {
             return View();
         }
+        public ActionResult PwdUpdate()
+        {
+            return View();
+        }
         /// <summary>
         /// 更新密码
         /// </summary>
@@ -35,18 +39,18 @@ namespace XM.Web.Controllers
             {
                 if (DALUtility.User.ChangePwd(userChangePwd))
                 {
-                    log(Session["user_AN"].ToString(), "修改密码", "true", "修改成功");
+                    log(HttpContext.Session["user_AN"].ToString(), "修改密码", "true", "修改成功");
                     return OperationReturn(true, "修改成功，请重新登录！");
                 }
                 else
                 {
-                    log(Session["user_AN"].ToString(), "修改密码", "false", "修改失败");
+                    log(HttpContext.Session["user_AN"].ToString(), "修改密码", "false", "修改失败");
                     return OperationReturn(false, "修改失败！");
                 }
             }
             else
             {
-                log(Session["user_AN"].ToString(), "修改密码", "false", "原密码不正确");
+                log(HttpContext.Session["user_AN"].ToString(), "修改密码", "false", "原密码不正确");
                 return OperationReturn(false, "原密码不正确！");
             }
             //return Content(result);
@@ -82,11 +86,11 @@ namespace XM.Web.Controllers
             var users = DALUtility.User.QryUsers<UserEntity>(paras, out totalCount);
             if (users != null)
             {
-                log(Session["user_AN"].ToString(), "查询所有用户", "true", "修改成功");
+                log(HttpContext.Session["user_AN"].ToString(), "查询所有用户", "true", "修改成功");
             }
             else
             {
-                log(Session["user_AN"].ToString(), "查询所有用户", "false", "查询失败");
+                log(HttpContext.Session["user_AN"].ToString(), "查询所有用户", "false", "查询失败");
             }
             return PagerData(totalCount, users);
         } 
@@ -130,7 +134,7 @@ namespace XM.Web.Controllers
             int iCheck = DALUtility.User.CheckUseridAndEmail(paras);
             if (iCheck > 0)
             {
-                log(Session["user_AN"].ToString(), "添加\\修改用户信息", "false", "用户名或邮箱重复");
+                log(HttpContext.Session["user_AN"].ToString(), "添加\\修改用户信息", "false", "用户名或邮箱重复");
                 return OperationReturn(false, iCheck == 1 ? "用户名重复" : "邮箱重复");
             }
             else
@@ -147,12 +151,12 @@ namespace XM.Web.Controllers
                     num = DALUtility.User.Save(paras);
                     if (num > 0)
                     {
-                        log(Session["user_AN"].ToString(), "添加用户", "true", "添加成功");
+                        log(HttpContext.Session["user_AN"].ToString(), "添加用户", "true", "添加成功");
                         return OperationReturn(true, "添加成功！初始密码：" + paras["user_pwd"]);
                     }
                     else
                     {
-                        log(Session["user_AN"].ToString(), "添加用户", "false", "添加失败");
+                        log(HttpContext.Session["user_AN"].ToString(), "添加用户", "false", "添加失败");
                         return OperationReturn(false, "添加失败！");
                     }
                     
@@ -160,12 +164,12 @@ namespace XM.Web.Controllers
                 num = DALUtility.User.Save(paras);
                 if (num > 0)
                 {
-                    log(Session["user_AN"].ToString(), "修改用户", "true", "修改成功");
+                    log(HttpContext.Session["user_AN"].ToString(), "修改用户", "true", "修改成功");
                     return OperationReturn(true, "修改成功！");
                 }
                 else
                 {
-                    log(Session["user_AN"].ToString(), "修改用户", "false", "修改失败");
+                    log(HttpContext.Session["user_AN"].ToString(), "修改用户", "false", "修改失败");
                     return OperationReturn(false, "修改失败！");
                 }
             }
@@ -176,12 +180,12 @@ namespace XM.Web.Controllers
             string Ids = Request["id"] == null ? "" : Request["id"];
             if (!string.IsNullOrEmpty(Ids))
             {
-                log(Session["user_AN"].ToString(), "删除用户", "true", "删除成功");
+                log(HttpContext.Session["user_AN"].ToString(), "删除用户", "true", "删除成功");
                 return OperationReturn(DALUtility.User.DeleteUser(Ids),"删除成功");
             }
             else
             {
-                log(Session["user_AN"].ToString(), "删除用户", "false", "删除失败");
+                log(HttpContext.Session["user_AN"].ToString(), "删除用户", "false", "删除失败");
                 return OperationReturn(false,"删除失败");
             }
         }

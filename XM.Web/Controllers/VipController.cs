@@ -55,7 +55,10 @@ namespace XM.Web.Controllers
             return PagerData(totalCount, users);
         } 
 
-
+        public ActionResult VipAdd()
+        {
+            return View();
+        }
         /// <summary>
         /// 新增 用户
         /// </summary>
@@ -65,7 +68,10 @@ namespace XM.Web.Controllers
             return SaveUser();
 
         }
-
+        public ActionResult VipEdit()
+        {
+            return View();
+        }
 
         /// <summary>
         /// 编辑 用户
@@ -135,7 +141,7 @@ namespace XM.Web.Controllers
                 
             }
         }
-
+        
         public ActionResult DelUserByIDs()
         {
             string Ids = Request["id"] == null ? "" : Request["id"];
