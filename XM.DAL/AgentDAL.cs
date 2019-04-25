@@ -17,12 +17,12 @@ namespace XM.DAL
         /// <summary>
         /// 根据用户id获取用户
         /// </summary>
-        public agent GetUserByUserId(int userId)
+        public AgentEntity GetUserByUserId(int userId)
         {
             
                 //const string sql = "select v.*,a.AgentAccountName from v_vip_list v join v_agent_list a on v.AgentID = a.AgentID where a.AgentID = 2";
             const string sql = "select  * from v_agent_list where AgentID = @UserId";
-            return QuerySingle<agent>(sql, new { UserId = userId });
+            return QuerySingle<AgentEntity>(sql, new { UserId = userId });
         }
 
         /// <summary>

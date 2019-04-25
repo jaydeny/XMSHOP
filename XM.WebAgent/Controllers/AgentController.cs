@@ -102,34 +102,68 @@ namespace XM.WebAgent.Controllers
             }
         }
 
-        public ActionResult GetAllVIP()
-        {
+        //public ActionResult GetAllVIP()
+        //{
 
-            string sort = Request["sort"] == null ? "id" : Request["sort"];
+        //    string sort = Request["sort"] == null ? "id" : Request["sort"];
+        //    string order = Request["order"] == null ? "asc" : Request["order"];
+        //    int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+        //    int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+
+        //    string agent_AN = Request["agent_AN"];
+        //    string agent_mp = Request["agent_mp"];
+        //    string agent_email = Request["agent_email"];
+        //    string status_id = Request["status_id"];
+
+        //    Dictionary<string, object> param = new Dictionary<string, object>();
+        //    param.Add("pi", pageindex);
+        //    param.Add("pageSize", pagesize);
+        //    param.Add("sort", sort);
+        //    param.Add("agent_AN", agent_AN);
+        //    param.Add("agent_mp", agent_mp);
+        //    param.Add("agent_email", agent_email);
+        //    param.Add("status_id", status_id);
+
+
+        //    string result = DALUtility.Agent.QryAllAgent(param, out int ICount);
+        //    return Content(result);
+        //}
+
+        public ActionResult GetAllUserInfo()
+        {
+            string sort = Request["sort"] == null ? "VipID" : Request["sort"];
             string order = Request["order"] == null ? "asc" : Request["order"];
+
+            //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+            string userAn = Request["vip_AN"] == null ? "" : Request["vip_AN"];
+            string userMp = Request["vip_mp"] == null ? "" : Request["vip_mp"];
+            string userEmail = Request["vip_email"] == null ? "" : Request["vip_email"];
+            int statusId = Request["status_id"] == null ? 1 : Convert.ToInt32(Request["status_id"]);
+            string createDateTime = Request["vip_CDT"] == null ? "" : Request["vip_CDT"];
+            int agentId = Request["agent_id"] == null ? 1 : Convert.ToInt32(Request["agent_id"]);
+            
 
-            string agent_AN = Request["agent_AN"];
-            string agent_mp = Request["agent_mp"];
-            string agent_email = Request["agent_email"];
-            string status_id = Request["status_id"];
-
-            Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("pi", pageindex);
-            param.Add("pageSize", pagesize);
-            param.Add("sort", sort);
-            param.Add("agent_AN", agent_AN);
-            param.Add("agent_mp", agent_mp);
-            param.Add("agent_email", agent_email);
-            param.Add("status_id", status_id);
-
-
-            string result = DALUtility.Agent.QryAllAgent(param, out int ICount);
-            return Content(result);
+            int totalCount;   //输出参数
+            Dictionary<string, object> paras = new Dictionary<string, object>();
+            paras["pi"] = pageindex;
+            paras["pageSize"] = pagesize;
+            paras["vip_AN"] = userAn;
+            paras["sort"] = sort;
+            paras["order"] = order;
+            var users = DALUtility.Vip.QryUsers<VipEntity>(paras, out totalCount);
+            if (users != null)
+            {
+                log(HttpContext.Session["user_AN"].ToString(), "查询所有vip用户信息", "true", "查询成功");
+            }
+            else
+            {
+                log(HttpContext.Session["user_AN"].ToString(), "查询所有vip用户信息", "false", "查询失败");
+            }
+            return PagerData(totalCount, users);
         }
 
-        
         public ActionResult MakeGoods()
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
