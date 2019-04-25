@@ -77,7 +77,7 @@ namespace XM.DAL
         {
             iCount = 0;
             WhereBuilder builder = new WhereBuilder();
-            builder.FromSql = "v_type_list";
+            builder.FromSql = "v_order_list";
             GridData grid = new GridData()
             {
                 PageIndex = Convert.ToInt32(paras["pi"]),
@@ -85,8 +85,10 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString(),
                 SortDirection = paras["order"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "VipName", "vip_AN", "LIKE", "'%'+@VipName+'%'");
-            builder.AddWhereAndParameter(paras, "AgentName", "agent_AN", "LIKE", "'%'+@AgentName+'%'");
+            builder.AddWhereAndParameter(paras, "vip_AN", "VipAccountName", "LIKE", "'%'+@vip_AN+'%'");
+            builder.AddWhereAndParameter(paras, "agent_AN", "AgentAccountName", "LIKE", "'%'+@agent_AN+'%'");
+            builder.AddWhereAndParameter(paras, "startTime", "OrderDate", ">");
+            builder.AddWhereAndParameter(paras, "endTime", "OrderDate", "<");
             return SortAndPage<T>(builder, grid, out iCount);
         }
 

@@ -19,6 +19,7 @@ namespace XM.IDAL
         /// 根据id获取用户
         /// </summary>
         UserEntity GetUserById(string id);
+        UserEntity GetUserByAccountName(string name);
 
         /// <summary>
         /// 首次登陆强制修改密码

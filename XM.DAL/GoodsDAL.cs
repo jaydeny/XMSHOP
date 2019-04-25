@@ -92,7 +92,7 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString(),
                 SortDirection = paras["order"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "GoodsName", "goods_name", "LIKE", "'%'+@GoodsName+'%'");
+            builder.AddWhereAndParameter(paras, "goods_name", "goods_name", "LIKE", "'%'+@goods_name+'%'");
             return SortAndPage<T>(builder, grid, out iCount);
         }
 

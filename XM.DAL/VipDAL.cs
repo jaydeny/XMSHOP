@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using XM.DAL.comm;
 using XM.IDAL;
 using XM.Model;
@@ -18,7 +17,7 @@ namespace XM.DAL
         /// </summary>
         public VipEntity GetUserByUserId(string userId)
         {
-            const string sql = "select top 1 id,vip_AN,[vip_pwd],vip_email,vip_mp,vip_CDT,agent_id,status_id from tbvip where id = @UserId";
+            const string sql = "select top 1 * from v_vip_list where id = @UserId";
             return QuerySingle<VipEntity>(sql, new { UserId = userId });
         }
 
@@ -27,7 +26,7 @@ namespace XM.DAL
         /// </summary>
         public VipEntity GetUserById(string id)
         {
-            string sql = "select id,vip_AN,[vip_pwd],vip_email,vip_mp,vip_CDT,agent_id,status_id from tbvip where id = @ID";
+            string sql = "select * from v_vip_list where id = @ID";
             return QuerySingle<VipEntity>(sql, new { ID = id });
         }
 
@@ -148,7 +147,7 @@ namespace XM.DAL
         public DataTable GetUserInfo(int userId)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select vip_AN,vip_CBY from tbVip ");
+            strSql.Append("select vip_AN,vip_CBY from v_vip_list ");
             strSql.Append(" where id = @userId");
             return SqlHelper.GetDataTable(SqlHelper.connStr, CommandType.Text, strSql.ToString(), new SqlParameter("@userId", userId));
         }
@@ -198,7 +197,7 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString(),
                 SortDirection = paras["order"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "vip_AN", "vip_AN", "LIKE", "'%'+@vip_AN+'%'");
+            builder.AddWhereAndParameter(paras, "vip_AN", "VipAccountName", "LIKE", "'%'+@vip_AN+'%'");
             return SortAndPage<T>(builder, grid, out iCount);
         }
 
@@ -220,7 +219,7 @@ namespace XM.DAL
         /// <returns></returns>
         public int CheckUseridAndEmail(Dictionary<string, object> paras)
         {
-            return QuerySingle<int>("P_Vip_CheckUseridAndEmail", paras, CommandType.StoredProcedure);
+            return QuerySingle<int>("P_tbvip_checkANandMBandEmail", paras, CommandType.StoredProcedure);
         }
 
         /// <summary>
@@ -231,6 +230,108 @@ namespace XM.DAL
         public int Save(Dictionary<string, object> paras)
         {
             return StandardInsertOrUpdate("tbvip", paras);
+        }
+
+
+
+
+        /// <summary>
+        /// 注册vip时,检查是否有登录名,邮箱,手机重复
+        /// owen
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns>
+        /// 返回:
+        /// 0:无重复
+        /// 1:AN重复
+        /// 2:MB重复
+        /// 3:Email重复
+        /// </returns>
+        public int checkANandMBandEmail(Dictionary<string, object> paras)
+        {
+            return QuerySingle<int>("P_tbvip_checkANandMBandEmail", paras, CommandType.StoredProcedure);
+        }
+
+        /// <summary>
+        /// 添加和修改vip共用的方法,区别在于id是否为0
+        /// owen
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public int saveVIP(Dictionary<string, object> paras)
+        {
+            return StandardInsertOrUpdate("tbvip", paras);
+        }
+
+        /// <summary>
+        /// 查询vip数据以登录
+        /// owen
+        /// </summary>
+        /// <typeparam name="VIPEntity">vip</typeparam>
+        /// <param name="paras">参数:登入名,密码</param>
+        /// <returns>返回一个对象,指vip</returns>
+        public T QryVipToLogin<T>(Dictionary<string, object> paras)
+        {
+            return QuerySingle<T>("SELECT * FROM tbvip WHERE vip_AN=@vip_AN AND vip_pwd=@vip_pwd", paras, CommandType.Text);
+        }
+
+        /// <summary>
+        /// 查询会员,分页
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public string QryAllVIP(Dictionary<string, object> paras, out int iCount)
+        {
+            WhereBuilder builder = new WhereBuilder();
+            builder.FromSql = "tbvip";
+            GridData grid = new GridData()
+            {
+                PageIndex = Convert.ToInt32(paras["pi"]),
+                PageSize = Convert.ToInt32(paras["pageSize"]),
+                SortField = paras["sort"].ToString()
+            };
+            builder.AddWhereAndParameter(paras, "vip_AN", "vip_AN", "LIKE", "'%'+@vip_AN+'%'");
+            builder.AddWhereAndParameter(paras, "vip_mp");
+            builder.AddWhereAndParameter(paras, "vip_Email", "vip_Email", "LIKE", "'%'+@vip_Email+'%'");
+            builder.AddWhereAndParameter(paras, "status_id");
+            builder.AddWhereAndParameter(paras, "agent_id");
+
+            System.Diagnostics.Debug.WriteLine(builder);
+            var s = SortAndPage(builder, grid, out iCount);
+            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
+            return retData;
+        }
+
+        /// <summary>
+        /// 会员充值
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public int Recharge(Dictionary<string, object> paras)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("insert into tbrecharge(recharge_name,recharge_price,recharge_time,agent_id,vip_id)");
+            strSql.Append(" values ");
+            strSql.Append("(@recharge_name, @recharge_price, @recharge_time,@agent_id,@vip_id )");
+            SqlParameter[] p = {
+                                   new SqlParameter("@recharge_name",paras["recharge_name"]),
+                                   new SqlParameter("@recharge_price",paras["recharge_price"]),
+                                   new SqlParameter("@recharge_time",paras["recharge_time"]),
+                                   new SqlParameter("@agent_id",paras["agent_id"]),
+                                   new SqlParameter("@vip_id",paras["vip_id"]),
+                                   };
+            return Convert.ToInt32(SqlHelper.ExecuteNonQuery(SqlHelper.connStr, CommandType.Text, strSql.ToString(), p));
+            
+        }
+
+        /// <summary>
+        /// 检查余额
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public int Buy(Dictionary<string, object> paras)
+        {
+            return QuerySingle<int>("P_tbvip_Shopping", paras, CommandType.StoredProcedure);
         }
     }
 }

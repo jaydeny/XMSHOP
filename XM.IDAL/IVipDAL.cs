@@ -78,5 +78,67 @@ namespace XM.IDAL
         /// <param name="paras"></param>
         /// <returns></returns>
         int Save(Dictionary<string, object> paras);
+
+
+
+
+
+
+        /// <summary>
+        /// 注册vip时,检查是否有登录名,邮箱,手机重复
+        /// owen
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns>
+        /// 返回:
+        /// 0:无重复
+        /// 1:AN重复
+        /// 2:MB重复
+        /// 3:Email重复
+        /// </returns>
+        int checkANandMBandEmail(Dictionary<string, object> paras);
+
+        /// <summary>
+        /// 添加和修改vip共用的方法,区别在于id是否为0
+        /// owen
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        int saveVIP(Dictionary<string, object> paras);
+
+        /// <summary>
+        /// 查询vip数据以登录
+        /// owen
+        /// </summary>
+        /// <typeparam name="VIPEntity">vip</typeparam>
+        /// <param name="paras">参数:登入名,密码</param>
+        /// <returns>返回一个对象,指vip</returns>
+        T QryVipToLogin<T>(Dictionary<string, object> paras);
+
+        /// <summary>
+        /// 查询所有的会员
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        string QryAllVIP(Dictionary<string, object> paras, out int iCount);
+
+        /// <summary>
+        /// 会员充值
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        int Recharge(Dictionary<string, object> paras);
+
+        /// <summary>
+        /// 检查余额,购物
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns>
+        /// 0:成功
+        /// 1:余额不足
+        /// 2:事务出错
+        /// </returns>
+        int Buy(Dictionary<string, object> paras);
+        
     }
 }

@@ -18,7 +18,7 @@ namespace XM.DAL
         /// </summary>
         public UserEntity GetUserByUserId(string userId)
         {
-            const string sql = "select top 1 id,user_AN,[user_pwd],user_email,user_mp,user_CBY,user_CDT,role_id,status_id from tbUser where id = @UserId";
+            const string sql = "select top 1 * from v_user_list where id = @UserId";
             return QuerySingle<UserEntity>(sql, new { UserId = userId });
         }
 
@@ -27,8 +27,14 @@ namespace XM.DAL
         /// </summary>
         public UserEntity GetUserById(string id)
         {
-            string sql = "select id,user_AN,[user_pwd],user_email,user_mp,user_CBY,user_CDT,role_id,status_id from tbUser where id = @ID";
+            string sql = "select * from v_user_list where id = @ID";
             return QuerySingle<UserEntity>(sql, new { ID = id });
+        }
+
+        public UserEntity GetUserByAccountName(string name)
+        {
+            string sql = "select * from v_user_list where UserAccountName=@AccountName";
+            return QuerySingle<UserEntity>(sql, new { AccountName = name });
         }
 
         /// <summary>
@@ -37,7 +43,7 @@ namespace XM.DAL
         public bool InitUserPwd(UserEntity user)
         {
             string sql = "update tbUser set [user_pwd] = @UserPwd where id = @ID";
-            return Execute(sql, new { UserPwd = user.UserPassword, ID = user.UserID }) > 0;
+            return Execute(sql, new { UserPwd = user.UserPassword, ID = user.id }) > 0;
         }
 
         /// <summary>
@@ -48,7 +54,7 @@ namespace XM.DAL
             string sql = "update tbUser set user_pwd = @UserPwd,status_id=1 where id = @Id";
             SqlParameter[] paras = {
                                    new SqlParameter("@UserPwd",user.UserPassword),
-                                   new SqlParameter("@Id",user.UserID)
+                                   new SqlParameter("@Id",user.id)
                                    };
             object obj = SqlHelper.ExecuteNonQuery(SqlHelper.connStr, CommandType.Text, sql, paras);
             if (Convert.ToInt32(obj) > 0)
@@ -76,7 +82,7 @@ namespace XM.DAL
                 user = new UserEntity();
 
                 if (!DBNull.Value.Equals(dt.Rows[0]["id"]))
-                    user.UserID = int.Parse(dt.Rows[0]["id"].ToString());
+                    user.id = int.Parse(dt.Rows[0]["id"].ToString());
                 if (!DBNull.Value.Equals(dt.Rows[0]["user_AN"]))
                     user.UserAccountName = dt.Rows[0]["user_AN"].ToString();
                 if (!DBNull.Value.Equals(dt.Rows[0]["user_pwd"]))
@@ -97,7 +103,7 @@ namespace XM.DAL
         /// </summary>
         public UserEntity CheckLoginByUserId(string userId)
         {
-            string sql = "select top 1 id,user_AN,[user_pwd],user_email,user_mp,user_CBY,user_CDT,role_id,status_id from tbUser where AccountName=@UserId";
+            string sql = "select top 1 id,user_AN,[user_pwd],user_email,user_mp,user_CBY,user_CDT,role_id from tbUser where AccountName=@UserId and status_id=1";
             UserEntity user = null;
             DataTable dt = SqlHelper.GetDataTable(SqlHelper.connStr, CommandType.Text, sql, new SqlParameter("@UserId", userId));
             if (dt.Rows.Count > 0)
@@ -175,7 +181,7 @@ namespace XM.DAL
                                    new SqlParameter("@Email",user.UserEmail),
                                    new SqlParameter("@StatusID",user.StatusID),
                                    new SqlParameter("@RoleID",user.RoleID),
-                                   new SqlParameter("@Id",user.UserID),
+                                   new SqlParameter("@Id",user.id),
                                    };
             object obj = SqlHelper.ExecuteNonQuery(SqlHelper.connStr, CommandType.Text, strSql.ToString(), paras);
             if (Convert.ToInt32(obj) > 0)
@@ -202,7 +208,7 @@ namespace XM.DAL
         private void DataRowToModel(UserEntity model, DataRow dr)
         {
             if (!DBNull.Value.Equals(dr["id"]))
-                model.UserID = int.Parse(dr["id"].ToString());
+                model.id = int.Parse(dr["id"].ToString());
 
             if (!DBNull.Value.Equals(dr["user_AN"]))
                 model.UserAccountName = dr["user_AN"].ToString();
@@ -244,7 +250,7 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString(),
                 SortDirection = paras["order"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "userid", "user_AN", "LIKE", "'%'+@userid+'%'");
+            builder.AddWhereAndParameter(paras, "userAn", "UserAccountName", "LIKE", "'%'+@userAn+'%'");
             //builder.AddWhereAndParameter(paras, "username", "RealName", "LIKE", "'%'+@username+'%'");
             //builder.AddWhereAndParameter(paras, "IsAble");
             //builder.AddWhereAndParameter(paras, "IfChangePwd");
@@ -262,7 +268,7 @@ namespace XM.DAL
         /// <returns></returns>
         public T QryUserInfo<T>(Dictionary<string, object> paras)
         {
-            return QuerySingle<T>("SELECT * FROM v_user_info WHERE id=@ID", paras, CommandType.Text);
+            return QuerySingle<T>("SELECT * FROM v_user_list WHERE id=@ID", paras, CommandType.Text);
         }
 
         /// <summary>
