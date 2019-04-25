@@ -170,5 +170,26 @@ namespace XM.WebAgent.Controllers
             string result = DALUtility.Agent.QryReportForm(param, out int ICount);
             return Content(result);
         }
+
+
+        public ActionResult QryAgoods()
+        {
+            string sort = Request["sort"] == null ? "id" : Request["sort"];
+            string order = Request["order"] == null ? "asc" : Request["order"];
+            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("pi", pageindex);
+            param.Add("pageSize", pagesize);
+            param.Add("sort", sort);
+            param.Add("agent_AN", Request["agent_AN"]);
+
+            string result = DALUtility.Agent.QryAgoods(param, out int ICount);
+            return Content(result);
+        }
+
+
     }
 }
