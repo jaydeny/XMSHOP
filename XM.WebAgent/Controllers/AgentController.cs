@@ -38,7 +38,7 @@ namespace XM.WebAgent.Controllers
                     {
                         return OperationReturn(false, "用户已被禁用，请您联系管理员");
                     }
-                    return OperationReturn(true, "登录成功,agent_id:" + agent.AgentID + ";agent_AN:" + agent.AgentAccountName);
+                    return OperationReturn(true, "登录成功,agent_id:" + AN + ";agent_AN:" + pwd);
                 }
                 else
                 {

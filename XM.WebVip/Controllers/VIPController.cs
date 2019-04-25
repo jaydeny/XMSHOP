@@ -40,7 +40,7 @@ namespace XM.WebVip.Controllers
                     {
                         return OperationReturn(false, "用户已被禁用，请您联系管理员");
                     } 
-                    return OperationReturn(true, "登录成功!");
+                    return OperationReturn(true, "登录成功,vip_id:" + AN + ";vip_AN:" + pwd);
                 }
                 else
                 {
