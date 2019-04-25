@@ -36,21 +36,17 @@ namespace XM.WebAgent.Controllers
                 {
                     if (agent.StatusID == 2)
                     {
-                        log(AN, "代理登录", "false", "用户已被禁用");
                         return OperationReturn(false, "用户已被禁用，请您联系管理员");
                     }
-                    log(AN, "代理登录", "true", "登录成功");
-                    return OperationReturn(true, "登录成功,agent_id:" + agent.AgentID + ";agent_AN:" + agent.AgentAccountName);
+                    return OperationReturn(true, "登录成功,agent_id:" + AN + ";agent_AN:" + pwd);
                 }
                 else
                 {
-                    log(AN, "代理登录", "false", "用户名密码错误");
                     return OperationReturn(false, "用户名密码错误，请您检查");
                 }
             }
             catch (Exception ex)
             {
-                log(AN, "代理登录", "false", "登录异常");
                 return OperationReturn(false, "登录异常," + ex.Message);
             }
         }
@@ -93,7 +89,6 @@ namespace XM.WebAgent.Controllers
 
             if (iCheck > 0)
             {
-                log(Request["agent_AN"], "代理添加/修改", "false", "操作异常");
                 return OperationReturn(false, iCheck == 1 ? "所输入的用户名重复,请重新输入!" : (iCheck == 2 ? "所输入的手机号码重复,请重新输入!" : "所输入的邮箱重复,请重新输入!"));
             }
             else
@@ -103,7 +98,6 @@ namespace XM.WebAgent.Controllers
                 paras["agent_CDT"] = DateTime.Now;
                 paras["status_id"] = Request["status_id"];
                 int result = DALUtility.Agent.saveAgent(paras);
-                log(Request["agent_AN"], "代理添加/修改", "true", "成功");
                 return OperationReturn(result > 0);
             }
         }
@@ -130,7 +124,7 @@ namespace XM.WebAgent.Controllers
             param.Add("agent_email", agent_email);
             param.Add("status_id", status_id);
 
-            log(HttpContext.Session["agent_AN"].ToString(), "查询会员", "true", "成功");
+
             string result = DALUtility.Agent.QryAllAgent(param, out int ICount);
             return Content(result);
         }
@@ -147,11 +141,6 @@ namespace XM.WebAgent.Controllers
             param.Add("Agent_AN", Request["Agent_AN"]);
 
             int iCheck = DALUtility.Agent.MakeGoods(param);
-            if (iCheck > 0)
-            {
-                log(Request["agent_AN"], "代理上架商品", "false", "当前操作失败");
-            }
-            log(Request["agent_AN"], "代理上架商品", "true", "上架成功");
             return OperationReturn(true, iCheck == 0 ? "上架成功" : (iCheck == 1 ? "修改成功!" : "当前操作失败,请重新尝试!"));
         }
 
@@ -178,7 +167,6 @@ namespace XM.WebAgent.Controllers
             param.Add("endTime", Request["endTime"]);
             param.Add("agent_AN", Request["agent_AN"]);
 
-            log(Request["agent_AN"], "查询账单", "true", "查询成功");
             string result = DALUtility.Agent.QryReportForm(param, out int ICount);
             return Content(result);
         }
