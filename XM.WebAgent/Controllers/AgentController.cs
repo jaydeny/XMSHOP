@@ -173,6 +173,7 @@ namespace XM.WebAgent.Controllers
             param.Add("price", Request["price"]);
             param.Add("up_time", Request["up_time"]);
             param.Add("Agent_AN", Request["Agent_AN"]);
+            param.Add("goods_name", Request["goods_name"]);
 
             int iCheck = DALUtility.Agent.MakeGoods(param);
             return OperationReturn(true, iCheck == 0 ? "上架成功" : (iCheck == 1 ? "修改成功!" : "当前操作失败,请重新尝试!"));
