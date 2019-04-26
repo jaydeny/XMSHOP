@@ -173,6 +173,7 @@ namespace XM.WebAgent.Controllers
             param.Add("price", Request["price"]);
             param.Add("up_time", Request["up_time"]);
             param.Add("Agent_AN", Request["Agent_AN"]);
+            param.Add("goods_name", Request["goods_name"]);
 
             int iCheck = DALUtility.Agent.MakeGoods(param);
             return OperationReturn(true, iCheck == 0 ? "上架成功" : (iCheck == 1 ? "修改成功!" : "当前操作失败,请重新尝试!"));
@@ -205,7 +206,7 @@ namespace XM.WebAgent.Controllers
             return Content(result);
         }
 
-
+        //查询所有的代理商商品
         public ActionResult QryAgoods()
         {
             string sort = Request["sort"] == null ? "id" : Request["sort"];
@@ -224,6 +225,42 @@ namespace XM.WebAgent.Controllers
             return Content(result);
         }
 
+        //查询所有的商品
+        public ActionResult GetAllGoodsInfo()
+        {
+            string sort = Request["sort"] == null ? "GoodsID" : Request["sort"];
+            string order = Request["order"] == null ? "asc" : Request["order"];
 
+            //首先获取前台传递过来的参数
+            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+            string goodsName = Request["goods_name"] == null ? "" : Request["goods_name"];
+            string goodsIntro = Request["goods_intro"] == null ? "" : Request["goods_intro"];
+            decimal goodsPrice = Request["goods_CP"] == null ? 1 : Convert.ToDecimal(Request["goods_CP"]);
+            string createBy = Request["goods_BY"] == null ? "" : Request["goods_BY"];
+            string createDateTime = Request["goods_CDT"] == null ? "" : Request["goods_CDT"];
+            string goodsPic = Request["goods_pic"] == null ? "" : Request["goods_pic"];
+            int typeId = Request["type_id"] == null ? 1 : Convert.ToInt32(Request["type_id"]);
+
+
+
+            int totalCount;   //输出参数
+            Dictionary<string, object> paras = new Dictionary<string, object>();
+            paras["pi"] = pageindex;
+            paras["pageSize"] = pagesize;
+            paras["goods_name"] = goodsName;
+            paras["sort"] = sort;
+            paras["order"] = order;
+            var goods = DALUtility.Goods.QryGoods<GoodsEntity>(paras, out totalCount);
+            if (goods != null)
+            {
+                log(HttpContext.Session["user_AN"].ToString(), "获取所有商品信息", "true", "获取成功");
+            }
+            else
+            {
+                log(HttpContext.Session["user_AN"].ToString(), "获取所有商品信息", "false", "获取失败");
+            }
+            return PagerData(totalCount, goods);
+        }
     }
 }
