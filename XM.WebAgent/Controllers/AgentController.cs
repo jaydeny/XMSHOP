@@ -185,7 +185,7 @@ namespace XM.WebAgent.Controllers
             return OperationReturn(true, "用户:"+vip_id+"于"+recharge_time+"充值:"+recharge_price+"元!充值成功!!");
         }
 
-
+        //查询时段内的报表
         public ActionResult QryReportForm()
         {
             string sort = Request["sort"] == null ? "id" : Request["sort"];
