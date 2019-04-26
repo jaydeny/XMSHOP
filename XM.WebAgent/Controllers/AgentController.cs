@@ -225,6 +225,8 @@ namespace XM.WebAgent.Controllers
             return Content(result);
         }
 
+
+
         //查询所有的商品
         public ActionResult GetAllGoodsInfo()
         {
