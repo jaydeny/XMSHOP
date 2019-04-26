@@ -371,7 +371,7 @@ namespace XM.DAL
         /// 查询所有的代理商
         /// </summary>
         /// <param name="paras"></param>
-        /// <returns></returns>
+        /// <returns></returns> 
         public string QryReportForm(Dictionary<string, object> paras, out int iCount)
         {
             WhereBuilder builder = new WhereBuilder();

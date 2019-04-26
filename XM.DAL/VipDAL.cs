@@ -325,6 +325,16 @@ namespace XM.DAL
         }
 
         /// <summary>
+        /// 插入余额表
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public int InsertRemainder(Dictionary<string, object> paras)
+        {
+            return QuerySingle<int>("P_tbremiander_remiand", paras, CommandType.StoredProcedure);
+        }
+
+        /// <summary>
         /// 检查余额
         /// </summary>
         /// <param name="paras"></param>
@@ -333,5 +343,8 @@ namespace XM.DAL
         {
             return QuerySingle<int>("P_tbvip_Shopping", paras, CommandType.StoredProcedure);
         }
+
+
+        
     }
 }

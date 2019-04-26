@@ -173,11 +173,11 @@ namespace XM.WebAgent.Controllers
         public ActionResult MakeGoods()
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("id", Request["Agooods_id"]);
+            param.Add("id", Request["Agoods_id"]);
             param.Add("goods_id", Request["goods_id"]);
             param.Add("status_id", Request["status_id"]);
             param.Add("price", Request["price"]);
-            param.Add("up_time", Request["up_time"]);
+            param.Add("up_time", DateTime.Now);
             param.Add("Agent_AN", Request["Agent_AN"]);
             param.Add("goods_name", Request["goods_name"]);
 
@@ -260,14 +260,14 @@ namespace XM.WebAgent.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var goods = DALUtility.Goods.QryGoods<GoodsEntity>(paras, out totalCount);
-            if (goods != null)
-            {
-                log(HttpContext.Session["user_AN"].ToString(), "获取所有商品信息", "true", "获取成功");
-            }
-            else
-            {
-                log(HttpContext.Session["user_AN"].ToString(), "获取所有商品信息", "false", "获取失败");
-            }
+            //if (goods != null)
+            //{
+            //    log(HttpContext.Session["user_AN"].ToString(), "获取所有商品信息", "true", "获取成功");
+            //}
+            //else
+            //{
+            //    log(HttpContext.Session["user_AN"].ToString(), "获取所有商品信息", "false", "获取失败");
+            //}
             return PagerData(totalCount, goods);
         }
     }
