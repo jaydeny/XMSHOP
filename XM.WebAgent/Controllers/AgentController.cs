@@ -11,14 +11,19 @@ namespace XM.WebAgent.Controllers
     public class AgentController : BaseController
     {
         // GET: Agent
+        //VIP用户主页
         public ActionResult Index()
         {
 
             return View();
         }
-
+        //登录页
         public ActionResult Login()
         {
+            return View();
+        }
+        //返回商品操作页
+        public ActionResult getGoodsPage() {
             return View();
         }
 
@@ -129,7 +134,7 @@ namespace XM.WebAgent.Controllers
         //    return Content(result);
         //}
 
-        public ActionResult GetAllUserInfo()
+        public ActionResult GetAllVIP()
         {
             string sort = Request["sort"] == null ? "VipID" : Request["sort"];
             string order = Request["order"] == null ? "asc" : Request["order"];
@@ -164,14 +169,15 @@ namespace XM.WebAgent.Controllers
             return PagerData(totalCount, users);
         }
 
+        //上架商品或者修改商品信息
         public ActionResult MakeGoods()
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("id", Request["Agooods_id"]);
+            param.Add("id", Request["Agoods_id"]);
             param.Add("goods_id", Request["goods_id"]);
             param.Add("status_id", Request["status_id"]);
             param.Add("price", Request["price"]);
-            param.Add("up_time", Request["up_time"]);
+            param.Add("up_time", DateTime.Now);
             param.Add("Agent_AN", Request["Agent_AN"]);
             param.Add("goods_name", Request["goods_name"]);
 
@@ -185,7 +191,7 @@ namespace XM.WebAgent.Controllers
             return OperationReturn(true, "用户:"+vip_id+"于"+recharge_time+"充值:"+recharge_price+"元!充值成功!!");
         }
 
-
+        //查询时段内的报表
         public ActionResult QryReportForm()
         {
             string sort = Request["sort"] == null ? "id" : Request["sort"];
@@ -225,6 +231,8 @@ namespace XM.WebAgent.Controllers
             return Content(result);
         }
 
+
+
         //查询所有的商品
         public ActionResult GetAllGoodsInfo()
         {
@@ -252,14 +260,14 @@ namespace XM.WebAgent.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var goods = DALUtility.Goods.QryGoods<GoodsEntity>(paras, out totalCount);
-            if (goods != null)
-            {
-                log(HttpContext.Session["user_AN"].ToString(), "获取所有商品信息", "true", "获取成功");
-            }
-            else
-            {
-                log(HttpContext.Session["user_AN"].ToString(), "获取所有商品信息", "false", "获取失败");
-            }
+            //if (goods != null)
+            //{
+            //    log(HttpContext.Session["user_AN"].ToString(), "获取所有商品信息", "true", "获取成功");
+            //}
+            //else
+            //{
+            //    log(HttpContext.Session["user_AN"].ToString(), "获取所有商品信息", "false", "获取失败");
+            //}
             return PagerData(totalCount, goods);
         }
     }

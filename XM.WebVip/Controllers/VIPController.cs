@@ -100,10 +100,18 @@ namespace XM.WebVip.Controllers
                 paras["status_id"] = Request["status_id"];
                 paras["agent_id"] = Request["agent_id"];
                 int result = DALUtility.Vip.saveVIP(paras);
-                return OperationReturn(result > 0);
+                if(ID == 0)
+                {
+                    return OperationReturn(result > 0, "注册成功");
+                }
+                else
+                {
+                    return OperationReturn(result > 0, "修改成功");
+                }
             }
         }
 
+        //邀请注册
         public ActionResult Invitation(string vip_AN)
         {
             return OperationReturn(true, vip_AN);
@@ -155,13 +163,25 @@ namespace XM.WebVip.Controllers
 
             if(iCheck > 0)
             {
-                Url.Action("CheckRecharge","Agent",new RouteValueDictionary {
+                Dictionary<string, object> p = new Dictionary<string, object>();
+                p.Add("remainder", Request["recharge_price"]);
+                p.Add("vip_AN", HttpContext.Session["vip_AN"]);
+                int i = DALUtility.Vip.InsertRemainder(p);
+
+                if (i != 2)
+                {
+                    Url.Action("CheckRecharge", "Agent", new RouteValueDictionary {
                     { "vip_id",Request["vip_id"]},
                     { "recharge_price",Request["recharge_price"]},
                     { "recharge_time", date}
-                });
+                    });
 
-                return OperationReturn(true, "充值成功");
+                    return OperationReturn(true, "充值成功");
+                }
+                else
+                {
+                    return OperationReturn(false, "充值失败");
+                }
             }
             return OperationReturn(false,"充值失败");
         }
@@ -170,7 +190,7 @@ namespace XM.WebVip.Controllers
         /// 查看余额
         /// </summary>
         /// <returns></returns>
-        public ActionResult CheckRemainder()
+        public ActionResult buy()
         {
             DateTime date = DateTime.Now;
 
