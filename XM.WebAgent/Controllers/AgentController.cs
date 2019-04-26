@@ -11,16 +11,22 @@ namespace XM.WebAgent.Controllers
     public class AgentController : BaseController
     {
         // GET: Agent
+        //VIP用户主页
         public ActionResult Index()
         {
 
             return View();
         }
-
+        //登录页
         public ActionResult Login()
         {
             return View();
         }
+        //返回商品操作页
+        public ActionResult getGoodsPage() {
+            return View();
+        }
+
 
         [HttpPost]
         public ActionResult Login(string AN, string pwd)

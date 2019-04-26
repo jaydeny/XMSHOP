@@ -168,6 +168,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Agent\Login.cshtml" />
     <Content Include="Views\Agent\Index.cshtml" />
+    <Content Include="Views\Agent\getGoodsPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
