@@ -14,5 +14,6 @@ namespace XM.Model
         public decimal Price { get; set; }
         public DateTime UPTime { get; set; }
         public string AgentAccountName { get; set; }
+        public string GoodsName { get; set; }
     }
 }

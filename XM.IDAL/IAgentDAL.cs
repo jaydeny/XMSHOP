@@ -13,7 +13,7 @@ namespace XM.IDAL
         /// <summary>
         /// 根据用户id获取用户
         /// </summary>
-        agent GetUserByUserId(int userId);
+        AgentEntity GetUserByUserId(int userId);
 
         /// <summary>
         /// 根据id获取用户
@@ -156,5 +156,13 @@ namespace XM.IDAL
         /// <param name="paras"></param>
         /// <returns></returns>
         string QryReportForm(Dictionary<string, object> paras, out int iCount);
+
+
+        /// <summary>
+        /// 查询所有的代理商商品
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        string QryAgoods(Dictionary<string, object> paras, out int iCount);
     }
 }

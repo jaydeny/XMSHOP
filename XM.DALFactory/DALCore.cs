@@ -105,5 +105,13 @@ namespace XM.DALFactory
         {
             get { return LoadAssamblyType<IRechargeDAL>("RechargeDAL"); }
         }
+        public IRoleDAL Role
+        {
+            get { return LoadAssamblyType<IRoleDAL>("RoleADAL"); }
+        }
+        public IJurisdictionDAL Jurisdiction
+        {
+            get { return LoadAssamblyType<IJurisdictionDAL>("JurisdictionDAL"); }
+        }
     }
 }

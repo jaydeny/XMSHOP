@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddressEntity.cs" />
-    <Compile Include="agent.cs" />
     <Compile Include="AgentEntity.cs" />
     <Compile Include="AgentGoodsEntity.cs" />
     <Compile Include="BuyEntity.cs" />
