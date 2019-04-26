@@ -27,7 +27,6 @@ namespace XM.WebAgent.Controllers
             return View();
         }
 
-
         [HttpPost]
         public ActionResult Login(string AN, string pwd)
         {
@@ -135,7 +134,7 @@ namespace XM.WebAgent.Controllers
         //    return Content(result);
         //}
 
-        public ActionResult GetAllUserInfo()
+        public ActionResult GetAllVIP()
         {
             string sort = Request["sort"] == null ? "VipID" : Request["sort"];
             string order = Request["order"] == null ? "asc" : Request["order"];
@@ -170,6 +169,7 @@ namespace XM.WebAgent.Controllers
             return PagerData(totalCount, users);
         }
 
+        //上架商品或者修改商品信息
         public ActionResult MakeGoods()
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
