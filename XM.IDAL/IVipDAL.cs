@@ -156,6 +156,14 @@ namespace XM.IDAL
         string QryVipInfo<T>(Dictionary<string, object> paras);
 
         /// <summary>
+        /// 查询vip邮箱
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        T QryVipEmail<T>(Dictionary<string, object> paras);
+
+        /// <summary>
         /// 查询收货地址
         /// </summary>
         /// <param name="paras"></param>

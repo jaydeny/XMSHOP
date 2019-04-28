@@ -148,7 +148,7 @@ namespace XM.WebVip.Controllers
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("vip_AN", Request["vip_AN"]);
-            var vip = DALUtility.Vip.QryVipInfo<VipEntity>(param);
+            var vip = DALUtility.Vip.QryVipEmail<VipEntity>(param);
 
             bool boo = false;
             string strMailContent = "<a href='http://172.16.31.234:6666/VIP/UpdatePwd'>修改密码</a>";

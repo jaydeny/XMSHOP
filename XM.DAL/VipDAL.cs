@@ -360,6 +360,17 @@ namespace XM.DAL
         }
 
         /// <summary>
+        /// 查询vip邮箱
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public T QryVipEmail<T>(Dictionary<string, object> paras)
+        {
+            return QuerySingle<T>("SELECT * FROM v_vip_list WHERE VipAccountName=@vip_AN", paras, CommandType.Text);
+        }
+
+        /// <summary>
         /// 查询收货地址
         /// </summary>
         /// <typeparam name="T"></typeparam>
