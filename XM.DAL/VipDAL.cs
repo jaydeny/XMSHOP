@@ -292,6 +292,7 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString()
             };
             builder.AddWhereAndParameter(paras, "vip_AN", "vip_AN", "LIKE", "'%'+@vip_AN+'%'");
+
             builder.AddWhereAndParameter(paras, "vip_mp");
             builder.AddWhereAndParameter(paras, "vip_Email", "vip_Email", "LIKE", "'%'+@vip_Email+'%'");
             builder.AddWhereAndParameter(paras, "status_id");
@@ -350,7 +351,7 @@ namespace XM.DAL
         /// <typeparam name="T"></typeparam>
         /// <param name="paras"></param>
         /// <returns></returns>
-        public string QryVipInfo<T>(Dictionary<string, object> paras)
+        public  string QryVipInfo<T>(Dictionary<string, object> paras)
         {
             var vipInfo = QuerySingle<T>("SELECT * FROM v_vip_list WHERE VipAccountName=@vip_AN", paras, CommandType.Text);
 
