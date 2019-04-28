@@ -113,5 +113,9 @@ namespace XM.DALFactory
         {
             get { return LoadAssamblyType<IJurisdictionDAL>("JurisdictionDAL"); }
         }
+        public IRoleMenuDAL RoleMenu
+        {
+            get { return LoadAssamblyType<IRoleMenuDAL>("RoleMenuDAL"); }
+        }
     }
 }

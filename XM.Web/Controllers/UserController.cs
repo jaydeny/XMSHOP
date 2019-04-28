@@ -5,11 +5,13 @@ using System.Web;
 using System.Web.Mvc;
 using XM.Model;
 using System.Web.SessionState;
+using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
     public class UserController : BaseController,IRequiresSessionState
     {
+        [PermissionFilter]
         // GET: User
         public ActionResult Index()
         {
@@ -56,6 +58,7 @@ namespace XM.Web.Controllers
             //return Content(result);
         }
 
+        [PermissionFilter("User","Index")]
         public ActionResult GetAllUserInfo()
         {
             string sort = Request["sort"] == null ? "id" : Request["sort"];
@@ -93,13 +96,14 @@ namespace XM.Web.Controllers
                 log(HttpContext.Session["user_AN"].ToString(), "查询所有用户", "false", "查询失败");
             }
             return PagerData(totalCount, users);
-        } 
+        }
 
 
         /// <summary>
         /// 新增 用户
         /// </summary>
         /// <returns></returns>
+        [PermissionFilter("User", "Index",Operationype.Add)]
         public ActionResult AddUser()
         {
             return SaveUser();
@@ -111,6 +115,7 @@ namespace XM.Web.Controllers
         /// 编辑 用户
         /// </summary>
         /// <returns></returns>
+        [PermissionFilter("User", "Index", Operationype.Update)]
         public ActionResult EditUser()
         {
 
