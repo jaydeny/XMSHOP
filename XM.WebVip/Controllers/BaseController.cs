@@ -48,7 +48,7 @@ namespace XM.Web.Controllers
                 reason = reason,
                 Time = DateTime.Now
             });
-        }
+        } 
         public string AN { get { return Session["AN"].ToString(); } }
         public string ID { get { return Session["id"].ToString(); } }
         public string Agent_ID { get { return Session["agent_ID"].ToString(); } }

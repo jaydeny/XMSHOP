@@ -404,8 +404,8 @@ namespace XM.WebVip.Controllers
             {
                 paras["vip_pwd"] = Request["vip_pwd"];
                 paras["vip_CDT"] = DateTime.Now;
-                paras["status_id"] = Request["status_id"];
-                paras["agent_id"] = Request["agent_id"];
+                paras["status_id"] = Request["status_id"] == null ? "1" : Request["status_id"];
+                paras["agent_id"] = Request["agent_id"] == null ? "1" : Request["agent_id"];
                 int result = DALUtility.Vip.saveVIP(paras);
                 if (ID == 0)
                 {
