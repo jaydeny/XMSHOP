@@ -9,20 +9,42 @@ using XM.Web.Controllers;
 
 namespace XM.WebVip.Controllers
 {
+    /// <summary>
+    /// 作者:曾贤鑫
+    /// 日期:2019/4/26
+    /// 功能:vip端会用到的一些行为
+    /// </summary>
     public class VIPController : BaseController
     {
-
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:返回会员端首页
+        /// </summary>
+        /// <returns>页面:首页</returns>
         public ActionResult Index()
         {
 
             return View();
         }
 
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:返回会员端登录页面
+        /// </summary>
+        /// <returns>页面:登录页面</returns>
         public ActionResult Login()
         {
             return View();
         }
 
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:会员端进行登入的方法
+        /// </summary>
+        /// <returns>json值</returns>
         [HttpPost]
         public ActionResult Login(string AN, string pwd)
         {
@@ -53,30 +75,52 @@ namespace XM.WebVip.Controllers
             }
         }
 
-        //注册时,返回注册页面
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:返回会员端注册页面
+        /// </summary>
+        /// <returns>页面:注册时,返回注册页面</returns>
         public ActionResult Signin()
         {
             return View();
         }
 
-        //注册
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:会员端进行注册
+        /// </summary>
+        /// <returns>json值</returns>
         [HttpPost]
         public ActionResult Signin(VipEntity vip)
         {
             return save(0);
         }
 
-        //修改会员
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:会员端进行修改信息页面
+        /// </summary>
+        /// <returns>页面:修改信息页面</returns>
         public ActionResult Update()
         {
             return View();
         }
 
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:会员端进行修改信息页面
+        /// </summary>
+        /// <returns>json值</returns>
         [HttpPost]
         public ActionResult Update(VipEntity vip)
         {
             return save(int.Parse(Request["vip_id"]));
         }
+
 
         //注册或者修改会员信息时,检查邮箱,email,联系方式是否重复
         public ActionResult save(int ID)
@@ -111,43 +155,25 @@ namespace XM.WebVip.Controllers
             }
         }
 
-        //邀请注册
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:会员端进行邀请注册
+        /// </summary>
+        /// <param name="vip_AN"></param>
+        /// <returns>json值</returns>
         public ActionResult Invitation(string vip_AN)
         {
             return OperationReturn(true, vip_AN);
         }
 
-        //获取所有的vip
-        public ActionResult GetAllVIP()
-        {
-            string sort = Request["sort"] == null ? "id" : Request["sort"];
-            string order = Request["order"] == null ? "asc" : Request["order"];
-            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
-            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-
-            string vip_AN = Request["vip_AN"];
-            string vip_mp = Request["vip_mp"];
-            string vip_Email = Request["vip_Email"];
-            string status_id = Request["status_id"];
-            string agent_id = Request["agent_id"];
-
-            Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("pi", pageindex);
-            param.Add("pageSize", pagesize);
-            param.Add("sort", sort);
-            param.Add("vip_AN", vip_AN);
-            param.Add("vip_mp", vip_mp);
-            param.Add("vip_Email", vip_Email);
-            param.Add("status_id", status_id);
-            param.Add("agent_id", agent_id);
-
-
-            string result = DALUtility.Vip.QryAllVIP(param, out int ICount);
-            return Content(result);
-        }
-
-
-        //未完成,需要代理端同意
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:会员端进行充值
+        /// </summary>
+        /// <param name="vip_AN"></param>
+        /// <returns>json值</returns>
         public ActionResult Recharge()
         {
             DateTime date = DateTime.Now;
@@ -165,7 +191,8 @@ namespace XM.WebVip.Controllers
             {
                 Dictionary<string, object> p = new Dictionary<string, object>();
                 p.Add("remainder", Request["recharge_price"]);
-                p.Add("vip_AN", HttpContext.Session["vip_AN"]);
+                p.Add("vip_AN", Request["vip_AN"]);
+                //p.Add("vip_AN", HttpContext.Session["vip_AN"]);
                 int i = DALUtility.Vip.InsertRemainder(p);
 
                 if (i != 2)
@@ -187,6 +214,8 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
         /// 查看余额
         /// </summary>
         /// <returns></returns>
