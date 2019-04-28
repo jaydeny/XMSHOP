@@ -240,7 +240,11 @@ namespace XM.WebAgent.Controllers
             param.Add("goods_name", Request["goods_name"]);
 
             int iCheck = DALUtility.Agent.MakeGoods(param);
-            return OperationReturn(true, iCheck == 0 ? "上架成功" : (iCheck == 1 ? "修改成功!" : "当前操作失败,请重新尝试!"));
+            if(iCheck == 0)
+            {
+                return OperationReturn(true, "上架成功");
+            }
+            return OperationReturn(false, "上架失败");
         }
 
         /// <summary>
