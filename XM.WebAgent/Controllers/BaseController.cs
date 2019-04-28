@@ -49,6 +49,8 @@ namespace XM.Web.Controllers
                 Time = DateTime.Now
             });
         }
+        public string AN { get { return Session["AN"].ToString(); } }
+        public string ID { get { return Session["id"].ToString(); } }
     }
 
     /// <summary>

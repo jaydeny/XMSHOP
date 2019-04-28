@@ -65,6 +65,10 @@ namespace XM.WebVip.Controllers
                         return OperationReturn(false, "用户已被禁用，请您联系管理员");
                     }
                     //ViewData.Model = vip;
+                    Session["AN"] = vip.VipAccountName;
+                    Session["ID"] = vip.VipID;
+                    Session["Agent_ID"] = vip.AgentID;
+                    Session["Agent_AN"] = DALUtility.Vip.QryAgentANByID(getAgentAN(vip.AgentID));
                     return OperationReturn(true, "登录成功,vip_id:" + vip.VipID + ";vip_AN:" + AN,
                         new
                         {
@@ -132,7 +136,7 @@ namespace XM.WebVip.Controllers
         [HttpPost]
         public ActionResult Update(VipEntity vip)
         {
-            return save(int.Parse(Request["vip_id"]));
+            return save(int.Parse(Session["ID"].ToString()));
         }/// <summary>
          /// 作者:曾贤鑫
          /// 日期:2019/4/28
@@ -218,16 +222,16 @@ namespace XM.WebVip.Controllers
             param.Add("recharge_name", Request["recharge_name"]);
             param.Add("recharge_price", Request["recharge_price"]);
             param.Add("recharge_time", date);
-            param.Add("agent_id", Request["agent_id"]);
-            param.Add("vip_id", Request["vip_id"]);
+            param.Add("agent_id", Session["agentID"].ToString());
+            param.Add("vip_id", Session["ID"].ToString());
 
             int iCheck = DALUtility.Vip.Recharge(param);
 
-            if(iCheck > 0)
+            if (iCheck > 0)
             {
                 Dictionary<string, object> p = new Dictionary<string, object>();
                 p.Add("remainder", Request["recharge_price"]);
-                p.Add("vip_AN", Request["vip_AN"]);
+                p.Add("vip_AN", Session["AN"].ToString());
                 //p.Add("vip_AN", HttpContext.Session["vip_AN"]);
                 int i = DALUtility.Vip.InsertRemainder(p);
 
@@ -246,7 +250,7 @@ namespace XM.WebVip.Controllers
                     return OperationReturn(false, "充值失败");
                 }
             }
-            return OperationReturn(false,"充值失败");
+            return OperationReturn(false, "充值失败");
         }
         #endregion
 
@@ -265,14 +269,14 @@ namespace XM.WebVip.Controllers
             param.Add("order_date", date);
             param.Add("order_address", Request["order_address"]);
             param.Add("order_mp", Request["order_mp"]);
-            param.Add("vip_AN", Request["vip_AN"]);
+            param.Add("vip_AN", Session["AN"].ToString());
             param.Add("agent_AN", Request["agent_AN"]);
             param.Add("order_total", Request["order_total"]);
 
 
             param.Add("buy_time", date);
             param.Add("buy_count", Request["buy_count"]);
-            param.Add("buy_AN", Request["buy_AN"]);
+            param.Add("buy_AN", Session["AN"].ToString());
             param.Add("goods_id", Request["goods_id"]);
             param.Add("buy_total", Request["buy_total"]);
 
@@ -280,11 +284,11 @@ namespace XM.WebVip.Controllers
 
             Debug.WriteLine(iCheck);
 
-            if(iCheck > 0)
+            if (iCheck > 0)
             {
-                return OperationReturn(false, iCheck == 1 ? "用户余额不足,请充值后从试!" :  "购物出错,请重试!");
+                return OperationReturn(false, iCheck == 1 ? "用户余额不足,请充值后从试!" : "购物出错,请重试!");
             }
-            return OperationReturn(true,"购物成功");
+            return OperationReturn(true, "购物成功");
         }
         #endregion
 
@@ -298,7 +302,7 @@ namespace XM.WebVip.Controllers
         public ActionResult VipInfo()
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("vip_AN", Request["vip_AN"]);
+            param.Add("vip_AN", Session["AN"].ToString());
 
             var vip = DALUtility.Vip.QryVipInfo<VipEntity>(param);
             return Content(vip);
@@ -329,7 +333,7 @@ namespace XM.WebVip.Controllers
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("id", int.Parse(Request["id"]));
             param.Add("address_name", Request["address_name"]);
-            param.Add("vip_id", int.Parse(Request["vip_id"]));
+            param.Add("vip_id", int.Parse(Session["ID"].ToString()));
 
             string result = DALUtility.Vip.QryVipAddress(param, out int iCount);
 
@@ -349,7 +353,7 @@ namespace XM.WebVip.Controllers
 
         public ActionResult UpdateAddress()
         {
-            return SaveAddress(int.Parse(Request["vip_id"]));
+            return SaveAddress(int.Parse(Session["ID"].ToString()));
         }
 
         /// <summary>
@@ -362,13 +366,13 @@ namespace XM.WebVip.Controllers
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("id", int.Parse(Request["address_id"]));
-            param.Add("vip_id", int.Parse(Request["vip_id"]));
+            param.Add("vip_id", int.Parse(Session["ID"].ToString()));
 
             int iCheck = DALUtility.Vip.DeleteAddress(param);
 
-            if(iCheck == 0)
+            if (iCheck == 0)
             {
-                return OperationReturn(false,"删除收货地址失败");
+                return OperationReturn(false, "删除收货地址失败");
             }
             return OperationReturn(true, "删除收货地址成功");
         }
@@ -425,7 +429,7 @@ namespace XM.WebVip.Controllers
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("id", ID);
             param.Add("address_name", Request["address_name"]);
-            param.Add("vip_id", int.Parse(Request["vip_id"]));
+            param.Add("vip_id", int.Parse(Session["ID"].ToString()));
 
             int iCheck = DALUtility.Vip.SaveAddress(param);
             ContentResult strResult = null;
@@ -446,6 +450,34 @@ namespace XM.WebVip.Controllers
                     break;
             }
             return strResult;
+        }
+
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4-28
+        /// 修改时间：2019-
+        /// 功能：获取代理商AN
+        /// </summary>
+        public Dictionary<string, object> getAgentAN(int id)
+        {
+
+            Dictionary<string, object> agent_id = new Dictionary<string, object>();
+            agent_id.Add("agent_id", id);
+            return agent_id;
+        }
+
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4-28
+        /// 修改时间：2019-
+        /// 功能：安全退出
+        /// </summary>
+        public ActionResult RemoveSession()
+        {
+            Session.RemoveAll();
+            return View("_index");
         }
         #endregion
     }

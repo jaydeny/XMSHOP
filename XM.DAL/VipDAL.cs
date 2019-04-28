@@ -417,5 +417,16 @@ namespace XM.DAL
         {
             return QuerySingle<int>("delete tbaddress where id=@id and vip_id=@vip_id", paras, CommandType.Text);
         }
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4-28
+        /// 修改时间：2019-
+        /// 功能：查询代理商AN
+        /// </summary>
+        public string QryAgentANByID(Dictionary<string, object> paras)
+        {
+            return QuerySingle<string>("select agent_AN from tbagent where id = @agent_id", paras, CommandType.Text);
+        }
     }
 }

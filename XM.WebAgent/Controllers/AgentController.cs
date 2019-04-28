@@ -74,6 +74,8 @@ namespace XM.WebAgent.Controllers
                     {
                         return OperationReturn(false, "用户已被禁用，请您联系管理员");
                     }
+                    Session["AN"] = agent.AgentAccountName;
+                    Session["ID"] = agent.AgentID;
                     return OperationReturn(true, "登录成功,agent_id:" + agent.AgentID + ";agent_AN:" + AN,
                         new
                         {
@@ -139,7 +141,7 @@ namespace XM.WebAgent.Controllers
         [HttpPost]
         public ActionResult Update(AgentEntity agent)
         {
-            return save(int.Parse(Request["agent_id"]));
+            return save(int.Parse(Session["ID"].ToString()));
         }
 
         //注册或者修改代理信息时,检查邮箱,email,联系方式舒服重复
@@ -164,7 +166,14 @@ namespace XM.WebAgent.Controllers
                 paras["agent_CDT"] = DateTime.Now;
                 paras["status_id"] = Request["status_id"];
                 int result = DALUtility.Agent.saveAgent(paras);
-                return OperationReturn(result > 0);
+                if (ID == 0)
+                {
+                    return OperationReturn(result > 0, "注册成功");
+                }
+                else
+                {
+                    return OperationReturn(result > 0, "修改成功");
+                }
             }
         }
         #endregion
@@ -227,7 +236,7 @@ namespace XM.WebAgent.Controllers
             param.Add("status_id", Request["status_id"]);
             param.Add("price", Request["price"]);
             param.Add("up_time", DateTime.Now);
-            param.Add("Agent_AN", Request["Agent_AN"]);
+            param.Add("Agent_AN", Session["AN"].ToString());
             param.Add("goods_name", Request["goods_name"]);
 
             int iCheck = DALUtility.Agent.MakeGoods(param);
@@ -252,7 +261,7 @@ namespace XM.WebAgent.Controllers
             param.Add("pi", pageindex);
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
-            param.Add("agent_AN", Request["agent_AN"]);
+            param.Add("agent_AN", Session["AN"].ToString());
 
             string result = DALUtility.Agent.QryAgoods(param, out int ICount);
             return Content(result);
@@ -316,7 +325,7 @@ namespace XM.WebAgent.Controllers
             param.Add("sort", sort);
             param.Add("startTime", Request["startTime"]);
             param.Add("endTime", Request["endTime"]);
-            param.Add("agent_AN", Request["agent_AN"]);
+            param.Add("agent_AN", Session["AN"].ToString());
 
             string result = DALUtility.Agent.QryReportForm(param, out int ICount);
             return Content(result);
@@ -333,6 +342,18 @@ namespace XM.WebAgent.Controllers
         public ActionResult CheckRecharge(int vip_id, decimal recharge_price, DateTime recharge_time)
         {
             return OperationReturn(true, "用户:" + vip_id + "于" + recharge_time + "充值:" + recharge_price + "元!充值成功!!");
+        }
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4-28
+        /// 修改时间：2019-
+        /// 功能：安全退出
+        /// </summary>
+        public ActionResult RemoveSession()
+        {
+            Session.RemoveAll();
+            return View();
         }
     }
 }
