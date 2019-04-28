@@ -40,6 +40,7 @@ namespace XM.WebAgent.Controllers
             return View();
         }
 
+        #region _Login
         /// <summary>
         /// 作者:曾贤鑫
         /// 日期:2019/4/26
@@ -85,7 +86,9 @@ namespace XM.WebAgent.Controllers
                 return OperationReturn(false, "登录异常," + ex.Message);
             }
         }
+        #endregion
 
+        #region _Signin
         /// <summary>
         /// 作者:曾贤鑫
         /// 日期:2019/4/26
@@ -108,7 +111,9 @@ namespace XM.WebAgent.Controllers
         {
             return save(0);
         }
+        #endregion
 
+        #region _Update
         /// <summary>
         /// 作者:曾贤鑫
         /// 日期:2019/4/26
@@ -157,7 +162,9 @@ namespace XM.WebAgent.Controllers
                 return OperationReturn(result > 0);
             }
         }
+        #endregion
 
+        #region _vipInfo
         /// <summary>
         /// 作者:曾贤鑫
         /// 日期:2019/4/26
@@ -188,17 +195,19 @@ namespace XM.WebAgent.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var users = DALUtility.Vip.QryUsers<VipEntity>(paras, out totalCount);
-            if (users != null)
-            {
-                log(HttpContext.Session["user_AN"].ToString(), "查询所有vip用户信息", "true", "查询成功");
-            }
-            else
-            {
-                log(HttpContext.Session["user_AN"].ToString(), "查询所有vip用户信息", "false", "查询失败");
-            }
+            //if (users != null)
+            //{
+            //    log(HttpContext.Session["user_AN"].ToString(), "查询所有vip用户信息", "true", "查询成功");
+            //}
+            //else
+            //{
+            //    log(HttpContext.Session["user_AN"].ToString(), "查询所有vip用户信息", "false", "查询失败");
+            //}
             return PagerData(totalCount, users);
         }
+        #endregion
 
+        #region _Goods
         /// <summary>
         /// 作者:曾贤鑫
         /// 日期:2019/4/26
@@ -218,42 +227,6 @@ namespace XM.WebAgent.Controllers
 
             int iCheck = DALUtility.Agent.MakeGoods(param);
             return OperationReturn(true, iCheck == 0 ? "上架成功" : (iCheck == 1 ? "修改成功!" : "当前操作失败,请重新尝试!"));
-        }
-        /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
-        /// 功能:代理端进行处理充值信息
-        /// </summary>
-        /// <returns>json值</returns>
-        public ActionResult CheckRecharge(int vip_id, decimal recharge_price,DateTime recharge_time)
-        {
-            return OperationReturn(true, "用户:"+vip_id+"于"+recharge_time+"充值:"+recharge_price+"元!充值成功!!");
-        }
-
-        /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
-        /// 功能:查询时段内的报表
-        /// </summary>
-        /// <returns>json值</returns>
-        public ActionResult QryReportForm()
-        {
-            string sort = Request["sort"] == null ? "id" : Request["sort"];
-            string order = Request["order"] == null ? "asc" : Request["order"];
-            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
-            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-            
-
-            Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("pi", pageindex);
-            param.Add("pageSize", pagesize);
-            param.Add("sort", sort);
-            param.Add("startTime", Request["startTime"]);
-            param.Add("endTime", Request["endTime"]);
-            param.Add("agent_AN", Request["agent_AN"]);
-
-            string result = DALUtility.Agent.QryReportForm(param, out int ICount);
-            return Content(result);
         }
 
         /// <summary>
@@ -314,6 +287,47 @@ namespace XM.WebAgent.Controllers
             paras["order"] = order;
             var goods = DALUtility.Goods.QryGoods<GoodsEntity>(paras, out totalCount);
             return PagerData(totalCount, goods);
+        }
+        #endregion
+
+        #region _Form
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:查询时段内的报表
+        /// </summary>
+        /// <returns>json值</returns>
+        public ActionResult QryReportForm()
+        {
+            string sort = Request["sort"] == null ? "id" : Request["sort"];
+            string order = Request["order"] == null ? "asc" : Request["order"];
+            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("pi", pageindex);
+            param.Add("pageSize", pagesize);
+            param.Add("sort", sort);
+            param.Add("startTime", Request["startTime"]);
+            param.Add("endTime", Request["endTime"]);
+            param.Add("agent_AN", Request["agent_AN"]);
+
+            string result = DALUtility.Agent.QryReportForm(param, out int ICount);
+            return Content(result);
+        }
+        #endregion
+
+
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:代理端进行处理充值信息
+        /// </summary>
+        /// <returns>json值</returns>
+        public ActionResult CheckRecharge(int vip_id, decimal recharge_price, DateTime recharge_time)
+        {
+            return OperationReturn(true, "用户:" + vip_id + "于" + recharge_time + "充值:" + recharge_price + "元!充值成功!!");
         }
     }
 }
