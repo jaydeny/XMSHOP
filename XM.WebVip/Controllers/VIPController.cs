@@ -25,7 +25,6 @@ namespace XM.WebVip.Controllers
         /// <returns>页面:首页</returns>
         public ActionResult Index()
         {
-
             return View();
         }
 
