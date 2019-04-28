@@ -8,7 +8,7 @@ using System.Web.SessionState;
 
 namespace XM.Web.Controllers
 {
-    public class UserController : BaseController,IRequiresSessionState
+    public class UserController : BaseController, IRequiresSessionState
     {
         // GET: User
         public ActionResult Index()
@@ -26,7 +26,7 @@ namespace XM.Web.Controllers
         /// <param name="NewPwd"></param>
         /// <param name="ConfirmPwd"></param>
         /// <returns></returns>
-        public ActionResult UpdatePwd(string UserPwd, string NewPwd, string ConfirmPwd)
+        public ActionResult UpdatePwd(string UserPwd, string NewPwd)
         {
             //string result = "";
             UserEntity uInfo = ViewData["Account"] as UserEntity;
@@ -93,8 +93,11 @@ namespace XM.Web.Controllers
                 log(HttpContext.Session["user_AN"].ToString(), "查询所有用户", "false", "查询失败");
             }
             return PagerData(totalCount, users);
-        } 
-
+        }
+        public ActionResult UserAdd()
+        {
+            return View();
+        }
 
         /// <summary>
         /// 新增 用户
@@ -106,7 +109,10 @@ namespace XM.Web.Controllers
 
         }
 
-
+        public ActionResult UserEdit()
+        {
+            return View();
+        }
         /// <summary>
         /// 编辑 用户
         /// </summary>
@@ -159,7 +165,7 @@ namespace XM.Web.Controllers
                         log(HttpContext.Session["user_AN"].ToString(), "添加用户", "false", "添加失败");
                         return OperationReturn(false, "添加失败！");
                     }
-                    
+
                 }
                 num = DALUtility.User.Save(paras);
                 if (num > 0)
@@ -181,13 +187,15 @@ namespace XM.Web.Controllers
             if (!string.IsNullOrEmpty(Ids))
             {
                 log(HttpContext.Session["user_AN"].ToString(), "删除用户", "true", "删除成功");
-                return OperationReturn(DALUtility.User.DeleteUser(Ids),"删除成功");
+                bool flag = DALUtility.User.DeleteUser(Ids);
+                if (flag)
+                {
+                    return OperationReturn(true, "删除成功");
+                }
             }
-            else
-            {
-                log(HttpContext.Session["user_AN"].ToString(), "删除用户", "false", "删除失败");
-                return OperationReturn(false,"删除失败");
-            }
+            log(HttpContext.Session["user_AN"].ToString(), "删除用户", "false", "删除失败");
+            return OperationReturn(false, "删除失败");
+
         }
 
 
