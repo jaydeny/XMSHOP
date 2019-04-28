@@ -82,7 +82,7 @@ namespace XM.IDAL
 
 
 
-
+        ///作者:曾贤鑫
 
         /// <summary>
         /// 注册vip时,检查是否有登录名,邮箱,手机重复
@@ -146,6 +146,47 @@ namespace XM.IDAL
         /// 2:事务出错
         /// </returns>
         int Buy(Dictionary<string, object> paras);
-        
+
+        /// <summary>
+        /// 查询个人信息
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        string QryVipInfo<T>(Dictionary<string, object> paras);
+
+        /// <summary>
+        /// 查询vip邮箱
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        T QryVipEmail<T>(Dictionary<string, object> paras);
+
+        /// <summary>
+        /// 查询收货地址
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <param name="icound"></param>
+        /// <returns></returns>
+        string QryVipAddress(Dictionary<string, object> paras,out int icound);
+
+        /// <summary>
+        /// 添加/修改地址
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns>
+        /// 0:添加
+        /// 1:修改
+        /// 2:报错
+        /// </returns>
+        int SaveAddress(Dictionary<string, object> paras);
+
+        /// <summary>
+        /// 删除地址
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        int DeleteAddress(Dictionary<string,object> paras);
     }
 }
