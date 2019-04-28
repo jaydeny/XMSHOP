@@ -292,6 +292,7 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString()
             };
             builder.AddWhereAndParameter(paras, "vip_AN", "vip_AN", "LIKE", "'%'+@vip_AN+'%'");
+
             builder.AddWhereAndParameter(paras, "vip_mp");
             builder.AddWhereAndParameter(paras, "vip_Email", "vip_Email", "LIKE", "'%'+@vip_Email+'%'");
             builder.AddWhereAndParameter(paras, "status_id");
@@ -350,7 +351,7 @@ namespace XM.DAL
         /// <typeparam name="T"></typeparam>
         /// <param name="paras"></param>
         /// <returns></returns>
-        public string QryVipInfo<T>(Dictionary<string, object> paras)
+        public  string QryVipInfo<T>(Dictionary<string, object> paras)
         {
             var vipInfo = QuerySingle<T>("SELECT * FROM v_vip_list WHERE VipAccountName=@vip_AN", paras, CommandType.Text);
 
@@ -415,6 +416,17 @@ namespace XM.DAL
         public int DeleteAddress(Dictionary<string, object> paras)
         {
             return QuerySingle<int>("delete tbaddress where id=@id and vip_id=@vip_id", paras, CommandType.Text);
+        }
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4-28
+        /// 修改时间：2019-
+        /// 功能：查询代理商AN
+        /// </summary>
+        public string QryAgentANByID(Dictionary<string, object> paras)
+        {
+            return QuerySingle<string>("select agent_AN from tbagent where id = @agent_id", paras, CommandType.Text);
         }
     }
 }

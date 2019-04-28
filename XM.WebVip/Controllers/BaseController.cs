@@ -27,9 +27,10 @@ namespace XM.Web.Controllers
             return Content(JsonConvert.SerializeObject(new { msg = _msg != "" ? _msg : (_success ? "操作成功" : "操作失败"), success = _success }));
 
         }
+
         protected ContentResult OperationReturn(bool _success, string _msg = "", object obj = null)
         {
-            return Content(JsonConvert.SerializeObject(new { msg = _msg != "" ? _msg : (_success ? "操作成功" : "操作失败"), success = _success, data = obj }));
+            return Content(JsonConvert.SerializeObject(new { msg = _msg != "" ? _msg : (_success ? "操作成功" : "操作失败"), success = _success, data = obj}));
 
         }
 
@@ -47,10 +48,11 @@ namespace XM.Web.Controllers
                 reason = reason,
                 Time = DateTime.Now
             });
-        }
-
+        } 
         public string AN { get { return Session["AN"].ToString(); } }
         public string ID { get { return Session["id"].ToString(); } }
+        public string Agent_ID { get { return Session["agent_ID"].ToString(); } }
+        public string Agent_AN { get { return Session["Agent_AN "].ToString(); } }
     }
 
     /// <summary>
