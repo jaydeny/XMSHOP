@@ -1,0 +1,41 @@
+.recharge {}
+
+.recharge .header {
+	border-bottom: 1px solid #dedede;
+}
+
+.recharge .div-table {
+	display: table;
+	margin: 20px 0 0 0;
+}
+.recharge .div-tr {
+	display: table-row;
+}
+
+.recharge .div-td {
+	display: table-cell;
+}
+.recharge .title {
+	font-size: 18px;
+}
+
+.recharge .div-td button {
+	width: 70px;
+	margin: 0 10px 10px 0;
+}
+.recharge .number-list,.btn-box {
+	width: 420px;
+}
+.recharge button.action {
+	background: #ca141d;
+	border: 1px solid #CA141D;
+	color: #fff;
+}
+.recharge .btn-box .recharge-confirm {
+	width: 100px;
+	border: 1px solid #CA141D;
+	margin: 20px 50%;
+	background: #ca141d;
+	color: #fff;
+}
+

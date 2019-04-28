@@ -1,0 +1,226 @@
+
+/*快捷键*/
+
+.shortcut {
+	min-width: 1200px;
+	height: 36px;
+	line-height: 36px;
+	background-color: #f9f9f9;
+	font-size: 13px;
+}
+
+.shortcut .main {
+	float: right;
+}
+
+.shortcut li:before {
+	content: "";
+	width: 1px;
+	height: 10px;
+	display: block;
+	position: absolute;
+	top: 13px;
+	left: 0;
+	background: #d3d3d3;
+}
+
+.shortcut li {
+	float: left;
+	padding: 0 8px;
+	position: relative;
+}
+
+.shortcut li:first-child {
+	padding-left: 0;
+}
+
+.shortcut li:first-child:before {
+	width: 0;
+}
+
+.shortcut a {
+	color: #a4a4a4;
+}
+
+/*头部*/
+
+.header {
+    margin: 10px 0;
+    background-color: #fff;
+}
+
+.header .main {
+	margin-left: -15px;
+}
+
+.header .main a {
+	font-size: 16px;
+	color: #333;
+}
+
+/*口号*/
+
+.slogan-container {
+	background: #f9f9f9;
+	width: 100%;
+	min-width: 1200px;
+}
+
+.slogan {
+	padding: 22px 0 20px;
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.slogan a {
+	font-size: 20px;
+	color: #3a3a3a;
+}
+
+.slogan li {
+	padding: 0 80px;
+}
+
+.slogan li {
+	display: table-cell;
+	font-size: 18px;
+	color: #333;
+	height: 40px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.slogan i {
+	display: inline-block;
+	vertical-align: middle;
+	width: 40px;
+	height: 40px;
+	margin-right: 15px;
+	background: url("/img/icon01.svg") no-repeat;
+}
+
+.slogan .s1 i {
+	background-position: -74px 0;
+}
+
+.slogan .s2 i {
+	background-position: -154px 0;
+}
+
+.slogan .s3 i {
+	background-position: -194px 0;
+}
+
+.slogan .s4 i {
+	background-position: -114px 0;
+}
+
+/*服务*/
+
+.service {
+	background: #f9f9f9;
+}
+
+.service>div {
+	border-top: 1px solid #e5e5e5;
+	border-bottom: 1px solid #e5e5e5;
+	padding: 23px 0 24px;
+}
+
+.service .menu {
+	font-size: 12px;
+	color: #777;
+	/*当前块为弹性盒*/
+	display: flex;
+}
+
+.service .menu li>ul>li:not(:first-child) {
+	margin-top: 7px;
+}
+
+.service .menu li>ul>li:first-child {
+	font-size: 14px;
+}
+
+.service .menu li>ul>li a {
+	color: #333;
+	cursor: default;
+}
+
+.service .menu li>ul>li:not(:first-child) a {
+	color: #777;
+	cursor: pointer;
+}
+
+.service .menu li>ul>li:not(:first-child) a:hover {
+	color: #ca151d;
+}
+
+.service .a {
+	flex: 1.3;
+}
+
+.service .b {
+	flex: 2;
+	border-left: 1px solid #e5e5e5;
+	text-align: center;
+}
+
+.service .phone {
+	color: #575757;
+	font-weight: bold;
+	font-size: 24px !important;
+	padding: 0;
+}
+
+.service .but_service {
+	display: block;
+	color: #fff !important;
+	width: 170px;
+	height: 34px;
+	padding: 0;
+	margin: 0 auto;
+	margin-top: 10px;
+	font-size: 14px;
+	line-height: 34px;
+	background: #333;
+	border-radius: 17px;
+}
+
+.service .but_service:hover {
+	background-color: #696868;
+}
+
+/*悬浮工具*/
+.hungBar {
+	position: fixed;
+	right: 6px;
+	bottom: 20px;
+	height: 166px;
+	z-index: 500;
+}
+
+.hungBar a {
+	width: 28px;
+	height: 41px;
+	display: block;
+	position: relative;
+	color: #979797;
+	font-size: 20px;
+}
+
+.hungBar a:hover {
+	color: #484848;
+
+}
+
+/*底部*/
+.footer {
+	background: #f9f9f9;
+}
+
+.footer p {
+	text-align: center;
+	margin: 0;
+	color: #a4a4a4;
+}
