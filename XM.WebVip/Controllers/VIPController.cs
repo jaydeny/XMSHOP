@@ -63,8 +63,9 @@ namespace XM.WebVip.Controllers
                     {
                         return OperationReturn(false, "用户已被禁用，请您联系管理员");
                     }
-                    ViewData.Model = vip;
-                    return OperationReturn(true, "登录成功,vip_id:" + vip.VipID + ";vip_AN:" + AN);
+                    Session["AN"] = vip.VipAccountName;
+                    Session["ID"] = vip.VipID;
+                    return OperationReturn(true, "登录成功,vip_id:" + vip.VipID + ";vip_AN:" + AN ,new { AN=vip.VipAccountName,ID=vip.VipID,AgentID = vip.AgentID});
                 }
                 else
                 {

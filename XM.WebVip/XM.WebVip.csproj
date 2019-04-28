@@ -143,10 +143,6 @@
     <Content Include="Content\bootstrap-3.3.7\js\bootstrap.js" />
     <Content Include="Content\bootstrap-3.3.7\js\bootstrap.min.js" />
     <Content Include="Content\bootstrap-3.3.7\js\npm.js" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CSS\base.css" />
     <Content Include="Content\CSS\GoodsDetails.css" />
     <Content Include="Content\CSS\home.css" />
@@ -165,7 +161,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="img\bs.jpg" />
     <Content Include="img\h1.jpg" />
     <Content Include="img\h2.jpg" />
@@ -180,8 +175,6 @@
     <Content Include="img\slide_4.jpg" />
     <Content Include="img\slide_5.jpg" />
     <Content Include="img\slide_6.jpg" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\bootstrap-3.3.7\css\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap-3.3.7\css\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-3.3.7\css\bootstrap.css.map" />
@@ -190,17 +183,17 @@
     <Content Include="Content\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.woff2" />
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.3.1.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\jquery-3.4.0.js" />
+    <Content Include="Scripts\jquery-3.4.0.min.js" />
+    <Content Include="Scripts\vip\bounced.js" />
+    <Content Include="Scripts\vip\classification.js" />
+    <Content Include="Scripts\vip\jqueryAjax.js" />
+    <Content Include="Scripts\vip\login.js" />
+    <Content Include="Scripts\vip\Vip%40Signin.js" />
+    <Content Include="Scripts\vip\vipIndex.js" />
+    <Content Include="Scripts\vip\vipinfo.js" />
+    <Content Include="Scripts\vip\vipRender.js" />
+    <Content Include="Scripts\vip\vipRetrievePassword.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -225,8 +218,8 @@
     <Content Include="Views\VIP\VipSite.cshtml" />
     <Content Include="Views\VIP\_Login.cshtml" />
     <Content Include="Views\VIP\ChangePwd.cshtml" />
-    <Content Include="Views\VIP\_Registered.cshtml" />
-    <Content Include="Views\VIP\_RetrievePassword.cshtml" />
+    <Content Include="Views\VIP\_Signin.cshtml" />
+    <Content Include="Views\VIP\_FoundPwdPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -237,13 +230,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Framework.MongoDB\Framework.MongoDB.csproj">

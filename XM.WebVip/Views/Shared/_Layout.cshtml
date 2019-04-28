@@ -1,10 +1,12 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>XMPJ</title>
     <link href="~/Content/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/CSS/base.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/CSS/HomePage.css" rel="stylesheet" type="text/css" />
@@ -34,22 +36,17 @@
             <div class="main">
                 <ul>
                     <li>
-                        @*<a href="#" data-toggle="modal" data-target="#myModal">请登录</a>*@
-                        <a>
-                            @ViewData.Model
-                            @if (ViewData.Model != null)
-                            {
-                                <a id="vipInfo">@ViewData.Model.vip_AN</a>
-                                <a id="vipExit">退出</a>
-                            }
+                        <div class="hidden" id="login_box">
+                            <a id="vip_name" href="/vip/vipinfo">**</a>
+                            <text>&nbsp;</text>
+                            <a id="vipExit">退出</a>
+                        </div>
+                        <div class="" id="onlogin_box">
+                            <a id="vipLogin">请登录</a>
+                            <text>&nbsp;</text>
+                            <a id="vipRegistered">注册</a>
 
-                            @if (ViewData.Model == null)
-                            {
-                                <a id="vipLogin">请登录</a>
-                                <a id="vipRegistered">注册</a>
-                            }
-
-                        </a>
+                        </div>
                     </li>
                     <li>
                         <a href="/vip/VipInfo">我的订单</a>

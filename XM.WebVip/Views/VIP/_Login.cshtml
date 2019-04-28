@@ -4,18 +4,21 @@
         <a href="#" id="login_account" class="selected">账号登录</a><span class="line"></span><a href="#" id="login_note">短信登录</a>
     </div>
     @*账号登录*@
-    <div id="account_div" class="hidden">
+    <div id="account_div">
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="手机号/账号">
+            <input type="text" class="form-control" placeholder="手机号/账号" name="txt_an" id="txt_an">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" placeholder="密码">
+            <input type="password" class="form-control" placeholder="密码" name="txt_pwd" id="txt_pwd">
         </div>
-        <button type="button" class="btn btn-default col-xs-12 login_btu">登录</button>
+        <button type="button" class="btn btn-default col-xs-12 login_btu" id="bntLogin">登录</button>
+        <div class="hint">
+            <p></p>
+        </div>
     </div>
 
     @*短信登录*@
-    <div id="note_div">
+    <div id="note_div" class="hidden">
         <div class="form-group">
             <input type="text" class="form-control" placeholder="手机号">
         </div>
@@ -29,9 +32,11 @@
                 </div>
             </div>
         </div>
-        <button type="button" class="btn btn-default col-xs-12 login_btu">登录</button>
+        <button type="button" class="btn btn-default col-xs-12 login_btu" id="bntLogin">登录</button>
+        <div class="hint">
+            <p></p>
+        </div>
     </div>
-
     <div class="agreement">
         <input type="checkbox" checked onclick="return false;" />
         <span>
