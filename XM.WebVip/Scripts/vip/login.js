@@ -17,6 +17,7 @@ $("#login_note").click(function () {
         $(".form-control").val("");
     }
 });
+// 注册弹框
 $("#register").click(function () {
     var obj = {
         "modal": "#myModal", "dialog": "#dialog", "content": "#content", "body": "#body"
@@ -26,13 +27,13 @@ $("#register").click(function () {
     obj.url = "/vip/Signin";
     bouncedLogin(obj);
 })
-
+// 忘记密码弹框
 $("#back").click(function () {
     var obj = {
         "modal": "#myModal", "dialog": "#dialog", "content": "#content", "body": "#body"
     };
     obj.width = "400px";
-    obj.height = "350px";
+    obj.height = "300px";
     obj.url = "/vip/FoundPwdPage";
     bouncedLogin(obj);
 })
@@ -52,21 +53,24 @@ $("#bntLogin").click(function () {
             if (data.success) {
                 $("#onlogin_box").addClass("hidden");
                 $("#login_box").removeClass("hidden");
-                $("#vip_name").text(data.data.AN);
+                $("#vip_name").text(data.data.vip_AN);
                 $('#myModal').modal('hide');
             }
             else {
                 $(".hint>p").html(data.msg);
             }
-        }, "json")
+        }, "json");
     }
 });
 
 //退出
 $("#vipExit").click(function () {
-    // 清空数据
-
-    window.setTimeout(function () {
-        window.location.href = "/vip/Index";
-    }, 500);
+    $.get("/vip/RemoveSession", function (data, status, xhr) {
+        if (data.success) {
+            // 清空数据
+            window.setTimeout(function () {
+                window.location.href = "/vip/Index";
+            }, 500);
+        }
+    }, "json")
 });

@@ -162,7 +162,8 @@ namespace XM.WebVip.Controllers
             var vip = DALUtility.Vip.QryVipEmail<VipEntity>(param);
 
             bool boo = false;
-            string strMailContent = "<a href='http://172.16.31.234:6666/VIP/UpdatePwd'>修改密码</a>";
+            string strMailContent = "<a href='http://172.16.31.234:6666/VIP/UpdatePwd'" + Request["vip_AN"] + ">修改密码</a>";
+
 
             if (vip != null)
             {
@@ -477,7 +478,7 @@ namespace XM.WebVip.Controllers
         public ActionResult RemoveSession()
         {
             Session.RemoveAll();
-            return View("_index");
+            return OperationReturn(true, "退出成功");
         }
         #endregion
     }

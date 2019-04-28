@@ -189,6 +189,7 @@
     <Content Include="Scripts\vip\classification.js" />
     <Content Include="Scripts\vip\jqueryAjax.js" />
     <Content Include="Scripts\vip\login.js" />
+    <Content Include="Scripts\vip\vip%40FoundPwdPage.js" />
     <Content Include="Scripts\vip\Vip%40Signin.js" />
     <Content Include="Scripts\vip\vipIndex.js" />
     <Content Include="Scripts\vip\vipinfo.js" />
@@ -217,7 +218,7 @@
     <Content Include="Views\VIP\vipRecharge.cshtml" />
     <Content Include="Views\VIP\VipSite.cshtml" />
     <Content Include="Views\VIP\_Login.cshtml" />
-    <Content Include="Views\VIP\ChangePwd.cshtml" />
+    <Content Include="Views\VIP\UpdatePwdPage.cshtml" />
     <Content Include="Views\VIP\_Signin.cshtml" />
     <Content Include="Views\VIP\_FoundPwdPage.cshtml" />
   </ItemGroup>
