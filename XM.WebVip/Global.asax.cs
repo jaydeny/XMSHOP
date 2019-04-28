@@ -34,9 +34,10 @@ namespace XM.WebVip
         //            strExceptionMessage = httpError.Message;
         //            if (httpCode == 400 || httpCode == 404)
         //            {
-        //                Response.StatusCode = 404;
-        //                //跳转到指定的静态404信息页面，根据需求自己更改URL
-        //                Response.WriteFile("~/Error/Error404.cshtml");
+        //                //Response.StatusCode = 404;
+        //                ////跳转到指定的静态404信息页面，根据需求自己更改URL
+        //                //Response.WriteFile("~/Error/Error404.cshtml");
+        //                Server.Transfer("~/Error/Error404");
         //                Server.ClearError();
         //                return;
         //            }
@@ -52,8 +53,9 @@ namespace XM.WebVip
         //         * 跳转到指定的http 500错误信息页面
         //         * 跳转到静态页面一定要用Response.WriteFile方法                 
         //         */
-        //        Response.StatusCode = 500;
-        //        Response.WriteFile("~/Error/Error500.cshtml");
+        //        //Response.StatusCode = 500;
+        //        //Response.WriteFile("~/Error/Error500.cshtml");
+        //        Server.Transfer("~/Error/Error500");
 
         //        //一定要调用Server.ClearError()否则会触发错误详情页（就是黄页）
         //        Server.ClearError();

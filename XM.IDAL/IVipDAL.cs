@@ -130,6 +130,13 @@ namespace XM.IDAL
         int Recharge(Dictionary<string, object> paras);
 
         /// <summary>
+        /// 插入余额表
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        int InsertRemainder(Dictionary<string, object> paras);
+
+        /// <summary>
         /// 检查余额,购物
         /// </summary>
         /// <param name="paras"></param>

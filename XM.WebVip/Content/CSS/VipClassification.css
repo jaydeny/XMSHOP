@@ -1,0 +1,133 @@
+﻿.classification {
+}
+/*路径栏*/
+.classification .path_bar {
+    padding: 10px 0;
+}
+.classification .path_bar a {
+    color: #666;
+    font-size: 12px
+}
+.classification .path_bar a:hover {
+    color: #333;
+}
+
+.classification .fcn {
+    font-family: \5b8b\4f53;
+}
+
+/*筛选框*/
+.classification .filter_box {
+    border: 1px solid #dedede;
+}
+.classification .filter_box > div+div {
+    border-top: 1px solid #dedede;
+}
+.classification .filter_box > .item {
+    padding: 20px 20px 8px 60px;
+    font-size: 13px;
+    display: flex;
+}
+
+.classification .filter_box ul > li {
+    float: left;
+    margin-right: 20px;
+    padding: 0 0 12px 0;
+}
+.classification .filter_box ul a {
+    color: #999;
+}
+
+.classification .filter_box ul a:hover {
+    color: #666;
+}
+.classification .filter_box .title,.classification .filter_box .first-category {
+    margin-right: 20px;
+    white-space : nowrap;
+}
+.classification .filter_box .first-category {
+    color: #e01d20;
+}
+/*商品展示框*/
+.classification .goods-exhibition {
+    margin: 20px -20px 20px 0;
+    overflow: hidden;
+}
+.classification .goods-exhibition > ul li {
+    float: left;
+    width: 20%;
+}
+.classification .goods-exhibition .goods-item {
+    border: 1px solid #dedede;
+    margin: 0 20px 20px 0;
+    height: 362px;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+.classification .goods-exhibition .goods-item:hover {
+    border-color: #e01d20;
+}
+.classification .goods-exhibition p{
+    margin: 0;
+}
+
+.classification .goods-exhibition .p-img {
+    padding: 38px 0 24px 0;
+    text-align: center;
+}
+.classification .goods-exhibition img {
+    width: 180px;
+    height: 180px;
+    vertical-align: top;
+}
+.classification .goods-exhibition .p-title {
+    line-height: 16px;
+    padding: 0 20px;
+    overflow: inherit;
+    font-size: 12px;
+}
+.classification .goods-exhibition a {
+    color: #666;
+}
+.classification .goods-exhibition a:hover {
+    color: #e01d20;
+}
+.classification .goods-exhibition span {
+    display: block;
+    margin-bottom: 5px;
+    max-height: 32px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.classification .goods-exhibition .p-price b {
+    color: #e01d20;
+    line-height: 30px;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.classification .goods-exhibition .p-button {
+    border-top: 1px solid #dedede;
+    position: absolute;
+    left: -1px;
+    bottom: -1px;
+    width: 224px;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+}
+.classification .goods-exhibition .p-button:hover {
+    background: #e01d20;
+    border-color: #e01d20;
+}
+.classification .goods-exhibition .p-button:hover a {
+    color: #ffffff;
+}
+
+/*分页*/
+
+
+
+
+

@@ -1,0 +1,108 @@
+﻿html, body {
+    height: 100%;
+}
+
+.goods-details {
+    /*position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);*/
+    display: flex;
+}
+.goods-details .left {
+    /*flex: 4;*/
+}
+.goods-details .img-box img {
+    width: 300px;
+    height: 350px;
+}
+.goods-details .img-nav {
+    width: 300px;
+    height: 53px;
+    margin-top: 9px;
+    position: relative;
+}
+.goods-details .img-list {
+    width: 220px;
+    height: 48px;
+    margin-left: 40px;
+    overflow: hidden;
+    position: relative;
+}
+.goods-details .img-list ul {
+    width: 300%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.goods-details .img-list ul > li {
+    float: left;
+    padding: 0 3px;
+}
+.goods-details .img-list img {
+    display: block;
+    vertical-align: top;
+    width: 40px;
+    height: 40px;
+    margin: 4px 4px 0 4px;
+}
+.goods-details .img_but {
+     position: absolute;
+     width: 30px;
+     height: 68px; 
+    font-size: 30px;
+    top: 10%;
+}
+.goods-details .next {
+    right: 0;
+}
+.goods-details .last {
+    left: 0;
+}
+
+.goods-details .right {
+    min-width: 260px;
+}
+.goods-details .name {
+    font-size: 24px;
+    margin: 30px 0 0 0;
+}
+.goods-details .sell {
+    margin: 10px 0 0 0;
+    font-size: 15px;
+    color: #ca141d;
+    text-decoration: underline;
+}
+.goods-details .prominent {
+    background: #f5f5f5;
+    margin: 150px -46px 0 0;
+    padding: 14px 0 3px 0;
+}
+.goods-details .price > span {
+    font-size: 14px;
+    letter-spacing:20px;
+}
+.goods-details .price > a {
+    font-size: 24px;
+    color: #ca141d;
+}
+.goods-details .price > a > em {
+    font-size: 18px;
+    margin-right: 1px;
+    font-style: normal;
+    font-weight: 400;
+}
+.goods-details .number {
+    overflow: hidden;
+    margin: 10px 0;
+    width: 124px;
+}
+.goods-details .number input {
+    text-align: center;
+    font-size: 20px;
+    width: 45px;
+    padding: 0;
+}
+.goods-details .button {
+    margin: 20px 0 0 10px;
+}

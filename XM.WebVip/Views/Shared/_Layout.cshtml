@@ -1,43 +1,306 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - 我的 ASP.NET 应用程序</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/CSS/base.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/CSS/HomePage.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/CSS/home.css" rel="stylesheet" type="text/css" />
+    @*登入页*@
+    <link href="~/Content/CSS/vipLogin.css" rel="stylesheet" />
+    @*注册页*@
+    <link href="~/Content/CSS/vipRegistered.css" rel="stylesheet" />
+    @*商品筛选页*@
+    <link href="~/Content/CSS/VipClassification.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery-3.4.0.js"></script>
+    <script src="~/Content/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/vip/bounced.js"></script>
+    <script src="~/Scripts/vip/vipIndex.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("应用程序名称", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <!--快捷键-->
+    <div class="shortcut suspension_a">
+        <div class="layout">
+            <div class="s-sub">
+                <ul>
+                    <li>
+                        <a>首页</a>
+                    </li>
+                </ul>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("主页", "Index", "Home")</li>
-                    <li>@Html.ActionLink("关于", "About", "Home")</li>
-                    <li>@Html.ActionLink("联系方式", "Contact", "Home")</li>
+            <div class="main">
+                <ul>
+                    <li>
+                        @*<a href="#" data-toggle="modal" data-target="#myModal">请登录</a>*@
+                        <a>
+                            @ViewData.Model
+                            @if (ViewData.Model != null)
+                            {
+                                <a id="vipInfo">@ViewData.Model.vip_</a>
+                                <a id="vipExit">退出</a>
+                            }
+
+                            @if (ViewData.Model == null)
+                            {
+                                <a id="vipLogin">请登录</a>
+                                <a id="vipRegistered">注册</a>
+                            }
+
+                        </a>
+                    </li>
+                    <li>
+                        <a>我的订单</a>
+                    </li>
+                    <li>
+                        <a>购物车(0)</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="container body-content">
+
+    <!--头部 -->
+    <nav class="navbar-default header">
+        <div class="layout">
+            <div class="navbar-header main suspension_a" ">
+                <a class=" navbar-brand" href="#" style="font-size: 20px;">
+                    XMPJ
+                    商城
+                </a>
+                <a class="navbar-brand" href="#">华为专区</a>
+                <a class="navbar-brand" href="#">小米专区</a>
+                <a class="navbar-brand" href="#">三星专区</a>
+                <a class="navbar-brand" href="#">vivo专区</a>
+                <a class="navbar-brand" href="#">iphome专区</a>
+
+            </div>
+            <form class="navbar-form navbar-right" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="荣耀V20 HUAWEI nova" style="width: 260px">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">搜索</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </nav>
+
+    <div class="main-body">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 应用程序</p>
-        </footer>
+        @Html.AntiForgeryToken()
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    <!--口号-->
+    <div class="slogan-container">
+        <div class="slogan suspension_a">
+            <ul>
+                <li>
+                    <a href="#" class="s1">
+                        <i class=""></i> 品质保证
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="s2">
+                        <i class=""></i> 7天退货
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="s3">
+                        <i class=""></i> 15天换货
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="s4">
+                        <i class=""></i> 维修联保
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--服务-->
+    <div class="service">
+        <div class="layout">
+            <ul class="menu">
+                <li class="a">
+                    <ul>
+                        <li>
+                            <a href="#">购物相关</a>
+                        </li>
+
+                        <li>
+                            <a href="#">购物指南</a>
+                        </li>
+
+                        <li>
+                            <a href="#">配送方式</a>
+                        </li>
+
+                        <li>
+                            <a href="#">支付方式</a>
+                        </li>
+
+                        <li>
+                            <a href="#">常见问题</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="a">
+                    <ul>
+                        <li>
+                            <a>保修与退换货</a>
+                        </li>
+
+                        <li>
+                            <a>保修政策</a>
+                        </li>
+
+                        <li>
+                            <a>退换货政策</a>
+                        </li>
+
+                        <li>
+                            <a>退换货流程</a>
+                        </li>
+
+                        <li>
+                            <a>保修状态查询</a>
+                        </li>
+
+                        <li>
+                            <a>配件防伪查询</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="a">
+                    <ul>
+                        <li>
+                            <a>维修与技术支持</a>
+                        </li>
+                        <li>
+                            <a>售后网点</a>
+                        </li>
+                        <li>
+                            <a>预约维修</a>
+                        </li>
+                        <li>
+                            <a>手机寄修</a>
+                        </li>
+                        <li>
+                            <a>备件价格查询</a>
+                        </li>
+                        <li>
+                            <a>上门服务</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="a">
+                    <ul>
+                        <li>
+                            <a>特色服务</a>
+                        </li>
+                        <li>
+                            <a>防伪查询</a>
+                        </li>
+                        <li>
+                            <a>补购保障</a>
+                        </li>
+                        <li>
+                            <a>以旧换新</a>
+                        </li>
+                        <li>
+                            <a>礼品包装</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="a">
+                    <ul>
+                        <li>
+                            <a>关于我们</a>
+                        </li>
+                        <li>
+                            <a>公司介绍</a>
+                        </li>
+                        <li>
+                            <a>XMPJ商城简介</a>
+                        </li>
+                        <li>
+                            <a>XMPJ线下门店</a>
+                        </li>
+                        <li>
+                            <a>诚征英才</a>
+                        </li>
+                        <li>
+                            <a>意见反馈</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="a">
+                    <ul>
+                        <li>
+                            <a>友情链接</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="b">
+                    <ul>
+                        <li>
+                            <p class="phone">xxx-xxx-xxxx</p>
+                        </li>
+                        <li>
+                            <p>7x24小时客服热线</p>
+                        </li>
+                        <li><a class="but_service">在线客服</a></li>
+                    </ul>
+                </li>
+                </a>
+            </ul>
+        </div>
+    </div>
+
+    <!--悬浮工具-->
+    <div class="hungBar">
+        <div class="hungBar-content">
+            <a title="购物">
+                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+            </a>
+            <a title="在线客服">
+                <span class="glyphicon glyphicon-headphones" aria-hidden="true"></span>
+            </a>
+            <a title="意见反馈">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+            </a>
+            <a title="返回顶部" onclick="document.body.scrollTop = document.documentElement.scrollTop = 0;">
+                <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+
+    <!--底部-->
+    <div class="footer">
+        <div class="layout">
+            <p>XMPJ <samp>©</samp> 2019 版权所有</p>
+        </div>
+    </div>
+
+    @*bootstrap 模态框*@
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="top: 20%" id="dialog">
+            <div class="modal-content" id="content">
+                <div class="modal-body">
+                    <div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="f-s-30">&times;</span></button>
+                    </div>
+                    <div id="body"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

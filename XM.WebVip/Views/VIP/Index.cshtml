@@ -1,0 +1,312 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*轮播*@
+<div class="shuffling">
+    <div class="">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="2000">
+            <!-- 轮播（Carousel）指标 -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+                <li data-target="#myCarousel" data-slide-to="3"></li>
+                <li data-target="#myCarousel" data-slide-to="4"></li>
+                <li data-target="#myCarousel" data-slide-to="5"></li>
+            </ol>
+
+            <!-- 轮播（Carousel）项目 -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <a href="#">
+                        <img src="~/img/slide_1.jpg" alt="First slide">
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <img src="~/img/slide_2.jpg" alt="Second slide">
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <img src="~/img/slide_3.jpg" alt="Third slide">
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <img src="~/img/slide_4.jpg" alt="Third slide">
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <img src="~/img/slide_5.jpg" alt="Third slide">
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <img src="~/img/slide_6.jpg" alt="Third slide">
+                    </a>
+                </div>
+            </div>
+
+            <!-- 轮播（Carousel）导航 -->
+            <a class="but_shuffling but_shuffling_left but_shuffling_right " href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="but_shuffling but_shuffling_right" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+@*菜单栏*@
+<div class="home-menu naver-main">
+    <div class="layout">
+        @*推销*@
+        <div class="push_marks">
+            <ul class="grid-list">
+                <li>
+                    <a><img src="~/img/h1.jpg" /></a>
+                </li>
+                <li>
+                    <a><img src="~/img/h2.jpg" /></a>
+                </li>
+                <li>
+                    <a><img src="~/img/h3.jpg" /></a>
+                </li>
+                <li>
+                    <a><img src="~/img/h4.jpg" /></a>
+                </li>
+            </ul>
+        </div>
+        @*热销*@
+        <div class="hot_melt">
+            <h2 class="sell-title">热销单品</h2>
+            <div>
+                <ul class="grid-list">
+                    <li class="grid-item-sm">
+                        <a class="" href="#">
+                            <img alt="图片" src="#">
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="" href="#">
+                            <div class="info">
+                                <p class="img">
+                                    <img alt="图片" src="#">
+                                </p>
+                            </div>
+                            <div class="title">名称</div>
+                            <p class="desc">提示</p>
+                            <p class="price">¥价格</p>
+                            <p class="tips" style="display: none">
+                                <em class=""><span class="">标签</span></em>
+                            </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="#">
+                            <div class="info">
+                                <p class="img">
+                                    <img alt="图片" src="#">
+                                </p>
+                            </div>
+                            <div class="title">名称</div>
+                            <p class="desc">提示</p>
+                            <p class="price">¥价格</p>
+                            <p class="tips" style="display: none">
+                                <em class=""><span class="">标签</span></em>
+                            </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="#">
+                            <div class="info">
+                                <p class="img">
+                                    <img alt="图片" src="#">
+                                </p>
+                            </div>
+                            <div class="title">名称</div>
+                            <p class="desc">提示</p>
+                            <p class="price">¥价格</p>
+                            <p class="tips" style="display: none">
+                                <em class=""><span class="">标签</span></em>
+                            </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="#">
+                            <div class="info">
+                                <p class="img">
+                                    <img alt="图片" src="#">
+                                </p>
+                            </div>
+                            <div class="title">名称</div>
+                            <p class="desc">提示</p>
+                            <p class="price">¥价格</p>
+                            <p class="tips" style="display: none">
+                                <em class=""><span class="">标签</span></em>
+                            </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="#">
+                            <div class="info">
+                                <p class="img">
+                                    <img alt="图片" src="#">
+                                </p>
+                            </div>
+                            <div class="title">名称</div>
+                            <p class="desc">提示</p>
+                            <p class="price">¥价格</p>
+                            <p class="tips" style="display: none">
+                                <em class=""><span class="">标签</span></em>
+                            </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="#">
+                            <div class="info">
+                                <p class="img">
+                                    <img alt="图片" src="#">
+                                </p>
+                            </div>
+                            <div class="title">名称</div>
+                            <p class="desc">提示</p>
+                            <p class="price">¥价格</p>
+                            <p class="tips" style="display: none">
+                                <em class=""><span class="">标签</span></em>
+                            </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="#">
+                            <div class="info">
+                                <p class="img">
+                                    <img alt="图片" src="#">
+                                </p>
+                            </div>
+                            <div class="title">名称</div>
+                            <p class="desc">提示</p>
+                            <p class="price">¥价格</p>
+                            <p class="tips" style="display: none">
+                                <em class=""><span class="">标签</span></em>
+                            </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="#">
+                            <div class="info">
+                                <p class="img">
+                                    <img alt="图片" src="#">
+                                </p>
+                            </div>
+                            <div class="title">名称</div>
+                            <p class="desc">提示</p>
+                            <p class="price">¥价格</p>
+                            <p class="tips" style="display: none">
+                                <em class=""><span class="">标签</span></em>
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        @*图片轮换*@
+        <div class="banner-slideshow">
+            <a><img class="" alt="图片" src="~/img/bs.jpg"></a>
+        </div>
+
+        @*精品*@
+        <div class="quality_goods">
+            <h2 class="sell-title">精品推荐</h2>
+            <div>
+                <ul class="grid-list">
+                    <li>
+                        <a class="" href="#">
+                            <div class="info">
+                                <p class="img">
+                                    <img alt="图片" src="#">
+                                </p>
+                            </div>
+                            <div class="title">名称</div>
+                            <p class="desc">提示</p>
+                            <p class="price">¥价格</p>
+                            <p class="tips" style="display: none">
+                                <em class=""><span class="">标签</span></em>
+                            </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="#">
+                            <div class="info">
+                                <p class="img">
+                                    <img alt="图片" src="#">
+                                </p>
+                            </div>
+                            <div class="title">名称</div>
+                            <p class="desc">提示</p>
+                            <p class="price">¥价格</p>
+                            <p class="tips" style="display: none">
+                                <em class=""><span class="">标签</span></em>
+                            </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="#">
+                            <div class="info">
+                                <p class="img">
+                                    <img alt="图片" src="#">
+                                </p>
+                            </div>
+                            <div class="title">名称</div>
+                            <p class="desc">提示</p>
+                            <p class="price">¥价格</p>
+                            <p class="tips" style="display: none">
+                                <em class=""><span class="">标签</span></em>
+                            </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="#">
+                            <div class="info">
+                                <p class="img">
+                                    <img alt="图片" src="#">
+                                </p>
+                            </div>
+                            <div class="title">名称</div>
+                            <p class="desc">提示</p>
+                            <p class="price">¥价格</p>
+                            <p class="tips" style="display: none">
+                                <em class=""><span class="">标签</span></em>
+                            </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="#">
+                            <div class="info">
+                                <p class="img">
+                                    <img alt="图片" src="#">
+                                </p>
+                            </div>
+                            <div class="title">名称</div>
+                            <p class="desc">提示</p>
+                            <p class="price">¥价格</p>
+                            <p class="tips" style="display: none">
+                                <em class=""><span class="">标签</span></em>
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
