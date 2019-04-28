@@ -153,7 +153,7 @@ namespace XM.IDAL
         /// <typeparam name="T"></typeparam>
         /// <param name="paras"></param>
         /// <returns></returns>
-        T QryVipInfo<T>(Dictionary<string, object> paras);
+        string QryVipInfo<T>(Dictionary<string, object> paras);
 
         /// <summary>
         /// 查询收货地址

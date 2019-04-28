@@ -350,9 +350,13 @@ namespace XM.DAL
         /// <typeparam name="T"></typeparam>
         /// <param name="paras"></param>
         /// <returns></returns>
-        public T QryVipInfo<T>(Dictionary<string, object> paras)
+        public string QryVipInfo<T>(Dictionary<string, object> paras)
         {
-            return QuerySingle<T>("SELECT * FROM v_vip_list WHERE VipAccountName=@vip_AN", paras, CommandType.Text);
+            var vipInfo = QuerySingle<T>("SELECT * FROM v_vip_list WHERE VipAccountName=@vip_AN", paras, CommandType.Text);
+
+            string retData = JsonConvert.SerializeObject(new { total = 1, rows = vipInfo });
+
+            return retData;
         }
 
         /// <summary>

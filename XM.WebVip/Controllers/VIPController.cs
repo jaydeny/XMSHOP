@@ -38,7 +38,7 @@ namespace XM.WebVip.Controllers
         /// <returns>页面:登录页面</returns>
         public ActionResult Login()
         {
-            return View();
+            return View("_Login");
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace XM.WebVip.Controllers
         /// <returns>页面:注册时,返回注册页面</returns>
         public ActionResult Signin()
         {
-            return View();
+            return View("_Signin");
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace XM.WebVip.Controllers
         /// <returns>页面:修改信息页面</returns>
         public ActionResult Update()
         {
-            return View();
+            return View("_Update");
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace XM.WebVip.Controllers
          /// <returns>页面</returns>
         public ActionResult FoundPwdPage()
         {
-            return View();
+            return View("_FoundPwdPage");
         }
 
         /// <summary>
@@ -186,14 +186,16 @@ namespace XM.WebVip.Controllers
         {
             return OperationReturn(true, vip_AN);
         }
-
-        public ActionResult RechargePage()
-        {
-            return View();
-        }
         #endregion
 
         #region _recharge
+        public ActionResult RechargePage()
+        {
+            return View("_RechargePage");
+        }
+
+
+
         /// <summary>
         /// 作者:曾贤鑫
         /// 日期:2019/4/26
@@ -292,9 +294,7 @@ namespace XM.WebVip.Controllers
             param.Add("vip_AN", Request["vip_AN"]);
 
             var vip = DALUtility.Vip.QryVipInfo<VipEntity>(param);
-
-            ViewBag.vipInfo = vip;
-            return View();
+            return Content(vip);
         }
         #endregion
 
@@ -307,7 +307,7 @@ namespace XM.WebVip.Controllers
         /// <returns>页面</returns>
         public ActionResult AddressPage()
         {
-            return View();
+            return View("_AddressPage");
         }
 
         /// <summary>
