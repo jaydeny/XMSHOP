@@ -27,6 +27,15 @@ namespace XM.WebAgent.Controllers
             return View();
         }
 
+        public ActionResult ReportForm() {
+            return View();
+        }
+
+
+
+        /// <param name="AN"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
 
         [HttpPost]
         public ActionResult Login(string AN, string pwd)
@@ -260,14 +269,14 @@ namespace XM.WebAgent.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var goods = DALUtility.Goods.QryGoods<GoodsEntity>(paras, out totalCount);
-            if (goods != null)
-            {
-                log(HttpContext.Session["user_AN"].ToString(), "获取所有商品信息", "true", "获取成功");
-            }
-            else
-            {
-                log(HttpContext.Session["user_AN"].ToString(), "获取所有商品信息", "false", "获取失败");
-            }
+            //if (goods != null)
+            //{
+            //    log(HttpContext.Session["user_AN"].ToString(), "获取所有商品信息", "true", "获取成功");
+            //}
+            //else
+            //{
+            //    log(HttpContext.Session["user_AN"].ToString(), "获取所有商品信息", "false", "获取失败");
+            //}
             return PagerData(totalCount, goods);
         }
     }
