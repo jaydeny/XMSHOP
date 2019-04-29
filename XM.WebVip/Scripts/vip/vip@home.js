@@ -45,4 +45,10 @@ window.onload = function () {
     loginInfo();
 }
 
+// 进入商品赛选页面
+$(".header a").click(function () {
+    window.location.href = "/vip/shoppingList"
+});
+
+
 

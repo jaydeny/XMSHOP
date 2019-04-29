@@ -23,7 +23,7 @@
                     <ul class="nav nav-pills nav-stacked ">
                         <li role="presentation" class="title dividing-line">我的商城</li>
                         <li role="presentation" class=""><a href="/vip/RechargePage">余额充值</a></li>
-                        <li role="presentation" class=""><a href="/vip/Update" >信息管理</a></li>
+                        <li role="presentation" class=""><a href="/vip/Update" id="myInfo" >信息管理</a></li>
                         <li role="presentation" class=""><a href="/vip/UpdatePwdPage" >修改密码</a></li>
                         <li role="presentation" class=""><a href="/vip/AddressPage" class="dividing-line">地址管理</a></li>
                     </ul>
@@ -35,7 +35,7 @@
                                 <img src="~/img/logged.png" class="head-portrait" />
                             </li>
                             <li>
-                                <h3 style="line-height: 120px;" id="vip_info_name">用户**名</h3>
+                                <h3 style="line-height: 120px;" id="vip_info_name"></h3>
                             </li>
                             <li>
                                 <div class="balance">
@@ -65,8 +65,8 @@
                                 <li class="flex1"><a>已完成</a></li>
                             </ul>
                             <div class="order-list">
-                                <p class="empty-order hidden">当前无近期订单，前往<a>首页</a>选购吧～</p>
-                                <ul>
+                                <p class="empty-order" id="empty_order">当前无近期订单，前往<a href="/vip/index">首页</a>选购吧～</p>
+                                <ul class="hidden" id="order_box">
                                     <li>
                                         <div class="flex-2">商品</div>
                                         <div class="flex-1">单价</div>

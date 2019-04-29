@@ -87,10 +87,13 @@
         }
 
             .home-menu .grid-list > li .img {
-                width: 150px;
-                height: 150px;
                 margin: 35px auto 0;
+                text-align: center;
             }
+                .home-menu .grid-list > li .img > img {
+                    width: 150px;
+                    height: 150px;
+                }
 
             .home-menu .grid-list > li .title {
                 width: 210px;
