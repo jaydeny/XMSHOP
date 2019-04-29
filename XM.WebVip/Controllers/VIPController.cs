@@ -618,6 +618,18 @@ namespace XM.WebVip.Controllers
             return PagerData(totalCount, goods);
         }
 
+        public ActionResult AgoodsListPage()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult AgoodsList()
+        {
+            return View();
+        }
+
 
         public ActionResult QryOrder()
         {
