@@ -233,6 +233,7 @@ namespace XM.DAL
         }
 
 
+        ///作者:曾贤鑫
 
 
         /// <summary>
@@ -291,12 +292,12 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString()
             };
             builder.AddWhereAndParameter(paras, "vip_AN", "vip_AN", "LIKE", "'%'+@vip_AN+'%'");
+
             builder.AddWhereAndParameter(paras, "vip_mp");
             builder.AddWhereAndParameter(paras, "vip_Email", "vip_Email", "LIKE", "'%'+@vip_Email+'%'");
             builder.AddWhereAndParameter(paras, "status_id");
             builder.AddWhereAndParameter(paras, "agent_id");
-
-            System.Diagnostics.Debug.WriteLine(builder);
+            
             var s = SortAndPage(builder, grid, out iCount);
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
             return retData;
@@ -325,6 +326,16 @@ namespace XM.DAL
         }
 
         /// <summary>
+        /// 插入余额表
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public int InsertRemainder(Dictionary<string, object> paras)
+        {
+            return QuerySingle<int>("P_tbremiander_remiand", paras, CommandType.StoredProcedure);
+        }
+
+        /// <summary>
         /// 检查余额
         /// </summary>
         /// <param name="paras"></param>
@@ -332,6 +343,127 @@ namespace XM.DAL
         public int Buy(Dictionary<string, object> paras)
         {
             return QuerySingle<int>("P_tbvip_Shopping", paras, CommandType.StoredProcedure);
+        }
+
+        /// <summary>
+        /// 查询个人信息
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public string QryVipInfo<T>(Dictionary<string, object> paras)
+        {
+            var vipInfo = QuerySingle<T>("SELECT vip_AN,vip_mp,vip_enmail FROM tbvip WHERE VipAccountName=@vip_AN", paras, CommandType.Text);
+
+            string retData = JsonConvert.SerializeObject(new { total = 1, rows = vipInfo });
+
+            return retData;
+        }
+
+        /// <summary>
+        /// 查询原始密码
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public string QryOrgPwd(Dictionary<string, object> paras)
+        {
+            return QuerySingle<string>("SELECT pwd FROM tbvip WHERE id=@vip_id", paras, CommandType.Text);
+        }
+
+        /// <summary>
+        /// 查询vip邮箱
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public T QryVipEmail<T>(Dictionary<string, object> paras)
+        {
+            return QuerySingle<T>("SELECT * FROM v_vip_list WHERE VipAccountName=@vip_AN", paras, CommandType.Text);
+        }
+
+        /// <summary>
+        /// 查询收货地址
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public string QryVipAddress(Dictionary<string, object> paras, out int iCount)
+        {
+            WhereBuilder builder = new WhereBuilder();
+            builder.FromSql = "tbaddress";
+            GridData grid = new GridData()
+            {
+                PageIndex = Convert.ToInt32(paras["pi"]),
+                PageSize = Convert.ToInt32(paras["pageSize"]),
+                SortField = paras["sort"].ToString()
+            };
+            builder.AddWhereAndParameter(paras, "vip_id");
+
+            var s = SortAndPage(builder, grid, out iCount);
+            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
+            return retData;
+        }
+
+        /// <summary>
+        /// 检查余额,购物
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns>
+        /// 0:添加
+        /// 1:修改
+        /// 2:报错
+        /// </returns>
+        public int SaveAddress(Dictionary<string, object> paras)
+        {
+            return QuerySingle<int>("P_tbaddress_address", paras, CommandType.StoredProcedure);
+        }
+
+        /// <summary>
+        /// 删除地址
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public int DeleteAddress(Dictionary<string, object> paras)
+        {
+            return QuerySingle<int>("delete tbaddress where id=@id and vip_id=@vip_id", paras, CommandType.Text);
+        }
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4-28
+        /// 修改时间：2019-
+        /// 功能：查询代理商AN
+        /// </summary>
+        public string QryAgentANByID(Dictionary<string, object> paras)
+        {
+            return QuerySingle<string>("select agent_AN from tbagent where id = @agent_id", paras, CommandType.Text);
+        }
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4/29
+        /// 修改时间：2019-
+        /// 功能：查询订单
+        /// </summary>
+        public string QryOrder(Dictionary<string, object> paras, out int iCount)
+        {
+            WhereBuilder builder = new WhereBuilder();
+            builder.FromSql = "tborder a join tbaddress b on a.order_address = b.id";
+            GridData grid = new GridData()
+            {
+                PageIndex = 1,
+                PageSize = 10,
+                SortField = "a.id"
+            };
+            builder.AddWhereAndParameter(paras, "startTime", "order_date", ">", "@startTime");
+            builder.AddWhereAndParameter(paras, "endTime", "order_date", "<", "@endTime");
+            builder.AddWhereAndParameter(paras, "agent_AN");
+            builder.AddWhereAndParameter(paras, "vip_AN");
+
+            var s = SortAndPage(builder, grid, out iCount, "a.* , b.address_name");
+            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
+            return retData;
         }
     }
 }

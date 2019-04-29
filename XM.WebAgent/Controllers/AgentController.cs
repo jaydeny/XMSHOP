@@ -8,35 +8,56 @@ using XM.Web.Controllers;
 
 namespace XM.WebAgent.Controllers
 {
+    /// <summary>
+    /// 作者:曾贤鑫
+    /// 日期:2019/4/26
+    /// 功能:代理端需要用到的一些行为
+    /// </summary>
     public class AgentController : BaseController
     {
         // GET: Agent
-        //VIP用户主页
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:返回代理端首页
+        /// </summary>
+        /// <returns>页面:代理端首页</returns>
         public ActionResult Index()
         {
 
             return View();
         }
-        //登录页
+
+        /// <summary>
+        /// 作者:梁钧淋
+        /// 日期:2019/4/26
+        /// 功能:返回商品页面
+        /// </summary>
+        /// <returns></returns>
+        //返回商品操作页
+        public ActionResult getGoodsPage()
+        {
+            return View();
+        }
+
+        #region _Login
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:返回代理端登录页
+        /// </summary>
+        /// <returns>页面:代理端登录页</returns>
         public ActionResult Login()
         {
             return View();
         }
-        //返回商品操作页
-        public ActionResult getGoodsPage() {
-            return View();
-        }
 
-        public ActionResult ReportForm() {
-            return View();
-        }
-
-
-
-        /// <param name="AN"></param>
-        /// <param name="pwd"></param>
-        /// <returns></returns>
-
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:代理端进行登入
+        /// </summary>
+        /// <returns>json值</returns>
         [HttpPost]
         public ActionResult Login(string AN, string pwd)
         {
@@ -53,7 +74,14 @@ namespace XM.WebAgent.Controllers
                     {
                         return OperationReturn(false, "用户已被禁用，请您联系管理员");
                     }
-                    return OperationReturn(true, "登录成功,agent_id:" + agent.AgentID + ";agent_AN:" + AN);
+                    Session["AN"] = agent.AgentAccountName;
+                    Session["ID"] = agent.AgentID;
+                    return OperationReturn(true, "登录成功,agent_id:" + agent.AgentID + ";agent_AN:" + AN,
+                        new
+                        {
+                            agent_id = agent.AgentID,
+                            agent_AN = agent.AgentAccountName,
+                        });
                 }
                 else
                 {
@@ -65,30 +93,55 @@ namespace XM.WebAgent.Controllers
                 return OperationReturn(false, "登录异常," + ex.Message);
             }
         }
+        #endregion
 
-        //注册时,返回注册页面
+        #region _Signin
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:返回代理端注册页
+        /// </summary>
+        /// <returns>页面:代理端注册页</returns>
         public ActionResult Signin()
         {
             return View();
         }
 
-        //注册
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:代理端进行注册
+        /// </summary>
+        /// <returns>json值</returns>
         [HttpPost]
         public ActionResult Signin(AgentEntity agent)
         {
             return save(0);
         }
+        #endregion
 
-        //修改代理
+        #region _Update
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:代理端进行修改信息
+        /// </summary>
+        /// <returns>页面:修改页面</returns>
         public ActionResult Update()
         {
             return View();
         }
 
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:代理端进行修改信息
+        /// </summary>
+        /// <returns>json值</returns>
         [HttpPost]
         public ActionResult Update(AgentEntity agent)
         {
-            return save(int.Parse(Request["agent_id"]));
+            return save(int.Parse(Session["ID"].ToString()));
         }
 
         //注册或者修改代理信息时,检查邮箱,email,联系方式舒服重复
@@ -113,38 +166,26 @@ namespace XM.WebAgent.Controllers
                 paras["agent_CDT"] = DateTime.Now;
                 paras["status_id"] = Request["status_id"];
                 int result = DALUtility.Agent.saveAgent(paras);
-                return OperationReturn(result > 0);
+                if (ID == 0)
+                {
+                    return OperationReturn(result > 0, "注册成功");
+                }
+                else
+                {
+                    return OperationReturn(result > 0, "修改成功");
+                }
             }
         }
+        #endregion
 
-        //public ActionResult GetAllVIP()
-        //{
-
-        //    string sort = Request["sort"] == null ? "id" : Request["sort"];
-        //    string order = Request["order"] == null ? "asc" : Request["order"];
-        //    int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
-        //    int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-
-        //    string agent_AN = Request["agent_AN"];
-        //    string agent_mp = Request["agent_mp"];
-        //    string agent_email = Request["agent_email"];
-        //    string status_id = Request["status_id"];
-
-        //    Dictionary<string, object> param = new Dictionary<string, object>();
-        //    param.Add("pi", pageindex);
-        //    param.Add("pageSize", pagesize);
-        //    param.Add("sort", sort);
-        //    param.Add("agent_AN", agent_AN);
-        //    param.Add("agent_mp", agent_mp);
-        //    param.Add("agent_email", agent_email);
-        //    param.Add("status_id", status_id);
-
-
-        //    string result = DALUtility.Agent.QryAllAgent(param, out int ICount);
-        //    return Content(result);
-        //}
-
-        public ActionResult GetAllUserInfo()
+        #region _vipInfo
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:代理端获取所有的会员信息,可以分页
+        /// </summary>
+        /// <returns>json值</returns>
+        public ActionResult GetAllVIP()
         {
             string sort = Request["sort"] == null ? "VipID" : Request["sort"];
             string order = Request["order"] == null ? "asc" : Request["order"];
@@ -170,7 +211,7 @@ namespace XM.WebAgent.Controllers
             var users = DALUtility.Vip.QryUsers<VipEntity>(paras, out totalCount);
             //if (users != null)
             //{
-            //    //log(HttpContext.Session["user_AN"].ToString(), "查询所有vip用户信息", "true", "查询成功");
+            //    log(HttpContext.Session["user_AN"].ToString(), "查询所有vip用户信息", "true", "查询成功");
             //}
             //else
             //{
@@ -178,50 +219,40 @@ namespace XM.WebAgent.Controllers
             //}
             return PagerData(totalCount, users);
         }
+        #endregion
 
+        #region _Goods
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:代理端进行商品上架或者修改
+        /// </summary>
+        /// <returns>json值</returns>
         public ActionResult MakeGoods()
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("id", Request["Agooods_id"]);
+            param.Add("id", Request["Agoods_id"]);
             param.Add("goods_id", Request["goods_id"]);
             param.Add("status_id", Request["status_id"]);
             param.Add("price", Request["price"]);
-            param.Add("up_time", Request["up_time"]);
-            param.Add("Agent_AN", Request["Agent_AN"]);
+            param.Add("up_time", DateTime.Now);
+            param.Add("Agent_AN", Session["AN"].ToString());
             param.Add("goods_name", Request["goods_name"]);
 
             int iCheck = DALUtility.Agent.MakeGoods(param);
-            return OperationReturn(true, iCheck == 0 ? "上架成功" : (iCheck == 1 ? "修改成功!" : "当前操作失败,请重新尝试!"));
+            if(iCheck == 0)
+            {
+                return OperationReturn(true, "上架成功");
+            }
+            return OperationReturn(false, "上架失败");
         }
 
-        //代理商处理充值
-        public ActionResult CheckRecharge(int vip_id, decimal recharge_price,DateTime recharge_time)
-        {
-            return OperationReturn(true, "用户:"+vip_id+"于"+recharge_time+"充值:"+recharge_price+"元!充值成功!!");
-        }
-
-
-        public ActionResult QryReportForm()
-        {
-            string sort = Request["sort"] == null ? "id" : Request["sort"];
-            string order = Request["order"] == null ? "asc" : Request["order"];
-            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
-            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-            
-
-            Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("pi", pageindex);
-            param.Add("pageSize", pagesize);
-            param.Add("sort", sort);
-            param.Add("startTime", Request["startTime"]);
-            param.Add("endTime", Request["endTime"]);
-            param.Add("agent_AN", Request["agent_AN"]);
-
-            string result = DALUtility.Agent.QryReportForm(param, out int ICount);
-            return Content(result);
-        }
-
-        //查询所有的代理商商品
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:查询所有的代理商商品
+        /// </summary>
+        /// <returns>json值</returns>
         public ActionResult QryAgoods()
         {
             string sort = Request["sort"] == null ? "id" : Request["sort"];
@@ -234,15 +265,19 @@ namespace XM.WebAgent.Controllers
             param.Add("pi", pageindex);
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
-            param.Add("agent_AN", Request["agent_AN"]);
+            param.Add("agent_AN", Session["AN"].ToString());
 
             string result = DALUtility.Agent.QryAgoods(param, out int ICount);
             return Content(result);
         }
 
 
-
-        //查询所有的商品
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:查询所有的商品
+        /// </summary>
+        /// <returns>json值</returns>
         public ActionResult GetAllGoodsInfo()
         {
             string sort = Request["sort"] == null ? "GoodsID" : Request["sort"];
@@ -269,15 +304,78 @@ namespace XM.WebAgent.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var goods = DALUtility.Goods.QryGoods<GoodsEntity>(paras, out totalCount);
-            //if (goods != null)
-            //{
-            //    log(HttpContext.Session["user_AN"].ToString(), "获取所有商品信息", "true", "获取成功");
-            //}
-            //else
-            //{
-            //    log(HttpContext.Session["user_AN"].ToString(), "获取所有商品信息", "false", "获取失败");
-            //}
             return PagerData(totalCount, goods);
         }
+        #endregion
+
+        #region _Form
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:查询时段内的报表
+        /// </summary>
+        /// <returns>json值</returns>
+        public ActionResult QryReportForm()
+        {
+            string sort = Request["sort"] == null ? "id" : Request["sort"];
+            string order = Request["order"] == null ? "asc" : Request["order"];
+            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("pi", pageindex);
+            param.Add("pageSize", pagesize);
+            param.Add("sort", sort);
+            param.Add("startTime", Request["startTime"]);
+            param.Add("endTime", Request["endTime"]);
+            param.Add("agent_AN", Session["AN"].ToString());
+
+            string result = DALUtility.Agent.QryReportForm(param, out int ICount);
+            return Content(result);
+        }
+
+        public ActionResult QryOrder()
+        {
+            string sort = Request["sort"] == null ? "id" : Request["sort"];
+            string order = Request["order"] == null ? "asc" : Request["order"];
+            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("pi", pageindex);
+            param.Add("pageSize", pagesize);
+            param.Add("sort", sort);
+            param.Add("agent_AN", Session["agent_AN"].ToString());
+            param.Add("vip_AN", Session[" AN"].ToString());
+
+            return Content(DALUtility.Vip.QryOrder(param, out int iCount));
+        }
+        #endregion
+
+        #region _自定义
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:代理端进行处理充值信息
+        /// </summary>
+        /// <returns>json值</returns>
+        public ActionResult CheckRecharge(int vip_id, decimal recharge_price, DateTime recharge_time)
+        {
+            return OperationReturn(true, "用户:" + vip_id + "于" + recharge_time + "充值:" + recharge_price + "元!充值成功!!");
+        }
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4-28
+        /// 修改时间：2019-
+        /// 功能：安全退出
+        /// </summary>
+        public ActionResult RemoveSession()
+        {
+            Session.RemoveAll();
+            return View();
+        }
+        #endregion
     }
 }

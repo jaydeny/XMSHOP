@@ -292,6 +292,8 @@ namespace XM.DAL
 
 
 
+
+
         /// <summary>
         /// 注册代理商时,检查是否有登录名,邮箱,手机重复
         /// owen
@@ -371,7 +373,7 @@ namespace XM.DAL
         /// 查询所有的代理商
         /// </summary>
         /// <param name="paras"></param>
-        /// <returns></returns>
+        /// <returns></returns> 
         public string QryReportForm(Dictionary<string, object> paras, out int iCount)
         {
             WhereBuilder builder = new WhereBuilder();
@@ -413,5 +415,7 @@ namespace XM.DAL
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
             return retData;
         }
+
+
     }
 }
