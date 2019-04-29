@@ -45,7 +45,7 @@ namespace XM.Web.Controllers
 
         public ActionResult AddAgent()
         {
-            return View();
+            return View("_AddAgent");
         }
         /// <summary>
         /// 新增 用户
@@ -59,7 +59,7 @@ namespace XM.Web.Controllers
 
         public ActionResult EditAgent()
         {
-            return View();
+            return View("_EditAgent");
         }
         /// <summary>
         /// 编辑 用户

@@ -46,7 +46,7 @@ namespace XM.Web.Controllers
         }
         public ActionResult TypeAdd()
         {
-            return View();
+            return View("_TypeAdd");
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace XM.Web.Controllers
 
         public ActionResult TypeEdit()
         {
-            return View();
+            return View("_TypeEdit");
         }
         /// <summary>
         /// 编辑 类型

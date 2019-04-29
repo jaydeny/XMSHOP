@@ -103,39 +103,39 @@ namespace XM.DAL.comm
         /// <param name="paras">参数</param>
         /// <param name="keyFild">主键字段</param>
         /// <returns></returns>
-        //protected int StandardInsertOrUpdate(string tabName, Dictionary<string, object> paras, string keyFild = "ID")
-        //{
-        //    var fields = GetFieldsFromDictionary(paras, keyFild);
-        //    var sql = "";
-        //    if (paras[keyFild].ToString().Equals("0"))
-        //    {
-        //        var fieldsSql1 = String.Join(",", fields);
-        //        var fieldsSql2 = String.Join(",", fields.Select(field => "@" + field));
-        //        sql = String.Format("INSERT {0} ({1}) VALUES ({2});", tabName, fieldsSql1, fieldsSql2);
-        //    }
-        //    else
-        //    {
-        //        var fieldsSql = String.Join(",", fields.Select(field => field + " = @" + field));
-        //        sql = String.Format("UPDATE {0} SET {1} WHERE {2} = @{2}", tabName, fieldsSql, keyFild);
-        //    }
-        //    using (IDbConnection dbConnection = GetConnection())
-        //    {
-        //        return dbConnection.Execute(sql, paras);
-        //    }
-        //}
+        protected int StandarInsertOrUpdate(string tabName, Dictionary<string, object> paras, string keyFild = "ID")
+        {
+            var fields = GetFieldsFromDictionary(paras, keyFild);
+            var sql = "";
+            if (paras[keyFild].ToString().Equals("0"))
+            {
+                var fieldsSql1 = String.Join(",", fields);
+                var fieldsSql2 = String.Join(",", fields.Select(field => "@" + field));
+                sql = String.Format("INSERT {0} ({1}) VALUES ({2});", tabName, fieldsSql1, fieldsSql2);
+            }
+            else
+            {
+                var fieldsSql = String.Join(",", fields.Select(field => field + " = @" + field));
+                sql = String.Format("UPDATE {0} SET {1} WHERE {2} = @{2}", tabName, fieldsSql, keyFild);
+            }
+            using (IDbConnection dbConnection = GetConnection())
+            {
+                return dbConnection.Execute(sql, paras);
+            }
+        }
 
-        //private string[] GetFieldsFromDictionary(Dictionary<string, object> keyValues, string keyFild = "")
-        //{
-        //    var result = new List<string>();
-        //    foreach (var entry in keyValues)
-        //    {
-        //        if (entry.Key != keyFild)
-        //        {
-        //            result.Add(entry.Key);
-        //        }
-        //    }
-        //    return result.ToArray();
-        //}
+        private string[] GetFieldsFromDictionary(Dictionary<string, object> keyValues, string keyFild = "")
+        {
+            var result = new List<string>();
+            foreach (var entry in keyValues)
+            {
+                if (entry.Key != keyFild)
+                {
+                    result.Add(entry.Key);
+                }
+            }
+            return result.ToArray();
+        }
 
         void FormartSqlToSortAndPage(GridData grid, ref string sql, ref string countSql, ref WhereBuilder builder)
         {

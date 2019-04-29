@@ -53,7 +53,7 @@ namespace XM.Web.Controllers
 
         public ActionResult AddGoods()
         {
-            return View();
+            return View("_AddGoods");
         }
         /// <summary>
         /// 新增 产品
@@ -67,7 +67,7 @@ namespace XM.Web.Controllers
 
         public ActionResult EditGoods()
         {
-            return View();
+            return View("_EditGoods");
         }
         /// <summary>
         /// 编辑 产品
@@ -101,10 +101,10 @@ namespace XM.Web.Controllers
                 paras["goods_CBY"] = createBy;
                 paras["goods_CDT"] = DateTime.Now;
                 log(HttpContext.Session["user_AN"].ToString(), "添加商品", "true", "添加成功");
-                return OperationReturn(DALUtility.Goods.Save(paras) > 0, "添加成功！" );
+                return OperationReturn(DALUtility.Goods.Save(paras) > 0);
             }
             log(HttpContext.Session["user_AN"].ToString(), "修改商品信息", "true", "修改成功");
-            return OperationReturn(DALUtility.Goods.Save(paras) > 0, "修改成功！");
+            return OperationReturn(DALUtility.Goods.Save(paras) > 0);
 
         }
 

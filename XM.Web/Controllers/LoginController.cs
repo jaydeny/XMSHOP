@@ -35,7 +35,14 @@ namespace XM.Web.Controllers
                     //记录登录cookie
                     CookiesHelper.SetCookie("UserID", AES.EncryptStr(currentUser.id.ToString()));
                     log(Request["user_AN"].ToString(), "账号登录", "true", "登录成功");
-                    return OperationReturn(true, "登录成功！");
+                    Dictionary<string, object> paras= new Dictionary<string, object>();
+                    paras["r_id"] = currentUser.RoleID;
+                    int iCount;
+                    var roleMenus  = DALUtility.RoleMenu.QryAllRoleMenu<RoleMenuEntity>(paras,out iCount);
+                    Session["RoleMenu"] = roleMenus;
+                    Session["RoleID"] = currentUser.RoleID;
+                    Session["User"] = currentUser;
+                    return OperationReturn(true, "登录成功！"); 
                 }
                 else
                 {
