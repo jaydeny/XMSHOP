@@ -102,7 +102,6 @@ namespace XM.Web.Controllers
             int iCheck = DALUtility.Vip.CheckUseridAndEmail(paras);
             if (iCheck > 0)
             {
-                log(HttpContext.Session["user_AN"].ToString(), "修改\\添加vip用户", "false", "用户名或邮箱重复 ");
                 return OperationReturn(false, iCheck == 1 ? "用户名重复" : "邮箱重复");
             }
             else
@@ -117,12 +116,10 @@ namespace XM.Web.Controllers
                     num = DALUtility.Vip.Save(paras);
                     if (num > 0)
                     {
-                        log(HttpContext.Session["user_AN"].ToString(), "添加vip用户", "true", "添加成功");
                         return OperationReturn(true, "添加成功！初始密码：" + paras["vip_pwd"]);
                     }
                     else
                     {
-                        log(HttpContext.Session["user_AN"].ToString(), "添加vip用户", "false", "添加失败");
                         return OperationReturn(false, "添加失败");
                     }
                     
@@ -130,12 +127,10 @@ namespace XM.Web.Controllers
                 num = DALUtility.Vip.Save(paras);
                 if (num > 0)
                 {
-                    log(HttpContext.Session["user_AN"].ToString(), "修改vip用户", "true", "修改成功");
                     return OperationReturn(true, "修改成功！");
                 }
                 else
                 {
-                    log(HttpContext.Session["user_AN"].ToString(), "修改vip用户", "false", "修改失败 ");
                     return OperationReturn(false, "修改失败！");
                 }
                 
@@ -147,12 +142,10 @@ namespace XM.Web.Controllers
             string Ids = Request["id"] == null ? "" : Request["id"];
             if (!string.IsNullOrEmpty(Ids))
             {
-                log(HttpContext.Session["user_AN"].ToString(), "删除vip用户", "true", "删除成功 ");
                 return OperationReturn(DALUtility.Vip.DeleteUser(Ids),"删除成功");
             }
             else
             {
-                log(HttpContext.Session["user_AN"].ToString(), "删除vip用户", "false", "删除失败 ");
                 return OperationReturn(false,"删除失败");
             }
         }

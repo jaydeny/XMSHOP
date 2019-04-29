@@ -21,7 +21,6 @@ namespace XM.Web.Controllers
         /// <summary>
         /// 处理登录的信息
         /// </summary>
-        /// <param name="userInfo"></param>
         /// <param name="CookieExpires">cookie有效期</param>
         /// <returns></returns>
         public ActionResult CheckUserLogin(string CookieExpires)
@@ -34,7 +33,6 @@ namespace XM.Web.Controllers
                 {
                     //记录登录cookie
                     CookiesHelper.SetCookie("UserID", AES.EncryptStr(currentUser.id.ToString()));
-                    log(Request["user_AN"].ToString(), "账号登录", "true", "登录成功");
                     Dictionary<string, object> paras= new Dictionary<string, object>();
                     paras["r_id"] = currentUser.RoleID;
                     int iCount;
@@ -46,13 +44,11 @@ namespace XM.Web.Controllers
                 }
                 else
                 {
-                    log(Request["user_AN"].ToString(), "账号登录", "false", "用户名或者密码错误");
                     return OperationReturn(false, "登录失败！用户名或者密码错误！");
                 }
             }
             catch (Exception ex)
             {
-                log(Request["user_AN"].ToString(), "账号登录", "false", "登录异常,"+ex.Message);
                 return OperationReturn(false,"登录异常," + ex.Message);
             }
         }
@@ -65,22 +61,20 @@ namespace XM.Web.Controllers
             bool f = false;
             string user = Request["user_AN"];
             var iUserDal = DALUtility.User;
-            var currrentUser = iUserDal.GetUserByAccountName(user);
-            //string code = RandCode(8);
+            var currentUser = iUserDal.GetUserByAccountName(user);
+            Session["User"] = currentUser;
             //链接地址必须是绝对地址
-            string mailContent = "<a href='https://fanyi.baidu.com/?aldtype=16047#zh/en/'>百度</a>";
-            if (currrentUser != null)
+            string mailContent = "<a href='http://172.16.31.234:6666/User/PwdUpdate'>修改密码</a>";
+            if (currentUser != null)
             {
-                f = EmailHelper.send(currrentUser.UserEmail, "验证码", mailContent);
+                f = EmailHelper.send(currentUser.UserEmail, "点击链接修改密码", mailContent);
             }
-            log(Request["user_AN"].ToString(), "忘记密码", "true", "邮件发送成功");
             return OperationReturn(f,"邮件已发送！");
         }
         public ActionResult UserLoginOut()
         {
             //清空cookie
             CookiesHelper.AddCookie("UserID", System.DateTime.Now.AddDays(-1));
-            log(Request["user_AN"].ToString(), "退出账号", "true", "退出成功");
             return OperationReturn(true,"退出成功！");
         }
     }

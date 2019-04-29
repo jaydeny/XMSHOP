@@ -14,21 +14,7 @@ namespace XM.DAL
 {
     public class RoleDAL : BaseDal, IRoleDAL
     {
-        public int AddRole(RoleEntity role)
-        {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("insert into tbrole (name,code,state)");
-            strSql.Append("values");
-            strSql.Append("(@RoleNamem,@Code,@State)");
-            strSql.Append(";SELECT @@IDENTITY");
-            SqlParameter[] paras =
-            {
-                new SqlParameter("@RoleName",role.Name),
-                new SqlParameter("@Code",role.Code),
-                new SqlParameter("@State",role.State)
-            };
-            return Convert.ToInt32(SqlHelper.ExecuteScalar(SqlHelper.connStr, CommandType.Text, strSql.ToString(), paras));
-        }
+
 
         public bool DeleteRole(string id)
         {
@@ -52,25 +38,6 @@ namespace XM.DAL
             }
         }
 
-        public bool EditRole(RoleEntity role)
-        {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("update  tbrole set");
-            strSql.Append("name=@RoleName,code=@Code,state=@State");
-            strSql.Append("where id = @RoleID");
-            SqlParameter[] paras =
-            {
-                new SqlParameter("@RoleName",role.Name),
-                new SqlParameter("@Code",role.Code),
-                new SqlParameter("@State",role.State),
-                new SqlParameter("@RoleID",role.Id)
-            };
-            object obj = SqlHelper.ExecuteNonQuery(SqlHelper.connStr, CommandType.Text, strSql.ToString(), paras);
-            if (Convert.ToInt32(obj) > 0)
-                return true;
-            else
-                return false;
-        }
 
         public IEnumerable<T> QryRole<T>(Dictionary<string, object> paras, out int iCount)
         {
@@ -84,7 +51,7 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString(),
                 SortDirection = paras["order"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "RoleName", "name", "LIKE", "'%'+@RoleName+'%'");
+            builder.AddWhereAndParameter(paras, "Name", "name", "LIKE", "'%'+@Name+'%'");
             return SortAndPage<T>(builder, grid, out iCount);
         }
         

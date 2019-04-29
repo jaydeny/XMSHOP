@@ -103,7 +103,7 @@ namespace XM.DAL.comm
         /// <param name="paras">参数</param>
         /// <param name="keyFild">主键字段</param>
         /// <returns></returns>
-        protected int StandarInsertOrUpdate(string tabName, Dictionary<string, object> paras, string keyFild = "ID")
+        protected int StandarInsertOrUpdate(string tabName, Dictionary<string, object> paras, string keyFild = "id")
         {
             var fields = GetFieldsFromDictionary(paras, keyFild);
             var sql = "";

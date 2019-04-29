@@ -117,5 +117,9 @@ namespace XM.DALFactory
         {
             get { return LoadAssamblyType<IRoleMenuDAL>("RoleMenuDAL"); }
         }
+        public IMenuDAL Menu
+        {
+            get { return LoadAssamblyType<IMenuDAL>("MenuDAL"); }
+        }
     }
 }
