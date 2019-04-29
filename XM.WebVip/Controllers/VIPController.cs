@@ -280,7 +280,7 @@ namespace XM.WebVip.Controllers
             DateTime date = DateTime.Now;
 
             Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("recharge_name", Request["recharge_name"]);
+            param.Add("recharge_name", "测试充值");
             param.Add("recharge_price", Request["recharge_price"]);
             param.Add("recharge_time", date);
             param.Add("agent_id", Session["agentID"].ToString());
