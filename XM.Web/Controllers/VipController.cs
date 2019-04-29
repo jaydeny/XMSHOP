@@ -57,7 +57,7 @@ namespace XM.Web.Controllers
 
         public ActionResult VipAdd()
         {
-            return View();
+            return View("_VipAdd");
         }
         /// <summary>
         /// 新增 用户
@@ -70,7 +70,7 @@ namespace XM.Web.Controllers
         }
         public ActionResult VipEdit()
         {
-            return View();
+            return View("_VipEdit ");
         }
 
         /// <summary>
