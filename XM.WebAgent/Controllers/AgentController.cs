@@ -375,11 +375,11 @@ namespace XM.WebAgent.Controllers
                 int result = DALUtility.Agent.saveAgent(paras);
                 if (ID == 0)
                 {
-                    return OperationReturn(result > 0, "注册成功");
+                    return OperationReturn(true, "注册成功");
                 }
                 else
                 {
-                    return OperationReturn(result > 0, "修改成功");
+                    return OperationReturn(true, "修改成功");
                 }
             }
         }
@@ -414,11 +414,11 @@ namespace XM.WebAgent.Controllers
                 int result = DALUtility.Vip.saveVIP(paras);
                 if (ID == 0)
                 {
-                    return OperationReturn(result > 0, "注册成功");
+                    return OperationReturn(true, "注册成功");
                 }
                 else
                 {
-                    return OperationReturn(result > 0, "修改成功");
+                    return OperationReturn(true, "修改成功");
                 }
             }
         }
