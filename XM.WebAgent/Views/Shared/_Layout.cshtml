@@ -119,8 +119,10 @@
     <script>
         
         function loginup() {
-            $.get("/Agent/RemoveSession");
-            //location.href = "/Agent/Login";
+            $.get("/Agent/RemoveSession").done((data) => {
+               
+            });
+            location.href = "/Agent/Login";
         }
     </script>
 

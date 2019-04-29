@@ -35,13 +35,14 @@ function editVIP(id) {
     let agent_id = $("#agent_id");
     //使用下标去获取这个对象
     let vip = objs[id];
+    console.log(vip)
     //表单值填充
-    edit_vip_AN.val(vip.vip_AN);
-    edit_vip_mp.val(vip.vip_mp);
-    edit_vip_email.val(vip.vip_email);
-    edit_status_id.val(vip.status_id);
-    v_id.val(vip.id);
-    agent_id.val(vip.agent_id);
+    edit_vip_AN.val(vip.VipAccountName);
+    edit_vip_mp.val(vip.VipMobliePhone);
+    edit_vip_email.val(vip.VipEmail);
+    edit_status_id.val(vip.StatusID);
+    v_id.val(vip.VipID);
+    agent_id.val(vip.AgentID);
 
 }
 //发送请求，带这个VIP去进行修改
@@ -59,12 +60,12 @@ function editToVIP() {
         "vip_mp": edit_vip_mp.val(),
         "vip_email": edit_vip_email.val(),
         "status_id": edit_status_id.val(),
-        "vip_id": vip_id.val(),
+        "ID": vip_id.val(),
         "agent_id": agent_id.val()
     }
 
     $.ajax({
-        url: '/VIP/Update',
+        url: '/Agent/UpdateVIP',
         method: 'post',
         data: datapram,
         dataType: 'json'
