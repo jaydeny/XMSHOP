@@ -162,8 +162,7 @@ namespace XM.WebVip.Controllers
             var vip = DALUtility.Vip.QryVipEmail<VipEntity>(param);
 
             bool boo = false;
-            string strMailContent = "<a href='http://172.16.31.234:6666/VIP/UpdatePwd'" + Request["vip_AN"] + ">修改密码</a>";
-
+            string strMailContent = "<a href=\"http://172.16.31.234:6666/VIP/UpdatePwd&"+vip.VipID+"\">修改密码</a>";
 
             if (vip != null)
             {
@@ -178,8 +177,20 @@ namespace XM.WebVip.Controllers
         /// 日期:2019/4/28
         /// 功能:修改密码
         /// </summary>
-        /// <returns>json值</returns>
+        /// <returns>页面</returns>
         public ActionResult UpdatePwdPage()
+        {
+            return View("_UpdatePwdPage");
+
+        }
+
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/28
+        /// 功能:修改密码
+        /// </summary>
+        /// <returns>json值</returns>
+        public ActionResult UpdatePwd()
         {
             return save(int.Parse(Request["vip_id"]));
 
@@ -478,7 +489,67 @@ namespace XM.WebVip.Controllers
         public ActionResult RemoveSession()
         {
             Session.RemoveAll();
-            return OperationReturn(true, "退出成功");
+            return OperationReturn(true,"退出成功");
+        }
+
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:查询所有的代理商商品
+        /// </summary>
+        /// <returns>json值</returns>
+        public ActionResult QryAgoods()
+        {
+            string sort = Request["sort"] == null ? "id" : Request["sort"];
+            string order = Request["order"] == null ? "asc" : Request["order"];
+            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("pi", pageindex);
+            param.Add("pageSize", pagesize);
+            param.Add("sort", sort);
+            param.Add("agent_AN", Session["AN"].ToString());
+
+            string result = DALUtility.Agent.QryAgoods(param, out int ICount);
+            return Content(result);
+        }
+
+
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:查询所有的商品
+        /// </summary>
+        /// <returns>json值</returns>
+        public ActionResult GetAllGoodsInfo()
+        {
+            string sort = Request["sort"] == null ? "GoodsID" : Request["sort"];
+            string order = Request["order"] == null ? "asc" : Request["order"];
+
+            //首先获取前台传递过来的参数
+            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+            string goodsName = Request["goods_name"] == null ? "" : Request["goods_name"];
+            string goodsIntro = Request["goods_intro"] == null ? "" : Request["goods_intro"];
+            decimal goodsPrice = Request["goods_CP"] == null ? 1 : Convert.ToDecimal(Request["goods_CP"]);
+            string createBy = Request["goods_BY"] == null ? "" : Request["goods_BY"];
+            string createDateTime = Request["goods_CDT"] == null ? "" : Request["goods_CDT"];
+            string goodsPic = Request["goods_pic"] == null ? "" : Request["goods_pic"];
+            int typeId = Request["type_id"] == null ? 1 : Convert.ToInt32(Request["type_id"]);
+
+
+
+            int totalCount;   //输出参数
+            Dictionary<string, object> paras = new Dictionary<string, object>();
+            paras["pi"] = pageindex;
+            paras["pageSize"] = pagesize;
+            paras["goods_name"] = goodsName;
+            paras["sort"] = sort;
+            paras["order"] = order;
+            var goods = DALUtility.Goods.QryGoods<GoodsEntity>(paras, out totalCount);
+            return PagerData(totalCount, goods);
         }
         #endregion
     }
