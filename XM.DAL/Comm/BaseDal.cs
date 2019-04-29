@@ -215,7 +215,7 @@ namespace XM.DAL.comm
             var result = new List<string>();
             foreach (var entry in keyValues)
             {
-                if (entry.Key != keyFild)
+                if (entry.Key != keyFild && !entry.Value.Equals(null))
                 {  
                     result.Add(entry.Key);
                 }
