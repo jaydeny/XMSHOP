@@ -336,7 +336,7 @@ namespace XM.WebAgent.Controllers
         }
         #endregion
 
-
+        #region _自定义
         /// <summary>
         /// 作者:曾贤鑫
         /// 日期:2019/4/26
@@ -359,5 +359,6 @@ namespace XM.WebAgent.Controllers
             Session.RemoveAll();
             return View();
         }
+        #endregion
     }
 }

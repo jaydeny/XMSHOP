@@ -156,6 +156,14 @@ namespace XM.IDAL
         string QryVipInfo<T>(Dictionary<string, object> paras);
 
         /// <summary>
+        /// 查询原始密码
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        string QryOrgPwd(Dictionary<string, object> paras);
+
+        /// <summary>
         /// 查询vip邮箱
         /// </summary>
         /// <typeparam name="T"></typeparam>

@@ -351,13 +351,24 @@ namespace XM.DAL
         /// <typeparam name="T"></typeparam>
         /// <param name="paras"></param>
         /// <returns></returns>
-        public  string QryVipInfo<T>(Dictionary<string, object> paras)
+        public string QryVipInfo<T>(Dictionary<string, object> paras)
         {
-            var vipInfo = QuerySingle<T>("SELECT * FROM v_vip_list WHERE VipAccountName=@vip_AN", paras, CommandType.Text);
+            var vipInfo = QuerySingle<T>("SELECT vip_AN,vip_mp,vip_enmail FROM tbvip WHERE VipAccountName=@vip_AN", paras, CommandType.Text);
 
             string retData = JsonConvert.SerializeObject(new { total = 1, rows = vipInfo });
 
             return retData;
+        }
+
+        /// <summary>
+        /// 查询原始密码
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public string QryOrgPwd(Dictionary<string, object> paras)
+        {
+            return QuerySingle<string>("SELECT pwd FROM tbvip WHERE id=@vip_id", paras, CommandType.Text);
         }
 
         /// <summary>
