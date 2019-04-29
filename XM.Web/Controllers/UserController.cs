@@ -9,7 +9,12 @@ using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
-    public class UserController : BaseController,IRequiresSessionState
+    /// <summary>
+    /// 创建人：朱茂琛
+    /// 创建时间：2019/4/22
+    /// 用户管理控制器
+    /// </summary>
+    public class UserController : BaseController, IRequiresSessionState
     {
         [PermissionFilter]
         // GET: User
@@ -54,8 +59,12 @@ namespace XM.Web.Controllers
             }
             //return Content(result);
         }
+        /// <summary>
+        /// 获取所有用户信息
+        /// </summary>
+        /// <returns></returns>
+        [PermissionFilter("User", "Index")]
 
-        [PermissionFilter("User","Index")]
         public ActionResult GetAllUserInfo()
         {
             string sort = Request["sort"] == null ? "id" : Request["sort"];
@@ -86,20 +95,26 @@ namespace XM.Web.Controllers
             var users = DALUtility.User.QryUsers<UserEntity>(paras, out totalCount);
             return PagerData(totalCount, users);
         }
-
+        public ActionResult UserAdd()
+        {
+            return View("_UserAdd");
+        }
 
         /// <summary>
         /// 新增 用户
         /// </summary>
         /// <returns></returns>
-        [PermissionFilter("User", "Index",Operationype.Add)]
+        [PermissionFilter("User", "Index", Operationype.Add)]
         public ActionResult AddUser()
         {
             return SaveUser();
 
         }
 
-
+        public ActionResult UserEdit()
+        {
+            return View("_UserEdit");
+        }
         /// <summary>
         /// 编辑 用户
         /// </summary>
@@ -110,7 +125,10 @@ namespace XM.Web.Controllers
 
             return SaveUser();
         }
-
+        /// <summary>
+        /// 添加或修改用户信息方法
+        /// </summary>
+        /// <returns></returns>
         private ActionResult SaveUser()
         {
             int id = Convert.ToInt32(Request["id"]);
@@ -150,7 +168,7 @@ namespace XM.Web.Controllers
                     {
                         return OperationReturn(false, "添加失败！");
                     }
-                    
+
                 }
                 num = DALUtility.User.Save(paras);
                 if (num > 0)
@@ -163,31 +181,21 @@ namespace XM.Web.Controllers
                 }
             }
         }
-
+        /// <summary>
+        /// 删除用户信息
+        /// </summary>
+        /// <returns></returns>
         public ActionResult DelUserByIDs()
         {
             string Ids = Request["id"] == null ? "" : Request["id"];
             if (!string.IsNullOrEmpty(Ids))
             {
-                return OperationReturn(DALUtility.User.DeleteUser(Ids),"删除成功");
+                return OperationReturn(DALUtility.User.DeleteUser(Ids), "删除成功");
             }
             else
             {
-                return OperationReturn(false,"删除失败");
+                return OperationReturn(false, "删除失败");
             }
         }
-
-
-
-        /// <summary>
-        /// 获取所有用户
-        /// </summary>
-        /// <returns></returns>
-        //public ActionResult GetAllRoleInfo()
-        //{
-        //    string roleJson = JsonHelper.ToJson(DALUtility.Role.GetAllRole("1=1"));
-        //    return Content(roleJson);
-        //}
-
     }
 }

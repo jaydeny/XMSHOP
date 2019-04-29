@@ -11,6 +11,11 @@ using XM.Model;
 
 namespace XM.Web.Controllers
 {
+    /// <summary>
+    /// 创建人：朱茂琛
+    /// 创建时间：2019/4/22
+    /// 登录控制器
+    /// </summary>
     public class LoginController : BaseController
     {
         // GET: Login
@@ -52,10 +57,18 @@ namespace XM.Web.Controllers
                 return OperationReturn(false,"登录异常," + ex.Message);
             }
         }
+        /// <summary>
+        /// 忘记密码页面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ForgetPwd()
         {
             return View();
         }
+        /// <summary>
+        /// 忘记密码操作
+        /// </summary>
+        /// <returns></returns>
         public ActionResult PwdForget()
         {
             bool f = false;
@@ -71,6 +84,10 @@ namespace XM.Web.Controllers
             }
             return OperationReturn(f,"邮件已发送！");
         }
+        /// <summary>
+        /// 安全退出
+        /// </summary>
+        /// <returns></returns>
         public ActionResult UserLoginOut()
         {
             //清空cookie
