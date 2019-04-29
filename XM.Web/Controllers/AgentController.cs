@@ -7,6 +7,11 @@ using XM.Model;
 
 namespace XM.Web.Controllers
 {
+    /// <summary>
+    /// 创建人：朱茂琛
+    /// 创建时间：2019/4/22
+    /// 代理商控制器
+    /// </summary>
     public class AgentController : BaseController
     {
         // GET: Agent
@@ -31,7 +36,7 @@ namespace XM.Web.Controllers
 
 
 
-            int totalCount;   //输出参数
+             int totalCount;   //输出参数
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["pi"] = pageindex;
             paras["pageSize"] = pagesize;
