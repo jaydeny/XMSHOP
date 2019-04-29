@@ -6,12 +6,11 @@ function search() {
     let datapram = {
         "vip_AN": search,
         "vip_mp": search,
-        "vip_Email": search,
-        "status_id": search
+        "vip_Email": search
     }
 
     $.ajax({
-        url: "/VIP/GetAllUserInfo",
+        url: "/Agent/GetAllVIP",
         method: 'get',
         data: datapram,
         dataType: 'json'
@@ -126,33 +125,34 @@ function onloadData() {
     }).done(function (data) {
         objs = data.rows;
         //调用列表数据可视化函数
-        console.log(objs)
+       
         showList(objs);
     })
 }
 
 //封装列表显示函数，传入列表对象进行渲染页面
 function showList(objs) {
+    console.log(objs)
     $("#tbody").empty();
     $.each(objs, function (index, obj) {
-
+        console.log(obj);
         const trs = $("<tr></tr>");
 
 
-        const vip_mp = $("<td>" + obj.vip_mp + "</td>");
+        const vip_mp = $("<td>" + obj.VipMobliePhone + "</td>");
         trs.append(vip_mp)
-        const vip_AN = $("<td>" + obj.vip_AN + "</td>");
+        const vip_AN = $("<td>" + obj.VipAccountName + "</td>");
         trs.append(vip_AN)
-        const vip_email = $("<td>" + obj.vip_email + "</td>");
+        const vip_email = $("<td>" + obj.VipEmail + "</td>");
         trs.append(vip_email)
-        if (obj.status_id == 1) {
+        if (obj.StatusID == 1) {
             const status_id = $("<td>" + "启用" + "</td>");
             trs.append(status_id)
         } else {
             const status_id = $("<td>" + "禁用" + "</td>");
             trs.append(status_id)
         }
-        const vip_CDT = $("<td>" + obj.vip_CDT + "</td>");
+        const vip_CDT = $("<td>" + obj.CreateTime + "</td>");
         trs.append(vip_CDT)
 
         const vip_Btn = $("<td><button type='button' class='btn btn - secondary' data-toggle='modal' data-target='#editVIP'onclick='editVIP(" + index + ")'>编辑</button></td>");
