@@ -331,14 +331,26 @@ namespace XM.WebVip.Controllers
         public ActionResult VipInfo()
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("vip_AN", Session["AN"].ToString());
-
-            var vip = DALUtility.Vip.QryVipInfo<VipEntity>(param);
-            if (vip.Equals(null))
+            // 未登录时Session是为null的 修改时间：2019年4月29日09点43分 修改人：朱星宇
+            //param.Add("vip_AN", Session["AN"].ToString());
+            //var vip = DALUtility.Vip.QryVipInfo<VipEntity>(param);
+            //if (vip.Equals(null))
+            //{
+            //    return OperationReturn(false, "未登录");
+            //}
+            //return OperationReturn(true, "已登录", vip);
+            if (Session["AN"] == null)
             {
                 return OperationReturn(false, "未登录");
             }
-            return OperationReturn(true, "已登录", vip);
+            else
+            {
+                param.Add("vip_AN", Session["AN"].ToString());
+                var vip = DALUtility.Vip.QryVipInfo<VipEntity>(param);
+                return OperationReturn(true, "已登录", vip);
+            }
+
+           
         }
         #endregion
 

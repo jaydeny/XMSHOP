@@ -50,6 +50,7 @@ $("#bntLogin").click(function () {
     }
     else {
         $.post("/vip/login", { "AN": an, "pwd": pwd }, function (data, status, xhr) {
+            console.log(data);
             if (data.success) {
                 $("#onlogin_box").addClass("hidden");
                 $("#login_box").removeClass("hidden");
@@ -63,14 +64,3 @@ $("#bntLogin").click(function () {
     }
 });
 
-//退出
-$("#vipExit").click(function () {
-    $.get("/vip/RemoveSession", function (data, status, xhr) {
-        if (data.success) {
-            // 清空数据
-            window.setTimeout(function () {
-                window.location.href = "/vip/Index";
-            }, 500);
-        }
-    }, "json")
-});

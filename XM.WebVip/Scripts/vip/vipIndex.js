@@ -18,11 +18,30 @@ window.onload = function () {
         obj.url = "/vip/Signin";
         bouncedLogin(obj);
     });
+
+    //退出
+    $("#vipExit").click(function () {
+        $.get("/vip/RemoveSession", function (data, status, xhr) {
+            if (data.success) {
+                // 清空数据
+                window.setTimeout(function () {
+                    window.location.href = "/vip/Index";
+                }, 500);
+            }
+        }, "json")
+    });
+    //获取登录信息
+    var loginInfo = function () {
+        $.post("/vip/VipInfo", function (data) {
+            if (data.success) {
+                $("#onlogin_box").addClass("hidden");
+                $("#login_box").removeClass("hidden");
+                $("#vip_name").text($.parseJSON(data.data).rows.VipAccountName);
+                $('#myModal').modal('hide');
+            }
+        }, "json")
+    }
+    loginInfo();
 }
-//获取登录信息
-var loginInfo = function () {
-    $.post("/vip/vipinfo", function (data) {
-        console.log(data);
-    })
-}
-loginInfo();
+
+
