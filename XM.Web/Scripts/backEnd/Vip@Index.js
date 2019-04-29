@@ -4,17 +4,17 @@
 function gridList() {
     var $gridList = $("#gridList");
     $gridList.dataGrid({
-        url: "/Vip/GetGridJson",
+        url: "/Vip/GetAllUserInfo",
         height: $(window).height() - 128,
         colModel: [
-            { label: '主键', name: 'vip_id', hidden: true },
-            { label: '账户', name: 'vip_AN', width: 80, align: 'left' },
-            { label: '手机', name: 'vip_mp', width: 100, align: 'left' },
-            { label: '邮箱', name: 'vip_email', width: 140, align: 'left' },
-            { label: '代理编号', name: 'agent_id', width: 80, align: 'left' },
-            { label: '创建时间', name: 'vip_CDT', width: 140, align: 'left' },
+            { label: '主键', name: 'VipID', hidden: true },
+            { label: '账户', name: 'VipAccountName', width: 80, align: 'left' },
+            { label: '手机', name: 'VipMobliePhone', width: 100, align: 'left' },
+            { label: '邮箱', name: 'VipEmail', width: 140, align: 'left' },
+            { label: '代理编号', name: 'AgentID', width: 80, align: 'left' },
+            { label: '创建时间', name: 'CreateTime', width: 140, align: 'left' },
             {
-                label: "允许登录", name: "status_id", width: 60, align: "left",
+                label: "允许登录", name: "StatusID", width: 60, align: "left",
                 formatter: function (cellvalue, options, rowObject) {
                     if (cellvalue == 1) {
                         return '<span class=\"label label-success\">正常</span>';
@@ -64,8 +64,8 @@ function btn_edit() {
 }
 function btn_delete() {
     $.deleteForm({
-        url: "/Vip/DeleteForm",
-        param: { keyValue: $("#gridList").jqGridRowValue().vip_id },
+        url: "/Vip/DelUserByIDs",
+        param: { id: $("#gridList").jqGridRowValue().VipID },
         success: function () {
             $.currentWindow().$("#gridList").trigger("reloadGrid");
         }

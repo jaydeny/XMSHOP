@@ -346,6 +346,7 @@
     <Content Include="Scripts\backEnd\Agent%40Index.js" />
     <Content Include="Scripts\backEnd\Goods%40Index.js" />
     <Content Include="Scripts\backEnd\GoodsType%40Index.js" />
+    <Content Include="Scripts\backEnd\Home.js" />
     <Content Include="Scripts\backEnd\User%40BackPwd.js" />
     <Content Include="Scripts\backEnd\User%40ChangePwd.js" />
     <Content Include="Scripts\backEnd\User%40Index.js" />

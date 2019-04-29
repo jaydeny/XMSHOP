@@ -34,6 +34,7 @@ window.onload = function () {
     var loginInfo = function () {
         $.post("/vip/VipInfo", function (data) {
             if (data.success) {
+                $("#vip_info_name").text($.parseJSON(data.data).rows.VipAccountName);
                 $("#onlogin_box").addClass("hidden");
                 $("#login_box").removeClass("hidden");
                 $("#vip_name").text($.parseJSON(data.data).rows.VipAccountName);

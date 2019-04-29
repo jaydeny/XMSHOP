@@ -41,6 +41,7 @@ $.request = function (name) {
 }
 $.currentWindow = function () {
     var iframeId = top.$(".NFine_iframe:visible").attr("id");
+
     return top.frames[iframeId];
 }
 $.browser = function () {
@@ -142,15 +143,17 @@ $.modalAlert = function (content, type) {
 $.modalMsg = function (content, type) {
     if (type != undefined) {
         var icon = "";
-        if (type == 'success') {
+        if (type == true) {
             icon = "fa-check-circle";
+            type = "success";
         }
-        if (type == 'error') {
+        if (type == false) {
             icon = "fa-times-circle";
+            type = "error";
         }
-        if (type == 'warning') {
-            icon = "fa-exclamation-circle";
-        }
+        //if (type == 'warning') {
+        //    icon = "fa-exclamation-circle";
+        //}
         top.layer.msg(content, { icon: icon, time: 4000, shift: 5 });
         top.$(".layui-layer-msg").find('i.' + icon).parents('.layui-layer-msg').addClass('layui-layer-msg-' + type);
     } else {
@@ -236,11 +239,11 @@ $.deleteForm = function (options) {
                     type: "post",
                     dataType: "json",
                     success: function (data) {
-                        if (data.state == "success") {
+                        if (data.success) {
                             options.success(data);
-                            $.modalMsg(data.message, data.state);
+                            $.modalMsg(data.msg, data.success);
                         } else {
-                            $.modalAlert(data.message, data.state);
+                            $.modalAlert(data.msg, data.success);
                         }
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {

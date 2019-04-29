@@ -79,8 +79,9 @@ namespace XM.Web.Controllers
         public ActionResult UserLoginOut()
         {
             //清空cookie
+            UserEntity user = (UserEntity)Session["User"];
             CookiesHelper.AddCookie("UserID", System.DateTime.Now.AddDays(-1));
-            log(Request["user_AN"].ToString(), "退出账号", "true", "退出成功");
+            log(user.UserAccountName, "退出账号", "true", "退出成功");
             return OperationReturn(true,"退出成功！");
         }
     }

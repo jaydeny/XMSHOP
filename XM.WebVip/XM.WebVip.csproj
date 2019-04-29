@@ -213,13 +213,13 @@
     <Content Include="Views\VIP\GoodsDetails.cshtml" />
     <Content Include="Views\VIP\Index.cshtml" />
     <Content Include="Views\VIP\Shopping.cshtml" />
-    <Content Include="Views\VIP\VipAlterPwd.cshtml" />
+    <Content Include="Views\VIP\_UpdatePwdPage.cshtml" />
     <Content Include="Views\VIP\vipinfopage.cshtml" />
     <Content Include="Views\VIP\_Update.cshtml" />
     <Content Include="Views\VIP\_RechargePage.cshtml" />
     <Content Include="Views\VIP\_AddressPage.cshtml" />
     <Content Include="Views\VIP\_Login.cshtml" />
-    <Content Include="Views\VIP\UpdatePwdPage.cshtml" />
+    <Content Include="Views\VIP\PwdFoundPage.cshtml" />
     <Content Include="Views\VIP\_Signin.cshtml" />
     <Content Include="Views\VIP\_FoundPwdPage.cshtml" />
   </ItemGroup>

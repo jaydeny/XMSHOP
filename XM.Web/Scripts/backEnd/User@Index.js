@@ -73,7 +73,8 @@ function btn_delete() {
         url: "/User/DeleteForm",
         param: { keyValue: $("#gridList").jqGridRowValue().user_id },
         success: function () {
-            $.currentWindow().$("#gridList").trigger("reloadGrid");
+            //$.currentWindow().$("#gridList").trigger("reloadGrid");
+            gridList();
         }
     })
 }
@@ -97,7 +98,8 @@ function btn_revisepassword() {
                 url: "/SystemManage/User/DisabledAccount",
                 param: { keyValue: keyValue },
                 success: function () {
-                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    $.currentWindow().$("#gridList").trigger("gridList");
+                    
                 }
             })
         }

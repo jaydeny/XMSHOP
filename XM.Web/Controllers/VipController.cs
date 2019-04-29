@@ -44,13 +44,29 @@ namespace XM.Web.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var users = DALUtility.Vip.QryUsers<VipEntity>(paras, out totalCount);
+            
+            // Session 错误  修改人：朱星宇； 修改时间：2019年4月29日12点00分
+            //if (users != null)
+            //{
+            //    log(HttpContext.Session["user_AN"].ToString(), "查询所有vip用户信息", "true", "查询成功");
+            //}
+            //else
+            //{
+            //    log(HttpContext.Session["user_AN"].ToString(), "查询所有vip用户信息", "false", "查询失败");
+            //}
+
+            UserEntity uInfo = Session["User"] as UserEntity;
+            if (uInfo == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             if (users != null)
             {
-                log(HttpContext.Session["user_AN"].ToString(), "查询所有vip用户信息", "true", "查询成功");
+                log(uInfo.UserAccountName, "查询所有vip用户信息", "true", "查询成功");
             }
             else
             {
-                log(HttpContext.Session["user_AN"].ToString(), "查询所有vip用户信息", "false", "查询失败");
+                log(uInfo.UserAccountName, "查询所有vip用户信息", "false", "查询失败");
             }
             return PagerData(totalCount, users);
         } 
@@ -147,13 +163,11 @@ namespace XM.Web.Controllers
             string Ids = Request["id"] == null ? "" : Request["id"];
             if (!string.IsNullOrEmpty(Ids))
             {
-                log(HttpContext.Session["user_AN"].ToString(), "删除vip用户", "true", "删除成功 ");
-                return OperationReturn(DALUtility.Vip.DeleteUser(Ids),"删除成功");
+                return OperationReturn(true,"删除成功");
             }
             else
             {
-                log(HttpContext.Session["user_AN"].ToString(), "删除vip用户", "false", "删除失败 ");
-                return OperationReturn(false,"删除失败");
+                return OperationReturn(false, "删除失败");
             }
         }
     }
