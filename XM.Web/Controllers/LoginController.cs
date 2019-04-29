@@ -75,6 +75,7 @@ namespace XM.Web.Controllers
         {
             //清空cookie
             CookiesHelper.AddCookie("UserID", System.DateTime.Now.AddDays(-1));
+            Session.Clear();
             return OperationReturn(true,"退出成功！");
         }
     }
