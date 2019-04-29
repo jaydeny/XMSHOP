@@ -280,7 +280,7 @@ namespace XM.WebVip.Controllers
             DateTime date = DateTime.Now;
 
             Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("recharge_name", Request["recharge_name"]);
+            param.Add("recharge_name", "测试充值");
             param.Add("recharge_price", Request["recharge_price"]);
             param.Add("recharge_time", date);
             param.Add("agent_id", Session["agentID"].ToString());
@@ -490,11 +490,11 @@ namespace XM.WebVip.Controllers
                 int result = DALUtility.Vip.saveVIP(paras);
                 if (ID == 0)
                 {
-                    return OperationReturn(result > 0, "注册成功");
+                    return OperationReturn(true, "注册成功");
                 }
                 else
                 {
-                    return OperationReturn(result > 0, "修改成功");
+                    return OperationReturn(true, "修改成功");
                 }
             }
         }
@@ -616,6 +616,18 @@ namespace XM.WebVip.Controllers
             paras["order"] = order;
             var goods = DALUtility.Goods.QryGoods<GoodsEntity>(paras, out totalCount);
             return PagerData(totalCount, goods);
+        }
+
+        public ActionResult AgoodsListPage()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult AgoodsList()
+        {
+            return View();
         }
 
 

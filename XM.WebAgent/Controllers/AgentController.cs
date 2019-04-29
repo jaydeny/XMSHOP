@@ -144,39 +144,6 @@ namespace XM.WebAgent.Controllers
             return save(int.Parse(Session["ID"].ToString()));
         }
 
-        //注册或者修改代理信息时,检查邮箱,email,联系方式舒服重复
-        public ActionResult save(int ID)
-        {
-            Dictionary<string, object> paras = new Dictionary<string, object>();
-            paras["id"] = ID;
-            paras["agent_AN"] = Request["agent_AN"];
-            paras["agent_mp"] = Request["agent_mp"];
-            paras["agent_email"] = Request["agent_email"];
-
-            int iCheck = DALUtility.Agent.checkANandMBandEmail(paras);
-
-            if (iCheck > 0)
-            {
-                return OperationReturn(false, iCheck == 1 ? "所输入的用户名重复,请重新输入!" : (iCheck == 2 ? "所输入的手机号码重复,请重新输入!" : "所输入的邮箱重复,请重新输入!"));
-            }
-            else
-            {
-                paras["agent_pwd"] = Request["agent_pwd"];
-                paras["agent_CBY"] = Request["agent_CBY"];
-                paras["agent_CDT"] = DateTime.Now;
-                paras["status_id"] = Request["status_id"];
-                int result = DALUtility.Agent.saveAgent(paras);
-                if (ID == 0)
-                {
-                    return OperationReturn(result > 0, "注册成功");
-                }
-                else
-                {
-                    return OperationReturn(result > 0, "修改成功");
-                }
-            }
-        }
-
         /// <summary>
         /// 作者:曾贤鑫
         /// 日期:2019/4/26
@@ -197,7 +164,7 @@ namespace XM.WebAgent.Controllers
         [HttpPost]
         public ActionResult UpdateVIP(VipEntity vip)
         {
-            return save(int.Parse(Request["ID"]));
+            return saveVIP(int.Parse(Request["ID"]));
         }
         #endregion
 
@@ -379,6 +346,85 @@ namespace XM.WebAgent.Controllers
         #region _自定义
         /// <summary>
         /// 作者:曾贤鑫
+        /// 日期:2019/4/25
+        /// 功能:添加/修改代理的公用方法
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        //注册或者修改代理信息时,检查邮箱,email,联系方式舒服重复
+        public ActionResult save(int ID)
+        {
+            Dictionary<string, object> paras = new Dictionary<string, object>();
+            paras["id"] = ID;
+            paras["agent_AN"] = Request["agent_AN"];
+            paras["agent_mp"] = Request["agent_mp"];
+            paras["agent_email"] = Request["agent_email"];
+
+            int iCheck = DALUtility.Agent.checkANandMBandEmail(paras);
+
+            if (iCheck > 0)
+            {
+                return OperationReturn(false, iCheck == 1 ? "所输入的用户名重复,请重新输入!" : (iCheck == 2 ? "所输入的手机号码重复,请重新输入!" : "所输入的邮箱重复,请重新输入!"));
+            }
+            else
+            {
+                paras["agent_pwd"] = Request["agent_pwd"];
+                paras["agent_CBY"] = Request["agent_CBY"];
+                paras["agent_CDT"] = DateTime.Now;
+                paras["status_id"] = Request["status_id"];
+                int result = DALUtility.Agent.saveAgent(paras);
+                if (ID == 0)
+                {
+                    return OperationReturn(true, "注册成功");
+                }
+                else
+                {
+                    return OperationReturn(true, "修改成功");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/25
+        /// 功能:添加/修改vip公用方法
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public ActionResult saveVIP(int ID)
+        {
+            Dictionary<string, object> paras = new Dictionary<string, object>();
+            paras["id"] = ID;
+            paras["vip_AN"] = Request["vip_AN"];
+            paras["vip_mp"] = Request["vip_mp"];
+            paras["vip_Email"] = Request["vip_Email"];
+
+            int iCheck = DALUtility.Vip.checkANandMBandEmail(paras);
+
+            if (iCheck > 0)
+            {
+                return OperationReturn(false, iCheck == 1 ? "所输入的用户名重复,请重新输入!" : (iCheck == 2 ? "所输入的手机号码重复,请重新输入!" : "所输入的邮箱重复,请重新输入!"));
+            }
+            else
+            {
+                paras["vip_pwd"] = Request["vip_pwd"];
+                paras["vip_CDT"] = DateTime.Now;
+                paras["status_id"] = Request["status_id"] == null ? "1" : Request["status_id"];
+                paras["agent_id"] = Request["agent_id"] == null ? "1" : Request["agent_id"];
+                int result = DALUtility.Vip.saveVIP(paras);
+                if (ID == 0)
+                {
+                    return OperationReturn(true, "注册成功");
+                }
+                else
+                {
+                    return OperationReturn(true, "修改成功");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 作者:曾贤鑫
         /// 日期:2019/4/26
         /// 功能:代理端进行处理充值信息
         /// </summary>
@@ -397,7 +443,7 @@ namespace XM.WebAgent.Controllers
         public ActionResult RemoveSession()
         {
             Session.RemoveAll();
-            return View();
+            return OperationReturn(true,"退出成功!");
         }
         #endregion
     }
