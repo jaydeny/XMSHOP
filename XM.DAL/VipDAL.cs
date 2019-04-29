@@ -361,6 +361,17 @@ namespace XM.DAL
         }
 
         /// <summary>
+        /// 查询原始密码
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public string QryOrgPwd(Dictionary<string, object> paras)
+        {
+            return QuerySingle<string>("SELECT pwd FROM tbvip WHERE id=@vip_id", paras, CommandType.Text);
+        }
+
+        /// <summary>
         /// 查询vip邮箱
         /// </summary>
         /// <typeparam name="T"></typeparam>

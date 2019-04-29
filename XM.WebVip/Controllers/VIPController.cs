@@ -119,7 +119,7 @@ namespace XM.WebVip.Controllers
         /// <summary>
         /// 作者:曾贤鑫
         /// 日期:2019/4/26
-        /// 功能:会员端进行修改信息页面
+        /// 功能:会员端进入修改信息页面
         /// </summary>
         /// <returns>页面:修改信息页面</returns>
         public ActionResult Update()
@@ -130,7 +130,7 @@ namespace XM.WebVip.Controllers
         /// <summary>
         /// 作者:曾贤鑫
         /// 日期:2019/4/26
-        /// 功能:会员端进行修改信息页面
+        /// 功能:会员端进行修改信息
         /// </summary>
         /// <returns>json值</returns>
         [HttpPost]
@@ -142,7 +142,8 @@ namespace XM.WebVip.Controllers
         /// <summary>
         /// 作者:曾贤鑫
         /// 日期:2019/4/28
-        /// 功能:返回密码找回页面,输入用户名
+        /// 功能:返回密码找回页面,输入用户名  
+        /// 进入修改密码页面  
         /// </summary>
         /// <returns>页面</returns>
         public ActionResult FoundPwdPage()
@@ -164,7 +165,7 @@ namespace XM.WebVip.Controllers
             var vip = DALUtility.Vip.QryVipEmail<VipEntity>(param);
 
             bool boo = false;
-            string strMailContent = "<a href=\"http://172.16.31.234:6666/VIP/UpdatePwd&"+vip.VipID+"\">修改密码</a>";
+            string strMailContent = "<a href=\"http://172.16.31.234:6666/VIP/UpdatePwdPage&"+vip.VipID+"\">修改密码</a>";
 
             if (vip != null)
             {
@@ -177,25 +178,64 @@ namespace XM.WebVip.Controllers
         /// <summary>
         /// 作者:曾贤鑫
         /// 日期:2019/4/28
-        /// 功能:修改密码
+        /// 功能:进入找回密码页面
         /// </summary>
         /// <returns>页面</returns>
-        public ActionResult UpdatePwdPage()
+        public ActionResult PwdFoundPage()
         {
-            return View("_UpdatePwdPage");
+            return View("_PwdFoundPage");
 
         }
 
         /// <summary>
         /// 作者:曾贤鑫
         /// 日期:2019/4/28
-        /// 功能:修改密码
+        /// 功能:根据id找回密码
+        /// </summary>
+        /// <returns>json值</returns>
+        [HttpPost]
+        public ActionResult PwdFound()
+        {
+            return save(int.Parse(Request["vip_id"]));
+        }
+
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/28
+        /// 功能:进入修改密码页面
+        /// </summary>
+        /// <returns>页面</returns>
+        public ActionResult UpdatePwdPage()
+        {
+            return View("_UpdatePwdPage");
+        }
+
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/28
+        /// 功能:根据id修改密码
         /// </summary>
         /// <returns>json值</returns>
         public ActionResult UpdatePwd()
         {
-            return save(int.Parse(Request["vip_id"]));
+            int vip_id = int.Parse(Session["ID"].ToString());
 
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("vip_id", vip_id);
+
+            string strOrgPwd = DALUtility.Vip.QryOrgPwd(param);
+
+            string strOriginalPwd = Request["oldPwd"];
+
+            if (strOrgPwd.Equals(strOriginalPwd))
+            {
+
+                return save(vip_id);
+            }
+            else
+            {
+                return OperationReturn(false,"修改失败,原始密码出错,请重新输入!");
+            }
         }
         #endregion
 
@@ -214,6 +254,13 @@ namespace XM.WebVip.Controllers
         #endregion
 
         #region _recharge
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:会员端进行充值
+        /// </summary>
+        /// <param name="vip_AN"></param>
+        /// <returns>页面</returns>
         public ActionResult RechargePage()
         {
             return View("_RechargePage");
@@ -307,8 +354,6 @@ namespace XM.WebVip.Controllers
         #endregion
 
         #region _vipInfo
-
-
         /// <summary>
         /// 作者:曾贤鑫
         /// 日期:2019/4/28
@@ -331,14 +376,17 @@ namespace XM.WebVip.Controllers
         public ActionResult VipInfo()
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("vip_AN", Session["AN"].ToString());
 
-            var vip = DALUtility.Vip.QryVipInfo<VipEntity>(param);
-            if (vip.Equals(null))
+            if (Session["AN"] == null)
             {
                 return OperationReturn(false, "未登录");
             }
-            return OperationReturn(true, "已登录", vip);
+            else
+            {
+                param.Add("vip_AN", Session["AN"].ToString());
+                var vip = DALUtility.Vip.QryVipInfo<VipEntity>(param);
+                return OperationReturn(true, "已登录", vip);
+            }
         }
         #endregion
 
