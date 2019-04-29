@@ -176,6 +176,29 @@ namespace XM.WebAgent.Controllers
                 }
             }
         }
+
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:会员端进入修改信息页面
+        /// </summary>
+        /// <returns>页面:修改信息页面</returns>
+        public ActionResult UpdateVIP()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:会员端进行修改信息
+        /// </summary>
+        /// <returns>json值</returns>
+        [HttpPost]
+        public ActionResult UpdateVIP(VipEntity vip)
+        {
+            return save(int.Parse(Request["ID"]));
+        }
         #endregion
 
         #region _vipInfo
@@ -333,6 +356,23 @@ namespace XM.WebAgent.Controllers
 
             string result = DALUtility.Agent.QryReportForm(param, out int ICount);
             return Content(result);
+        }
+
+        public ActionResult QryOrder()
+        {
+            string sort = Request["sort"] == null ? "id" : Request["sort"];
+            string order = Request["order"] == null ? "asc" : Request["order"];
+            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("pi", pageindex);
+            param.Add("pageSize", pagesize);
+            param.Add("sort", sort);
+            param.Add("agent_AN", Session["agent_AN"].ToString());
+            param.Add("vip_AN", Session[" AN"].ToString());
+
+            return Content(DALUtility.Vip.QryOrder(param, out int iCount));
         }
         #endregion
 

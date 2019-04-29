@@ -8,7 +8,9 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <link href="~/Content/carousel.css" rel="stylesheet" />
+    <script src="~/Scripts/vue.min.js"></script>
+    <script src="~/Scripts/vue-resource.min.js"></script>
+    <link href="~/Content/carousel.css" />
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
@@ -61,7 +63,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
                                     <span data-feather="file-text"></span>
-                                    @Html.ActionLink("商品上架&定价", "Gooks", "Agent")
+                                    @Html.ActionLink("商品上架&定价", "getGoodsPage", "Agent")
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -87,7 +89,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
                                     <span data-feather="file-text"></span>
-                                    营收报表
+                                    @Html.ActionLink("营收报表", "ReportForm", "Agent")
                                 </a>
                             </li>
                         </ul>
@@ -109,52 +111,17 @@
                 </nav>
 
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-
                     @RenderBody()
-
                 </main>
             </div>
         </div>
-
     </main>
-
-    @*第一个参数是text文本，第二个参数是方法，第三个参数是controller*@
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("应用程序名称", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("主页", "Agent", "Index")</li>
-                        <li>@Html.ActionLink("关于", "Index", "Agent")</li>
-                        <li>@Html.ActionLink("联系方式", "Contact", "Home")</li>
-
-                    </ul>
-                </div>
-            </div>
-        </div>*@
-
-
-
-    @*<div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 应用程序</p>
-            </footer>
-        </div>*@
     <script>
-                                        function loginup() {
-                                            localStorage.setItem('Agent_Name', null)
-                                            localStorage.setItem('Agent_ID', null)
-                                            location.href = "/Agent/Login";
-                                        }
+        $("#loginup").click(function () {
+            localStorage.setItem('Agent_Name', null)
+            localStorage.setItem('Agent_ID', null)
+            location.href = "/Agent/Login";
+        });
     </script>
 
     @Scripts.Render("~/bundles/jquery")
