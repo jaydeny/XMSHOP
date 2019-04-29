@@ -176,6 +176,29 @@ namespace XM.WebAgent.Controllers
                 }
             }
         }
+
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:会员端进入修改信息页面
+        /// </summary>
+        /// <returns>页面:修改信息页面</returns>
+        public ActionResult UpdateVIP()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:会员端进行修改信息
+        /// </summary>
+        /// <returns>json值</returns>
+        [HttpPost]
+        public ActionResult UpdateVIP(VipEntity vip)
+        {
+            return save(int.Parse(Request["ID"]));
+        }
         #endregion
 
         #region _vipInfo
