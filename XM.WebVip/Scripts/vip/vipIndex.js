@@ -19,3 +19,10 @@ window.onload = function () {
         bouncedLogin(obj);
     });
 }
+//获取登录信息
+var loginInfo = function () {
+    $.post("/vip/vipinfo", function (data) {
+        console.log(data);
+    })
+}
+loginInfo();
