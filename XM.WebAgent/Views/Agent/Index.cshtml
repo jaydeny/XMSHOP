@@ -157,7 +157,7 @@
             }
 
             $.ajax({
-                url: "/VIP/GetAllVIP",
+                url: "/VIP/GetAllUserInfo",
                 method: 'get',
                 data: datapram,
                 dataType: 'json'
@@ -266,12 +266,13 @@
         function onloadData() {
 
             $.ajax({
-                url: "/VIP/GetAllVIP",
+                url: "/Agent/GetAllUserInfo",
                 method: 'get',
                 dataType: 'json'
             }).done(function (data) {
                 objs = data.rows;
                 //调用列表数据可视化函数
+                console.log(objs)
                 showList(objs);
             })
         }

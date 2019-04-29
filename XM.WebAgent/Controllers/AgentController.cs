@@ -159,14 +159,14 @@ namespace XM.WebAgent.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var users = DALUtility.Vip.QryUsers<VipEntity>(paras, out totalCount);
-            if (users != null)
-            {
-                log(HttpContext.Session["user_AN"].ToString(), "查询所有vip用户信息", "true", "查询成功");
-            }
-            else
-            {
-                log(HttpContext.Session["user_AN"].ToString(), "查询所有vip用户信息", "false", "查询失败");
-            }
+            //if (users != null)
+            //{
+            //    //log(HttpContext.Session["user_AN"].ToString(), "查询所有vip用户信息", "true", "查询成功");
+            //}
+            //else
+            //{
+            //    log(HttpContext.Session["user_AN"].ToString(), "查询所有vip用户信息", "false", "查询失败");
+            //}
             return PagerData(totalCount, users);
         }
 
