@@ -334,6 +334,23 @@ namespace XM.WebAgent.Controllers
             string result = DALUtility.Agent.QryReportForm(param, out int ICount);
             return Content(result);
         }
+
+        public ActionResult QryOrder()
+        {
+            string sort = Request["sort"] == null ? "id" : Request["sort"];
+            string order = Request["order"] == null ? "asc" : Request["order"];
+            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("pi", pageindex);
+            param.Add("pageSize", pagesize);
+            param.Add("sort", sort);
+            param.Add("agent_AN", Session["agent_AN"].ToString());
+            param.Add("vip_AN", Session[" AN"].ToString());
+
+            return Content(DALUtility.Vip.QryOrder(param, out int iCount));
+        }
         #endregion
 
         #region _自定义

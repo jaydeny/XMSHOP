@@ -439,5 +439,31 @@ namespace XM.DAL
         {
             return QuerySingle<string>("select agent_AN from tbagent where id = @agent_id", paras, CommandType.Text);
         }
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4/29
+        /// 修改时间：2019-
+        /// 功能：查询订单
+        /// </summary>
+        public string QryOrder(Dictionary<string, object> paras, out int iCount)
+        {
+            WhereBuilder builder = new WhereBuilder();
+            builder.FromSql = "tborder a join tbaddress b on a.order_address = b.id";
+            GridData grid = new GridData()
+            {
+                PageIndex = 1,
+                PageSize = 10,
+                SortField = "a.id"
+            };
+            builder.AddWhereAndParameter(paras, "startTime", "order_date", ">", "@startTime");
+            builder.AddWhereAndParameter(paras, "endTime", "order_date", "<", "@endTime");
+            builder.AddWhereAndParameter(paras, "agent_AN");
+            builder.AddWhereAndParameter(paras, "vip_AN");
+
+            var s = SortAndPage(builder, grid, out iCount, "a.* , b.address_name");
+            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
+            return retData;
+        }
     }
 }

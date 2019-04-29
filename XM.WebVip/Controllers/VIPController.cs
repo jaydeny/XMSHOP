@@ -1,4 +1,4 @@
-﻿using System;
+﻿   using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Web;
@@ -596,7 +596,6 @@ namespace XM.WebVip.Controllers
         {
             string sort = Request["sort"] == null ? "GoodsID" : Request["sort"];
             string order = Request["order"] == null ? "asc" : Request["order"];
-
             //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
@@ -608,8 +607,6 @@ namespace XM.WebVip.Controllers
             string goodsPic = Request["goods_pic"] == null ? "" : Request["goods_pic"];
             int typeId = Request["type_id"] == null ? 1 : Convert.ToInt32(Request["type_id"]);
 
-
-
             int totalCount;   //输出参数
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["pi"] = pageindex;
@@ -619,6 +616,24 @@ namespace XM.WebVip.Controllers
             paras["order"] = order;
             var goods = DALUtility.Goods.QryGoods<GoodsEntity>(paras, out totalCount);
             return PagerData(totalCount, goods);
+        }
+
+
+        public ActionResult QryOrder()
+        {
+            string sort = Request["sort"] == null ? "id" : Request["sort"];
+            string order = Request["order"] == null ? "asc" : Request["order"];
+            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("pi", pageindex);
+            param.Add("pageSize", pagesize);
+            param.Add("sort", sort);
+            param.Add("agent_AN", Session["agent_AN"].ToString());
+            param.Add("vip_AN", Session[" AN"].ToString());
+
+            return Content(DALUtility.Vip.QryOrder(param, out int iCount));
         }
         #endregion
     }
