@@ -443,7 +443,7 @@ namespace XM.WebAgent.Controllers
         public ActionResult RemoveSession()
         {
             Session.RemoveAll();
-            return View();
+            return OperationReturn(true,"退出成功!");
         }
         #endregion
     }

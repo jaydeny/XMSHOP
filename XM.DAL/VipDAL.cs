@@ -437,7 +437,7 @@ namespace XM.DAL
         /// </summary>
         public string QryAgentANByID(Dictionary<string, object> paras)
         {
-            return QuerySingle<string>("select agent_AN from tbagent where id = @agent_id", paras, CommandType.Text);
+            return QuerySingle<string>("SELECT agent_AN from tbagent where id = @agent_id", paras, CommandType.Text);
         }
 
         /// <summary>
