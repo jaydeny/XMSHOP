@@ -137,12 +137,14 @@ namespace XM.WebVip.Controllers
         public ActionResult Update(VipEntity vip)
         {
             return save(int.Parse(Session["ID"].ToString()));
-        }/// <summary>
-         /// 作者:曾贤鑫
-         /// 日期:2019/4/28
-         /// 功能:返回密码找回页面,输入用户名
-         /// </summary>
-         /// <returns>页面</returns>
+        }
+
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/28
+        /// 功能:返回密码找回页面,输入用户名
+        /// </summary>
+        /// <returns>页面</returns>
         public ActionResult FoundPwdPage()
         {
             return View("_FoundPwdPage");
@@ -305,19 +307,38 @@ namespace XM.WebVip.Controllers
         #endregion
 
         #region _vipInfo
+
+
         /// <summary>
         /// 作者:曾贤鑫
         /// 日期:2019/4/28
         /// 功能:返回vip个人中心页面
         /// </summary>
         /// <returns>页面</returns>
+        public ActionResult VipInfoPage()
+        {
+            return View();
+        }
+
+
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/28
+        /// 功能:返回vip个人中心页面
+        /// </summary>
+        /// <returns>json值</returns>
+        [HttpPost]
         public ActionResult VipInfo()
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("vip_AN", Session["AN"].ToString());
 
             var vip = DALUtility.Vip.QryVipInfo<VipEntity>(param);
-            return Content(vip);
+            if (vip.Equals(null))
+            {
+                return OperationReturn(false, "未登录");
+            }
+            return OperationReturn(true, "已登录", vip);
         }
         #endregion
 
