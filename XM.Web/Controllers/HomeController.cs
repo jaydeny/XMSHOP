@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using XM.Model;
+using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
@@ -19,12 +20,6 @@ namespace XM.Web.Controllers
                 return RedirectToAction("Index", "Login");
             }
             ViewBag.RealName = uInfo.UserAccountName;
-            ViewBag.TimeView = DateTime.Now.ToLongDateString();
-            ViewBag.DayDate = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(DateTime.Now.DayOfWeek);
-            //DataTable dataTable = new DataTable();
-            //dataTable.Columns.Add("m_id",typeof(int));
-            //dataTable.Columns.Add("m_id", typeof(bool));
-            //dataTable.Rows.Add(new DataRow() { })
             return View();
         }
     }

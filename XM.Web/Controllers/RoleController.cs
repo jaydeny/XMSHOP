@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,7 +9,7 @@ using XM.Model;
 
 namespace XM.Web.Controllers
 {
-    public class JuriMenuController : BaseController
+    public class RoleController : BaseController
     {
         // GET: JuriMenu
         public ActionResult Index()
@@ -24,8 +25,9 @@ namespace XM.Web.Controllers
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
 
-            string roleName = Request["role_name"] == null ? "" : Request["role_name"];
-            int jurisdiction = Request["jurisdiction_id"] == null ? 1 : Convert.ToInt32(Request["jurisdiction_id"]);
+            string roleName = Request["name"] == null ? "" : Request["name"];
+            int state = Request["state"] == null ? 1 : Convert.ToInt32(Request["state"]);
+            string code = Request["code"] == null ? "" : Request["code"];
 
             int totalCount;
             Dictionary<string, object> paras = new Dictionary<string, object>();
@@ -34,24 +36,17 @@ namespace XM.Web.Controllers
             paras["pageSize"] = pagesize;
             paras["sort"] = sort;
             paras["order"] = order;
-            paras["RoleName"] = roleName;
-            paras["Jurisdiction"] = jurisdiction;
+            paras["Name"] = roleName;
+            paras["State"] = state;
+            paras["Code"] = code;
+
 
             var roles = DALUtility.Role.QryRole<RoleEntity>(paras, out totalCount);
-
-            if (roles != null)
-            {
-                log(HttpContext.Session["user_AN"].ToString(), "查询所有角色", "true", "查询成功");
-            }
-            else
-            {
-                log(HttpContext.Session["user_AN"].ToString(), "查询所有角色", "false", "查询失败");
-            }
             return PagerData(totalCount, roles);
         }
         public ActionResult AddRole()
         {
-            return View();
+            return View("_AddRole");
         }
         public ActionResult RoleAdd()
         {
@@ -59,7 +54,7 @@ namespace XM.Web.Controllers
         }
         public ActionResult EditRole()
         {
-            return View();
+            return View("_EditRole");
         }
         public ActionResult RoleEdit()
         {
@@ -68,37 +63,56 @@ namespace XM.Web.Controllers
         private ActionResult SaveRole()
         {
             int id = Convert.ToInt32(Request["id"]);
-            string roleName = Request["role_name"];
-            int jurisdiction = Convert.ToInt32(Request["jurisdiction_id"]);
+            string Name = Request["name"];
+            int state = Convert.ToInt32(Request["state"]);
+            string code = Request["code"];
+            int menuId = Convert.ToInt32(Request["MenuId"]);
+            int RmAdd = Convert.ToInt32(Request["RmAdd"]);
+            int RmUpdate = Convert.ToInt32(Request["RmUpdate"]);
+            int RmDelete = Convert.ToInt32(Request["RmDelete"]);
+            int RmOther = Convert.ToInt32(Request["RmOther"]);
 
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["id"] = id;
-            paras["user_AN"] = roleName;
-            paras["user_email"] = jurisdiction;
+            paras["name"] = Name;
+            paras["state"] = state;
+            paras["code"] = code;
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("id", typeof(int));
+            dataTable.Columns.Add("MenuId", typeof(int));
+            dataTable.Columns.Add("RmAdd", typeof(bool));
+            dataTable.Columns.Add("RmUpdate", typeof(bool));
+            dataTable.Columns.Add("RmDelete", typeof(bool));
+            dataTable.Columns.Add("RmOther", typeof(bool));
+            DataRow dr1 = dataTable.NewRow();
+            dr1[0] = id;
+            dr1[1] = menuId;
+            dr1[2] = RmAdd;
+            dr1[3] = RmUpdate;
+            dr1[4] = RmDelete;
+            dr1[5] = RmOther;
+            dataTable.Rows.Add(dr1);
+            paras["rolemenu"] = dataTable;
             int num;
             if (id == 0)
             {
                 num = DALUtility.User.Save(paras);
                 if (num > 0)
                 {
-                    log(HttpContext.Session["user_AN"].ToString(), "添加角色", "true", "添加成功");
                     return OperationReturn(true, "添加成功！");
                 }
                 else
                 {
-                    log(HttpContext.Session["user_AN"].ToString(), "添加用户", "false", "添加失败");
                     return OperationReturn(false, "添加失败！");
                 }
             }
             num = DALUtility.User.Save(paras);
             if (num > 0)
             {
-                log(HttpContext.Session["user_AN"].ToString(), "修改角色信息", "true", "修改成功");
                 return OperationReturn(true, "修改成功！");
             }
             else
             {
-                log(HttpContext.Session["user_AN"].ToString(), "修改角色信息", "false", "修改失败");
                 return OperationReturn(false, "修改失败！");
             }
         }
