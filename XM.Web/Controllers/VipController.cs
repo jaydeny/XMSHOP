@@ -5,18 +5,21 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using XM.Model;
+using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
+    
     public class VipController : BaseController
     {
+        [PermissionFilter]
         // GET: Vip
         public ActionResult Index()
         {
 
             return View();
         }
-        
+        [PermissionFilter("Vip","Index")]
         public ActionResult GetAllUserInfo()
         {
             string sort = Request["sort"] == null ? "VipID" : Request["sort"];
@@ -51,6 +54,7 @@ namespace XM.Web.Controllers
         {
             return View("_VipAdd");
         }
+        [PermissionFilter("Vip","Index",Operationype.Add)]
         /// <summary>
         /// 新增 用户
         /// </summary>
@@ -64,7 +68,7 @@ namespace XM.Web.Controllers
         {
             return View("_VipEdit ");
         }
-
+        [PermissionFilter("Vip", "Index", Operationype.Update)]
         /// <summary>
         /// 编辑 用户
         /// </summary>
@@ -128,7 +132,7 @@ namespace XM.Web.Controllers
                 
             }
         }
-        
+        [PermissionFilter("Vip", "Index", Operationype.Delete)]
         public ActionResult DelUserByIDs()
         {
             string Ids = Request["id"] == null ? "" : Request["id"];

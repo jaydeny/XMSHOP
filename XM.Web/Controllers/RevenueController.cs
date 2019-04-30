@@ -4,16 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using XM.Model;
+using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
     public class RevenueController : BaseController
     {
+        [PermissionFilter]
         // GET: Revenue
         public ActionResult Index()
         {
             return View(); 
         }
+        [PermissionFilter("Revenue", "Index")]
         public ActionResult GetRechargeRevenue()
         {
             string sort = Request["sort"] == null ? "RechargeID" : Request["sort"];
@@ -40,6 +43,12 @@ namespace XM.Web.Controllers
             var charge = DALUtility.Recharge.QryRecharge<RechargeEntity>(paras, out totalCount);
             return PagerData(totalCount, charge);
         }
+        
+        public ActionResult GetRevenueGoods()
+        {
+            return View();
+        }
+        [PermissionFilter("Revenue", "GetGoodsRevenue")]
         public ActionResult GetGoodsRevenue()
         {
             string sort = Request["sort"] == null ? "OrderID" : Request["sort"];

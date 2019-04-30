@@ -181,6 +181,7 @@ namespace XM.Web.Controllers
                 }
             }
         }
+        [PermissionFilter("User", "Index", Operationype.Delete)]
         /// <summary>
         /// 删除用户信息
         /// </summary>

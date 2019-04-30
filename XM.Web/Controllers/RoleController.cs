@@ -6,16 +6,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using XM.Model;
+using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
     public class RoleController : BaseController
     {
+        [PermissionFilter]
         // GET: JuriMenu
         public ActionResult Index()
         {
             return View();
         }
+        [PermissionFilter("Role", "Index")]
         public ActionResult GetALLRoleInfo()
         {
             string sort = Request["sort"] == null ? "RoleID" : Request["sort"];
@@ -48,6 +51,7 @@ namespace XM.Web.Controllers
         {
             return View("_AddRole");
         }
+        [PermissionFilter("Role", "Index",Operationype.Add)]
         public ActionResult RoleAdd()
         {
             return SaveRole();
@@ -56,6 +60,7 @@ namespace XM.Web.Controllers
         {
             return View("_EditRole");
         }
+        [PermissionFilter("Role", "Index",Operationype.Update)]
         public ActionResult RoleEdit()
         {
             return SaveRole();
@@ -114,6 +119,19 @@ namespace XM.Web.Controllers
             else
             {
                 return OperationReturn(false, "修改失败！");
+            }
+        }
+        [PermissionFilter("Role", "Index", Operationype.Delete)]
+        public ActionResult DelRoleByIds()
+        {
+            string Ids = Request["id"] == null ? "" : Request["id"];
+            if (!string.IsNullOrEmpty(Ids))
+            {
+                return OperationReturn(DALUtility.Role.DeleteRole(Ids), "删除成功");
+            }
+            else
+            {
+                return OperationReturn(false, "删除失败");
             }
         }
     }

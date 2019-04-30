@@ -19,7 +19,7 @@ namespace XM.DAL
         public bool DeleteMenu(string id)
         {
             List<string> list = new List<string>();
-            list.Add("delete from tbrole where id in (" + id + ")");
+            list.Add("delete from tbmenu where id in (" + id + ")");
             try
             {
                 int count = SqlHelper.ExecuteNonQuery(SqlHelper.connStr, list);
@@ -43,7 +43,7 @@ namespace XM.DAL
         {
             iCount = 0;
             WhereBuilder builder = new WhereBuilder();
-            builder.FromSql = "v_roleMenu_list";
+            builder.FromSql = "v_menu_list";
             GridData grid = new GridData()
             {
                 PageIndex = Convert.ToInt32(paras["pi"]),
@@ -51,9 +51,22 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString(),
                 SortDirection = paras["order"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "Rid", "Id", "=", "@Rid");
+            builder.AddWhereAndParameter(paras, "name", "Name", "Like", "%@id%");
             return SortAndPage<T>(builder, grid, out iCount);
         }
+
+
+        public List<RoleMenuEntity> GetAllMenuById(List<int> Ids)
+        {
+            string strSql = "select * from v_menu_list where id = @ID";
+            List<RoleMenuEntity> menus = new List<RoleMenuEntity>();
+            foreach(int id in Ids)
+            {
+                menus.Add(QuerySingle<RoleMenuEntity>(strSql, new { ID = id }));
+            }
+            return menus;
+        }
+
         public int Save(Dictionary<string, object> paras)
         {
             return StandarInsertOrUpdate("tbmenu", paras);
