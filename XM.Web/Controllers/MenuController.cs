@@ -38,11 +38,11 @@ namespace XM.Web.Controllers
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["pi"] = pageindex;
             paras["pageSize"] = pagesize;
-            paras["AgentName"] = name;
+            paras["name"] = name;
             paras["sort"] = sort;
             paras["order"] = order;
-            var users = DALUtility.Agent.QryUsers<MenuEntity>(paras, out totalCount);
-            return PagerData(totalCount, users);
+            var menus = DALUtility.Menu.GetAllMenu<MenuEntity>(paras, out totalCount);
+            return PagerData(totalCount, menus);
         }
         public ActionResult AddMenu()
         {

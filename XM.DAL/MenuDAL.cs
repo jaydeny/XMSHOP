@@ -19,7 +19,7 @@ namespace XM.DAL
         public bool DeleteMenu(string id)
         {
             List<string> list = new List<string>();
-            list.Add("delete from tbrole where id in (" + id + ")");
+            list.Add("delete from tbmenu where id in (" + id + ")");
             try
             {
                 int count = SqlHelper.ExecuteNonQuery(SqlHelper.connStr, list);
@@ -43,7 +43,7 @@ namespace XM.DAL
         {
             iCount = 0;
             WhereBuilder builder = new WhereBuilder();
-            builder.FromSql = "v_roleMenu_list";
+            builder.FromSql = "v_menu_list";
             GridData grid = new GridData()
             {
                 PageIndex = Convert.ToInt32(paras["pi"]),
@@ -51,25 +51,10 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString(),
                 SortDirection = paras["order"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "Rid", "Id", "=", "@Rid");
+            builder.AddWhereAndParameter(paras, "name", "Name", "Like", "%@id%");
             return SortAndPage<T>(builder, grid, out iCount);
         }
 
-        public IEnumerable<T> GetAllMenuById<T>(Dictionary<string, object> paras, out int iCount)
-        {
-            iCount = 0;
-            WhereBuilder builder = new WhereBuilder();
-            builder.FromSql = "v_roleMenu_list";
-            GridData grid = new GridData()
-            {
-                PageIndex = 1,
-                PageSize = 100,
-                SortField = "id",
-                SortDirection = "asc"
-            };
-            builder.AddWhereAndParameter(paras, "id", "id", "=", "@id");
-            return SortAndPage<T>(builder, grid, out iCount);
-        }
 
         public List<RoleMenuEntity> GetAllMenuById(List<int> Ids)
         {
