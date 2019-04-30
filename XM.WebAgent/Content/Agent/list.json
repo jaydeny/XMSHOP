@@ -21,8 +21,8 @@
   },
   "sites": [ "Google", "Runoob", "Taobao" ],
   "goodsUrl": {
-    "getAllGoods": "http://172.16.31.235:5567/Agent/GetAllGoodsInfo",
-    "groundUrl": "http://172.16.31.235:5567/Agent/MakeGoods",
+    "getAllGoods": "/Agent/GetAllGoodsInfo",
+    "groundUrl": "/Agent/MakeGoods",
     "myGoods": "/Agent/QryAgoods"
   },
   "message": {

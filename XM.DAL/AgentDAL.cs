@@ -290,10 +290,7 @@ namespace XM.DAL
             return QuerySingle<int>( strSql.ToString(), paras, CommandType.Text);
         }
 
-
-
-
-
+        #region _Signin
         /// <summary>
         /// 注册代理商时,检查是否有登录名,邮箱,手机重复
         /// owen
@@ -310,18 +307,9 @@ namespace XM.DAL
         {
             return QuerySingle<int>("P_tbagent_checkANandMBandEmail", paras, CommandType.StoredProcedure);
         }
+        #endregion
 
-        /// <summary>
-        /// 添加和修改代理商共用的方法,区别在于id是否为0
-        /// owen
-        /// </summary>
-        /// <param name="paras"></param>
-        /// <returns></returns>
-        public int saveAgent(Dictionary<string, object> paras)
-        {
-            return StandardInsertOrUpdate("tbagent", paras);
-        }
-
+        #region _Login
         /// <summary>
         /// 查询代理商数据以登录
         /// owen
@@ -333,32 +321,9 @@ namespace XM.DAL
         {
             return QuerySingle<T>("SELECT * FROM v_agent_info WHERE AgentAccountName=@agent_AN AND AgentPassword=@agent_pwd", paras, CommandType.Text);
         }
+        #endregion
 
-        /// <summary>
-        /// 查询会员,分页
-        /// </summary>
-        /// <param name="paras"></param>
-        /// <returns></returns>
-        public string QryAllAgent(Dictionary<string, object> paras, out int iCount)
-        {
-            WhereBuilder builder = new WhereBuilder();
-            builder.FromSql = "tbagent";
-            GridData grid = new GridData()
-            {
-                PageIndex = Convert.ToInt32(paras["pi"]),
-                PageSize = Convert.ToInt32(paras["pageSize"]),
-                SortField = paras["sort"].ToString()
-            };
-            builder.AddWhereAndParameter(paras, "agent_AN", "agent_AN", "LIKE", "'%'+@agent_AN+'%'");
-            builder.AddWhereAndParameter(paras, "agent_mp");
-            builder.AddWhereAndParameter(paras, "agent_email", "agent_email", "LIKE", "'%'+@agent_email+'%'");
-            builder.AddWhereAndParameter(paras, "status_id");
-            
-            var s = SortAndPage(builder, grid, out iCount);
-            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
-            return retData;
-        }
-
+        #region _Goods
         /// <summary>
         /// 上架或者修改商品
         /// </summary>
@@ -369,6 +334,31 @@ namespace XM.DAL
             return QuerySingle<int>("P_tbagent_AgoodsInsertAndUpdate", paras, CommandType.StoredProcedure);
         }
 
+        /// <summary>
+        /// 查询所有的代理商商品
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public string QryAgoods(Dictionary<string, object> paras, out int iCount)
+        {
+            WhereBuilder builder = new WhereBuilder();
+            builder.FromSql = "tbAgoods";
+            GridData grid = new GridData()
+            {
+                PageIndex = Convert.ToInt32(paras["pi"]),
+                PageSize = Convert.ToInt32(paras["pageSize"]),
+                SortField = paras["sort"].ToString()
+            };
+            builder.AddWhereAndParameter(paras, "Agoods_Name", "Agoods_Name", "LIKE", "'%'+@Agoods_Name+'%'");
+            builder.AddWhereAndParameter(paras, "agent_AN");
+
+            var s = SortAndPage(builder, grid, out iCount);
+            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
+            return retData;
+        }
+        #endregion
+
+        #region _Form
         /// <summary>
         /// 查询所有的代理商
         /// </summary>
@@ -392,29 +382,46 @@ namespace XM.DAL
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
             return retData;
         }
+        #endregion
 
-
+        #region _自定义
         /// <summary>
-        /// 查询所有的代理商商品
+        /// 添加和修改代理商共用的方法,区别在于id是否为0
+        /// owen
         /// </summary>
         /// <param name="paras"></param>
         /// <returns></returns>
-        public string QryAgoods(Dictionary<string, object> paras, out int iCount)
+        public int saveAgent(Dictionary<string, object> paras)
+        {
+            return StandardInsertOrUpdate("tbagent", paras);
+        }
+
+        /// <summary>
+        /// 查询会员,分页
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public string QryAllAgent(Dictionary<string, object> paras, out int iCount)
         {
             WhereBuilder builder = new WhereBuilder();
-            builder.FromSql = "tbAgoods";
+            builder.FromSql = "tbagent";
             GridData grid = new GridData()
             {
                 PageIndex = Convert.ToInt32(paras["pi"]),
                 PageSize = Convert.ToInt32(paras["pageSize"]),
                 SortField = paras["sort"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "agent_AN");
+            builder.AddWhereAndParameter(paras, "agent_AN", "agent_AN", "LIKE", "'%'+@agent_AN+'%'");
+            builder.AddWhereAndParameter(paras, "agent_mp");
+            builder.AddWhereAndParameter(paras, "agent_email", "agent_email", "LIKE", "'%'+@agent_email+'%'");
+            builder.AddWhereAndParameter(paras, "status_id");
 
             var s = SortAndPage(builder, grid, out iCount);
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
             return retData;
         }
+        #endregion
+
 
 
     }

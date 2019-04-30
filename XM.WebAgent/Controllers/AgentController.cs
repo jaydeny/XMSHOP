@@ -24,7 +24,6 @@ namespace XM.WebAgent.Controllers
         /// <returns>页面:代理端首页</returns>
         public ActionResult Index()
         {
-
             return View();
         }
 
@@ -37,6 +36,15 @@ namespace XM.WebAgent.Controllers
         //返回商品操作页
         public ActionResult getGoodsPage()
         {
+            return View();
+        }
+        /// <summary>
+        /// 作者:梁钧淋
+        /// 日期:2019/4/29
+        /// 功能:返回报表页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ReportForm() {
             return View();
         }
 

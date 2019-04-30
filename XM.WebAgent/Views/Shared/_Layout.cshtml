@@ -17,7 +17,7 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <a class="navbar-brand" href="#">代理管理系统</a>
-            <button class="btn btn-outline-success my-2 my-sm-0" id="loginup()" style="float:right">退出登录</button>
+            <button class="btn btn-outline-success my-2 my-sm-0"  onclick="loginup()" style="float:right">退出登录</button>
         </nav>
     </header>
     <main role="main">
@@ -117,11 +117,13 @@
         </div>
     </main>
     <script>
-        $("#loginup").click(function () {
-            localStorage.setItem('Agent_Name', null)
-            localStorage.setItem('Agent_ID', null)
+        
+        function loginup() {
+            $.get("/Agent/RemoveSession").done((data) => {
+               
+            });
             location.href = "/Agent/Login";
-        });
+        }
     </script>
 
     @Scripts.Render("~/bundles/jquery")
