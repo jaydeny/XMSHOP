@@ -17,5 +17,6 @@ namespace XM.Model
         public DateTime CreateTime { get; set; }
         public int StatusID { get; set; }
         public int AgentID { get; set; }
+        public decimal Remainder { get; set; }
     }
 }

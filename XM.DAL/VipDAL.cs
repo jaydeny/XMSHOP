@@ -321,7 +321,7 @@ namespace XM.DAL
         /// <returns></returns>
         public string QryVipInfo<T>(Dictionary<string, object> paras)
         {
-            var vipInfo = QuerySingle<T>("SELECT * FROM v_vip_vipInfo WHERE VipAccountName=@vip_AN", paras, CommandType.Text);
+            var vipInfo = QuerySingle<T>("SELECT * FROM v_vip_remainder WHERE VipAccountName=@vip_AN", paras, CommandType.Text);
 
             string retData = JsonConvert.SerializeObject(new { total = 1, rows = vipInfo });
 
@@ -371,6 +371,17 @@ namespace XM.DAL
             var s = SortAndPage(builder, grid, out iCount);
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
             return retData;
+        }
+
+        /// <summary>
+        /// 查询用户余额
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public decimal QryRemainder(Dictionary<string, object> paras)
+        {
+            return QuerySingle<decimal>("SELECT remainder FROM tbremainder WHERE vip_AN=@vip_AN", paras, CommandType.Text);
         }
         #endregion
 

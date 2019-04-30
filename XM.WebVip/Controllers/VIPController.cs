@@ -374,7 +374,6 @@ namespace XM.WebVip.Controllers
         /// <returns>页面</returns>
         public ActionResult VipInfoPage()
         {
-
             return View();
         }
 
