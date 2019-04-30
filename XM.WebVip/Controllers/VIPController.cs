@@ -493,7 +493,7 @@ namespace XM.WebVip.Controllers
             param.Add("sort", sort);
             param.Add("Agoods_Name", Request["Agoods_Name"]);
             param.Add("status_id", 1);
-            param.Add("agent_AN", Session["AN"] != null ? Session["AN"].ToString() : "agent");
+            param.Add("agent_AN", Session["agent_AN"] != null ? Session["agent_AN"].ToString() : "agent");
 
             string result = DALUtility.Agent.QryAgoods(param, out int ICount);
             return Content(result);
