@@ -202,7 +202,7 @@ namespace XM.DAL.comm
             var result = new List<string>();
             foreach (var entry in keyValues)
             {
-                if (entry.Key != keyFild && !entry.Key.Contains("CDT"))
+                if (entry.Key != keyFild && !entry.Key.Contains("CDT") && entry.Value!=null)
                 {
                     result.Add(entry.Key);
                 }
@@ -215,7 +215,7 @@ namespace XM.DAL.comm
             var result = new List<string>();
             foreach (var entry in keyValues)
             {
-                if (entry.Key != keyFild)
+                if (entry.Key != keyFild )
                 {  
                     result.Add(entry.Key);
                 }

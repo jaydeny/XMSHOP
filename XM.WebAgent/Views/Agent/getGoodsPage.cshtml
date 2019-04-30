@@ -12,7 +12,7 @@
     <div id="app">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
             <h1 class="h2">{{config.hearTitle}}</h1>
-            <button class="btn btn-outline-secondary" type="button" v-on:click="myGoods($event)">{{config.myGoodsBtn}}</button>
+            <button class="btn btn-outline-secondary" type="button" v-on:click="onMyGoods($event)">{{config.myGoodsBtn}}</button>
             <div>
                 <div class="input-group">
                     <input type="text" class="form-control" v-model="search">
@@ -43,7 +43,7 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" v-show="myGoodsShow">
 
             <div class="card" style="width: 18rem; display: inline-flex; margin:5px" v-for="(obj,index) in GoodsFilter" :key="index">
-                <img class="card-img-top" src="https://avatars.mds.yandex.net/get-pdb/25978/08f09eb2-a5e3-4a14-a076-9eda45d1a1cf/s1200" style="height : 165px" alt="加载失败">
+                <img class="card-img-top" src="http://cf-attach.i-sogi.com/cn/article/img/201312/2013121610401667595.jpg" style="height : 165px" alt="加载失败">
                 <div class="card-body">
                     <h5 class="card-title">{{config.cardTitle}} <span>{{obj.GoodsName}}</span> </h5>
                     <p class="card-text">{{config.Msg}} <span>{{obj.GoodsIntro}}</span> </p>
@@ -204,8 +204,8 @@
                    }
                    this.onloadData(this.config.goodsUrl.getAllGoods, param);
                },
-               myGoods(even) {
-                   console.log(even)
+               onMyGoods(even) {
+                   //console.log(even)
                    if (even.target.innerText === this.config.myGoodsBtn) {
                        this.myGoodsShow = false;
                        event.target.innerText = "全部商品";

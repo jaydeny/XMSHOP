@@ -70,7 +70,12 @@ function editToVIP() {
         data: datapram,
         dataType: 'json'
     }).done((data) => {
-        console.log(data)
+        if (data.success) {
+            //console.log(data)
+            $("#editVIP").modal('hide');
+            onloadData();
+            alert(data.msg)
+        }
     });
 }
 
@@ -84,6 +89,7 @@ function addVIP() {
     let status_id = $("#status_id");
     //将数据封装
     let datapram = {
+        "ID":0,
         "vip_AN": vip_AN.val(),
         "vip_pwd": vip_pwd.val(),
         "vip_mp": vip_mp.val(),
@@ -93,7 +99,7 @@ function addVIP() {
     }
     //发送ajax请求
     $.ajax({
-        url: '/VIP/Signin',
+        url: '/Agent/UpdateVIP',
         method: 'post',
         data: datapram,
         dataType: 'json'
@@ -133,10 +139,10 @@ function onloadData() {
 
 //封装列表显示函数，传入列表对象进行渲染页面
 function showList(objs) {
-    console.log(objs)
+   
     $("#tbody").empty();
     $.each(objs, function (index, obj) {
-        console.log(obj);
+       
         const trs = $("<tr></tr>");
 
 
@@ -166,11 +172,7 @@ function showList(objs) {
 
 //入口函数
 $(document).ready(function () {
-    if (localStorage.getItem("Agent_Name") == null) {
-        location.href = "/Agent/Login";
-    } else {
         onloadData();
-    }
 });
 
 
