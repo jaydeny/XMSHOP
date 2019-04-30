@@ -7,3 +7,7 @@ $("#home_exit").click(function () {
     }, "json")
 });
 
+$.post("/Home/loadMenu", function (data) {
+    console.data(data);
+})
+

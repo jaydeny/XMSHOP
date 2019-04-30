@@ -56,7 +56,7 @@ namespace XM.DAL
         }
 
 
-        public List<RoleMenuEntity> GetAllMenuById(List<int> Ids)
+        public List<RoleMenuEntity> GetAllMenuById(List<int> MenuIds)
         {
             string strSql = "select * from v_menu_list where id = @ID";
             List<RoleMenuEntity> menus = new List<RoleMenuEntity>();
