@@ -282,7 +282,7 @@ namespace XM.WebVip.Controllers
             param.Add("recharge_name", "测试充值");
             param.Add("recharge_price", Request["recharge_price"]);
             param.Add("recharge_time", date);
-            param.Add("agent_id", Session["agentID"].ToString());
+            param.Add("agent_id", Session["Agent_ID"].ToString());
             param.Add("vip_id", Session["ID"].ToString());
 
             int iCheck = DALUtility.Vip.Recharge(param);
