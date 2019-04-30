@@ -344,13 +344,13 @@ namespace XM.WebVip.Controllers
                 param.Add("order_mp", vipInfo.VipMobliePhone);
                 param.Add("vip_AN", Session["AN"].ToString());
                 param.Add("agent_AN", Session["agent_AN"].ToString());
-                param.Add("order_total", Request["order_total"]);
+                param.Add("order_total", decimal.Parse(Request["order_total"]));
 
                 param.Add("buy_time", date);
-                param.Add("buy_count", Request["buy_count"]);
+                param.Add("buy_count", int.Parse(Request["buy_count"]));
                 param.Add("buy_AN", Session["AN"].ToString());
                 param.Add("goods_id", Request["goods_id"]);
-                param.Add("buy_total", Request["buy_total"]);
+                param.Add("buy_total", decimal.Parse(Request["buy_total"]));
 
                 int iCheck = DALUtility.Vip.Buy(param);
 
