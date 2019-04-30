@@ -336,7 +336,7 @@ namespace XM.DAL
         /// <returns></returns>
         public string QryOrgPwd(Dictionary<string, object> paras)
         {
-            return QuerySingle<string>("SELECT pwd FROM tbvip WHERE id=@vip_id", paras, CommandType.Text);
+            return QuerySingle<string>("SELECT vip_pwd FROM tbvip WHERE id=@vip_id", paras, CommandType.Text);
         }
 
         /// <summary>

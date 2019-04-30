@@ -28,8 +28,8 @@ var strGoods = function (i,obj) {
 var listGoods
 
 // 渲染商品
-var goodsRender = function (list) {
-    $.post("/vip/qryagoods", function (data) {
+var goodsRender = function (parameter) {
+    $.post("/vip/qryagoods", parameter,function (data) {
         if (data.total > 0) {
             listGoods = data.rows;
             $.each(data.rows, function (i, n) {
@@ -50,8 +50,24 @@ $(".goods-exhibition").on("click", ".p-button", function () {
         }
     },"json")
 });
+// 获得url的参数
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if (pair[0] == variable) { return pair[1]; }
+    }
+    return (false);
+}
 
-// 查询商品类型
-
+goodsRender();
 // 请求商品
-goodsRender(new Array(10));
+var search = getQueryVariable("search");
+
+//if (search != null && search != "") {
+//    goodsRender({ Agoods_Name: search });
+//}
+//else {
+//    goodsRender();
+//}

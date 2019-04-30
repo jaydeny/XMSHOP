@@ -141,5 +141,12 @@ namespace XM.Web.Controllers
                 return OperationReturn(false,"删除失败");
             }
         }
+
+        public ActionResult Form()
+        {
+            return View("_Form");
+        }
+
+
     }
 }

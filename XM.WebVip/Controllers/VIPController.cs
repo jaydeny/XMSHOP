@@ -284,7 +284,7 @@ namespace XM.WebVip.Controllers
             param.Add("recharge_name", "测试充值");
             param.Add("recharge_price", Request["recharge_price"]);
             param.Add("recharge_time", date);
-            param.Add("agent_id", Session["agentID"].ToString());
+            param.Add("agent_id", Session["agent_ID"].ToString());
             param.Add("vip_id", Session["ID"].ToString());
 
             int iCheck = DALUtility.Vip.Recharge(param);
@@ -609,8 +609,8 @@ namespace XM.WebVip.Controllers
             param.Add("pi", pageindex);
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
-            param.Add("agent_AN", Session["agent_AN"].ToString());
-            param.Add("vip_AN", Session[" AN"].ToString());
+            param.Add("agent_AN", Session["Agent_AN"].ToString());
+            param.Add("vip_AN", Session["AN"].ToString());
 
             return Content(DALUtility.Vip.QryOrder(param, out int iCount));
         }
@@ -628,7 +628,7 @@ namespace XM.WebVip.Controllers
         {
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["id"] = ID;
-            paras["vip_AN"] = Request["vip_AN"];
+            paras["vip_AN"] = Request["AN"];
             paras["vip_mp"] = Request["vip_mp"];
             paras["vip_Email"] = Request["vip_Email"];
 

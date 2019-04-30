@@ -10,10 +10,8 @@
 $("#btnUpdate").click(function () {
     var email = $.trim($("#email").val());
     var tel = $.trim($("#tel").val());
-    $.post("/vip/Update", { "vip_mp": tel, "vip_Email": email }, function (data) {
-        console.log(data);
-        if (data.success) {
-            alert(data.msg);
-        }
-    });
+    var an = $.trim($("#name").val());
+    $.post("/vip/Update", { "AN":an,"vip_mp": tel, "vip_Email": email }, function (data) {
+        alert(data.msg);
+    },"json");
 });

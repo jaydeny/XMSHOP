@@ -89,6 +89,8 @@
             .home-menu .grid-list > li .img {
                 margin: 35px auto 0;
                 text-align: center;
+                width: 150px;
+                height: 150px;
             }
                 .home-menu .grid-list > li .img > img {
                     width: 150px;

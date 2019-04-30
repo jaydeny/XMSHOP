@@ -29,6 +29,11 @@
         $("#F_DepartmentId").bindSelect({
             url: "/SystemManage/Organize/GetTreeSelectJson",
         });
+
+        $.post("/Agent/GetAllUserInfo", function (data) {
+            console.log(data);
+        }, "json");
+
         $("#F_RoleId").bindSelect({
             url: "/SystemManage/Role/GetGridJson",
             id: "F_Id",
@@ -64,7 +69,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="formTitle">代理商编号</th>
+                    <th class="formTitle">代理商</th>
                     <td class="formValue">
                         <select id="agent_id" name="agent_id" class="form-control required">
                             <option value="">==请选择==</option>
