@@ -488,7 +488,7 @@ namespace XM.WebVip.Controllers
             param.Add("pi", pageindex);
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
-            param.Add("Agoods_Name", Request["Agoods_Name"]);
+            param.Add("goods_Name", Request["goods_Name"]);
             param.Add("status_id", 1);
             param.Add("agent_AN", Session["agent_AN"] != null ? Session["agent_AN"].ToString() : "agent");
 

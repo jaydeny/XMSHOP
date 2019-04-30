@@ -349,7 +349,7 @@ namespace XM.DAL
                 PageSize = Convert.ToInt32(paras["pageSize"]),
                 SortField = paras["sort"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "Agoods_Name", "Agoods_Name", "LIKE", "'%'+@Agoods_Name+'%'");
+            builder.AddWhereAndParameter(paras, "goods_Name", "a.goods_Name", "LIKE", "'%'+@goods_Name+'%'");
             builder.AddWhereAndParameter(paras, "agent_AN");
             builder.AddWhereAndParameter(paras, "status_id");
 
