@@ -369,7 +369,7 @@ namespace XM.WebVip.Controllers
         /// <summary>
         /// 作者:曾贤鑫
         /// 日期:2019/4/28
-        /// 功能:返回vip个人中心页面
+        /// 功能:返回vip个人信息
         /// </summary>
         /// <returns>json值</returns>
         [HttpPost]
