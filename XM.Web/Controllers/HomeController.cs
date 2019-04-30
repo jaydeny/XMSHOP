@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using XM.Model;
+using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
@@ -12,14 +14,12 @@ namespace XM.Web.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            UserEntity uInfo = ViewData["Account"] as UserEntity;
+            UserEntity uInfo = Session["User"] as UserEntity;
             if (uInfo == null)
             {
                 return RedirectToAction("Index", "Login");
             }
             ViewBag.RealName = uInfo.UserAccountName;
-            ViewBag.TimeView = DateTime.Now.ToLongDateString();
-            ViewBag.DayDate = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(DateTime.Now.DayOfWeek);
             return View();
         }
     }

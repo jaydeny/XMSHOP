@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -13,20 +14,7 @@ namespace XM.DAL
 {
     public class RoleDAL : BaseDal, IRoleDAL
     {
-        public int AddRole(RoleEntity role)
-        {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("insert into tbrole (role_name,jurisdiction_id)");
-            strSql.Append("values");
-            strSql.Append("(@RoleNamem,@Jurisdiction)");
-            strSql.Append(";SELECT @@IDENTITY");
-            SqlParameter[] paras =
-            {
-                new SqlParameter("@RoleName",role.RoleName),
-                new SqlParameter("@Jurisdiction",role.Jurisdiction)
-            };
-            return Convert.ToInt32(SqlHelper.ExecuteScalar(SqlHelper.connStr, CommandType.Text, strSql.ToString(), paras));
-        }
+
 
         public bool DeleteRole(string id)
         {
@@ -50,24 +38,6 @@ namespace XM.DAL
             }
         }
 
-        public bool EditRole(RoleEntity role)
-        {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("insert  tbrole set");
-            strSql.Append("role_name=@RoleNamem,jurisdiction_id=@Jurisdiction");
-            strSql.Append("where id = @RoleID");
-            SqlParameter[] paras =
-            {
-                new SqlParameter("@RoleName",role.RoleName),
-                new SqlParameter("@Jurisdiction",role.Jurisdiction),
-                new SqlParameter("@RoleID",role.RoleID)
-            };
-            object obj = SqlHelper.ExecuteNonQuery(SqlHelper.connStr, CommandType.Text, strSql.ToString(), paras);
-            if (Convert.ToInt32(obj) > 0)
-                return true;
-            else
-                return false;
-        }
 
         public IEnumerable<T> QryRole<T>(Dictionary<string, object> paras, out int iCount)
         {
@@ -81,13 +51,16 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString(),
                 SortDirection = paras["order"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "RoleName", "role_name", "LIKE", "'%'+@RoleName+'%'");
+            builder.AddWhereAndParameter(paras, "Name", "name", "LIKE", "'%'+@Name+'%'");
             return SortAndPage<T>(builder, grid, out iCount);
         }
-
+        
         public int Save(Dictionary<string, object> paras)
         {
-            return StandardInsertOrUpdate("tbrole", paras);
+            DataTable dtRolememu = paras["rolememu"] as DataTable;
+            paras["rolememu"] = dtRolememu.AsTableValuedParameter();
+            return QuerySingle<int>("P_Role_Save", paras, CommandType.StoredProcedure); 
+                //StandarInsertOrUpdate("tbrole", paras);
         }
     }
 }

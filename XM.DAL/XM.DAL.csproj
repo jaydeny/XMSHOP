@@ -68,10 +68,12 @@
     <Compile Include="GoodsDAL.cs" />
     <Compile Include="GoodsTypeDAL.cs" />
     <Compile Include="JurisdictionDAL.cs" />
+    <Compile Include="MenuDAL.cs" />
     <Compile Include="OrderDAL.cs" />
     <Compile Include="RechargeDAL.cs" />
     <Compile Include="RemainderDAL.cs" />
     <Compile Include="RoleDAL.cs" />
+    <Compile Include="RoleMenuDAL.cs" />
     <Compile Include="StatusDAL.cs" />
     <Compile Include="UserDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

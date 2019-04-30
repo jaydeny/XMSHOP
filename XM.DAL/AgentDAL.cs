@@ -273,7 +273,7 @@ namespace XM.DAL
         /// <returns></returns>
         public int Save(Dictionary<string, object> paras)
         {
-            return StandardInsertOrUpdate("tbAgent", paras);
+            return StandarInsertOrUpdate("tbAgent", paras);
         }
 
         /// <summary>

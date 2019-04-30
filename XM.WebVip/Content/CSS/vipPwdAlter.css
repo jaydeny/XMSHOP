@@ -1,0 +1,17 @@
+
+.pwd-alter .header {
+	border-bottom: 1px solid #dedede;
+}
+.pwd-alter .main {
+	width: 260px;
+	margin: 0 auto;
+	margin-top: 15px;
+}
+.pwd-alter .alter_but {
+	width: 90px;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+    background: #ca141d;
+	color: #fff;
+}
