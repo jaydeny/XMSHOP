@@ -362,6 +362,7 @@ namespace XM.WebVip.Controllers
         /// <returns>页面</returns>
         public ActionResult VipInfoPage()
         {
+
             return View();
         }
 
@@ -618,18 +619,17 @@ namespace XM.WebVip.Controllers
             return PagerData(totalCount, goods);
         }
 
-        public ActionResult AgoodsListPage()
-        {
-            return View();
-        }
 
-
-        [HttpPost]
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4/30
+        /// 修改时间：2019-
+        /// 功能：返回商品筛选页
+        /// </summary>
         public ActionResult AgoodsList()
         {
             return View();
         }
-
 
         public ActionResult QryOrder()
         {
