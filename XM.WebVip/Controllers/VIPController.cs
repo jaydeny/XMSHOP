@@ -25,8 +25,6 @@ namespace XM.WebVip.Controllers
         /// <returns>页面:首页</returns>
         public ActionResult Index()
         {
-            ViewData["Hot"] = HotGoods();
-            ViewData["Boutique"] = BoutiqueGoods();
             return View();
         }
 
@@ -715,6 +713,13 @@ namespace XM.WebVip.Controllers
             return OperationReturn(true,"退出成功");
         }
 
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4/30
+        /// 修改时间：2019-
+        /// 功能：查询地址
+        /// </summary>
         public VipInfoDTO QryAddAndMP()
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
