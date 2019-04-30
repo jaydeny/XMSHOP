@@ -55,7 +55,7 @@
                 </ul>
                 <div class="card-body">
                     @*一键发布哦哦*@
-                    <a href="#" class="btn btn-primary" v-on:click="Release(index)">{{config.cardFunction.Release}}</a>
+                    <a href="#" class="btn btn-primary" data-toggle="modal"  v-on:click="Release(index)">{{config.cardFunction.Release}}</a>
                 </div>
             </div>
         </main>
@@ -73,28 +73,6 @@
                 </ul>
             </div>
         </main>
-
-        @*上架模态框*@
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">{{config.modalTitle}}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        {{config.modalContent}}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{config.modalCloseBtn}}</button>
-                        <button type="button" class="btn btn-primary" v-on:click="groundSubmir()">{{config.modalSubmitBtn}}</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
     </div>
     <script >
@@ -192,8 +170,11 @@
                    
                    //进行验证
                    if (price == '') {
+                       
                        //定价为空，消息警告，前期使用alert
                        alert(this.config.message.warm.priceIsNull);
+                       
+                       
                    } else {
                        //获取到当前的商品
                        const releaseGoods = this.Goods[GoodsIndex];
@@ -205,18 +186,15 @@
                            "price": price,
                            "goods_name": releaseGoods.GoodsName
                        }
-                       
+                       //发送请求去上架商品 请求地址: /Agent/MakeGoods
+                       this.$http.post(this.config.goodsUrl.groundUrl, this.fromData).then((data) => {
+                           if (data.success) {
+                               alert(data.msg);
+                           } else {
+                               alert(data.msg);
+                           }
+                       });
                    }
-               },
-               groundSubmir() {
-                   //发送请求去上架商品 请求地址: /Agent/MakeGoods
-                   this.$http.post(this.config.goodsUrl.groundUrl, this.fromData).then((data) => {
-                       if (data.success) {
-                           alert(data.msg);
-                       } else {
-                           alert(data.msg);
-                       }
-                   });
                },
                //向数据库中发送请求查询数据
                searchAllGoods() {
