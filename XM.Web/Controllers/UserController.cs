@@ -16,7 +16,7 @@ namespace XM.Web.Controllers
     /// </summary>
     public class UserController : BaseController, IRequiresSessionState
     {
-        [PermissionFilter]
+        //[PermissionFilter]
         // GET: User
         public ActionResult Index()
         {
@@ -63,7 +63,7 @@ namespace XM.Web.Controllers
         /// 获取所有用户信息
         /// </summary>
         /// <returns></returns>
-        [PermissionFilter("User", "Index")]
+        //[PermissionFilter("User", "Index")]
 
         public ActionResult GetAllUserInfo()
         {

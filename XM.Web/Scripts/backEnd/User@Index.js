@@ -4,7 +4,7 @@
 function gridList() {
     var $gridList = $("#gridList");
     $gridList.dataGrid({
-        url: "/User/GetGridJson",
+        url: "/User/GetAllUserInfo",
         height: $(window).height() - 128,
         colModel: [
             { label: '主键', name: 'user_id', hidden: true },

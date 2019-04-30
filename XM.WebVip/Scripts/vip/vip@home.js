@@ -55,7 +55,7 @@ window.onload = function () {
 
     // 获取热销
     $.post("/vip/HotGoods", function (data) {
-        
+        console.log(data)
         $.each(data.rows, function (i, n) {
             $(".hot_melt ul").append(HotGoods(n));
         });
@@ -63,6 +63,7 @@ window.onload = function () {
 
     //获取推存 
     $.post("/vip/BoutiqueGoods", function (data) {
+        console.log(data)
         $.each(data.rows, function (i, n) {
             $(".quality_goods ul").append(HotGoods(n));
         });

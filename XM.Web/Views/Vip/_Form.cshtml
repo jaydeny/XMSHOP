@@ -20,39 +20,24 @@
         }
     });
     function initControl() {
-        $("#F_Gender").bindSelect()
-        $("#F_IsAdministrator").bindSelect()
-        $("#F_EnabledMark").bindSelect()
-        $("#F_OrganizeId").bindSelect({
-            url: "/SystemManage/Organize/GetTreeSelectJson"
-        });
-        $("#F_DepartmentId").bindSelect({
-            url: "/SystemManage/Organize/GetTreeSelectJson",
-        });
 
+        // 获取代理商
         $.post("/Agent/GetAllUserInfo", function (data) {
-            console.log(data);
+            $.each(data.rows, function (i, obj) {
+                $("#agent_id").append("<option value='" + obj.AgentID + "'>" + obj.AgentAccountName + "</option>")
+            })
         }, "json");
-
-        $("#F_RoleId").bindSelect({
-            url: "/SystemManage/Role/GetGridJson",
-            id: "F_Id",
-            text: "F_FullName"
-        });
-        $("#F_DutyId").bindSelect({
-            url: "/SystemManage/Duty/GetGridJson",
-            id: "F_Id",
-            text: "F_FullName"
-        });
+        
     }
     function submitForm() {
         if (!$('#form1').formValid()) {
             return false;
         }
         $.submitForm({
-            url: "/Vip/SubmitForm?keyValue=" + keyValue,
+            url: "/Vip/AddUser?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
-            success: function () {
+            success: function (data) {
+                console.log(data);
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
             }
         })
@@ -72,8 +57,6 @@
                     <th class="formTitle">代理商</th>
                     <td class="formValue">
                         <select id="agent_id" name="agent_id" class="form-control required">
-                            <option value="">==请选择==</option>
-                            <option value="1">1</option>
                         </select>
                     </td>
                 </tr>
