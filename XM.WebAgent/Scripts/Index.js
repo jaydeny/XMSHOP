@@ -6,12 +6,11 @@ function search() {
     let datapram = {
         "vip_AN": search,
         "vip_mp": search,
-        "vip_Email": search,
-        "status_id": search
+        "vip_Email": search
     }
 
     $.ajax({
-        url: "/VIP/GetAllUserInfo",
+        url: "/Agent/GetAllVIP",
         method: 'get',
         data: datapram,
         dataType: 'json'
@@ -36,13 +35,14 @@ function editVIP(id) {
     let agent_id = $("#agent_id");
     //使用下标去获取这个对象
     let vip = objs[id];
+    console.log(vip)
     //表单值填充
-    edit_vip_AN.val(vip.vip_AN);
-    edit_vip_mp.val(vip.vip_mp);
-    edit_vip_email.val(vip.vip_email);
-    edit_status_id.val(vip.status_id);
-    v_id.val(vip.id);
-    agent_id.val(vip.agent_id);
+    edit_vip_AN.val(vip.VipAccountName);
+    edit_vip_mp.val(vip.VipMobliePhone);
+    edit_vip_email.val(vip.VipEmail);
+    edit_status_id.val(vip.StatusID);
+    v_id.val(vip.VipID);
+    agent_id.val(vip.AgentID);
 
 }
 //发送请求，带这个VIP去进行修改
@@ -60,17 +60,22 @@ function editToVIP() {
         "vip_mp": edit_vip_mp.val(),
         "vip_email": edit_vip_email.val(),
         "status_id": edit_status_id.val(),
-        "vip_id": vip_id.val(),
+        "ID": vip_id.val(),
         "agent_id": agent_id.val()
     }
 
     $.ajax({
-        url: '/VIP/Update',
+        url: '/Agent/UpdateVIP',
         method: 'post',
         data: datapram,
         dataType: 'json'
     }).done((data) => {
-        console.log(data)
+        if (data.success) {
+            //console.log(data)
+            $("#editVIP").modal('hide');
+            onloadData();
+            alert(data.msg)
+        }
     });
 }
 
@@ -84,6 +89,7 @@ function addVIP() {
     let status_id = $("#status_id");
     //将数据封装
     let datapram = {
+        "ID":0,
         "vip_AN": vip_AN.val(),
         "vip_pwd": vip_pwd.val(),
         "vip_mp": vip_mp.val(),
@@ -93,7 +99,7 @@ function addVIP() {
     }
     //发送ajax请求
     $.ajax({
-        url: '/VIP/Signin',
+        url: '/Agent/UpdateVIP',
         method: 'post',
         data: datapram,
         dataType: 'json'
@@ -126,33 +132,34 @@ function onloadData() {
     }).done(function (data) {
         objs = data.rows;
         //调用列表数据可视化函数
-        console.log(objs)
+       
         showList(objs);
     })
 }
 
 //封装列表显示函数，传入列表对象进行渲染页面
 function showList(objs) {
+   
     $("#tbody").empty();
     $.each(objs, function (index, obj) {
-
+       
         const trs = $("<tr></tr>");
 
 
-        const vip_mp = $("<td>" + obj.vip_mp + "</td>");
+        const vip_mp = $("<td>" + obj.VipMobliePhone + "</td>");
         trs.append(vip_mp)
-        const vip_AN = $("<td>" + obj.vip_AN + "</td>");
+        const vip_AN = $("<td>" + obj.VipAccountName + "</td>");
         trs.append(vip_AN)
-        const vip_email = $("<td>" + obj.vip_email + "</td>");
+        const vip_email = $("<td>" + obj.VipEmail + "</td>");
         trs.append(vip_email)
-        if (obj.status_id == 1) {
+        if (obj.StatusID == 1) {
             const status_id = $("<td>" + "启用" + "</td>");
             trs.append(status_id)
         } else {
             const status_id = $("<td>" + "禁用" + "</td>");
             trs.append(status_id)
         }
-        const vip_CDT = $("<td>" + obj.vip_CDT + "</td>");
+        const vip_CDT = $("<td>" + obj.CreateTime + "</td>");
         trs.append(vip_CDT)
 
         const vip_Btn = $("<td><button type='button' class='btn btn - secondary' data-toggle='modal' data-target='#editVIP'onclick='editVIP(" + index + ")'>编辑</button></td>");
@@ -165,11 +172,7 @@ function showList(objs) {
 
 //入口函数
 $(document).ready(function () {
-    if (localStorage.getItem("Agent_Name") == null) {
-        location.href = "/Agent/Login";
-    } else {
         onloadData();
-    }
 });
 
 

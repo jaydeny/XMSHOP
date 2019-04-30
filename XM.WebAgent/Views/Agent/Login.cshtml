@@ -21,11 +21,7 @@
         <input type="text" id="inputUserName" class="form-control" placeholder="UserName" required autofocus value="agent">
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required value="agent123">
-        @*<div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="remember-me"> 记住我
-                </label>    
-            </div>*@
+       
 
         <button class="btn btn-lg btn-primary btn-block" type="button" id="login">登录</button>
         <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
@@ -52,8 +48,7 @@
                         //console.log(data.success)
                         console.log(data)
                         if (data.success) {
-                            localStorage.setItem('Agent_Name', inputUserName);
-                            localStorage.setItem('Agent_ID', data.agent_id);
+                            
                             location.href = "/Agent/Index";
                         } else {
                             alert("用户名或密码错误")
