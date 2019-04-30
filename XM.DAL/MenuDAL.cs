@@ -54,6 +54,34 @@ namespace XM.DAL
             builder.AddWhereAndParameter(paras, "Rid", "Id", "=", "@Rid");
             return SortAndPage<T>(builder, grid, out iCount);
         }
+
+        public IEnumerable<T> GetAllMenuById<T>(Dictionary<string, object> paras, out int iCount)
+        {
+            iCount = 0;
+            WhereBuilder builder = new WhereBuilder();
+            builder.FromSql = "v_roleMenu_list";
+            GridData grid = new GridData()
+            {
+                PageIndex = 1,
+                PageSize = 100,
+                SortField = "id",
+                SortDirection = "asc"
+            };
+            builder.AddWhereAndParameter(paras, "id", "id", "=", "@id");
+            return SortAndPage<T>(builder, grid, out iCount);
+        }
+
+        public List<RoleMenuEntity> GetAllMenuById(List<int> Ids)
+        {
+            string strSql = "select * from v_menu_list where id = @ID";
+            List<RoleMenuEntity> menus = new List<RoleMenuEntity>();
+            foreach(int id in Ids)
+            {
+                menus.Add(QuerySingle<RoleMenuEntity>(strSql, new { ID = id }));
+            }
+            return menus;
+        }
+
         public int Save(Dictionary<string, object> paras)
         {
             return StandarInsertOrUpdate("tbmenu", paras);
