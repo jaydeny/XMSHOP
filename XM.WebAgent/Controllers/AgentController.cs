@@ -47,8 +47,18 @@ namespace XM.WebAgent.Controllers
         public ActionResult ReportForm() {
             return View();
         }
+        /// <summary>
+        /// 作者:梁钧淋
+        /// 日期:2019/4/30
+        /// 功能:返回代理个人信息页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult AgentPersonalCenter()
+        {
+            return View();
+        }
 
-        
+
 
 
         #region _Login
