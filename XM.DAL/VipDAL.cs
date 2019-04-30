@@ -353,7 +353,7 @@ namespace XM.DAL
         /// <returns></returns>
         public string QryVipInfo<T>(Dictionary<string, object> paras)
         {
-            var vipInfo = QuerySingle<T>("SELECT VipAccountName,VipMobliePhone,VipEmail FROM v_vip_info WHERE vip_AN=@vip_AN", paras, CommandType.Text);
+            var vipInfo = QuerySingle<T>("SELECT VipAccountName,VipMobliePhone,VipEmail FROM v_vip_info WHERE VipAccountName=@vip_AN", paras, CommandType.Text);
 
             string retData = JsonConvert.SerializeObject(new { total = 1, rows = vipInfo });
 
