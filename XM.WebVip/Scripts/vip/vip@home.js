@@ -18,9 +18,7 @@ window.onload = function () {
         obj.url = "/vip/Signin";
         bouncedLogin(obj);
     });
-
-    //退出
-    $("#vipExit").click(function () {
+    var safetyExit = function () {
         $.get("/vip/RemoveSession", function (data, status, xhr) {
             if (data.success) {
                 // 清空数据
@@ -29,6 +27,10 @@ window.onload = function () {
                 }, 500);
             }
         }, "json")
+    }
+    //退出
+    $("#vipExit").click(function () {
+        safetyExit();
     });
     //获取登录信息
     var loginInfo = function () {
@@ -38,6 +40,7 @@ window.onload = function () {
                 $("#onlogin_box").addClass("hidden");
                 $("#login_box").removeClass("hidden");
                 $("#vip_name").text($.parseJSON(data.data).rows.VipAccountName);
+                $("#Remainder").text($.parseJSON(data.data).rows.Remainder);
                 $('#myModal').modal('hide');
             }
         }, "json")
@@ -55,7 +58,6 @@ window.onload = function () {
 
     // 获取热销
     $.post("/vip/HotGoods", function (data) {
-        console.log(data)
         $.each(data.rows, function (i, n) {
             $(".hot_melt ul").append(HotGoods(n));
         });
@@ -63,7 +65,6 @@ window.onload = function () {
 
     //获取推存 
     $.post("/vip/BoutiqueGoods", function (data) {
-        console.log(data)
         $.each(data.rows, function (i, n) {
             $(".quality_goods ul").append(HotGoods(n));
         });

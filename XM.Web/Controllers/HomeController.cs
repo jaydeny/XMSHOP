@@ -28,12 +28,7 @@ namespace XM.Web.Controllers
         {
             List<RoleMenuEntity> roleMenus = new List<RoleMenuEntity>();
             string strRoleMenuData = Session["RoleMenu"].ToString();
-            List<int> objIDs = new List<int>();
-            foreach(int objId in objIDs)
-            {
-                objIDs.Add(JsonConvert.DeserializeObject<RoleMenuEntity>(strRoleMenuData).MenuId);
-            }
-                
+            List<int> objIDs = ((IEnumerable<RoleMenuEntity>)JsonConvert.DeserializeObject(strRoleMenuData)).ToDictionary(t => t.Id).Keys.ToList();
             var menu = DALUtility.Menu.GetAllMenuById(objIDs);
             return PagerData(9, menu);
 

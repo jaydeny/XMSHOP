@@ -60,7 +60,7 @@ namespace XM.DAL
         {
             string strSql = "select * from v_menu_list where id = @ID";
             List<RoleMenuEntity> menus = new List<RoleMenuEntity>();
-            foreach(int id in Ids)
+            foreach(int id in MenuIds)
             {
                 menus.Add(QuerySingle<RoleMenuEntity>(strSql, new { ID = id }));
             }

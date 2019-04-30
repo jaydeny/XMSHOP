@@ -422,8 +422,8 @@ namespace XM.WebVip.Controllers
         public ActionResult Address()
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("id", int.Parse(Request["id"]));
-            param.Add("address_name", Request["address_name"]);
+            //param.Add("id", int.Parse(Request["id"]));
+            //param.Add("address_name", Request["address_name"]);
             param.Add("vip_id", int.Parse(Session["ID"].ToString()));
 
             string result = DALUtility.Vip.QryVipAddress(param, out int iCount);
