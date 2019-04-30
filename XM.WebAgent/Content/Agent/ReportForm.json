@@ -23,6 +23,6 @@
     "revenueList": "营收列表"
   },
   "urlList": {
-    "QryReportForm": "/Agent/QryReportForm"
+    "QryReportForm": "/Agent/QryOrder"
   }
 }
