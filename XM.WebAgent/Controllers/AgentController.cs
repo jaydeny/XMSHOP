@@ -232,7 +232,7 @@ namespace XM.WebAgent.Controllers
                 Dictionary<string, object> paras = new Dictionary<string, object>();
                 paras.Add("agent_AN", Session["Agent_AN"].ToString());
 
-                return Content(DALUtility.Agent.QryAgentInfo<AgentEntity>(paras));
+                return Content(DALUtility.Agent.QryAgentInfo<AgentInfoDTO>(paras));
             }
             else
             {
