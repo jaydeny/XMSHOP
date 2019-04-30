@@ -625,7 +625,7 @@ namespace XM.WebVip.Controllers
         {
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["id"] = ID;
-            paras["vip_AN"] = Request["vip_AN"];
+            paras["vip_AN"] = Session["AN"] != null ? Session["AN"].ToString() : Request["vip_AN"];
             paras["vip_mp"] = Request["vip_mp"];
             paras["vip_Email"] = Request["vip_Email"];
 
