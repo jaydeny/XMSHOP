@@ -86,7 +86,7 @@ namespace XM.WebAgent.Controllers
                         return OperationReturn(false, "用户已被禁用，请您联系管理员");
                     }
                     Session["Agent_AN"] = agent.AgentAccountName;
-                    Session["Agent_AN"] = agent.AgentID;
+                    Session["Agent_ID"] = agent.AgentID;
                     return OperationReturn(true, "登录成功,agent_id:" + agent.AgentID + ";agent_AN:" + AN,
                         new
                         {
@@ -309,26 +309,6 @@ namespace XM.WebAgent.Controllers
         /// 功能:查询时段内的报表
         /// </summary>
         /// <returns>json值</returns>
-        public ActionResult QryReportForm()
-        {
-            string sort = Request["sort"] == null ? "id" : Request["sort"];
-            string order = Request["order"] == null ? "asc" : Request["order"];
-            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
-            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-
-
-            Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("pi", pageindex);
-            param.Add("pageSize", pagesize);
-            param.Add("sort", sort);
-            param.Add("startTime", Request["startTime"]);
-            param.Add("endTime", Request["endTime"]);
-            param.Add("agent_AN", Session["Agent_AN"].ToString());
-
-            string result = DALUtility.Agent.QryReportForm(param, out int ICount);
-            return Content(result);
-        }
-
         public ActionResult QryOrder()
         {
             string sort = Request["sort"] == null ? "id" : Request["sort"];
@@ -341,7 +321,7 @@ namespace XM.WebAgent.Controllers
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
             param.Add("agent_AN", Session["Agent_AN"].ToString());
-            if(Session[" AN"].ToString() != null)
+            if(Session[" AN"]!= null)
             {
                 param.Add("vip_AN", Session[" AN"].ToString());
             }
