@@ -52,7 +52,7 @@
                     <tr>
                         <th scope="row">{{obj.vip_AN}}</th>
                         <td>{{obj.order_mp}}</td>
-                        <td>{{obj.order_address}}</td>
+                        <td>{{obj.address_name}}</td>
                         <td>{{obj.order_date.substring(0,10)}}</td>
                         <td>{{obj.order_total}}</td>
                     </tr>
@@ -107,6 +107,7 @@
                 //进行数据请求，获取营收数据
                 onloadData(url, param) {
                     this.$http.post(url, param).then((data) => {
+                        console.log(data.body.rows)
                         this.dataTable = data.body.rows;
                     });
                 },
