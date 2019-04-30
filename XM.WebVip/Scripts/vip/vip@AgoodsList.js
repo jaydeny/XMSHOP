@@ -30,7 +30,6 @@ var listGoods
 // 渲染商品
 var goodsRender = function (list) {
     $.post("/vip/qryagoods", function (data) {
-        console.log(data);
         if (data.total > 0) {
             listGoods = data.rows;
             $.each(data.rows, function (i, n) {
