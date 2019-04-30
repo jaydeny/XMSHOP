@@ -211,6 +211,23 @@ namespace XM.WebAgent.Controllers
         }
         #endregion
 
+        #region _AgentInfo
+        public ActionResult QryAgentInfo()
+        {
+            if(Session["Agent_AN"] != null)
+            {
+                Dictionary<string, object> paras = new Dictionary<string, object>();
+                paras.Add("agent_AN", Session["Agent_AN"].ToString());
+
+                return Content(DALUtility.Agent.QryAgentInfo<AgentEntity>(paras));
+            }
+            else
+            {
+                return OperationReturn(false,"请登录后查看个人信息");
+            }
+        }
+        #endregion
+
         #region _Goods
         /// <summary>
         /// 作者:曾贤鑫

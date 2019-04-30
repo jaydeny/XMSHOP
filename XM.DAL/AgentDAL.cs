@@ -359,6 +359,23 @@ namespace XM.DAL
         }
         #endregion
 
+        #region _Info
+        /// <summary>
+        /// 查询代理商信息
+        /// owen
+        /// </summary>
+        /// <typeparam name="VIPEntity">vip</typeparam>
+        /// <param name="paras">参数:登入名,密码</param>
+        /// <returns>返回一个对象,指vip</returns>
+        public string QryAgentInfo<T>(Dictionary<string, object> paras)
+        {
+            var objAgentInfo = QuerySingle<T>("SELECT * FROM v_agent_info WHERE AgentAccountName=@agent_AN", paras, CommandType.Text);
+
+            string retData = JsonConvert.SerializeObject(new { rows = objAgentInfo });
+            return retData;
+        }
+        #endregion
+
         #region _Form
         /// <summary>
         /// 查询所有的代理商
