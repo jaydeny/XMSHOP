@@ -1,6 +1,9 @@
-﻿
+﻿var last_a;
 $(".vipinfo-nav a").click(function () {
-
+    $(last_a).removeClass("action");
+    $(this).addClass("action");
+    last_a = $(this);
+    $(this).addClass("action");
     if ($(this).prop("href") != "") {
         $.get($(this).prop("href"), function (data, status, xhr) {
             if (!$(".vipinfo-main .info-head").hasClass("hidden")) {
@@ -36,6 +39,19 @@ $.post("/vip/QryAgoods", function (data) {
         $("#order_box").addClass("hidden");
     }
 }, "json")
+
+// 去充值
+$("#go-top-up").click(function () {
+    last_a = $("#a_top-up");
+    $(last_a).addClass("action");
+    $.get($(last_a).prop("href"), function (data, status, xhr) {
+        if (!$(".vipinfo-main .info-head").hasClass("hidden")) {
+            $(".vipinfo-main .info-head").addClass("hidden");
+        }
+        $(".vipinfo-main .info-body").html(data);
+    }, "html")
+});
+
 
 
 

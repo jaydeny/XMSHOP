@@ -14,20 +14,30 @@ var addressTemplate = function (obj) {
 //})
 // 修改地址ID
 var updateId = 0;
+
+// 清空
+var emptyAddress = function () {
+    $("#txt_address").val("");
+    updateId = 0;
+    $("#btnAddAddress").text("新添地址");
+}
 // 地址添加
 $("#btnAddAddress").click(function () {
     var txt_address = $("#txt_address").val();
-    $.post("/vip/InsertAddress", { address_name: txt_address, }, function (data) {
-        if (data.success) {
-            $("#txt_address").val("");
-            alert(data.msg);
-            updateId = 0;
-            $("#btnAddAddress").text("新添地址");
-        }
-        else {
-            alert(data.msg);
-        }
-    }, "json")
+    alert("地址添加");
+    //$.post("/vip/InsertAddress", { address_name: txt_address, }, function (data) {
+    //    if (data.success) {
+    //        alert(data.msg);
+    //        emptyAddress();
+    //    }
+    //    else {
+    //        alert(data.msg);
+    //    }
+    //}, "json")
+});
+// 清空
+$("#btnEmptyAddress").click(function () {
+    emptyAddress();
 });
 // 地址修改
 $(".site-list").on("click", ".update", function () {
