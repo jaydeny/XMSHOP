@@ -146,6 +146,17 @@ namespace XM.IDAL
         string QryAgoods(Dictionary<string, object> paras, out int iCount);
         #endregion
 
+        #region _Info
+        /// <summary>
+        /// 查询代理商信息
+        /// owen
+        /// </summary>
+        /// <typeparam name="VIPEntity">vip</typeparam>
+        /// <param name="paras">参数:登入名,密码</param>
+        /// <returns>返回一个对象,指vip</returns>
+        string QryAgentInfo<T>(Dictionary<string, object> paras);
+        #endregion
+
         #region _From
         /// <summary>
         /// 查询所有的代理商

@@ -12,6 +12,7 @@
     <div id="app">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
             <h1 class="h2">{{config.hearTitle}}</h1>
+
             <button class="btn btn-outline-secondary" type="button" v-on:click="onMyGoods($event)">{{config.myGoodsBtn}}</button>
             <div>
                 <div class="input-group">
@@ -60,19 +61,42 @@
             </div>
         </main>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" v-show="!myGoodsShow">
-           
+
             <div class="card" style="width: 18rem; display: inline-flex; margin:5px" v-for="(obj,index) in myGoodsFilter" :key="index">
                 <img class="card-img-top" src="https://avatars.mds.yandex.net/get-pdb/25978/08f09eb2-a5e3-4a14-a076-9eda45d1a1cf/s1200" style="height : 165px" alt="加载失败">
                 <div class="card-body">
                     <h5 class="card-title">{{config.cardTitle}} <span>{{obj.goods_name}}</span> </h5>
-                    
+
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">{{config.cardGoodsTime}} <span>{{obj.up_time.substring(0,10)}}</span> </li>
-                    <li class="list-group-item">{{config.cardGoodsReferencePrice}} <span>{{obj.price}}</span> </li> 
+                    <li class="list-group-item">{{config.cardGoodsReferencePrice}} <span>{{obj.price}}</span> </li>
                 </ul>
             </div>
         </main>
+
+        @*上架模态框*@
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">{{config.modalTitle}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{config.modalContent}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{config.modalCloseBtn}}</button>
+                        <button type="button" class="btn btn-primary" v-on:click="groundSubmir()">{{config.modalSubmitBtn}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
     <script >
         //我们尝试使用VUE进行开发
@@ -90,7 +114,8 @@
                 //是否显示全部商品
                myGoodsShow: true,
                 //我的商品
-                myGoods:[]
+               myGoods: [],
+               fromData :[]
             },
            created: function () {
                 //加载配置文件，将数据填充
@@ -162,35 +187,44 @@
                },
                //一键发布的动作
                Release(GoodsIndex) {
-                   //拿到定价
-                   const price = this.Price;
+
+                   //获取当前商品定价
+                   let price = document.querySelectorAll(".price")[GoodsIndex].value;
+                   
                    //进行验证
                    if (price == '') {
+                       
                        //定价为空，消息警告，前期使用alert
                        alert(this.config.message.warm.priceIsNull);
+                       
+                       
                    } else {
                        //获取到当前的商品
                        const releaseGoods = this.Goods[GoodsIndex];
-                       //获取当前商品定价
-                       let price = document.querySelectorAll(".price")[GoodsIndex].value;
 
+                       $('#exampleModalCenter').modal('show')
                         //设置请求参数
-                       let param = {
+                        this.fromData = {
                            "goods_id": releaseGoods.GoodsID,
                            "status_id": 1,
                            "price": price,
-                           "Agent_AN": localStorage.getItem("Agent_Name"),
                            "goods_name": releaseGoods.GoodsName
                        }
-                       //发送请求去上架商品 请求地址: /Agent/MakeGoods
-                       this.$http.post(this.config.goodsUrl.groundUrl, param).then((data) => {
-                           if (data.success) {
-                               alert(data.msg);
-                           } else {
-                               alert(data.msg);
-                           }
-                       });
+                        
                    }
+               },
+               groundSubmir() {
+                   //发送请求去上架商品 请求地址: /Agent/MakeGoods
+                   this.$http.post(this.config.goodsUrl.groundUrl, this.fromData).then((data) => {
+                       //console.log(data)
+                       if (data.body.success) {
+
+                           alert(data.body.msg);
+                       } else {
+                           alert(data.body.msg);
+                       }
+                   });
+                   $('#exampleModalCenter').modal('hide')
                },
                //向数据库中发送请求查询数据
                searchAllGoods() {

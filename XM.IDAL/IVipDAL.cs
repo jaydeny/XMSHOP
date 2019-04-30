@@ -170,6 +170,14 @@ namespace XM.IDAL
         /// <param name="icound"></param>
         /// <returns></returns>
         string QryVipAddress(Dictionary<string, object> paras, out int icound);
+        
+        /// <summary>
+        /// 查询用户余额
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        decimal QryRemainder(Dictionary<string, object> paras);
         #endregion
 
         #region _Order

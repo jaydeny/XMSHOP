@@ -44,6 +44,7 @@
     <Compile Include="AddressEntity.cs" />
     <Compile Include="AgentEntity.cs" />
     <Compile Include="AgentGoodsEntity.cs" />
+    <Compile Include="AgentInfoDTO.cs" />
     <Compile Include="BuyEntity.cs" />
     <Compile Include="GoodsEntity.cs" />
     <Compile Include="GoodsTypeEntity.cs" />

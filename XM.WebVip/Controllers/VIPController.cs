@@ -25,8 +25,6 @@ namespace XM.WebVip.Controllers
         /// <returns>页面:首页</returns>
         public ActionResult Index()
         {
-            ViewData["Hot"] = HotGoods();
-            ViewData["Boutique"] = BoutiqueGoods();
             return View();
         }
 
@@ -284,7 +282,7 @@ namespace XM.WebVip.Controllers
             param.Add("recharge_name", "测试充值");
             param.Add("recharge_price", Request["recharge_price"]);
             param.Add("recharge_time", date);
-            param.Add("agent_id", Session["agent_ID"].ToString());
+            param.Add("agent_id", Session["Agent_ID"].ToString());
             param.Add("vip_id", Session["ID"].ToString());
 
             int iCheck = DALUtility.Vip.Recharge(param);
@@ -374,7 +372,6 @@ namespace XM.WebVip.Controllers
         /// <returns>页面</returns>
         public ActionResult VipInfoPage()
         {
-
             return View();
         }
 
@@ -491,7 +488,7 @@ namespace XM.WebVip.Controllers
             param.Add("pi", pageindex);
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
-            param.Add("Agoods_Name", Request["Agoods_Name"]);
+            param.Add("goods_Name", Request["goods_Name"]);
             param.Add("status_id", 1);
             param.Add("agent_AN", Session["agent_AN"] != null ? Session["agent_AN"].ToString() : "agent");
 
@@ -560,7 +557,7 @@ namespace XM.WebVip.Controllers
             param.Add("pi", pageindex);
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
-            param.Add("agent_AN", Session["AN"] != null ? Session["AN"].ToString() : "agent");
+            param.Add("agent_AN", Session["Agent_AN"] != null ? Session["Agent_AN"].ToString() : "agent");
 
             string result = DALUtility.Agent.QryAgoods(param, out int ICount);
             return Content(result);
@@ -584,7 +581,7 @@ namespace XM.WebVip.Controllers
             param.Add("pi", pageindex);
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
-            param.Add("agent_AN", Session["AN"] != null ? Session["AN"].ToString() : "agent");
+            param.Add("agent_AN", Session["Agent_AN"] != null ? Session["Agent_AN"].ToString() : "agent");
 
             string result = DALUtility.Agent.QryAgoods(param, out int ICount);
             return Content(result);
@@ -628,7 +625,7 @@ namespace XM.WebVip.Controllers
         {
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["id"] = ID;
-            paras["vip_AN"] = Request["AN"];
+            paras["vip_AN"] = Session["AN"] != null ? Session["AN"].ToString() : Request["vip_AN"];
             paras["vip_mp"] = Request["vip_mp"];
             paras["vip_Email"] = Request["vip_Email"];
 
@@ -643,7 +640,7 @@ namespace XM.WebVip.Controllers
                 paras["vip_pwd"] = Request["vip_pwd"];
                 paras["vip_CDT"] = DateTime.Now;
                 paras["status_id"] = Request["status_id"] == null ? "1" : Request["status_id"];
-                paras["agent_id"] = Request["agent_id"] == null ? "1" : Request["agent_id"];
+                paras["agent_id"] = Request["agent_id"] == null ? "2" : Request["agent_id"];
                 int result = DALUtility.Vip.saveVIP(paras);
                 if (ID == 0)
                 {
@@ -716,6 +713,13 @@ namespace XM.WebVip.Controllers
             return OperationReturn(true,"退出成功");
         }
 
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4/30
+        /// 修改时间：2019-
+        /// 功能：查询地址
+        /// </summary>
         public VipInfoDTO QryAddAndMP()
         {
             Dictionary<string, object> param = new Dictionary<string, object>();

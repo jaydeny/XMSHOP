@@ -52,7 +52,7 @@
                     <tr>
                         <th scope="row">{{obj.vip_AN}}</th>
                         <td>{{obj.order_mp}}</td>
-                        <td>{{obj.order_address}}</td>
+                        <td>{{obj.address_name}}</td>
                         <td>{{obj.order_date.substring(0,10)}}</td>
                         <td>{{obj.order_total}}</td>
                     </tr>
@@ -78,7 +78,7 @@
                     this.config = data.body;
                     //参数封装
                     let param = {
-                        "agent_AN": localStorage.getItem("Agent_Name")
+                        
                     }
                     //发送请求将数据到dataTable中
                     this.onloadData(data.body.urlList.QryReportForm, param);
@@ -107,6 +107,7 @@
                 //进行数据请求，获取营收数据
                 onloadData(url, param) {
                     this.$http.post(url, param).then((data) => {
+                        console.log(data.body.rows)
                         this.dataTable = data.body.rows;
                     });
                 },
@@ -135,8 +136,7 @@
                     //设置请求参数
                     let param = {
                         "startTime": TheTime,
-                        "endTime": dataTime,
-                        "agent_AN": localStorage.getItem("Agent_Name")
+                        "endTime": dataTime
                     }
                     //发送请求获取对应的数据
                     this.onloadData(url,param);
