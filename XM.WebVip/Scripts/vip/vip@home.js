@@ -38,6 +38,7 @@ window.onload = function () {
                 $("#onlogin_box").addClass("hidden");
                 $("#login_box").removeClass("hidden");
                 $("#vip_name").text($.parseJSON(data.data).rows.VipAccountName);
+                $("#Remainder").text($.parseJSON(data.data).rows.Remainder);
                 $('#myModal').modal('hide');
             }
         }, "json")
