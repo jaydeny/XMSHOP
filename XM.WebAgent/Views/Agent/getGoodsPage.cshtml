@@ -162,6 +162,7 @@
                },
                //一键发布的动作
                Release(GoodsIndex) {
+                   //console.log(this.Goods)
                    //拿到定价
                    const price = this.Price;
                    //进行验证
@@ -173,21 +174,20 @@
                        const releaseGoods = this.Goods[GoodsIndex];
                        //获取当前商品定价
                        let price = document.querySelectorAll(".price")[GoodsIndex].value;
-
+                       
                         //设置请求参数
                        let param = {
                            "goods_id": releaseGoods.GoodsID,
                            "status_id": 1,
                            "price": price,
-                           "Agent_AN": localStorage.getItem("Agent_Name"),
                            "goods_name": releaseGoods.GoodsName
                        }
                        //发送请求去上架商品 请求地址: /Agent/MakeGoods
                        this.$http.post(this.config.goodsUrl.groundUrl, param).then((data) => {
                            if (data.success) {
-                               alert(data.msg);
+                               //alert(data.msg);
                            } else {
-                               alert(data.msg);
+                               //alert(data.msg);
                            }
                        });
                    }
