@@ -46,8 +46,8 @@ window.onload = function () {
 }
 
 // 进入商品赛选页面
-$(".header a").click(function () {
-    window.location.href = "/vip/shoppingList"
+$(".screening-goods").click(function () {
+    window.location.href = "/vip/AgoodsList"
 });
 
 

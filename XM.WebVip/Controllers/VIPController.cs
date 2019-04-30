@@ -623,8 +623,7 @@ namespace XM.WebVip.Controllers
             return View();
         }
 
-
-        [HttpPost]
+        
         public ActionResult AgoodsList()
         {
             return View();
