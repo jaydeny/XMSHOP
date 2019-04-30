@@ -338,8 +338,10 @@ namespace XM.WebAgent.Controllers
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
             param.Add("agent_AN", Session["Agent_AN"].ToString());
-            param.Add("vip_AN", Session[" AN"].ToString());
-
+            if(Session[" AN"].ToString() != null)
+            {
+                param.Add("vip_AN", Session[" AN"].ToString());
+            }
             return Content(DALUtility.Vip.QryOrder(param, out int iCount));
         }
         #endregion
