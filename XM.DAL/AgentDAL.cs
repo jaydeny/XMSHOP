@@ -342,7 +342,7 @@ namespace XM.DAL
         public string QryAgoods(Dictionary<string, object> paras, out int iCount)
         {
             WhereBuilder builder = new WhereBuilder();
-            builder.FromSql = "tbAgoods";
+            builder.FromSql = "tbAgoods a join tbgoods b on a.goods_id = b.id";
             GridData grid = new GridData()
             {
                 PageIndex = Convert.ToInt32(paras["pi"]),
@@ -351,8 +351,9 @@ namespace XM.DAL
             };
             builder.AddWhereAndParameter(paras, "Agoods_Name", "Agoods_Name", "LIKE", "'%'+@Agoods_Name+'%'");
             builder.AddWhereAndParameter(paras, "agent_AN");
+            builder.AddWhereAndParameter(paras, "status_id");
 
-            var s = SortAndPage(builder, grid, out iCount);
+            var s = SortAndPage(builder, grid, out iCount, "a.*,b.goods_intro,b.goods_pic");
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
             return retData;
         }
