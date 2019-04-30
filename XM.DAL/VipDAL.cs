@@ -402,6 +402,44 @@ namespace XM.DAL
         }
         #endregion
 
+        #region _Address
+        /// <summary>
+        /// 添加/修改地址
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns>
+        /// 0:添加
+        /// 1:修改
+        /// 2:报错
+        /// </returns>
+        public int SaveAddress(Dictionary<string, object> paras)
+        {
+            return QuerySingle<int>("P_tbaddress_address", paras, CommandType.StoredProcedure);
+        }
+
+        /// <summary>
+        /// 查询地址和手机号
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public T QryAddAndMP<T>(Dictionary<string, object> paras)
+        {
+            return QuerySingle<T>("select * from v_vip_address a where VipAN = @vip_AN", paras, CommandType.Text);
+        }
+
+
+        /// <summary>
+        /// 删除地址
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public int DeleteAddress(Dictionary<string, object> paras)
+        {
+            return QuerySingle<int>("delete tbaddress where id=@id and vip_id=@vip_id", paras, CommandType.Text);
+        }
+        #endregion
+
         #region _自定义
         /// <summary>
         /// 添加和修改vip共用的方法,区别在于id是否为0
@@ -439,30 +477,6 @@ namespace XM.DAL
             var s = SortAndPage(builder, grid, out iCount);
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
             return retData;
-        }
-        
-        /// <summary>
-        /// 添加/修改地址
-        /// </summary>
-        /// <param name="paras"></param>
-        /// <returns>
-        /// 0:添加
-        /// 1:修改
-        /// 2:报错
-        /// </returns>
-        public int SaveAddress(Dictionary<string, object> paras)
-        {
-            return QuerySingle<int>("P_tbaddress_address", paras, CommandType.StoredProcedure);
-        }
-
-        /// <summary>
-        /// 删除地址
-        /// </summary>
-        /// <param name="paras"></param>
-        /// <returns></returns>
-        public int DeleteAddress(Dictionary<string, object> paras)
-        {
-            return QuerySingle<int>("delete tbaddress where id=@id and vip_id=@vip_id", paras, CommandType.Text);
         }
 
         /// <summary>

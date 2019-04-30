@@ -182,15 +182,7 @@ namespace XM.IDAL
         string QryOrder(Dictionary<string, object> paras, out int iCount);
         #endregion
 
-        #region _自定义
-        /// <summary>
-        /// 添加和修改vip共用的方法,区别在于id是否为0
-        /// owen
-        /// </summary>
-        /// <param name="paras"></param>
-        /// <returns></returns>
-        int saveVIP(Dictionary<string, object> paras);
-
+        #region _Address
         /// <summary>
         /// 添加/修改地址
         /// </summary>
@@ -203,11 +195,29 @@ namespace XM.IDAL
         int SaveAddress(Dictionary<string, object> paras);
 
         /// <summary>
+        /// 查询地址和手机号
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        T QryAddAndMP<T>(Dictionary<string, object> paras);
+
+        /// <summary>
         /// 删除地址
         /// </summary>
         /// <param name="paras"></param>
         /// <returns></returns>
-        int DeleteAddress(Dictionary<string,object> paras);
+        int DeleteAddress(Dictionary<string, object> paras);
+        #endregion
+
+        #region _自定义
+        /// <summary>
+        /// 添加和修改vip共用的方法,区别在于id是否为0
+        /// owen
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        int saveVIP(Dictionary<string, object> paras);
 
         /// <summary>
         /// 查询所有的会员
