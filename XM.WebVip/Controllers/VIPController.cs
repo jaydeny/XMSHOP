@@ -334,8 +334,8 @@ namespace XM.WebVip.Controllers
 
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("order_date", date);
-            param.Add("order_address", Request["order_address"]);
-            param.Add("order_mp", Request["order_mp"]);
+            param.Add("order_address", "默认地址");
+            param.Add("order_mp", "15626988754");
             param.Add("vip_AN", Session["AN"].ToString());
             param.Add("agent_AN", Session["agent_AN"].ToString());
             param.Add("order_total", Request["order_total"]);
