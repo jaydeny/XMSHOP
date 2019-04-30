@@ -324,6 +324,12 @@ namespace XM.WebVip.Controllers
         /// <returns></returns>
         public ActionResult buy()
         {
+            if(Session["AN"] == null)
+            {
+
+                return OperationReturn(false,"请点击登录页面进行登录");
+            }
+
             DateTime date = DateTime.Now;
 
             Dictionary<string, object> param = new Dictionary<string, object>();
@@ -331,10 +337,9 @@ namespace XM.WebVip.Controllers
             param.Add("order_address", Request["order_address"]);
             param.Add("order_mp", Request["order_mp"]);
             param.Add("vip_AN", Session["AN"].ToString());
-            param.Add("agent_AN", Request["agent_AN"]);
+            param.Add("agent_AN", Session["agent_AN"].ToString());
             param.Add("order_total", Request["order_total"]);
-
-
+            
             param.Add("buy_time", date);
             param.Add("buy_count", Request["buy_count"]);
             param.Add("buy_AN", Session["AN"].ToString());
