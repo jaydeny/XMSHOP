@@ -610,7 +610,7 @@ namespace XM.WebVip.Controllers
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
             param.Add("agent_AN", Session["agent_AN"].ToString());
-            param.Add("vip_AN", Session[" AN"].ToString());
+            param.Add("vip_AN", Session["AN"].ToString());
 
             return Content(DALUtility.Vip.QryOrder(param, out int iCount));
         }
