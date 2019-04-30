@@ -175,6 +175,7 @@
     <Content Include="Views\Agent\Index.cshtml" />
     <Content Include="Views\Agent\getGoodsPage.cshtml" />
     <Content Include="Views\Agent\ReportForm.cshtml" />
+    <Content Include="Views\Agent\AgentPersonalCenter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

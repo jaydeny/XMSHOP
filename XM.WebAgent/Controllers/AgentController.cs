@@ -47,6 +47,16 @@ namespace XM.WebAgent.Controllers
         public ActionResult ReportForm() {
             return View();
         }
+        /// <summary>
+        /// 作者:梁钧淋
+        /// 日期:2019/4/29
+        /// 功能:个人中心
+        /// </summary>
+        /// <returns>返回个人中心页面</returns>
+        public ActionResult AgentPersonalCenter() {
+            return View();
+        }
+
 
         #region _Login
         /// <summary>
@@ -344,7 +354,7 @@ namespace XM.WebAgent.Controllers
             param.Add("pi", pageindex);
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
-            param.Add("agent_AN", Session["agent_AN"].ToString());
+            param.Add("agent_AN", Session["Agent_AN"].ToString());
             param.Add("vip_AN", Session[" AN"].ToString());
 
             return Content(DALUtility.Vip.QryOrder(param, out int iCount));
