@@ -22,7 +22,7 @@
 
 // 商品模板
 var strGoods = function (i,obj) {
-    return "<li><div class='goods-item' ><p class='p-img'><a><img src='~/img" + obj.goods_pic + "'  /></a></p><p class='p-title'><a><span>" + obj.goods_name + "</span><span class='red'>" + obj.goods_intro + "</span></a></p><p class='p-price'><b>￥" + obj.price + "</b></p><div class='p-button' data-id=" + i +" ><a class='' >立即下单</a></div></div ></li >";
+    return "<li><div class='goods-item' ><p class='p-img'><a><img src='/img" + obj.goods_pic + "'  /></a></p><p class='p-title'><a><span>" + obj.goods_name + "</span><span class='red'>" + obj.goods_intro + "</span></a></p><p class='p-price'><b>￥" + obj.price + "</b></p><div class='p-button' data-id=" + i +" ><a class='' >立即下单</a></div></div ></li >";
 }
 
 var listGoods
@@ -42,9 +42,14 @@ var goodsRender = function (list) {
 
 $(".goods-exhibition").on("click", ".p-button", function () {
     var obj = listGoods[$(this).data("id")];
-    $.post("/vip/buy", { goods_id: obj.goods_id, buy_count: 1, order_total: obj.goods_pic, buy_total: obj.goods_pic * 1 }, function (data) {
-        console.log(data);
-    })
+    console.log(obj);
+    $.post("/vip/buy", { goods_id: obj.goods_id, buy_count: 1, order_total: obj.price, buy_total: obj.price * 1 }, function (data) {
+        if (data.success) {
+            alert(data.msg);
+        } else {
+            alert(data.msg);
+        }
+    },"json")
 });
 
 // 查询商品类型
