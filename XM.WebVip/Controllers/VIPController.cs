@@ -25,7 +25,6 @@ namespace XM.WebVip.Controllers
         /// <returns>页面:首页</returns>
         public ActionResult Index()
         {
-
             return View();
         }
 
@@ -283,7 +282,7 @@ namespace XM.WebVip.Controllers
             param.Add("recharge_name", "测试充值");
             param.Add("recharge_price", Request["recharge_price"]);
             param.Add("recharge_time", date);
-            param.Add("agent_id", Session["agentID"].ToString());
+            param.Add("agent_id", Session["Agent_ID"].ToString());
             param.Add("vip_id", Session["ID"].ToString());
 
             int iCheck = DALUtility.Vip.Recharge(param);
@@ -324,32 +323,43 @@ namespace XM.WebVip.Controllers
         /// <returns></returns>
         public ActionResult buy()
         {
-            DateTime date = DateTime.Now;
-
-            Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("order_date", date);
-            param.Add("order_address", Request["order_address"]);
-            param.Add("order_mp", Request["order_mp"]);
-            param.Add("vip_AN", Session["AN"].ToString());
-            param.Add("agent_AN", Request["agent_AN"]);
-            param.Add("order_total", Request["order_total"]);
-
-
-            param.Add("buy_time", date);
-            param.Add("buy_count", Request["buy_count"]);
-            param.Add("buy_AN", Session["AN"].ToString());
-            param.Add("goods_id", Request["goods_id"]);
-            param.Add("buy_total", Request["buy_total"]);
-
-            int iCheck = DALUtility.Vip.Buy(param);
-
-            Debug.WriteLine(iCheck);
-
-            if (iCheck > 0)
+            if(Session["AN"] == null)
             {
-                return OperationReturn(false, iCheck == 1 ? "用户余额不足,请充值后从试!" : "购物出错,请重试!");
+                return OperationReturn(false,"请点击登录页面进行登录");
             }
-            return OperationReturn(true, "购物成功");
+            else
+            {
+                var vipInfo = QryAddAndMP();
+                if (vipInfo.Equals(null))
+                {
+                    return OperationReturn(false, "请添加地址后购物");
+                }
+                DateTime date = DateTime.Now;
+
+                Dictionary<string, object> param = new Dictionary<string, object>();
+                param.Add("order_date", date);
+                param.Add("order_address", vipInfo.AddressID);
+                param.Add("order_mp", vipInfo.VipMobliePhone);
+                param.Add("vip_AN", Session["AN"].ToString());
+                param.Add("agent_AN", Session["agent_AN"].ToString());
+                param.Add("order_total", decimal.Parse(Request["order_total"]));
+
+                param.Add("buy_time", date);
+                param.Add("buy_count", int.Parse(Request["buy_count"]));
+                param.Add("buy_AN", Session["AN"].ToString());
+                param.Add("goods_id", int.Parse(Request["goods_id"]));
+                param.Add("buy_total", decimal.Parse(Request["buy_total"]));
+
+                int iCheck = DALUtility.Vip.Buy(param);
+
+                Debug.WriteLine(iCheck);
+
+                if (iCheck > 0)
+                {
+                    return OperationReturn(false, iCheck == 1 ? "用户余额不足,请充值后从试!" : "购物出错,请重试!");
+                }
+                return OperationReturn(true, "购物成功");
+            }
         }
         #endregion
 
@@ -369,7 +379,7 @@ namespace XM.WebVip.Controllers
         /// <summary>
         /// 作者:曾贤鑫
         /// 日期:2019/4/28
-        /// 功能:返回vip个人中心页面
+        /// 功能:返回vip个人信息
         /// </summary>
         /// <returns>json值</returns>
         [HttpPost]
@@ -459,6 +469,150 @@ namespace XM.WebVip.Controllers
         }
         #endregion
 
+        #region _goods
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:查询所有的代理商商品
+        /// </summary>
+        /// <returns>json值</returns>
+        public ActionResult QryAgoods()
+        {
+            string sort = Request["sort"] == null ? "id" : Request["sort"];
+            string order = Request["order"] == null ? "asc" : Request["order"];
+            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("pi", pageindex);
+            param.Add("pageSize", pagesize);
+            param.Add("sort", sort);
+            param.Add("goods_Name", Request["goods_Name"]);
+            param.Add("status_id", 1);
+            param.Add("agent_AN", Session["agent_AN"] != null ? Session["agent_AN"].ToString() : "agent");
+
+            string result = DALUtility.Agent.QryAgoods(param, out int ICount);
+            return Content(result);
+        }
+        
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:查询所有的商品
+        /// </summary>
+        /// <returns>json值</returns>
+        public ActionResult GetAllGoodsInfo()
+        {
+            string sort = Request["sort"] == null ? "GoodsID" : Request["sort"];
+            string order = Request["order"] == null ? "asc" : Request["order"];
+            //首先获取前台传递过来的参数
+            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+            string goodsName = Request["goods_name"] == null ? "" : Request["goods_name"];
+            string goodsIntro = Request["goods_intro"] == null ? "" : Request["goods_intro"];
+            decimal goodsPrice = Request["goods_CP"] == null ? 1 : Convert.ToDecimal(Request["goods_CP"]);
+            string createBy = Request["goods_BY"] == null ? "" : Request["goods_BY"];
+            string createDateTime = Request["goods_CDT"] == null ? "" : Request["goods_CDT"];
+            string goodsPic = Request["goods_pic"] == null ? "" : Request["goods_pic"];
+            int typeId = Request["type_id"] == null ? 1 : Convert.ToInt32(Request["type_id"]);
+
+            int totalCount;   //输出参数
+            Dictionary<string, object> paras = new Dictionary<string, object>();
+            paras["pi"] = pageindex;
+            paras["pageSize"] = pagesize;
+            paras["goods_name"] = goodsName;
+            paras["sort"] = sort;
+            paras["order"] = order;
+            var goods = DALUtility.Goods.QryGoods<GoodsEntity>(paras, out totalCount);
+            return PagerData(totalCount, goods);
+        }
+        
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4/30
+        /// 修改时间：2019-
+        /// 功能：返回商品筛选页
+        /// </summary>
+        public ActionResult AgoodsList()
+        {
+            return View();
+        }
+        
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:查询热销单品和精品商品
+        /// </summary>
+        /// <returns>json值</returns>
+        public ActionResult HotGoods()
+        {
+            string sort = Request["sort"] == null ? "price" : Request["sort"];
+            string order = Request["order"] == null ? "desc" : Request["order"];
+            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+            int pagesize = Request["rows"] == null ? 8 : Convert.ToInt32(Request["rows"]);
+
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("pi", pageindex);
+            param.Add("pageSize", pagesize);
+            param.Add("sort", sort);
+            param.Add("agent_AN", Session["AN"] != null ? Session["AN"].ToString() : "agent");
+
+            string result = DALUtility.Agent.QryAgoods(param, out int ICount);
+            return Content(result);
+        }
+
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:查询热销单品和精品商品
+        /// </summary>
+        /// <returns>json值</returns>
+        public ActionResult BoutiqueGoods()
+        {
+            string sort = Request["sort"] == null ? "price" : Request["sort"];
+            string order = Request["order"] == null ? "asc" : Request["order"];
+            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+            int pagesize = Request["rows"] == null ? 5 : Convert.ToInt32(Request["rows"]);
+
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("pi", pageindex);
+            param.Add("pageSize", pagesize);
+            param.Add("sort", sort);
+            param.Add("agent_AN", Session["AN"] != null ? Session["AN"].ToString() : "agent");
+
+            string result = DALUtility.Agent.QryAgoods(param, out int ICount);
+            return Content(result);
+        }
+        #endregion
+
+        #region _order
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-
+        /// 修改时间：2019-
+        /// 功能：查询订单
+        /// </summary>
+        public ActionResult QryOrder()
+        {
+            string sort = Request["sort"] == null ? "id" : Request["sort"];
+            string order = Request["order"] == null ? "asc" : Request["order"];
+            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("pi", pageindex);
+            param.Add("pageSize", pagesize);
+            param.Add("sort", sort);
+            param.Add("agent_AN", Session["Agent_AN"].ToString());
+            param.Add("vip_AN", Session["AN"].ToString());
+
+            return Content(DALUtility.Vip.QryOrder(param, out int iCount));
+        }
+        #endregion
+
         #region _自定义
         /// <summary>
         /// 作者:曾贤鑫
@@ -486,15 +640,15 @@ namespace XM.WebVip.Controllers
                 paras["vip_pwd"] = Request["vip_pwd"];
                 paras["vip_CDT"] = DateTime.Now;
                 paras["status_id"] = Request["status_id"] == null ? "1" : Request["status_id"];
-                paras["agent_id"] = Request["agent_id"] == null ? "1" : Request["agent_id"];
+                paras["agent_id"] = Request["agent_id"] == null ? "2" : Request["agent_id"];
                 int result = DALUtility.Vip.saveVIP(paras);
                 if (ID == 0)
                 {
-                    return OperationReturn(result > 0, "注册成功");
+                    return OperationReturn(true, "注册成功");
                 }
                 else
                 {
-                    return OperationReturn(result > 0, "修改成功");
+                    return OperationReturn(true, "修改成功");
                 }
             }
         }
@@ -532,8 +686,7 @@ namespace XM.WebVip.Controllers
             }
             return strResult;
         }
-
-
+        
         /// <summary>
         /// 作者：曾贤鑫
         /// 创建时间:2019-4-28
@@ -547,8 +700,7 @@ namespace XM.WebVip.Controllers
             agent_id.Add("agent_id", id);
             return agent_id;
         }
-
-
+        
         /// <summary>
         /// 作者：曾贤鑫
         /// 创建时间:2019-4-28
@@ -561,79 +713,19 @@ namespace XM.WebVip.Controllers
             return OperationReturn(true,"退出成功");
         }
 
-        /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
-        /// 功能:查询所有的代理商商品
-        /// </summary>
-        /// <returns>json值</returns>
-        public ActionResult QryAgoods()
-        {
-            string sort = Request["sort"] == null ? "id" : Request["sort"];
-            string order = Request["order"] == null ? "asc" : Request["order"];
-            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
-            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-
-
-            Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("pi", pageindex);
-            param.Add("pageSize", pagesize);
-            param.Add("sort", sort);
-            param.Add("agent_AN", Session["AN"].ToString());
-
-            string result = DALUtility.Agent.QryAgoods(param, out int ICount);
-            return Content(result);
-        }
-
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
-        /// 功能:查询所有的商品
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4/30
+        /// 修改时间：2019-
+        /// 功能：查询地址
         /// </summary>
-        /// <returns>json值</returns>
-        public ActionResult GetAllGoodsInfo()
+        public VipInfoDTO QryAddAndMP()
         {
-            string sort = Request["sort"] == null ? "GoodsID" : Request["sort"];
-            string order = Request["order"] == null ? "asc" : Request["order"];
-            //首先获取前台传递过来的参数
-            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
-            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-            string goodsName = Request["goods_name"] == null ? "" : Request["goods_name"];
-            string goodsIntro = Request["goods_intro"] == null ? "" : Request["goods_intro"];
-            decimal goodsPrice = Request["goods_CP"] == null ? 1 : Convert.ToDecimal(Request["goods_CP"]);
-            string createBy = Request["goods_BY"] == null ? "" : Request["goods_BY"];
-            string createDateTime = Request["goods_CDT"] == null ? "" : Request["goods_CDT"];
-            string goodsPic = Request["goods_pic"] == null ? "" : Request["goods_pic"];
-            int typeId = Request["type_id"] == null ? 1 : Convert.ToInt32(Request["type_id"]);
-
-            int totalCount;   //输出参数
-            Dictionary<string, object> paras = new Dictionary<string, object>();
-            paras["pi"] = pageindex;
-            paras["pageSize"] = pagesize;
-            paras["goods_name"] = goodsName;
-            paras["sort"] = sort;
-            paras["order"] = order;
-            var goods = DALUtility.Goods.QryGoods<GoodsEntity>(paras, out totalCount);
-            return PagerData(totalCount, goods);
-        }
-
-
-        public ActionResult QryOrder()
-        {
-            string sort = Request["sort"] == null ? "id" : Request["sort"];
-            string order = Request["order"] == null ? "asc" : Request["order"];
-            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
-            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-
             Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("pi", pageindex);
-            param.Add("pageSize", pagesize);
-            param.Add("sort", sort);
-            param.Add("agent_AN", Session["agent_AN"].ToString());
-            param.Add("vip_AN", Session[" AN"].ToString());
-
-            return Content(DALUtility.Vip.QryOrder(param, out int iCount));
+            param.Add("vip_AN", Session["AN"].ToString());
+            var vipInfo = DALUtility.Vip.QryAddAndMP<VipInfoDTO>(param);
+            return vipInfo;
         }
         #endregion
     }

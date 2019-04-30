@@ -235,7 +235,7 @@ namespace XM.DAL
 
         ///作者:曾贤鑫
 
-
+        #region _Signin
         /// <summary>
         /// 注册vip时,检查是否有登录名,邮箱,手机重复
         /// owen
@@ -252,18 +252,9 @@ namespace XM.DAL
         {
             return QuerySingle<int>("P_tbvip_checkANandMBandEmail", paras, CommandType.StoredProcedure);
         }
+        #endregion
 
-        /// <summary>
-        /// 添加和修改vip共用的方法,区别在于id是否为0
-        /// owen
-        /// </summary>
-        /// <param name="paras"></param>
-        /// <returns></returns>
-        public int saveVIP(Dictionary<string, object> paras)
-        {
-            return StandardInsertOrUpdate("tbvip", paras);
-        }
-
+        #region _Login
         /// <summary>
         /// 查询vip数据以登录
         /// owen
@@ -275,34 +266,9 @@ namespace XM.DAL
         {
             return QuerySingle<T>("SELECT * FROM v_vip_info WHERE VipAccountName=@vip_AN AND VipPassword=@vip_pwd", paras, CommandType.Text);
         }
+        #endregion
 
-        /// <summary>
-        /// 查询会员,分页
-        /// </summary>
-        /// <param name="paras"></param>
-        /// <returns></returns>
-        public string QryAllVIP(Dictionary<string, object> paras, out int iCount)
-        {
-            WhereBuilder builder = new WhereBuilder();
-            builder.FromSql = "tbvip";
-            GridData grid = new GridData()
-            {
-                PageIndex = Convert.ToInt32(paras["pi"]),
-                PageSize = Convert.ToInt32(paras["pageSize"]),
-                SortField = paras["sort"].ToString()
-            };
-            builder.AddWhereAndParameter(paras, "vip_AN", "vip_AN", "LIKE", "'%'+@vip_AN+'%'");
-
-            builder.AddWhereAndParameter(paras, "vip_mp");
-            builder.AddWhereAndParameter(paras, "vip_Email", "vip_Email", "LIKE", "'%'+@vip_Email+'%'");
-            builder.AddWhereAndParameter(paras, "status_id");
-            builder.AddWhereAndParameter(paras, "agent_id");
-            
-            var s = SortAndPage(builder, grid, out iCount);
-            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
-            return retData;
-        }
-
+        #region _Recharge
         /// <summary>
         /// 会员充值
         /// </summary>
@@ -322,7 +288,7 @@ namespace XM.DAL
                                    new SqlParameter("@vip_id",paras["vip_id"]),
                                    };
             return Convert.ToInt32(SqlHelper.ExecuteNonQuery(SqlHelper.connStr, CommandType.Text, strSql.ToString(), p));
-            
+
         }
 
         /// <summary>
@@ -344,7 +310,9 @@ namespace XM.DAL
         {
             return QuerySingle<int>("P_tbvip_Shopping", paras, CommandType.StoredProcedure);
         }
+        #endregion
 
+        #region _VipInfo
         /// <summary>
         /// 查询个人信息
         /// </summary>
@@ -353,7 +321,7 @@ namespace XM.DAL
         /// <returns></returns>
         public string QryVipInfo<T>(Dictionary<string, object> paras)
         {
-            var vipInfo = QuerySingle<T>("SELECT vip_AN,vip_mp,vip_email FROM v_vip_info WHERE vip_AN=@vip_AN", paras, CommandType.Text);
+            var vipInfo = QuerySingle<T>("SELECT * FROM v_vip_remainder WHERE VipAccountName=@vip_AN", paras, CommandType.Text);
 
             string retData = JsonConvert.SerializeObject(new { total = 1, rows = vipInfo });
 
@@ -406,40 +374,18 @@ namespace XM.DAL
         }
 
         /// <summary>
-        /// 检查余额,购物
+        /// 查询用户余额
         /// </summary>
-        /// <param name="paras"></param>
-        /// <returns>
-        /// 0:添加
-        /// 1:修改
-        /// 2:报错
-        /// </returns>
-        public int SaveAddress(Dictionary<string, object> paras)
-        {
-            return QuerySingle<int>("P_tbaddress_address", paras, CommandType.StoredProcedure);
-        }
-
-        /// <summary>
-        /// 删除地址
-        /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="paras"></param>
         /// <returns></returns>
-        public int DeleteAddress(Dictionary<string, object> paras)
+        public decimal QryRemainder(Dictionary<string, object> paras)
         {
-            return QuerySingle<int>("delete tbaddress where id=@id and vip_id=@vip_id", paras, CommandType.Text);
+            return QuerySingle<decimal>("SELECT remainder FROM tbremainder WHERE vip_AN=@vip_AN", paras, CommandType.Text);
         }
+        #endregion
 
-        /// <summary>
-        /// 作者：曾贤鑫
-        /// 创建时间:2019-4-28
-        /// 修改时间：2019-
-        /// 功能：查询代理商AN
-        /// </summary>
-        public string QryAgentANByID(Dictionary<string, object> paras)
-        {
-            return QuerySingle<string>("SELECT agent_AN from tbagent where id = @agent_id", paras, CommandType.Text);
-        }
-
+        #region _Order
         /// <summary>
         /// 作者：曾贤鑫
         /// 创建时间:2019-4/29
@@ -465,5 +411,96 @@ namespace XM.DAL
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
             return retData;
         }
+        #endregion
+
+        #region _Address
+        /// <summary>
+        /// 添加/修改地址
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns>
+        /// 0:添加
+        /// 1:修改
+        /// 2:报错
+        /// </returns>
+        public int SaveAddress(Dictionary<string, object> paras)
+        {
+            return QuerySingle<int>("P_tbaddress_address", paras, CommandType.StoredProcedure);
+        }
+
+        /// <summary>
+        /// 查询地址和手机号
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public T QryAddAndMP<T>(Dictionary<string, object> paras)
+        {
+            return QuerySingle<T>("select * from v_vip_address a where VipAN = @vip_AN", paras, CommandType.Text);
+        }
+
+
+        /// <summary>
+        /// 删除地址
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public int DeleteAddress(Dictionary<string, object> paras)
+        {
+            return QuerySingle<int>("delete tbaddress where id=@id and vip_id=@vip_id", paras, CommandType.Text);
+        }
+        #endregion
+
+        #region _自定义
+        /// <summary>
+        /// 添加和修改vip共用的方法,区别在于id是否为0
+        /// owen
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public int saveVIP(Dictionary<string, object> paras)
+        {
+            return StandardInsertOrUpdate("tbvip", paras);
+        }
+        
+        /// <summary>
+        /// 查询会员,分页
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public string QryAllVIP(Dictionary<string, object> paras, out int iCount)
+        {
+            WhereBuilder builder = new WhereBuilder();
+            builder.FromSql = "tbvip";
+            GridData grid = new GridData()
+            {
+                PageIndex = Convert.ToInt32(paras["pi"]),
+                PageSize = Convert.ToInt32(paras["pageSize"]),
+                SortField = paras["sort"].ToString()
+            };
+            builder.AddWhereAndParameter(paras, "vip_AN", "vip_AN", "LIKE", "'%'+@vip_AN+'%'");
+
+            builder.AddWhereAndParameter(paras, "vip_mp");
+            builder.AddWhereAndParameter(paras, "vip_Email", "vip_Email", "LIKE", "'%'+@vip_Email+'%'");
+            builder.AddWhereAndParameter(paras, "status_id");
+            builder.AddWhereAndParameter(paras, "agent_id");
+            
+            var s = SortAndPage(builder, grid, out iCount);
+            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
+            return retData;
+        }
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4-28
+        /// 修改时间：2019-
+        /// 功能：查询代理商AN
+        /// </summary>
+        public string QryAgentANByID(Dictionary<string, object> paras)
+        {
+            return QuerySingle<string>("SELECT agent_AN from tbagent where id = @agent_id", paras, CommandType.Text);
+        }
+        #endregion
+
     }
 }
