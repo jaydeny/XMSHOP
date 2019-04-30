@@ -606,7 +606,7 @@ namespace XM.WebVip.Controllers
             param.Add("pi", pageindex);
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
-            param.Add("agent_AN", Session["agent_AN"].ToString());
+            param.Add("agent_AN", Session["Agent_AN"].ToString());
             param.Add("vip_AN", Session["AN"].ToString());
 
             return Content(DALUtility.Vip.QryOrder(param, out int iCount));
@@ -640,7 +640,7 @@ namespace XM.WebVip.Controllers
                 paras["vip_pwd"] = Request["vip_pwd"];
                 paras["vip_CDT"] = DateTime.Now;
                 paras["status_id"] = Request["status_id"] == null ? "1" : Request["status_id"];
-                paras["agent_id"] = Request["agent_id"] == null ? "1" : Request["agent_id"];
+                paras["agent_id"] = Request["agent_id"] == null ? "2" : Request["agent_id"];
                 int result = DALUtility.Vip.saveVIP(paras);
                 if (ID == 0)
                 {

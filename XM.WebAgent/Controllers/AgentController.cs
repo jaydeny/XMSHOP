@@ -82,8 +82,8 @@ namespace XM.WebAgent.Controllers
                     {
                         return OperationReturn(false, "用户已被禁用，请您联系管理员");
                     }
-                    Session["AN"] = agent.AgentAccountName;
-                    Session["ID"] = agent.AgentID;
+                    Session["Agent_AN"] = agent.AgentAccountName;
+                    Session["Agent_AN"] = agent.AgentID;
                     return OperationReturn(true, "登录成功,agent_id:" + agent.AgentID + ";agent_AN:" + AN,
                         new
                         {
@@ -149,7 +149,7 @@ namespace XM.WebAgent.Controllers
         [HttpPost]
         public ActionResult Update(AgentEntity agent)
         {
-            return save(int.Parse(Session["ID"].ToString()));
+            return save(int.Parse(Session["Agent_ID"].ToString()));
         }
 
         /// <summary>
@@ -207,14 +207,6 @@ namespace XM.WebAgent.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var users = DALUtility.Vip.QryUsers<VipEntity>(paras, out totalCount);
-            //if (users != null)
-            //{
-            //    log(HttpContext.Session["user_AN"].ToString(), "查询所有vip用户信息", "true", "查询成功");
-            //}
-            //else
-            //{
-            //    log(HttpContext.Session["user_AN"].ToString(), "查询所有vip用户信息", "false", "查询失败");
-            //}
             return PagerData(totalCount, users);
         }
         #endregion
@@ -234,7 +226,7 @@ namespace XM.WebAgent.Controllers
             param.Add("status_id", Request["status_id"]);
             param.Add("price", Request["price"]);
             param.Add("up_time", DateTime.Now);
-            param.Add("Agent_AN", Session["AN"].ToString());
+            param.Add("Agent_AN", Session["Agent_AN"].ToString());
             param.Add("goods_name", Request["goods_name"]);
 
             int iCheck = DALUtility.Agent.MakeGoods(param);
@@ -264,7 +256,7 @@ namespace XM.WebAgent.Controllers
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
             param.Add("status_id",1);
-            param.Add("agent_AN", Session["AN"] != null ? Session["AN"].ToString() : "agent");
+            param.Add("agent_AN", Session["Agent_AN"] != null ? Session["Agent_AN"].ToString() : "agent");
 
             string result = DALUtility.Agent.QryAgoods(param, out int ICount);
             return Content(result);
@@ -328,7 +320,7 @@ namespace XM.WebAgent.Controllers
             param.Add("sort", sort);
             param.Add("startTime", Request["startTime"]);
             param.Add("endTime", Request["endTime"]);
-            param.Add("agent_AN", Session["AN"].ToString());
+            param.Add("agent_AN", Session["Agent_AN"].ToString());
 
             string result = DALUtility.Agent.QryReportForm(param, out int ICount);
             return Content(result);
@@ -345,7 +337,7 @@ namespace XM.WebAgent.Controllers
             param.Add("pi", pageindex);
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
-            param.Add("agent_AN", Session["agent_AN"].ToString());
+            param.Add("agent_AN", Session["Agent_AN"].ToString());
             param.Add("vip_AN", Session[" AN"].ToString());
 
             return Content(DALUtility.Vip.QryOrder(param, out int iCount));
