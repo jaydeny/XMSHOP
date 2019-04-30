@@ -194,7 +194,7 @@
     <Content Include="img\slide_5.jpg" />
     <Content Include="img\slide_6.jpg" />
     <Content Include="Scripts\vip\bounced.js" />
-    <Content Include="Scripts\vip\classification.js" />
+    <Content Include="Scripts\vip\vip%40AgoodsList.js" />
     <Content Include="Scripts\vip\jqueryAjax.js" />
     <Content Include="Scripts\vip\login.js" />
     <Content Include="Scripts\vip\vin%40login-configuration.js" />
@@ -205,7 +205,6 @@
     <Content Include="Scripts\vip\vipinfo%40Recharge.js" />
     <Content Include="Scripts\vip\vipInfo%40Update.js" />
     <Content Include="Scripts\vip\vipinfo.js" />
-    <Content Include="Scripts\vip\vipRender.js" />
     <Content Include="Scripts\vip\vipRetrievePassword.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
