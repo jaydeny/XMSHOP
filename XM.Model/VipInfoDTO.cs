@@ -14,5 +14,6 @@ namespace XM.Model
         public int StatusID { get; set; }
         public int AgentID { get; set; }
         public decimal Remainder { get; set; }
+        public string AddressName { get; set; }
     }
 }

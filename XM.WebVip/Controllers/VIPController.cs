@@ -340,7 +340,7 @@ namespace XM.WebVip.Controllers
 
                 Dictionary<string, object> param = new Dictionary<string, object>();
                 param.Add("order_date", date);
-                param.Add("order_address", "默认地址");
+                param.Add("order_address", vipInfo.AddressName);
                 param.Add("order_mp", vipInfo.VipMobliePhone);
                 param.Add("vip_AN", Session["AN"].ToString());
                 param.Add("agent_AN", Session["agent_AN"].ToString());
@@ -717,11 +717,11 @@ namespace XM.WebVip.Controllers
             return OperationReturn(true,"退出成功");
         }
 
-        public VipEntity QryAddAndMP()
+        public VipInfoDTO QryAddAndMP()
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("vip_AN", Session["AN"].ToString());
-            var vipInfo = DALUtility.Vip.QryAddAndMP<VipEntity>(param);
+            var vipInfo = DALUtility.Vip.QryAddAndMP<VipInfoDTO>(param);
             return vipInfo;
         }
         #endregion
