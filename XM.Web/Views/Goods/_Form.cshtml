@@ -8,8 +8,8 @@
         initControl();
         if (!!keyValue) { //判断是否有值
             $.ajax({
-                url: "/Goods/GetFormJson",
-                data: { keyValue: keyValue },
+                url: "/Goods/DelGoodsByIDs",
+                data: { id: keyValue },
                 dataType: "json",
                 async: false,
                 success: function (data) {

@@ -4,16 +4,16 @@
 function gridList() {
     var $gridList = $("#gridList");
     $gridList.dataGrid({
-        url: "/Goods/GetGridJson",
+        url: "/Goods/GetAllGoodsInfo",
         height: $(window).height() - 128,
         colModel: [
-            { label: '主键', name: 'goods_id', hidden: true },
-            { label: '类型', name: 'type_id', width: 80, align: 'left' },
-            { label: '商品', name: 'goods_name', width: 80, align: 'left' },
-            { label: '单价', name: 'goods_CP', width: 100, align: 'left' },
-            { label: '图片', name: 'goods_pic', width: 80, align: 'left' },
-            { label: '创建人', name: 'goods_CBY', width: 80, align: 'left' },
-            { label: '创建时间', name: 'goods_CDT', width: 140, align: 'left' }
+            { label: '主键', name: 'GoodsID', hidden: true },
+            { label: '类型', name: 'GoodsType', width: 80, align: 'left' },
+            { label: '商品', name: 'GoodsName', width: 80, align: 'left' },
+            { label: '单价', name: 'GoodsPrice', width: 100, align: 'left' },
+            { label: '图片', name: 'GoodsPicture', width: 80, align: 'left' },
+            { label: '创建人', name: 'GoodsCreateBy', width: 80, align: 'left' },
+            { label: '创建时间', name: 'GoodsCreateTime', width: 140, align: 'left' }
         ],
         pager: "#gridPager",
         sortname: 'F_DepartmentId asc,F_CreatorTime desc',
@@ -41,7 +41,7 @@ function btn_add() {
 }
 function btn_edit() {
     // 主键
-    var keyValue = $("#gridList").jqGridRowValue().goods_id;
+    var keyValue = $("#gridList").jqGridRowValue().GoodsID;
     $.modalOpen({
         id: "Form",
         title: "修改用户",
@@ -56,14 +56,14 @@ function btn_edit() {
 function btn_delete() {
     $.deleteForm({
         url: "/Goods/DeleteForm",
-        param: { keyValue: $("#gridList").jqGridRowValue().goods_id },
+        param: { id: $("#gridList").jqGridRowValue().GoodsID },
         success: function () {
             $.currentWindow().$("#gridList").trigger("reloadGrid");
         }
     })
 }
 function btn_details() {
-    var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    var keyValue = $("#gridList").jqGridRowValue().GoodsID;
     $.modalOpen({
         id: "Details",
         title: "查看用户",
