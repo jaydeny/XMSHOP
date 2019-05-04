@@ -9,7 +9,7 @@
         if (!!keyValue) { //判断是否有值
             $.ajax({
                 url: "/Vip/GetFormJson",
-                data: { keyValue: keyValue },
+                data: { id: keyValue },
                 dataType: "json",
                 async: false,
                 success: function (data) {
