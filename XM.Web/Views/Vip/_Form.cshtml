@@ -2,47 +2,7 @@
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Form.cshtml";
 }
-<script>
-    var keyValue = $.request("keyValue");
-    $(function () {
-        initControl();
-        if (!!keyValue) { //判断是否有值
-            $.ajax({
-                url: "/Vip/GetFormJson",
-                data: { id: keyValue },
-                dataType: "json",
-                async: false,
-                success: function (data) {
-                    $("#form1").formSerialize(data);
-                    $("#vip_AN").attr('disabled', 'disabled');
-                }
-            });
-        }
-    });
-    function initControl() {
-
-        // 获取代理商
-        $.post("/Agent/GetAllUserInfo", function (data) {
-            $.each(data.rows, function (i, obj) {
-                $("#agent_id").append("<option value='" + obj.AgentID + "'>" + obj.AgentAccountName + "</option>")
-            })
-        }, "json");
-        
-    }
-    function submitForm() {
-        if (!$('#form1').formValid()) {
-            return false;
-        }
-        $.submitForm({
-            url: "/Vip/AddUser?keyValue=" + keyValue,
-            param: $("#form1").formSerialize(),
-            success: function (data) {
-                console.log(data);
-                $.currentWindow().$("#gridList").trigger("reloadGrid");
-            }
-        })
-    }
-</script>
+<script type="text/javascript" src="~/Scripts/backEnd/Vip@_Form.js"></script>
 <form id="form1">
     <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
         <div style="padding-top: 20px; margin-right: 30px;">

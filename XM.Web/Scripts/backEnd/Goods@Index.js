@@ -45,7 +45,7 @@ function btn_edit() {
     $.modalOpen({
         id: "Form",
         title: "修改用户",
-        url: "/Goods/Form?keyValue=" + keyValue,
+        url: "/Goods/GoodsAdd?keyValue=" + keyValue,
         width: "430px",
         height: "350px",
         callBack: function (iframeId) {
@@ -55,7 +55,7 @@ function btn_edit() {
 }
 function btn_delete() {
     $.deleteForm({
-        url: "/Goods/DeleteForm",
+        url: "/Goods/DelGoodsByIDs",
         param: { id: $("#gridList").jqGridRowValue().GoodsID },
         success: function () {
             $.currentWindow().$("#gridList").trigger("reloadGrid");
