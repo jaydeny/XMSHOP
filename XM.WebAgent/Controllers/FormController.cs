@@ -36,8 +36,8 @@ namespace XM.WebAgent.Controllers
         /// <returns>json值</returns>
         public ActionResult QryOrder()
         {
-            string sort = Request["sort"] == null ? "id" : Request["sort"];
-            string order = Request["order"] == null ? "asc" : Request["order"];
+            string sort = Request["sort"] == null ? "order_date" : Request["sort"];
+            string order = Request["order"] == null ? "desc" : Request["order"];
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
 
@@ -45,6 +45,7 @@ namespace XM.WebAgent.Controllers
             param.Add("pi", pageindex);
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
+            param.Add("order", order);
             param.Add("agent_AN", Session["Agent_AN"].ToString());
             if (Session[" AN"] != null)
             {

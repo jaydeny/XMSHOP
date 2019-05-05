@@ -144,6 +144,7 @@ namespace XM.WebAgent.Controllers
         /// 修改时间：2019-
         /// 功能：安全退出
         /// </summary>
+        /// 
         public ActionResult RemoveSession()
         {
             Session.RemoveAll();
