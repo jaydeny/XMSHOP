@@ -4,7 +4,7 @@ var myAddress = [{ AddressName: "21212", AddressID: "1" }];
 var updateId = 0;
 // 地址模板
 var addressTemplate = function (i, obj) {
-    return "<li><div class='flex-1' ><input type='checkbox' checked /></div ><div class='flex-2'>" + obj.AddressName + "</div><div class='flex-1' data-index='" + i + "'><a class='update'>修改</a><a class='delete'>删除</a></div></li >";
+    return "<li><div class='flex-1' ><input type='checkbox' checked /></div ><div class='flex-2'>" + obj.address_name + "</div><div class='flex-1' data-index='" + i + "'><a class='update'>修改</a><a class='delete'>删除</a></div></li >";
 }
 // 清空
 var emptyAddress = function () {
@@ -63,7 +63,7 @@ $("#btnAddAddress").click(function () {
     if (updateId != 0) {
         url = "UpdateAddress"
     }
-    $.post("/vip/" + url, { "address_id": updateId, "AddressName": site }, function (data) {
+    $.post("/vip/" + url, { "address_id": updateId, "address_name": site }, function (data) {
         if (data.success) {
             alert(data.msg);
             addressAll();
