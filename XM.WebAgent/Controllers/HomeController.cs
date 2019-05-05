@@ -31,6 +31,18 @@ namespace XM.WebAgent.Controllers
         }
 
         /// <summary>
+        /// 作者:梁钧淋
+        /// 日期:2019/5/5
+        /// 功能:返回代理端主页
+        /// </summary>
+        /// <returns>页面:代理端主页</returns>
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+
+        /// <summary>
         /// 作者:曾贤鑫
         /// 日期:2019/4/26
         /// 功能:代理端进行登入

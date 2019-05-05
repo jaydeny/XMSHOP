@@ -24,7 +24,7 @@
 
 
         <button class="btn btn-lg btn-primary btn-block" type="button" id="login">登录</button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+        @*<p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>*@
     </form>
 
     <script>
@@ -46,7 +46,7 @@
                         dataType: 'json'
                     }).done((data) => {
                         if (data.success) {
-                            location.href = "/Agent/Index";
+                            location.href = "/Home/Index";
                         } else {
                             alert("用户名或密码错误")
                         }

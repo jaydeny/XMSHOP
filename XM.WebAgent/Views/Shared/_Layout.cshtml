@@ -44,7 +44,7 @@
                             <li class="nav-item">
                                 <a class="nav-link active" href="#">
                                     <span data-feather="home"></span>
-                                    @Html.ActionLink("会员管理", "Index", "Agent") <span class="sr-only">(current)</span>
+                                    @Html.ActionLink("会员管理", "Index", "Home") <span class="sr-only">(current)</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -65,7 +65,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
                                     <span data-feather="file-text"></span>
-                                    @Html.ActionLink("商品上架&定价", "getGoodsPage", "Agent")
+                                    @Html.ActionLink("商品上架&定价", "getProductPage", "Product")
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -91,7 +91,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
                                     <span data-feather="file-text"></span>
-                                    @Html.ActionLink("营收报表", "ReportForm", "Agent")
+                                    @Html.ActionLink("营收报表", "ReportForm", "Form")
                                 </a>
                             </li>
                         </ul>
@@ -105,7 +105,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
                                     <span data-feather="file-text"></span>
-                                    @Html.ActionLink("个人中心", "AgentPersonalCenter","Agent")
+                                    @Html.ActionLink("个人中心", "AgentPersonalCenter", "AgentInfo")
                                 </a>
                             </li>
                         </ul>

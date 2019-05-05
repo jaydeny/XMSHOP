@@ -65,7 +65,7 @@ function editToVIP() {
     }
 
     $.ajax({
-        url: '/Agent/UpdateVIP',
+        url: '/VIP/Update',
         method: 'post',
         data: datapram,
         dataType: 'json'
@@ -99,7 +99,7 @@ function addVIP() {
     }
     //发送ajax请求
     $.ajax({
-        url: '/Agent/UpdateVIP',
+        url: '/VIP/Update',
         method: 'post',
         data: datapram,
         dataType: 'json'
@@ -126,7 +126,7 @@ function addVIP() {
 function onloadData() {
 
     $.ajax({
-        url: "/Agent/GetAllVIP",
+        url: "/VIP/GetAll",
         method: 'get',
         dataType: 'json'
     }).done(function (data) {
