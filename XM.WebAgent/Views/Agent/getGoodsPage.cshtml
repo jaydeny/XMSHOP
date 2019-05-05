@@ -123,23 +123,22 @@
                     //将配置读取到config里
                     this.config = data.body;
                     //获取初始化配置
-                    let size = data.body.pageSize;
-                    let count = data.body.count;
+                    const size = data.body.pageSize;
+                    const count = data.body.count;
                     //配置页面化
                     this.pageSize = size;
                     this.count = count;
                     //请求参数
                     const param = {
-                        "pi": size,
-                        "pageSize" :count
+                        "page": size,
+                        "rows" :count
                     }
                     //调用加载数据方法，进行获取相关的商品
                     this.onloadData(data.body.goodsUrl.getAllGoods, param);
                     //调用我的代理商品方法
                     const myParam = {
-                        "pi": size,
-                        "pageSize": count,
-                        "agent_AN": localStorage.getItem("Agent_Name")
+                        "page": size,
+                        "rows": count
                     }
                     this.onloadMyGoodsData(data.body.goodsUrl.myGoods, myParam);
                 })
@@ -172,7 +171,8 @@
            },
            methods: {
                //加载全部商品数据
-               onloadData(url,param) {
+               onloadData(url, param) {
+                   console.log(param)
                    //发送请求 ，请求地址 : /Agent/GetAllGoodsInfo
                    this.$http.get(url, param).then((data) => {
                        this.Goods = data.body.rows;

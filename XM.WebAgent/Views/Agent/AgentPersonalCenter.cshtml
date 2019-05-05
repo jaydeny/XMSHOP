@@ -115,7 +115,7 @@
                         this.msg = "抱歉两次输入的密码不一致";
                     } else {
                         const param = {
-                            "agent_pwd": this.agentPassWord
+                            "agent_pwd": this.againPassWord
                         }
                         this.$http.post("/agent/Update", param).then((data) => {
                             console.log(data)
