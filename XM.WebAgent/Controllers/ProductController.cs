@@ -10,10 +10,7 @@ namespace XM.WebAgent.Controllers
 {
 
     /// <summary>
-    /// 作者：曾贤鑫
-    /// 创建时间:2019-5/5
-    /// 修改时间：2019-
-    /// 功能：商品相关的方法,上架,定价,查询所有商品,查询所有代理端商品
+    /// 商品相关的方法,上架,定价,查询所有商品,查询所有代理端商品
     /// </summary>
     public class ProductController : BaseController
     {
@@ -83,9 +80,7 @@ namespace XM.WebAgent.Controllers
 
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
-        /// 功能:查询所有的商品
+        /// 查询所有的商品
         /// </summary>
         /// <returns>json值</returns>
         public ActionResult GetAllGoodsInfo()
