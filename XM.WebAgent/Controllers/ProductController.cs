@@ -39,7 +39,7 @@ namespace XM.WebAgent.Controllers
         public ActionResult MakeGoods()
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("id", Request["Agoods_id"]);
+            param.Add("id", Request["Agoods_id"] == null ? "0":Request["Agoods_id"]);
             param.Add("goods_id", Request["goods_id"]);
             param.Add("status_id", Request["status_id"]);
             param.Add("price", Request["price"]);
@@ -64,7 +64,7 @@ namespace XM.WebAgent.Controllers
         public ActionResult QryAgoods()
         {
             string sort = Request["sort"] == null ? "id" : Request["sort"];
-            string order = Request["order"] == null ? "asc" : Request["order"];
+            string order = Request["order"] == null ? "desc" : Request["order"];
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
 
@@ -73,6 +73,7 @@ namespace XM.WebAgent.Controllers
             param.Add("pi", pageindex);
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
+            param.Add("order", order);
             param.Add("status_id", 1);
             param.Add("agent_AN", Session["Agent_AN"] != null ? Session["Agent_AN"].ToString() : "agent");
 
@@ -90,7 +91,7 @@ namespace XM.WebAgent.Controllers
         public ActionResult GetAllGoodsInfo()
         {
             string sort = Request["sort"] == null ? "GoodsID" : Request["sort"];
-            string order = Request["order"] == null ? "asc" : Request["order"];
+            string order = Request["order"] == null ? "desc" : Request["order"];
 
             //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
@@ -102,9 +103,7 @@ namespace XM.WebAgent.Controllers
             string createDateTime = Request["goods_CDT"] == null ? "" : Request["goods_CDT"];
             string goodsPic = Request["goods_pic"] == null ? "" : Request["goods_pic"];
             int typeId = Request["type_id"] == null ? 1 : Convert.ToInt32(Request["type_id"]);
-
-
-
+            
             int totalCount;   //输出参数
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["pi"] = pageindex;
@@ -116,5 +115,6 @@ namespace XM.WebAgent.Controllers
             return PagerData(totalCount, goods);
         }
         #endregion
+        
     }
 }

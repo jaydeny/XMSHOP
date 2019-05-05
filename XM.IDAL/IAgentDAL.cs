@@ -181,6 +181,7 @@ namespace XM.IDAL
         /// <param name="paras"></param>
         /// <returns></returns>
         string QryAllAgent(Dictionary<string, object> paras, out int iCount);
+        
         #endregion
     }
 }

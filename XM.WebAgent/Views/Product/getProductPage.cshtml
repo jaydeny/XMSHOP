@@ -112,8 +112,8 @@
                 pageSize: '',
                 //显示多少条数据
                 count: '',
-                //是否显示全部商品
-               myGoodsShow: true,
+               //是否显示全部商品
+               myGoodsShow: false,
                 //我的商品
                myGoods: [],
                fromData :[]
@@ -190,7 +190,7 @@
                        data: param,
                        dataType: 'json'
                    }).done((data) => {
-
+                       this.Goods = data.rows;
                        console.log(data)
 
                    })
@@ -199,10 +199,15 @@
                //加载我的代理商品数据
                onloadMyGoodsData(url,param) {
                    //发送请求 ，请求地址 : /Agent/QryAgoods
-                   this.$http.get(url, param).then((data) => {
-                       this.myGoods = data.body.rows;
-
+                   $.ajax({
+                       url: url,
+                       data: param,
+                       method: "get",
+                       dataType: 'json'
+                   }).then((data) => {
+                       this.myGoods = data.rows;
                    });
+
                },
                //一键发布的动作
                Release(GoodsIndex) {
@@ -227,21 +232,28 @@
                            "goods_id": releaseGoods.GoodsID,
                            "status_id": 1,
                            "price": price,
-                           "goods_name": releaseGoods.GoodsName
+                            "goods_name": releaseGoods.GoodsName
+                           
                        }
 
                    }
                },
                groundSubmir() {
                    //发送请求去上架商品 请求地址: /Agent/MakeGoods
-                   this.$http.post(this.config.goodsUrl.groundUrl, this.fromData).then((data) => {
-                       //console.log(data)
-                       if (data.body.success) {
+                   
+                   $.ajax({
+                       url: this.config.goodsUrl.groundUrl,
+                       data: this.fromData,
+                       method: "post",
+                       dataType: 'json'
+                   }).then((data) => {
+                       console.log(data);
+                       //if (data.success) {
 
-                           alert(data.body.msg);
-                       } else {
-                           alert(data.body.msg);
-                       }
+                       //    alert(data.msg);
+                       //} else {
+                       //    alert(data.msg);
+                       //}
                    });
                    $('#exampleModalCenter').modal('hide')
                },
@@ -260,10 +272,10 @@
                onMyGoods(even) {
                    //console.log(even)
                    if (even.target.innerText === this.config.myGoodsBtn) {
-                       this.myGoodsShow = false;
+                       this.myGoodsShow = true;
                        event.target.innerText = "全部商品";
                    } else {
-                       this.myGoodsShow = true;
+                       this.myGoodsShow = false;
                        event.target.innerText = this.config.myGoodsBtn;
                    }
                }

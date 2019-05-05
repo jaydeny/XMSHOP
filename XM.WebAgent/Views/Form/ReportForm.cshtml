@@ -74,7 +74,8 @@
             created: function () {
                 ////请求配置文件去拿数据
                 $.ajax({
-                    url: "../../Content/Agent/ReportForm.json"
+                    url: "../../Content/StaticJson/ReportForm.json",
+                    dataType: 'json'
                 }).then((data) => {
                      //将数据配置到这个页面代码中
                     this.config = data;
@@ -106,7 +107,8 @@
                 onloadData(url, param) {
                     $.ajax({
                         url: url,
-                        method: "get"
+                        method: "get",
+                        dataType: 'json'
                     }).then((data) => {
                         this.dataTable = data.rows;
                     });
