@@ -398,9 +398,10 @@ namespace XM.DAL
             builder.FromSql = "tborder a join tbaddress b on a.order_address = b.id";
             GridData grid = new GridData()
             {
-                PageIndex = 1,
-                PageSize = 10,
-                SortField = "a.id"
+                PageIndex = Convert.ToInt32(paras["pi"]),
+                PageSize = Convert.ToInt32(paras["pageSize"]),
+                SortField = paras["sort"].ToString(),
+                SortDirection = paras["order"].ToString()
             };
             builder.AddWhereAndParameter(paras, "startTime", "order_date", ">", "@startTime");
             builder.AddWhereAndParameter(paras, "endTime", "order_date", "<", "@endTime");
