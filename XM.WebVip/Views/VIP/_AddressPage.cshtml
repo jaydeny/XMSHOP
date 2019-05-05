@@ -14,14 +14,14 @@
             <form>
                 <div class="form-group">
                     <label for="site">收货地址</label>
-                    <input type="text" class="form-control" class="site">
+                    <input type="text" class="form-control" id="txt_address">
                 </div>
                 <div class="form-group">
                     <input type="checkbox" style="vertical-align: middle;margin: 0;" /> <span>设为默认收货地址</span>
                 </div>
                 <div class="submit">
-                    <button type="button" class="btn submit_but">添加新地址</button>
-                    <button type="button" class="btn btn-default">清空</button>
+                    <button type="button" class="btn submit_but" id="btnAddAddress">新添地址</button>
+                    <button type="button" class="btn btn-default" id="btnEmptyAddress">清空</button>
                 </div>
             </form>
             <div class="site-list">
@@ -31,22 +31,22 @@
                         <div class="flex-2">地址</div>
                         <div class="flex-1">操作</div>
                     </li>
-                    <li>
+                    @*<li>
                         <div class="flex-1"><input type="checkbox" checked /></div>
                         <div class="flex-2">深圳-龙华区新牛路-港深国际中心601-c06</div>
-                        <div class="flex-1">
-                            <a>修改</a>
-                            <a>删除</a>
+                        <div class="flex-1" data-id="2">
+                            <a class="update">修改</a>
+                            <a class="delete">删除</a>
                         </div>
                     </li>
                     <li>
                         <div class="flex-1"><input type="checkbox" /></div>
                         <div class="flex-2">深圳-龙华区新牛路-港深国际中心601-c06</div>
-                        <div class="flex-1">
-                            <a>修改</a>
-                            <a>删除</a>
+                        <div class="flex-1" data-id="1">
+                            <a class="update">修改</a>
+                            <a class="delete">删除</a>
                         </div>
-                    </li>
+                    </li>*@
                 </ul>
             </div>
         </div>

@@ -4,16 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using XM.Model;
+using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
     public class TypeController : BaseController
     {
+        [PermissionFilter]
         // GET: Type
         public ActionResult Index()
         {
             return View();
         }
+        [PermissionFilter("Type", "Index")]
         public ActionResult GetAllTypeInfo()
         {
             string sort = Request["sort"] == null ? "TypeID" : Request["sort"];
@@ -40,7 +43,7 @@ namespace XM.Web.Controllers
         {
             return View("_TypeAdd");
         }
-
+        [PermissionFilter("Type", "Index",Operationype.Add)]
         /// <summary>
         /// 新增 类型
         /// </summary>
@@ -55,6 +58,7 @@ namespace XM.Web.Controllers
         {
             return View("_TypeEdit ");
         }
+        [PermissionFilter("Type", "Index",Operationype.Update)]
         /// <summary>
         /// 编辑 类型
         /// </summary>
@@ -98,7 +102,7 @@ namespace XM.Web.Controllers
             
 
         }
-
+        [PermissionFilter("Type", "Index",Operationype.Delete)]
         public ActionResult DelTypeByIDs()
         {
             string Ids = Request["id"] == null ? "" : Request["id"];

@@ -4,16 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using XM.Model;
+using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
     public class MenuController : BaseController
     {
+        [PermissionFilter]
         // GET: Menu
         public ActionResult Index()
         {
             return View();
         }
+        [PermissionFilter("Menu", "Index")]
         public ActionResult GetAllMenu()
         {
             string sort = Request["sort"] == null ? "id" : Request["sort"];
@@ -35,24 +38,27 @@ namespace XM.Web.Controllers
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["pi"] = pageindex;
             paras["pageSize"] = pagesize;
-            paras["AgentName"] = name;
+            paras["name"] = name;
             paras["sort"] = sort;
             paras["order"] = order;
-            var users = DALUtility.Agent.QryUsers<MenuEntity>(paras, out totalCount);
-            return PagerData(totalCount, users);
+            var menus = DALUtility.Menu.GetAllMenu<MenuEntity>(paras, out totalCount);
+            return PagerData(totalCount, menus);
         }
         public ActionResult AddMenu()
         {
             return View("_AddMenu");
         }
+        [PermissionFilter("Menu", "Index",Operationype.Add)]
         public ActionResult MenuAdd()
         {
             return Save();
         }
+        
         public ActionResult EditMenu()
         {
             return View("_EditMenu");
         }
+        [PermissionFilter("Menu", "Index", Operationype.Update)]
         public ActionResult MenuEdit()
         {
             return Save();
@@ -80,6 +86,19 @@ namespace XM.Web.Controllers
             paras["sortvalue"] = sortvalue;
 
             return OperationReturn(DALUtility.Menu.Save(paras) > 0);
+        }
+        [PermissionFilter("Menu", "Index", Operationype.Delete)]
+        public ActionResult DelMenuByIDs()
+        {
+            string Ids = Request["id"] == null ? "" : Request["id"];
+            if (!string.IsNullOrEmpty(Ids))
+            {
+                return OperationReturn(DALUtility.Menu.DeleteMenu(Ids), "删除成功");
+            }
+            else
+            {
+                return OperationReturn(false, "删除失败");
+            }
         }
     }
 }

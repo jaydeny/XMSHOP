@@ -50,7 +50,8 @@ function btn_add() {
 }
 function btn_edit() {
     // 主键
-    var keyValue = $("#gridList").jqGridRowValue().vip_id;
+    var keyValue = $("#gridList").jqGridRowValue();
+    console.log(keyValue);
     $.modalOpen({
         id: "Form",
         title: "修改用户",

@@ -421,9 +421,16 @@ namespace XM.WebVip.Controllers
         [HttpPost]
         public ActionResult Address()
         {
+
+            string sort = Request["sort"] == null ? "id" : Request["sort"];
+            string order = Request["order"] == null ? "desc" : Request["order"];
+            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+            
             Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("id", int.Parse(Request["id"]));
-            param.Add("address_name", Request["address_name"]);
+            param.Add("pi", pageindex);
+            param.Add("pageSize", pagesize);
+            param.Add("sort", sort);
             param.Add("vip_id", int.Parse(Session["ID"].ToString()));
 
             string result = DALUtility.Vip.QryVipAddress(param, out int iCount);
@@ -598,7 +605,7 @@ namespace XM.WebVip.Controllers
         public ActionResult QryOrder()
         {
             string sort = Request["sort"] == null ? "id" : Request["sort"];
-            string order = Request["order"] == null ? "asc" : Request["order"];
+            string order = Request["order"] == null ? "desc" : Request["order"];
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
 

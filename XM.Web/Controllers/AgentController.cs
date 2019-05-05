@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using XM.Model;
+using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
@@ -14,13 +15,14 @@ namespace XM.Web.Controllers
     /// </summary>
     public class AgentController : BaseController
     {
+        [PermissionFilter]
         // GET: Agent
         public ActionResult Index()
         {
             return View();
         }
 
-
+        [PermissionFilter("Agent", "Index")]
         public ActionResult GetAllUserInfo()
         {
             string sort = Request["sort"] == null ? "AgentID" : Request["sort"];
@@ -51,6 +53,7 @@ namespace XM.Web.Controllers
         {
             return View("_AddAgent");
         }
+        [PermissionFilter("Agent", "Index",Operationype.Add)]
         /// <summary>
         /// 新增 用户
         /// </summary>
@@ -65,6 +68,7 @@ namespace XM.Web.Controllers
         {
             return View("_EditAgent");
         }
+        [PermissionFilter("Agent", "Index",Operationype.Update)]
         /// <summary>
         /// 编辑 用户
         /// </summary>
@@ -107,12 +111,9 @@ namespace XM.Web.Controllers
                 }
                 return OperationReturn(DALUtility.Agent.Save(paras) > 0, "修改成功！");
             }
-
-
-
-
+            
         }
-
+        [PermissionFilter("Agent", "Index",Operationype.Delete)]
         public ActionResult DelUserByIDs()
         {
             string Ids = Request["id"] == null ? "" : Request["id"];
