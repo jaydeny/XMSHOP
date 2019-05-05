@@ -9,7 +9,7 @@
         if (!!keyValue) { //判断是否有值
             $.ajax({
                 url: "/GoodsType/GetFormJson",
-                data: { keyValue: keyValue },
+                data: { id: keyValue },
                 dataType: "json",
                 async: false,
                 success: function (data) {
@@ -19,32 +19,13 @@
         }
     });
     function initControl() {
-        $("#F_Gender").bindSelect()
-        $("#F_IsAdministrator").bindSelect()
-        $("#F_EnabledMark").bindSelect()
-        $("#F_OrganizeId").bindSelect({
-            url: "/SystemManage/Organize/GetTreeSelectJson"
-        });
-        $("#F_DepartmentId").bindSelect({
-            url: "/SystemManage/Organize/GetTreeSelectJson",
-        });
-        $("#F_RoleId").bindSelect({
-            url: "/SystemManage/Role/GetGridJson",
-            id: "F_Id",
-            text: "F_FullName"
-        });
-        $("#F_DutyId").bindSelect({
-            url: "/SystemManage/Duty/GetGridJson",
-            id: "F_Id",
-            text: "F_FullName"
-        });
     }
     function submitForm() {
         if (!$('#form1').formValid()) {
             return false;
         }
         $.submitForm({
-            url: "/Goods/SubmitForm?keyValue=" + keyValue,
+            url: "/Goods/TypeAdd?id=" + keyValue,
             param: $("#form1").formSerialize(), ser,
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");

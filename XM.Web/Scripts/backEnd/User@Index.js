@@ -4,23 +4,23 @@
 function gridList() {
     var $gridList = $("#gridList");
     $gridList.dataGrid({
-        url: "/User/GetGridJson",
+        url: "/User/GetAllUserInfo",
         height: $(window).height() - 128,
         colModel: [
-            { label: '主键', name: 'user_id', hidden: true },
-            { label: '账户', name: 'user_AN', width: 80, align: 'left' },
-            { label: '手机', name: 'user_mp', width: 100, align: 'left' },
-            { label: '邮箱', name: 'user_email', width: 140, align: 'left' }, 
-            { label: '创建人', name: 'user_CBY', width: 80, align: 'left' },
+            { label: '主键', name: 'id', hidden: true },
+            { label: '账户', name: 'UserAccountName', width: 80, align: 'left' },
+            { label: '手机', name: 'UserMobliePhone', width: 100, align: 'left' },
+            { label: '邮箱', name: 'UserEmail', width: 140, align: 'left' }, 
+            { label: '创建人', name: 'UserCreateBy', width: 80, align: 'left' },
             {
-                label: '角色', name: 'F_RoleId', width: 80, align: 'left',
+                label: '角色', name: 'RoleID', width: 80, align: 'left',
                 formatter: function (cellvalue, options, rowObject) {
                     return top.clients.role[cellvalue] == null ? "" : top.clients.role[cellvalue].fullname;
                 }
             },
-            { label: '创建时间', name: 'user_CDT', width: 140, align: 'left' },
+            { label: '创建时间', name: 'UserCreateDate', width: 140, align: 'left' },
             {
-                label: "允许登录", name: "status_id", width: 60, align: "left",
+                label: "允许登录", name: "StatusID", width: 60, align: "left",
                 formatter: function (cellvalue, options, rowObject) {
                     if (cellvalue == 1) {
                         return '<span class=\"label label-success\">正常</span>';
@@ -56,7 +56,7 @@ function btn_add() {
 }
 function btn_edit() {
     // 主键
-    var keyValue = $("#gridList").jqGridRowValue().user_id;
+    var keyValue = $("#gridList").jqGridRowValue().id;
     $.modalOpen({
         id: "Form",
         title: "修改用户",
@@ -70,11 +70,10 @@ function btn_edit() {
 }
 function btn_delete() {
     $.deleteForm({
-        url: "/User/DeleteForm",
-        param: { keyValue: $("#gridList").jqGridRowValue().user_id },
+        url: "/User/DelUserByIDs",
+        param: { id: $("#gridList").jqGridRowValue().id },
         success: function () {
-            //$.currentWindow().$("#gridList").trigger("reloadGrid");
-            gridList();
+            $.currentWindow().$("#gridList").trigger("reloadGrid");
         }
     })
 }

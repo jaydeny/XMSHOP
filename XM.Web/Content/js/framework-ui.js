@@ -193,14 +193,14 @@ $.submitForm = function (options) {
             type: "post",
             dataType: "json",
             success: function (data) {
-                if (data.state == "success") {
+                if (data.success) {
                     options.success(data);
-                    $.modalMsg(data.message, data.state);
+                    $.modalMsg(data.msg, data.success);
                     if (options.close == true) {
                         $.modalClose();
                     }
                 } else {
-                    $.modalAlert(data.message, data.state);
+                    $.modalAlert(data.msg, data.success);
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {

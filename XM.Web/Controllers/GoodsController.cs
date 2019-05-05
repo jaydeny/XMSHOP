@@ -4,16 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using XM.Model;
+using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
     public class GoodsController : BaseController
     {
+        [PermissionFilter]
         // GET: Goods
         public ActionResult Index()
         {
             return View();
         }
+        [PermissionFilter("Goods", "Index")]
         public ActionResult GetAllGoodsInfo()
         {
             string sort = Request["sort"] == null ? "GoodsID" : Request["sort"];
@@ -47,6 +50,7 @@ namespace XM.Web.Controllers
         {
             return View("_AddGoods");
         }
+        [PermissionFilter("Goods", "Index", Operationype.Add)]
         /// <summary>
         /// 新增 产品
         /// </summary>
@@ -61,6 +65,7 @@ namespace XM.Web.Controllers
         {
             return View("_EditGoods");
         }
+        [PermissionFilter("Goods", "Index", Operationype.Update)]
         /// <summary>
         /// 编辑 产品
         /// </summary>
@@ -97,7 +102,7 @@ namespace XM.Web.Controllers
             return OperationReturn(DALUtility.Goods.Save(paras) > 0);
 
         }
-
+        [PermissionFilter("Goods", "Index", Operationype.Delete)]
         public ActionResult DelGoodsByIDs()
         {
             string Ids = Request["id"] == null ? "" : Request["id"];

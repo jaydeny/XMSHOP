@@ -18,9 +18,7 @@ window.onload = function () {
         obj.url = "/vip/Signin";
         bouncedLogin(obj);
     });
-
-    //退出
-    $("#vipExit").click(function () {
+    var safetyExit = function () {
         $.get("/vip/RemoveSession", function (data, status, xhr) {
             if (data.success) {
                 // 清空数据
@@ -29,6 +27,10 @@ window.onload = function () {
                 }, 500);
             }
         }, "json")
+    }
+    //退出
+    $("#vipExit").click(function () {
+        safetyExit();
     });
     //获取登录信息
     var loginInfo = function () {
@@ -56,7 +58,6 @@ window.onload = function () {
 
     // 获取热销
     $.post("/vip/HotGoods", function (data) {
-        
         $.each(data.rows, function (i, n) {
             $(".hot_melt ul").append(HotGoods(n));
         });
