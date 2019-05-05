@@ -25,9 +25,9 @@
   },
   "sites": [ "Google", "Runoob", "Taobao" ],
   "goodsUrl": {
-    "getAllGoods": "/Agent/GetAllGoodsInfo",
-    "groundUrl": "/Agent/MakeGoods",
-    "myGoods": "/Agent/QryAgoods"
+    "getAllGoods": "/Product/GetAllGoodsInfo",
+    "groundUrl": "/Product/MakeGoods",
+    "myGoods": "/Product/QryAgoods"
   },
   "message": {
     "warm": {

@@ -1,4 +1,5 @@
 ﻿
+
 @{
     ViewBag.Title = "getGoodsPage";
 }
@@ -6,9 +7,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
+
 </head>
-<body >
+<body>
     <div id="app">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
             <h1 class="h2">{{config.hearTitle}}</h1>
@@ -98,7 +99,7 @@
         </div>
 
     </div>
-    <script >
+    <script>
         //我们尝试使用VUE进行开发
        var VM = new Vue({
             el: "#app",
@@ -118,39 +119,33 @@
                fromData :[]
             },
            created: function () {
-
+                //加载配置文件，将数据填充
                $.ajax({
-                   url: "../../Content/Agent/list.json",
+                   url: "../../Content/StaticJson/list.json",
                    method: "get"
                }).done((data) => {
-                   console.log(data)
-                   })
-
-                //加载配置文件，将数据填充
-                this.$http.get("../../Content/Agent/list.json").then((data) => {
-                    //将配置读取到config里
-                    this.config = data.body;
-                    //获取初始化配置
-                    const size = data.body.pageSize;
-                    const count = data.body.count;
-                    //配置页面化
-                    this.pageSize = size;
-                    this.count = count;
-                    //请求参数
-                    const param = {
-                        "page": size,
-                        "rows" :count
-                    }
-                    ////调用加载数据方法，进行获取相关的商品
-                    this.onloadData(data.body.goodsUrl.getAllGoods,param);
-                    //调用我的代理商品方法
-                    const myParam = {
-                        "page": size,
-                        "rows": count
-                    }
-                    this.onloadMyGoodsData(data.body.goodsUrl.myGoods, myParam);
-                })
-                
+                   //将配置读取到config里
+                   this.config = data;
+                   //获取初始化配置
+                   const size = data.pageSize;
+                   const count = data.count;
+                   //配置页面化
+                   this.pageSize = size;
+                   this.count = count;
+                   //请求参数
+                   const param = {
+                       "page": size,
+                       "rows": count
+                   }
+                   ////调用加载数据方法，进行获取相关的商品
+                   this.onloadData(data.goodsUrl.getAllGoods, param);
+                   //调用我的代理商品方法
+                   const myParam = {
+                       "page": size,
+                       "rows": count
+                   }
+                   this.onloadMyGoodsData(data.goodsUrl.myGoods, myParam);
+               });
            },
            computed: {
                //制作简单的页面商品搜索
@@ -195,9 +190,9 @@
                        data: param,
                        dataType: 'json'
                    }).done((data) => {
-                       
+
                        console.log(data)
-                       
+
                    })
 
                },
@@ -206,7 +201,7 @@
                    //发送请求 ，请求地址 : /Agent/QryAgoods
                    this.$http.get(url, param).then((data) => {
                        this.myGoods = data.body.rows;
-                       
+
                    });
                },
                //一键发布的动作
@@ -214,14 +209,14 @@
 
                    //获取当前商品定价
                    let price = document.querySelectorAll(".price")[GoodsIndex].value;
-                   
+
                    //进行验证
                    if (price == '') {
-                       
+
                        //定价为空，消息警告，前期使用alert
                        alert(this.config.message.warm.priceIsNull);
-                       
-                       
+
+
                    } else {
                        //获取到当前的商品
                        const releaseGoods = this.Goods[GoodsIndex];
@@ -234,7 +229,7 @@
                            "price": price,
                            "goods_name": releaseGoods.GoodsName
                        }
-                        
+
                    }
                },
                groundSubmir() {

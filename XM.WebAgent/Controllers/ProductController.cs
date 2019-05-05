@@ -25,7 +25,7 @@ namespace XM.WebAgent.Controllers
         /// </summary>
         /// <returns></returns>
         //返回商品操作页
-        public ActionResult getGoodsPage()
+        public ActionResult getProductPage()
         {
             return View();
         }
