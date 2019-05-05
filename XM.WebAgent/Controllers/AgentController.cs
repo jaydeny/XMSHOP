@@ -369,7 +369,7 @@ namespace XM.WebAgent.Controllers
         {
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["id"] = ID;
-            paras["agent_AN"] = Request["agent_AN"];
+            paras["agent_AN"] = Session["Agent_AN"] != null ? Session["Agent_AN"].ToString() : Request["Agent_AN"];
             paras["agent_mp"] = Request["agent_mp"];
             paras["agent_email"] = Request["agent_email"];
 
@@ -384,7 +384,7 @@ namespace XM.WebAgent.Controllers
                 paras["agent_pwd"] = Request["agent_pwd"];
                 paras["agent_CBY"] = Request["agent_CBY"];
                 paras["agent_CDT"] = DateTime.Now;
-                paras["status_id"] = Request["status_id"];
+                paras["status_id"] = 1;
                 int result = DALUtility.Agent.saveAgent(paras);
                 if (ID == 0)
                 {
