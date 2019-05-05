@@ -357,6 +357,18 @@ namespace XM.DAL
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
             return retData;
         }
+
+        /// <summary>
+        /// 查询所有未上架的后台商品
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public string QryGoods(Dictionary<string, object> paras)
+        {
+            var s = Query("select a.* from v_goods_list a left join tbagoods b on a.GoodsID=b.goods_id where b.id is null", paras);
+            string retData = JsonConvert.SerializeObject(new { rows = s });
+            return retData;
+        }
         #endregion
 
         #region _Info

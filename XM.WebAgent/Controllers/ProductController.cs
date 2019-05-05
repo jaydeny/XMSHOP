@@ -97,22 +97,16 @@ namespace XM.WebAgent.Controllers
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
             string goodsName = Request["goods_name"] == null ? "" : Request["goods_name"];
-            string goodsIntro = Request["goods_intro"] == null ? "" : Request["goods_intro"];
-            decimal goodsPrice = Request["goods_CP"] == null ? 1 : Convert.ToDecimal(Request["goods_CP"]);
-            string createBy = Request["goods_BY"] == null ? "" : Request["goods_BY"];
-            string createDateTime = Request["goods_CDT"] == null ? "" : Request["goods_CDT"];
-            string goodsPic = Request["goods_pic"] == null ? "" : Request["goods_pic"];
-            int typeId = Request["type_id"] == null ? 1 : Convert.ToInt32(Request["type_id"]);
             
-            int totalCount;   //输出参数
+            //int totalCount;   //输出参数
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["pi"] = pageindex;
             paras["pageSize"] = pagesize;
             paras["goods_name"] = goodsName;
             paras["sort"] = sort;
             paras["order"] = order;
-            var goods = DALUtility.Goods.QryGoods<GoodsEntity>(paras, out totalCount);
-            return PagerData(totalCount, goods);
+            var goods = DALUtility.Agent.QryGoods(paras);
+            return Content(goods);
         }
         #endregion
         

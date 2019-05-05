@@ -50,6 +50,16 @@ namespace XM.DAL.comm
             }
         }
 
+
+
+        protected IEnumerable<dynamic> Query(string sql, object param = null)
+        {
+            using (IDbConnection conn = GetConnection())
+            {
+                return conn.Query(sql, param, null);
+            }
+        }
+
         /// <summary>
         /// 分页查询
         /// </summary>
