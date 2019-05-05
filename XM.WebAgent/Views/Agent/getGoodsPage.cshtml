@@ -63,7 +63,7 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" v-show="!myGoodsShow">
 
             <div class="card" style="width: 18rem; display: inline-flex; margin:5px" v-for="(obj,index) in myGoodsFilter" :key="index">
-                <img class="card-img-top" src="https://avatars.mds.yandex.net/get-pdb/25978/08f09eb2-a5e3-4a14-a076-9eda45d1a1cf/s1200" style="height : 165px" alt="加载失败">
+                <img class="card-img-top" src="http://cf-attach.i-sogi.com/cn/article/img/201312/2013121610401667595.jpg" style="height : 165px" alt="加载失败">
                 <div class="card-body">
                     <h5 class="card-title">{{config.cardTitle}} <span>{{obj.goods_name}}</span> </h5>
 
@@ -183,6 +183,7 @@
                    //发送请求 ，请求地址 : /Agent/QryAgoods
                    this.$http.get(url, param).then((data) => {
                        this.myGoods = data.body.rows;
+                       console.log(data)
                    });
                },
                //一键发布的动作
