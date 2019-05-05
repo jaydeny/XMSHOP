@@ -10,7 +10,7 @@
     <title>代理登录页</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <link href="~/Content/Agent/Login.css" rel="stylesheet" />
+    <link href="~/Content/Login/Login.css" rel="stylesheet" />
 </head>
 
 <body class="text-center">
@@ -21,12 +21,12 @@
         <input type="text" id="inputUserName" class="form-control" placeholder="UserName" required autofocus value="agent">
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required value="agent123">
-       
+
 
         <button class="btn btn-lg btn-primary btn-block" type="button" id="login">登录</button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+        @*<p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>*@
     </form>
-    
+
     <script>
         $(document).ready(function () {
             $("#login").click(function () {
@@ -40,16 +40,13 @@
                         "pwd": inputPassword
                     }
                     $.ajax({
-                        url: '/Agent/Login',
+                        url: '/Home/Login',
                         method: 'post',
                         data: datapram,
                         dataType: 'json'
                     }).done((data) => {
-                        //console.log(data.success)
-                        //console.log(data)
                         if (data.success) {
-                            
-                            location.href = "/Agent/Index";
+                            location.href = "/Home/Index";
                         } else {
                             alert("用户名或密码错误")
                         }

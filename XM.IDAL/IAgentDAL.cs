@@ -144,6 +144,13 @@ namespace XM.IDAL
         /// <param name="paras"></param>
         /// <returns></returns>
         string QryAgoods(Dictionary<string, object> paras, out int iCount);
+
+        /// <summary>
+        /// 查询所有未上架的后台商品
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        string QryGoods(Dictionary<string, object> paras);
         #endregion
 
         #region _Info
@@ -181,6 +188,7 @@ namespace XM.IDAL
         /// <param name="paras"></param>
         /// <returns></returns>
         string QryAllAgent(Dictionary<string, object> paras, out int iCount);
+        
         #endregion
     }
 }
