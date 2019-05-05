@@ -26,6 +26,7 @@ namespace XM.WebVip.Controllers
             }
             else
             {
+                //后续需要修改,有关于选中地址的方式
                 var vipInfo = QryAddAndMP();
                 if (vipInfo.Equals(null))
                 {

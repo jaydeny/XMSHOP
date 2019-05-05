@@ -436,7 +436,7 @@ namespace XM.DAL
         /// <returns></returns>
         public T QryAddAndMP<T>(Dictionary<string, object> paras)
         {
-            return QuerySingle<T>("select * from v_vip_address a where VipAN = @vip_AN", paras, CommandType.Text);
+            return QuerySingle<T>("select top 1 * from v_vip_address where VipAN = @vip_AN", paras, CommandType.Text);
         }
 
 
