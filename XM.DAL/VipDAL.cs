@@ -447,7 +447,7 @@ namespace XM.DAL
         /// <returns></returns>
         public int DeleteAddress(Dictionary<string, object> paras)
         {
-            return QuerySingle<int>("delete tbaddress where id=@id and vip_id=@vip_id", paras, CommandType.Text);
+            return Execute("delete tbaddress where id=@id and vip_id=@vip_id", paras, CommandType.Text);
         }
         #endregion
 
