@@ -145,7 +145,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Agent\Login.css" />
+    <Content Include="Content\Login\Login.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -158,7 +158,7 @@
     <Content Include="Content\Agent\ReportForm.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\Agent\Index.js" />
+    <Content Include="Scripts\Home\Index.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -191,13 +191,13 @@
     <Content Include="Views\Agent\getGoodsPage.cshtml" />
     <Content Include="Views\Agent\ReportForm.cshtml" />
     <Content Include="Views\Agent\AgentPersonalCenter.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\AgentInfo\" />
     <Folder Include="Views\Form\" />
-    <Folder Include="Views\Home\" />
     <Folder Include="Views\Product\" />
     <Folder Include="Views\VIP\" />
   </ItemGroup>
