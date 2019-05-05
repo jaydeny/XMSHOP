@@ -4,16 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using XM.Model;
+using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
     public class TypeController : BaseController
     {
+        [PermissionFilter]
         // GET: Type
         public ActionResult Index()
         {
             return View();
         }
+        [PermissionFilter("Type", "Index")]
         public ActionResult GetAllTypeInfo()
         {
             string sort = Request["sort"] == null ? "TypeID" : Request["sort"];
@@ -34,21 +37,13 @@ namespace XM.Web.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var type = DALUtility.Type.QryType<GoodsTypeEntity>(paras, out totalCount);
-            if(type!= null)
-            {
-                log(HttpContext.Session["user_AN"].ToString(), "查询所有商品类型", "true", "查询成功");
-            }
-            else
-            {
-                log(HttpContext.Session["user_AN"].ToString(), "查询所有商品类型", "false", "查询失败");
-            }
             return PagerData(totalCount, type);
         }
         public ActionResult TypeAdd()
         {
-            return View();
+            return View("_TypeAdd");
         }
-
+        [PermissionFilter("Type", "Index",Operationype.Add)]
         /// <summary>
         /// 新增 类型
         /// </summary>
@@ -61,8 +56,9 @@ namespace XM.Web.Controllers
 
         public ActionResult TypeEdit()
         {
-            return View();
+            return View("_TypeEdit ");
         }
+        [PermissionFilter("Type", "Index",Operationype.Update)]
         /// <summary>
         /// 编辑 类型
         /// </summary>
@@ -86,12 +82,10 @@ namespace XM.Web.Controllers
                 num = DALUtility.Type.Save(paras);
                 if (num > 0)
                 {
-                    log(HttpContext.Session["user_AN"].ToString(), "添加商品类型", "true", "添加成功");
                     return OperationReturn(true, "添加成功！");
                 }
                 else
                 {
-                    log(HttpContext.Session["user_AN"].ToString(), "添加商品类型", "false", "添加失败");
                     return OperationReturn(false, "添加失败！");
                 }
                 
@@ -99,29 +93,25 @@ namespace XM.Web.Controllers
             num = DALUtility.Type.Save(paras);
             if (num > 0)
             {
-                log(HttpContext.Session["user_AN"].ToString(), "修改商品类型", "true", "修改成功");
                 return OperationReturn(true, "修改成功！");
             }
             else
             {
-                log(HttpContext.Session["user_AN"].ToString(), "修改商品类型", "false", "修改失败");
                 return OperationReturn(false, "修改失败！");
             }
             
 
         }
-
+        [PermissionFilter("Type", "Index",Operationype.Delete)]
         public ActionResult DelTypeByIDs()
         {
             string Ids = Request["id"] == null ? "" : Request["id"];
             if (!string.IsNullOrEmpty(Ids))
             {
-                log(HttpContext.Session["user_AN"].ToString(), "删除商品类型", "true", "删除成功");
                 return OperationReturn(DALUtility.Type.DeleteType(Ids), "删除成功！");
             }
             else
             {
-                log(HttpContext.Session["user_AN"].ToString(), "删除商品类型", "false", "删除失败");
                 return OperationReturn(false, "删除失败！");
             }
         }

@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.Diagnostics;
+using System.Web;
 using System.Web.Mvc;
 
 namespace XM.WebVip
@@ -8,6 +9,7 @@ namespace XM.WebVip
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            
         }
     }
 }

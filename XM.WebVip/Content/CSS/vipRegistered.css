@@ -1,0 +1,28 @@
+﻿.registered-main {
+    width: 300px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 30px 0 0 0;
+}
+
+    .registered-main .title {
+        text-align: center;
+        font-size: 26px;
+        padding-bottom: 10px;
+    }
+
+    .registered-main .warning {
+        float: right;
+        color: #f00;
+    }
+
+    .registered-main .registered_but {
+        margin: 0 40px;
+        background: #ccc;
+        width: 220px;
+    }
+
+    .registered-main .mar_b_20 {
+        margin-bottom: 20px;
+    }

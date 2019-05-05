@@ -4,16 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using XM.Model;
+using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
     public class GoodsController : BaseController
     {
+        [PermissionFilter]
         // GET: Goods
         public ActionResult Index()
         {
             return View();
         }
+        [PermissionFilter("Goods", "Index")]
         public ActionResult GetAllGoodsInfo()
         {
             string sort = Request["sort"] == null ? "GoodsID" : Request["sort"];
@@ -40,21 +43,14 @@ namespace XM.Web.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var goods = DALUtility.Goods.QryGoods<GoodsEntity>(paras, out totalCount);
-            if (goods != null)
-            {
-                log(HttpContext.Session["user_AN"].ToString(), "获取所有商品信息", "true", "获取成功");
-            }
-            else
-            {
-                log(HttpContext.Session["user_AN"].ToString(), "获取所有商品信息", "false", "获取失败");
-            }
             return PagerData(totalCount, goods);
         }
 
         public ActionResult AddGoods()
         {
-            return View();
+            return View("_AddGoods");
         }
+        [PermissionFilter("Goods", "Index", Operationype.Add)]
         /// <summary>
         /// 新增 产品
         /// </summary>
@@ -67,8 +63,9 @@ namespace XM.Web.Controllers
 
         public ActionResult EditGoods()
         {
-            return View();
+            return View("_EditGoods");
         }
+        [PermissionFilter("Goods", "Index", Operationype.Update)]
         /// <summary>
         /// 编辑 产品
         /// </summary>
@@ -100,25 +97,21 @@ namespace XM.Web.Controllers
             {
                 paras["goods_CBY"] = createBy;
                 paras["goods_CDT"] = DateTime.Now;
-                log(HttpContext.Session["user_AN"].ToString(), "添加商品", "true", "添加成功");
-                return OperationReturn(DALUtility.Goods.Save(paras) > 0, "添加成功！" );
+                return OperationReturn(DALUtility.Goods.Save(paras) > 0);
             }
-            log(HttpContext.Session["user_AN"].ToString(), "修改商品信息", "true", "修改成功");
-            return OperationReturn(DALUtility.Goods.Save(paras) > 0, "修改成功！");
+            return OperationReturn(DALUtility.Goods.Save(paras) > 0);
 
         }
-
+        [PermissionFilter("Goods", "Index", Operationype.Delete)]
         public ActionResult DelGoodsByIDs()
         {
             string Ids = Request["id"] == null ? "" : Request["id"];
             if (!string.IsNullOrEmpty(Ids))
             {
-                log(HttpContext.Session["user_AN"].ToString(), "删除商品信息", "true", "删除成功");
                 return OperationReturn(DALUtility.Goods.DeleteGoods(Ids),"删除成功！");
             }
             else
             {
-                log(HttpContext.Session["user_AN"].ToString(), "删除商品信息", "false", "删除失败");
                 return OperationReturn(false,"删除失败");
             }
         }

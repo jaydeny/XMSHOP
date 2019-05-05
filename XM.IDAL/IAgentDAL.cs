@@ -99,8 +99,7 @@ namespace XM.IDAL
         int Recharge(Dictionary<string, object> paras);
 
 
-
-
+        #region _Signin
         /// <summary>
         /// 注册代理商时,检查是否有登录名,邮箱,手机重复
         /// owen
@@ -114,15 +113,9 @@ namespace XM.IDAL
         /// 3:Email重复
         /// </returns>
         int checkANandMBandEmail(Dictionary<string, object> paras);
+        #endregion
 
-        /// <summary>
-        /// 添加和修改代理商共用的方法,区别在于id是否为0
-        /// owen
-        /// </summary>
-        /// <param name="paras"></param>
-        /// <returns></returns>
-        int saveAgent(Dictionary<string, object> paras);
-
+        #region _Login
         /// <summary>
         /// 查询代理商数据以登录
         /// owen
@@ -131,14 +124,9 @@ namespace XM.IDAL
         /// <param name="paras">参数:登入名,密码</param>
         /// <returns>返回一个对象,指vip</returns>
         T QryAgentToLogin<T>(Dictionary<string, object> paras);
+        #endregion
 
-        /// <summary>
-        /// 查询所有的代理商
-        /// </summary>
-        /// <param name="paras"></param>
-        /// <returns></returns>
-        string QryAllAgent(Dictionary<string, object> paras, out int iCount);
-
+        #region _Goods
         /// <summary>
         /// 代理商给商品定价或者修改状态
         /// </summary>
@@ -149,14 +137,6 @@ namespace XM.IDAL
         /// 
         /// </returns>
         int MakeGoods(Dictionary<string, object> paras);
-        
-        /// <summary>
-        /// 查询所有的代理商
-        /// </summary>
-        /// <param name="paras"></param>
-        /// <returns></returns>
-        string QryReportForm(Dictionary<string, object> paras, out int iCount);
-
 
         /// <summary>
         /// 查询所有的代理商商品
@@ -164,5 +144,43 @@ namespace XM.IDAL
         /// <param name="paras"></param>
         /// <returns></returns>
         string QryAgoods(Dictionary<string, object> paras, out int iCount);
+        #endregion
+
+        #region _Info
+        /// <summary>
+        /// 查询代理商信息
+        /// owen
+        /// </summary>
+        /// <typeparam name="VIPEntity">vip</typeparam>
+        /// <param name="paras">参数:登入名,密码</param>
+        /// <returns>返回一个对象,指vip</returns>
+        string QryAgentInfo<T>(Dictionary<string, object> paras);
+        #endregion
+
+        #region _From
+        /// <summary>
+        /// 查询所有的代理商
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        string QryReportForm(Dictionary<string, object> paras, out int iCount);
+        #endregion
+
+        #region 自定义
+        /// <summary>
+        /// 添加和修改代理商共用的方法,区别在于id是否为0
+        /// owen
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        int saveAgent(Dictionary<string, object> paras);
+
+        /// <summary>
+        /// 查询所有的代理商
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        string QryAllAgent(Dictionary<string, object> paras, out int iCount);
+        #endregion
     }
 }

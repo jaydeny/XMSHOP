@@ -1,0 +1,21 @@
+﻿.registered-main {
+    width: 300px;
+    position: relative;
+}
+
+    .registered-main .title {
+        text-align: center;
+        font-size: 26px;
+        padding-bottom: 10px;
+    }
+
+    .registered-main .warning {
+        float: right;
+        color: #f00;
+    }
+
+    .registered-main .registered_but {
+        margin: 0 40px;
+        background: #ccc;
+        width: 220px;
+    }

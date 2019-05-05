@@ -1,0 +1,77 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    <div id="app">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">个人信息</h1>
+        </div>
+
+        <main role="main" class="col-md-11 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div>
+                <table>
+                    <tr>
+                        <td>当前用户： <span>{{agentTable.AgentAccountName}}</span> </td>
+                    </tr>
+                    <tr>
+                        <td>邮箱： <span>{{agentTable.Email}}</span> </td>
+                    </tr>
+                    <tr>
+                        <td>手机号： <span>{{agentTable.MobliePhone}}</span> </td>
+                    </tr>
+                    <tr>
+                        <td>成为代理时间： <span>{{agentTable.CreateTime.substring(0,10)}}</span> </td>
+                    </tr>
+                    <tr>
+                        <td> <button>修改密码</button> </td>
+                        <td> <button>修改信息</button> </td>
+                    </tr>
+                </table>
+
+            </div>
+
+        </main>
+
+        @*修改密码模态框*@
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">修改密码</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                       
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" v-on:click="groundSubmir()">确定修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                "agentTable" : []
+            },
+            created: function () {
+                this.$http.get("/agent/QryAgentInfo").then((data) => {
+                    this.agentTable = data.body.rows;
+                    console.log(data.body.rows)
+                })
+            }
+        });
+    </script>
+</body>
+</html>

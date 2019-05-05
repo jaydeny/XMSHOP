@@ -1,0 +1,50 @@
+.vip-site {}
+
+.vip-site .header {
+	border-bottom: 1px solid #dedede;
+}
+.vip-site form {
+	margin: 20px 0 0 0;
+	width: 500px;
+}
+.vip-site .submit {
+	margin: 0 0 0 30%;
+}
+.vip-site .submit button {
+	width: 100px;
+	margin: 0 0 0 20px;
+}
+.vip-site .submit_but {
+    border: 1px solid #CA141D;
+    background: #ca141d;
+    color: #fff;
+}
+.site-list {
+	width: 700px;
+	overflow: hidden;
+	margin: 40px 0 0 0;
+}
+.site-list li {
+	display: flex;
+	text-align: center;
+	margin: 15px 0;
+}
+.site-list .flex-1 {
+	flex: 1;
+}
+.site-list .flex-2 {
+	flex: 2;
+}
+.site-list .title {
+    background-color: #fafafa;
+    margin: 0 -1px 0 0;
+    padding: 10px 0;
+    color: #888;
+}
+.site-list .title > div {
+    border-right: 1px solid #dedede;
+}
+.site-list a {
+    color: #888;
+}
+

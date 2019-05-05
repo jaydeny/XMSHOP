@@ -93,6 +93,8 @@ namespace XM.DAL
                     user.UserEmail = dt.Rows[0]["user_email"].ToString();
                 if (!DBNull.Value.Equals(dt.Rows[0]["status_id"]))
                     user.StatusID = int.Parse(dt.Rows[0]["status_id"].ToString());
+                if (!DBNull.Value.Equals(dt.Rows[0]["role_id"]))
+                    user.RoleID = int.Parse(dt.Rows[0]["role_id"].ToString());
                 return user;
             }
             return user;

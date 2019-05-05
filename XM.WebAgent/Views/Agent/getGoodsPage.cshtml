@@ -1,44 +1,256 @@
-﻿<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-    <h1 class="h2">商品上架&定价</h1>
-    @*<div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group mr-2">
-                <button class="btn btn-sm btn-outline-secondary">Share</button>
-                <button class="btn btn-sm btn-outline-secondary">Export</button>
+﻿
+@{
+    ViewBag.Title = "getGoodsPage";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    
+</head>
+<body >
+    <div id="app">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">{{config.hearTitle}}</h1>
+
+            <button class="btn btn-outline-secondary" type="button" v-on:click="onMyGoods($event)">{{config.myGoodsBtn}}</button>
+            <div>
+                <div class="input-group">
+                    <input type="text" class="form-control" v-model="search">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" v-on:click="searchAllGoods()">{{config.cardFunction.search}}</button>
+                    </div>
+                </div>
             </div>
-            <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <span data-feather="calendar"></span>
-                This week
-            </button>
-        </div>*@
-</div>
-<nav class="col-md-2 d-none d-md-block bg-light sidebar">
-    <div class="list-group">
-        <button type="button" class="list-group-item list-group-item-action active">
-            商品类型
-        </button>
-        <button type="button" class="list-group-item list-group-item-action">手机</button>
-        <button type="button" class="list-group-item list-group-item-action">Morbi leo risus</button>
-        <button type="button" class="list-group-item list-group-item-action">Porta ac consectetur ac</button>
-        <button type="button" class="list-group-item list-group-item-action" disabled>Vestibulum at eros</button>
-    </div>
-</nav>
-
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-
-    <div class="card" style="width: 18rem; display: inline-flex ;">
-        <img class="card-img-top" src="https://avatars.mds.yandex.net/get-pdb/25978/08f09eb2-a5e3-4a14-a076-9eda45d1a1cf/s1200" style="height : 165px" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">标题</h5>
-            <p class="card-text">信息</p>
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group mr-2">
+                    <button class="btn btn-sm btn-outline-secondary">{{config.showDataType.cardType}}</button>
+                    <button class="btn btn-sm btn-outline-secondary">{{config.showDataType.listType}}</button>
+                </div>
+            </div>
         </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">商品发布时间: <span></span> </li>
-            <li class="list-group-item">商品参考价: <span></span> </li>
-            <li class="list-group-item">定价:</li>
-        </ul>
-        <div class="card-body">
-            <a href="#" class="btn btn-primary">一键发布</a>
-            <a href="#" class="card-link">Another link</a>
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="list-group">
+                <button type="button" class="list-group-item list-group-item-action active">
+                    {{config.goodsType}}
+                </button>
+                <button type="button" class="list-group-item list-group-item-action">{{config.goodsTypeAll}}</button>
+                <div>
+                    <button type="button" class="list-group-item list-group-item-action">手机</button>
+                </div>
+            </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" v-show="myGoodsShow">
+
+            <div class="card" style="width: 18rem; display: inline-flex; margin:5px" v-for="(obj,index) in GoodsFilter" :key="index">
+                <img class="card-img-top" src="http://cf-attach.i-sogi.com/cn/article/img/201312/2013121610401667595.jpg" style="height : 165px" alt="加载失败">
+                <div class="card-body">
+                    <h5 class="card-title">{{config.cardTitle}} <span>{{obj.GoodsName}}</span> </h5>
+                    <p class="card-text">{{config.Msg}} <span>{{obj.GoodsIntro}}</span> </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{config.cardGoodsTime}} <span>{{obj.GoodsCreateTime.substring(0,10)}}</span> </li>
+                    <li class="list-group-item">{{config.cardGoodsReferencePrice}} <span>{{obj.GoodsPrice}}</span> </li>
+                    <li class="list-group-item">{{config.cardGoodsPrice}} <input type="number" class="price" /> </li>
+                </ul>
+                <div class="card-body">
+                    @*一键发布哦哦*@
+                    <a href="#" class="btn btn-primary" v-on:click="Release(index)">{{config.cardFunction.Release}}</a>
+                </div>
+            </div>
+        </main>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" v-show="!myGoodsShow">
+
+            <div class="card" style="width: 18rem; display: inline-flex; margin:5px" v-for="(obj,index) in myGoodsFilter" :key="index">
+                <img class="card-img-top" src="https://avatars.mds.yandex.net/get-pdb/25978/08f09eb2-a5e3-4a14-a076-9eda45d1a1cf/s1200" style="height : 165px" alt="加载失败">
+                <div class="card-body">
+                    <h5 class="card-title">{{config.cardTitle}} <span>{{obj.goods_name}}</span> </h5>
+
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{config.cardGoodsTime}} <span>{{obj.up_time.substring(0,10)}}</span> </li>
+                    <li class="list-group-item">{{config.cardGoodsReferencePrice}} <span>{{obj.price}}</span> </li>
+                </ul>
+            </div>
+        </main>
+
+        @*上架模态框*@
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">{{config.modalTitle}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{config.modalContent}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{config.modalCloseBtn}}</button>
+                        <button type="button" class="btn btn-primary" v-on:click="groundSubmir()">{{config.modalSubmitBtn}}</button>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
-</main>
+    <script >
+        //我们尝试使用VUE进行开发
+       var VM = new Vue({
+            el: "#app",
+           data: {
+                //全部商品
+                Goods: [],
+                config: {},
+                search: '',
+                //页码
+                pageSize: '',
+                //显示多少条数据
+                count: '',
+                //是否显示全部商品
+               myGoodsShow: true,
+                //我的商品
+               myGoods: [],
+               fromData :[]
+            },
+           created: function () {
+                //加载配置文件，将数据填充
+                this.$http.get("../../Content/Agent/list.json").then((data) => {
+                    //将配置读取到config里
+                    this.config = data.body;
+                    //获取初始化配置
+                    let size = data.body.pageSize;
+                    let count = data.body.count;
+                    //配置页面化
+                    this.pageSize = size;
+                    this.count = count;
+                    //请求参数
+                    const param = {
+                        "pi": size,
+                        "pageSize" :count
+                    }
+                    //调用加载数据方法，进行获取相关的商品
+                    this.onloadData(data.body.goodsUrl.getAllGoods, param);
+                    //调用我的代理商品方法
+                    const myParam = {
+                        "pi": size,
+                        "pageSize": count,
+                        "agent_AN": localStorage.getItem("Agent_Name")
+                    }
+                    this.onloadMyGoodsData(data.body.goodsUrl.myGoods, myParam);
+                })
+                
+           },
+           computed: {
+               //制作简单的页面商品搜索
+               GoodsFilter() {
+                   //取出相关的数据
+                   const { search, Goods } = this;
+                   //最终要显示的数据
+                   let goods;
+                   //对数据进行筛选，根据商品名
+                   goods = Goods.filter(s => s.GoodsName.indexOf(search) !== -1);
+                   //返回数据
+                   return goods
+               },
+               //制作简单的我的代理商品搜索
+               myGoodsFilter() {
+                   //取出相关的数据
+                   const { search, myGoods } = this;
+                   //最终要显示的数据
+                   let goods;
+                   //对数据进行筛选，根据商品名
+                   goods = myGoods.filter(s => s.goods_name.indexOf(search) !== -1);
+                   //返回数据
+                   return goods
+               }
+
+           },
+           methods: {
+               //加载全部商品数据
+               onloadData(url,param) {
+                   //发送请求 ，请求地址 : /Agent/GetAllGoodsInfo
+                   this.$http.get(url, param).then((data) => {
+                       this.Goods = data.body.rows;
+                   });
+               },
+               //加载我的代理商品数据
+               onloadMyGoodsData(url,param) {
+                   //发送请求 ，请求地址 : /Agent/QryAgoods
+                   this.$http.get(url, param).then((data) => {
+                       this.myGoods = data.body.rows;
+                   });
+               },
+               //一键发布的动作
+               Release(GoodsIndex) {
+
+                   //获取当前商品定价
+                   let price = document.querySelectorAll(".price")[GoodsIndex].value;
+                   
+                   //进行验证
+                   if (price == '') {
+                       
+                       //定价为空，消息警告，前期使用alert
+                       alert(this.config.message.warm.priceIsNull);
+                       
+                       
+                   } else {
+                       //获取到当前的商品
+                       const releaseGoods = this.Goods[GoodsIndex];
+
+                       $('#exampleModalCenter').modal('show')
+                        //设置请求参数
+                        this.fromData = {
+                           "goods_id": releaseGoods.GoodsID,
+                           "status_id": 1,
+                           "price": price,
+                           "goods_name": releaseGoods.GoodsName
+                       }
+                        
+                   }
+               },
+               groundSubmir() {
+                   //发送请求去上架商品 请求地址: /Agent/MakeGoods
+                   this.$http.post(this.config.goodsUrl.groundUrl, this.fromData).then((data) => {
+                       //console.log(data)
+                       if (data.body.success) {
+
+                           alert(data.body.msg);
+                       } else {
+                           alert(data.body.msg);
+                       }
+                   });
+                   $('#exampleModalCenter').modal('hide')
+               },
+               //向数据库中发送请求查询数据
+               searchAllGoods() {
+                   //获取查询参数
+                   let search = this.search;
+                   //设置请求参数
+                   const param = {
+                       "pi": this.pageSize,
+                       "pageSize": this.count,
+                       "goods_name": search
+                   }
+                   this.onloadData(this.config.goodsUrl.getAllGoods, param);
+               },
+               onMyGoods(even) {
+                   //console.log(even)
+                   if (even.target.innerText === this.config.myGoodsBtn) {
+                       this.myGoodsShow = false;
+                       event.target.innerText = "全部商品";
+                   } else {
+                       this.myGoodsShow = true;
+                       event.target.innerText = this.config.myGoodsBtn;
+                   }
+               }
+           }
+        });
+    </script>
+</body>
+</html>
+

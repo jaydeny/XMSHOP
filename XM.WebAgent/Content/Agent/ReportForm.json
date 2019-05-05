@@ -1,0 +1,28 @@
+{
+  "hearTitle": "报表",
+  "search" :  "搜索",
+  "ReportFormTime": {
+    "TheWeek": "周",
+    "TheMonth": "月",
+    "TheYear": "年"
+  },
+  "tableHead": {
+    "first": "用户名",
+    "second": "手机号",
+    "third": "地址",
+    "fourth": "下单时间",
+    "fifth": "盈利(/元)"
+  },
+  "sortType": {
+    "default": "默认排序",
+    "Asc": "升序",
+    "Desc":"降序"
+  },
+  "leftTypeMessage": {
+    "topMsg": "信息",
+    "revenueList": "营收列表"
+  },
+  "urlList": {
+    "QryReportForm": "/Agent/QryOrder"
+  }
+}

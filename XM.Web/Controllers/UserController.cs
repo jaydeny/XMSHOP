@@ -5,11 +5,18 @@ using System.Web;
 using System.Web.Mvc;
 using XM.Model;
 using System.Web.SessionState;
+using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
+    /// <summary>
+    /// 创建人：朱茂琛
+    /// 创建时间：2019/4/22
+    /// 用户管理控制器
+    /// </summary>
     public class UserController : BaseController, IRequiresSessionState
     {
+        //[PermissionFilter]
         // GET: User
         public ActionResult Index()
         {
@@ -26,10 +33,10 @@ namespace XM.Web.Controllers
         /// <param name="NewPwd"></param>
         /// <param name="ConfirmPwd"></param>
         /// <returns></returns>
-        public ActionResult UpdatePwd(string UserPwd, string NewPwd)
+        public ActionResult UpdatePwd(string UserPwd, string NewPwd, string ConfirmPwd)
         {
             //string result = "";
-            UserEntity uInfo = ViewData["Account"] as UserEntity;
+            UserEntity uInfo = Session["User"] as UserEntity;
 
             UserEntity userChangePwd = new UserEntity();
             userChangePwd.id = uInfo.id;
@@ -39,22 +46,24 @@ namespace XM.Web.Controllers
             {
                 if (DALUtility.User.ChangePwd(userChangePwd))
                 {
-                    log(HttpContext.Session["user_AN"].ToString(), "修改密码", "true", "修改成功");
                     return OperationReturn(true, "修改成功，请重新登录！");
                 }
                 else
                 {
-                    log(HttpContext.Session["user_AN"].ToString(), "修改密码", "false", "修改失败");
                     return OperationReturn(false, "修改失败！");
                 }
             }
             else
             {
-                log(HttpContext.Session["user_AN"].ToString(), "修改密码", "false", "原密码不正确");
                 return OperationReturn(false, "原密码不正确！");
             }
             //return Content(result);
         }
+        /// <summary>
+        /// 获取所有用户信息
+        /// </summary>
+        /// <returns></returns>
+        //[PermissionFilter("User", "Index")]
 
         public ActionResult GetAllUserInfo()
         {
@@ -84,25 +93,18 @@ namespace XM.Web.Controllers
                 paras["role_id"] = roleid;
             }
             var users = DALUtility.User.QryUsers<UserEntity>(paras, out totalCount);
-            if (users != null)
-            {
-                log(HttpContext.Session["user_AN"].ToString(), "查询所有用户", "true", "修改成功");
-            }
-            else
-            {
-                log(HttpContext.Session["user_AN"].ToString(), "查询所有用户", "false", "查询失败");
-            }
             return PagerData(totalCount, users);
         }
         public ActionResult UserAdd()
         {
-            return View();
+            return View("_UserAdd");
         }
 
         /// <summary>
         /// 新增 用户
         /// </summary>
         /// <returns></returns>
+        [PermissionFilter("User", "Index", Operationype.Add)]
         public ActionResult AddUser()
         {
             return SaveUser();
@@ -111,18 +113,22 @@ namespace XM.Web.Controllers
 
         public ActionResult UserEdit()
         {
-            return View();
+            return View("_UserEdit");
         }
         /// <summary>
         /// 编辑 用户
         /// </summary>
         /// <returns></returns>
+        [PermissionFilter("User", "Index", Operationype.Update)]
         public ActionResult EditUser()
         {
 
             return SaveUser();
         }
-
+        /// <summary>
+        /// 添加或修改用户信息方法
+        /// </summary>
+        /// <returns></returns>
         private ActionResult SaveUser()
         {
             int id = Convert.ToInt32(Request["id"]);
@@ -140,7 +146,6 @@ namespace XM.Web.Controllers
             int iCheck = DALUtility.User.CheckUseridAndEmail(paras);
             if (iCheck > 0)
             {
-                log(HttpContext.Session["user_AN"].ToString(), "添加\\修改用户信息", "false", "用户名或邮箱重复");
                 return OperationReturn(false, iCheck == 1 ? "用户名重复" : "邮箱重复");
             }
             else
@@ -157,12 +162,10 @@ namespace XM.Web.Controllers
                     num = DALUtility.User.Save(paras);
                     if (num > 0)
                     {
-                        log(HttpContext.Session["user_AN"].ToString(), "添加用户", "true", "添加成功");
                         return OperationReturn(true, "添加成功！初始密码：" + paras["user_pwd"]);
                     }
                     else
                     {
-                        log(HttpContext.Session["user_AN"].ToString(), "添加用户", "false", "添加失败");
                         return OperationReturn(false, "添加失败！");
                     }
 
@@ -170,45 +173,30 @@ namespace XM.Web.Controllers
                 num = DALUtility.User.Save(paras);
                 if (num > 0)
                 {
-                    log(HttpContext.Session["user_AN"].ToString(), "修改用户", "true", "修改成功");
                     return OperationReturn(true, "修改成功！");
                 }
                 else
                 {
-                    log(HttpContext.Session["user_AN"].ToString(), "修改用户", "false", "修改失败");
                     return OperationReturn(false, "修改失败！");
                 }
             }
         }
-
+        [PermissionFilter("User", "Index", Operationype.Delete)]
+        /// <summary>
+        /// 删除用户信息
+        /// </summary>
+        /// <returns></returns>
         public ActionResult DelUserByIDs()
         {
             string Ids = Request["id"] == null ? "" : Request["id"];
             if (!string.IsNullOrEmpty(Ids))
             {
-                log(HttpContext.Session["user_AN"].ToString(), "删除用户", "true", "删除成功");
-                bool flag = DALUtility.User.DeleteUser(Ids);
-                if (flag)
-                {
-                    return OperationReturn(true, "删除成功");
-                }
+                return OperationReturn(DALUtility.User.DeleteUser(Ids), "删除成功");
             }
-            log(HttpContext.Session["user_AN"].ToString(), "删除用户", "false", "删除失败");
-            return OperationReturn(false, "删除失败");
-
+            else
+            {
+                return OperationReturn(false, "删除失败");
+            }
         }
-
-
-
-        /// <summary>
-        /// 获取所有用户
-        /// </summary>
-        /// <returns></returns>
-        //public ActionResult GetAllRoleInfo()
-        //{
-        //    string roleJson = JsonHelper.ToJson(DALUtility.Role.GetAllRole("1=1"));
-        //    return Content(roleJson);
-        //}
-
     }
 }

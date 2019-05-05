@@ -1,0 +1,148 @@
+﻿
+@{
+    ViewBag.Title = "ReportForm";
+}
+<body>
+    
+    <div id="app">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">{{config.hearTitle}}</h1>
+            <div>
+                <div class="input-group">
+                    <input type="text" class="form-control" v-model="search">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" >{{config.search}}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group mr-2">
+                    <button class="btn btn-sm btn-outline-secondary" v-on:click="setOrderType(0)">{{config.sortType.default}}</button>
+                    <button class="btn btn-sm btn-outline-secondary" v-on:click="setOrderType(1)">{{config.sortType.Asc}}</button>
+                    <button class="btn btn-sm btn-outline-secondary" v-on:click="setOrderType(2)">{{config.sortType.Desc}}</button>
+                    <button class="btn btn-sm btn-outline-secondary" v-on:click="seachTimeData(0)">{{config.ReportFormTime.TheWeek}}</button>
+                    <button class="btn btn-sm btn-outline-secondary" v-on:click="seachTimeData(1)">{{config.ReportFormTime.TheMonth}}</button>
+                    <button class="btn btn-sm btn-outline-secondary" v-on:click="seachTimeData(2)">{{config.ReportFormTime.TheYear}}</button>
+                </div>
+            </div>
+        </div>
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="list-group">
+                <button type="button" class="list-group-item list-group-item-action active">
+                    {{config.leftTypeMessage.topMsg}}
+                </button>
+                <div>
+                    <button type="button" class="list-group-item list-group-item-action">{{config.leftTypeMessage.revenueList}}</button>
+                </div>
+            </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">{{config.tableHead.first}}</th>
+                        <th scope="col">{{config.tableHead.second}}</th>
+                        <th scope="col">{{config.tableHead.third}}</th>
+                        <th scope="col">{{config.tableHead.fourth}}</th>
+                        <th scope="col">{{config.tableHead.fifth}})</th>
+                    </tr>
+                </thead>
+                <tbody v-for="(obj,index) in searchTable" :key="index" >
+                    <tr>
+                        <th scope="row">{{obj.vip_AN}}</th>
+                        <td>{{obj.order_mp}}</td>
+                        <td>{{obj.address_name}}</td>
+                        <td>{{obj.order_date.substring(0,10)}}</td>
+                        <td>{{obj.order_total}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </main>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                "config": {},
+                "dataTable": [],
+                "search": '',
+                "orderType" : '0'
+            },
+            created: function () {
+                //请求配置文件去拿数据
+                this.$http.get("../../Content/Agent/ReportForm.json").then((data) => {
+                    //将数据配置到这个页面代码中
+                    this.config = data.body;
+                    //参数封装
+                    let param = {
+                        
+                    }
+                    //发送请求将数据到dataTable中
+                    this.onloadData(data.body.urlList.QryReportForm, param);
+                });
+            },
+            computed: {
+                searchTable() {
+                    const { search, dataTable, orderType } = this;
+                    let data;
+                    //进行根据用户名进行搜索
+                    data = dataTable.filter(d => d.vip_AN.indexOf(search) !== -1);
+                    //进行排序如果  orderType == 0  => 默认排序   orderType == 1  => 升序   orderType == 2  => 降序
+                    if (orderType !== 0) {
+                        data.sort(function (dt, dtEnd) {
+                            if (orderType === 1) {
+                                return dt.order_total - dtEnd.order_total;
+                            } else {
+                                return dtEnd.order_total - dt.order_total; 
+                            }
+                        })
+                    }
+                    return data
+                }
+            },
+            methods: {
+                //进行数据请求，获取营收数据
+                onloadData(url, param) {
+                    this.$http.post(url, param).then((data) => {
+                        console.log(data.body.rows)
+                        this.dataTable = data.body.rows;
+                    });
+                },
+                //进行盈利排序控制
+                setOrderType(type) {
+                    this.orderType = type;
+                },
+                seachTimeData(type) {
+
+                    //获取请求URL
+                    let url = this.config.urlList.QryReportForm;
+                    //拿系统当前时间
+                    const TheTime = new Date();
+                    //设置变量存储改变时间
+                    let dataTime = '';
+                    //判断获取前一周，前一月，前一年
+                    if (type === 0) {
+                        dataTime = new Date(TheTime - 7 * 24 * 3600 * 1000);
+                    } else if (type === 1) {
+                        dataTime = new Date(TheTime.setMonth(TheTime.getMonth() - 1));
+                        TheTime.setMonth(TheTime.getMonth() + 1)
+                    } else {
+                        dataTime = new Date(TheTime.setFullYear(TheTime.getFullYear() - 1));
+                        TheTime.setFullYear(TheTime.getFullYear() + 1);
+                    }
+                    //设置请求参数
+                    let param = {
+                        "startTime": TheTime,
+                        "endTime": dataTime
+                    }
+                    //发送请求获取对应的数据
+                    this.onloadData(url,param);
+                }
+            }
+        });
+
+    </script>
+</body>

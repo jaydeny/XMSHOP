@@ -58,6 +58,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -135,27 +138,80 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap-3.3.7\css\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-3.3.7\css\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap-3.3.7\css\bootstrap.css" />
+    <Content Include="Content\bootstrap-3.3.7\css\bootstrap.min.css" />
+    <Content Include="Content\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\bootstrap-3.3.7\js\bootstrap.js" />
+    <Content Include="Content\bootstrap-3.3.7\js\bootstrap.min.js" />
+    <Content Include="Content\bootstrap-3.3.7\js\npm.js" />
+    <Content Include="Content\CSS\base.css" />
+    <Content Include="Content\CSS\GoodsDetails.css" />
+    <Content Include="Content\CSS\home.css" />
+    <Content Include="Content\CSS\HomePage.css" />
+    <Content Include="Content\CSS\shopping.css" />
+    <Content Include="Content\CSS\vipAlterPwd.css" />
+    <Content Include="Content\CSS\vipChangePwd.css" />
+    <Content Include="Content\CSS\VipClassification.css" />
+    <Content Include="Content\CSS\vipinfo.css" />
+    <Content Include="Content\CSS\vipinfoAlter.css" />
+    <Content Include="Content\CSS\vipLogin.css" />
+    <Content Include="Content\CSS\vipPwdAlter.css" />
+    <Content Include="Content\CSS\vipRecharge.css" />
+    <Content Include="Content\CSS\vipRegistered.css" />
+    <Content Include="Content\CSS\vipSite.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.3.1.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Content\bootstrap-3.3.7\css\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap-3.3.7\css\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-3.3.7\css\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-3.3.7\css\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="img\bs.jpg" />
+    <Content Include="img\dq01.jpg" />
+    <Content Include="img\failure.png" />
+    <Content Include="img\h1.jpg" />
+    <Content Include="img\h2.jpg" />
+    <Content Include="img\h3.jpg" />
+    <Content Include="img\h4.jpg" />
+    <Content Include="img\i-1.png" />
+    <Content Include="img\i-2.png" />
+    <Content Include="img\i-3.png" />
+    <Content Include="img\i-4.png" />
+    <Content Include="img\i-5.png" />
+    <Content Include="img\i-6.png" />
+    <Content Include="img\i-7.png" />
+    <Content Include="img\i-8.png" />
+    <Content Include="img\icon-empty-shopping.png" />
+    <Content Include="img\icon01.svg" />
+    <Content Include="img\logged.png" />
+    <Content Include="img\slide_1.jpg" />
+    <Content Include="img\slide_2.jpg" />
+    <Content Include="img\slide_3.jpg" />
+    <Content Include="img\slide_4.jpg" />
+    <Content Include="img\slide_5.jpg" />
+    <Content Include="img\slide_6.jpg" />
+    <Content Include="Scripts\vip\bounced.js" />
+    <Content Include="Scripts\vip\vip%40AgoodsList.js" />
+    <Content Include="Scripts\vip\jqueryAjax.js" />
+    <Content Include="Scripts\vip\login.js" />
+    <Content Include="Scripts\vip\vin%40login-configuration.js" />
+    <Content Include="Scripts\vip\vip%40FoundPwdPage.js" />
+    <Content Include="Scripts\vip\vip%40index.js" />
+    <Content Include="Scripts\vip\Vip%40Signin.js" />
+    <Content Include="Scripts\vip\vip%40home.js" />
+    <Content Include="Scripts\vip\vipinfo%40Address.js" />
+    <Content Include="Scripts\vip\vipinfo%40Recharge.js" />
+    <Content Include="Scripts\vip\vipInfo%40Update.js" />
+    <Content Include="Scripts\vip\vipinfo%40UpdatePwd.js" />
+    <Content Include="Scripts\vip\vipinfo.js" />
+    <Content Include="Scripts\vip\vipRetrievePassword.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -164,30 +220,35 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Error\Error500.cshtml" />
     <Content Include="Views\Error\Error404.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\VIP\AgoodsList.cshtml" />
+    <Content Include="Views\VIP\GoodsDetails.cshtml" />
+    <Content Include="Views\VIP\Index.cshtml" />
+    <Content Include="Views\VIP\PwdFoundPage.cshtml" />
+    <Content Include="Views\VIP\Shopping.cshtml" />
+    <Content Include="Views\VIP\vipinfopage.cshtml" />
+    <Content Include="Views\VIP\_AddressPage.cshtml" />
+    <Content Include="Views\VIP\_FoundPwdPage.cshtml" />
+    <Content Include="Views\VIP\_Login.cshtml" />
+    <Content Include="Views\VIP\_RechargePage.cshtml" />
+    <Content Include="Views\VIP\_Signin.cshtml" />
+    <Content Include="Views\VIP\_Update.cshtml" />
+    <Content Include="Views\VIP\_UpdatePwdPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\VIP\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Framework.MongoDB\Framework.MongoDB.csproj">

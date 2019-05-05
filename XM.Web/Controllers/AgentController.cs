@@ -4,18 +4,25 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using XM.Model;
+using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
+    /// <summary>
+    /// 创建人：朱茂琛
+    /// 创建时间：2019/4/22
+    /// 代理商控制器
+    /// </summary>
     public class AgentController : BaseController
     {
+        [PermissionFilter]
         // GET: Agent
         public ActionResult Index()
         {
             return View();
         }
 
-
+        [PermissionFilter("Agent", "Index")]
         public ActionResult GetAllUserInfo()
         {
             string sort = Request["sort"] == null ? "AgentID" : Request["sort"];
@@ -31,7 +38,7 @@ namespace XM.Web.Controllers
 
 
 
-            int totalCount;   //输出参数
+             int totalCount;   //输出参数
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["pi"] = pageindex;
             paras["pageSize"] = pagesize;
@@ -39,14 +46,14 @@ namespace XM.Web.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var users = DALUtility.Agent.QryUsers<AgentEntity>(paras, out totalCount);
-            log(HttpContext.Session["user_AN"].ToString(), "查询所有代理", "true", "查询成功");
             return PagerData(totalCount, users);
         }
 
         public ActionResult AddAgent()
         {
-            return View();
+            return View("_AddAgent");
         }
+        [PermissionFilter("Agent", "Index",Operationype.Add)]
         /// <summary>
         /// 新增 用户
         /// </summary>
@@ -59,8 +66,9 @@ namespace XM.Web.Controllers
 
         public ActionResult EditAgent()
         {
-            return View();
+            return View("_EditAgent");
         }
+        [PermissionFilter("Agent", "Index",Operationype.Update)]
         /// <summary>
         /// 编辑 用户
         /// </summary>
@@ -89,7 +97,6 @@ namespace XM.Web.Controllers
             int iCheck = DALUtility.Agent.CheckUseridAndEmail(paras);
             if (iCheck > 0)
             {
-                log(HttpContext.Session["user_AN"].ToString(), "修改\\添加代理", "false", "邮箱或者用户名重复");
                 return OperationReturn(false, iCheck == 1 ? "用户名重复" : "邮箱重复");
             }
             else
@@ -100,29 +107,22 @@ namespace XM.Web.Controllers
                     paras["agent_pwd"] = "xm123456";
                     paras["agent_CBY"] = "admin";
                     paras["agent_CDT"] = DateTime.Now;
-                    log(HttpContext.Session["user_AN"].ToString(), "添加代理", "true", "添加成功");
                     return OperationReturn(DALUtility.Agent.Save(paras) > 0, "添加成功！初始密码：" + paras["agent_pwd"]);
                 }
-                log(HttpContext.Session["user_AN"].ToString(), "修改代理信息", "true", "修改成功");
                 return OperationReturn(DALUtility.Agent.Save(paras) > 0, "修改成功！");
             }
-
-
-
-
+            
         }
-
+        [PermissionFilter("Agent", "Index",Operationype.Delete)]
         public ActionResult DelUserByIDs()
         {
             string Ids = Request["id"] == null ? "" : Request["id"];
             if (!string.IsNullOrEmpty(Ids))
             {
-                log(HttpContext.Session["user_AN"].ToString(), "删除代理", "true", "删除成功");
                 return OperationReturn(DALUtility.Agent.DeleteUser(Ids));
             }
             else
             {
-                log(HttpContext.Session["user_AN"].ToString(), "删除代理", "true", "删除失败");
                 return OperationReturn(false);
             }
         }
