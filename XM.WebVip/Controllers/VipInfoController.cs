@@ -100,7 +100,7 @@ namespace XM.WebVip.Controllers
 
         public ActionResult UpdateAddress()
         {
-            return SaveAddress(int.Parse(Session["ID"].ToString()));
+            return SaveAddress(int.Parse(Request["address_id"]));
         }
 
         /// <summary>
