@@ -144,6 +144,7 @@ namespace XM.WebAgent.Controllers
         /// 修改时间：2019-
         /// 功能：安全退出
         /// </summary>
+        /// 
         public ActionResult RemoveSession()
         {
             Session.RemoveAll();
@@ -181,6 +182,7 @@ namespace XM.WebAgent.Controllers
                 int result = DALUtility.Agent.saveAgent(paras);
                 if (ID == 0)
                 {
+
                     return OperationReturn(true, "注册成功");
                 }
                 else

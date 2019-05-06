@@ -47,12 +47,12 @@
                                     @Html.ActionLink("会员管理", "Index", "Home") <span class="sr-only">(current)</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            @*<li class="nav-item">
                                 <a class="nav-link" href="#">
                                     <span data-feather="file"></span>
                                     增值服务审核
                                 </a>
-                            </li>
+                            </li>*@
                         </ul>
 
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -68,7 +68,7 @@
                                     @Html.ActionLink("商品上架&定价", "getProductPage", "Product")
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            @*<li class="nav-item">
                                 <a class="nav-link" href="#">
                                     <span data-feather="file-text"></span>
                                     团购
@@ -79,7 +79,7 @@
                                     <span data-feather="file-text"></span>
                                     订单
                                 </a>
-                            </li>
+                            </li>*@
                         </ul>
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                             <span>报表</span>
@@ -124,7 +124,7 @@
             $.get("/Agent/RemoveSession").done((data) => {
                
             });
-            location.href = "/Agent/Login";
+            location.href = "/Home/Login";
         }
     </script>
 

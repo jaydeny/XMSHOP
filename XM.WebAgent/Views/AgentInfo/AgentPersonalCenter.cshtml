@@ -103,10 +103,12 @@
             },
             created: function () {
                 $.ajax({
-                    url: "/AgentInfo/QryAgentInfo"
+                    url: "/AgentInfo/QryAgentInfo",
+                    dataType: 'json'
                 }).then((data) => {
+                    
                     this.agentTable = data.rows;
-                    //console.log(data.body.rows);
+                    console.log(data);
                 });
             },
             methods: {
@@ -121,7 +123,10 @@
                             "agent_pwd": this.againPassWord
                         }
                         $.ajax({
-                            url: "/AgentInfo/QryAgentInfo"
+                            url: "/Home/Update",
+                            method : "post",
+                            data: param,
+                            dataType: 'json'
                         }).then((data) => {
                             
                         });
