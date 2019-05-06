@@ -10,7 +10,7 @@ function search() {
     }
 
     $.ajax({
-        url: "/Agent/GetAllVIP",
+        url: "/VIP/GetAll",
         method: 'get',
         data: datapram,
         dataType: 'json'
@@ -145,6 +145,7 @@ function showList(objs) {
        
         const trs = $("<tr></tr>");
 
+       
 
         const vip_mp = $("<td>" + obj.VipMobliePhone + "</td>");
         trs.append(vip_mp)
