@@ -176,15 +176,6 @@
            methods: {
                //加载全部商品数据
                onloadData(url, param) {
-                   
-                   //发送请求 ，请求地址 : /Agent/GetAllGoodsInfo
-                   //this.$http.get(url, param).then((data) => {
-                   //    this.Goods = data.body.rows;
-                   //});
-                   //axios.get(url, param).then((data) => {
-                   //    console.log(data);
-                   //    this.Goods = data.body.rows;
-                   //});
                    $.ajax({
                        url: url,
                        method: 'get',
@@ -193,9 +184,7 @@
                    }).done((data) => {
                        this.Goods = data.rows;
                        console.log(data)
-
-                   })
-
+                   });
                },
                //加载我的代理商品数据
                onloadMyGoodsData(url,param) {
@@ -237,7 +226,7 @@
                             "goods_name": releaseGoods.GoodsName
                            
                        }
-
+                       document.querySelectorAll(".price")[GoodsIndex].value = "";
                    }
                },
                groundSubmir() {
@@ -249,15 +238,17 @@
                        method: "post",
                        dataType: 'json'
                    }).then((data) => {
-                       console.log(data);
-                       //if (data.success) {
+                       if (data.success) {
 
-                       //    alert(data.msg);
-                       //} else {
-                       //    alert(data.msg);
-                       //}
+                           alert(data.msg);
+                       } else {
+                           alert(data.msg);
+                       }
                    });
-                   $('#exampleModalCenter').modal('hide')
+                   $('#exampleModalCenter').modal('hide');
+
+                   this.onloadData(this.config.goodsUrl.getAllGoods);
+                   
                },
                //向数据库中发送请求查询数据
                searchAllGoods() {
