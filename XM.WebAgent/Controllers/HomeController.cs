@@ -106,7 +106,7 @@ namespace XM.WebAgent.Controllers
         [HttpPost]
         public ActionResult Signin(AgentEntity agent)
         {
-            return save(0);
+            return Save(0);
         }
         #endregion
 
@@ -131,7 +131,7 @@ namespace XM.WebAgent.Controllers
         [HttpPost]
         public ActionResult Update(AgentEntity agent)
         {
-            return save(int.Parse(Session["Agent_ID"].ToString()));
+            return Save(int.Parse(Session["Agent_ID"].ToString()));
         }
 
         #endregion
@@ -159,7 +159,7 @@ namespace XM.WebAgent.Controllers
         /// <param name="ID"></param>
         /// <returns></returns>
         //注册或者修改代理信息时,检查邮箱,email,联系方式舒服重复
-        public ActionResult save(int ID)
+        public ActionResult Save(int ID)
         {
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["id"] = ID;
@@ -167,7 +167,7 @@ namespace XM.WebAgent.Controllers
             paras["agent_mp"] = Request["agent_mp"];
             paras["agent_email"] = Request["agent_email"];
 
-            int iCheck = DALUtility.Agent.checkANandMBandEmail(paras);
+            int iCheck = DALUtility.Agent.CheckANandMBandEmail(paras);
 
             if (iCheck > 0)
             {
@@ -179,7 +179,7 @@ namespace XM.WebAgent.Controllers
                 paras["agent_CBY"] = Request["agent_CBY"];
                 paras["agent_CDT"] = DateTime.Now;
                 paras["status_id"] = 1;
-                int result = DALUtility.Agent.saveAgent(paras);
+                int result = DALUtility.Agent.SaveAgent(paras);
                 if (ID == 0)
                 {
 

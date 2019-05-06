@@ -303,7 +303,7 @@ namespace XM.DAL
         /// 2:MB重复
         /// 3:Email重复
         /// </returns>
-        public int checkANandMBandEmail(Dictionary<string, object> paras)
+        public int CheckANandMBandEmail(Dictionary<string, object> paras)
         {
             return QuerySingle<int>("P_tbagent_checkANandMBandEmail", paras, CommandType.StoredProcedure);
         }
@@ -422,7 +422,7 @@ namespace XM.DAL
         /// </summary>
         /// <param name="paras"></param>
         /// <returns></returns>
-        public int saveAgent(Dictionary<string, object> paras)
+        public int SaveAgent(Dictionary<string, object> paras)
         {
             return StandardInsertOrUpdate("tbagent", paras);
         }

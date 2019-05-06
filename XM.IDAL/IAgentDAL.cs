@@ -112,7 +112,7 @@ namespace XM.IDAL
         /// 2:MB重复
         /// 3:Email重复
         /// </returns>
-        int checkANandMBandEmail(Dictionary<string, object> paras);
+        int CheckANandMBandEmail(Dictionary<string, object> paras);
         #endregion
 
         #region _Login
@@ -180,7 +180,7 @@ namespace XM.IDAL
         /// </summary>
         /// <param name="paras"></param>
         /// <returns></returns>
-        int saveAgent(Dictionary<string, object> paras);
+        int SaveAgent(Dictionary<string, object> paras);
 
         /// <summary>
         /// 查询所有的代理商
