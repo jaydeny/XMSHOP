@@ -33,27 +33,84 @@
     @*分页*@
     <nav aria-label="Page navigation example">
         <ul class="pagination">
-            <li class="page-item">
+
+            <li class="page-item"><span class="page-link"> 显示 <input type="number" style="width:55px" id="btn_num_Rows_count" value="10" />条数据 </span> </li>
+
+            <li class="page-item" id="before">
                 <a class="page-link" href="#" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
+                    <span class="sr-only">上一页</span>
                 </a>
             </li>
-            <li class="page-item" style="background-color:cadetblue"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
+
+            
+
             <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
+                <a class="page-link" href="#" id="end"  aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
+                    <span class="sr-only">下一页</span>
                 </a>
             </li>
+            <li class="page-item"><a class="page-link" id="num_Page_Count" href="#"></a></li>
+            <li class="page-item"><span class="page-link"> 跳转到 <input type="number" style="width:55px" id="btn_num_Page_count"  value="1" />页 </span> </li>
+            <li class="page-item"><a class="page-link" id="btn_num_Page" href="#">确定</a></li>
         </ul>
     </nav>
     <script>
 
+        //当前页数
+        var count = 1;
+        var rows = 10;
+        //每页显示条数
+        var btn_num_Rows_count = $("#btn_num_Rows_count");
+
+        //跳转页数
+        var btn_num_Page_count = $("#btn_num_Page_count");
+
+        //显示所有页数
+        var num_Page_Count = document.getElementById("num_Page_Count");
+
+        //上一页功能
+        document.querySelector("#before").onclick = function () {
+            if (count == 1) {
+                alert("已经是第一页了")
+            } else {
+                count -= 1;
+                btn_num_Page_count.val(count);
+                onloadData(count, rows);
+            }
+        }
+
+        //下一页功能
+        document.querySelector("#end").onclick = function () {
+            //拿到总页数
+            const counts = $("#num_Page_Count")[0].name;
+            if (count >= counts) {
+                alert("最后一页了")
+            } else {
+                count += 1;
+                btn_num_Page_count.val(count);
+                onloadData(count, rows);
+            }
+
+        }
+
+
+        //点击分页
+        document.querySelector("#btn_num_Page").onclick = function () {
+            onloadData(count, rows);
+        }
+
+        //监听文本框改变事件
+        btn_num_Page_count.bind("input propertychange", function (e) {
+            count = e.target.value;
+           
+        });
+
+        //监听文本框改变事件
+        btn_num_Rows_count.bind("input propertychange", function (e) {
+            rows = e.target.value;
+        });
 
 
     </script>

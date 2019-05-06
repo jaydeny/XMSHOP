@@ -123,24 +123,32 @@ function addVIP() {
 }
 
 //页面加载时，去后台拿数据
-function onloadData() {
+function onloadData(page, rows) {
+
+    const param = {
+        "page": page,
+        "rows": rows
+    }
 
     $.ajax({
         url: "/VIP/GetAll",
         method: 'get',
+        data : param,
         dataType: 'json'
     }).done(function (data) {
+       
         objs = data.rows;
         //调用列表数据可视化函数
        
-        showList(objs);
+        showList(data.total,objs);
     })
 }
 
 //封装列表显示函数，传入列表对象进行渲染页面
-function showList(objs) {
-   
-    $("#tbody").empty();
+function showList(page, objs) {
+    num_Page_Count.innerText = "共 " + Math.ceil(page / 10) + " 页";
+    num_Page_Count.name = Math.ceil(page / 10);
+     $("#tbody").empty();
     $.each(objs, function (index, obj) {
        
         const trs = $("<tr></tr>");
@@ -173,7 +181,7 @@ function showList(objs) {
 
 //入口函数
 $(document).ready(function () {
-        onloadData();
+        onloadData(1,10);
 });
 
 

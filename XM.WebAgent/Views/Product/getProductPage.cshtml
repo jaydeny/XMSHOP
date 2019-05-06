@@ -176,14 +176,7 @@
                //加载全部商品数据
                onloadData(url, param) {
                    console.log(param)
-                   //发送请求 ，请求地址 : /Agent/GetAllGoodsInfo
-                   //this.$http.get(url, param).then((data) => {
-                   //    this.Goods = data.body.rows;
-                   //});
-                   //axios.get(url, param).then((data) => {
-                   //    console.log(data);
-                   //    this.Goods = data.body.rows;
-                   //});
+                   
                    $.ajax({
                        url: url,
                        method: 'get',
