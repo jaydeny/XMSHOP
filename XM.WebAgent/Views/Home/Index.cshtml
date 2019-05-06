@@ -56,64 +56,7 @@
             <li class="page-item"><a class="page-link" id="btn_num_Page" href="#">确定</a></li>
         </ul>
     </nav>
-    <script>
-
-        //当前页数
-        var count = 1;
-        var rows = 10;
-        //每页显示条数
-        var btn_num_Rows_count = $("#btn_num_Rows_count");
-
-        //跳转页数
-        var btn_num_Page_count = $("#btn_num_Page_count");
-
-        //显示所有页数
-        var num_Page_Count = document.getElementById("num_Page_Count");
-
-        //上一页功能
-        document.querySelector("#before").onclick = function () {
-            if (count == 1) {
-                alert("已经是第一页了")
-            } else {
-                count -= 1;
-                btn_num_Page_count.val(count);
-                onloadData(count, rows);
-            }
-        }
-
-        //下一页功能
-        document.querySelector("#end").onclick = function () {
-            //拿到总页数
-            const counts = $("#num_Page_Count")[0].name;
-            if (count >= counts) {
-                alert("最后一页了")
-            } else {
-                count += 1;
-                btn_num_Page_count.val(count);
-                onloadData(count, rows);
-            }
-
-        }
-
-
-        //点击分页
-        document.querySelector("#btn_num_Page").onclick = function () {
-            onloadData(count, rows);
-        }
-
-        //监听文本框改变事件
-        btn_num_Page_count.bind("input propertychange", function (e) {
-            count = e.target.value;
-           
-        });
-
-        //监听文本框改变事件
-        btn_num_Rows_count.bind("input propertychange", function (e) {
-            rows = e.target.value;
-        });
-
-
-    </script>
+   
     
     @*添加会员*@
     <!-- Modal -->
