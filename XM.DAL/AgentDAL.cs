@@ -366,7 +366,8 @@ namespace XM.DAL
         public string QryGoods(Dictionary<string, object> paras)
         {
             var s = Query("select a.* from v_goods_list a left join tbagoods b on a.GoodsID=b.goods_id where b.id is null", paras);
-            string retData = JsonConvert.SerializeObject(new { rows = s });
+            var iCount = QuerySingle<int>("select count(*) from v_goods_list a left join tbagoods b on a.GoodsID=b.goods_id where b.id is null", paras);
+            string retData = JsonConvert.SerializeObject(new {total = iCount, rows = s });
             return retData;
         }
         #endregion
