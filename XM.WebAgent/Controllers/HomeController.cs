@@ -182,6 +182,7 @@ namespace XM.WebAgent.Controllers
                 int result = DALUtility.Agent.saveAgent(paras);
                 if (ID == 0)
                 {
+
                     return OperationReturn(true, "注册成功");
                 }
                 else
