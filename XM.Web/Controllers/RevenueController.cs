@@ -19,8 +19,8 @@ namespace XM.Web.Controllers
         //[PermissionFilter("Revenue", "Index")]
         public ActionResult GetRechargeRevenue()
         {
-            string sort = Request["sort"] == null ? "RechargeID" : Request["sort"];
-            string order = Request["order"] == null ? "asc" : Request["order"];
+            string sort = Request["order"] == null ? "RechargeID" : Request["sort"];
+            string order = Request["sort"] == null ? "asc" : Request["order"];
 
             //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
@@ -41,7 +41,7 @@ namespace XM.Web.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var charge = DALUtility.Recharge.QryRecharge<RechargeEntity>(paras, out totalCount);
-            return PagerData(totalCount, charge);
+            return PagerData(totalCount, charge,pageindex,pagesize);
         }
         
         public ActionResult GetRevenueGoods()
@@ -51,8 +51,8 @@ namespace XM.Web.Controllers
         //[PermissionFilter("Revenue", "GetGoodsRevenue")]
         public ActionResult GetGoodsRevenue()
         {
-            string sort = Request["sort"] == null ? "OrderID" : Request["sort"];
-            string order = Request["order"] == null ? "asc" : Request["order"];
+            string sort = Request["order"] == null ? "OrderID" : Request["sort"];
+            string order = Request["sort"] == null ? "asc" : Request["order"];
 
             //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
@@ -72,7 +72,7 @@ namespace XM.Web.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var goods = DALUtility.Order.QryOrder<OrderEntity>(paras, out totalCount);
-            return PagerData(totalCount, goods);
+            return PagerData(totalCount, goods,pageindex,pagesize);
         }
     }
 }
