@@ -99,7 +99,7 @@ namespace XM.Web.Domain
                 //filterContext.HttpContext.Request.IsAjaxRequest
                 if (isViewPage)
                 {
-                    filterContext.RequestContext.HttpContext.Response.Redirect("~/Manager/Login");
+                    filterContext.RequestContext.HttpContext.Response.Redirect("/Login");
                 }
                 else
                 {
@@ -115,7 +115,7 @@ namespace XM.Web.Domain
                     filterContext.HttpContext.Session.Clear();
                     if (isViewPage)
                     {
-                        filterContext.RequestContext.HttpContext.Response.Redirect("~/Manager/Login?t=rl");
+                        filterContext.RequestContext.HttpContext.Response.Redirect("/Login?t=rl");
                     }
                     else
                     {
