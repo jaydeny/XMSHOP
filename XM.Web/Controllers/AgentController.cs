@@ -17,7 +17,7 @@ namespace XM.Web.Controllers
     public class AgentController : BaseController
     {
         #region  获取所有代理页面
-        [PermissionFilter]
+        //[PermissionFilter]
         // GET: Agent
         public ActionResult Index()
         {
@@ -25,7 +25,7 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region  获取所有代理信息
-        [PermissionFilter("Agent", "Index")]
+        //[PermissionFilter("Agent", "Index")]
         public ActionResult GetAllUserInfo()
         {
             string sort = Request["sort"] == null ? "AgentID" : Request["sort"];
@@ -95,7 +95,7 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region 删除代理信息
-        [PermissionFilter("Agent", "Index",Operationype.Delete)]
+        //[PermissionFilter("Agent", "Index",Operationype.Delete)]
         public ActionResult DelUserByIDs()
         {
             string Ids = Request["id"] == null ? "" : Request["id"];

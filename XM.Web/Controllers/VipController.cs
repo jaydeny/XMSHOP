@@ -18,7 +18,7 @@ namespace XM.Web.Controllers
     public class VipController : BaseController
     {
         #region 所有VIP页面
-        [PermissionFilter]
+        //[PermissionFilter]
         // GET: Vip
         public ActionResult Index()
         {
@@ -27,7 +27,7 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region 获取所有vip信息
-        [PermissionFilter("Vip","Index")]
+        //[PermissionFilter("Vip","Index")]
         public ActionResult GetAllUserInfo()
         {
             string sort = Request["sort"] == null ? "VipID" : Request["sort"];
@@ -120,7 +120,7 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region 删除操作
-        [PermissionFilter("Vip", "Index", Operationype.Delete)]
+        //[PermissionFilter("Vip", "Index", Operationype.Delete)]
         public ActionResult DelUserByIDs()
         {
             string Ids = Request["id"] == null ? "" : Request["id"];

@@ -10,13 +10,13 @@ namespace XM.Web.Controllers
 {
     public class RevenueController : BaseController
     {
-        [PermissionFilter]
+        //[PermissionFilter]
         // GET: Revenue
         public ActionResult Index()
         {
             return View(); 
         }
-        [PermissionFilter("Revenue", "Index")]
+        //[PermissionFilter("Revenue", "Index")]
         public ActionResult GetRechargeRevenue()
         {
             string sort = Request["sort"] == null ? "RechargeID" : Request["sort"];
@@ -48,7 +48,7 @@ namespace XM.Web.Controllers
         {
             return View();
         }
-        [PermissionFilter("Revenue", "GetGoodsRevenue")]
+        //[PermissionFilter("Revenue", "GetGoodsRevenue")]
         public ActionResult GetGoodsRevenue()
         {
             string sort = Request["sort"] == null ? "OrderID" : Request["sort"];

@@ -12,7 +12,7 @@ namespace XM.Web.Controllers
     public class TypeController : BaseController
     {
         #region  类型页面
-        [PermissionFilter]
+        //[PermissionFilter]
         // GET: Type
         public ActionResult Index()
         {
@@ -20,7 +20,7 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region  获取所有类型信息
-        [PermissionFilter("Type", "Index")]
+        //[PermissionFilter("Type", "Index")]
         public ActionResult GetAllTypeInfo()
         {
             string sort = Request["sort"] == null ? "TypeID" : Request["sort"];
@@ -84,7 +84,7 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region  删除操作
-        [PermissionFilter("Type", "Index",Operationype.Delete)]
+        //[PermissionFilter("Type", "Index",Operationype.Delete)]
         public ActionResult DelTypeByIDs()
         {
             string Ids = Request["id"] == null ? "" : Request["id"];
