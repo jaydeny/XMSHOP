@@ -146,6 +146,7 @@
                         data : param,
                         dataType: 'json'
                     }).then((data) => {
+                        
                         this.total = Math.ceil(data.total / this.rows);
                         this.dataTable = data.rows;
                     });
