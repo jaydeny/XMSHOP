@@ -4,8 +4,12 @@
 function gridList() {
     var $gridList = $("#gridList");
     $gridList.dataGrid({
-        url: "/Agent/GetGridJson",
-        height: $(window).height() - 128,
+        url: "/Agent/GetAllUserInfo",
+        height: $(window).height() - 178,
+        rowNum: 20,
+        rowList: [10, 20, 30, 40, 50],
+        sortorder: "desc",
+        pager: "#gridPager",
         colModel: [
             { label: '主键', name: 'AgentID', hidden: true },
             { label: '账户', name: 'AgentAccountName', width: 80, align: 'left' },
@@ -23,10 +27,7 @@ function gridList() {
                     }
                 }
             }
-        ],
-        pager: "#gridPager",
-        sortname: 'F_DepartmentId asc,F_CreatorTime desc',
-        viewrecords: true
+        ]
     });
     $("#btn_search").click(function () {
         $gridList.jqGrid('setGridParam', {
@@ -71,7 +72,7 @@ function btn_delete() {
     })
 }
 function btn_details() {
-    var keyValue = $("#gridList").jqGridRowValue().agent_id;
+    var keyValue = $("#gridList").jqGridRowValue().AgentID;
     $.modalOpen({
         id: "Details",
         title: "查看用户",
@@ -97,11 +98,12 @@ function btn_revisepassword() {
     });
 }
 function btn_disabled() {
-    var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    var keyValue = $("#gridList").jqGridRowValue();
+    console.log(keyValue);
     $.modalConfirm("注：您确定要【禁用】该项账户吗？", function (r) {
         if (r) {
             $.submitForm({
-                url: "/SystemManage/User/DisabledAccount",
+                url: "/Agent/Save",
                 param: { keyValue: keyValue },
                 success: function () {
                     $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -111,11 +113,12 @@ function btn_disabled() {
     });
 }
 function btn_enabled() {
-    var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    var keyValue = $("#gridList").jqGridRowValue();
+    console.log(keyValue);
     $.modalConfirm("注：您确定要【启用】该项账户吗？", function (r) {
         if (r) {
             $.submitForm({
-                url: "/SystemManage/User/EnabledAccount",
+                url: "/Agent/Save",
                 param: { keyValue: keyValue },
                 success: function () {
                     $.currentWindow().$("#gridList").trigger("reloadGrid");

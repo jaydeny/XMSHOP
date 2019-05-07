@@ -18,7 +18,7 @@ function gridList() {
                 formatter: function (cellvalue, options, rowObject) {
                     if (cellvalue == 1) {
                         return '<span class=\"label label-success\">正常</span>';
-                    } else if (cellvalue == 0) {
+                    } else if (cellvalue == 2) {
                         return '<span class=\"label label-default\">禁用</span>';
                     }
                 }
@@ -100,12 +100,13 @@ function btn_revisepassword() {
     });
 }
 function btn_disabled() {
-    var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    var keyValue = $("#gridList").jqGridRowValue();
+    keyValue.StatusID = 2;
     $.modalConfirm("注：您确定要【禁用】该项账户吗？", function (r) {
         if (r) {
             $.submitForm({
-                url: "/SystemManage/User/DisabledAccount",
-                param: { keyValue: keyValue },
+                url: "/User/Save",
+                param: keyValue,
                 success: function () {
                     $.currentWindow().$("#gridList").trigger("reloadGrid");
                 }
@@ -114,12 +115,13 @@ function btn_disabled() {
     });
 }
 function btn_enabled() {
-    var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    var keyValue = $("#gridList").jqGridRowValue();
+    keyValue.StatusID = 1;
     $.modalConfirm("注：您确定要【启用】该项账户吗？", function (r) {
         if (r) {
             $.submitForm({
-                url: "/SystemManage/User/EnabledAccount",
-                param: { keyValue: keyValue },
+                url: "/User/Save",
+                param: keyValue,
                 success: function () {
                     $.currentWindow().$("#gridList").trigger("reloadGrid");
                 }

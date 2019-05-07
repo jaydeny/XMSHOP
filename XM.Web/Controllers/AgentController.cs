@@ -61,11 +61,11 @@ namespace XM.Web.Controllers
         #region  添加/修改代理信息
         public ActionResult Save()
         {
-            int id = Request["id "] == null ? 0 : Convert.ToInt32(Request["id"]);
-            string userid = Request["agent_AN"];
-            string mobilephone = Request["agent_mp"];
-            string email = Request["agent_email"];
-            int statusID = Convert.ToInt32(Request["status_id"]);
+            int id = Request["id"] != "" ? Convert.ToInt32(Request["id"]) : 0;
+            string userid = Request["AgentAccountName"];
+            string mobilephone = Request["MobliePhone"];
+            string email = Request["Email"];
+            int statusID = Convert.ToInt32(Request["StatusID"]);
 
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["id"] = id;

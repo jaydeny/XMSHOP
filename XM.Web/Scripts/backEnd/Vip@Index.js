@@ -101,6 +101,7 @@ function btn_revisepassword() {
 function btn_disabled() {
     var keyValue = $("#gridList").jqGridRowValue();
     keyValue.StatusID = 2;
+    keyValue.id = keyValue.VipID;
     $.modalConfirm("注：您确定要【禁用】该项账户吗？", function (r) {
         if (r) {
             $.submitForm({
@@ -116,11 +117,12 @@ function btn_disabled() {
 function btn_enabled() {
     var keyValue = $("#gridList").jqGridRowValue();
     keyValue.StatusID = 1;
+    keyValue.id = keyValue.VipID;
     $.modalConfirm("注：您确定要【启用】该项账户吗？", function (r) {
         if (r) {
             $.submitForm({
                 url: "/Vip/Save",
-                param: { id: keyValue, StatusID: 1 },
+                param: keyValue,
                 success: function () {
                     $.currentWindow().$("#gridList").trigger("reloadGrid");
                 }
