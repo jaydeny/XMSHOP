@@ -5,7 +5,7 @@ function gridList() {
     var $gridList = $("#gridList");
     $gridList.dataGrid({
         url: "/User/GetAllUserInfo",
-        height: $(window).height() - 128,
+        height: $(window).height() - 178,
         colModel: [
             { label: '主键', name: 'id', hidden: true },
             { label: '账户', name: 'UserAccountName', width: 80, align: 'center' },
@@ -24,12 +24,10 @@ function gridList() {
                 }
             }
         ],
-        rowNum: 30,
-        rowList: [30, 50, 70],
+        rowNum: 10,
+        rowList: [10, 20, 30],
         sortorder: "desc",
-        pager: "#gridPager",
-        sortname: 'F_DepartmentId asc,F_CreatorTime desc',
-        viewrecords: true
+        pager: "#gridPager"
     });
     $("#btn_search").click(function () {
         $gridList.jqGrid('setGridParam', {

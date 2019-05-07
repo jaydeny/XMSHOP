@@ -101,7 +101,7 @@ namespace XM.Web.Controllers
                 paras["role_id"] = roleid;
             }
             var users = DALUtility.User.QryUsers<UserEntity>(paras, out totalCount);
-            return PagerData(totalCount, users);
+            return PagerData(totalCount, users, pageindex, pagesize);
         }
         #endregion
         #region  添加/修改用户页面
