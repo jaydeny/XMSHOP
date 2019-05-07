@@ -124,6 +124,8 @@ namespace XM.Web.Controllers
             paras["id"] = id;
             paras["user_AN"] = userid;
             paras["user_email"] = email;
+            paras["status_id"] = statusID;
+            paras["role_id"] = roleID;
 
             int iCheck = DALUtility.User.CheckUseridAndEmail(paras);
             if (iCheck > 0)
