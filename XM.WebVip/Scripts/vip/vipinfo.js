@@ -24,7 +24,7 @@ var orderTemplate = function (obj) {
 }
 
 // 查询订单
-$.post("/vip/QryOrder", function (data) {
+$.post("/Shop/QryOrder", function (data) {
     console.log(data);
     if (data.total > 0) {
         $("#empty_order").addClass("hidden");
