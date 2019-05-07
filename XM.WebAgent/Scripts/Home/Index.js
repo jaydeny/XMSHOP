@@ -203,7 +203,8 @@ function onloadData(page, rows) {
 function showList(page, objs) {
     num_Page_Count.innerText = "共 " + Math.ceil(page / 10) + " 页";
     num_Page_Count.name = Math.ceil(page / 10);
-     $("#tbody").empty();
+    $("#tbody").empty();
+    //进行数据可视化封装
     $.each(objs, function (index, obj) {
        
         const trs = $("<tr></tr>");

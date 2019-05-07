@@ -15,6 +15,7 @@
             <h1 class="h2">{{config.hearTitle}}</h1>
 
             <button class="btn btn-outline-secondary" type="button" v-on:click="onMyGoods($event)">{{config.myGoodsBtn}}</button>
+           
             <div>
                 <div class="input-group">
                     <input type="text" class="form-control" v-model="search">
@@ -26,7 +27,7 @@
             <div class="btn-toolbar mb-2 mb-md-0">
                 <div class="btn-group mr-2">
                     <button class="btn btn-sm btn-outline-secondary">{{config.showDataType.cardType}}</button>
-                    <button class="btn btn-sm btn-outline-secondary">{{config.showDataType.listType}}</button>
+                  
                 </div>
             </div>
         </div>
@@ -80,7 +81,7 @@
                             <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-outline-secondary" v-on:click="AlertAgentGoods(index)">编辑信息</button>
                             </div>
-
+                            <small class="text-muted" v-if="obj.status_id != 1">以下架</small>
                         </div>
 
                     </li>
@@ -176,7 +177,18 @@
                                 <input type="number" class="form-control" v-model="editPrice" placeholder="Price">
                             </div>
                         </div>
-                        
+                        <div class="col-auto">
+                            <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">状态</div>
+                                </div>
+                                <select class="custom-select d-block w-100"  v-model="editStatus" required>
+                                    <option value="1">上架</option>
+                                    <option value="2">下架</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">{{config.AlertAgentGoodsModel.modalCloseBtn}}</button>
@@ -213,7 +225,8 @@
                "editPorduct": [],
                "editName": "",
                "editIntro": "",
-               "editPrice":""
+               "editPrice": "",
+               "editStatus" : ""
             },
            created: function () {
                 //加载配置文件，将数据填充
@@ -419,16 +432,18 @@
                    this.editName = product.goods_name;
                    this.editIntro = product.goods_intro;
                    this.editPrice = product.price;
+                   this.editStatus = product.status_id;
                    $('#AlertAgentGoods').modal('show');
                },
                Goods_Alert_Submir() {
+                   
                    //定义参数集
                    const param = {
                        "Agoods_id": this.editPorduct.id,
                        "goods_id": this.editPorduct.goods_id,
                        "goods_name": this.editName,
                        "price": this.editPrice,
-                       "status_id": 1,
+                       "status_id": this.editStatus,
                        "goods_intro": this.editIntro
                    }
                    //发生请求
