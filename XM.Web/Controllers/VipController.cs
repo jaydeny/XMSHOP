@@ -30,8 +30,8 @@ namespace XM.Web.Controllers
         //[PermissionFilter("Vip","Index")]
         public ActionResult GetAllUserInfo()
         {
-            string sort = Request["order"] == null ? "VipID" : Request["sort"];
-            string order = Request["sort"] == null ? "asc" : Request["order"];
+            string sort = Request["order"] == null ? "VipID" : Request["order"];
+            string order = Request["sort"] == null ? "asc" : Request["sort"];
 
             //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
@@ -76,18 +76,30 @@ namespace XM.Web.Controllers
             paras["vip_AN"] = userid;
             paras["vip_mp"] = mobilephone;
             paras["vip_email"] = email;
-
+            paras["status_id"] = statusID;
+            paras["agent_id"] = agentId;
 
             int iCheck = DALUtility.Vip.CheckUseridAndEmail(paras);
+            ContentResult result = OperationReturn(true);
             if (iCheck > 0)
             {
-                return OperationReturn(false, iCheck == 1 ? "用户名重复" : "邮箱重复");
+                switch (iCheck)
+                {
+                    case 1:
+                        result = OperationReturn(false, "用户名重复");
+                        break;
+                    case 2:
+                        result = OperationReturn(false, "电话号码重复");
+                        break;
+                    case 3:
+                        result = OperationReturn(false, "邮箱重复");
+                        break;  
+                }
+                return result;
             }
             else
             {
                 int num;
-                paras["status_id"] = statusID;
-                paras["agent_id"] = agentId;
                 if (id == 0)
                 {
                     paras["vip_pwd"] = "xm123456";

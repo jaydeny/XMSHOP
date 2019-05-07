@@ -23,8 +23,8 @@ namespace XM.Web.Controllers
         //[PermissionFilter("Menu", "Index")]
         public ActionResult GetAllMenu()
         {
-            string sort = Request["order"] == null ? "id" : Request["sort"];
-            string order = Request["sort"] == null ? "asc" : Request["order"];
+            string sort = Request["order"] == null ? "id" : Request["order"];
+            string order = Request["sort"] == null ? "asc" : Request["sort"];
 
             //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
