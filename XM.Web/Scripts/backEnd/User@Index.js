@@ -24,8 +24,8 @@ function gridList() {
                 }
             }
         ],
-        rowNum: 10,
-        rowList: [10, 20, 30],
+        rowNum: 20,
+        rowList: [10, 20, 30,40,50],
         sortorder: "desc",
         pager: "#gridPager"
     });

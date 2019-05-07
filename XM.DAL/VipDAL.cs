@@ -17,7 +17,7 @@ namespace XM.DAL
         /// </summary>
         public VipEntity GetUserByUserId(string userId)
         {
-            const string sql = "select top 1 * from v_vip_list where id = @UserId";
+            const string sql = "select top 1 * from v_vip_list where VipID = @UserId";
             return QuerySingle<VipEntity>(sql, new { UserId = userId });
         }
 
