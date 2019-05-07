@@ -113,7 +113,7 @@ namespace XM.WebVip.Controllers
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("id", int.Parse(Request["address_id"]));
-            param.Add("vip_id", int.Parse(Session["ID"].ToString()));`
+            param.Add("vip_id", int.Parse(Session["ID"].ToString()));
             //param.Add("vip_id", Request["vip_id"]);
 
             int iCheck = DALUtility.Vip.DeleteAddress(param);
