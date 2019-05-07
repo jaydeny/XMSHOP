@@ -18,7 +18,7 @@ var addressAll = function () {
     // 清空
     emptyAddress();
     $(".site-list>ul > li:not(:first-child)").remove();
-    $.post("/vip/Address",null,function (data) {
+    $.post("/vipinfo/Address",null,function (data) {
         // 保存数据
         myAddress = data.rows;
         $.each(myAddress, function (i, n) {
@@ -34,7 +34,7 @@ $("#btnEmptyAddress").click(function () {
 // 地址删除
 $(".site-list").on("click", ".delete", function () {
     var address_id = myAddress[$(this).parent().data("index")].id;
-    $.get("/vip/DeleteAddress", { "address_id": address_id }, function (data) {
+    $.get("/vipinfo/DeleteAddress", { "address_id": address_id }, function (data) {
         if (data.success) {
             alert(data.msg);
             $(".site-list>ul > li:not(:first-child)").remove();
@@ -62,7 +62,7 @@ $("#btnAddAddress").click(function () {
     if (updateId != 0) {
         url = "UpdateAddress"
     }
-    $.post("/vip/" + url, { "address_id": updateId, "address_name": site }, function (data) {
+    $.post("/vipinfo/" + url, { "address_id": updateId, "address_name": site }, function (data) {
         if (data.success) {
             alert(data.msg);
             addressAll();

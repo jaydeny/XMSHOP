@@ -34,7 +34,7 @@ $("#back").click(function () {
     };
     obj.width = "400px";
     obj.height = "300px";
-    obj.url = "/Home/Update";
+    obj.url = "/Home/FoundPwdPage";
     bouncedLogin(obj);
 })
 
