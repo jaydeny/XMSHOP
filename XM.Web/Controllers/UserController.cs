@@ -115,7 +115,7 @@ namespace XM.Web.Controllers
         {
             int id = Request["id"] == null ? 0 : Convert.ToInt32(Request["id"]);
             string userid = Request["UserAccountName"];
-            string mobilephone = Request["UserMobilePhone"];
+            string mobilephone = Request["UserMobliePhone"];
             string email = Request["UserEmail"];
             int roleID = Convert.ToInt32(Request["RoleID"]);
             int statusID = Convert.ToInt32(Request["StatusID"]);
