@@ -14,7 +14,7 @@ namespace XM.DAL
     public class RoleMenuDAL : BaseDal, IRoleMenuDAL
     {
 
-        public string QryAllRoleMenu<T>(Dictionary<string, object> paras,out int iCount)
+        public IEnumerable<T> QryAllRoleMenu<T>(Dictionary<string, object> paras,out int iCount)
         {
             WhereBuilder builder = new WhereBuilder();
             builder.FromSql = "v_rolemenu_list";
@@ -25,9 +25,9 @@ namespace XM.DAL
                 SortField = "Id"
             };
             builder.AddWhereAndParameter(paras, "roleId", "r_id", "=", "@roleId");
-            var s = SortAndPage(builder, grid, out iCount);
-            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
-            return retData;
+            //var s = 
+            //string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
+            return SortAndPage<T>(builder, grid, out iCount);
         }
     }
 }

@@ -67,6 +67,12 @@ namespace XM.DAL
                 return false;
         }
 
+        public GoodsTypeEntity GetTypeById(string id)
+        {
+            const string strSql = "select * from v_type_list where typeID = @ID";
+            return QuerySingle<GoodsTypeEntity>(strSql, new { ID = id });
+        }
+
         public IEnumerable<T> QryType<T>(Dictionary<string, object> paras, out int iCount)
         {
             iCount = 0;

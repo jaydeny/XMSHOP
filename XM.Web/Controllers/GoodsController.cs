@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,28 +11,31 @@ namespace XM.Web.Controllers
 {
     public class GoodsController : BaseController
     {
-        [PermissionFilter]
+        #region 获取所有商品页面
+        //[PermissionFilter]
         // GET: Goods
         public ActionResult Index()
         {
             return View();
         }
-        [PermissionFilter("Goods", "Index")]
+        #endregion
+        #region 获取所有商品信息
+        //[PermissionFilter("Goods", "Index")]
         public ActionResult GetAllGoodsInfo()
         {
-            string sort = Request["sort"] == null ? "GoodsID" : Request["sort"];
-            string order = Request["order"] == null ? "asc" : Request["order"];
+            string sort = Request["order"] == null ? "GoodsID" : Request["order"];
+            string order = Request["sort"] == null ? "asc" : Request["sort"];
 
             //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-            string goodsName = Request["goods_name"] == null ? "" : Request["goods_name"];
-            string goodsIntro = Request["goods_intro"] == null ? "" : Request["goods_intro"];
-            decimal goodsPrice = Request["goods_CP"] == null ? 1 : Convert.ToDecimal(Request["goods_CP"]);
-            string createBy = Request["goods_BY"] == null ? "" : Request["goods_BY"];
-            string createDateTime = Request["goods_CDT"] == null ? "" : Request["goods_CDT"];
-            string goodsPic = Request["goods_pic"] == null ? "" : Request["goods_pic"];
-            int typeId = Request["type_id"] == null ? 1 : Convert.ToInt32(Request["type_id"]);
+            string goodsName = Request["GoodsName"] == null ? "" : Request["GoodsName"];
+            string goodsIntro = Request["GoodsIntro"] == null ? "" : Request["GoodsIntro"];
+            decimal goodsPrice = Request["GoodsPrice"] == null ? 1 : Convert.ToDecimal(Request["GoodsPrice"]);
+            string createBy = Request["GoodsCreateBy"] == null ? "" : Request["GoodsCreateBy"];
+            string createDateTime = Request["GoodsCreateTime"] == null ? "" : Request["GoodsCreateTime"];
+            string goodsPic = Request["GoodsPicture"] == null ? "" : Request["GoodsPicture"];
+            int typeId = Request["GoodsType"] == null ? 1 : Convert.ToInt32(Request["GoodsType"]);
 
 
 
@@ -43,48 +47,25 @@ namespace XM.Web.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var goods = DALUtility.Goods.QryGoods<GoodsEntity>(paras, out totalCount);
-            return PagerData(totalCount, goods);
+            return PagerData(totalCount, goods,pageindex,pagesize);
         }
-
-        public ActionResult AddGoods()
+        #endregion
+        #region  添加/修改页面
+        public ActionResult Form()
         {
-            return View("_AddGoods");
+            return View("_Form");
         }
-        [PermissionFilter("Goods", "Index", Operationype.Add)]
-        /// <summary>
-        /// 新增 产品
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult GoodsAdd()
-        {
-            return SaveGoods();
-
-        }
-
-        public ActionResult EditGoods()
-        {
-            return View("_EditGoods");
-        }
-        [PermissionFilter("Goods", "Index", Operationype.Update)]
-        /// <summary>
-        /// 编辑 产品
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult GoodsEdit()
-        {
-
-            return SaveGoods();
-        }
-
-        private ActionResult SaveGoods()
+        #endregion
+        #region  添加/修改商品信息
+        public ActionResult Save()
         {
             int id = Convert.ToInt32(Request["id"]);
-            string goodsName = Request["goods_name"];
-            string goodsIntro = Request["goods_intro"];
-            decimal goodsPrice = Convert.ToDecimal(Request["goods_CP"]);
-            string createBy = Request["goods_BY"];
-            string goodsPic = Request["goods_pic"];
-            int typeId = Convert.ToInt32(Request["type_id"]);
+            string goodsName = Request["GoodsName"];
+            string goodsIntro = Request["GoodsIntro"];
+            decimal goodsPrice = Convert.ToDecimal(Request["GoodsPrice"]);
+            string createBy = Request["GoodsCreateBy"];
+            string goodsPic = Request["GoodsPicture"];
+            int typeId = Convert.ToInt32(Request["GoodsType"]);
 
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["id"] = id;
@@ -102,7 +83,9 @@ namespace XM.Web.Controllers
             return OperationReturn(DALUtility.Goods.Save(paras) > 0);
 
         }
-        [PermissionFilter("Goods", "Index", Operationype.Delete)]
+        #endregion
+        #region  删除商品
+        //[PermissionFilter("Goods", "Index", Operationype.Delete)]
         public ActionResult DelGoodsByIDs()
         {
             string Ids = Request["id"] == null ? "" : Request["id"];
@@ -115,5 +98,13 @@ namespace XM.Web.Controllers
                 return OperationReturn(false,"删除失败");
             }
         }
+        #endregion
+        #region 获取单个商品信息
+        public ActionResult GetFormJson(string id)
+        {
+            var vip = DALUtility.Goods.QryGoodsInfo(id);
+            return Content(JsonConvert.SerializeObject(vip));
+        }
+        #endregion
     }
 }

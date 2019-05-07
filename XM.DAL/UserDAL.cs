@@ -280,7 +280,7 @@ namespace XM.DAL
         /// <returns></returns>
         public int CheckUseridAndEmail(Dictionary<string, object> paras)
         {
-            return QuerySingle<int>("P_User_CheckUseridAndEmail", paras, CommandType.StoredProcedure);
+            return QuerySingle<int>("P_tbUser_checkANandMBandEmail", paras, CommandType.StoredProcedure);
         }
 
         /// <summary>

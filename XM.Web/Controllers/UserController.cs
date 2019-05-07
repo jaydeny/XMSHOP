@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using XM.Model;
 using System.Web.SessionState;
 using XM.Web.Domain;
+using Newtonsoft.Json;
 
 namespace XM.Web.Controllers
 {
@@ -16,16 +17,21 @@ namespace XM.Web.Controllers
     /// </summary>
     public class UserController : BaseController, IRequiresSessionState
     {
+        #region 所有用户页面
         //[PermissionFilter]
         // GET: User
         public ActionResult Index()
         {
             return View();
         }
+        #endregion
+        #region 修改密码页面
         public ActionResult PwdUpdate()
         {
             return View();
         }
+        #endregion
+        #region 修改密码操作
         /// <summary>
         /// 更新密码
         /// </summary>
@@ -59,6 +65,8 @@ namespace XM.Web.Controllers
             }
             //return Content(result);
         }
+        #endregion
+        #region  获取所有用户信息
         /// <summary>
         /// 获取所有用户信息
         /// </summary>
@@ -67,17 +75,17 @@ namespace XM.Web.Controllers
 
         public ActionResult GetAllUserInfo()
         {
-            string sort = Request["sort"] == null ? "id" : Request["sort"];
-            string order = Request["order"] == null ? "asc" : Request["order"];
+            string sort = Request["order"] == null ? "id" : Request["order"];
+            string order = Request["sort"] == null ? "asc" : Request["sort"];
 
             //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-            string userAn = Request["user_AN"] == null ? "" : Request["user_AN"];
-            string userMp = Request["user_mp"] == null ? "" : Request["user_mp"];
-            string userEmail = Request["user_email"] == null ? "" : Request["user_email"];
-            int statusId = Request["status_id"] == null ? 1 : Convert.ToInt32(Request["status_id"]);
-            int roleid = Request["role_id "] == null ? 0 : Convert.ToInt32(Request["role_id"]);
+            string userAn = Request["UserAccountName"] == null ? "" : Request["UserAccountName"];
+            string userMp = Request["UserMobliePhone"] == null ? "" : Request["UserMobliePhone"];
+            string userEmail = Request["UserEmail"] == null ? "" : Request["UserEmail"];
+            int statusId = Request["StatusID"] == null ? 1 : Convert.ToInt32(Request["StatusID"]);
+            int roleid = Request["RoleID "] == null ? 0 : Convert.ToInt32(Request["RoleID"]);
 
 
 
@@ -93,50 +101,24 @@ namespace XM.Web.Controllers
                 paras["role_id"] = roleid;
             }
             var users = DALUtility.User.QryUsers<UserEntity>(paras, out totalCount);
-            return PagerData(totalCount, users);
+            return PagerData(totalCount, users, pageindex, pagesize);
         }
-        public ActionResult UserAdd()
+        #endregion
+        #region  添加/修改用户页面
+        public ActionResult Form()
         {
-            return View("_UserAdd");
+            return View("_Form");
         }
-
-        /// <summary>
-        /// 新增 用户
-        /// </summary>
-        /// <returns></returns>
-        [PermissionFilter("User", "Index", Operationype.Add)]
-        public ActionResult AddUser()
+        #endregion
+        #region 添加或修改用户信息方法
+        public ActionResult Save()
         {
-            return SaveUser();
-
-        }
-
-        public ActionResult UserEdit()
-        {
-            return View("_UserEdit");
-        }
-        /// <summary>
-        /// 编辑 用户
-        /// </summary>
-        /// <returns></returns>
-        [PermissionFilter("User", "Index", Operationype.Update)]
-        public ActionResult EditUser()
-        {
-
-            return SaveUser();
-        }
-        /// <summary>
-        /// 添加或修改用户信息方法
-        /// </summary>
-        /// <returns></returns>
-        private ActionResult SaveUser()
-        {
-            int id = Convert.ToInt32(Request["id"]);
-            string userid = Request["user_AN"];
-            string mobilephone = Request["user_mp"];
-            string email = Request["user_email"];
-            int roleID = Convert.ToInt32(Request["role_id"]);
-            int statusID = Convert.ToInt32(Request["status_id"]);
+            int id = Request["id "] == null ? 0 : Convert.ToInt32(Request["id"]);
+            string userid = Request["UserAccountName"];
+            string mobilephone = Request["UserMobilePhone"];
+            string email = Request["UserEmail"];
+            int roleID = Convert.ToInt32(Request["RoleID"]);
+            int statusID = Convert.ToInt32(Request["StatusID"]);
 
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["id"] = id;
@@ -181,7 +163,9 @@ namespace XM.Web.Controllers
                 }
             }
         }
-        [PermissionFilter("User", "Index", Operationype.Delete)]
+        #endregion
+        #region  删除用户信息
+        //[PermissionFilter("User", "Index", Operationype.Delete)]
         /// <summary>
         /// 删除用户信息
         /// </summary>
@@ -198,5 +182,13 @@ namespace XM.Web.Controllers
                 return OperationReturn(false, "删除失败");
             }
         }
+        #endregion
+        #region 获取用户个人信息
+        public ActionResult GetFormJson(string id)
+        {
+            var user = DALUtility.User.GetUserByUserId(id);
+            return Content(JsonConvert.SerializeObject(user));
+        }
+        #endregion
     }
 }
