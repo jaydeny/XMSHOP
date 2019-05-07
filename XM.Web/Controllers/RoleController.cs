@@ -25,7 +25,7 @@ namespace XM.Web.Controllers
         //[PermissionFilter("Role", "Index")]
         public ActionResult GetALLRoleInfo()
         {
-            string sort = Request["sort"] == null ? "RoleID" : Request["sort"];
+            string sort = Request["sort"] == null ? "ID" : Request["sort"];
             string order = Request["order"] == null ? "asc" : Request["order"];
 
             //首先获取前台传递过来的参数
