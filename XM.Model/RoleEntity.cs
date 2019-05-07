@@ -24,7 +24,7 @@ namespace XM.Model
         /// <summary>
         /// 标识码
         /// </summary>
-        public int Code { get; set; }
+        public string Code { get; set; }
         /// <summary>
         /// 状态
         /// </summary>
