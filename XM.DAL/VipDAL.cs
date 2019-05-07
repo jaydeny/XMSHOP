@@ -219,7 +219,7 @@ namespace XM.DAL
         /// <returns></returns>
         public int CheckUseridAndEmail(Dictionary<string, object> paras)
         {
-            return QuerySingle<int>("P_tbvip_checkANandMBandEmail", paras, CommandType.StoredProcedure);
+            return QuerySingle<int>("P_vip_checkANandMBandEmail", paras, CommandType.StoredProcedure);
         }
 
         /// <summary>
