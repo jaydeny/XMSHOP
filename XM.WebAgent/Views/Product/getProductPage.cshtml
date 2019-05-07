@@ -41,7 +41,7 @@
                 </div>
             </div>
         </nav>
-
+        @*后台全部商品*@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" v-show="myGoodsShow">
 
             <div class="card" style="width: 18rem; display: inline-flex; margin:5px" v-for="(obj,index) in GoodsFilter" :key="index">
@@ -61,6 +61,7 @@
                 </div>
             </div>
         </main>
+
         @*代理个人商品*@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" v-show="!myGoodsShow">
 
