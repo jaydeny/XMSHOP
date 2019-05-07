@@ -70,6 +70,7 @@ namespace XM.WebVip.Controllers
                     Session["ID"] = vip.VipID;
                     Session["Agent_ID"] = vip.AgentID;
                     Session["Agent_AN"] = DALUtility.Vip.QryAgentANByID(getAgentAN(vip.AgentID));
+                    SSOHelper.LoginRegister(vip.VipAccountName);
                     return OperationReturn(true, "登录成功,vip_id:" + vip.VipID + ";vip_AN:" + AN,
                         new
                         {
