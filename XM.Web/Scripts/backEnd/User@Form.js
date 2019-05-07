@@ -18,7 +18,9 @@ $(function () {
 });
 
 function initControl() {
-
+    $.get("/Role/GetALLRoleInfo", function (data) {
+        console.log(data);
+    })
 }
 function submitForm() {
     if (!$('#form1').formValid()) {
