@@ -30,8 +30,8 @@ namespace XM.Web.Controllers
         //[PermissionFilter("Vip","Index")]
         public ActionResult GetAllUserInfo()
         {
-            string sort = Request["sort"] == null ? "VipID" : Request["sort"];
-            string order = Request["order"] == null ? "asc" : Request["order"];
+            string sort = Request["order"] == null ? "VipID" : Request["sort"];
+            string order = Request["sort"] == null ? "asc" : Request["order"];
 
             //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
@@ -55,7 +55,7 @@ namespace XM.Web.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var users = DALUtility.Vip.QryUsers<VipEntity>(paras, out totalCount);
-            return PagerData(totalCount, users);
+            return PagerData(totalCount, users,pageindex,pagesize);
         }
         #endregion
         #region  添加/修改页面

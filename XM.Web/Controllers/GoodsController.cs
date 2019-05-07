@@ -23,8 +23,8 @@ namespace XM.Web.Controllers
         //[PermissionFilter("Goods", "Index")]
         public ActionResult GetAllGoodsInfo()
         {
-            string sort = Request["sort"] == null ? "GoodsID" : Request["sort"];
-            string order = Request["order"] == null ? "asc" : Request["order"];
+            string sort = Request["order"] == null ? "GoodsID" : Request["sort"];
+            string order = Request["sort"] == null ? "asc" : Request["order"];
 
             //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
@@ -47,7 +47,7 @@ namespace XM.Web.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var goods = DALUtility.Goods.QryGoods<GoodsEntity>(paras, out totalCount);
-            return PagerData(totalCount, goods, pageindex, pagesize);
+            return PagerData(totalCount, goods,pageindex,pagesize);
         }
         #endregion
         #region  添加/修改页面

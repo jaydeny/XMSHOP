@@ -75,8 +75,8 @@ namespace XM.Web.Controllers
 
         public ActionResult GetAllUserInfo()
         {
-            string sort = Request["sort"] == null ? "id" : Request["sort"];
-            string order = Request["order"] == null ? "asc" : Request["order"];
+            string sort = Request["order"] == null ? "id" : Request["sort"];
+            string order = Request["sort"] == null ? "asc" : Request["order"];
 
             //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);

@@ -28,8 +28,8 @@ namespace XM.Web.Controllers
         //[PermissionFilter("Agent", "Index")]
         public ActionResult GetAllUserInfo()
         {
-            string sort = Request["sort"] == null ? "AgentID" : Request["sort"];
-            string order = Request["order"] == null ? "asc" : Request["order"];
+            string sort = Request["order"] == null ? "AgentID" : Request["sort"];
+            string order = Request["sort"] == null ? "asc" : Request["order"];
 
             //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
@@ -49,7 +49,7 @@ namespace XM.Web.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var users = DALUtility.Agent.QryUsers<AgentEntity>(paras, out totalCount);
-            return PagerData(totalCount, users);
+            return PagerData(totalCount, users,pageindex,pagesize);
         }
         #endregion
         #region 添加/修改页面
