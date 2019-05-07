@@ -40,7 +40,7 @@ namespace XM.WebAgent.Controllers
             param.Add("goods_id", Request["goods_id"]);
             param.Add("status_id", Request["status_id"]);
             param.Add("price", Request["price"]);
-            param.Add("up_time", DateTime.Now);
+            param.Add("up_time", DateTime.Now); 
             param.Add("Agent_AN", Session["Agent_AN"].ToString());
             param.Add("goods_name", Request["goods_name"]);
 
