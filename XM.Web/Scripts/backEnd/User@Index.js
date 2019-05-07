@@ -12,12 +12,6 @@ function gridList() {
             { label: '手机', name: 'UserMobliePhone', width: 100, align: 'left' },
             { label: '邮箱', name: 'UserEmail', width: 140, align: 'left' }, 
             { label: '创建人', name: 'UserCreateBy', width: 80, align: 'left' },
-            {
-                label: '角色', name: 'RoleID', width: 80, align: 'left',
-                formatter: function (cellvalue, options, rowObject) {
-                    return top.clients.role[cellvalue] == null ? "" : top.clients.role[cellvalue].fullname;
-                }
-            },
             { label: '创建时间', name: 'UserCreateDate', width: 140, align: 'left' },
             {
                 label: "允许登录", name: "StatusID", width: 60, align: "left",
