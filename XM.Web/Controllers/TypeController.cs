@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,12 +11,15 @@ namespace XM.Web.Controllers
 {
     public class TypeController : BaseController
     {
+        #region  类型页面
         [PermissionFilter]
         // GET: Type
         public ActionResult Index()
         {
             return View();
         }
+        #endregion
+        #region  获取所有类型信息
         [PermissionFilter("Type", "Index")]
         public ActionResult GetAllTypeInfo()
         {
@@ -39,37 +43,15 @@ namespace XM.Web.Controllers
             var type = DALUtility.Type.QryType<GoodsTypeEntity>(paras, out totalCount);
             return PagerData(totalCount, type);
         }
-        public ActionResult TypeAdd()
+        #endregion
+        #region  添加/修改页面
+        public ActionResult Form()
         {
-            return View("_TypeAdd");
+            return View("_Form");
         }
-        [PermissionFilter("Type", "Index",Operationype.Add)]
-        /// <summary>
-        /// 新增 类型
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult AddType()
-        {
-            return SaveType();
-
-        }
-
-        public ActionResult TypeEdit()
-        {
-            return View("_TypeEdit ");
-        }
-        [PermissionFilter("Type", "Index",Operationype.Update)]
-        /// <summary>
-        /// 编辑 类型
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult EditType()
-        {
-
-            return SaveType();
-        }
-
-        private ActionResult SaveType()
+        #endregion
+        #region  添加/修改操作
+        public ActionResult Save()
         {
             int id = Convert.ToInt32(Request["id"]);
             string typeName = Request["type_name"];
@@ -99,9 +81,9 @@ namespace XM.Web.Controllers
             {
                 return OperationReturn(false, "修改失败！");
             }
-            
-
         }
+        #endregion
+        #region  删除操作
         [PermissionFilter("Type", "Index",Operationype.Delete)]
         public ActionResult DelTypeByIDs()
         {
@@ -115,5 +97,13 @@ namespace XM.Web.Controllers
                 return OperationReturn(false, "删除失败！");
             }
         }
+        #endregion
+        #region  获取类型信息
+        public ActionResult GetFormJson(string id)
+        {
+            var vip = DALUtility.Type.GetTypeById(id);
+            return Content(JsonConvert.SerializeObject(vip));
+        }
+        #endregion
     }
 }

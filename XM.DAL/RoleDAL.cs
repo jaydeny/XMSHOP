@@ -38,6 +38,11 @@ namespace XM.DAL
             }
         }
 
+        public RoleEntity GetRoleById(string id)
+        {
+            string strSql = "select * from v_role_list where Id = @ID";
+            return QuerySingle<RoleEntity>(strSql, new { ID = id });
+        }
 
         public IEnumerable<T> QryRole<T>(Dictionary<string, object> paras, out int iCount)
         {

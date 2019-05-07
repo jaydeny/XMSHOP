@@ -26,12 +26,9 @@ namespace XM.Web.Controllers
         }
         public ActionResult LoadMenu()
         {
-            List<RoleMenuEntity> roleMenus = new List<RoleMenuEntity>();
-            string strRoleMenuData = Session["RoleMenu"].ToString();
-            List<int> objIDs = ((IEnumerable<RoleMenuEntity>)JsonConvert.DeserializeObject(strRoleMenuData)).ToDictionary(t => t.Id).Keys.ToList();
-            var menu = DALUtility.Menu.GetAllMenuById(objIDs);
-            return PagerData(9, menu);
+            object objRoleMenu = Session["RoleMenu"];
 
+            return Content(objRoleMenu.ToString());
         }
     }
 }

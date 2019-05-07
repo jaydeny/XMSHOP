@@ -29,6 +29,9 @@ namespace XM.IDAL
         /// <param name="paras">参数</param>
         /// <returns></returns>
         int Save(Dictionary<string, object> paras);
-        List<RoleMenuEntity> GetAllMenuById(List<int> Ids);
+        List<MenuEntity> GetAllMenuByIds(List<int> Ids);
+
+        MenuEntity GetMenuById(string Id);
+
     }
 }

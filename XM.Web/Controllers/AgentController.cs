@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,13 +16,15 @@ namespace XM.Web.Controllers
     /// </summary>
     public class AgentController : BaseController
     {
+        #region  获取所有代理页面
         [PermissionFilter]
         // GET: Agent
         public ActionResult Index()
         {
             return View();
         }
-
+        #endregion
+        #region  获取所有代理信息
         [PermissionFilter("Agent", "Index")]
         public ActionResult GetAllUserInfo()
         {
@@ -48,38 +51,15 @@ namespace XM.Web.Controllers
             var users = DALUtility.Agent.QryUsers<AgentEntity>(paras, out totalCount);
             return PagerData(totalCount, users);
         }
-
-        public ActionResult AddAgent()
+        #endregion
+        #region 添加/修改页面
+        public ActionResult Form()
         {
-            return View("_AddAgent");
+            return View("_Form");
         }
-        [PermissionFilter("Agent", "Index",Operationype.Add)]
-        /// <summary>
-        /// 新增 用户
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult AddUser()
-        {
-            return SaveUser();
-
-        }
-
-        public ActionResult EditAgent()
-        {
-            return View("_EditAgent");
-        }
-        [PermissionFilter("Agent", "Index",Operationype.Update)]
-        /// <summary>
-        /// 编辑 用户
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult EditUser()
-        {
-
-            return SaveUser();
-        }
-
-        private ActionResult SaveUser()
+        #endregion
+        #region  添加/修改代理信息
+        public ActionResult Save()
         {
             int id = Convert.ToInt32(Request["id"]);
             string userid = Request["agent_AN"];
@@ -113,6 +93,8 @@ namespace XM.Web.Controllers
             }
             
         }
+        #endregion
+        #region 删除代理信息
         [PermissionFilter("Agent", "Index",Operationype.Delete)]
         public ActionResult DelUserByIDs()
         {
@@ -126,7 +108,13 @@ namespace XM.Web.Controllers
                 return OperationReturn(false);
             }
         }
-
-        
+        #endregion
+        #region 获取单个代理信息
+        public ActionResult GetFormJson(string id)
+        {
+            var agent = DALUtility.Agent.GetUserById(id);
+            return Content(JsonConvert.SerializeObject(agent));
+        }
+        #endregion
     }
 }

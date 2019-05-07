@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -12,12 +13,15 @@ namespace XM.Web.Controllers
 {
     public class RoleController : BaseController
     {
+        #region  角色页面
         [PermissionFilter]
         // GET: JuriMenu
         public ActionResult Index()
         {
             return View();
         }
+        #endregion
+        #region  获取所有角色信息
         [PermissionFilter("Role", "Index")]
         public ActionResult GetALLRoleInfo()
         {
@@ -47,25 +51,15 @@ namespace XM.Web.Controllers
             var roles = DALUtility.Role.QryRole<RoleEntity>(paras, out totalCount);
             return PagerData(totalCount, roles);
         }
-        public ActionResult AddRole()
+        #endregion
+        #region  添加/修改页面
+        public ActionResult Form()
         {
-            return View("_AddRole");
+            return View("_Form");
         }
-        [PermissionFilter("Role", "Index",Operationype.Add)]
-        public ActionResult RoleAdd()
-        {
-            return SaveRole();
-        }
-        public ActionResult EditRole()
-        {
-            return View("_EditRole");
-        }
-        [PermissionFilter("Role", "Index",Operationype.Update)]
-        public ActionResult RoleEdit()
-        {
-            return SaveRole();
-        }
-        private ActionResult SaveRole()
+        #endregion
+        #region  添加/修改操作
+        public ActionResult Save()
         {
             int id = Convert.ToInt32(Request["id"]);
             string Name = Request["name"];
@@ -121,6 +115,8 @@ namespace XM.Web.Controllers
                 return OperationReturn(false, "修改失败！");
             }
         }
+        #endregion
+        #region 删除操作
         [PermissionFilter("Role", "Index", Operationype.Delete)]
         public ActionResult DelRoleByIds()
         {
@@ -134,5 +130,13 @@ namespace XM.Web.Controllers
                 return OperationReturn(false, "删除失败");
             }
         }
+        #endregion
+        #region  角色详细信息
+        public ActionResult GetFormJson(string id)
+        {
+            var vip = DALUtility.Role.GetRoleById(id);
+            return Content(JsonConvert.SerializeObject(vip));
+        }
+        #endregion
     }
 }

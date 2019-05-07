@@ -51,20 +51,26 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString(),
                 SortDirection = paras["order"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "name", "Name", "Like", "%@id%");
+            builder.AddWhereAndParameter(paras, "id", "Id", "=", "@id");
+            builder.AddWhereAndParameter(paras, "name", "Name", "Like", "%@name%");
             return SortAndPage<T>(builder, grid, out iCount);
         }
 
 
-        public List<RoleMenuEntity> GetAllMenuById(List<int> MenuIds)
+        public List<MenuEntity> GetAllMenuByIds(List<int> Ids)
         {
-            string strSql = "select * from v_menu_list where id = @ID";
-            List<RoleMenuEntity> menus = new List<RoleMenuEntity>();
-            foreach(int id in MenuIds)
+            string strSql = "select * from v_menu_list where Id = @ID";
+            List<MenuEntity> menus = new List<MenuEntity>();
+            foreach(int id in Ids)
             {
-                menus.Add(QuerySingle<RoleMenuEntity>(strSql, new { ID = id }));
+                menus.Add(QuerySingle<MenuEntity>(strSql, new { ID = id }));
             }
             return menus;
+        }
+        public MenuEntity GetMenuById(string Id)
+        {
+            string strSql = "select * from v_menu_list where Id = @ID";
+            return QuerySingle<MenuEntity>(strSql, new { ID = Id });
         }
 
         public int Save(Dictionary<string, object> paras)

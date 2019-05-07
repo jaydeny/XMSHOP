@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,12 +11,15 @@ namespace XM.Web.Controllers
 {
     public class MenuController : BaseController
     {
+        #region  加载页面
         [PermissionFilter]
         // GET: Menu
         public ActionResult Index()
         {
             return View();
         }
+        #endregion
+        #region  获取所有菜单信息
         [PermissionFilter("Menu", "Index")]
         public ActionResult GetAllMenu()
         {
@@ -44,26 +48,14 @@ namespace XM.Web.Controllers
             var menus = DALUtility.Menu.GetAllMenu<MenuEntity>(paras, out totalCount);
             return PagerData(totalCount, menus);
         }
-        public ActionResult AddMenu()
+        #endregion
+        #region  添加/修改菜单页面
+        public ActionResult Form()
         {
-            return View("_AddMenu");
+            return View("_Form");
         }
-        [PermissionFilter("Menu", "Index",Operationype.Add)]
-        public ActionResult MenuAdd()
-        {
-            return Save();
-        }
-        
-        public ActionResult EditMenu()
-        {
-            return View("_EditMenu");
-        }
-        [PermissionFilter("Menu", "Index", Operationype.Update)]
-        public ActionResult MenuEdit()
-        {
-            return Save();
-        }
-
+        #endregion
+        #region  添加/修改菜单信息
         public ActionResult Save()
         {
             int id = Request["id"] == null ? 1 : Convert.ToInt32(Request["id"]);
@@ -87,6 +79,8 @@ namespace XM.Web.Controllers
 
             return OperationReturn(DALUtility.Menu.Save(paras) > 0);
         }
+        #endregion
+        #region 删除菜单信息
         [PermissionFilter("Menu", "Index", Operationype.Delete)]
         public ActionResult DelMenuByIDs()
         {
@@ -100,5 +94,13 @@ namespace XM.Web.Controllers
                 return OperationReturn(false, "删除失败");
             }
         }
+        #endregion
+        #region 获取单个菜单信息
+        public ActionResult GetFormJson(string id)
+        {
+            var menu = DALUtility.Menu.GetMenuById(id);
+            return Content(JsonConvert.SerializeObject(menu));
+        }
+        #endregion
     }
 }

@@ -13,7 +13,7 @@ namespace XM.IDAL
         //查询所有商品
         IEnumerable<T> QryGoods<T>(Dictionary<string, object> paras, out int iCount);
         //查询商品资料
-        T QryGoodsInfo<T>(Dictionary<string, object> paras);
+        GoodsEntity QryGoodsInfo(string id );
 
         //添加商品
         int AddGoods(GoodsEntity goods);
