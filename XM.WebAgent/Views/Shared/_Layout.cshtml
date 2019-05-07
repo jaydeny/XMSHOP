@@ -10,7 +10,9 @@
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/vue.min.js"></script>
     <script src="~/Scripts/vue-resource.min.js"></script>
+    
     <link href="~/Content/carousel.css" />
+
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
@@ -42,15 +44,15 @@
                             <li class="nav-item">
                                 <a class="nav-link active" href="#">
                                     <span data-feather="home"></span>
-                                    @Html.ActionLink("会员管理", "Index", "Agent") <span class="sr-only">(current)</span>
+                                    @Html.ActionLink("会员管理", "Index", "Home") <span class="sr-only">(current)</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            @*<li class="nav-item">
                                 <a class="nav-link" href="#">
                                     <span data-feather="file"></span>
                                     增值服务审核
                                 </a>
-                            </li>
+                            </li>*@
                         </ul>
 
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -63,10 +65,10 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
                                     <span data-feather="file-text"></span>
-                                    @Html.ActionLink("商品上架&定价", "getGoodsPage", "Agent")
+                                    @Html.ActionLink("商品上架&定价", "getProductPage", "Product")
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            @*<li class="nav-item">
                                 <a class="nav-link" href="#">
                                     <span data-feather="file-text"></span>
                                     团购
@@ -77,7 +79,7 @@
                                     <span data-feather="file-text"></span>
                                     订单
                                 </a>
-                            </li>
+                            </li>*@
                         </ul>
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                             <span>报表</span>
@@ -89,7 +91,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
                                     <span data-feather="file-text"></span>
-                                    @Html.ActionLink("营收报表", "ReportForm", "Agent")
+                                    @Html.ActionLink("营收报表", "ReportForm", "Form")
                                 </a>
                             </li>
                         </ul>
@@ -103,7 +105,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
                                     <span data-feather="file-text"></span>
-                                    @Html.ActionLink("个人中心", "AgentPersonalCenter","Agent")
+                                    @Html.ActionLink("个人中心", "AgentPersonalCenter", "AgentInfo")
                                 </a>
                             </li>
                         </ul>
@@ -122,7 +124,7 @@
             $.get("/Agent/RemoveSession").done((data) => {
                
             });
-            location.href = "/Agent/Login";
+            location.href = "/Home/Login";
         }
     </script>
 

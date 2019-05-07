@@ -50,6 +50,16 @@ namespace XM.DAL.comm
             }
         }
 
+
+
+        protected IEnumerable<dynamic> Query(string sql, object param = null)
+        {
+            using (IDbConnection conn = GetConnection())
+            {
+                return conn.Query(sql, param, null);
+            }
+        }
+
         /// <summary>
         /// 分页查询
         /// </summary>
@@ -236,7 +246,7 @@ namespace XM.DAL.comm
             iCount = 0;
             var sql = "";
             var countSql = "";
-            zFormartSqlToSortAndPage(grid, ref sql, ref countSql, ref builder, some);
+            FormartSqlToSortAndPageWithJoin(grid, ref sql, ref countSql, ref builder, some);
             using (IDbConnection dbConnection = GetConnection())
             {
                 var retObj = dbConnection.Query(sql, builder.Parameters);
@@ -245,7 +255,7 @@ namespace XM.DAL.comm
             }
         }
 
-        void zFormartSqlToSortAndPage(GridData grid, ref string sql, ref string countSql, ref WhereBuilder builder, string some)
+        void FormartSqlToSortAndPageWithJoin(GridData grid, ref string sql, ref string countSql, ref WhereBuilder builder, string some)
         {
             sql = "";
             countSql = "";

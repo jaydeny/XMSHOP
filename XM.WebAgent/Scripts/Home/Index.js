@@ -1,4 +1,59 @@
 ﻿
+
+//当前页数
+var count = 1;
+var rows = 10;
+//每页显示条数
+var btn_num_Rows_count = $("#btn_num_Rows_count");
+
+//跳转页数
+var btn_num_Page_count = $("#btn_num_Page_count");
+
+//显示所有页数
+var num_Page_Count = document.getElementById("num_Page_Count");
+
+//上一页功能
+document.querySelector("#before").onclick = function () {
+    if (count == 1) {
+        alert("已经是第一页了")
+    } else {
+        count -= 1;
+        btn_num_Page_count.val(count);
+        onloadData(count, rows);
+    }
+}
+
+//下一页功能
+document.querySelector("#end").onclick = function () {
+    //拿到总页数
+    const counts = $("#num_Page_Count")[0].name;
+    if (count >= counts) {
+        alert("最后一页了")
+    } else {
+        count += 1;
+        btn_num_Page_count.val(count);
+        onloadData(count, rows);
+    }
+
+}
+
+
+//点击分页
+document.querySelector("#btn_num_Page").onclick = function () {
+    onloadData(count, rows);
+}
+
+//监听文本框改变事件
+btn_num_Page_count.bind("input propertychange", function (e) {
+    count = e.target.value;
+
+});
+
+//监听文本框改变事件
+btn_num_Rows_count.bind("input propertychange", function (e) {
+    rows = e.target.value;
+});
+
 //封装查询功能
 function search() {
     const search = $("#search").val();
@@ -10,7 +65,7 @@ function search() {
     }
 
     $.ajax({
-        url: "/Agent/GetAllVIP",
+        url: "/VIP/GetAll",
         method: 'get',
         data: datapram,
         dataType: 'json'
@@ -65,7 +120,7 @@ function editToVIP() {
     }
 
     $.ajax({
-        url: '/Agent/UpdateVIP',
+        url: '/VIP/Update',
         method: 'post',
         data: datapram,
         dataType: 'json'
@@ -99,7 +154,7 @@ function addVIP() {
     }
     //发送ajax请求
     $.ajax({
-        url: '/Agent/UpdateVIP',
+        url: '/VIP/Update',
         method: 'post',
         data: datapram,
         dataType: 'json'
@@ -123,28 +178,37 @@ function addVIP() {
 }
 
 //页面加载时，去后台拿数据
-function onloadData() {
+function onloadData(page, rows) {
+
+    const param = {
+        "page": page,
+        "rows": rows
+    }
 
     $.ajax({
-        url: "/Agent/GetAllVIP",
+        url: "/VIP/GetAll",
         method: 'get',
+        data : param,
         dataType: 'json'
     }).done(function (data) {
+       
         objs = data.rows;
         //调用列表数据可视化函数
        
-        showList(objs);
+        showList(data.total,objs);
     })
 }
 
 //封装列表显示函数，传入列表对象进行渲染页面
-function showList(objs) {
-   
-    $("#tbody").empty();
+function showList(page, objs) {
+    num_Page_Count.innerText = "共 " + Math.ceil(page / 10) + " 页";
+    num_Page_Count.name = Math.ceil(page / 10);
+     $("#tbody").empty();
     $.each(objs, function (index, obj) {
        
         const trs = $("<tr></tr>");
 
+       
 
         const vip_mp = $("<td>" + obj.VipMobliePhone + "</td>");
         trs.append(vip_mp)
@@ -172,7 +236,7 @@ function showList(objs) {
 
 //入口函数
 $(document).ready(function () {
-        onloadData();
+        onloadData(1,10);
 });
 
 

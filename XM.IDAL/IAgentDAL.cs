@@ -112,7 +112,7 @@ namespace XM.IDAL
         /// 2:MB重复
         /// 3:Email重复
         /// </returns>
-        int checkANandMBandEmail(Dictionary<string, object> paras);
+        int CheckANandMBandEmail(Dictionary<string, object> paras);
         #endregion
 
         #region _Login
@@ -144,6 +144,13 @@ namespace XM.IDAL
         /// <param name="paras"></param>
         /// <returns></returns>
         string QryAgoods(Dictionary<string, object> paras, out int iCount);
+
+        /// <summary>
+        /// 查询所有未上架的后台商品
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        string QryGoods(Dictionary<string, object> paras);
         #endregion
 
         #region _Info
@@ -173,7 +180,7 @@ namespace XM.IDAL
         /// </summary>
         /// <param name="paras"></param>
         /// <returns></returns>
-        int saveAgent(Dictionary<string, object> paras);
+        int SaveAgent(Dictionary<string, object> paras);
 
         /// <summary>
         /// 查询所有的代理商
@@ -181,6 +188,7 @@ namespace XM.IDAL
         /// <param name="paras"></param>
         /// <returns></returns>
         string QryAllAgent(Dictionary<string, object> paras, out int iCount);
+        
         #endregion
     }
 }
