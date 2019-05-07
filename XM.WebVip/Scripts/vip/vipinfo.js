@@ -23,7 +23,8 @@ var orderTemplate = function (obj) {
 }
 
 // 查询订单
-$.post("/vip/QryAgoods", function (data) {
+$.post("/vip/QryOrder", function (data) {
+    console.log(data);
     if (data.total > 0) {
         $("#empty_order").addClass("hidden");
         $("#order_box").removeClass("hidden");
