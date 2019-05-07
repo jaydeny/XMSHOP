@@ -20,9 +20,9 @@ $(function () {
 function initControl() {
     // 获取角色
     $.get("/Role/GetALLRoleInfo", function (data) {
-        $("#role_id").html("");
+        $("#RoleID").html("");
         $.each(data.rows, function (i, n) {
-            $("#role_id").append("<option value='"+n.Id+"'>" + n.Name+"</option>");
+            $("#RoleID").append("<option value='"+n.Id+"'>" + n.Name+"</option>");
         });
     },"json")
 }

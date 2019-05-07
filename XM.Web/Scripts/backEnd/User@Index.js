@@ -24,6 +24,9 @@ function gridList() {
                 }
             }
         ],
+        rowNum: 30,
+        rowList: [30, 50, 70],
+        sortorder: "desc",
         pager: "#gridPager",
         sortname: 'F_DepartmentId asc,F_CreatorTime desc',
         viewrecords: true

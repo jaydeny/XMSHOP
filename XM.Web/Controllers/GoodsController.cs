@@ -47,7 +47,7 @@ namespace XM.Web.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var goods = DALUtility.Goods.QryGoods<GoodsEntity>(paras, out totalCount);
-            return PagerData(totalCount, goods);
+            return PagerData(totalCount, goods, pageindex, pagesize);
         }
         #endregion
         #region  添加/修改页面
