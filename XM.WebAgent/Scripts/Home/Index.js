@@ -209,7 +209,12 @@ function showList(page, objs) {
        
         const trs = $("<tr></tr>");
 
-       
+        const ck_td = $("<td></td>")
+        const ck_btn = $("<input  >");
+        ck_btn.attr("type","checkbox")
+        ck_btn.attr("class","ck_btn")
+        ck_td.append(ck_btn);
+        trs.append(ck_td)
 
         const vip_mp = $("<td>" + obj.VipMobliePhone + "</td>");
         trs.append(vip_mp)
