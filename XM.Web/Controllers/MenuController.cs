@@ -12,7 +12,7 @@ namespace XM.Web.Controllers
     public class MenuController : BaseController
     {
         #region  加载页面
-        [PermissionFilter]
+        //[PermissionFilter]
         // GET: Menu
         public ActionResult Index()
         {
@@ -20,7 +20,7 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region  获取所有菜单信息
-        [PermissionFilter("Menu", "Index")]
+        //[PermissionFilter("Menu", "Index")]
         public ActionResult GetAllMenu()
         {
             string sort = Request["sort"] == null ? "id" : Request["sort"];
@@ -81,7 +81,7 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region 删除菜单信息
-        [PermissionFilter("Menu", "Index", Operationype.Delete)]
+        //[PermissionFilter("Menu", "Index", Operationype.Delete)]
         public ActionResult DelMenuByIDs()
         {
             string Ids = Request["id"] == null ? "" : Request["id"];
