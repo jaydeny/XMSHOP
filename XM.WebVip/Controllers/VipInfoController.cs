@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using XM.Comm;
 using XM.Model;
 using XM.Web.Controllers;
 

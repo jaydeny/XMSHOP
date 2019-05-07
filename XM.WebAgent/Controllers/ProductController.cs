@@ -40,14 +40,14 @@ namespace XM.WebAgent.Controllers
             param.Add("goods_id", Request["goods_id"]);
             param.Add("status_id", Request["status_id"]);
             param.Add("price", Request["price"]);
-            param.Add("up_time", DateTime.Now);
+            param.Add("up_time", DateTime.Now); 
             param.Add("Agent_AN", Session["Agent_AN"].ToString());
             param.Add("goods_name", Request["goods_name"]);
 
             int iCheck = DALUtility.Agent.MakeGoods(param);
-            if (iCheck == 0)
+            if (iCheck != 2)
             {
-                return OperationReturn(true, "上架成功");
+                return OperationReturn(true, iCheck == 0 ?"上架成功" : "修改成功");
             }
             return OperationReturn(false, "上架失败");
         }
@@ -71,7 +71,7 @@ namespace XM.WebAgent.Controllers
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
             param.Add("order", order);
-            param.Add("status_id", 1);
+            //param.Add("status_id", 1);
             param.Add("agent_AN", Session["Agent_AN"] != null ? Session["Agent_AN"].ToString() : "agent");
 
             string result = DALUtility.Agent.QryAgoods(param, out int ICount);
@@ -100,7 +100,7 @@ namespace XM.WebAgent.Controllers
             paras["goods_name"] = goodsName;
             paras["sort"] = sort;
             paras["order"] = order;
-            var goods = DALUtility.Agent.QryGoods(paras);
+            var goods = DALUtility.Agent.QryGoods(paras, out int ICount);
             return Content(goods);
         }
 

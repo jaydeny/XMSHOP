@@ -201,6 +201,8 @@
     <Content Include="img\slide_4.jpg" />
     <Content Include="img\slide_5.jpg" />
     <Content Include="img\slide_6.jpg" />
+    <Content Include="Scripts\jquery-3.4.0.js" />
+    <Content Include="Scripts\jquery-3.4.0.min.js" />
     <Content Include="Scripts\vip\bounced.js" />
     <Content Include="Scripts\vip\RequestUrl.js" />
     <Content Include="Scripts\vip\vip%40AgoodsList.js" />

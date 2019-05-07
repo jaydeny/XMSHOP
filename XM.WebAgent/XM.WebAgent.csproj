@@ -186,11 +186,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Agent\Login.cshtml" />
-    <Content Include="Views\Agent\Index.cshtml" />
-    <Content Include="Views\Agent\getGoodsPage.cshtml" />
-    <Content Include="Views\Agent\ReportForm.cshtml" />
-    <Content Include="Views\Agent\AgentPersonalCenter.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Product\getProductPage.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

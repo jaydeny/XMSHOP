@@ -12,29 +12,56 @@
         </div>
 
         <main role="main" class="col-md-11 ml-sm-auto col-lg-10 pt-3 px-4">
-            <div>
-                <table>
-                    <tr>
-                        <td>当前用户： <span>{{agentTable.AgentAccountName}}</span> </td>
-                    </tr>
-                    <tr>
-                        <td>邮箱： <span>{{agentTable.Email}}</span> </td>
-                    </tr>
-                    <tr>
-                        <td>手机号： <span>{{agentTable.MobliePhone}}</span> </td>
-                    </tr>
-                    <tr>
-                        <td>成为代理时间： <span>{{agentTable.CreateTime.substring(0,10)}}</span> </td>
-                    </tr>
-                    <tr>
-                        <td> <button data-toggle="modal" data-target="#updatePsw">修改密码</button> </td>
-                        <td> <button>修改信息</button> </td>
-                    </tr>
-                </table>
 
+            @*个人信息*@
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+
+                    <div class="card-body">
+                        <ul class="list-group mb-3">
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">当前用户:</h6>
+
+                                </div>
+                                <span class="text-muted">{{agentTable.AgentAccountName}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">邮箱:</h6>
+
+                                </div>
+                                <span class="text-muted">{{agentTable.Email}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">手机号:</h6>
+
+                                </div>
+                                <span class="text-muted">{{agentTable.MobliePhone}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <div class="text-success">
+                                    <h6 class="my-0">创建时间:</h6>
+
+                                </div>
+                                <span class="text-success">{{agentTable.CreateTime.substring(0,10)}}</span>
+                            </li>
+
+                        </ul>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updatePsw">修改密码</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#updateInfo">编辑信息</button>
+                            </div>
+                            <small class="text-muted">个人版面</small>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-        </main>
+            @*可以在这里添加一些日志，任务列表*@
 
         @*修改密码模态框*@
         <!-- Modal -->
@@ -90,6 +117,52 @@
             </div>
         </div>
 
+        @*修改信息模态框*@
+        <!-- Modal -->
+        <div class="modal fade" id="updateInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">修改信息</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @*手机号*@
+                    <div class="modal-body">
+                        <div class="col-auto">
+                            <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">手机号</div>
+                                </div>
+                                <input type="password" class="form-control" v-model="phone" placeholder="Phone">
+                            </div>
+                        </div>
+                        @*邮箱*@
+                        <div class="col-auto">
+                            <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">邮箱号</div>
+                                </div>
+                                <input type="email" class="form-control" v-model="email" placeholder="Email">
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="alert alert-danger" role="alert">
+                        {{msg}}
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" v-on:click="updateInfoSubmir()">确定修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
     <script>
         new Vue({
@@ -99,17 +172,29 @@
                 "agentPassWord" : "",
                 "newPassWord" : "",
                 "againPassWord": "",
-                "msg":""
+                "msg": "",
+                "email": "",
+                 "phone" : ""
             },
             created: function () {
-                $.ajax({
-                    url: "/AgentInfo/QryAgentInfo",
-                    dataType: 'json'
-                }).then((data) => {
-                    this.agentTable = data.rows;
-                });
+                this.onLoadData();
             },
             methods: {
+
+                onLoadData() {
+                    $.ajax({
+                        url: "/AgentInfo/QryAgentInfo",
+                        dataType: 'json'
+                    }).then((data) => {
+                        console.log(data)
+                        this.agentTable = data.rows;
+                        //填充页面模态框信息
+                        this.phone = this.agentTable.MobliePhone;
+                        this.email = this.agentTable.Email;
+                    });
+                },
+
+                //修改密码
                 updatePswSubmir() {
                     console.log(this.agentTable)
                     if (this.agentPassWord !== this.agentTable.AgentPassword) {
@@ -127,11 +212,40 @@
                             dataType: 'json'
                         }).then((data) => {
                             if (data.success) {
-
+                                alert("修改成功");
+                                this.onLoadData();
+                            } else {
+                                alert("修改失败请联系管理员")
                             }
+                            $('#updatePsw').modal('hide')
                         });
-
+                        
                     }
+                    this.msg = "";
+                },
+                //修改信息
+                updateInfoSubmir() {
+
+                   
+
+                    const param = {
+                        "agent_mp": this.phone,
+                        "agent_email": this.email
+                    }
+                    $.ajax({
+                        url: "/Home/Update",
+                        method: "post",
+                        data: param,
+                        dataType: "json"
+                    }).then((data) => {
+                        if (data.success) {
+                            alert("修改成功");
+                            this.onLoadData();
+                        } else {
+                            alert("修改失败请联系管理员")
+                        }
+                    });
+                    $('#updateInfo').modal('hide');
                 }
             }
         });

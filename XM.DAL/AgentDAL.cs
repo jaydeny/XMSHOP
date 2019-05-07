@@ -363,11 +363,20 @@ namespace XM.DAL
         /// </summary>
         /// <param name="paras"></param>
         /// <returns></returns>
-        public string QryGoods(Dictionary<string, object> paras)
+        public string QryGoods(Dictionary<string, object> paras, out int iCount)
         {
-            var s = Query("select a.* from v_goods_list a left join tbagoods b on a.GoodsID=b.goods_id where b.id is null", paras);
-            var iCount = QuerySingle<int>("select count(*) from v_goods_list a left join tbagoods b on a.GoodsID=b.goods_id where b.id is null", paras);
-            string retData = JsonConvert.SerializeObject(new {total = iCount, rows = s });
+            WhereBuilder builder = new WhereBuilder();
+            builder.FromSql = "v_goods_list a left join tbagoods b on a.GoodsID=b.goods_id";
+            GridData grid = new GridData()
+            {
+                PageIndex = Convert.ToInt32(paras["pi"]),
+                PageSize = Convert.ToInt32(paras["pageSize"]),
+                SortField = paras["sort"].ToString()
+            };
+            builder.AddWhereAndParameter(paras, "goods_id", "a.id", "in", "null");
+
+            var s = SortAndPage(builder, grid, out iCount, "a.* ");
+            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
             return retData;
         }
         #endregion
