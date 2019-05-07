@@ -11,16 +11,20 @@ $(function () {
             success: function (data) {
                 console.log(data);
                 $("#form1").formSerialize(data);
-                $("#user_AN").attr('disabled', 'disabled');
+                $("#UserAccountName").attr('disabled', 'disabled');
             }
         });
     }
 });
 
 function initControl() {
+    // 获取角色
     $.get("/Role/GetALLRoleInfo", function (data) {
-        console.log(data);
-    })
+        $("#role_id").html("");
+        $.each(data.rows, function (i, n) {
+            $("#role_id").append("<option value='"+n.Id+"'>" + n.Name+"</option>");
+        });
+    },"json")
 }
 function submitForm() {
     if (!$('#form1').formValid()) {
