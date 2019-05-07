@@ -29,7 +29,7 @@ var listGoods
 
 // 渲染商品
 var goodsRender = function (parameter) {
-    $.post("/vip/qryagoods", parameter,function (data) {
+    $.post("/Product/QryAgoods", parameter,function (data) {
         if (data.total > 0) {
             listGoods = data.rows;
             $.each(data.rows, function (i, n) {
@@ -38,11 +38,11 @@ var goodsRender = function (parameter) {
         }
     },"json")
 }
-
+// 立即下单
 $(".goods-exhibition").on("click", ".p-button", function () {
     var obj = listGoods[$(this).data("id")];
-    console.log(obj);
-    $.post("/vip/buy", { goods_id: obj.goods_id, buy_count: 1, order_total: obj.price, buy_total: obj.price * 1 }, function (data) {
+    //console.log(obj);
+    $.post("/Shop/buy", { goods_id: obj.goods_id, buy_count: 1, order_total: obj.price, buy_total: obj.price * 1 }, function (data) {
         if (data.success) {
             alert(data.msg);
         } else {
@@ -60,7 +60,7 @@ function getQueryVariable(variable) {
     }
     return (false);
 }
-
+// 初始商品
 goodsRender();
 // 请求商品
 var search = getQueryVariable("search");

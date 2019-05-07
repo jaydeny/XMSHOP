@@ -1,6 +1,6 @@
 ﻿$("#btnEmail").click(function () {
     var an = $.trim($("#name").val());
-    $.post("/vip/FoundPwd", { "vip_AN": an },
+    $.post("/Home/FoundPwd", { "vip_AN": an },
         function (data) {
             console.log(data.success);
             if (data.success) {

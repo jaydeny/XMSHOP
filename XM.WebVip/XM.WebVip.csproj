@@ -202,6 +202,7 @@
     <Content Include="img\slide_5.jpg" />
     <Content Include="img\slide_6.jpg" />
     <Content Include="Scripts\vip\bounced.js" />
+    <Content Include="Scripts\vip\RequestUrl.js" />
     <Content Include="Scripts\vip\vip%40AgoodsList.js" />
     <Content Include="Scripts\vip\jqueryAjax.js" />
     <Content Include="Scripts\vip\login.js" />
