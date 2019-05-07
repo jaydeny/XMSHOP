@@ -12,7 +12,7 @@ $("#btnUpdate").click(function () {
     var email = $.trim($("#email").val());
     var tel = $.trim($("#tel").val());
     var an = $.trim($("#name").val());
-    $.post("/vipinfo/Update", { "AN":an,"vip_mp": tel, "vip_Email": email }, function (data) {
+    $.post("/Home/Update", { "AN":an,"vip_mp": tel, "vip_Email": email }, function (data) {
         alert(data.msg);
     },"json");
 });
