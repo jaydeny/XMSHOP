@@ -7,7 +7,6 @@ using XM.Model;
 using System.Web.SessionState;
 using XM.Web.Domain;
 using Newtonsoft.Json;
-using System.Diagnostics;
 
 namespace XM.Web.Controllers
 {
@@ -72,7 +71,7 @@ namespace XM.Web.Controllers
         /// 获取所有用户信息
         /// </summary>
         /// <returns></returns>
-       // [PermissionFilter("User", "Index")]
+        [PermissionFilter("User", "Index")]
 
         public ActionResult GetAllUserInfo()
         {
@@ -114,8 +113,7 @@ namespace XM.Web.Controllers
         #region 添加或修改用户信息方法
         public ActionResult Save()
         {
-            Debug.WriteLine(Request["id"].ToString() == "");
-            int id = int.Parse(Request["id"]);
+            int id = Request["id "] == null ? 0 : Convert.ToInt32(Request["id"]);
             string userid = Request["UserAccountName"];
             string mobilephone = Request["UserMobilePhone"];
             string email = Request["UserEmail"];

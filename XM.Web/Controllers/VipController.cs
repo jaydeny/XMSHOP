@@ -67,7 +67,7 @@ namespace XM.Web.Controllers
         #region  添加/修改操作
         public ActionResult Save()
         {
-            int id = Convert.ToInt32(Request["id"]);
+            int id = Request["id "] == null ? 0 : Convert.ToInt32(Request["id"]);
             string userid = Request["VipAccountName"];
             string mobilephone = Request["VipMobilePhone"];
             string email = Request["VipEmail"];
