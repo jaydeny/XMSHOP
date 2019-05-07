@@ -42,6 +42,27 @@ namespace XM.Web.Controllers
             return Content(JsonConvert.SerializeObject(data));
         }
 
+        /// <param name="totalCount">总记录数</param>
+        /// <param name="rows">数据</param>
+        /// <param name="page">当前页</param>
+        /// <param name="pageSize">页面条数</param>
+        /// <returns></returns>
+        protected ContentResult PagerData(int totalCount, object rows, int page, int pageSize)
+        {
+            var data = new
+            {
+                // 数据
+                rows = rows,
+                // 总页数
+                total = (int)Math.Ceiling((double)totalCount / pageSize),
+                // 当前页
+                page = page,
+                // 总记录数
+                records = totalCount
+            };
+            return Content(JsonConvert.SerializeObject(data));
+        }
+
         protected ContentResult OperationReturn(bool _success, string _msg = "")
         {
             return Content(JsonConvert.SerializeObject(new { msg = _msg != "" ? _msg : (_success ? "操作成功" : "操作失败"), success = _success }));
