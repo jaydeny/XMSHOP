@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,12 +11,15 @@ namespace XM.Web.Controllers
 {
     public class GoodsController : BaseController
     {
+        #region 获取所有商品页面
         [PermissionFilter]
         // GET: Goods
         public ActionResult Index()
         {
             return View();
         }
+        #endregion
+        #region 获取所有商品信息
         [PermissionFilter("Goods", "Index")]
         public ActionResult GetAllGoodsInfo()
         {
@@ -45,38 +49,15 @@ namespace XM.Web.Controllers
             var goods = DALUtility.Goods.QryGoods<GoodsEntity>(paras, out totalCount);
             return PagerData(totalCount, goods);
         }
-
-        public ActionResult AddGoods()
+        #endregion
+        #region  添加/修改页面
+        public ActionResult Form()
         {
-            return View("_AddGoods");
+            return View("_Form");
         }
-        [PermissionFilter("Goods", "Index", Operationype.Add)]
-        /// <summary>
-        /// 新增 产品
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult GoodsAdd()
-        {
-            return SaveGoods();
-
-        }
-
-        public ActionResult EditGoods()
-        {
-            return View("_EditGoods");
-        }
-        [PermissionFilter("Goods", "Index", Operationype.Update)]
-        /// <summary>
-        /// 编辑 产品
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult GoodsEdit()
-        {
-
-            return SaveGoods();
-        }
-
-        private ActionResult SaveGoods()
+        #endregion
+        #region  添加/修改商品信息
+        public ActionResult Save()
         {
             int id = Convert.ToInt32(Request["id"]);
             string goodsName = Request["goods_name"];
@@ -102,6 +83,8 @@ namespace XM.Web.Controllers
             return OperationReturn(DALUtility.Goods.Save(paras) > 0);
 
         }
+        #endregion
+        #region  删除商品
         [PermissionFilter("Goods", "Index", Operationype.Delete)]
         public ActionResult DelGoodsByIDs()
         {
@@ -115,5 +98,13 @@ namespace XM.Web.Controllers
                 return OperationReturn(false,"删除失败");
             }
         }
+        #endregion
+        #region 获取单个商品信息
+        public ActionResult GetFormJson(string id)
+        {
+            var vip = DALUtility.Goods.QryGoodsInfo(id);
+            return Content(JsonConvert.SerializeObject(vip));
+        }
+        #endregion
     }
 }

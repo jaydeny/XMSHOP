@@ -13,5 +13,6 @@ namespace XM.IDAL
         bool DeleteRole(string id);
         IEnumerable<T> QryRole<T>(Dictionary<string, object> paras, out int iCount);
         int Save(Dictionary<string, object> paras);
+        RoleEntity GetRoleById(string id);
     }
 }

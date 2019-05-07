@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -9,9 +10,14 @@ using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
-    
+    /// <summary>
+    /// 创建人：朱茂琛
+    /// 创建时间：2019/4/22
+    /// VIP管理
+    /// </summary>
     public class VipController : BaseController
     {
+        #region 所有VIP页面
         [PermissionFilter]
         // GET: Vip
         public ActionResult Index()
@@ -19,6 +25,8 @@ namespace XM.Web.Controllers
 
             return View();
         }
+        #endregion
+        #region 获取所有vip信息
         [PermissionFilter("Vip","Index")]
         public ActionResult GetAllUserInfo()
         {
@@ -48,38 +56,16 @@ namespace XM.Web.Controllers
             paras["order"] = order;
             var users = DALUtility.Vip.QryUsers<VipEntity>(paras, out totalCount);
             return PagerData(totalCount, users);
-        } 
-
-        public ActionResult VipAdd()
-        {
-            return View("_VipAdd");
         }
-        [PermissionFilter("Vip","Index",Operationype.Add)]
-        /// <summary>
-        /// 新增 用户
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult AddUser()
+        #endregion
+        #region  添加/修改页面
+        public ActionResult Form()
         {
-            return SaveUser();
-
+            return View("_Form");
         }
-        public ActionResult VipEdit()
-        {
-            return View("_VipEdit ");
-        }
-        [PermissionFilter("Vip", "Index", Operationype.Update)]
-        /// <summary>
-        /// 编辑 用户
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult EditUser()
-        {
-
-            return SaveUser();
-        }
-
-        private ActionResult SaveUser()
+        #endregion
+        #region  添加/修改操作
+        public ActionResult Save()
         {
             int id = Convert.ToInt32(Request["id"]);
             string userid = Request["vip_AN"];
@@ -132,6 +118,8 @@ namespace XM.Web.Controllers
                 
             }
         }
+        #endregion
+        #region 删除操作
         [PermissionFilter("Vip", "Index", Operationype.Delete)]
         public ActionResult DelUserByIDs()
         {
@@ -145,5 +133,13 @@ namespace XM.Web.Controllers
                 return OperationReturn(false,"删除失败");
             }
         }
+        #endregion
+        #region  获取VIP个人信息
+        public ActionResult GetFormJson(string id)
+        {
+            var vip = DALUtility.Vip.GetUserByUserId(id);
+            return Content(JsonConvert.SerializeObject(vip));
+        }
+        #endregion
     }
 }
