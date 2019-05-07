@@ -401,7 +401,7 @@ namespace XM.DAL
                 PageIndex = Convert.ToInt32(paras["pi"]),
                 PageSize = Convert.ToInt32(paras["pageSize"]),
                 SortField = paras["sort"].ToString(),
-                SortDirection = paras["order"].ToString()
+                SortDirection = paras["order"].ToString();
             };
             builder.AddWhereAndParameter(paras, "startTime", "order_date", ">", "@startTime");
             builder.AddWhereAndParameter(paras, "endTime", "order_date", "<", "@endTime");
