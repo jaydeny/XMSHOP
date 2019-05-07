@@ -48,7 +48,7 @@
                 <img class="card-img-top" src="http://cf-attach.i-sogi.com/cn/article/img/201312/2013121610401667595.jpg" style="height : 165px" alt="加载失败">
                 <div class="card-body">
                     <h5 class="card-title">{{config.cardTitle}} <span>{{obj.GoodsName}}</span> </h5>
-                    <p class="card-text">{{config.Msg}} <span>{{obj.GoodsIntro}}</span> </p>
+                    <p class="card-text"><span>{{obj.GoodsIntro}}</span> </p>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">{{config.cardGoodsTime}} <span>{{obj.GoodsCreateTime.substring(0,10)}}</span> </li>
@@ -69,11 +69,21 @@
                 <img class="card-img-top" src="http://cf-attach.i-sogi.com/cn/article/img/201312/2013121610401667595.jpg" style="height : 165px" alt="加载失败">
                 <div class="card-body">
                     <h5 class="card-title">{{config.cardTitle}} <span>{{obj.goods_name}}</span> </h5>
-
+                    <p class="card-text"><span>{{obj.goods_intro}}</span> </p>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">{{config.cardGoodsTime}} <span>{{obj.up_time.substring(0,10)}}</span> </li>
-                    <li class="list-group-item">{{config.cardGoodsReferencePrice}} <span>{{obj.price}}</span> </li>
+                    <li class="list-group-item">{{config.cardGoodsPrice}} <span>{{obj.price}}</span> </li>
+                    <li class="list-group-item">
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-secondary" v-on:click="AlertAgentGoods(index)">编辑信息</button>
+                            </div>
+
+                        </div>
+
+                    </li>
                 </ul>
             </div>
             @*分页*@
@@ -98,8 +108,8 @@
                         </a>
                     </li>
                     <li class="page-item"><a class="page-link" href="#">共 {{myGoodsCountFilter}} 页</a></li>
-                    <li class="page-item"><span class="page-link"> 跳转到 <input type="number" v-model="pageSize" style="width:55px"/>页 </span> </li>
-                    <li class="page-item"><a class="page-link"  href="#">确定</a></li>
+                    <li class="page-item"><span class="page-link"> 跳转到 <input type="number" v-model="pageSize" style="width:55px" />页 </span> </li>
+                    <li class="page-item"><a class="page-link" href="#">确定</a></li>
                 </ul>
             </nav>
 
@@ -127,6 +137,55 @@
             </div>
         </div>
 
+        @*代理商品信息修改模态框*@
+        <!-- Modal -->
+        <div class="modal fade" id="AlertAgentGoods" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">{{config.AlertAgentGoodsModel.modalTitle}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-auto">
+                            <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">名称</div>
+                                </div>
+                                <input type="text" class="form-control" v-model="editName" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">描述</div>
+                                </div>
+                                <input type="text" class="form-control" v-model="editIntro" placeholder="Describe">
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">定价</div>
+                                </div>
+                                <input type="number" class="form-control" v-model="editPrice" placeholder="Price">
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{config.AlertAgentGoodsModel.modalCloseBtn}}</button>
+                        <button type="button" class="btn btn-primary" v-on:click="Goods_Alert_Submir()">{{config.AlertAgentGoodsModel.modalSubmitBtn}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
     <script>
         //我们尝试使用VUE进行开发
@@ -149,7 +208,12 @@
                myGoodsShow: false,
                 //我的商品
                myGoods: [],
-               fromData :[]
+               fromData: [],
+               //更改商品
+               "editPorduct": [],
+               "editName": "",
+               "editIntro": "",
+               "editPrice":""
             },
            created: function () {
                 //加载配置文件，将数据填充
@@ -345,6 +409,47 @@
                        "rows": this.count
                    }
                    this.onloadMyGoodsData(this.config.goodsUrl.myGoods, param);
+               },
+               //修改代理商品信息
+               AlertAgentGoods(index) {
+                   //获取对应的代理商品信息
+                   const product = this.myGoods[index];
+                   //存储对应代理信息，方便后面进行修改的读取
+                   this.editPorduct = product;                
+                   this.editName = product.goods_name;
+                   this.editIntro = product.goods_intro;
+                   this.editPrice = product.price;
+                   $('#AlertAgentGoods').modal('show');
+               },
+               Goods_Alert_Submir() {
+                   //定义参数集
+                   const param = {
+                       "Agoods_id": this.editPorduct.id,
+                       "goods_id": this.editPorduct.goods_id,
+                       "goods_name": this.editName,
+                       "price": this.editPrice,
+                       "status_id": 1,
+                       "goods_intro": this.editIntro
+                   }
+                   //发生请求
+                   $.ajax({
+                       url: "/Product/MakeGoods",
+                       data: param,
+                       dataType: "json"
+                   }).then((data) => {
+                       if (data.success) {
+                           alert(data.msg);
+                       } else {
+                           alert(data.msg)
+                       }
+                       const param = {
+                           "page": this.pageSize,
+                           "rows": this.count
+                       }
+                       this.onloadMyGoodsData(this.config.goodsUrl.myGoods, param);
+                       
+                   })
+                   $('#AlertAgentGoods').modal('hide');
                }
            }
         });
