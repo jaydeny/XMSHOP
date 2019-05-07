@@ -59,6 +59,34 @@
                 </tbody>
             </table>
 
+            @*分页*@
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+
+                    <li class="page-item"><span class="page-link"> 显示 <input type="number" style="width:55px" v-model="rows" />条数据 </span> </li>
+
+                    <li class="page-item" v-on:click="before()" >
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">上一页</span>
+                        </a>
+                    </li>
+
+
+
+                    <li class="page-item" v-on:click="end()">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only" v-on:click="end()">下一页</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">共 {{total}} 页</a></li>
+                    <li class="page-item"><span class="page-link"> 跳转到 <input type="number" style="width:55px" v-model="page" />页 </span> </li>
+                    <li class="page-item"><a class="page-link"v-on:click="btn_sub()"  href="#">确定</a></li>
+                </ul>
+            </nav>
+
+
         </main>
     </div>
 
@@ -69,7 +97,14 @@
                 "config": {},
                 "dataTable": [],
                 "search": '',
-                "orderType" : '0'
+                "orderType": '0',
+                //行数
+                "rows": 10,
+                //当前页数
+                "page": 1,
+                //总页数
+                "total" : 0
+               
             },
             created: function () {
                 ////请求配置文件去拿数据
@@ -108,8 +143,10 @@
                     $.ajax({
                         url: url,
                         method: "get",
+                        data : param,
                         dataType: 'json'
                     }).then((data) => {
+                        this.total = Math.ceil(data.total / this.rows);
                         this.dataTable = data.rows;
                     });
                 },
@@ -142,7 +179,44 @@
                     }
                     //发送请求获取对应的数据
                     this.onloadData(url,param);
+                },
+                //上一页
+                before() {
+                    const page = this.page;
+                    if (page <= 1) {
+                        alert("已经是第一页了")
+                    } else {
+                        this.page -= 1;
+                        const param = {
+                            "page": this.page,
+                            "rows": this.rows
+                        }
+                        this.onloadData(this.config.urlList.QryReportForm, param);
+                    }
+                },
+                //下一页
+                end() {
+                    const page = this.page;
+                    if (page >= this.total) {
+                        alert("已经是最后一页了")
+                    } else {
+                        this.page += 1;
+                        const param = {
+                            "page": this.page,
+                            "rows": this.rows
+                        }
+                        this.onloadData(this.config.urlList.QryReportForm, param);
+                    }
+                },
+                //提交页
+                btn_sub() {
+                    const param = {
+                        "page": this.page,
+                        "rows": this.rows
+                    }
+                    this.onloadData(this.config.urlList.QryReportForm, param);
                 }
+
             }
         });
 

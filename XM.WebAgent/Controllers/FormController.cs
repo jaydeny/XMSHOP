@@ -39,7 +39,7 @@ namespace XM.WebAgent.Controllers
             string sort = Request["sort"] == null ? "a.order_date" : Request["sort"];
             string order = Request["order"] == null ? "desc" : Request["order"];
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
-            int pagesize = Request["rows"] == null ? 20 : Convert.ToInt32(Request["rows"]);
+            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
 
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("pi", pageindex);

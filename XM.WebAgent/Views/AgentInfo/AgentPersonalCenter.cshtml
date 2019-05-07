@@ -106,9 +106,7 @@
                     url: "/AgentInfo/QryAgentInfo",
                     dataType: 'json'
                 }).then((data) => {
-                    
                     this.agentTable = data.rows;
-                    console.log(data);
                 });
             },
             methods: {
@@ -128,7 +126,9 @@
                             data: param,
                             dataType: 'json'
                         }).then((data) => {
-                            
+                            if (data.success) {
+
+                            }
                         });
 
                     }

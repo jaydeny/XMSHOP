@@ -303,7 +303,7 @@ namespace XM.DAL
         /// 2:MB重复
         /// 3:Email重复
         /// </returns>
-        public int checkANandMBandEmail(Dictionary<string, object> paras)
+        public int CheckANandMBandEmail(Dictionary<string, object> paras)
         {
             return QuerySingle<int>("P_tbagent_checkANandMBandEmail", paras, CommandType.StoredProcedure);
         }
@@ -366,7 +366,8 @@ namespace XM.DAL
         public string QryGoods(Dictionary<string, object> paras)
         {
             var s = Query("select a.* from v_goods_list a left join tbagoods b on a.GoodsID=b.goods_id where b.id is null", paras);
-            string retData = JsonConvert.SerializeObject(new { rows = s });
+            var iCount = QuerySingle<int>("select count(*) from v_goods_list a left join tbagoods b on a.GoodsID=b.goods_id where b.id is null", paras);
+            string retData = JsonConvert.SerializeObject(new {total = iCount, rows = s });
             return retData;
         }
         #endregion
@@ -421,7 +422,7 @@ namespace XM.DAL
         /// </summary>
         /// <param name="paras"></param>
         /// <returns></returns>
-        public int saveAgent(Dictionary<string, object> paras)
+        public int SaveAgent(Dictionary<string, object> paras)
         {
             return StandardInsertOrUpdate("tbagent", paras);
         }

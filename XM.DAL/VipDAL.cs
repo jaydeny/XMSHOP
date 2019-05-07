@@ -407,7 +407,6 @@ namespace XM.DAL
             builder.AddWhereAndParameter(paras, "endTime", "order_date", "<", "@endTime");
             builder.AddWhereAndParameter(paras, "agent_AN");
             builder.AddWhereAndParameter(paras, "vip_AN");
-
             var s = SortAndPage(builder, grid, out iCount, "a.* , b.address_name");
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
             return retData;

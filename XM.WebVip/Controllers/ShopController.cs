@@ -91,6 +91,7 @@ namespace XM.WebVip.Controllers
             param.Add("pi", pageindex);
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
+            param.Add("order", order);
             param.Add("agent_AN", Session["Agent_AN"].ToString());
             param.Add("vip_AN", Session["AN"].ToString());
 

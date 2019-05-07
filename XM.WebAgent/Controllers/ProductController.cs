@@ -103,6 +103,7 @@ namespace XM.WebAgent.Controllers
             var goods = DALUtility.Agent.QryGoods(paras);
             return Content(goods);
         }
+
         #endregion
         
     }

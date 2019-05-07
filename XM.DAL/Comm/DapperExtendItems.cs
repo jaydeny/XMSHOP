@@ -57,7 +57,7 @@ namespace XM.DAL
         /// 
         /// </summary>
         /// <param name="paras">当前参数集</param>
-        /// <param name="key">paras[key]中的key</param>
+        /// <param name="key">paras[key]中的key</param>  
         /// <param name="dbField">DB字段</param>
         /// <param name="operatorTag">运算符(= > < >= like ……)</param>
         /// <param name="obj"></param>

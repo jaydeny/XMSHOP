@@ -14,8 +14,9 @@ $(".vipinfo-nav a").click(function () {
     }
     return false;
 });
+// 进入个人信息页
 $(".vipinfo-nav .title").click(function () {
-    window.location.href = "/vip/vipinfopage";
+    window.location.href = "/vipinfo/vipinfopage";
 });
 // 订单模板
 var orderTemplate = function (obj) {
@@ -23,15 +24,16 @@ var orderTemplate = function (obj) {
 }
 
 // 查询订单
-$.post("/vip/QryAgoods", function (data) {
+$.post("/Shop/QryOrder", function (data) {
+    console.log(data);
     if (data.total > 0) {
         $("#empty_order").addClass("hidden");
         $("#order_box").removeClass("hidden");
-        $.post("/vip/qryorder", function (data) {
+       // $.post("/shop/QryOrder", function (data) {
             $.each(data.rows, function (i, n) {
                 $(".order-list>ul").append(orderTemplate(n));
             });
-        },"json")
+       // },"json")
 
     }
     else {

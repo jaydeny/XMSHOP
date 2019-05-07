@@ -1,6 +1,6 @@
 ﻿// 充值
 $(".vipinfo").on("click", "#top-up", function () {
-    $.post("/vip/Recharge", { recharge_price: $(lastRechargeBtn).text() }, function (data) {
+    $.post("/vipinfo/Recharge", { recharge_price: $(lastRechargeBtn).text() }, function (data) {
         alert(data.msg);
     }, "json")
 })
