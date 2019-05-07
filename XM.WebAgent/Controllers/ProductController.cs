@@ -100,7 +100,7 @@ namespace XM.WebAgent.Controllers
             paras["goods_name"] = goodsName;
             paras["sort"] = sort;
             paras["order"] = order;
-            var goods = DALUtility.Agent.QryGoods(paras);
+            var goods = DALUtility.Agent.QryGoods(paras, out int ICount);
             return Content(goods);
         }
 
