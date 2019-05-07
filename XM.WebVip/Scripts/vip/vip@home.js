@@ -24,7 +24,7 @@ window.onload = function () {
             if (data.success) {
                 // 清空数据
                 window.setTimeout(function () {
-                    window.location.href = "/vip/Index";
+                    window.location.href = "/Home/Index";
                 }, 500);
             }
         }, "json")
