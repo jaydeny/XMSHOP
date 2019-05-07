@@ -29,13 +29,13 @@ namespace XM.Web.Controllers
             //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-            string goodsName = Request["goods_name"] == null ? "" : Request["goods_name"];
-            string goodsIntro = Request["goods_intro"] == null ? "" : Request["goods_intro"];
-            decimal goodsPrice = Request["goods_CP"] == null ? 1 : Convert.ToDecimal(Request["goods_CP"]);
-            string createBy = Request["goods_BY"] == null ? "" : Request["goods_BY"];
-            string createDateTime = Request["goods_CDT"] == null ? "" : Request["goods_CDT"];
-            string goodsPic = Request["goods_pic"] == null ? "" : Request["goods_pic"];
-            int typeId = Request["type_id"] == null ? 1 : Convert.ToInt32(Request["type_id"]);
+            string goodsName = Request["GoodsName"] == null ? "" : Request["GoodsName"];
+            string goodsIntro = Request["GoodsIntro"] == null ? "" : Request["GoodsIntro"];
+            decimal goodsPrice = Request["GoodsPrice"] == null ? 1 : Convert.ToDecimal(Request["GoodsPrice"]);
+            string createBy = Request["GoodsCreateBy"] == null ? "" : Request["GoodsCreateBy"];
+            string createDateTime = Request["GoodsCreateTime"] == null ? "" : Request["GoodsCreateTime"];
+            string goodsPic = Request["GoodsPicture"] == null ? "" : Request["GoodsPicture"];
+            int typeId = Request["GoodsType"] == null ? 1 : Convert.ToInt32(Request["GoodsType"]);
 
 
 
@@ -60,12 +60,12 @@ namespace XM.Web.Controllers
         public ActionResult Save()
         {
             int id = Convert.ToInt32(Request["id"]);
-            string goodsName = Request["goods_name"];
-            string goodsIntro = Request["goods_intro"];
-            decimal goodsPrice = Convert.ToDecimal(Request["goods_CP"]);
-            string createBy = Request["goods_BY"];
-            string goodsPic = Request["goods_pic"];
-            int typeId = Convert.ToInt32(Request["type_id"]);
+            string goodsName = Request["GoodsName"];
+            string goodsIntro = Request["GoodsIntro"];
+            decimal goodsPrice = Convert.ToDecimal(Request["GoodsPrice"]);
+            string createBy = Request["GoodsCreateBy"];
+            string goodsPic = Request["GoodsPicture"];
+            int typeId = Convert.ToInt32(Request["GoodsType"]);
 
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["id"] = id;

@@ -81,11 +81,11 @@ namespace XM.Web.Controllers
             //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-            string userAn = Request["user_AN"] == null ? "" : Request["user_AN"];
-            string userMp = Request["user_mp"] == null ? "" : Request["user_mp"];
-            string userEmail = Request["user_email"] == null ? "" : Request["user_email"];
-            int statusId = Request["status_id"] == null ? 1 : Convert.ToInt32(Request["status_id"]);
-            int roleid = Request["role_id "] == null ? 0 : Convert.ToInt32(Request["role_id"]);
+            string userAn = Request["UserAccountName"] == null ? "" : Request["UserAccountName"];
+            string userMp = Request["UserMobliePhone"] == null ? "" : Request["UserMobliePhone"];
+            string userEmail = Request["UserEmail"] == null ? "" : Request["UserEmail"];
+            int statusId = Request["StatusID"] == null ? 1 : Convert.ToInt32(Request["StatusID"]);
+            int roleid = Request["RoleID "] == null ? 0 : Convert.ToInt32(Request["RoleID"]);
 
 
 
@@ -114,11 +114,11 @@ namespace XM.Web.Controllers
         public ActionResult Save()
         {
             int id = Convert.ToInt32(Request["id"]);
-            string userid = Request["user_AN"];
-            string mobilephone = Request["user_mp"];
-            string email = Request["user_email"];
-            int roleID = Convert.ToInt32(Request["role_id"]);
-            int statusID = Convert.ToInt32(Request["status_id"]);
+            string userid = Request["UserAccountName"];
+            string mobilephone = Request["UserMobilePhone"];
+            string email = Request["UserEmail"];
+            int roleID = Convert.ToInt32(Request["RoleID"]);
+            int statusID = Convert.ToInt32(Request["StatusID"]);
 
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["id"] = id;

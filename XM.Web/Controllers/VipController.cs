@@ -36,12 +36,12 @@ namespace XM.Web.Controllers
             //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-            string userAn = Request["vip_AN"] == null ? "" : Request["vip_AN"];
-            string userMp = Request["vip_mp"] == null ? "" : Request["vip_mp"];
-            string userEmail = Request["vip_email"] == null ? "" : Request["vip_email"];
-            int statusId = Request["status_id"] == null ? 1 : Convert.ToInt32(Request["status_id"]);
-            string createDateTime = Request["vip_CDT"] == null ? "" : Request["vip_CDT"];
-            int agentId = Request["agent_id"] == null ? 1 : Convert.ToInt32(Request["agent_id"]);
+            string userAn = Request["VipAccountName"] == null ? "" : Request["VipAccountName"];
+            string userMp = Request["VipMobliePhone"] == null ? "" : Request["VipMobliePhone"];
+            string userEmail = Request["VipEmail"] == null ? "" : Request["VipEmail"];
+            int statusId = Request["StatusID"] == null ? 1 : Convert.ToInt32(Request["StatusID"]);
+            string createDateTime = Request["CreateTime"] == null ? "" : Request["CreateTime"];
+            int agentId = Request["AgentID"] == null ? 1 : Convert.ToInt32(Request["AgentID"]);
             
 
 
@@ -68,11 +68,11 @@ namespace XM.Web.Controllers
         public ActionResult Save()
         {
             int id = Convert.ToInt32(Request["id"]);
-            string userid = Request["vip_AN"];
-            string mobilephone = Request["vip_mp"];
-            string email = Request["vip_email"];
-            int statusID = Convert.ToInt32(Request["status_id"]);
-            int agentId = Convert.ToInt32(Request["agent_id"]);
+            string userid = Request["VipAccountName"];
+            string mobilephone = Request["VipMobilePhone"];
+            string email = Request["VipEmail"];
+            int statusID = Convert.ToInt32(Request["StatusID"]);
+            int agentId = Convert.ToInt32(Request["AgentID"]);
 
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["id"] = id;
