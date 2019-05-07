@@ -87,11 +87,10 @@
                     </li>
                 </ul>
             </div>
-            @*分页*@
-            <nav aria-label="Page navigation example">
+            @*代理分页*@
+            <nav aria-label="Page navigation example" v-show="!myGoodsShow">
                 <ul class="pagination">
-
-                    <li class="page-item"><span class="page-link"> 显示 <input type="number" style="width:55px" v-model="count" />条数据 </span> </li>
+                    <li class="page-item"><span class="page-link"> 显示 <input type="number" style="width:55px" v-model="count"/>条数据 </span> </li>
 
                     <li class="page-item">
                         <a class="page-link" v-on:click="before()" href="#" aria-label="Previous">
@@ -99,9 +98,6 @@
                             <span class="sr-only">上一页</span>
                         </a>
                     </li>
-
-
-
                     <li class="page-item" v-on:click="end()">
                         <a class="page-link" href="#" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
@@ -113,7 +109,6 @@
                     <li class="page-item"><a class="page-link" href="#">确定</a></li>
                 </ul>
             </nav>
-
         </main>
 
         @*上架模态框*@
@@ -222,11 +217,11 @@
                myGoods: [],
                fromData: [],
                //更改商品
-               "editPorduct": [],
-               "editName": "",
-               "editIntro": "",
-               "editPrice": "",
-               "editStatus" : ""
+               editPorduct: [],
+               editName: "",
+               editIntro: "",
+               editPrice: "",
+               editStatus : ""
             },
            created: function () {
                 //加载配置文件，将数据填充
