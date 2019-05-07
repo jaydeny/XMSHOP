@@ -61,27 +61,40 @@ namespace XM.Web.Controllers
         #region  添加/修改代理信息
         public ActionResult Save()
         {
-            int id = Request["id "] == null ? 0 : Convert.ToInt32(Request["id"]);
-            string userid = Request["agent_AN"];
-            string mobilephone = Request["agent_mp"];
-            string email = Request["agent_email"];
-            int statusID = Convert.ToInt32(Request["status_id"]);
+            int id = Request["id"] == null ? 0 : Convert.ToInt32(Request["id"]);
+            string userid = Request["AgentAccountName"];
+            string mobilephone = Request["MobliePhone"];
+            string email = Request["Email"];
+            int statusID = Convert.ToInt32(Request["StatusID"]);
 
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["id"] = id;
             paras["agent_AN"] = userid;
             paras["agent_mp"] = mobilephone;
             paras["agent_email"] = email;
-
+            paras["status_id"] = statusID;
 
             int iCheck = DALUtility.Agent.CheckUseridAndEmail(paras);
+            ContentResult result = OperationReturn(true);
             if (iCheck > 0)
             {
-                return OperationReturn(false, iCheck == 1 ? "用户名重复" : "邮箱重复");
+                switch (iCheck)
+                {
+                    case 1:
+                        result = OperationReturn(false, "用户名重复");
+                        break;
+                    case 2:
+                        result = OperationReturn(false, "电话号码重复");
+                        break;
+                    case 3:
+                        result = OperationReturn(false, "邮箱重复");
+                        break;
+                }
+                return result;
             }
             else
             {
-                paras["status_id"] = statusID;
+                
                 if (id == 0)
                 {
                     paras["agent_pwd"] = "xm123456";
@@ -110,9 +123,9 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region 获取单个代理信息
-        public ActionResult GetFormJson(string id)
+        public ActionResult GetFormJson(int id)
         {
-            var agent = DALUtility.Agent.GetUserById(id);
+            var agent = DALUtility.Agent.GetUserByUserId(id);
             return Content(JsonConvert.SerializeObject(agent));
         }
         #endregion
