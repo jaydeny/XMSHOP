@@ -8,33 +8,34 @@ window.onload = function () {
     $("#vipLogin").click(function () {
         obj.width = "400px";
         obj.height = "400px";
-        obj.url = "/vip/Login";
+        obj.url = "/Home/Login";
         bouncedLogin(obj);
     });
     // 注册
     $("#vipRegistered").click(function () {
         obj.width = "400px";
         obj.height = "550px";
-        obj.url = "/vip/Signin";
+        obj.url = "/Home/Signin";
         bouncedLogin(obj);
     });
+    // 安全退出
     var safetyExit = function () {
-        $.get("/vip/RemoveSession", function (data, status, xhr) {
+        $.get("/Home/RemoveSession", function (data, status, xhr) {
             if (data.success) {
                 // 清空数据
                 window.setTimeout(function () {
-                    window.location.href = "/vip/Index";
+                    window.location.href = "/Home/Index";
                 }, 500);
             }
         }, "json")
     }
-    //退出
+    // 退出
     $("#vipExit").click(function () {
         safetyExit();
     });
-    //获取登录信息
+    // 获取登录信息
     var loginInfo = function () {
-        $.post("/vip/VipInfo", function (data) {
+        $.post("/vipinfo/VipInfo", function (data) {
             if (data.success) {
                 $("#vip_info_name").text($.parseJSON(data.data).rows.VipAccountName);
                 $("#onlogin_box").addClass("hidden");
@@ -48,7 +49,7 @@ window.onload = function () {
 
     // 进入商品赛选页面
     $(".home-menu").on("click",".screening-goods", function () {
-        window.location.href = "/vip/AgoodsList"
+        window.location.href = "/product/AgoodsList"
     });
 
     // 热销模板
@@ -57,14 +58,14 @@ window.onload = function () {
     }
 
     // 获取热销
-    $.post("/vip/HotGoods", function (data) {
+    $.post("/product/HotGoods", function (data) {
         $.each(data.rows, function (i, n) {
             $(".hot_melt ul").append(HotGoods(n));
         });
     },"json");
 
     //获取推存 
-    $.post("/vip/BoutiqueGoods", function (data) {
+    $.post("/product/BoutiqueGoods", function (data) {
         $.each(data.rows, function (i, n) {
             $(".quality_goods ul").append(HotGoods(n));
         });
@@ -73,11 +74,12 @@ window.onload = function () {
     // 初始化
     loginInfo();
 
+    // 商品查寻
     $("#btnSearch").click(function () {
         var search = $.trim($("#txt_search").val());
         if (search != "")
         {
-            window.location.href = "/vip/AgoodsList?search=" + search;
+            window.location.href = "/product/AgoodsList?search=" + search;
         }
     });
 }

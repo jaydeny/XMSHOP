@@ -24,7 +24,7 @@ $("#register").click(function () {
     };
     obj.width = "400px";
     obj.height = "550px";
-    obj.url = "/vip/Signin";
+    obj.url = "/Home/Signin";
     bouncedLogin(obj);
 })
 // 忘记密码弹框
@@ -34,7 +34,7 @@ $("#back").click(function () {
     };
     obj.width = "400px";
     obj.height = "300px";
-    obj.url = "/vip/FoundPwdPage";
+    obj.url = "/Home/FoundPwdPage";
     bouncedLogin(obj);
 })
 
@@ -49,7 +49,7 @@ $("#bntLogin").click(function () {
         $(".hint>p").html("密码不能为空。");
     }
     else {
-        $.post("/vip/login", { "AN": an, "pwd": pwd }, function (data, status, xhr) {
+        $.post("/Home/Login", { "AN": an, "pwd": pwd }, function (data, status, xhr) {
             console.log(data);
             if (data.success) {
                 $("#onlogin_box").addClass("hidden");

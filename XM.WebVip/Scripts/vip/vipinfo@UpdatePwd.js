@@ -7,17 +7,18 @@
         return false;
     }
     $(".newpwd_warning").text("");
-    $.post("/vip/UpdatePwd", { vip_AN: vip_AN, oldPwd: oldpwd, vip_pwd: newpwd }, function (data) {
+    $.post("/Home/UpdatePwd", { vip_AN: vip_AN, oldPwd: oldpwd, vip_pwd: newpwd }, function (data) {
         if (data.success) {
             $("#oldpwd").val("");
             $("#newpwd").val("");
             $("#confirmPwd").val("");
             alert("修改成功,将安全退出跳转到首页!");
-            $.get("/vip/RemoveSession", function (data, status, xhr) {
+            // 安全退出
+            $.get("/Home/RemoveSession", function (data, status, xhr) {
                 if (data.success) {
                     // 清空数据
                     window.setTimeout(function () {
-                        window.location.href = "/vip/Index";
+                        window.location.href = "/Home/Index";
                     }, 500);
                 }
             }, "json")

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
+using XM.Comm;
 using XM.DALFactory;
 using XM.Model;
 
@@ -53,6 +55,31 @@ namespace XM.Web.Controllers
         public string ID { get { return Session["id"].ToString(); } }
         public string Agent_ID { get { return Session["Agent_ID"].ToString(); } }
         public string Agent_AN { get { return Session["Agent_AN "].ToString(); } }
+
+
+
+        /// <summary>
+        /// 在重写的Initialize方法(继承Controller的基类中)中不断的注册SessionId：
+        /// </summary>
+        /// <param name="requestContext"></param>
+        protected override void Initialize(RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            Session["SessionId"] = Session.SessionID;
+        }
+
+        protected override void OnAuthorization(AuthorizationContext filterContext)
+        {
+            //不能应用在子方法上
+            if (filterContext.IsChildAction)
+                return;
+            
+
+            if (!SSOHelper.CheckOnline())
+            {
+                Url.Action("RemoveSession", "Home");
+            }
+        }
     }
 
     /// <summary>
@@ -64,6 +91,4 @@ namespace XM.Web.Controllers
         public string errorMsg { get; set; } = "";
         public object result { get; set; }
     }
-
-
 }
