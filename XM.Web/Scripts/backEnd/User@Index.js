@@ -8,11 +8,11 @@ function gridList() {
         height: $(window).height() - 128,
         colModel: [
             { label: '主键', name: 'id', hidden: true },
-            { label: '账户', name: 'UserAccountName', width: 80, align: 'left' },
-            { label: '手机', name: 'UserMobliePhone', width: 100, align: 'left' },
-            { label: '邮箱', name: 'UserEmail', width: 140, align: 'left' }, 
-            { label: '创建人', name: 'UserCreateBy', width: 80, align: 'left' },
-            { label: '创建时间', name: 'UserCreateDate', width: 140, align: 'left' },
+            { label: '账户', name: 'UserAccountName', width: 80, align: 'center' },
+            { label: '手机', name: 'UserMobliePhone', width: 100, align: 'center' },
+            { label: '邮箱', name: 'UserEmail', width: 140, align: 'center' }, 
+            { label: '创建人', name: 'UserCreateBy', width: 80, align: 'center' },
+            { label: '创建时间', name: 'UserCreateDate', width: 160, align: 'center' },
             {
                 label: "允许登录", name: "StatusID", width: 60, align: "left",
                 formatter: function (cellvalue, options, rowObject) {

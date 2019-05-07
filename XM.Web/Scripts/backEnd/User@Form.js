@@ -9,6 +9,7 @@ $(function () {
             dataType: "json",
             async: false,
             success: function (data) {
+                console.log(data);
                 $("#form1").formSerialize(data);
                 $("#user_AN").attr('disabled', 'disabled');
             }
@@ -24,7 +25,7 @@ function submitForm() {
         return false;
     }
     $.submitForm({
-        url: "/User/AddUser?id=" + keyValue,
+        url: "/User/Save?id=" + keyValue,
         param: $("#form1").formSerialize(),
         success: function () {
             $.currentWindow().$("#gridList").trigger("reloadGrid");

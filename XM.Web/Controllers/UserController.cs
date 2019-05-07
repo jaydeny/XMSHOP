@@ -71,7 +71,7 @@ namespace XM.Web.Controllers
         /// 获取所有用户信息
         /// </summary>
         /// <returns></returns>
-        [PermissionFilter("User", "Index")]
+        // [PermissionFilter("User", "Index")]
 
         public ActionResult GetAllUserInfo()
         {
@@ -165,7 +165,7 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region  删除用户信息
-        [PermissionFilter("User", "Index", Operationype.Delete)]
+        // [PermissionFilter("User", "Index", Operationype.Delete)]
         /// <summary>
         /// 删除用户信息
         /// </summary>

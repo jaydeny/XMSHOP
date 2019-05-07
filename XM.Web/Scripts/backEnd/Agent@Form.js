@@ -1,5 +1,6 @@
 ﻿
 var keyValue = $.request("keyValue");
+console.log(keyValue);
 $(function () {
     initControl();
     if (!!keyValue) { //判断是否有值
@@ -9,6 +10,7 @@ $(function () {
             dataType: "json",
             async: false,
             success: function (data) {
+                console.log(data);
                 $("#form1").formSerialize(data);
                 $("#Agent_AN").attr('disabled', 'disabled');
             }
@@ -22,7 +24,7 @@ function submitForm() {
         return false;
     }
     $.submitForm({
-        url: "/Agent/AddUser?id=" + keyValue,
+        url: "/Agent/Save?id=" + keyValue,
         param: $("#form1").formSerialize(),
         success: function () {
             $.currentWindow().$("#gridList").trigger("reloadGrid");
