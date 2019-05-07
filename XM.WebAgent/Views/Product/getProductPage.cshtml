@@ -76,6 +76,33 @@
                     <li class="list-group-item">{{config.cardGoodsReferencePrice}} <span>{{obj.price}}</span> </li>
                 </ul>
             </div>
+            @*分页*@
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+
+                    <li class="page-item"><span class="page-link"> 显示 <input type="number" style="width:55px" v-model="count" />条数据 </span> </li>
+
+                    <li class="page-item">
+                        <a class="page-link" v-on:click="before()" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">上一页</span>
+                        </a>
+                    </li>
+
+
+
+                    <li class="page-item" v-on:click="end()">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">下一页</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">共 {{myGoodsCountFilter}} 页</a></li>
+                    <li class="page-item"><span class="page-link"> 跳转到 <input type="number" v-model="pageSize" style="width:55px"/>页 </span> </li>
+                    <li class="page-item"><a class="page-link"  href="#">确定</a></li>
+                </ul>
+            </nav>
+
         </main>
 
         @*上架模态框*@
@@ -113,7 +140,11 @@
                 //页码
                 pageSize: '',
                 //显示多少条数据
-                count: '',
+               count: '',
+               //全部商品总条数
+               GoodsCount: "",
+               //代理商品总条数
+                myGoodsCount : "",
                //是否显示全部商品
                myGoodsShow: false,
                 //我的商品
@@ -171,6 +202,10 @@
                    goods = myGoods.filter(s => s.goods_name.indexOf(search) !== -1);
                    //返回数据
                    return goods
+               },
+               //计算代理商品的页数
+               myGoodsCountFilter() {
+                   return Math.ceil(this.myGoodsCount / this.count);
                }
 
            },
@@ -197,6 +232,7 @@
                        dataType: 'json'
                    }).then((data) => {
                        this.myGoods = data.rows;
+                       this.myGoodsCount = data.total;
                        console.log(data)
                    });
 
@@ -272,6 +308,43 @@
                        this.myGoodsShow = false;
                        event.target.innerText = this.config.myGoodsBtn;
                    }
+               },
+               //分页
+               //上一页
+               before() {
+                   const page = this.pageSize;
+                   if (page <= 1) {
+                       alert("已经是第一页了")
+                   } else {
+                       this.pageSize -= 1;
+                       const param = {
+                           "page": this.pageSize,
+                           "rows": this.count
+                       }
+                       this.onloadMyGoodsData(this.config.goodsUrl.myGoods, param);
+                   }
+               },
+               //下一页
+               end() {
+                   const page = this.pageSize;
+                   if (page >= this.total) {
+                       alert("已经是最后一页了")
+                   } else {
+                       this.pageSize += 1;
+                       const param = {
+                           "page": this.pageSize,
+                           "rows": this.count
+                       }
+                       this.onloadMyGoodsData(this.config.goodsUrl.myGoods, param);
+                   }
+               },
+               //提交页
+               btn_sub() {
+                   const param = {
+                       "page": this.pageSize,
+                       "rows": this.count
+                   }
+                   this.onloadMyGoodsData(this.config.goodsUrl.myGoods, param);
                }
            }
         });
