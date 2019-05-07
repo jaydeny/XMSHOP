@@ -7,6 +7,7 @@ using XM.Model;
 using System.Web.SessionState;
 using XM.Web.Domain;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace XM.Web.Controllers
 {
@@ -113,7 +114,8 @@ namespace XM.Web.Controllers
         #region 添加或修改用户信息方法
         public ActionResult Save()
         {
-            int id = Convert.ToInt32(Request["id"]);
+            Debug.WriteLine(Request["id"].ToString() == "");
+            int id = int.Parse(Request["id"]);
             string userid = Request["UserAccountName"];
             string mobilephone = Request["UserMobilePhone"];
             string email = Request["UserEmail"];
