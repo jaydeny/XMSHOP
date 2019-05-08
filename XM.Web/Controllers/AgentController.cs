@@ -61,7 +61,7 @@ namespace XM.Web.Controllers
         #region  添加/修改代理信息
         public ActionResult Save()
         {
-            int id = Request["id"] == null ? 0 : Convert.ToInt32(Request["id"]);
+            int id = Request["id"] == "" ? 0 : Convert.ToInt32(Request["id"]);
             string userid = Request["AgentAccountName"];
             string mobilephone = Request["MobliePhone"];
             string email = Request["Email"];
