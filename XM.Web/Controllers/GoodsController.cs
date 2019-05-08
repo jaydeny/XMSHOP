@@ -59,7 +59,7 @@ namespace XM.Web.Controllers
         #region  添加/修改商品信息
         public ActionResult Save()
         {
-            int id = Convert.ToInt32(Request["id"]);
+            int id = Request["id"] == "" ? 0 : Convert.ToInt32(Request["id"]);
             string goodsName = Request["GoodsName"];
             string goodsIntro = Request["GoodsIntro"];
             decimal goodsPrice = Convert.ToDecimal(Request["GoodsPrice"]);

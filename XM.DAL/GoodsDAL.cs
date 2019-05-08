@@ -104,7 +104,7 @@ namespace XM.DAL
 
         public int Save(Dictionary<string, object> paras)
         {
-            return StandardInsertOrUpdate("tbGoods", paras);
+            return StandarInsertOrUpdate("tbGoods", paras);
             
         }
     }
