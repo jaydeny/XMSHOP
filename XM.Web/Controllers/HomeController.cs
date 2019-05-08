@@ -26,9 +26,9 @@ namespace XM.Web.Controllers
         }
         public ActionResult LoadMenu()
         {
-            IEnumerable<RoleMenuEntity> objRoleMenu = (IEnumerable<RoleMenuEntity>)Session["RoleMenu"];
+            IEnumerable<Navbar> objRoleMenu = (IEnumerable<Navbar>)Session["RoleMenu"];
             List<int> objIDs = new List<int>();
-            foreach(RoleMenuEntity roleMenu in objRoleMenu)
+            foreach(Navbar roleMenu in objRoleMenu)
             {
                 objIDs.Add(roleMenu.MenuId);
             }

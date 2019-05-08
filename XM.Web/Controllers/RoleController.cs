@@ -45,7 +45,7 @@ namespace XM.Web.Controllers
             paras["order"] = order;
             paras["Name"] = roleName;
             paras["State"] = state;
-            paras["Code"] = code;
+            paras["Code"] = code; 
 
 
             var roles = DALUtility.Role.QryRole<RoleEntity>(paras, out totalCount);
@@ -68,7 +68,7 @@ namespace XM.Web.Controllers
             int menuId = Convert.ToInt32(Request["MenuId"]);
             int RmAdd = Convert.ToInt32(Request["RmAdd"]);
             int RmUpdate = Convert.ToInt32(Request["RmUpdate"]);
-            int RmDelete = Convert.ToInt32(Request["RmDelete"]);
+            int RmDelete = Convert.ToInt32(Request["RmDelete"]); 
             int RmOther = Convert.ToInt32(Request["RmOther"]);
 
             Dictionary<string, object> paras = new Dictionary<string, object>();

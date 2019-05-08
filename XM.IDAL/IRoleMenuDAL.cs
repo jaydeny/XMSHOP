@@ -8,6 +8,6 @@ namespace XM.IDAL
 {
     public interface IRoleMenuDAL
     {
-        IEnumerable<T> QryAllRoleMenu<T>(Dictionary<string, object> paras,out int iCount);
+        IEnumerable<T> QryAllRoleMenu<T>(Dictionary<string, object> paras);
     }
 }

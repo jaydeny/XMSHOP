@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,11 +41,14 @@ namespace XM.Web.Controllers
                     CookiesHelper.SetCookie("UserID", AES.EncryptStr(currentUser.id.ToString()));
                     Dictionary<string, object> paras= new Dictionary<string, object>();
                     paras["r_id"] = currentUser.RoleID;
-                    int iCount;
-                    var roleMenus  = DALUtility.RoleMenu.QryAllRoleMenu<RoleMenuEntity>(paras,out iCount);
+                    var roleMenus  = DALUtility.RoleMenu.QryAllRoleMenu<Navbar>(paras);
                     Session["RoleMenu"] = roleMenus;
                     Session["RoleID"] = currentUser.RoleID;
                     Session["User"] = currentUser;
+                    DateTime dateTime = DateTime.Now;
+                    Session["LoginTime"] = dateTime;
+                    Hashtable htOnline = (Hashtable)System.Web.HttpContext.Current.Application["CurrentOnline"];
+                    htOnline[currentUser] = dateTime;
                     return OperationReturn(true, "登录成功！"); 
                 }
                 else
