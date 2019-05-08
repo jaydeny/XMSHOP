@@ -98,7 +98,7 @@ namespace XM.WebAgent.Controllers
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["pi"] = pageindex;
             paras["pageSize"] = pagesize;
-            paras["goods_name"] = goodsName;
+            paras["goods_name"] = Request["goods_name"];
             paras["sort"] = sort;
             paras["order"] = order;
             var goods = DALUtility.Agent.QryGoods(paras, out int ICount);
