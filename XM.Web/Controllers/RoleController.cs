@@ -95,7 +95,7 @@ namespace XM.Web.Controllers
             int num;
             if (id == 0)
             {
-                num = DALUtility.User.Save(paras);
+                num = DALUtility.Role.Save(paras);
                 if (num > 0)
                 {
                     return OperationReturn(true, "添加成功！");
@@ -105,7 +105,7 @@ namespace XM.Web.Controllers
                     return OperationReturn(false, "添加失败！");
                 }
             }
-            num = DALUtility.User.Save(paras);
+            num = DALUtility.Role.Save(paras);
             if (num > 0)
             {
                 return OperationReturn(true, "修改成功！");

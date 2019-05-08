@@ -33,7 +33,7 @@ namespace XM.Web.Controllers
                 objIDs.Add(roleMenu.MenuId);
             }
             List<MenuEntity> objMenus = DALUtility.Menu.GetAllMenuByIds(objIDs);
-            return PagerData(2,objMenus);
+            return PagerData(objMenus.Count,objMenus);
         }
     }
 }
