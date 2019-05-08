@@ -63,7 +63,7 @@ namespace XM.WebAgent.Controllers
             string sort = Request["sort"] == null ? "id" : Request["sort"];
             string order = Request["order"] == null ? "desc" : Request["order"];
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
-            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+            int pagesize = Request["rows"] == null ? 20 : Convert.ToInt32(Request["rows"]);
 
 
             Dictionary<string, object> param = new Dictionary<string, object>();
@@ -92,7 +92,7 @@ namespace XM.WebAgent.Controllers
 
             //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
-            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+            int pagesize = Request["rows"] == null ? 20 : Convert.ToInt32(Request["rows"]);
             
             //int totalCount;   //输出参数
             Dictionary<string, object> paras = new Dictionary<string, object>();
