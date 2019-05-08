@@ -3,11 +3,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using XM.Model;
 using XM.Web.Domain;
+using XM.Web.Models;
 
 namespace XM.Web.Controllers
 {
@@ -53,67 +55,49 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region  添加/修改页面
-        public ActionResult Form()
+        public ActionResult Form( string id)
         {
+            Debug.WriteLine(id==null);
+            //if (id !=0)
+            //{
+            //    // 角色信息
+            //    var role = DALUtility.Role.GetRoleById(id.ToString());
+            //    // 当前角色所选的权限
+            //    int myMenuCount;
+            //    Dictionary<string, object> roleMenu = new Dictionary<string, object>();
+            //    roleMenu["roleId"] = id;
+            //    DALUtility.RoleMenu.QryAllRoleMenu<RoleEntity>(roleMenu,out myMenuCount);
+            //}
             return View("_Form");
         }
         #endregion
         #region  添加/修改操作
-        public ActionResult Save()
+        public ActionResult Save(RoleEntity roleEntity)
         {
-            int id = Convert.ToInt32(Request["id"]);
-            string Name = Request["name"];
-            int state = Convert.ToInt32(Request["state"]);
-            string code = Request["code"];
-            int menuId = Convert.ToInt32(Request["MenuId"]);
-            int RmAdd = Convert.ToInt32(Request["RmAdd"]);
-            int RmUpdate = Convert.ToInt32(Request["RmUpdate"]);
-            int RmDelete = Convert.ToInt32(Request["RmDelete"]);
-            int RmOther = Convert.ToInt32(Request["RmOther"]);
-
             Dictionary<string, object> paras = new Dictionary<string, object>();
-            paras["id"] = id;
-            paras["name"] = Name;
-            paras["state"] = state;
-            paras["code"] = code;
+            paras["id"] = roleEntity.Id;
+            paras["name"] = roleEntity.Name;
+            paras["state"] = roleEntity.State;
+            paras["code"] = roleEntity.Code;
             DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("id", typeof(int));
             dataTable.Columns.Add("MenuId", typeof(int));
             dataTable.Columns.Add("RmAdd", typeof(bool));
             dataTable.Columns.Add("RmUpdate", typeof(bool));
             dataTable.Columns.Add("RmDelete", typeof(bool));
             dataTable.Columns.Add("RmOther", typeof(bool));
-            DataRow dr1 = dataTable.NewRow();
-            dr1[0] = id;
-            dr1[1] = menuId;
-            dr1[2] = RmAdd;
-            dr1[3] = RmUpdate;
-            dr1[4] = RmDelete;
-            dr1[5] = RmOther;
-            dataTable.Rows.Add(dr1);
+            foreach (var itm in roleEntity.roleMemus)
+            {
+                DataRow dr1 = dataTable.NewRow();
+                dr1[0] = itm.m_id;
+                dr1[1] = itm.add;
+                dr1[2] = itm.update;
+                dr1[3] = itm.delete;
+                dr1[4] = itm.other;
+                dataTable.Rows.Add(dr1);
+            }
             paras["rolemenu"] = dataTable;
-            int num;
-            if (id == 0)
-            {
-                num = DALUtility.Role.Save(paras);
-                if (num > 0)
-                {
-                    return OperationReturn(true, "添加成功！");
-                }
-                else
-                {
-                    return OperationReturn(false, "添加失败！");
-                }
-            }
-            num = DALUtility.Role.Save(paras);
-            if (num > 0)
-            {
-                return OperationReturn(true, "修改成功！");
-            }
-            else
-            {
-                return OperationReturn(false, "修改失败！");
-            }
+            return OperationReturn(DALUtility.Role.Save(paras) > 0);
+
         }
         #endregion
         #region 删除操作
@@ -134,9 +118,90 @@ namespace XM.Web.Controllers
         #region  角色详细信息
         public ActionResult GetFormJson(string id)
         {
-            var vip = DALUtility.Role.GetRoleById(id);
-            return Content(JsonConvert.SerializeObject(vip));
+            var role = DALUtility.Role.GetRoleById(id);
+            return Content(JsonConvert.SerializeObject(role));
+            // 角色信息
+            //var role = DALUtility.Role.GetRoleById(id);
+            // 当前角色所选的权限
+            //int myMenuCount;
+            //Dictionary<string, object> roleMenu = new Dictionary<string, object>();
+            // roleMenu["r_id"] = id;
+            //var rolemenuList = DALUtility.RoleMenu.QryAllRoleMenu<RoleMenuEntity>(roleMenu, out myMenuCount);
+            //return Content(JsonConvert.SerializeObject(new { role = role, rolemenuList = rolemenuList, roleMenuCount= myMenuCount } ));
         }
         #endregion
+
+        /// <summary>
+        ///  获取所有选单
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetAllMenu()
+        {
+            Dictionary<string, object> paras = new Dictionary<string, object>();
+            paras["pi"] = 1;
+            paras["pageSize"] = 100;
+            paras["order"] = "asc";
+            paras["sort"] = "id";
+            // 所有选单
+            int allMenuCount;
+            IEnumerable<MenuEntity> allMenu = DALUtility.Menu.GetAllMenu<MenuEntity>(paras, out allMenuCount);
+            //return Content(JsonConvert.SerializeObject(allMenu));
+            ArrayList list = new ArrayList();
+            return Content(JsonConvert.SerializeObject(Operation(allMenu.ToList())));
+        }
+
+        public List<TreeViewModel> Operation(List<MenuEntity> menuList) {
+            List<TreeViewModel> list = new List<TreeViewModel>();
+            TreeViewModel treeView;
+            for ( int i=0; i< menuList.Count(); i++)
+            {
+                treeView = new TreeViewModel();
+                treeView.checkstate = 0;
+                treeView.complete = true;
+                treeView.hasChildren = true;
+                treeView.id = menuList[i].Id.ToString();
+                treeView.isexpand = true;
+                treeView.parentnodes = "";
+                treeView.showcheck = true;
+                treeView.text = menuList[i].Name;
+                treeView.value = "";
+                treeView.ChildNodes = Operation(menuList[i].Id.ToString());
+                list.Add(treeView);
+            }
+            return list;
+
+        }
+
+
+        /// <summary>
+        ///  单选操作
+        /// </summary>
+        /// <returns></returns>
+        public List<TreeViewModel> Operation(string id)
+        {
+            string[] arrayName = new string[4] { "添加", "修改", "删除", "查看机构" };
+            string[] arrayValue = new string[4] { "NF-add", "NF-edit", "NF-delete", "NF-Details" };
+            List<TreeViewModel> list = new List<TreeViewModel>();
+            TreeViewModel treeView;
+            for (int i=0; i<4; i++)
+            {
+                treeView = new TreeViewModel();
+                treeView.checkstate = 0;
+                treeView.parentId = id;
+                treeView.complete = true;
+                treeView.hasChildren = false;
+                treeView.isexpand = true;
+                treeView.showcheck = true;
+                treeView.text = arrayName[i];
+                treeView.value = arrayValue[i];
+                treeView.ChildNodes = new List<TreeViewModel>();
+                //treeView.id = Guid.NewGuid().ToString();
+                treeView.id = id+"-"+i;
+                treeView.parentnodes = id;
+                list.Add(treeView);
+            }
+            return list;
+        }
+
     }
 }

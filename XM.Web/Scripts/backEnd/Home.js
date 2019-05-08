@@ -9,7 +9,9 @@ $("#home_exit").click(function () {
 });
 
 //用户权限
+$.post("", function () {
 
+})
 
 
 

@@ -350,6 +350,8 @@
     <Content Include="Scripts\backEnd\GoodsType%40Form.js" />
     <Content Include="Scripts\backEnd\GoodsType%40Index.js" />
     <Content Include="Scripts\backEnd\Home.js" />
+    <Content Include="Scripts\backEnd\Role%40Form.js" />
+    <Content Include="Scripts\backEnd\Role%40Index.js" />
     <Content Include="Scripts\backEnd\User%40BackPwd.js" />
     <Content Include="Scripts\backEnd\User%40ChangePwd.js" />
     <Content Include="Scripts\backEnd\User%40Index.js" />
@@ -402,6 +404,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\TreeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -434,6 +437,8 @@
     <Content Include="Views\Vip\_Form.cshtml" />
     <Content Include="Views\Type\Index.cshtml" />
     <Content Include="Views\Type\_Form.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\_Form.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -443,7 +448,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\JuriMenu\" />
     <Folder Include="Views\Menu\" />
