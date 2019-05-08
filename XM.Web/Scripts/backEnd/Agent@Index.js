@@ -22,7 +22,7 @@ function gridList() {
                 formatter: function (cellvalue, options, rowObject) {
                     if (cellvalue == 1) {
                         return '<span class=\"label label-success\">正常</span>';
-                    } else if (cellvalue == 0) {
+                    } else if (cellvalue == 2) {
                         return '<span class=\"label label-default\">禁用</span>';
                     }
                 }
@@ -67,7 +67,8 @@ function btn_delete() {
         url: "/Agent/DelUserByIDs",
         param: { id: $("#gridList").jqGridRowValue().AgentID },
         success: function () {
-            $.currentWindow().$("#gridList").trigger("reloadGrid");
+            //$.currentWindow().$("#gridList").trigger("reloadGrid");
+            $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
         }
     })
 }
@@ -99,14 +100,16 @@ function btn_revisepassword() {
 }
 function btn_disabled() {
     var keyValue = $("#gridList").jqGridRowValue();
-    console.log(keyValue);
+    keyValue.id = keyValue.AgentID;
+    keyValue.StatusID = 2;
     $.modalConfirm("注：您确定要【禁用】该项账户吗？", function (r) {
         if (r) {
             $.submitForm({
                 url: "/Agent/Save",
-                param: { keyValue: keyValue },
+                param: keyValue,
                 success: function () {
-                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    //$.currentWindow().$("#gridList").trigger("reloadGrid");
+                    $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
                 }
             })
         }
@@ -114,14 +117,16 @@ function btn_disabled() {
 }
 function btn_enabled() {
     var keyValue = $("#gridList").jqGridRowValue();
-    console.log(keyValue);
+    keyValue.id = keyValue.AgentID;
+    keyValue.StatusID = 1;
     $.modalConfirm("注：您确定要【启用】该项账户吗？", function (r) {
         if (r) {
             $.submitForm({
                 url: "/Agent/Save",
-                param: { keyValue: keyValue },
+                param: keyValue,
                 success: function () {
-                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    //$.currentWindow().$("#gridList").trigger("reloadGrid");
+                    $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
                 }
             })
         }

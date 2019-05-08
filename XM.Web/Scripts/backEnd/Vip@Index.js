@@ -68,7 +68,8 @@ function btn_delete() {
         url: "/Vip/DelUserByIDs",
         param: { id: $("#gridList").jqGridRowValue().VipID },
         success: function () {
-            $.currentWindow().$("#gridList").trigger("reloadGrid");
+            //$.currentWindow().$("#gridList").trigger("reloadGrid");
+            $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
         }
     })
 }
@@ -108,7 +109,8 @@ function btn_disabled() {
                 url: "/Vip/Save",
                 param: keyValue,
                 success: function () {
-                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    //$.currentWindow().$("#gridList").trigger("reloadGrid");
+                    $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
                 }
             })
         }
@@ -124,7 +126,8 @@ function btn_enabled() {
                 url: "/Vip/Save",
                 param: keyValue,
                 success: function () {
-                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    //$.currentWindow().$("#gridList").trigger("reloadGrid");
+                    $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
                 }
             })
         }

@@ -60,7 +60,8 @@ function btn_delete() {
         url: "/Goods/DelGoodsByIDs",
         param: { id: $("#gridList").jqGridRowValue().GoodsID },
         success: function () {
-            $.currentWindow().$("#gridList").trigger("reloadGrid");
+            //$.currentWindow().$("#gridList").trigger("reloadGrid");
+            $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
         }
     })
 }
@@ -83,7 +84,8 @@ function btn_disabled() {
                 url: "/Goods/Save",
                 param: { keyValue: keyValue },
                 success: function () {
-                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    //$.currentWindow().$("#gridList").trigger("reloadGrid");
+                    $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
                 }
             })
         }
@@ -97,7 +99,8 @@ function btn_enabled() {
                 url: "/Goods/Save",
                 param: { keyValue: keyValue },
                 success: function () {
-                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    //$.currentWindow().$("#gridList").trigger("reloadGrid");
+                    $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
                 }
             })
         }

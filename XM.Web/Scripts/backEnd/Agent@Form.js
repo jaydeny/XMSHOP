@@ -12,7 +12,7 @@ $(function () {
             success: function (data) {
                 console.log(data);
                 $("#form1").formSerialize(data);
-                $("#Agent_AN").attr('disabled', 'disabled');
+                $("#AgentAccountName").attr('disabled', 'disabled');
             }
         });
     }

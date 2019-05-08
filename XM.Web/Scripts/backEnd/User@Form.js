@@ -9,7 +9,6 @@ $(function () {
             dataType: "json",
             async: false,
             success: function (data) {
-                console.log(data);
                 $("#form1").formSerialize(data);
                 $("#UserAccountName").attr('disabled', 'disabled');
             }

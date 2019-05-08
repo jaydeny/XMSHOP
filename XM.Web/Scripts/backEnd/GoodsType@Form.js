@@ -22,9 +22,9 @@ function submitForm() {
     }
     $.submitForm({
         url: "/Type/Save?id=" + keyValue,
-        param: $("#form1").formSerialize(), ser,
+        param: $("#form1").formSerialize(),
         success: function () {
-            $.currentWindow().$("#gridList").trigger("reloadGrid");
+             $.currentWindow().$("#gridList").trigger("reloadGrid");
         }
     })
 }

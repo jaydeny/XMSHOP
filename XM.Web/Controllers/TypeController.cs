@@ -53,8 +53,8 @@ namespace XM.Web.Controllers
         #region  添加/修改操作
         public ActionResult Save()
         {
-            int id = Convert.ToInt32(Request["id"]);
-            string typeName = Request["type_name"];
+            int id = Request["id"] == "" ? 0 : Convert.ToInt32(Request["id"]);
+            string typeName = Request["TypeName"];
             int num;
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["id"] = id;

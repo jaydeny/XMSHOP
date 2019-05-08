@@ -40,7 +40,6 @@ function submitForm() {
         url: "/Vip/Save?id=" + keyValue,
         param: $("#form1").formSerialize(),
         success: function (data) {
-            console.log(data);
             $.currentWindow().$("#gridList").trigger("reloadGrid");
         }
     })

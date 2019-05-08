@@ -51,8 +51,8 @@ function btn_edit() {
 }
 function btn_delete() {
     $.deleteForm({
-        url: "/Type/DeleteForm",
-        param: { keyValue: $("#gridList").jqGridRowValue().TypeID },
+        url: "/Type/DelTypeByIDs",
+        param: { id: $("#gridList").jqGridRowValue().TypeID },
         success: function () {
             $.currentWindow().$("#gridList").trigger("reloadGrid");
         }

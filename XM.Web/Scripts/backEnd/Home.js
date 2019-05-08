@@ -1,5 +1,5 @@
 ﻿
-// 登录
+// 安全退出
 $("#home_exit").click(function () {
     $.get("/login/UserLoginOut", function (data) {
         if (data.success) {
@@ -7,6 +7,9 @@ $("#home_exit").click(function () {
         }
     }, "json")
 });
+
+//用户权限
+
 
 
 

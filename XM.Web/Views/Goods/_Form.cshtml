@@ -10,16 +10,13 @@
                 <tr>
                     <th class="formTitle">名称</th>
                     <td class="formValue">
-                        <input id="GoodsName" name="GoodsName" minlength="6" maxlength="16" type="text" class="form-control required" placeholder="请输入账户" />
+                        <input id="GoodsName" name="GoodsName" type="text" class="form-control required" placeholder="请输入账户" />
                     </td>
                 </tr>
                 <tr>
                     <th class="formTitle">类型</th>
                     <td class="formValue">
-                        <select id="GoodsType" name="GoodsType" class="form-control required">
-                            <option value="">==请选择==</option>
-                            <option value="1">1</option>
-                        </select>
+                        <select id="GoodsType" name="GoodsType" class="form-control required"></select>
                     </td>
                 </tr>
                 <tr>
@@ -32,6 +29,12 @@
                     <th class="formTitle">图片</th>
                     <td class="formValue">
                         <input id="GoodsPicture" name="GoodsPicture" type="text" class="form-control" required />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">介绍</th>
+                    <td class="formValue">
+                        <textarea id="GoodsIntro" name="GoodsIntro" class="form-control" style="height: 60px;"></textarea>
                     </td>
                 </tr>
             </table>

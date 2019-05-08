@@ -68,7 +68,8 @@ function btn_delete() {
         url: "/User/DelUserByIDs",
         param: { id: $("#gridList").jqGridRowValue().id },
         success: function () {
-            $.currentWindow().$("#gridList").trigger("reloadGrid");
+            //$.currentWindow().$("#gridList").trigger("reloadGrid");
+            $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
         }
     })
 }
@@ -92,7 +93,7 @@ function btn_revisepassword() {
                 url: "/SystemManage/User/DisabledAccount",
                 param: { keyValue: keyValue },
                 success: function () {
-                    $.currentWindow().$("#gridList").trigger("gridList");
+                    $.currentWindow().$("#gridList").trigger("reloadGrid");
                 }
             })
         }
@@ -107,7 +108,8 @@ function btn_disabled() {
                 url: "/User/Save",
                 param: keyValue,
                 success: function () {
-                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    //$.currentWindow().$("#gridList").trigger("reloadGrid");
+                    $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
                 }
             })
         }
@@ -122,7 +124,8 @@ function btn_enabled() {
                 url: "/User/Save",
                 param: keyValue,
                 success: function () {
-                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    //$.currentWindow().$("#gridList").trigger("reloadGrid");
+                    $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
                 }
             })
         }
