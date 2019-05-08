@@ -51,6 +51,8 @@ namespace XM.Web.Controllers
         }
         public string Agent_AN { get { return Session["AN"].ToString(); } }
         public string Agent_ID { get { return Session["id"].ToString(); } }
+
+        public static Dictionary<AgentEntity, string> SSOAgent = new Dictionary<AgentEntity, string>();
     }
 
     /// <summary>
