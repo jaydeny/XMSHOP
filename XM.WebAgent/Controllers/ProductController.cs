@@ -93,7 +93,6 @@ namespace XM.WebAgent.Controllers
             //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-            string goodsName = Request["goods_name"] == null ? "" : Request["goods_name"];
             
             //int totalCount;   //输出参数
             Dictionary<string, object> paras = new Dictionary<string, object>();
