@@ -328,6 +328,7 @@
                        data: param,
                        dataType: 'json'
                    }).done((data) => {
+                       console.log(data)
                        this.Goods = data.rows;
                        this.GoodsCount = data.total;
                    });
