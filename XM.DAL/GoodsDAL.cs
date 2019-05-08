@@ -96,9 +96,10 @@ namespace XM.DAL
             return SortAndPage<T>(builder, grid, out iCount);
         }
 
-        public T QryGoodsInfo<T>(Dictionary<string, object> paras)
+        public GoodsEntity QryGoodsInfo(string id)
         {
-            throw new NotImplementedException();
+            string strSql = "select * from v_goods_list where GoodsID = @ID";
+            return QuerySingle<GoodsEntity>(strSql, new { ID = id });
         }
 
         public int Save(Dictionary<string, object> paras)

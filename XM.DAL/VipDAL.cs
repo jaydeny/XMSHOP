@@ -17,7 +17,7 @@ namespace XM.DAL
         /// </summary>
         public VipEntity GetUserByUserId(string userId)
         {
-            const string sql = "select top 1 * from v_vip_list where id = @UserId";
+            const string sql = "select top 1 * from v_vip_list where VipID = @UserId";
             return QuerySingle<VipEntity>(sql, new { UserId = userId });
         }
 
@@ -26,7 +26,7 @@ namespace XM.DAL
         /// </summary>
         public VipEntity GetUserById(string id)
         {
-            string sql = "select * from v_vip_list where id = @ID";
+            string sql = "select * from v_vip_list where VipID = @ID";
             return QuerySingle<VipEntity>(sql, new { ID = id });
         }
 
@@ -219,7 +219,7 @@ namespace XM.DAL
         /// <returns></returns>
         public int CheckUseridAndEmail(Dictionary<string, object> paras)
         {
-            return QuerySingle<int>("P_tbvip_checkANandMBandEmail", paras, CommandType.StoredProcedure);
+            return QuerySingle<int>("P_vip_checkANandMBandEmail", paras, CommandType.StoredProcedure);
         }
 
         /// <summary>

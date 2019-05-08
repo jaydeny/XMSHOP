@@ -61,9 +61,9 @@ namespace XM.Web.Domain
             {
                 action = filterContext.RouteData.Values["action"].ToString().ToLower();
             }
-            if (HttpContext.Current.Session["MemuList"] != null)
+            if (HttpContext.Current.Session["RoleMenu"] != null)
             {
-                var memuInfo = ((IEnumerable<Navbar>)HttpContext.Current.Session["MemuList"]).SingleOrDefault(
+                var memuInfo = ((IEnumerable<Navbar>)HttpContext.Current.Session["RoleMenu"]).SingleOrDefault(
                     x => x.controller.Equals(controller, StringComparison.CurrentCultureIgnoreCase)
                     && x.action.Equals(action, StringComparison.CurrentCultureIgnoreCase));
                 if (memuInfo != null)
@@ -99,7 +99,7 @@ namespace XM.Web.Domain
                 //filterContext.HttpContext.Request.IsAjaxRequest
                 if (isViewPage)
                 {
-                    filterContext.RequestContext.HttpContext.Response.Redirect("~/Manager/Login");
+                    filterContext.RequestContext.HttpContext.Response.Redirect("/Login");
                 }
                 else
                 {
@@ -115,7 +115,7 @@ namespace XM.Web.Domain
                     filterContext.HttpContext.Session.Clear();
                     if (isViewPage)
                     {
-                        filterContext.RequestContext.HttpContext.Response.Redirect("~/Manager/Login?t=rl");
+                        filterContext.RequestContext.HttpContext.Response.Redirect("/Login?t=rl");
                     }
                     else
                     {

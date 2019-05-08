@@ -14,5 +14,6 @@ namespace XM.IDAL
         bool EditType(GoodsTypeEntity goodsType);
         IEnumerable<T> QryType<T>(Dictionary<string, object> paras, out int iCount);
         int Save(Dictionary<string, object> paras);
+        GoodsTypeEntity GetTypeById(string id);
     }
 }

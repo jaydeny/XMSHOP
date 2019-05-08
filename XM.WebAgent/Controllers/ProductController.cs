@@ -72,6 +72,8 @@ namespace XM.WebAgent.Controllers
             param.Add("sort", sort);
             param.Add("order", order);
             //param.Add("status_id", 1);
+            param.Add("goods_name", Request["goods_name"]);
+            param.Add("status_id", 1);
             param.Add("agent_AN", Session["Agent_AN"] != null ? Session["Agent_AN"].ToString() : "agent");
 
             string result = DALUtility.Agent.QryAgoods(param, out int ICount);
@@ -91,13 +93,12 @@ namespace XM.WebAgent.Controllers
             //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-            string goodsName = Request["goods_name"] == null ? "" : Request["goods_name"];
             
             //int totalCount;   //输出参数
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["pi"] = pageindex;
             paras["pageSize"] = pagesize;
-            paras["goods_name"] = goodsName;
+            paras["goods_name"] = Request["goods_name"];
             paras["sort"] = sort;
             paras["order"] = order;
             var goods = DALUtility.Agent.QryGoods(paras, out int ICount);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,18 +16,20 @@ namespace XM.Web.Controllers
     /// </summary>
     public class AgentController : BaseController
     {
-        [PermissionFilter]
+        #region  获取所有代理页面
+        //[PermissionFilter]
         // GET: Agent
         public ActionResult Index()
         {
             return View();
         }
-
-        [PermissionFilter("Agent", "Index")]
+        #endregion
+        #region  获取所有代理信息
+        //[PermissionFilter("Agent", "Index")]
         public ActionResult GetAllUserInfo()
         {
-            string sort = Request["sort"] == null ? "AgentID" : Request["sort"];
-            string order = Request["order"] == null ? "asc" : Request["order"];
+            string sort = Request["order"] == null ? "AgentID" : Request["order"];
+            string order = Request["sort"] == null ? "asc" : Request["sort"];
 
             //首先获取前台传递过来的参数
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
@@ -46,42 +49,19 @@ namespace XM.Web.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             var users = DALUtility.Agent.QryUsers<AgentEntity>(paras, out totalCount);
-            return PagerData(totalCount, users);
+            return PagerData(totalCount, users,pageindex,pagesize);
         }
-
-        public ActionResult AddAgent()
+        #endregion
+        #region 添加/修改页面
+        public ActionResult Form()
         {
-            return View("_AddAgent");
+            return View("_Form");
         }
-        [PermissionFilter("Agent", "Index",Operationype.Add)]
-        /// <summary>
-        /// 新增 用户
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult AddUser()
+        #endregion
+        #region  添加/修改代理信息
+        public ActionResult Save()
         {
-            return SaveUser();
-
-        }
-
-        public ActionResult EditAgent()
-        {
-            return View("_EditAgent");
-        }
-        [PermissionFilter("Agent", "Index",Operationype.Update)]
-        /// <summary>
-        /// 编辑 用户
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult EditUser()
-        {
-
-            return SaveUser();
-        }
-
-        private ActionResult SaveUser()
-        {
-            int id = Convert.ToInt32(Request["id"]);
+            int id = Request["id "] == null ? 0 : Convert.ToInt32(Request["id"]);
             string userid = Request["agent_AN"];
             string mobilephone = Request["agent_mp"];
             string email = Request["agent_email"];
@@ -113,7 +93,9 @@ namespace XM.Web.Controllers
             }
             
         }
-        [PermissionFilter("Agent", "Index",Operationype.Delete)]
+        #endregion
+        #region 删除代理信息
+        //[PermissionFilter("Agent", "Index",Operationype.Delete)]
         public ActionResult DelUserByIDs()
         {
             string Ids = Request["id"] == null ? "" : Request["id"];
@@ -126,7 +108,13 @@ namespace XM.Web.Controllers
                 return OperationReturn(false);
             }
         }
-
-        
+        #endregion
+        #region 获取单个代理信息
+        public ActionResult GetFormJson(string id)
+        {
+            var agent = DALUtility.Agent.GetUserById(id);
+            return Content(JsonConvert.SerializeObject(agent));
+        }
+        #endregion
     }
 }
