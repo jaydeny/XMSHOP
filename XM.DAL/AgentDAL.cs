@@ -374,7 +374,7 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString()
             };
             builder.AddWhereAndParameter(paras, "goods_id", "a.id", "in", "null");
-            builder.AddWhereAndParameter(paras, "goods_Name", "a.goods_Name", "LIKE", "'%'+@goods_Name+'%'");
+            builder.AddWhereAndParameter(paras, "goods_Name", "a.GoodsName", "LIKE", "'%'+@goods_Name+'%'");
 
             var s = SortAndPage(builder, grid, out iCount, "a.* ");
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
