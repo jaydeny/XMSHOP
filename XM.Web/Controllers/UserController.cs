@@ -113,7 +113,7 @@ namespace XM.Web.Controllers
         #region 添加或修改用户信息方法
         public ActionResult Save()
         {
-            int id = Request["id"] == null ? 0 : Convert.ToInt32(Request["id"]);
+            int id = Request["id"] == "" ? 0 : Convert.ToInt32(Request["id"]);
             string userid = Request["UserAccountName"];
             string mobilephone = Request["UserMobliePhone"]; 
             string email = Request["UserEmail"];

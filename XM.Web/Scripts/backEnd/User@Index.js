@@ -33,7 +33,7 @@ function gridList() {
         $gridList.jqGrid('setGridParam', {
             postData: {
                 keyword: $("#txt_keyword").val()
-            },
+            }
         }).trigger('reloadGrid');
     });
 }
@@ -93,7 +93,6 @@ function btn_revisepassword() {
                 param: { keyValue: keyValue },
                 success: function () {
                     $.currentWindow().$("#gridList").trigger("gridList");
-                    
                 }
             })
         }
