@@ -72,7 +72,7 @@ namespace XM.WebAgent.Controllers
             param.Add("sort", sort);
             param.Add("order", order);
             //param.Add("status_id", 1);
-            param.Add("goods_name", Request["goods_name"]);
+            param.Add("goods_Name", Request["goods_name"]);
             param.Add("status_id", 1);
             param.Add("agent_AN", Session["Agent_AN"] != null ? Session["Agent_AN"].ToString() : "agent");
 
@@ -98,7 +98,7 @@ namespace XM.WebAgent.Controllers
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["pi"] = pageindex;
             paras["pageSize"] = pagesize;
-            paras["goods_name"] = Request["goods_name"];
+            paras["goods_Name"] = Request["goods_name"];
             paras["sort"] = sort;
             paras["order"] = order;
             var goods = DALUtility.Agent.QryGoods(paras, out int ICount);
