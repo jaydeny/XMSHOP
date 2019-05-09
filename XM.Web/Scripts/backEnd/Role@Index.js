@@ -19,7 +19,7 @@ function gridList() {
                 formatter: function (cellvalue, options, rowObject) {
                     if (cellvalue == 1) {
                         return '<span class=\"label label-success\">正常</span>';
-                    } else if (cellvalue == 0) {
+                    } else if (cellvalue == 2) {
                         return '<span class=\"label label-default\">冻结</span>';
                     }
                 }

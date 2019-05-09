@@ -24,7 +24,7 @@ namespace XM.DAL
                 PageSize = 100,
                 SortField = "Id"
             };
-            builder.AddWhereAndParameter(paras, "roleId", "r_id", "=", "@roleId");
+            builder.AddWhereAndParameter(paras, "roleId", "Id", "=", "@roleId");
             //var s = 
             //string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
             return SortAndPage<T>(builder, grid, out iCount);

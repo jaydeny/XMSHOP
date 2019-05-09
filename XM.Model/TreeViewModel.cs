@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace XM.Web.Models
+namespace XM.Model
 {
     public class TreeViewModel
     {
@@ -13,7 +13,7 @@ namespace XM.Web.Models
         public string text { get; set; }
         public string value { get; set; }
         /// <summary>
-        ///  是否选中 0(不选中)，1(选中)
+        ///  选中状态 0(不选中)，1(选中)
         /// </summary>
         public int? checkstate { get; set; }
         public bool showcheck { get; set; }

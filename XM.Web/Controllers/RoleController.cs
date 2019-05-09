@@ -9,7 +9,6 @@ using System.Web;
 using System.Web.Mvc;
 using XM.Model;
 using XM.Web.Domain;
-using XM.Web.Models;
 
 namespace XM.Web.Controllers
 {
@@ -48,26 +47,14 @@ namespace XM.Web.Controllers
             paras["Name"] = roleName;
             paras["State"] = state;
             paras["Code"] = code;
-
-
+            
             var roles = DALUtility.Role.QryRole<RoleEntity>(paras, out totalCount);
             return PagerData(totalCount, roles,pageindex,pagesize);
         }
         #endregion
         #region  添加/修改页面
-        public ActionResult Form( string id)
+        public ActionResult Form()
         {
-            Debug.WriteLine(id==null);
-            //if (id !=0)
-            //{
-            //    // 角色信息
-            //    var role = DALUtility.Role.GetRoleById(id.ToString());
-            //    // 当前角色所选的权限
-            //    int myMenuCount;
-            //    Dictionary<string, object> roleMenu = new Dictionary<string, object>();
-            //    roleMenu["roleId"] = id;
-            //    DALUtility.RoleMenu.QryAllRoleMenu<RoleEntity>(roleMenu,out myMenuCount);
-            //}
             return View("_Form");
         }
         #endregion
@@ -96,7 +83,8 @@ namespace XM.Web.Controllers
                 dataTable.Rows.Add(dr1);
             }
             paras["rolemenu"] = dataTable;
-            return OperationReturn(DALUtility.Role.Save(paras) > 0);
+            Debug.Write(paras["rolemenu"] == null);
+            return OperationReturn(DALUtility.Role.Save(paras) == 0);
 
         }
         #endregion
@@ -120,14 +108,6 @@ namespace XM.Web.Controllers
         {
             var role = DALUtility.Role.GetRoleById(id);
             return Content(JsonConvert.SerializeObject(role));
-            // 角色信息
-            //var role = DALUtility.Role.GetRoleById(id);
-            // 当前角色所选的权限
-            //int myMenuCount;
-            //Dictionary<string, object> roleMenu = new Dictionary<string, object>();
-            // roleMenu["r_id"] = id;
-            //var rolemenuList = DALUtility.RoleMenu.QryAllRoleMenu<RoleMenuEntity>(roleMenu, out myMenuCount);
-            //return Content(JsonConvert.SerializeObject(new { role = role, rolemenuList = rolemenuList, roleMenuCount= myMenuCount } ));
         }
         #endregion
 
@@ -135,8 +115,17 @@ namespace XM.Web.Controllers
         ///  获取所有选单
         /// </summary>
         /// <returns></returns>
-        public ActionResult GetAllMenu()
+        public ActionResult GetAllMenu(string roleId)
         {
+            IEnumerable<RoleMenuEntity> rolemenuList = new List<RoleMenuEntity>();
+            if (roleId != "")
+            {
+                // 当前角色所选的权限
+                int myMenuCount;
+                Dictionary<string, object> roleMenu = new Dictionary<string, object>();
+                roleMenu["roleId"] = roleId;
+                rolemenuList = DALUtility.RoleMenu.QryAllRoleMenu<RoleMenuEntity>(roleMenu, out myMenuCount);
+            }
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["pi"] = 1;
             paras["pageSize"] = 100;
@@ -145,48 +134,97 @@ namespace XM.Web.Controllers
             // 所有选单
             int allMenuCount;
             IEnumerable<MenuEntity> allMenu = DALUtility.Menu.GetAllMenu<MenuEntity>(paras, out allMenuCount);
-            //return Content(JsonConvert.SerializeObject(allMenu));
             ArrayList list = new ArrayList();
-            return Content(JsonConvert.SerializeObject(Operation(allMenu.ToList())));
+            bool checkstate;
+            return Content(JsonConvert.SerializeObject(RoleTree(allMenu.ToList(), rolemenuList.ToList(), out checkstate,0)));
         }
 
-        public List<TreeViewModel> Operation(List<MenuEntity> menuList) {
-            List<TreeViewModel> list = new List<TreeViewModel>();
-            TreeViewModel treeView;
-            for ( int i=0; i< menuList.Count(); i++)
+        #region 角色树列图
+        /// <summary>
+        ///  选单树列图
+        /// </summary>
+        /// <param name="menuList">所有选单</param>
+        /// <param name="roleMenusList">用户选单</param>
+        /// <param name="checkstate">上一级选中状态</param>
+        /// <param name="parentId">父节点</param>
+        /// <returns></returns>
+        public List<TreeViewModel> RoleTree(List<MenuEntity> menuList, List<RoleMenuEntity> roleMenusList, out bool checkstate, int parentId = 0) {
+            checkstate = false;
+            // 查询符合条件的记录
+            List<MenuEntity> item = menuList.FindAll(t => t.ParentId == parentId);
+            List<TreeViewModel> listTreeView = new List<TreeViewModel>();
+            bool boo = true;
+            for (var i = 0; i < item.Count(); i++)
             {
-                treeView = new TreeViewModel();
-                treeView.checkstate = 0;
+                TreeViewModel treeView = new TreeViewModel();
                 treeView.complete = true;
                 treeView.hasChildren = true;
-                treeView.id = menuList[i].Id.ToString();
+                treeView.id = item[i].Id.ToString();
+                treeView.parentnodes = item[i].Id.ToString();
                 treeView.isexpand = true;
-                treeView.parentnodes = "";
+                treeView.parentnodes = parentId.ToString();
                 treeView.showcheck = true;
-                treeView.text = menuList[i].Name;
+                treeView.text = item[i].Name;
                 treeView.value = "";
-                treeView.ChildNodes = Operation(menuList[i].Id.ToString());
-                list.Add(treeView);
+                treeView.checkstate = 0;
+                bool checkState = false;
+                if (menuList.FindAll(t => t.ParentId == item[i].Id).Count > 0)// 中层选单
+                {
+                    
+                    treeView.ChildNodes = RoleTree(menuList, roleMenusList, out checkState, item[i].Id);
+                }
+                else
+                {
+                    boo = true;
+                    for (int j = 0; j < roleMenusList.Count(); j++)
+                    {
+                        if (item[i].Id == roleMenusList[j].MenuId)
+                        {
+                            checkstate = true;
+                            treeView.checkstate = 1;
+                            treeView.ChildNodes = Operation(item[i].Id.ToString(), roleMenusList[j]);
+                            boo = false;
+                            break;
+                        }
+                    }
+                    if (boo)
+                    {
+                        // 最底层赋予(添、改、删、其他)操作
+                        treeView.ChildNodes = Operation(item[i].Id.ToString(), null);
+                    }
+                }
+                if (checkState)
+                {
+                    treeView.checkstate = 1;
+                }
+                listTreeView.Add(treeView);
             }
-            return list;
-
+            return listTreeView;
         }
-
-
+        
         /// <summary>
-        ///  单选操作
+        ///  基础选单
         /// </summary>
+        /// <param name="id">选单编号</param>
+        /// <param name="roleMenu">选单对象</param>
         /// <returns></returns>
-        public List<TreeViewModel> Operation(string id)
+        public List<TreeViewModel> Operation(string id, RoleMenuEntity roleMenu)
         {
-            string[] arrayName = new string[4] { "添加", "修改", "删除", "查看机构" };
+            string[] arrayName = new string[4] { "添加", "修改", "删除", "其他" };
             string[] arrayValue = new string[4] { "NF-add", "NF-edit", "NF-delete", "NF-Details" };
+            int[] checkstateArray = null;
+            if (roleMenu != null)
+            {
+                checkstateArray = new int[4] { roleMenu.RmAdd, roleMenu.RmUpdate, roleMenu.RmDelete, roleMenu.RmOther };
+            }
             List<TreeViewModel> list = new List<TreeViewModel>();
             TreeViewModel treeView;
             for (int i=0; i<4; i++)
             {
                 treeView = new TreeViewModel();
-                treeView.checkstate = 0;
+                // 选中状态
+                treeView.checkstate = roleMenu == null ? 0: checkstateArray[i];
+                // 父节点
                 treeView.parentId = id;
                 treeView.complete = true;
                 treeView.hasChildren = false;
@@ -195,13 +233,13 @@ namespace XM.Web.Controllers
                 treeView.text = arrayName[i];
                 treeView.value = arrayValue[i];
                 treeView.ChildNodes = new List<TreeViewModel>();
-                //treeView.id = Guid.NewGuid().ToString();
+                // 编号Id
                 treeView.id = id+"-"+i;
                 treeView.parentnodes = id;
                 list.Add(treeView);
             }
             return list;
         }
-
+        #endregion
     }
 }
