@@ -136,6 +136,7 @@
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\VIPController.cs" />
     <Compile Include="Controllers\VipInfoController.cs" />
+    <Compile Include="Controllers\XMController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -203,6 +204,7 @@
     <Content Include="img\slide_6.jpg" />
     <Content Include="Scripts\jquery-3.4.0.js" />
     <Content Include="Scripts\jquery-3.4.0.min.js" />
+    <Content Include="Scripts\jquery.md5.js" />
     <Content Include="Scripts\vip\bounced.js" />
     <Content Include="Scripts\vip\RequestUrl.js" />
     <Content Include="Scripts\vip\vip%40AgoodsList.js" />
@@ -245,6 +247,11 @@
     <Content Include="Views\Home\_Update.cshtml" />
     <Content Include="Views\Home\_UpdatePwdPage.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\XM\Index.cshtml" />
+    <Content Include="Views\XM\GetCredit.cshtml" />
+    <Content Include="Views\XM\EditCredit.cshtml" />
+    <Content Include="Views\XM\EditCreditPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
