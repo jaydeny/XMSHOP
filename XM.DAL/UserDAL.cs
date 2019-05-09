@@ -290,7 +290,7 @@ namespace XM.DAL
         /// <returns></returns>
         public int Save(Dictionary<string, object> paras)
         {
-            return StandardInsertOrUpdate("tbUser", paras);
+            return StandarInsertOrUpdate("tbUser", paras);
         }
     }
 }

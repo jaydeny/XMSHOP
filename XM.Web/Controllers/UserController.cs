@@ -71,7 +71,7 @@ namespace XM.Web.Controllers
         /// 获取所有用户信息
         /// </summary>
         /// <returns></returns>
-        //[PermissionFilter("User", "Index")]
+        // [PermissionFilter("User", "Index")]
 
         public ActionResult GetAllUserInfo()
         {
@@ -113,9 +113,9 @@ namespace XM.Web.Controllers
         #region 添加或修改用户信息方法
         public ActionResult Save()
         {
-            int id = Request["id "] == null ? 0 : Convert.ToInt32(Request["id"]);
+            int id = Request["id"] == "" ? 0 : Convert.ToInt32(Request["id"]);
             string userid = Request["UserAccountName"];
-            string mobilephone = Request["UserMobilePhone"];
+            string mobilephone = Request["UserMobliePhone"];
             string email = Request["UserEmail"];
             int roleID = Convert.ToInt32(Request["RoleID"]);
             int statusID = Convert.ToInt32(Request["StatusID"]);
@@ -124,6 +124,8 @@ namespace XM.Web.Controllers
             paras["id"] = id;
             paras["user_AN"] = userid;
             paras["user_email"] = email;
+            paras["status_id"] = statusID;
+            paras["role_id"] = roleID;
 
             int iCheck = DALUtility.User.CheckUseridAndEmail(paras);
             if (iCheck > 0)
@@ -133,9 +135,7 @@ namespace XM.Web.Controllers
             else
             {
                 int num;
-                paras["role_id"] = roleID;
                 paras["user_mp"] = mobilephone;
-                paras["status_id"] = statusID;
                 if (id == 0)
                 {
                     paras["user_pwd"] = "xm123456";

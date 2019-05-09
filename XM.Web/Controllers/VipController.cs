@@ -43,10 +43,7 @@ namespace XM.Web.Controllers
             string createDateTime = Request["CreateTime"] == null ? "" : Request["CreateTime"];
             int agentId = Request["AgentID"] == null ? 1 : Convert.ToInt32(Request["AgentID"]);
             
-
-
-
-
+            
             int totalCount;   //输出参数
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["pi"] = pageindex;
@@ -67,7 +64,7 @@ namespace XM.Web.Controllers
         #region  添加/修改操作
         public ActionResult Save()
         {
-            int id = Request["id"] == null ? 0 : Convert.ToInt32(Request["id"]);
+            int id = Request["id"] == "" ? 0 : Convert.ToInt32(Request["id"]);
             string userid = Request["VipAccountName"];
             string mobilephone = Request["VipMobliePhone"];
             string email = Request["VipEmail"];

@@ -1,4 +1,5 @@
 ﻿
+// 安全退出
 $("#home_exit").click(function () {
     $.get("/login/UserLoginOut", function (data) {
         if (data.success) {
@@ -7,7 +8,10 @@ $("#home_exit").click(function () {
     }, "json")
 });
 
-$.post("/Home/loadMenu", function (data) {
-    console.data(data);
+//用户权限
+$.post("", function () {
+
 })
+
+
 

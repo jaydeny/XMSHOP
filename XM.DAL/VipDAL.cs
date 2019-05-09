@@ -10,7 +10,7 @@ using XM.Model;
 
 namespace XM.DAL
 {
-    public class VipDAL : BaseDal, IVipDAL
+    public class VipDAL : BaseDal, IVipDAL 
     {
         /// <summary>
         /// 根据用户id获取用户

@@ -58,7 +58,7 @@ namespace XM.Web.Controllers
         #region  添加/修改菜单信息
         public ActionResult Save()
         {
-            int id = Request["id"] == null ? 1 : Convert.ToInt32(Request["id"]);
+            int id = Request["id"] == "" ? 0 : Convert.ToInt32(Request["id"]);
             string name = Request["name"] == null ? "" : Request["name"];
             string code = Request["code"] == null ? "" : Request["code"];
             string controller = Request["controller"] == null ? "" : Request["controller"];
@@ -76,7 +76,10 @@ namespace XM.Web.Controllers
             paras["parentid"] = parentid;
             paras["state"] = state;
             paras["sortvalue"] = sortvalue;
-
+            if (id == 0)
+            {
+                return OperationReturn(DALUtility.Menu.Save(paras) > 0);
+            }
             return OperationReturn(DALUtility.Menu.Save(paras) > 0);
         }
         #endregion

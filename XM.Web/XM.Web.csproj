@@ -344,18 +344,21 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\backEnd\Agent%40Index.js" />
-    <Content Include="Scripts\backEnd\Agent%40_Form.js" />
+    <Content Include="Scripts\backEnd\Agent%40Form.js" />
     <Content Include="Scripts\backEnd\Goods%40Index.js" />
-    <Content Include="Scripts\backEnd\Goods%40_Form.js" />
+    <Content Include="Scripts\backEnd\Goods%40Form.js" />
+    <Content Include="Scripts\backEnd\GoodsType%40Form.js" />
     <Content Include="Scripts\backEnd\GoodsType%40Index.js" />
     <Content Include="Scripts\backEnd\Home.js" />
+    <Content Include="Scripts\backEnd\Role%40Form.js" />
+    <Content Include="Scripts\backEnd\Role%40Index.js" />
     <Content Include="Scripts\backEnd\User%40BackPwd.js" />
     <Content Include="Scripts\backEnd\User%40ChangePwd.js" />
     <Content Include="Scripts\backEnd\User%40Index.js" />
     <Content Include="Scripts\backEnd\User%40login.js" />
-    <Content Include="Scripts\backEnd\User%40_Form.js" />
+    <Content Include="Scripts\backEnd\User%40Form.js" />
     <Content Include="Scripts\backEnd\Vip%40Index.js" />
-    <Content Include="Scripts\backEnd\Vip%40_Form.js" />
+    <Content Include="Scripts\backEnd\Vip%40Form.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
@@ -433,6 +436,8 @@
     <Content Include="Views\Vip\_Form.cshtml" />
     <Content Include="Views\Type\Index.cshtml" />
     <Content Include="Views\Type\_Form.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\_Form.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

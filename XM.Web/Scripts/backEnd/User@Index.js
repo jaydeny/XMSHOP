@@ -5,40 +5,35 @@ function gridList() {
     var $gridList = $("#gridList");
     $gridList.dataGrid({
         url: "/User/GetAllUserInfo",
-        height: $(window).height() - 128,
+        height: $(window).height() - 178,
         colModel: [
             { label: '主键', name: 'id', hidden: true },
-            { label: '账户', name: 'UserAccountName', width: 80, align: 'left' },
-            { label: '手机', name: 'UserMobliePhone', width: 100, align: 'left' },
-            { label: '邮箱', name: 'UserEmail', width: 140, align: 'left' }, 
-            { label: '创建人', name: 'UserCreateBy', width: 80, align: 'left' },
-            {
-                label: '角色', name: 'RoleID', width: 80, align: 'left',
-                formatter: function (cellvalue, options, rowObject) {
-                    return top.clients.role[cellvalue] == null ? "" : top.clients.role[cellvalue].fullname;
-                }
-            },
-            { label: '创建时间', name: 'UserCreateDate', width: 140, align: 'left' },
+            { label: '账户', name: 'UserAccountName', width: 80, align: 'center' },
+            { label: '手机', name: 'UserMobliePhone', width: 100, align: 'center' },
+            { label: '邮箱', name: 'UserEmail', width: 140, align: 'center' }, 
+            { label: '创建人', name: 'UserCreateBy', width: 80, align: 'center' },
+            { label: '创建时间', name: 'UserCreateDate', width: 160, align: 'center' },
             {
                 label: "允许登录", name: "StatusID", width: 60, align: "left",
                 formatter: function (cellvalue, options, rowObject) {
                     if (cellvalue == 1) {
                         return '<span class=\"label label-success\">正常</span>';
-                    } else if (cellvalue == 0) {
+                    } else if (cellvalue == 2) {
                         return '<span class=\"label label-default\">禁用</span>';
                     }
                 }
             }
         ],
-        pager: "#gridPager",
-        sortname: 'F_DepartmentId asc,F_CreatorTime desc',
-        viewrecords: true
+        rowNum: 20,
+        rowList: [10, 20, 30,40,50],
+        sortorder: "desc",
+        pager: "#gridPager"
     });
     $("#btn_search").click(function () {
         $gridList.jqGrid('setGridParam', {
             postData: {
                 keyword: $("#txt_keyword").val()
-            },
+            }
         }).trigger('reloadGrid');
     });
 }
@@ -73,7 +68,8 @@ function btn_delete() {
         url: "/User/DelUserByIDs",
         param: { id: $("#gridList").jqGridRowValue().id },
         success: function () {
-            $.currentWindow().$("#gridList").trigger("reloadGrid");
+            //$.currentWindow().$("#gridList").trigger("reloadGrid");
+            $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
         }
     })
 }
@@ -97,36 +93,39 @@ function btn_revisepassword() {
                 url: "/SystemManage/User/DisabledAccount",
                 param: { keyValue: keyValue },
                 success: function () {
-                    $.currentWindow().$("#gridList").trigger("gridList");
-                    
+                    $.currentWindow().$("#gridList").trigger("reloadGrid");
                 }
             })
         }
     });
 }
 function btn_disabled() {
-    var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    var keyValue = $("#gridList").jqGridRowValue();
+    keyValue.StatusID = 2;
     $.modalConfirm("注：您确定要【禁用】该项账户吗？", function (r) {
         if (r) {
             $.submitForm({
-                url: "/SystemManage/User/DisabledAccount",
-                param: { keyValue: keyValue },
+                url: "/User/Save",
+                param: keyValue,
                 success: function () {
-                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    //$.currentWindow().$("#gridList").trigger("reloadGrid");
+                    $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
                 }
             })
         }
     });
 }
 function btn_enabled() {
-    var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    var keyValue = $("#gridList").jqGridRowValue();
+    keyValue.StatusID = 1;
     $.modalConfirm("注：您确定要【启用】该项账户吗？", function (r) {
         if (r) {
             $.submitForm({
-                url: "/SystemManage/User/EnabledAccount",
-                param: { keyValue: keyValue },
+                url: "/User/Save",
+                param: keyValue,
                 success: function () {
-                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    //$.currentWindow().$("#gridList").trigger("reloadGrid");
+                    $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
                 }
             })
         }

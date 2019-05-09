@@ -16,7 +16,7 @@ namespace XM.Web.Controllers
         /// 数据交互接口
         /// </summary>
         internal DALCore DALUtility => DALCore.GetInstance();
-
+        
         protected ContentResult PagerData(int totalCount, object rows)
         {
             return Content(JsonConvert.SerializeObject(new { total = totalCount.ToString(), rows = rows }));
