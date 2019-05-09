@@ -14,6 +14,9 @@ namespace XM.Web.Controllers
 {
     public class BaseController : Controller
     {
+
+        public static Dictionary<string, string> pairs = new Dictionary<string, string>();
+        public static Dictionary<string, bool> recycle = new Dictionary<string, bool>();
         /// <summary>
         /// 数据交互接口
         /// </summary>
@@ -55,9 +58,8 @@ namespace XM.Web.Controllers
         public string ID { get { return Session["id"].ToString(); } }
         public string Agent_ID { get { return Session["Agent_ID"].ToString(); } }
         public string Agent_AN { get { return Session["Agent_AN "].ToString(); } }
-
-
-
+        
+        public static Dictionary<VipEntity, string> SSOVip = new Dictionary<VipEntity, string>();
         /// <summary>
         /// 在重写的Initialize方法(继承Controller的基类中)中不断的注册SessionId：
         /// </summary>
@@ -67,19 +69,7 @@ namespace XM.Web.Controllers
             base.Initialize(requestContext);
             Session["SessionId"] = Session.SessionID;
         }
-
-        protected override void OnAuthorization(AuthorizationContext filterContext)
-        {
-            //不能应用在子方法上
-            if (filterContext.IsChildAction)
-                return;
-            
-
-            if (!SSOHelper.CheckOnline())
-            {
-                Url.Action("RemoveSession", "Home");
-            }
-        }
+        
     }
 
     /// <summary>

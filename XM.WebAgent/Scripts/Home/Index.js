@@ -203,12 +203,19 @@ function onloadData(page, rows) {
 function showList(page, objs) {
     num_Page_Count.innerText = "共 " + Math.ceil(page / 10) + " 页";
     num_Page_Count.name = Math.ceil(page / 10);
-     $("#tbody").empty();
+    $("#tbody").empty();
+    //进行数据可视化封装
     $.each(objs, function (index, obj) {
        
         const trs = $("<tr></tr>");
 
-       
+        //const ck_td = $("<td></td>")
+        //const ck_btn = $("<input  >");
+        //ck_btn.attr("type","checkbox")
+        //ck_btn.attr("class","ck_btn")
+        //ck_td.append(ck_btn);
+        //trs.append(ck_td)
+
 
         const vip_mp = $("<td>" + obj.VipMobliePhone + "</td>");
         trs.append(vip_mp)

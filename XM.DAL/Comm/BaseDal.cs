@@ -189,14 +189,14 @@ namespace XM.DAL.comm
             var sql = "";
             if (paras[keyFild].ToString().Equals("0"))
             {
-                var fields = insertInfo(paras, keyFild);
+                var fields = InsertInfo(paras, keyFild);
                 var fieldsSql1 = String.Join(",", fields);
                 var fieldsSql2 = String.Join(",", fields.Select(field => "@" + field));
                 sql = String.Format("INSERT {0} ({1}) VALUES ({2});", tabName, fieldsSql1, fieldsSql2);
             }
             else
             {
-                var fields = updateInfo(paras, keyFild);
+                var fields = UpdateInfo(paras, keyFild);
                 var key = tabName.Substring(2);
                 var fieldsSql = String.Join(",", fields.Select(field => field + " = @" + field));
                 sql = String.Format("UPDATE {0} SET {1} WHERE {2} = @{2}", tabName, fieldsSql, key + choose);
@@ -207,7 +207,7 @@ namespace XM.DAL.comm
             }
         }
 
-        private string[] updateInfo(Dictionary<string, object> keyValues, string keyFild = "")
+        private string[] UpdateInfo(Dictionary<string, object> keyValues, string keyFild = "")
         {
             var result = new List<string>();
             foreach (var entry in keyValues)
@@ -220,7 +220,7 @@ namespace XM.DAL.comm
             return result.ToArray();
         }
 
-        private string[] insertInfo(Dictionary<string, object> keyValues, string keyFild = "")
+        private string[] InsertInfo(Dictionary<string, object> keyValues, string keyFild = "")
         {
             var result = new List<string>();
             foreach (var entry in keyValues)
