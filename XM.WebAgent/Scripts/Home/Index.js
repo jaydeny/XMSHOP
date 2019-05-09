@@ -3,14 +3,20 @@
 //当前页数
 var count = 1;
 var rows = 10;
+var allSource = 0;
+
 //每页显示条数
 var btn_num_Rows_count = $("#btn_num_Rows_count");
 
 //跳转页数
 var btn_num_Page_count = $("#btn_num_Page_count");
 
+
+
 //显示所有页数
 var num_Page_Count = document.getElementById("num_Page_Count");
+//总条数
+var Page_Count = document.getElementById("Page_Count");
 
 //上一页功能
 document.querySelector("#before").onclick = function () {
@@ -40,28 +46,45 @@ document.querySelector("#end").onclick = function () {
 
 //点击分页
 document.querySelector("#btn_num_Page").onclick = function () {
+
     onloadData(count, rows);
 }
 
 //监听文本框改变事件
 btn_num_Page_count.bind("input propertychange", function (e) {
+    //console.log(e.target.value);
     count = e.target.value;
 
 });
 
 //监听文本框改变事件
 btn_num_Rows_count.bind("input propertychange", function (e) {
+   
+    //console.log(e.target.value);
     rows = e.target.value;
+    const page_count = Math.ceil(allSource / rows);
+    num_Page_Count.innerText = "共 " + page_count + " 页";
+    num_Page_Count.name = page_count;
+    //id = "btn_num_Page_count" value = "1"
+    addOption(page_count);
 });
 
-//封装查询功能
-function search() {
-    const search = $("#search").val();
+function addOption(page_count) {
+    var num_page = $("#btn_num_Page_count");
+    for (var i = 0; i < page_count; i++) {
+        let op = $("<option></option>");
+        op.val(i + 1);
+        op.text(i + 1);
+        num_page.append(op)
+    }
+}
 
+//封装查询功能
+function searches() {
+    const search = $("#search").val();
+    
     let datapram = {
-        "vip_AN": search,
-        "vip_mp": search,
-        "vip_Email": search
+        "vip_AN": search
     }
 
     $.ajax({
@@ -70,9 +93,11 @@ function search() {
         data: datapram,
         dataType: 'json'
     }).done(function (data) {
+        
         objs = data.rows;
+       
         //调用列表数据可视化函数
-        showList(objs);
+        showList(data.total,objs);
     })
 
 }
@@ -201,21 +226,18 @@ function onloadData(page, rows) {
 
 //封装列表显示函数，传入列表对象进行渲染页面
 function showList(page, objs) {
-    num_Page_Count.innerText = "共 " + Math.ceil(page / 10) + " 页";
-    num_Page_Count.name = Math.ceil(page / 10);
+    const page_count = Math.ceil(page / rows);
+    num_Page_Count.innerText = "共 " + page_count + " 页";
+    Page_Count.innerText = "共 " + page + "条数据";
+    num_Page_Count.name = page_count;
+    addOption(page_count);
+    //将条数提取出去
+    allSource = page;
     $("#tbody").empty();
     //进行数据可视化封装
     $.each(objs, function (index, obj) {
        
         const trs = $("<tr></tr>");
-
-        //const ck_td = $("<td></td>")
-        //const ck_btn = $("<input  >");
-        //ck_btn.attr("type","checkbox")
-        //ck_btn.attr("class","ck_btn")
-        //ck_td.append(ck_btn);
-        //trs.append(ck_td)
-
 
         const vip_mp = $("<td>" + obj.VipMobliePhone + "</td>");
         trs.append(vip_mp)

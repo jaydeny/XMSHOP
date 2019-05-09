@@ -10,7 +10,7 @@
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/vue.min.js"></script>
     <script src="~/Scripts/vue-resource.min.js"></script>
-    
+
     <link href="~/Content/carousel.css" />
 
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -19,7 +19,7 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <a class="navbar-brand" href="#">代理管理系统</a>
-            <button class="btn btn-outline-success my-2 my-sm-0"  onclick="loginup()" style="float:right">退出登录</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" onclick="loginup()" style="float:right">退出登录</button>
         </nav>
     </header>
     <main role="main">
@@ -42,17 +42,11 @@
                         </h6>
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#">
-                                    <span data-feather="home"></span>
-                                    @Html.ActionLink("会员管理", "Index", "Home") <span class="sr-only">(current)</span>
-                                </a>
+
+                                @Html.ActionLink("会员管理", "Index", "Home") <span class="sr-only">(current)</span>
+
                             </li>
-                            @*<li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="file"></span>
-                                    增值服务审核
-                                </a>
-                            </li>*@
+
                         </ul>
 
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -63,23 +57,11 @@
                         </h6>
                         <ul class="nav flex-column mb-2">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="file-text"></span>
-                                    @Html.ActionLink("商品上架&定价", "getProductPage", "Product")
-                                </a>
+
+                                @Html.ActionLink("商品上架&定价", "getProductPage", "Product")
+
                             </li>
-                            @*<li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="file-text"></span>
-                                    团购
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="file-text"></span>
-                                    订单
-                                </a>
-                            </li>*@
+
                         </ul>
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                             <span>报表</span>
@@ -89,10 +71,9 @@
                         </h6>
                         <ul class="nav flex-column mb-2">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="file-text"></span>
-                                    @Html.ActionLink("营收报表", "ReportForm", "Form")
-                                </a>
+
+                                @Html.ActionLink("营收报表", "ReportForm", "Form")
+
                             </li>
                         </ul>
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -103,10 +84,9 @@
                         </h6>
                         <ul class="nav flex-column mb-2">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="file-text"></span>
-                                    @Html.ActionLink("个人中心", "AgentPersonalCenter", "AgentInfo")
-                                </a>
+
+                                @Html.ActionLink("个人中心", "AgentPersonalCenter", "AgentInfo")
+
                             </li>
                         </ul>
                     </div>
@@ -119,10 +99,10 @@
         </div>
     </main>
     <script>
-        
+
         function loginup() {
             $.get("/Agent/RemoveSession").done((data) => {
-               
+
             });
             location.href = "/Home/Login";
         }

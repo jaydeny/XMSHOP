@@ -1,5 +1,7 @@
 ﻿
 @{
+
+
     ViewBag.Title = "ReportForm";
 }
 <body>
@@ -26,18 +28,18 @@
                 </div>
             </div>
         </div>
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            <div class="list-group">
-                <button type="button" class="list-group-item list-group-item-action active">
-                    {{config.leftTypeMessage.topMsg}}
-                </button>
-                <div>
-                    <button type="button" class="list-group-item list-group-item-action">{{config.leftTypeMessage.revenueList}}</button>
+        @*<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="list-group">
+                    <button type="button" class="list-group-item list-group-item-action active">
+                        {{config.leftTypeMessage.topMsg}}
+                    </button>
+                    <div>
+                        <button type="button" class="list-group-item list-group-item-action">{{config.leftTypeMessage.revenueList}}</button>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>*@
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <main role="main" class="col-md-12 ml-sm-auto col-lg-12 pt-3 px-4">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -63,9 +65,18 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
 
-                    <li class="page-item"><span class="page-link"> 显示 <input type="number" style="width:55px" v-model="rows" />条数据 </span> </li>
+                    <li class="page-item">
+                        <span class="page-link">
+                            显示条数
+                            <select class="form-control form-control-sm" v-model="rows">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                            </select>
+                        </span>
+                    </li>
 
-                    <li class="page-item" v-on:click="before()" >
+                    <li class="page-item" v-on:click="before()">
                         <a class="page-link" href="#" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                             <span class="sr-only">上一页</span>
@@ -81,8 +92,16 @@
                         </a>
                     </li>
                     <li class="page-item"><a class="page-link" href="#">共 {{total}} 页</a></li>
-                    <li class="page-item"><span class="page-link"> 跳转到 <input type="number" style="width:55px" v-model="page" />页 </span> </li>
-                    <li class="page-item"><a class="page-link"v-on:click="btn_sub()"  href="#">确定</a></li>
+                    <li class="page-item"><a class="page-link" href="#">共 {{count}} 页</a></li>
+                    <li class="page-item">
+                        <span class="page-link">
+                            跳转页码
+                            <select class="form-control form-control-sm" v-model="page">
+                                <option :value="index" v-for="(index) in total" :key="index">{{index}}</option>
+                            </select>
+                        </span>
+                    </li>
+                    <li class="page-item"><a class="page-link" v-on:click="btn_sub()" href="#">确定</a></li>
                 </ul>
             </nav>
 
@@ -103,8 +122,9 @@
                 //当前页数
                 "page": 1,
                 //总页数
-                "total" : 0
-               
+                "total": 0,
+                "count" : 0 
+
             },
             created: function () {
                 ////请求配置文件去拿数据
@@ -112,9 +132,9 @@
                     url: "../../Content/StaticJson/ReportForm.json",
                     dataType: 'json'
                 }).then((data) => {
-                     //将数据配置到这个页面代码中
+                    //将数据配置到这个页面代码中
                     this.config = data;
-                     //发送请求将数据到dataTable中
+                    //发送请求将数据到dataTable中
                     this.onloadData(data.urlList.QryReportForm);
                 });
             },
@@ -143,10 +163,10 @@
                     $.ajax({
                         url: url,
                         method: "get",
-                        data : param,
+                        data: param,
                         dataType: 'json'
                     }).then((data) => {
-                        
+                        this.count = data.total;
                         this.total = Math.ceil(data.total / this.rows);
                         this.dataTable = data.rows;
                     });
@@ -179,7 +199,7 @@
                         "endTime": dataTime
                     }
                     //发送请求获取对应的数据
-                    this.onloadData(url,param);
+                    this.onloadData(url, param);
                 },
                 //上一页
                 before() {
