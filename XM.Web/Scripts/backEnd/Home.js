@@ -8,10 +8,5 @@ $("#home_exit").click(function () {
     }, "json")
 });
 
-//用户权限
-$.post("", function () {
-
-})
-
 
 
