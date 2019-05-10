@@ -28,7 +28,7 @@ namespace XM.Web.Controllers
         #region 修改密码页面
         public ActionResult PwdUpdate()
         {
-            return View();
+            return View("_PwdUpdate");
         }
         #endregion
         #region 修改密码操作
@@ -190,5 +190,7 @@ namespace XM.Web.Controllers
             return Content(JsonConvert.SerializeObject(user));
         }
         #endregion
+
+
     }
 }
