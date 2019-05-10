@@ -49,8 +49,8 @@ namespace XM.WebAgent.Controllers
             param.Add("month", month == null ? DateTime.Now.Month.ToString() : month);
             param.Add("startDay", Request["startDay"] == null ? startDay : Request["startDay"]);
             param.Add("endDay", Request["endDay"] == null ? endDay : Request["endDay"]);
-            //param.Add("agent_AN", Session["agent_AN"].ToString());
-            param.Add("agent_AN", Request["agent_AN"]);
+            param.Add("agent_AN", Session["agent_AN"].ToString());
+            //param.Add("agent_AN", Request["agent_AN"]);
 
             return Content(DALUtility.Agent.QryDayTotal(param));
         }
@@ -72,8 +72,8 @@ namespace XM.WebAgent.Controllers
 
             param.Add("day", Request["day"]);
             param.Add("vip_AN", Request["vip_AN"]);
-            //param.Add("agent_AN", Session["agent_AN"].ToString());
-            param.Add("agent_AN", Request["agent_AN"]);
+            param.Add("agent_AN", Session["agent_AN"].ToString());
+            //param.Add("agent_AN", Request["agent_AN"]);
 
             return Content(DALUtility.Agent.QryDayForm(param, out int iCount));
         }
@@ -114,8 +114,8 @@ namespace XM.WebAgent.Controllers
             param.Add("month", Request["month"] == null ? DateTime.Now.Month.ToString() : Request["month"]);
             param.Add("startDay", Request["startDay"] == null ? startDay : Request["startDay"]);
             param.Add("endDay", Request["endDay"] == null ? endDay : Request["endDay"]);
-            //param.Add("agent_id", Session["agent_ID"].ToString());
-            param.Add("agent_id", Request["agent_id"]);
+            param.Add("agent_id", Session["agent_ID"].ToString());
+            //param.Add("agent_id", Request["agent_id"]);
 
             return Content(DALUtility.Agent.QryDayRechargeTotal(param));
         }
@@ -137,8 +137,8 @@ namespace XM.WebAgent.Controllers
 
             param.Add("day", Request["day"]);
             param.Add("vip_id", Request["vip_id"]);
-            //param.Add("agent_id", Session["agent_ID"].ToString());
-            param.Add("agent_id", Request["agent_id"]);
+            param.Add("agent_id", Session["agent_ID"].ToString());
+            //param.Add("agent_id", Request["agent_id"]);
 
             return Content(DALUtility.Agent.QryDayRechargeForm(param, out int iCount));
         }
