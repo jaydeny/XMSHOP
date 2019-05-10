@@ -37,18 +37,16 @@ namespace XM.WebAgent.Controllers
         public ActionResult QryDayTotal()
         {
             string year = Request["year"];
-            string month = Request["month"];
 
-            int monthDay = DateTime.DaysInMonth(int.Parse(year), int.Parse(month));
-            string startDay = new DateTime(int.Parse(year), int.Parse(month), 1).Day.ToString();
-            string endDay = new DateTime(int.Parse(year), int.Parse(month), monthDay).Day.ToString();
-
-
+            string startMonth = Request["startMonth"];
+            string endMonth = Request["endMonth"];
+            
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("year", year == null ? DateTime.Now.Year.ToString() : year);
-            param.Add("month", month == null ? DateTime.Now.Month.ToString() : month);
-            param.Add("startDay", Request["startDay"] == null ? startDay : Request["startDay"]);
-            param.Add("endDay", Request["endDay"] == null ? endDay : Request["endDay"]);
+            param.Add("startMonth", startMonth == null ? DateTime.Now.Month.ToString() : startMonth);
+            param.Add("endMonth", endMonth == null ? DateTime.Now.Month.ToString() : endMonth);
+            param.Add("startDay", Request["startDay"] == null ? "1" : Request["startDay"]);
+            param.Add("endDay", Request["endDay"] == null ? "31" : Request["endDay"]);
             param.Add("agent_AN", Session["agent_AN"].ToString());
             //param.Add("agent_AN", Request["agent_AN"]);
 

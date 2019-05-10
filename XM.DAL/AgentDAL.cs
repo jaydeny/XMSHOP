@@ -412,7 +412,7 @@ namespace XM.DAL
             builder.Append("select ");
             builder.Append("convert(varchar(10),order_date, 120) as date, SUM(order_total) as total ");
             builder.Append("from tborder ");
-            builder.Append("where YEAR(order_date)= @year and  MONTH(order_date)=@month and DAY(order_date) between @startDay and @endDay ");
+            builder.Append("where YEAR(order_date)= @year and  MONTH(order_date)= between @startMonth and @endMonth and DAY(order_date) between @startDay and @endDay ");
             builder.Append("and agent_AN = @agent_AN ");
             builder.Append("GROUP BY convert(varchar(10),order_date, 120)");
 
