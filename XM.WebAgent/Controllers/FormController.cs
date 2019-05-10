@@ -20,15 +20,10 @@ namespace XM.WebAgent.Controllers
         /// <summary>
         /// 作者:梁钧淋
         /// 日期:2019/4/29
-        /// 功能:返回报表页面
+        /// 功能:返回报表页面 
         /// </summary>
         /// <returns></returns>
         public ActionResult ReportForm()
-        {
-            return View();
-        }
-
-        public ActionResult ReportsForm()
         {
             return View();
         }
@@ -41,17 +36,17 @@ namespace XM.WebAgent.Controllers
         /// </summary>
         public ActionResult QryDayTotal()
         {
-            int monthDay = DateTime.DaysInMonth(int.Parse(Request["year"]), int.Parse(Request["month"]));
+            string year = Request["year"];
 
-            string startDay = new DateTime(int.Parse(Request["year"]), int.Parse(Request["month"]), 1).Day.ToString();
-            string endDay = new DateTime(int.Parse(Request["year"]), int.Parse(Request["month"]), monthDay).Day.ToString();
-
-
+            string startMonth = Request["startMonth"];
+            string endMonth = Request["endMonth"];
+            
             Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("year", Request["year"] == null ? DateTime.Now.Year.ToString() : Request["year"]);
-            param.Add("month", Request["month"] == null ? DateTime.Now.Month.ToString() : Request["month"]);
-            param.Add("startDay", Request["startDay"] == null ? startDay : Request["startDay"]);
-            param.Add("endDay", Request["endDay"] == null ? endDay : Request["endDay"]);
+            param.Add("year", year == null ? DateTime.Now.Year.ToString() : year);
+            param.Add("startMonth", startMonth == null ? DateTime.Now.Month.ToString() : startMonth);
+            param.Add("endMonth", endMonth == null ? DateTime.Now.Month.ToString() : endMonth);
+            param.Add("startDay", Request["startDay"] == null ? "1" : Request["startDay"]);
+            param.Add("endDay", Request["endDay"] == null ? "31" : Request["endDay"]);
             param.Add("agent_AN", Session["agent_AN"].ToString());
             //param.Add("agent_AN", Request["agent_AN"]);
 
@@ -117,8 +112,8 @@ namespace XM.WebAgent.Controllers
             param.Add("month", Request["month"] == null ? DateTime.Now.Month.ToString() : Request["month"]);
             param.Add("startDay", Request["startDay"] == null ? startDay : Request["startDay"]);
             param.Add("endDay", Request["endDay"] == null ? endDay : Request["endDay"]);
-            //param.Add("agent_id", Session["agent_ID"].ToString());
-            param.Add("agent_id", Request["agent_id"]);
+            param.Add("agent_id", Session["agent_ID"].ToString());
+            //param.Add("agent_id", Request["agent_id"]);
 
             return Content(DALUtility.Agent.QryDayRechargeTotal(param));
         }
@@ -140,8 +135,8 @@ namespace XM.WebAgent.Controllers
 
             param.Add("day", Request["day"]);
             param.Add("vip_id", Request["vip_id"]);
-            //param.Add("agent_id", Session["agent_ID"].ToString());
-            param.Add("agent_id", Request["agent_id"]);
+            param.Add("agent_id", Session["agent_ID"].ToString());
+            //param.Add("agent_id", Request["agent_id"]);
 
             return Content(DALUtility.Agent.QryDayRechargeForm(param, out int iCount));
         }
