@@ -18,6 +18,8 @@ namespace XM.WebVip.Controllers
     /// </summary>
     public class HomeController : BaseController
     {
+
+       
         // GET: Home
         /// <summary>
         /// 作者:曾贤鑫
@@ -65,12 +67,31 @@ namespace XM.WebVip.Controllers
                     {
                         return OperationReturn(false, "用户已被禁用，请您联系管理员");
                     }
+
+                    //判断当前登录账户,是否存在于Dictionary,如果存在,则把第一人,放入回收区
+                    if (pairs.ContainsKey(AN))
+                    {
+                        recycle.Add(pairs[AN],false);
+                    }
+
+                    //当有第二个相同账户登录时,替换第一个人的sessionID
+                    if (pairs.ContainsKey(AN))
+                    {
+                        pairs[AN] = Session.SessionID;
+                    }
+                    else {
+                        pairs.Add(AN, Session.SessionID);
+                    }
+                   
                     //ViewData.Model = vip;
                     Session["AN"] = vip.VipAccountName;
                     Session["ID"] = vip.VipID;
                     Session["Agent_ID"] = vip.AgentID;
                     Session["Agent_AN"] = DALUtility.Vip.QryAgentANByID(getAgentAN(vip.AgentID));
-                    SSOHelper.LoginRegister(vip.VipAccountName);
+
+                    
+                   // SSOVip.Add(vip,"onLine");
+
                     return OperationReturn(true, "登录成功,vip_id:" + vip.VipID + ";vip_AN:" + AN,
                         new
                         {
@@ -304,7 +325,12 @@ namespace XM.WebVip.Controllers
         /// </summary>
         public ActionResult RemoveSession()
         {
-            Session.RemoveAll();
+            pairs.Remove(Session["AN"].ToString());
+            Session.Remove("AN");
+            Session.Remove("ID");
+            Session.Remove("Agent_ID");
+            Session.Remove("Agent_AN");
+           
             return OperationReturn(true, "退出成功");
         }
         #endregion

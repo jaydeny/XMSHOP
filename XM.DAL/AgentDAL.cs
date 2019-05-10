@@ -401,11 +401,34 @@ namespace XM.DAL
 
         #region _Form
         /// <summary>
-        /// 查询所有的代理商
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4/29
+        /// 修改时间：2019-
+        /// 功能：查询日期,总营业额
         /// </summary>
-        /// <param name="paras"></param>
-        /// <returns></returns> 
-        public string QryReportForm(Dictionary<string, object> paras, out int iCount)
+        public string QryDayTotal(Dictionary<string, object> paras)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append("select ");
+            builder.Append("convert(varchar(10),order_date, 120) as date, SUM(order_total) as total ");
+            builder.Append("from tborder ");
+            builder.Append("where YEAR(order_date)= @year and  MONTH(order_date)=@month and DAY(order_date) between @startDay and @endDay ");
+            builder.Append("and agent_AN = @agent_AN ");
+            builder.Append("GROUP BY convert(varchar(10),order_date, 120)");
+
+            var s = Query(builder.ToString(), paras);
+
+            string retData = JsonConvert.SerializeObject(new { rows = s });
+            return retData;
+        }
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4/29
+        /// 修改时间：2019-
+        /// 功能：查询日期内的记录
+        /// </summary>
+        public string QryDayForm(Dictionary<string, object> paras, out int iCount)
         {
             WhereBuilder builder = new WhereBuilder();
             builder.FromSql = "tborder";
@@ -413,12 +436,83 @@ namespace XM.DAL
             {
                 PageIndex = Convert.ToInt32(paras["pi"]),
                 PageSize = Convert.ToInt32(paras["pageSize"]),
-                SortField = paras["sort"].ToString()
+                SortField = paras["sort"].ToString(),
+                SortDirection = paras["order"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "startTime", "order_date", ">", "@startTime");
-            builder.AddWhereAndParameter(paras, "endTime", "order_date", "<", "@endTime");
+            builder.AddWhereAndParameter(paras, "day", "convert(varchar(10),order_date, 120)");
             builder.AddWhereAndParameter(paras, "agent_AN");
+            builder.AddWhereAndParameter(paras, "vip_AN");
+            var s = SortAndPage(builder, grid, out iCount);
+            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
+            return retData;
+        }
 
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4/29
+        /// 修改时间：2019-
+        /// 功能：查询每一笔订单的详细详细
+        /// </summary>
+        public string QryDetailOrder(Dictionary<string, object> paras)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append("select ");
+            builder.Append("a.id,a.order_date,a.vip_AN,a.order_mp,a.order_total,b.address_name,c.goods_id,c.buy_count,c.buy_total,d.goods_name,d.goods_intro ");
+            builder.Append("from ");
+            builder.Append("tborder a join tbaddress b on a.order_address = b.id join tbbuy c on a.id = c.order_id join tbgoods d on c.goods_id = d.id ");
+            builder.Append("where order_id = @order_id ");
+
+            var s = Query(builder.ToString(), paras);
+
+            string retData = JsonConvert.SerializeObject(new { rows = s });
+            return retData;
+        }
+        #endregion
+        
+        #region _RechargeFrom
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4/29
+        /// 修改时间：2019-
+        /// 功能：查询日期,总营业额
+        /// </summary>
+        public string QryDayRechargeTotal(Dictionary<string, object> paras)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append("select ");
+            builder.Append("convert(varchar(10),recharge_time, 120) as date, SUM(recharge_price) as total ");
+            builder.Append("from tbrecharge ");
+            builder.Append("where YEAR(recharge_time)= @year and  MONTH(recharge_time)=@month and DAY(recharge_time) between @startDay and @endDay ");
+            builder.Append("and agent_id = @agent_id ");
+            builder.Append("GROUP BY convert(varchar(10),recharge_time, 120)");
+
+            var s = Query(builder.ToString(), paras);
+
+            string retData = JsonConvert.SerializeObject(new { rows = s });
+            return retData;
+        }
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-5-10
+        /// 修改时间：2019-
+        /// 功能：查询日期内的记录
+        /// </summary>
+        public string QryDayRechargeForm(Dictionary<string, object> paras, out int iCount)
+        {
+            WhereBuilder builder = new WhereBuilder();
+            builder.FromSql = "tbrecharge";
+            GridData grid = new GridData()
+            {
+                PageIndex = Convert.ToInt32(paras["pi"]),
+                PageSize = Convert.ToInt32(paras["pageSize"]),
+                SortField = paras["sort"].ToString(),
+                SortDirection = paras["order"].ToString()
+            };
+            builder.AddWhereAndParameter(paras, "day", "convert(varchar(10),recharge_time, 120)", "like", "@day+'%'");
+            builder.AddWhereAndParameter(paras, "agent_id");
+            builder.AddWhereAndParameter(paras, "vip_id");
             var s = SortAndPage(builder, grid, out iCount);
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
             return retData;
@@ -462,8 +556,7 @@ namespace XM.DAL
             return retData;
         }
         #endregion
-
-
+        
 
     }
 }

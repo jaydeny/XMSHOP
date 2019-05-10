@@ -78,6 +78,7 @@
     <Compile Include="UserDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VipDAL.cs" />
+    <Compile Include="XMDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XM.Comm\XM.Comm.csproj">

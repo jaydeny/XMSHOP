@@ -57,6 +57,7 @@
     <Compile Include="IStatusDAL.cs" />
     <Compile Include="IUserDAL.cs" />
     <Compile Include="IVipDAL.cs" />
+    <Compile Include="IXMDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

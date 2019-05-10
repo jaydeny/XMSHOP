@@ -66,7 +66,7 @@ namespace XM.DAL.comm
         /// <param name="connectionString"></param>
         /// <param name="builder"></param>
         /// <param name="grid"></param>
-        /// <param name="iCount"></param>
+        /// <param name="iCount">总笔数</param>
         /// <returns></returns>
         protected IEnumerable<object> SortAndPage(WhereBuilder builder, GridData grid, out int iCount)
         {
@@ -189,14 +189,14 @@ namespace XM.DAL.comm
             var sql = "";
             if (paras[keyFild].ToString().Equals("0"))
             {
-                var fields = insertInfo(paras, keyFild);
+                var fields = InsertInfo(paras, keyFild);
                 var fieldsSql1 = String.Join(",", fields);
                 var fieldsSql2 = String.Join(",", fields.Select(field => "@" + field));
                 sql = String.Format("INSERT {0} ({1}) VALUES ({2});", tabName, fieldsSql1, fieldsSql2);
             }
             else
             {
-                var fields = updateInfo(paras, keyFild);
+                var fields = UpdateInfo(paras, keyFild);
                 var key = tabName.Substring(2);
                 var fieldsSql = String.Join(",", fields.Select(field => field + " = @" + field));
                 sql = String.Format("UPDATE {0} SET {1} WHERE {2} = @{2}", tabName, fieldsSql, key + choose);
@@ -207,7 +207,7 @@ namespace XM.DAL.comm
             }
         }
 
-        private string[] updateInfo(Dictionary<string, object> keyValues, string keyFild = "")
+        private string[] UpdateInfo(Dictionary<string, object> keyValues, string keyFild = "")
         {
             var result = new List<string>();
             foreach (var entry in keyValues)
@@ -220,7 +220,7 @@ namespace XM.DAL.comm
             return result.ToArray();
         }
 
-        private string[] insertInfo(Dictionary<string, object> keyValues, string keyFild = "")
+        private string[] InsertInfo(Dictionary<string, object> keyValues, string keyFild = "")
         {
             var result = new List<string>();
             foreach (var entry in keyValues)
@@ -241,7 +241,7 @@ namespace XM.DAL.comm
         /// <param name="iCount"></param>
         /// <param name="some"></param>
         /// <returns></returns>
-        protected IEnumerable<object> SortAndPage(WhereBuilder builder, GridData grid, out int iCount, string some)
+        protected IEnumerable<object> SortAndPage(WhereBuilder builder, GridData grid, out int iCount, string some,string group = null)
         {
             iCount = 0;
             var sql = "";
@@ -255,7 +255,7 @@ namespace XM.DAL.comm
             }
         }
 
-        void FormartSqlToSortAndPageWithJoin(GridData grid, ref string sql, ref string countSql, ref WhereBuilder builder, string some)
+        void FormartSqlToSortAndPageWithJoin(GridData grid, ref string sql, ref string countSql, ref WhereBuilder builder, string some, string group = null)
         {
             sql = "";
             countSql = "";
@@ -275,6 +275,10 @@ namespace XM.DAL.comm
             #region 仅支持SQL Server 2012及以上
             sql += " order by " + grid.SortField + " " + grid.SortDirection;
             sql += " OFFSET @PageStartIndex ROWS FETCH NEXT @PageSize ROWS ONLY";
+            if (group != null)
+            {
+                sql += group;
+            }
             builder.Parameters.Add("PageSize", grid.PageSize);
             builder.Parameters.Add("PageStartIndex", grid.PageSize * (grid.PageIndex - 1));
             #endregion

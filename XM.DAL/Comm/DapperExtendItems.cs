@@ -64,7 +64,6 @@ namespace XM.DAL
         /// <param name="addParameter"></param>
         public void AddWhereAndParameter(Dictionary<string, object> paras, string key, string dbField = "", string operatorTag = "=", string obj = "", bool addParameter = true)
         {
-
             if (paras.ContainsKey(key) && paras[key] != null)
             {
                 if (string.IsNullOrEmpty(dbField))
