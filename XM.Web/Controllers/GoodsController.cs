@@ -64,11 +64,12 @@ namespace XM.Web.Controllers
         #region  添加/修改商品信息
         public ActionResult Save()
         {
+            UserEntity user = Session["User"] as UserEntity;
             int id = Request["id"] == "" ? 0 : Convert.ToInt32(Request["id"]);
             string goodsName = Request["GoodsName"];
             string goodsIntro = Request["GoodsIntro"];
             decimal goodsPrice = Convert.ToDecimal(Request["GoodsPrice"]);
-            string createBy = Request["GoodsCreateBy"];
+            string createBy = user.UserAccountName;
             string goodsPic = Request["GoodsPicture"];
             int typeId = Convert.ToInt32(Request["GoodsType"]);
 

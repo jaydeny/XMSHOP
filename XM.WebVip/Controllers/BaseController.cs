@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
+using XM.Comm;
 using XM.DALFactory;
 using XM.Model;
 
@@ -12,6 +14,9 @@ namespace XM.Web.Controllers
 {
     public class BaseController : Controller
     {
+
+        public static Dictionary<string, string> pairs = new Dictionary<string, string>();
+        public static Dictionary<string, bool> recycle = new Dictionary<string, bool>();
         /// <summary>
         /// 数据交互接口
         /// </summary>
@@ -25,6 +30,12 @@ namespace XM.Web.Controllers
         protected ContentResult OperationReturn(bool _success, string _msg = "")
         {
             return Content(JsonConvert.SerializeObject(new { msg = _msg != "" ? _msg : (_success ? "操作成功" : "操作失败"), success = _success }));
+
+        }
+
+        protected ContentResult OperationReturn(bool _success, string _msg = "", object obj = null)
+        {
+            return Content(JsonConvert.SerializeObject(new { msg = _msg != "" ? _msg : (_success ? "操作成功" : "操作失败"), success = _success, data = obj}));
 
         }
 
@@ -42,7 +53,23 @@ namespace XM.Web.Controllers
                 reason = reason,
                 Time = DateTime.Now
             });
+        } 
+        public string AN { get { return Session["AN"].ToString(); } }
+        public string ID { get { return Session["id"].ToString(); } }
+        public string Agent_ID { get { return Session["Agent_ID"].ToString(); } }
+        public string Agent_AN { get { return Session["Agent_AN "].ToString(); } }
+        
+        public static Dictionary<VipEntity, string> SSOVip = new Dictionary<VipEntity, string>();
+        /// <summary>
+        /// 在重写的Initialize方法(继承Controller的基类中)中不断的注册SessionId：
+        /// </summary>
+        /// <param name="requestContext"></param>
+        protected override void Initialize(RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            Session["SessionId"] = Session.SessionID;
         }
+        
     }
 
     /// <summary>
@@ -54,6 +81,4 @@ namespace XM.Web.Controllers
         public string errorMsg { get; set; } = "";
         public object result { get; set; }
     }
-
-
 }

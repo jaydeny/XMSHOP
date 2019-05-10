@@ -135,9 +135,7 @@ namespace XM.Web.Controllers
             else
             {
                 int num;
-                paras["role_id"] = roleID;
                 paras["user_mp"] = mobilephone;
-                paras["status_id"] = statusID;
                 if (id == 0)
                 {
                     paras["user_pwd"] = "xm123456";

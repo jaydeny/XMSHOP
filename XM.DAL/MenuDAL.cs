@@ -52,7 +52,7 @@ namespace XM.DAL
                 SortDirection = paras["order"].ToString()
             };
             builder.AddWhereAndParameter(paras, "id", "Id", "=", "@id");
-            builder.AddWhereAndParameter(paras, "name", "Name", "Like", "%@name%");
+            builder.AddWhereAndParameter(paras, "name", "Name", "Like", "'%'+@name+'%'");
             return SortAndPage<T>(builder, grid, out iCount);
         }
 
@@ -75,7 +75,7 @@ namespace XM.DAL
 
         public int Save(Dictionary<string, object> paras)
         {
-            return StandarInsertOrUpdate("tbmenu", paras);
+            return StandarInsertOrUpdate("tbMenu", paras);
         }
     }
 }

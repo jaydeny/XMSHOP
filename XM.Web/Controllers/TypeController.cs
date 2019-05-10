@@ -59,7 +59,7 @@ namespace XM.Web.Controllers
         public ActionResult Save()
         {
             int id = Request["id"] == "" ? 0 : Convert.ToInt32(Request["id"]);
-            string typeName = Request["TypeName "];
+            string typeName = Request["TypeName"];
             int num;
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["id"] = id;

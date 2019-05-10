@@ -16,7 +16,7 @@
                 $.login.formMessage('请输入登录密码。');
                 return false;
             } else {
-                $("#login_button").attr('disabled', 'disabled').find('span').html("loading...");
+                $("#login_button").attr('disabled', 'disabled').find('span').html("登录...");
                 $.ajax({
                     url: "/Login/CheckUserLogin",
                     data: { user_AN: $.trim($username.val()), user_pwd : $.trim($password.val()) },

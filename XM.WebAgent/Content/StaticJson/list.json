@@ -1,0 +1,42 @@
+{
+  "hearTitle": "商品上架&定价",
+  "myGoodsBtn": "我的代理商品",
+  "goodsType": "商品类型",
+  "goodsTypeAll": "所有商品",
+  "modalTitle": "系统消息",
+  "modalContent": "您确定要进行上架吗？",
+  "modalCloseBtn": "取消",
+  "modalSubmitBtn": "确定上架",
+  "cardTitle": "",
+  "cardMsg": "",
+  "cardGoodsTime": "发布日期",
+  "cardGoodsReferencePrice": "参考价",
+  "cardGoodsPrice": "定价",
+  "pageSize": 1,
+  "count": 20,
+  "cardFunction": {
+    "Release": "一键发布",
+    "editRelease": "编辑发布",
+    "search": "搜索全部"
+  },
+  "showDataType": {
+    "cardType": "card",
+    "listType": "list"
+  },
+  "sites": [ "Google", "Runoob", "Taobao" ],
+  "goodsUrl": {
+    "getAllGoods": "/Product/GetAllGoodsInfo",
+    "groundUrl": "/Product/MakeGoods",
+    "myGoods": "/Product/QryAgoods"
+  },
+  "message": {
+    "warm": {
+      "priceIsNull": "定价不能为空"
+    }
+  },
+  "AlertAgentGoodsModel": {
+    "modalTitle": "修改商品",
+    "modalCloseBtn": "取消",
+    "modalSubmitBtn":  "确定修改"
+  }
+}

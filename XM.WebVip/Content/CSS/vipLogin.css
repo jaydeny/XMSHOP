@@ -18,8 +18,17 @@
         }
 
     .login-main .login_btu {
-        margin: 10px 0 20px 0;
+        margin: 10px 0 25px 0;
         background: #ccc;
+    }
+    .login-main .hint {
+        position: relative;
+    }
+    .login-main p {
+        position: absolute;
+        top: 44px;
+        font-size: 16px;
+        color: #f65959;
     }
 
     .login-main .line {

@@ -71,14 +71,14 @@
                             <li class="dropdown profile-dropdown">
                                 <a href="#" class="dropdown" data-toggle="dropdown">
                                     <img src="/Content/img/samples/scarlet-159.png" alt="">
-                                    <span class="hidden-xs">admin</span>
+                                    <span class="hidden-xs">@ViewBag.RealName</span>
                                 </a>
                                 <ul class="dropdown-menu pull-right">
                                     <li><a class="menuItem" data-id="userInfo" href="/home/UserInfo"><i class="fa fa-user"></i>个人信息</a></li>
                                     <li><a class="menuItem" href="/home/UserAlterPwd"><i class="fa fa-inbox"></i>修改密码</a></li>
                                     <li><a href="javascript:void();" onclick="layer.msg('浏览器缓存清除成功');"><i class="fa fa-trash-o"></i>清空缓存</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="/Login/OutLogin"><i class="ace-icon fa fa-power-off"></i>安全退出</a></li>
+                                    <li><a id="home_exit"><i class="ace-icon fa fa-power-off"></i>安全退出</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -95,7 +95,7 @@
                                 <img alt="" src="/Content/img/samples/scarlet-159.png">
                                 <div class="user-box">
                                     <span class="name">
-                                        admin; 超级管理员
+                                        @ViewBag.RealName
                                     </span>
                                     <span class="status">
                                         <i class="fa fa-circle"></i>在线
@@ -104,23 +104,17 @@
                             </div>
                             <div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">
                                 <ul class="nav nav-pills nav-stacked">
-                                    <li>
-                                        <a data-id="462027E0-0848-41DD-BCC3-025DCAE65555" href="#" class="dropdown-toggle">
-                                            <i class="fa fa-gears"></i>
-                                            <span>系统管理</span>
-                                            <i class="fa fa-angle-right drop-icon"></i>
+                                    <li class="common">
+                                        <a class="menuItem" href="/User/Index">
+                                            <i class="fa fa-star-o"></i>
+                                            <span>用户管理</span>
                                         </a>
-                                        <ul class="submenu">
-                                            <li>
-                                                <a class="menuItem" data-id="252229DB-35CA-47AE-BDAE-C9903ED5BA7B" href="/User/Index" data-index="1">用户管理</a>
-                                            </li>
-                                            <li>
-                                                <a class="menuItem" data-id="91A6CFAD-B2F9-4294-BDAE-76DECF412C6C" href="/Agent/Index" data-index="2">代理管理</a>
-                                            </li>
-                                            <li>
-                                                <a class="menuItem" data-id="91A6CFAD-B2F9-4294-BDAE-76DECF412C6C" href="/SystemManage/Role/Index" data-index="2">选单群组权限</a>
-                                            </li>
-                                        </ul>
+                                    </li>
+                                    <li class="common">
+                                        <a class="menuItem" href="/Agent/Index">
+                                            <i class="fa fa-star-o"></i>
+                                            <span>代理管理</span>
+                                        </a>
                                     </li>
                                     <li class="common">
                                         <a class="menuItem" href="/Vip/Index">
@@ -128,50 +122,41 @@
                                             <span>会员管理</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a data-id="9F56840F-DF92-4936-A48C-8F65A39291A2" href="#" class="dropdown-toggle">
-                                            <i class="fa fa-tasks"></i>
-                                            <span>资讯汇总</span>
-                                            <i class="fa fa-angle-right drop-icon"></i>
+                                    <li class="common">
+                                        <a class="menuItem" href="/Type/Index">
+                                            <i class="fa fa-star-o"></i>
+                                            <span>商品类型</span>
                                         </a>
-                                        <ul class="submenu">
-                                            <li>
-                                                <a class="menuItem" data-id="822E2523-5105-4AE0-BF48-62459D3641F6" href="/ExampleManage/SendMail/Index" data-index="1">视频</a>
-                                            </li>
-                                            <li>
-                                                <a class="menuItem" data-id="7B959522-BE45-4747-B89D-592C7F3987A5" href="/ExampleManage/SendMessages/Index" data-index="2">新闻</a>
-                                            </li>
-                                        </ul>
                                     </li>
-                                    <li>
-                                        <a data-id="73FD1267-79BA-4E23-A152-744AF73117E9" href="#" class="dropdown-toggle">
-                                            <i class="fa fa-shopping-basket"></i>
+                                    <li class="common">
+                                        <a class="menuItem" href="/Goods/Index">
+                                            <i class="fa fa-star-o"></i>
                                             <span>商品管理</span>
-                                            <i class="fa fa-angle-right drop-icon"></i>
                                         </a>
-                                        <ul class="submenu">
-                                            <li>
-                                                <a class="menuItem" data-id="e72c75d0-3a69-41ad-b220-13c9a62ec788" href="/Goods/Index" data-index="1">商品信息</a>
-                                            </li>
-                                            <li>
-                                                <a class="menuItem" data-id="a3a4742d-ca39-42ec-b95a-8552a6fae579" href="/GoodsType/Index" data-index="2">产品类型</a>
-                                            </li>
-                                        </ul>
                                     </li>
-                                    <li>
-                                        <a data-id="51174D27-3001-4CCF-AAB2-0AA2A6CEAA50" href="#" class="dropdown-toggle">
-                                            <i class="fa fa-bar-chart-o"></i>
-                                            <span>统计报表</span>
-                                            <i class="fa fa-angle-right drop-icon"></i>
+                                    <li class="common">
+                                        <a class="menuItem" href="/Role/Index">
+                                            <i class="fa fa-star-o"></i>
+                                            <span>角色管理</span>
                                         </a>
-                                        <ul class="submenu">
-                                            <li>
-                                                <a class="menuItem" data-id="F2DAD50B-95DF-48F7-8638-BA503B539143" href="/ReportManage/Highcharts/Sample1" data-index="1">增值服务营收</a>
-                                            </li>
-                                            <li>
-                                                <a class="menuItem" data-id="0EDF1DDB-CA17-4D08-AA25-914FE4E13324" href="/Highcharts/Curve" data-index="2">商品营收</a>
-                                            </li>
-                                        </ul>
+                                    </li>
+                                    <li class="common">
+                                        <a class="menuItem" href="/Menu/Index">
+                                            <i class="fa fa-star-o"></i>
+                                            <span>菜单管理</span>
+                                        </a>
+                                    </li>
+                                    <li class="common">
+                                        <a class="menuItem" href="/User/UserInfo">
+                                            <i class="fa fa-star-o"></i>
+                                            <span>个人信息</span>
+                                        </a>
+                                    </li>
+                                    <li class="common">
+                                        <a class="menuItem" href="/User/PwdUpdate">
+                                            <i class="fa fa-star-o"></i>
+                                            <span>修改密码</span>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -207,7 +192,6 @@
                     </div>
                     <div class="content-iframe" style="background-color: #f9f9f9; overflow: hidden;">
                         <div class="mainContent" id="content-main" style="margin: 10px 10px 0px; padding: 0px; height: 869px;">
-                            <iframe class="NFine_iframe" width="100%" height="100%" src="/Vip/Index" frameborder="0" data-id="/Home/Default"></iframe>
 
                         </div>
                     </div>
@@ -222,6 +206,7 @@
     <script src="/Content/js/index.js"></script>
     <script src="/Content/js/indextab.js"></script>
     <script src="/Content/js/loading/pace.min.js"></script>
+    <script src="~/Scripts/backEnd/Home.js"></script>
 
 
 </body>

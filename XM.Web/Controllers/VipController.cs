@@ -43,10 +43,7 @@ namespace XM.Web.Controllers
             string createDateTime = Request["CreateTime"] == null ? "" : Request["CreateTime"];
             int agentId = Request["AgentID"] == null ? 1 : Convert.ToInt32(Request["AgentID"]);
             
-
-
-
-
+            
             int totalCount;   //输出参数
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["pi"] = pageindex;

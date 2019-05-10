@@ -344,13 +344,23 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\backEnd\Agent%40Index.js" />
+    <Content Include="Scripts\backEnd\Agent%40Form.js" />
     <Content Include="Scripts\backEnd\Goods%40Index.js" />
+    <Content Include="Scripts\backEnd\Goods%40Form.js" />
+    <Content Include="Scripts\backEnd\GoodsType%40Form.js" />
     <Content Include="Scripts\backEnd\GoodsType%40Index.js" />
+    <Content Include="Scripts\backEnd\Home.js" />
+    <Content Include="Scripts\backEnd\Menu%40Form.js" />
+    <Content Include="Scripts\backEnd\Menu%40Index.js" />
+    <Content Include="Scripts\backEnd\Role%40Form.js" />
+    <Content Include="Scripts\backEnd\Role%40Index.js" />
     <Content Include="Scripts\backEnd\User%40BackPwd.js" />
     <Content Include="Scripts\backEnd\User%40ChangePwd.js" />
     <Content Include="Scripts\backEnd\User%40Index.js" />
     <Content Include="Scripts\backEnd\User%40login.js" />
+    <Content Include="Scripts\backEnd\User%40Form.js" />
     <Content Include="Scripts\backEnd\Vip%40Index.js" />
+    <Content Include="Scripts\backEnd\Vip%40Form.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
@@ -418,8 +428,8 @@
     <Content Include="Views\Goods\Index.cshtml" />
     <Content Include="Views\Goods\_Details.cshtml" />
     <Content Include="Views\Goods\_Form.cshtml" />
-    <Content Include="Views\Home\UserAlterPwd.cshtml" />
-    <Content Include="Views\Home\UserInfo.cshtml" />
+    <Content Include="Views\Home\_PwdUpdate.cshtml" />
+    <Content Include="Views\Home\_UserInfo.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\_Details.cshtml" />
     <Content Include="Views\User\_Form.cshtml" />
@@ -428,6 +438,10 @@
     <Content Include="Views\Vip\_Form.cshtml" />
     <Content Include="Views\Type\Index.cshtml" />
     <Content Include="Views\Type\_Form.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\_Form.cshtml" />
+    <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\Menu\_Form.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -440,7 +454,6 @@
     <Folder Include="Models\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\JuriMenu\" />
-    <Folder Include="Views\Menu\" />
     <Folder Include="Views\Revenue\" />
   </ItemGroup>
   <ItemGroup>

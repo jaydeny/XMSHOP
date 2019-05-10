@@ -4,35 +4,36 @@
 function gridList() {
     var $gridList = $("#gridList");
     $gridList.dataGrid({
-        url: "/Vip/GetGridJson",
-        height: $(window).height() - 128,
+        url: "/Vip/GetAllUserInfo",
+        height: $(window).height() - 178,
+        rowNum: 20,
+        rowList: [10, 20, 30, 40, 50],
+        sortorder: "desc",
+        pager: "#gridPager",
         colModel: [
-            { label: '主键', name: 'vip_id', hidden: true },
-            { label: '账户', name: 'vip_AN', width: 80, align: 'left' },
-            { label: '手机', name: 'vip_mp', width: 100, align: 'left' },
-            { label: '邮箱', name: 'vip_email', width: 140, align: 'left' },
-            { label: '代理编号', name: 'agent_id', width: 80, align: 'left' },
-            { label: '创建时间', name: 'vip_CDT', width: 140, align: 'left' },
+            { label: '主键', name: 'VipID', hidden: true },
+            { label: '账户', name: 'VipAccountName', width: 80, align: 'left' },
+            { label: '手机', name: 'VipMobliePhone', width: 100, align: 'left' },
+            { label: '邮箱', name: 'VipEmail', width: 140, align: 'left' },
+            { label: '代理编号', name: 'AgentID', width: 80, align: 'left' },
+            { label: '创建时间', name: 'CreateTime', width: 140, align: 'left' },
             {
-                label: "允许登录", name: "status_id", width: 60, align: "left",
+                label: "允许登录", name: "StatusID", width: 60, align: "left",
                 formatter: function (cellvalue, options, rowObject) {
                     if (cellvalue == 1) {
                         return '<span class=\"label label-success\">正常</span>';
-                    } else if (cellvalue == 0) {
-                        return '<span class=\"label label-default\">禁用</span>';
+                    } else if (cellvalue == 2) {
+                        return '<span class=\"label label-default\">冻结</span>';
                     }
                 }
             }
-        ],
-        pager: "#gridPager",
-        sortname: 'F_DepartmentId asc,F_CreatorTime desc',
-        viewrecords: true
+        ]
     });
     $("#btn_search").click(function () {
         $gridList.jqGrid('setGridParam', {
             postData: {
                 keyword: $("#txt_keyword").val()
-            },
+            }
         }).trigger('reloadGrid');
     });
 }
@@ -50,7 +51,7 @@ function btn_add() {
 }
 function btn_edit() {
     // 主键
-    var keyValue = $("#gridList").jqGridRowValue().vip_id;
+    var keyValue = $("#gridList").jqGridRowValue().VipID;
     $.modalOpen({
         id: "Form",
         title: "修改用户",
@@ -64,10 +65,11 @@ function btn_edit() {
 }
 function btn_delete() {
     $.deleteForm({
-        url: "/Vip/DeleteForm",
-        param: { keyValue: $("#gridList").jqGridRowValue().vip_id },
+        url: "/Vip/DelUserByIDs",
+        param: { id: $("#gridList").jqGridRowValue().VipID },
         success: function () {
-            $.currentWindow().$("#gridList").trigger("reloadGrid");
+            //$.currentWindow().$("#gridList").trigger("reloadGrid");
+            $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
         }
     })
 }
@@ -83,7 +85,7 @@ function btn_details() {
     });
 }
 function btn_revisepassword() {
-    var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    var keyValue = $("#gridList").jqGridRowValue().VipID;
     var Account = $("#gridList").jqGridRowValue().F_Account;
     var RealName = $("#gridList").jqGridRowValue().F_RealName;
     $.modalOpen({
@@ -98,28 +100,34 @@ function btn_revisepassword() {
     });
 }
 function btn_disabled() {
-    var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    var keyValue = $("#gridList").jqGridRowValue();
+    keyValue.StatusID = 2;
+    keyValue.id = keyValue.VipID;
     $.modalConfirm("注：您确定要【禁用】该项账户吗？", function (r) {
         if (r) {
             $.submitForm({
-                url: "/SystemManage/Vip/DisabledAccount",
-                param: { keyValue: keyValue },
+                url: "/Vip/Save",
+                param: keyValue,
                 success: function () {
-                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    //$.currentWindow().$("#gridList").trigger("reloadGrid");
+                    $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
                 }
             })
         }
     });
 }
 function btn_enabled() {
-    var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    var keyValue = $("#gridList").jqGridRowValue();
+    keyValue.StatusID = 1;
+    keyValue.id = keyValue.VipID;
     $.modalConfirm("注：您确定要【启用】该项账户吗？", function (r) {
         if (r) {
             $.submitForm({
-                url: "/SystemManage/Vip/EnabledAccount",
-                param: { keyValue: keyValue },
+                url: "/Vip/Save",
+                param: keyValue,
                 success: function () {
-                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    //$.currentWindow().$("#gridList").trigger("reloadGrid");
+                    $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
                 }
             })
         }

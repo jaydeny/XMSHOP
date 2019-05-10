@@ -26,6 +26,10 @@
 	border-radius: 10px;
 	height: 300px;
 }
+.vipinfo-nav a.action, vipinfo-nav a.action:hover {
+    background: #cf0a2c !important;
+    color: #fff;
+}
 .vipinfo-nav .title {
     padding: 15px 15px 5px 30px;
     font-size: 18px;
@@ -50,6 +54,7 @@
 	border-radius: 10px;
     margin: 0 0 20px 0;
 }
+
 /*头部*/
 .head-portrait {
 	width: 108px;
@@ -151,7 +156,7 @@
 	width: 60px;
 	height: 70px;
 }
-.order-list a {
+.order-list li a {
 	margin: 0 0 0 10px;
 	padding: 7px 15px;
 	border: 1px solid #9c9c9c;

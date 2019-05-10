@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>会员信息页</title>
+    <link rel="stylesheet" href="~/Content/CSS/vipinfo.css" />
+</head>
+<body>
+    <div class="vipinfo">
+        <div class="separated"></div>
+        <div class="layout">
+            <!-- 路径栏 -->
+            <div class="path_bar fcn">
+                <a>首页</a>&nbsp;>&nbsp;<a>我的商城</a>
+            </div>
+            <div class="row vipinfo-main">
+                <div class="col-lg-2 vipinfo-nav">
+                    <ul class="nav nav-pills nav-stacked ">
+                        <li role="presentation" class="title dividing-line">我的商城</li>
+                        <li role="presentation" class=""><a href="/vipinfo/RechargePage" id="a_top-up">余额充值</a></li>
+                        <li role="presentation" class=""><a href="/Home/Update" id="myInfo" >信息管理</a></li>
+                        <li role="presentation" class=""><a href="/Home/UpdatePwdPage" >修改密码</a></li>
+                        <li role="presentation" class=""><a href="/vipinfo/AddressPage" class="dividing-line">地址管理</a></li>
+                    </ul>
+                </div>
+                <div class="vipinfo-form col-lg-10">
+                    <div class="info-head ">
+                        <ul class="nav-pills">
+                            <li>
+                                <img src="~/img/logged.png" class="head-portrait" />
+                            </li>
+                            <li>
+                                <h3 style="line-height: 120px;" id="vip_info_name"></h3>
+                            </li>
+                            <li>
+                                <div class="balance">
+                                    <p class="balance-number" id="Remainder">0</p>
+                                    <p class="title">余额</p>
+                                    <a id="go-top-up">去充值</a>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="info-body">
+                        <h3>
+                            我的订单
+                            <a class="select_order">
+                                全部订单
+                                <span class="glyphicon glyphicon-menu-right" aria-hidden="true" style="font-size: 12px;"></span>
+                            </a>
+                        </h3>
+                        <div>
+                            @*<ul class="order-state">
+                                <li class="flex1"><a class="selected">全部</a></li>
+                                <li class="flex1"><a>待付款</a></li>
+                                <li class="flex1"><a>待收货</a></li>
+                                <li class="flex1"><a>待评价</a></li>
+                                <li class="flex1"><a>待退货</a></li>
+                                <li class="flex1"><a>已完成</a></li>
+                            </ul>*@
+                            <div class="order-list">
+                                <p class="empty-order hidden" id="empty_order">当前无近期订单，前往<a href="/vip/index">首页</a>选购吧～</p>
+                                <ul class="" id="order_box">
+                                    <li>
+                                        <div class="flex-1">订单号</div>
+                                        <div class="flex-1">单价</div>
+                                        <div class="flex-1">数量</div>
+                                        <div class="flex-1">合计</div>
+                                        <div class="flex-2">下单时间</div>
+                                    </li>
+                                    @*<li>
+                                        <div class="flex-2">
+                                            <div style="float: left;margin: 0 10px 0 0;"><img src="" /></div>
+                                            <p>商品名</p>
+                                        </div>
+                                        <div class="flex-1">￥<span>999</span></div>
+                                        <div class="flex-1"><small>X</small><span>2</span></div>
+                                        <div class="flex-1">￥<span>1888</span></div>
+                                        <div class="flex-1">
+                                            <a>待付款</a>
+                                        </div>
+                                    </li>*@
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/vip/vipinfo.js"></script>
+</body>
+</html>

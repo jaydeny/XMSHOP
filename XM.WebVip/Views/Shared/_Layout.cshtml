@@ -1,10 +1,12 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>XMPJ</title>
     <link href="~/Content/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/CSS/base.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/CSS/HomePage.css" rel="stylesheet" type="text/css" />
@@ -18,41 +20,37 @@
     <script src="~/Scripts/jquery-3.4.0.js"></script>
     <script src="~/Content/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script src="~/Scripts/vip/bounced.js"></script>
-    <script src="~/Scripts/vip/vipIndex.js"></script>
+    <script src="~/Scripts/vip/vip@home.js"></script>
 </head>
 <body>
+    @*<div style="position:fixed;left:50%;">sfsa</div>*@
     <!--快捷键-->
     <div class="shortcut suspension_a">
         <div class="layout">
             <div class="s-sub">
                 <ul>
                     <li>
-                        <a>首页</a>
+                        <a href="/Home/index">首页</a>
                     </li>
                 </ul>
             </div>
             <div class="main">
                 <ul>
                     <li>
-                        @*<a href="#" data-toggle="modal" data-target="#myModal">请登录</a>*@
-                        <a>
-                            @ViewData.Model
-                            @if (ViewData.Model != null)
-                            {
-                                <a id="vipInfo">@ViewData.Model.vip_</a>
-                                <a id="vipExit">退出</a>
-                            }
+                        <div class="hidden" id="login_box">
+                            <a id="vip_name" href="/Vipinfo/vipinfopage"></a>
+                            <text>&nbsp;</text>
+                            <a id="vipExit">退出</a>
+                        </div>
+                        <div class="" id="onlogin_box">
+                            <a id="vipLogin">请登录</a>
+                            <text>&nbsp;</text>
+                            <a id="vipRegistered">注册</a>
 
-                            @if (ViewData.Model == null)
-                            {
-                                <a id="vipLogin">请登录</a>
-                                <a id="vipRegistered">注册</a>
-                            }
-
-                        </a>
+                        </div>
                     </li>
                     <li>
-                        <a>我的订单</a>
+                        <a href="/Vipinfo/vipinfopage">我的订单</a>
                     </li>
                     <li>
                         <a>购物车(0)</a>
@@ -70,18 +68,18 @@
                     XMPJ
                     商城
                 </a>
-                <a class="navbar-brand" href="#">华为专区</a>
-                <a class="navbar-brand" href="#">小米专区</a>
-                <a class="navbar-brand" href="#">三星专区</a>
-                <a class="navbar-brand" href="#">vivo专区</a>
-                <a class="navbar-brand" href="#">iphome专区</a>
+                @*<a class="navbar-brand screening-goods" href="#">华为专区</a>
+                <a class="navbar-brand screening-goods" href="#">小米专区</a>
+                <a class="navbar-brand screening-goods" href="#">三星专区</a>
+                <a class="navbar-brand screening-goods" href="#">vivo专区</a>
+                <a class="navbar-brand screening-goods" href="#">iphome专区</a>*@
 
             </div>
             <form class="navbar-form navbar-right" role="search">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="荣耀V20 HUAWEI nova" style="width: 260px">
+                    <input type="text" class="form-control" placeholder="荣耀V20 HUAWEI nova" style="width: 260px" id="txt_search">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">搜索</button>
+                        <button class="btn btn-default" type="button" id="btnSearch">搜索</button>
                     </span>
                 </div>
             </form>
@@ -301,6 +299,7 @@
             </div>
         </div>
     </div>
+
 
 </body>
 </html>
