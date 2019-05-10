@@ -153,17 +153,7 @@ namespace XM.IDAL
         /// <returns></returns>
         decimal QryRemainder(Dictionary<string, object> paras);
         #endregion
-
-        #region _Order
-        /// <summary>
-        /// 作者：曾贤鑫
-        /// 创建时间:2019-4/29
-        /// 修改时间：2019-
-        /// 功能：查询订单
-        /// </summary>
-        string QryOrder(Dictionary<string, object> paras, out int iCount);
-        #endregion
-
+        
         #region _Address
         /// <summary>
         /// 添加/修改地址

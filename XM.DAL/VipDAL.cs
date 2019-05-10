@@ -385,34 +385,7 @@ namespace XM.DAL
         }
         #endregion
 
-        #region _Order
-        /// <summary>
-        /// 作者：曾贤鑫
-        /// 创建时间:2019-4/29
-        /// 修改时间：2019-
-        /// 功能：查询订单
-        /// </summary>
-        public string QryOrder(Dictionary<string, object> paras, out int iCount)
-        {
-            WhereBuilder builder = new WhereBuilder();
-            builder.FromSql = "tborder a join tbaddress b on a.order_address = b.id";
-            GridData grid = new GridData()
-            {
-                PageIndex = Convert.ToInt32(paras["pi"]),
-                PageSize = Convert.ToInt32(paras["pageSize"]),
-                SortField = paras["sort"].ToString(),
-                SortDirection = paras["order"].ToString()
-            };
-            builder.AddWhereAndParameter(paras, "startTime", "order_date", ">", "@startTime");
-            builder.AddWhereAndParameter(paras, "endTime", "order_date", "<", "@endTime");
-            builder.AddWhereAndParameter(paras, "agent_AN");
-            builder.AddWhereAndParameter(paras, "vip_AN");
-            var s = SortAndPage(builder, grid, out iCount, "a.* , b.address_name");
-            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
-            return retData;
-        }
-        #endregion
-
+        
         #region _Address
         /// <summary>
         /// 添加/修改地址
