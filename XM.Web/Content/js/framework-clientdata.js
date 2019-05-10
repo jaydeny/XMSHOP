@@ -4,15 +4,10 @@ $(function () {
 })
 $.clientsInit = function () {
     var dataJson = {
-        //dataItems: [],
-        //organize: [],
-        //role: [],
-        //duty: [],
-        //user: [],
-        //authorizeMenu: [],
-        //authorizeButton: []
         menu: [],
-        authorizeMenu:[]
+        authorizeMenu: [],
+        role: [],
+        type:[]
     };
     // 导航对象
     var MenuObj = function (id, name, urlAddress, sort, childNodes) {
@@ -24,6 +19,7 @@ $.clientsInit = function () {
             ChildNodes: childNodes
         }
     };
+    // 生成菜单导航对象
     var MenuNav = function (allMenu, authorizeMenu) {
         var parentIdArray = [], boo = true;
         for (var i = 0; i < authorizeMenu.length; i++) {
@@ -66,31 +62,17 @@ $.clientsInit = function () {
 
     };
     var init = function () {
-        //$.ajax({
-        //    url: "/ClientsData/GetClientsDataJson",
-        //    type: "get",
-        //    dataType: "json",
-        //    async: false,
-        //    success: function (data) {
-        //        dataJson.dataItems = data.dataItems;
-        //        dataJson.organize = data.organize;
-        //        dataJson.role = data.role;
-        //        dataJson.duty = data.duty;
-        //        dataJson.authorizeMenu = eval(data.authorizeMenu);
-        //        dataJson.authorizeButton = data.authorizeButton;
-        //    }
-        //});
-
 
         // 请求所有菜单
         $.ajax({
-            url: "/Menu/GetAllMenu",
+            url: "/Home/GetCommonData",
             type: "get",
             dataType: "json",
             async: false,
-            data: { rows:100 },
             success: function (data) {
-                dataJson.menu = data.rows;
+                dataJson.menu = data.Menus;
+                dataJson.role = data.Roles;
+                dataJson.type = data.Types;
             }
         });
         // 授权菜单
