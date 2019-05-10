@@ -169,5 +169,6 @@ namespace XM.DAL
         {
             return StandarInsertOrUpdate("tbUser", paras);
         }
+
     }
 }

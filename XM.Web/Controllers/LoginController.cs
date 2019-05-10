@@ -41,14 +41,18 @@ namespace XM.Web.Controllers
                     CookiesHelper.SetCookie("UserID", AES.EncryptStr(currentUser.id.ToString()));
                     Dictionary<string, object> paras= new Dictionary<string, object>();
                     paras["r_id"] = currentUser.RoleID;
-                    var roleMenus  = DALUtility.RoleMenu.QryAllRoleMenu<Navbar>(paras);
+                    var roleMenus  = DALUtility.RoleMenu.QryRoleMenu<Navbar>(paras);
                     Session["RoleMenu"] = roleMenus;
                     Session["RoleID"] = currentUser.RoleID;
                     Session["User"] = currentUser;
                     DateTime dateTime = DateTime.Now;
                     Session["LoginTime"] = dateTime;
                     Hashtable htOnline = (Hashtable)System.Web.HttpContext.Current.Application["CurrentOnline"];
-                    htOnline[currentUser] = dateTime;
+                    if (htOnline == null)
+                    {
+                        htOnline = new Hashtable();
+                    }
+                    htOnline[Session["User"].ToString()] = dateTime;
                     return OperationReturn(true, "登录成功！"); 
                 }
                 else

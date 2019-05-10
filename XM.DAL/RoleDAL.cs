@@ -67,5 +67,17 @@ namespace XM.DAL
             return QuerySingle<int>("P_Role_Save", paras, CommandType.StoredProcedure); 
                 //StandarInsertOrUpdate("tbrole", paras);
         }
+        /// <summary>
+        /// 获取所有角色
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public IEnumerable<T> QryRole<T>()
+        {
+            string strSql = "select * from v_role_list";
+            return QueryList<T>(strSql);
+        }
+
+
     }
 }

@@ -35,5 +35,6 @@ namespace XM.IDAL
         /// <param name="id"></param>
         /// <returns></returns>
         GoodsTypeEntity GetTypeById(string id);
+        IEnumerable<T> QryAllType<T>();
     }
 }

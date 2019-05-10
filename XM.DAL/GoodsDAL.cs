@@ -64,5 +64,7 @@ namespace XM.DAL
             return StandarInsertOrUpdate("tbGoods", paras);
             
         }
+
+
     }
 }

@@ -44,5 +44,13 @@ namespace XM.Web.Controllers
             return PagerData(objMenus.Count,objMenus);
         }
         #endregion
+        public ActionResult GetCommonData()
+        {
+            CommonDataDTO common = new CommonDataDTO();
+            common.Roles = DALUtility.Role.QryRole<RoleEntity>();
+            common.Types = DALUtility.Type.QryAllType<GoodsTypeEntity>();
+            common.Menus = DALUtility.Menu.QryAllMenu<MenuEntity>();
+            return Content(JsonConvert.SerializeObject(common));
+        }
     }
 }
