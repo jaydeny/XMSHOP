@@ -439,7 +439,7 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString(),
                 SortDirection = paras["order"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "day", "convert(varchar(10),order_date, 120)", "like", "@day+'%'");
+            builder.AddWhereAndParameter(paras, "day", "convert(varchar(10),order_date, 120)");
             builder.AddWhereAndParameter(paras, "agent_AN");
             builder.AddWhereAndParameter(paras, "vip_AN");
             var s = SortAndPage(builder, grid, out iCount);

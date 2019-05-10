@@ -64,7 +64,7 @@ namespace XM.WebAgent.Controllers
             Dictionary<string, object> param = new Dictionary<string, object>();
 
             param.Add("pi", Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]));
-            param.Add("pageSize", Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]));
+            param.Add("pageSize", Request["rows"] == null ? 20 : Convert.ToInt32(Request["rows"]));
             param.Add("sort", Request["sort"] == null ? "id" : Request["sort"]);
             param.Add("order", Request["order"] == null ? "asc" : Request["order"]);
 

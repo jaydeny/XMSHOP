@@ -66,7 +66,7 @@ namespace XM.DAL.comm
         /// <param name="connectionString"></param>
         /// <param name="builder"></param>
         /// <param name="grid"></param>
-        /// <param name="iCount"></param>
+        /// <param name="iCount">总笔数</param>
         /// <returns></returns>
         protected IEnumerable<object> SortAndPage(WhereBuilder builder, GridData grid, out int iCount)
         {
