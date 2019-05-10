@@ -41,7 +41,7 @@
                 </table>
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
-                        <li class="page-item"><a class="page-link">总营收额: {{sum_turnover}} </a></li>
+                        <li class="page-item"><a class="page-link">总营收额: {{sum_turnover}} 元</a></li>
 
                     </ul>
                 </nav>
@@ -55,10 +55,10 @@
                     <li class="page-item" v-on:click="is_show=true"><a class="page-link" href="#">返回</a></li>
                 </ul>
                 <h1 class="h2">{{dateTile}}营收报表</h1>
-               
+
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group mr-2">
-                       
+
                     </div>
                 </div>
             </div>
@@ -77,10 +77,9 @@
                         </tr>
                     </thead>
                     <tbody v-for="(data,index) in dataForm" :key="index">
-                        <tr v-on:click="JumpPage(data.date)">
-
+                        <tr v-on:click="showData(data.id)">
                             <th scope="row">{{data.id}}</th>
-                            <th scope="row">{{data.order_date}}</th>
+                            <th scope="row">{{data.order_date.substring(11,19)}}</th>
                             <th scope="row">{{data.vip_AN}}</th>
                             <th scope="row" style="text-align:right">{{data.order_total}}</th>
                             <th scope="row"></th>
@@ -113,19 +112,19 @@
 
 
 
-                        <li class="page-item" v-on:click="end()">
+                        <li class="page-item" v-on:click="next()">
                             <a class="page-link" href="#" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only" v-on:click="end()">下一页</span>
+                                <span class="sr-only">下一页</span>
                             </a>
                         </li>
-                        <li class="page-item"><a class="page-link" href="#">共 {{total}} 页</a></li>
-                        <li class="page-item"><a class="page-link" href="#">共 {{count}} 页</a></li>
+                        <li class="page-item"><a class="page-link" href="#">共 {{total_page}} 页</a></li>
+                        <li class="page-item"><a class="page-link" href="#">共 {{dataCount}} 条数据</a></li>
                         <li class="page-item">
                             <span class="page-link">
                                 跳转页码
                                 <select class="form-control form-control-sm" v-model="page">
-                                    <option :value="index" v-for="(index) in total" :key="index">{{index}}</option>
+                                    <option :value="index" v-for="(index) in total_page" :key="index">{{index}}</option>
                                 </select>
                             </span>
                         </li>
@@ -134,6 +133,41 @@
                 </nav>
             </main>
 
+        </div>
+
+        @*页面模态框*@
+        <div class="modal fade" id="showData" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table">
+                            
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Mark</td>
+                                     
+                                </tr>
+                              
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Jacob</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -151,11 +185,22 @@
                 //一天的数据
                 dataForm: [],
                 //一天数据总和
-                dataCount : 0 
+                dataCount: 0,
+                //分页设置
+                rows: '20',
+                page: '1',
+                page_count: '0',
+                detailedData: {}
             },
             created: function () {
+                let date = new Date();
+                
+                const param = {
+                    "year": date.getFullYear(),
+                    "month": date.getMonth()+1
+                }
 
-                this.onloadData("a", "b")
+                this.onloadData("/Form/QryDayTotal", param)
             },
             computed: {
                 //计算总营业额
@@ -165,43 +210,71 @@
                         count += item.total;
                     }
                     return count;
+                },
+                //计算页数
+                total_page() {
+                    let count = Math.ceil(this.dataCount / this.rows);
+                    this.page_count = count;
+                    return  count;
                 }
-
             },
             methods: {
+                //加载首页数据，将数据初始化
                 onloadData(url, param) {
 
                     $.ajax({
-                        url: "../../Content/StaticJson/ReportsForm.json",
+                        url: url,
                         method: "get",
-                        data: "",
+                        data: param,
                         dataType: 'json'
                     }).then((data) => {
-                        this.dateTable = data.rows.sort(function (a, b) {
+                        let datas = data.rows;
+                        //进行页面布局排序
+                        this.dateTable = datas.sort(function (a, b) {
                             let x = a["date"];
                             let y = b["date"];
                             return ((x < y) ? -1 : ((x > y) ? 1 : 0));
                         });
                         const dateTable = this.dateTable;
                         const len = dateTable.length;
-                       
                         this.startTime = dateTable[len - len].date;
                         this.endTime = dateTable[len - 1].date;
                     });
                 },
-                //页面跳转
+                //页面跳转，到对应天的数据
                 JumpPage(date) {
                     this.dateTile = date;
                     this.is_show = false;
+                    const param = {
+                        "day":date 
+                    }
+                    this.onloadPageData("/Form/QryDayForm",param);
+                },
+                //加载对应天的数据
+                onloadPageData(url,param) {
                     $.ajax({
-                        url: "../../Content/StaticJson/FormList.json",
+                        url: url,
                         method: 'get',
-                        data: "",
+                        data: param,
                         dataType: 'json'
                     }).then((data) => {
+                        
                         this.dataForm = data.rows;
                         this.dataCount = data.total;
-                        console.log(data);
+                    });
+                },
+                onloadProductData(url,param) {
+                    $.ajax({
+                        url: url,
+                        method: 'get',
+                        data: param,
+                        dataType: 'json'
+                    }).then((data) => {
+                        this.detailedData = data.rows;
+                        
+                        
+                        
+                      
                     });
                 },
                 //日期内时间搜索
@@ -209,8 +282,40 @@
                    
                    
                 },
+                showData(id) {
+                    console.log(id)
+                    const param = {
+                        "order_id" : id
+                    }
+                    this.onloadProductData("/Form/QryDetailOrder",param);
 
+                },
                 //分页:
+                before() {
+                    if (this.page <= 1) {
+                        alert("已经是第一页了")
+                    } else {
+                        this.page--;
+                        this.btn_sub();
+                    }
+                },
+                next() {
+                   
+                    if (this.page >= this.page_count) {
+                        alert("已经是最后一页了")
+                    } else {
+                        this.page++;
+                        this.btn_sub();
+                    }
+                },
+                btn_sub() {
+                    const param = {
+                        "page": this.page,
+                        "rows": this.rows,
+                        "day": this.dateTile
+                    }
+                    this.onloadPageData("/Form/QryDayForm", param);
+                }
 
             }
         });

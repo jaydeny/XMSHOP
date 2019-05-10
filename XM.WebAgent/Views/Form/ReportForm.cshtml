@@ -193,7 +193,7 @@
                 //上一页
                 before() {
                     const page = this.page;
-                    if (page <= 1) {
+                    if (page < 1) {
                         alert("已经是第一页了")
                     } else {
                         this.page -= 1;
