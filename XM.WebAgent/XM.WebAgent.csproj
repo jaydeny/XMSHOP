@@ -156,6 +156,8 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\StaticJson\list.json" />
     <Content Include="Content\StaticJson\ReportForm.json" />
+    <Content Include="Content\StaticJson\ReportsForm.json" />
+    <Content Include="Content\StaticJson\FormList.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Home\Index.js" />
@@ -191,6 +193,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Form\ReportForm.cshtml" />
     <Content Include="Views\AgentInfo\AgentPersonalCenter.cshtml" />
+    <Content Include="Views\Form\ReportsForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -28,6 +28,11 @@ namespace XM.WebAgent.Controllers
             return View();
         }
 
+        public ActionResult ReportsForm()
+        {
+            return View();
+        }
+
         /// <summary>
         /// 作者:曾贤鑫
         /// 日期:2019/4/26

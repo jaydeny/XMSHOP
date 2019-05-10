@@ -309,31 +309,7 @@
                 });
             },
             computed: {
-                ////制作简单的页面商品搜索
-                //GoodsFilter() {
-                //    //取出相关的数据
-                //    const { search, Goods } = this;
-                //    //最终要显示的数据
-                //    let goods;
-                //    //对数据进行筛选，根据商品名
-                //    goods = Goods.filter(s => s.GoodsName.indexOf(search) !== -1);
-                //    //返回数据
-                //    return goods
-                //},
-                ////制作简单的我的代理商品搜索
-                //myGoodsFilter() {
-
-                //    //取出相关的数据
-                //    const { search, myGoods } = this;
-
-
-                //    //最终要显示的数据
-                //    let goods;
-                //    //对数据进行筛选，根据商品名
-                //    goods = myGoods.filter(s =>  s.goods_name.indexOf(search) !== -1);
-                //    //返回数据
-                //    return goods
-                //},
+                
                 //计算代理商品的页数
                 myGoodsCountFilter() {
                     this.total = Math.ceil(this.myGoodsCount / this.count);
