@@ -28,7 +28,10 @@ namespace XM.Web.Controllers
         #region 修改密码页面
         public ActionResult PwdUpdate()
         {
-            return View("_PwdUpdate");
+            // 获取用户信息    添加人: 朱星宇，时间: 2019年5月10日13点48分
+            UserEntity user = Session["User"] as UserEntity;
+            ViewData["UserAccountName"] = user.UserAccountName;
+            return View();
         }
         #endregion
         #region 修改密码操作
@@ -193,7 +196,7 @@ namespace XM.Web.Controllers
         #region 获取当前用户个人信息页面
         public ActionResult UserInfo()
         {
-            return View("_UserInfo");
+            return View();
         }
         #endregion
         #region  获取当前用户

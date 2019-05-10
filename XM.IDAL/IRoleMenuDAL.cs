@@ -14,6 +14,7 @@ namespace XM.IDAL
         /// <typeparam name="T"></typeparam>
         /// <param name="paras"></param>
         /// <returns></returns>
-        IEnumerable<T> QryAllRoleMenu<T>(Dictionary<string, object> paras);
+        IEnumerable<T> QryAllRoleMenu<T>(Dictionary<string, object> paras, out int iCount);
+        IEnumerable<T> QryRoleMenu<T>(Dictionary<string, object> paras);
     }
 }

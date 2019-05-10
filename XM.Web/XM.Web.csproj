@@ -338,9 +338,9 @@
     <Content Include="Content\js\zsign\jquery.zsign.js" />
     <Content Include="Content\js\zsign\signet.gif" />
     <Content Include="Content\Site.css" />
-    <Content Include="Content\User\User%40AlterPwd.css" />
+    <Content Include="Content\User\User%40PwUpdate.css" />
     <Content Include="Content\User\User%40login.css" />
-    <Content Include="Content\User\UserInfo.css" />
+    <Content Include="Content\User\User%40UserInfo.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\backEnd\Agent%40Index.js" />
@@ -359,6 +359,8 @@
     <Content Include="Scripts\backEnd\User%40Index.js" />
     <Content Include="Scripts\backEnd\User%40login.js" />
     <Content Include="Scripts\backEnd\User%40Form.js" />
+    <Content Include="Scripts\backEnd\User%40pwdUpdate.js" />
+    <Content Include="Scripts\backEnd\User%40UserInfo.js" />
     <Content Include="Scripts\backEnd\Vip%40Index.js" />
     <Content Include="Scripts\backEnd\Vip%40Form.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -428,8 +430,8 @@
     <Content Include="Views\Goods\Index.cshtml" />
     <Content Include="Views\Goods\_Details.cshtml" />
     <Content Include="Views\Goods\_Form.cshtml" />
-    <Content Include="Views\Home\_PwdUpdate.cshtml" />
-    <Content Include="Views\Home\_UserInfo.cshtml" />
+    <Content Include="Views\User\PwdUpdate.cshtml" />
+    <Content Include="Views\User\UserInfo.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\_Details.cshtml" />
     <Content Include="Views\User\_Form.cshtml" />
