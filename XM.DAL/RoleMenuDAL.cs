@@ -27,7 +27,6 @@ namespace XM.DAL
             builder.AddWhereAndParameter(paras, "roleId", "Id", "=", "@roleId");
             return SortAndPage<T>(builder, grid, out iCount);
         }
-
         public IEnumerable<T> QryRoleMenu<T>(Dictionary<string, object> paras)
         {
             string strSql = "SELECT r.*,m.Controller AS Controller,m.Action AS Action " +

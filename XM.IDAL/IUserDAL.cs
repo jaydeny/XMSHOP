@@ -68,5 +68,11 @@ namespace XM.IDAL
         /// <param name="paras"></param>
         /// <returns></returns>
         int Save(Dictionary<string, object> paras);
+        /// <summary>
+        /// 获取所有的角色
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        
     }
 }

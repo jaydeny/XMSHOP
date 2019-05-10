@@ -47,8 +47,12 @@ namespace XM.Web.Controllers
                     Session["User"] = currentUser;
                     DateTime dateTime = DateTime.Now;
                     Session["LoginTime"] = dateTime;
-                    //Hashtable htOnline = (Hashtable)System.Web.HttpContext.Current.Application["CurrentOnline"];
-                    //htOnline[currentUser] = dateTime;
+                    Hashtable htOnline = (Hashtable)System.Web.HttpContext.Current.Application["CurrentOnline"];
+                    if (htOnline == null)
+                    {
+                        htOnline = new Hashtable();
+                    }
+                    htOnline[Session["User"].ToString()] = dateTime;
                     return OperationReturn(true, "登录成功！"); 
                 }
                 else

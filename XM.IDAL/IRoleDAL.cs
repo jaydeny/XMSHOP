@@ -35,5 +35,6 @@ namespace XM.IDAL
         /// <param name="id"></param>
         /// <returns></returns>
         RoleEntity GetRoleById(string id);
+        IEnumerable<T> QryRole<T>();
     }
 }

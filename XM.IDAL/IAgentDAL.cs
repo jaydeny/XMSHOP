@@ -166,11 +166,51 @@ namespace XM.IDAL
 
         #region _From
         /// <summary>
-        /// 查询所有的代理商
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4/29
+        /// 修改时间：2019-
+        /// 功能：查询日期,总营业额
         /// </summary>
-        /// <param name="paras"></param>
-        /// <returns></returns>
-        string QryReportForm(Dictionary<string, object> paras, out int iCount);
+        string QryDayTotal(Dictionary<string, object> paras);
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4/29
+        /// 修改时间：2019-
+        /// 功能：查询日期内的记录
+        /// </summary>
+        string QryDayForm(Dictionary<string, object> paras, out int iCount);
+
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4/29
+        /// 修改时间：2019-
+        /// 功能：查询每一笔订单的详细详细
+        /// </summary>
+        string QryDetailOrder(Dictionary<string, object> paras);
+
+        #endregion
+
+        #region _RechargeFrom
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-5-10
+        /// 修改时间：2019-
+        /// 功能：查询日期,总营业额
+        /// </summary>
+        string QryDayRechargeTotal(Dictionary<string, object> paras);
+
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-5-10
+        /// 修改时间：2019-
+        /// 功能：查询日期内的记录
+        /// </summary>
+        string QryDayRechargeForm(Dictionary<string, object> paras, out int iCount);
+
         #endregion
 
         #region 自定义

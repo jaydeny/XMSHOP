@@ -63,5 +63,10 @@ namespace XM.DAL
         {
             return StandarInsertOrUpdate("tbtype", paras);
         }
+        public IEnumerable<T> QryAllType<T>()
+        {
+            string strSql = "select * from v_type_list";
+            return QueryList<T>(strSql);
+        }
     }
 }

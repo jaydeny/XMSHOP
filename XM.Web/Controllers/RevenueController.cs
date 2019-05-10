@@ -16,7 +16,7 @@ namespace XM.Web.Controllers
     public class RevenueController : BaseController
     {
         #region  充值报表页面
-        //[PermissionFilter]
+        [PermissionFilter]
         // GET: Revenue
         public ActionResult Index()
         {
@@ -24,7 +24,7 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region  获取所有充值信息
-        //[PermissionFilter("Revenue", "Index")]
+        [PermissionFilter("Revenue", "Index")]
         public ActionResult GetRechargeRevenue()
         {
             string sort = Request["order"] == null ? "RechargeID" : Request["sort"];
@@ -59,7 +59,7 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region   获取所有商品售出信息
-        //[PermissionFilter("Revenue", "GetGoodsRevenue")]
+        [PermissionFilter("Revenue", "GetGoodsRevenue")]
         public ActionResult GetGoodsRevenue()
         {
             string sort = Request["order"] == null ? "OrderID" : Request["order"];

@@ -77,5 +77,10 @@ namespace XM.DAL
         {
             return StandarInsertOrUpdate("tbMenu", paras);
         }
+        public IEnumerable<T> QryAllMenu<T>()
+        {
+            string strSql = "select * from v_menu_list";
+            return QueryList<T>(strSql);
+        }
     }
 }

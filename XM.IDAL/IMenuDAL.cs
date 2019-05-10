@@ -36,6 +36,7 @@ namespace XM.IDAL
         /// <param name="Id"></param>
         /// <returns></returns>
         MenuEntity GetMenuById(string Id);
+        IEnumerable<T> QryAllMenu<T>();
 
     }
 }

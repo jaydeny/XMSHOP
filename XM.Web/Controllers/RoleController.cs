@@ -15,7 +15,7 @@ namespace XM.Web.Controllers
     public class RoleController : BaseController
     {
         #region  角色页面
-        //[PermissionFilter]
+        [PermissionFilter]
         // GET: JuriMenu
         public ActionResult Index()
         {
@@ -23,7 +23,7 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region  获取所有角色信息
-        //[PermissionFilter("Role", "Index")]
+        [PermissionFilter("Role", "Index")]
         public ActionResult GetALLRoleInfo()
         {
             string sort = Request["order"] == null ? "ID" : Request["order"];
@@ -59,6 +59,7 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region  添加/修改操作
+        [PermissionFilter("Role", "Index",Operationype.Add)]
         public ActionResult Save(RoleEntity roleEntity)
         {
             Dictionary<string, object> paras = new Dictionary<string, object>();
@@ -89,7 +90,7 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region 删除操作
-        //[PermissionFilter("Role", "Index", Operationype.Delete)]
+        [PermissionFilter("Role", "Index", Operationype.Delete)]
         public ActionResult DelRoleByIds()
         {
             string Ids = Request["id"] == null ? "" : Request["id"];
