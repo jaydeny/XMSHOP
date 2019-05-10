@@ -66,6 +66,7 @@ namespace XM.WebAgent.Controllers
                     }
                     Session["Agent_AN"] = agent.AgentAccountName;
                     Session["Agent_ID"] = agent.AgentID;
+                    SSOAgent.Add(agent,"onLine");
                     return OperationReturn(true, "登录成功,agent_id:" + agent.AgentID + ";agent_AN:" + AN,
                         new
                         {
@@ -147,7 +148,8 @@ namespace XM.WebAgent.Controllers
         /// 
         public ActionResult RemoveSession()
         {
-            Session.RemoveAll();
+            Session.Remove("Agent_ID");
+            Session.Remove("Agent_AN");
             return OperationReturn(true, "退出成功!");
         }
 

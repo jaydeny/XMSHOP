@@ -15,6 +15,7 @@
             <h1 class="h2">{{config.hearTitle}}</h1>
 
             <button class="btn btn-outline-secondary" type="button" v-on:click="onMyGoods($event)">{{config.myGoodsBtn}}</button>
+           
             <div>
                 <div class="input-group">
                     <input type="text" class="form-control" v-model="search">
@@ -26,7 +27,7 @@
             <div class="btn-toolbar mb-2 mb-md-0">
                 <div class="btn-group mr-2">
                     <button class="btn btn-sm btn-outline-secondary">{{config.showDataType.cardType}}</button>
-                    <button class="btn btn-sm btn-outline-secondary">{{config.showDataType.listType}}</button>
+                  
                 </div>
             </div>
         </div>
@@ -44,14 +45,14 @@
         @*后台全部商品*@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" v-show="myGoodsShow">
 
-            <div class="card" style="width: 18rem; display: inline-flex; margin:5px" v-for="(obj,index) in GoodsFilter" :key="index">
+            <div class="card" style="width: 18rem; display: inline-flex; margin:5px" v-for="(obj,index) in Goods" :key="index">
                 <img class="card-img-top" src="http://cf-attach.i-sogi.com/cn/article/img/201312/2013121610401667595.jpg" style="height : 165px" alt="加载失败">
                 <div class="card-body">
                     <h5 class="card-title">{{config.cardTitle}} <span>{{obj.GoodsName}}</span> </h5>
                     <p class="card-text"><span>{{obj.GoodsIntro}}</span> </p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">{{config.cardGoodsTime}} <span>{{obj.GoodsCreateTime.substring(0,10)}}</span> </li>
+                    <li class="list-group-item">{{config.cardGoodsTime}} <span>{{obj.GoodsCreateTime}}</span> </li>
                     <li class="list-group-item">{{config.cardGoodsReferencePrice}} <span>{{obj.GoodsPrice}}</span> </li>
                     <li class="list-group-item">{{config.cardGoodsPrice}} <input type="number" class="price" /> </li>
                 </ul>
@@ -60,19 +61,41 @@
                     <a href="#" class="btn btn-primary" v-on:click="Release(index)">{{config.cardFunction.Release}}</a>
                 </div>
             </div>
+            @*全部商品分页*@
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item"><span class="page-link"> 显示 <input type="number" style="width:55px" v-model="All_count" />条数据 </span> </li>
+
+                    <li class="page-item">
+                        <a class="page-link" v-on:click="All_before()" href="#" >
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">上一页</span>
+                        </a>
+                    </li>
+                    <li class="page-item" v-on:click="All_end()">
+                        <a class="page-link" href="#">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">下一页</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">共 {{AllGoodsCountFilter}} 页</a></li>
+                    <li class="page-item"><span class="page-link"> 跳转到 <input type="number" v-model="All_pageSize" style="width:55px" />页 </span> </li>
+                    <li class="page-item"><a class="page-link"  v-on:click="All_btn_sub()" href="#">确定</a></li>
+                </ul>
+            </nav>
         </main>
 
         @*代理个人商品*@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" v-show="!myGoodsShow">
 
-            <div class="card" style="width: 18rem; display: inline-flex; margin:5px" v-for="(obj,index) in myGoodsFilter" :key="index">
+            <div class="card" style="width: 18rem; display: inline-flex; margin:5px" v-for="(obj,index) in myGoods" :key="index">
                 <img class="card-img-top" src="http://cf-attach.i-sogi.com/cn/article/img/201312/2013121610401667595.jpg" style="height : 165px" alt="加载失败">
                 <div class="card-body">
                     <h5 class="card-title">{{config.cardTitle}} <span>{{obj.goods_name}}</span> </h5>
                     <p class="card-text"><span>{{obj.goods_intro}}</span> </p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">{{config.cardGoodsTime}} <span>{{obj.up_time.substring(0,10)}}</span> </li>
+                    <li class="list-group-item">{{config.cardGoodsTime}} <span>{{obj.up_time}}</span> </li>
                     <li class="list-group-item">{{config.cardGoodsPrice}} <span>{{obj.price}}</span> </li>
                     <li class="list-group-item">
 
@@ -80,39 +103,34 @@
                             <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-outline-secondary" v-on:click="AlertAgentGoods(index)">编辑信息</button>
                             </div>
-
+                            <small class="text-muted" v-if="obj.status_id != 1">以下架</small>
                         </div>
 
                     </li>
                 </ul>
             </div>
-            @*分页*@
-            <nav aria-label="Page navigation example">
+            @*代理分页*@
+            <nav aria-label="Page navigation example" >
                 <ul class="pagination">
-
-                    <li class="page-item"><span class="page-link"> 显示 <input type="number" style="width:55px" v-model="count" />条数据 </span> </li>
+                    <li class="page-item"><span class="page-link"> 显示 <input type="number" style="width:55px" v-model="count"/>条数据 </span> </li>
 
                     <li class="page-item">
-                        <a class="page-link" v-on:click="before()" href="#" aria-label="Previous">
+                        <a class="page-link" v-on:click="before()" href="#" >
                             <span aria-hidden="true">&laquo;</span>
                             <span class="sr-only">上一页</span>
                         </a>
                     </li>
-
-
-
                     <li class="page-item" v-on:click="end()">
-                        <a class="page-link" href="#" aria-label="Next">
+                        <a class="page-link" href="#" >
                             <span aria-hidden="true">&raquo;</span>
                             <span class="sr-only">下一页</span>
                         </a>
                     </li>
                     <li class="page-item"><a class="page-link" href="#">共 {{myGoodsCountFilter}} 页</a></li>
                     <li class="page-item"><span class="page-link"> 跳转到 <input type="number" v-model="pageSize" style="width:55px" />页 </span> </li>
-                    <li class="page-item"><a class="page-link" href="#">确定</a></li>
+                    <li class="page-item"><a class="page-link" v-on:click="btn_sub()" href="#">确定</a></li>
                 </ul>
             </nav>
-
         </main>
 
         @*上架模态框*@
@@ -176,7 +194,18 @@
                                 <input type="number" class="form-control" v-model="editPrice" placeholder="Price">
                             </div>
                         </div>
-                        
+                        <div class="col-auto">
+                            <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">状态</div>
+                                </div>
+                                <select class="custom-select d-block w-100"  v-model="editStatus" required>
+                                    <option value="1">上架</option>
+                                    <option value="2">下架</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">{{config.AlertAgentGoodsModel.modalCloseBtn}}</button>
@@ -195,11 +224,16 @@
                 //全部商品
                 Goods: [],
                 config: {},
-                search: '',
-                //页码
+                search: "",
+                //代理商品页码
                 pageSize: '',
-                //显示多少条数据
+                //显示多少条代理商品数据
                count: '',
+               //计算得出代理商品的最后一页
+               total: '',
+               All_pageSize: '',
+               All_count: '',
+               All_total: '',
                //全部商品总条数
                GoodsCount: "",
                //代理商品总条数
@@ -210,10 +244,11 @@
                myGoods: [],
                fromData: [],
                //更改商品
-               "editPorduct": [],
-               "editName": "",
-               "editIntro": "",
-               "editPrice":""
+               editPorduct: [],
+               editName: "",
+               editIntro: "",
+               editPrice: "",
+               editStatus : ""
             },
            created: function () {
                 //加载配置文件，将数据填充
@@ -229,6 +264,8 @@
                    //配置页面化
                    this.pageSize = size;
                    this.count = count;
+                   this.All_count = count;
+                   this.All_pageSize = size;
                    //请求参数
                    const param = {
                        "page": size,
@@ -245,31 +282,40 @@
                });
            },
            computed: {
-               //制作简单的页面商品搜索
-               GoodsFilter() {
-                   //取出相关的数据
-                   const { search, Goods } = this;
-                   //最终要显示的数据
-                   let goods;
-                   //对数据进行筛选，根据商品名
-                   goods = Goods.filter(s => s.GoodsName.indexOf(search) !== -1);
-                   //返回数据
-                   return goods
-               },
-               //制作简单的我的代理商品搜索
-               myGoodsFilter() {
-                   //取出相关的数据
-                   const { search, myGoods } = this;
-                   //最终要显示的数据
-                   let goods;
-                   //对数据进行筛选，根据商品名
-                   goods = myGoods.filter(s => s.goods_name.indexOf(search) !== -1);
-                   //返回数据
-                   return goods
-               },
+               ////制作简单的页面商品搜索
+               //GoodsFilter() {
+               //    //取出相关的数据
+               //    const { search, Goods } = this;
+               //    //最终要显示的数据
+               //    let goods;
+               //    //对数据进行筛选，根据商品名
+               //    goods = Goods.filter(s => s.GoodsName.indexOf(search) !== -1);
+               //    //返回数据
+               //    return goods
+               //},
+               ////制作简单的我的代理商品搜索
+               //myGoodsFilter() {
+                  
+               //    //取出相关的数据
+               //    const { search, myGoods } = this;
+                   
+                   
+               //    //最终要显示的数据
+               //    let goods;
+               //    //对数据进行筛选，根据商品名
+               //    goods = myGoods.filter(s =>  s.goods_name.indexOf(search) !== -1);
+               //    //返回数据
+               //    return goods
+               //},
                //计算代理商品的页数
                myGoodsCountFilter() {
-                   return Math.ceil(this.myGoodsCount / this.count);
+                   this.total = Math.ceil(this.myGoodsCount / this.count);
+                   return this.total;
+               },
+               //计算全部商品的页数
+               AllGoodsCountFilter() {
+                   this.All_total = Math.ceil(this.GoodsCount / this.count);
+                   return this.All_total;
                }
 
            },
@@ -282,8 +328,9 @@
                        data: param,
                        dataType: 'json'
                    }).done((data) => {
-                       this.Goods = data.rows;
                        console.log(data)
+                       this.Goods = data.rows;
+                       this.GoodsCount = data.total;
                    });
                },
                //加载我的代理商品数据
@@ -297,7 +344,7 @@
                    }).then((data) => {
                        this.myGoods = data.rows;
                        this.myGoodsCount = data.total;
-                       console.log(data)
+                     
                    });
 
                },
@@ -361,7 +408,14 @@
                        "pageSize": this.count,
                        "goods_name": search
                    }
-                   this.onloadData(this.config.goodsUrl.getAllGoods, param);
+                   if (this.myGoodsShow) {
+                       console.log(true)
+                       this.onloadData(this.config.goodsUrl.getAllGoods, param);
+                   } else {
+                       console.log(false)
+                       this.onloadMyGoodsData(this.config.goodsUrl.myGoods, param);
+                   }
+                   
                },
                onMyGoods(even) {
                    //console.log(even)
@@ -373,7 +427,7 @@
                        event.target.innerText = this.config.myGoodsBtn;
                    }
                },
-               //分页
+               //代理商品分页
                //上一页
                before() {
                    const page = this.pageSize;
@@ -381,11 +435,7 @@
                        alert("已经是第一页了")
                    } else {
                        this.pageSize -= 1;
-                       const param = {
-                           "page": this.pageSize,
-                           "rows": this.count
-                       }
-                       this.onloadMyGoodsData(this.config.goodsUrl.myGoods, param);
+                       this.btn_sub();
                    }
                },
                //下一页
@@ -395,11 +445,7 @@
                        alert("已经是最后一页了")
                    } else {
                        this.pageSize += 1;
-                       const param = {
-                           "page": this.pageSize,
-                           "rows": this.count
-                       }
-                       this.onloadMyGoodsData(this.config.goodsUrl.myGoods, param);
+                       this.btn_sub();
                    }
                },
                //提交页
@@ -410,6 +456,39 @@
                    }
                    this.onloadMyGoodsData(this.config.goodsUrl.myGoods, param);
                },
+
+               //全部商品分页
+               //上一页
+               All_before() {
+                   const page = this.All_pageSize;
+                   if (page <= 1) {
+                       alert("已经是第一页了")
+                   } else {
+                       this.All_pageSize -= 1;
+                       this.All_btn_sub();
+                   }
+               },
+               //下一页
+               All_end() {
+                   const page = this.All_pageSize;
+                   if (page >= this.All_total) {
+                       alert("已经是最后一页了")
+                   } else {
+                       this.All_pageSize += 1;
+                       this.All_btn_sub();
+                   }
+               },
+               //提交页
+               All_btn_sub() {
+                   console.log(this.All_pageSize)
+                   console.log(this.All_count)
+                   const param = {
+                       "page": this.All_pageSize,
+                       "rows": this.All_count
+                   }
+                   this.onloadData(this.config.goodsUrl.getAllGoods, param);
+               },
+
                //修改代理商品信息
                AlertAgentGoods(index) {
                    //获取对应的代理商品信息
@@ -419,16 +498,18 @@
                    this.editName = product.goods_name;
                    this.editIntro = product.goods_intro;
                    this.editPrice = product.price;
+                   this.editStatus = product.status_id;
                    $('#AlertAgentGoods').modal('show');
                },
                Goods_Alert_Submir() {
+                   
                    //定义参数集
                    const param = {
                        "Agoods_id": this.editPorduct.id,
                        "goods_id": this.editPorduct.goods_id,
                        "goods_name": this.editName,
                        "price": this.editPrice,
-                       "status_id": 1,
+                       "status_id": this.editStatus,
                        "goods_intro": this.editIntro
                    }
                    //发生请求

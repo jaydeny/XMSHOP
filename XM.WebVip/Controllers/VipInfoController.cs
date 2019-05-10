@@ -12,6 +12,9 @@ namespace XM.WebVip.Controllers
 {
     public class VipInfoController : BaseController
     {
+
+       
+     
         // GET: VipInfo
         #region _vipInfo
         /// <summary>
@@ -35,18 +38,29 @@ namespace XM.WebVip.Controllers
         [HttpPost]
         public ActionResult VipInfo()
         {
-            Dictionary<string, object> param = new Dictionary<string, object>();
 
             if (Session["AN"] == null)
             {
                 return OperationReturn(false, "未登录");
             }
-            else
-            {
-                param.Add("vip_AN", Session["AN"].ToString());
-                var vip = DALUtility.Vip.QryVipInfo<VipEntity>(param);
-                return OperationReturn(true, "已登录", vip);
+
+            //判断回收区,是否存在sessionID
+            if (recycle.ContainsKey(Session.SessionID)) {
+                if (recycle[Session.SessionID] == false) {
+                    RemoveSession();
+                    //存在就踢下线
+                    return OperationReturn(false, "被踢下线");
+                }
             }
+            
+            string strResult = "已登录";
+            string vip = "";
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("vip_AN", Session["AN"].ToString());
+            
+            vip = DALUtility.Vip.QryVipInfo<VipEntity>(param);
+            return OperationReturn(true, strResult, vip);
         }
         #endregion
 
@@ -235,6 +249,23 @@ namespace XM.WebVip.Controllers
                     break;
             }
             return strResult;
+        }
+
+        
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4-28
+        /// 修改时间：2019-
+        /// 功能：安全退出
+        /// </summary>
+        public ActionResult RemoveSession()
+        {
+            pairs.Remove(Session["AN"].ToString());
+            Session.Remove("AN");
+            Session.Remove("ID");
+            Session.Remove("Agent_ID");
+            Session.Remove("Agent_AN");
+            return OperationReturn(true, "退出成功");
         }
         #endregion
     }
