@@ -23,7 +23,7 @@ namespace XM.WebAgent.Controllers
         /// 功能:返回报表页面 
         /// </summary>
         /// <returns></returns>
-        public ActionResult ReportForm()
+        public ActionResult ReportsForm()
         {
             return View();
         }
