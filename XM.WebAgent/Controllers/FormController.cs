@@ -36,15 +36,17 @@ namespace XM.WebAgent.Controllers
         /// </summary>
         public ActionResult QryDayTotal()
         {
-            int monthDay = DateTime.DaysInMonth(int.Parse(Request["year"]), int.Parse(Request["month"]));
+            string year = Request["year"];
+            string month = Request["month"];
 
-            string startDay = new DateTime(int.Parse(Request["year"]), int.Parse(Request["month"]), 1).Day.ToString();
-            string endDay = new DateTime(int.Parse(Request["year"]), int.Parse(Request["month"]), monthDay).Day.ToString();
+            int monthDay = DateTime.DaysInMonth(int.Parse(year), int.Parse(month));
+            string startDay = new DateTime(int.Parse(year), int.Parse(month), 1).Day.ToString();
+            string endDay = new DateTime(int.Parse(year), int.Parse(month), monthDay).Day.ToString();
 
 
             Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("year", Request["year"] == null ? DateTime.Now.Year.ToString() : Request["year"]);
-            param.Add("month", Request["month"] == null ? DateTime.Now.Month.ToString() : Request["month"]);
+            param.Add("year", year == null ? DateTime.Now.Year.ToString() : year);
+            param.Add("month", month == null ? DateTime.Now.Month.ToString() : month);
             param.Add("startDay", Request["startDay"] == null ? startDay : Request["startDay"]);
             param.Add("endDay", Request["endDay"] == null ? endDay : Request["endDay"]);
             //param.Add("agent_AN", Session["agent_AN"].ToString());
