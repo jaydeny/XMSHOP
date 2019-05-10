@@ -11,7 +11,7 @@ namespace XM.Web.Controllers
 {
     public class MenuController : BaseController
     {
-        #region  加载页面
+        #region  菜单页面
         //[PermissionFilter]
         // GET: Menu
         public ActionResult Index()

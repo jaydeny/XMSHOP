@@ -13,12 +13,12 @@ namespace XM.Web.Controllers
     /// <summary>
     /// 创建人：朱茂琛
     /// 创建时间：2019/4/22
-    /// 用户管理控制器
+    /// 用户
     /// </summary>
     public class UserController : BaseController, IRequiresSessionState
     {
         #region 所有用户页面
-        [PermissionFilter]
+        //[PermissionFilter]
         // GET: User
         public ActionResult Index()
         {
@@ -28,7 +28,7 @@ namespace XM.Web.Controllers
         #region 修改密码页面
         public ActionResult PwdUpdate()
         {
-            return View();
+            return View("_PwdUpdate");
         }
         #endregion
         #region 修改密码操作
@@ -71,7 +71,7 @@ namespace XM.Web.Controllers
         /// 获取所有用户信息
         /// </summary>
         /// <returns></returns>
-        [PermissionFilter("User", "Index")]
+        //[PermissionFilter("User", "Index")]
 
         public ActionResult GetAllUserInfo()
         {
@@ -190,6 +190,19 @@ namespace XM.Web.Controllers
         {
             var user = DALUtility.User.GetUserByUserId(id);
             return Content(JsonConvert.SerializeObject(user));
+        }
+        #endregion
+        #region 获取当前用户个人信息页面
+        public ActionResult UserInfo()
+        {
+            return View("_UserInfo");
+        }
+        #endregion
+        #region  获取当前用户
+        public ActionResult InfoUser()
+        {
+            UserEntity user = Session["User"] as UserEntity;
+            return GetFormJson(user.id.ToString());
         }
         #endregion
     }

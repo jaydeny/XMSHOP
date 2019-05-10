@@ -19,14 +19,14 @@ namespace XM.Web.Controllers
     /// </summary>
     public class LoginController : BaseController
     {
+        #region  登录页面
         // GET: Login
         public ActionResult Index()
         {
             return View();
         }
-        /// <summary>
-        /// 处理登录的信息
-        /// </summary>
+        #endregion
+        #region   处理登录的信息
         /// <param name="CookieExpires">cookie有效期</param>
         /// <returns></returns>
         public ActionResult CheckUserLogin(string CookieExpires)
@@ -61,18 +61,14 @@ namespace XM.Web.Controllers
                 return OperationReturn(false,"登录异常," + ex.Message);
             }
         }
-        /// <summary>
-        /// 忘记密码页面
-        /// </summary>
-        /// <returns></returns>
+        #endregion
+        #region   忘记密码页面
         public ActionResult ForgetPwd()
         {
             return View();
         }
-        /// <summary>
-        /// 忘记密码操作
-        /// </summary>
-        /// <returns></returns>
+        #endregion
+        #region  忘记密码操作
         public ActionResult PwdForget()
         {
             bool f = false;
@@ -88,10 +84,8 @@ namespace XM.Web.Controllers
             }
             return OperationReturn(f,"邮件已发送！");
         }
-        /// <summary>
-        /// 安全退出
-        /// </summary>
-        /// <returns></returns>
+        #endregion
+        #region  安全退出
         public ActionResult UserLoginOut()
         {
             //清空cookie
@@ -99,5 +93,6 @@ namespace XM.Web.Controllers
             Session.Clear();
             return OperationReturn(true,"退出成功！");
         }
+        #endregion
     }
 }

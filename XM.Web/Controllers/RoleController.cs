@@ -11,6 +11,11 @@ using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
+    /// <summary>
+    /// 创建人：朱茂琛
+    /// 创建时间：2019/04/22
+    /// 权限
+    /// </summary>
     public class RoleController : BaseController
     {
         #region  角色页面

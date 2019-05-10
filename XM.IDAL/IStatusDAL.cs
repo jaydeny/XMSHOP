@@ -9,6 +9,11 @@ namespace XM.IDAL
 {
     public interface IStatusDAL
     {
+        /// <summary>
+        /// 添加状态记录
+        /// </summary>
+        /// <param name="status"></param>
+        /// <returns></returns>
         int AddStatus(StatusEntity status);
         bool DeleteStatus(string id);
         bool EditStatus(StatusEntity status);
