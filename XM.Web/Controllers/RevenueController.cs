@@ -8,14 +8,22 @@ using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
+    /// <summary>
+    /// 创建人：朱茂琛
+    /// 创建时间：2019/04/22
+    /// 报表
+    /// </summary>
     public class RevenueController : BaseController
     {
+        #region  充值报表页面
         //[PermissionFilter]
         // GET: Revenue
         public ActionResult Index()
         {
             return View(); 
         }
+        #endregion
+        #region  获取所有充值信息
         //[PermissionFilter("Revenue", "Index")]
         public ActionResult GetRechargeRevenue()
         {
@@ -43,11 +51,14 @@ namespace XM.Web.Controllers
             var charge = DALUtility.Recharge.QryRecharge<RechargeEntity>(paras, out totalCount);
             return PagerData(totalCount, charge,pageindex,pagesize);
         }
-        
+        #endregion
+        #region  商品报表页面
         public ActionResult GetRevenueGoods()
         {
             return View();
         }
+        #endregion
+        #region   获取所有商品售出信息
         //[PermissionFilter("Revenue", "GetGoodsRevenue")]
         public ActionResult GetGoodsRevenue()
         {
@@ -74,5 +85,6 @@ namespace XM.Web.Controllers
             var goods = DALUtility.Order.QryOrder<OrderEntity>(paras, out totalCount);
             return PagerData(totalCount, goods,pageindex,pagesize);
         }
+        #endregion
     }
 }

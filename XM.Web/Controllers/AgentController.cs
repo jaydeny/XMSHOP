@@ -12,7 +12,7 @@ namespace XM.Web.Controllers
     /// <summary>
     /// 创建人：朱茂琛
     /// 创建时间：2019/4/22
-    /// 代理商控制器
+    /// 代理商
     /// </summary>
     public class AgentController : BaseController
     {

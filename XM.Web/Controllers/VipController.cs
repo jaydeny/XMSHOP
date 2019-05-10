@@ -13,7 +13,7 @@ namespace XM.Web.Controllers
     /// <summary>
     /// 创建人：朱茂琛
     /// 创建时间：2019/4/22
-    /// VIP管理
+    /// 会员
     /// </summary>
     public class VipController : BaseController
     {

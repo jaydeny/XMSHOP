@@ -42,6 +42,14 @@ namespace XM.DAL.comm
             }
         }
 
+        protected IEnumerable<T> QueryList<T>(string sql, object param = null, CommandType commandType = CommandType.Text,bool buff = true)
+        {
+            using (IDbConnection conn = GetConnection())
+            {
+                return conn.Query<T>(sql, param, null, buff, CommandTimeout, commandType);
+            }
+        }
+
         protected int Execute(string sql, object param = null, CommandType commandType = CommandType.Text)
         {
             using (IDbConnection conn = GetConnection())

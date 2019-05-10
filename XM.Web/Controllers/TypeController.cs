@@ -9,6 +9,11 @@ using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
+    /// <summary>
+    /// 创建人：朱茂琛
+    /// 创建时间：2019/04/22
+    /// 商品类型
+    /// </summary>
     public class TypeController : BaseController
     {
         #region  类型页面

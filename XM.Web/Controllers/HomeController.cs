@@ -10,8 +10,14 @@ using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
+    /// <summary>
+    /// 创建人：朱茂琛
+    /// 创建时间：2019/04/22
+    /// 首页
+    /// </summary>
     public class HomeController : BaseController
     {
+        #region  主页面
         // GET: Home
         public ActionResult Index()
         {
@@ -24,16 +30,19 @@ namespace XM.Web.Controllers
             ViewBag.Title = "首页";
             return View();
         }
+        #endregion
+        #region  加载菜单方法
         public ActionResult LoadMenu()
         {
-            IEnumerable<RoleMenuEntity> objRoleMenu = (IEnumerable<RoleMenuEntity>)Session["RoleMenu"];
+            IEnumerable<Navbar> objRoleMenu = (IEnumerable<Navbar>)Session["RoleMenu"];
             List<int> objIDs = new List<int>();
-            foreach(RoleMenuEntity roleMenu in objRoleMenu)
+            foreach(Navbar roleMenu in objRoleMenu)
             {
                 objIDs.Add(roleMenu.MenuId);
             }
             List<MenuEntity> objMenus = DALUtility.Menu.GetAllMenuByIds(objIDs);
             return PagerData(objMenus.Count,objMenus);
         }
+        #endregion
     }
 }

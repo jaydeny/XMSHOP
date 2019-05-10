@@ -10,18 +10,32 @@ namespace XM.IDAL
 {
     public interface IGoodsDAL
     {
-        //查询所有商品
+        /// <summary>
+        /// 查询所有商品
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <param name="iCount"></param>
+        /// <returns></returns>
         IEnumerable<T> QryGoods<T>(Dictionary<string, object> paras, out int iCount);
-        //查询商品资料
-        GoodsEntity QryGoodsInfo(string id );
 
-        //添加商品
-        int AddGoods(GoodsEntity goods);
-        //删除商品
+        /// <summary>
+        /// 查询商品资料
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        GoodsEntity QryGoodsInfo(string id );
+        /// <summary>
+        /// 删除商品
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         bool DeleteGoods(string id);
-        //修改商品
-        bool EditGoods(GoodsEntity goods);
-        //保存
+        /// <summary>
+        /// 保存
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
         int Save(Dictionary<string, object> paras);
 
     }

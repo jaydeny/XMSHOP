@@ -10,18 +10,23 @@ using XM.Model;
 
 namespace XM.Web.Controllers
 {
+    /// <summary>
+    /// 创建人：朱茂琛
+    /// 创建时间：2019/04/22
+    /// 基础Controller
+    /// </summary>
     public class BaseController : Controller
     {
-        /// <summary>
-        /// 数据交互接口
-        /// </summary>
+        #region 数据交互接口
         internal DALCore DALUtility => DALCore.GetInstance();
-        
+        #endregion
+        #region  分页方法返回（不常用）
         protected ContentResult PagerData(int totalCount, object rows)
         {
             return Content(JsonConvert.SerializeObject(new { total = totalCount.ToString(), rows = rows }));
         }
-
+        #endregion
+        #region  分页方法（常用）
         /// <param name="totalCount">总记录数</param>
         /// <param name="rows">数据</param>
         /// <param name="page">当前页</param>
@@ -42,12 +47,15 @@ namespace XM.Web.Controllers
             };
             return Content(JsonConvert.SerializeObject(data));
         }
-
+        #endregion
+        #region  返回操作信息
         protected ContentResult OperationReturn(bool _success, string _msg = "")
         {
             return Content(JsonConvert.SerializeObject(new { msg = _msg != "" ? _msg : (_success ? "操作成功" : "操作失败"), success = _success }));
 
         }
+        #endregion
+        #region  日志方法（弃用）
         public void log(string Operator, string Method, string boo, string reason)
         {
             var dbService = new MongoDbService();
@@ -63,15 +71,14 @@ namespace XM.Web.Controllers
                 Time = DateTime.Now
             });
         }
+        #endregion
     }
-
-    /// <summary>
-    /// 返回结果
-    /// </summary>
+    #region  返回结果
     public class result_base
     {
         public string errorCode { get; set; } = "";
         public string errorMsg { get; set; } = "";
         public object result { get; set; }
     }
+    #endregion
 }
