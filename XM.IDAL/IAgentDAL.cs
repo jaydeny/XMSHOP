@@ -192,6 +192,27 @@ namespace XM.IDAL
 
         #endregion
 
+        #region _RechargeFrom
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-5-10
+        /// 修改时间：2019-
+        /// 功能：查询日期,总营业额
+        /// </summary>
+        string QryDayRechargeTotal(Dictionary<string, object> paras);
+
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-5-10
+        /// 修改时间：2019-
+        /// 功能：查询日期内的记录
+        /// </summary>
+        string QryDayRechargeForm(Dictionary<string, object> paras, out int iCount);
+
+        #endregion
+
         #region 自定义
         /// <summary>
         /// 添加和修改代理商共用的方法,区别在于id是否为0

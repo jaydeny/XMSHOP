@@ -468,6 +468,56 @@ namespace XM.DAL
             return retData;
         }
         #endregion
+        
+        #region _RechargeFrom
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4/29
+        /// 修改时间：2019-
+        /// 功能：查询日期,总营业额
+        /// </summary>
+        public string QryDayRechargeTotal(Dictionary<string, object> paras)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append("select ");
+            builder.Append("convert(varchar(10),recharge_time, 120) as date, SUM(recharge_price) as total ");
+            builder.Append("from tbrecharge ");
+            builder.Append("where YEAR(recharge_time)= @year and  MONTH(recharge_time)=@month and DAY(recharge_time) between @startDay and @endDay ");
+            builder.Append("and agent_id = @agent_id ");
+            builder.Append("GROUP BY convert(varchar(10),recharge_time, 120)");
+
+            var s = Query(builder.ToString(), paras);
+
+            string retData = JsonConvert.SerializeObject(new { rows = s });
+            return retData;
+        }
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-5-10
+        /// 修改时间：2019-
+        /// 功能：查询日期内的记录
+        /// </summary>
+        public string QryDayRechargeForm(Dictionary<string, object> paras, out int iCount)
+        {
+            WhereBuilder builder = new WhereBuilder();
+            builder.FromSql = "tbrecharge";
+            GridData grid = new GridData()
+            {
+                PageIndex = Convert.ToInt32(paras["pi"]),
+                PageSize = Convert.ToInt32(paras["pageSize"]),
+                SortField = paras["sort"].ToString(),
+                SortDirection = paras["order"].ToString()
+            };
+            builder.AddWhereAndParameter(paras, "day", "convert(varchar(10),recharge_time, 120)", "like", "@day+'%'");
+            builder.AddWhereAndParameter(paras, "agent_id");
+            builder.AddWhereAndParameter(paras, "vip_id");
+            var s = SortAndPage(builder, grid, out iCount);
+            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
+            return retData;
+        }
+        #endregion
 
         #region _自定义
         /// <summary>
