@@ -31,7 +31,7 @@ namespace XM.DAL
         }
         public IEnumerable<T> QryRoleMenu<T>(Dictionary<string, object> paras)
         {
-            string strSql = "SELECT r.*,m.Controller AS Controller,m.Action AS Action " +
+            string strSql = "SELECT r.*,m.Controller AS Controller,m.Action AS Action,m.Name,m.ParentId " +
                 "FROM v_rolemenu_list r,v_menu_list m " +
                 "where r.MenuId = m.Id and r.Id=@r_id";
             return QueryList<T>(strSql, paras);
