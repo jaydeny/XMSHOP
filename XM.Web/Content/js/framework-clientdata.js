@@ -22,6 +22,7 @@ $.clientsInit = function () {
     };
     // 生成菜单导航对象
     var MenuNav = function (allMenu, authorizeMenu) {
+        
         var parentIdArray = [], boo = true;
         for (var i = 0; i < authorizeMenu.length; i++) {
             boo = true;
@@ -73,6 +74,11 @@ $.clientsInit = function () {
                 dataJson.menu = data.Menus;
                 dataJson.role = data.Roles;
                 dataJson.type = data.Types;
+                var rows = data.Navbars;
+                for (var row in rows) {
+                    dataJson.authorizeButton["" + rows[row].Id] = rows[row];
+                }
+                MenuNav(dataJson.menu, data.Navbars);
             }
         });
         // 授权菜单
@@ -82,11 +88,6 @@ $.clientsInit = function () {
             dataType: "json",
             async: false,
             success: function (data) {
-                var rows = data.rows;
-                for (var row in rows) {
-                    dataJson.authorizeButton["" + rows[row].Id] = rows[row];
-                }
-                MenuNav(dataJson.menu, data.rows);
             }
         });
 
