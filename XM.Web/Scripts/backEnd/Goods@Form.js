@@ -2,28 +2,23 @@
 var keyValue = $.request("keyValue");
 $(function () {
     initControl();
-    //$.get("/Type/GetAllTypeInfo", function (data) {
-    //    $("#GoodsType").html("");
-    //    $.each(data.rows, function (i, n) {
-    //        $("#GoodsType").append("<option value='" + n.TypeID + "'>" + n.TypeName + "</option>");
-    //    });
-    //}, "json").done(function () {
-    //        if (!!keyValue) { //判断是否有值
-    //            $.ajax({
-    //                url: "/Goods/GetFormJson",
-    //                data: { id: keyValue },
-    //                dataType: "json",
-    //                async: false,
-    //                success: function (data) {
-    //                    $("#form1").formSerialize(data);
-    //                }
-    //            });
-    //        }
-    //    })
-    //});
-    function initControl() {
-        
+    if (!!keyValue) { //判断是否有值
+        $.ajax({
+            url: "/Goods/GetFormJson",
+            data: { id: keyValue },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#form1").formSerialize(data);
+            }
+        });
     }
+});
+function initControl() {
+    $.each(top.clients.type, function (i, n) {
+        $("#GoodsType").append("<option value='" + n.TypeID + "'>" + n.TypeName + "</option>");
+    });
+}
 function submitForm() {
     if (!$('#form1').formValid()) {
         return false;

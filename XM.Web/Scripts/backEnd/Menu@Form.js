@@ -10,7 +10,6 @@ $(function () {
             async: false,
             success: function (data) {
                 $("#form1").formSerialize(data);
-                //$("#UserAccountName").attr('disabled', 'disabled');
             }
         });
     }
@@ -18,17 +17,8 @@ $(function () {
 
 function initControl() {
     // 获取角色
-    $.ajax({
-        url: "/Menu/GetAllMenu",
-        data: { rows: 100 },
-        dataType: "json",
-        async: false,
-        success: function (data) {
-            $("#ParentId").html("");
-            $.each(data.rows, function (i, n) {
-                $("#ParentId").append("<option value='" + n.Id + "'>" + n.Name + "</option>");
-            });
-        }
+    $.each(top.clients.role, function (i, n) {
+        $("#ParentId").append("<option value='" + n.Id + "'>" + n.Name + "</option>");
     });
 }
 function submitForm() {

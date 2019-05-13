@@ -22,7 +22,6 @@ $.clientsInit = function () {
     };
     // 生成菜单导航对象
     var MenuNav = function (allMenu, authorizeMenu) {
-        
         var parentIdArray = [], boo = true;
         for (var i = 0; i < authorizeMenu.length; i++) {
             boo = true;
@@ -70,24 +69,14 @@ $.clientsInit = function () {
             dataType: "json",
             async: false,
             success: function (data) {
-                console.log(data);
                 dataJson.menu = data.Menus;
                 dataJson.role = data.Roles;
                 dataJson.type = data.Types;
                 var rows = data.Navbars;
                 for (var row in rows) {
-                    dataJson.authorizeButton["" + rows[row].Id] = rows[row];
+                    dataJson.authorizeButton["" + rows[row].MenuId] = rows[row];
                 }
                 MenuNav(dataJson.menu, data.Navbars);
-            }
-        });
-        // 授权菜单
-        $.ajax({
-            url: "/Home/LoadMenu",
-            type: "get",
-            dataType: "json",
-            async: false,
-            success: function (data) {
             }
         });
 
