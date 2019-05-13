@@ -6,6 +6,7 @@ $.clientsInit = function () {
     var dataJson = {
         menu: [],
         authorizeMenu: [],
+        authorizeButton: {},
         role: [],
         type:[]
     };
@@ -46,20 +47,18 @@ $.clientsInit = function () {
                 });
                 // 子菜单排序
                 childNodes.sort(function (before, after) {
-                    if (before < after) {
+                    if (before.SortValue < after.SortValue) {
                         return -1;
                     }
-                    else if (before > after) {
+                    else if (before.SortValue > after.SortValue) {
                         return 1;
                     }
                     return 0;
                 });
                 parentIdArray.push(MenuObj(authorizeMenu[i].ParentId, name, "", authorizeMenu[i].SortValue, childNodes));
-
             }
         }
         dataJson.authorizeMenu = parentIdArray;
-
     };
     var init = function () {
 
@@ -82,6 +81,10 @@ $.clientsInit = function () {
             dataType: "json",
             async: false,
             success: function (data) {
+                var rows = data.rows;
+                for (var row in rows) {
+                    dataJson.authorizeButton["" + rows[row].Id] = rows[row];
+                }
                 MenuNav(dataJson.menu, data.rows);
             }
         });
