@@ -69,6 +69,7 @@ $.clientsInit = function () {
             dataType: "json",
             async: false,
             success: function (data) {
+                console.log(data);
                 dataJson.menu = data.Menus;
                 dataJson.role = data.Roles;
                 dataJson.type = data.Types;
