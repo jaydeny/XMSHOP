@@ -14,6 +14,14 @@ namespace XM.Model
     public class Navbar
     {
         /// <summary>
+        /// 菜单名称
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
+        /// 菜单父节点
+        /// </summary>
+        public int ParentId { get; set; }
+        /// <summary>
         /// 控制器名称
         /// </summary>
         public string Controller { get; set; }

@@ -40,7 +40,7 @@ namespace XM.Web.Controllers
             param.Add("endMonth", endMonth == null ? DateTime.Now.Month.ToString() : endMonth);
             param.Add("startDay", Request["startDay"] == null ? "1" : Request["startDay"]);
             param.Add("endDay", Request["endDay"] == null ? "31" : Request["endDay"]);
-            param.Add("agent_AN", Session["agent_AN"].ToString());
+            //param.Add("agent_AN", Session["agent_AN"].ToString());
             param.Add("agent_AN", Request["agent_AN"]);
 
             return Content(DALUtility.Agent.QryDayTotal(param));
@@ -63,8 +63,8 @@ namespace XM.Web.Controllers
 
             param.Add("day", Request["day"]);
             param.Add("vip_AN", Request["vip_AN"]);
-            param.Add("agent_AN", Session["agent_AN"].ToString());
-            //param.Add("agent_AN", Request["agent_AN"]);
+            //param.Add("agent_AN", Session["agent_AN"].ToString());
+            param.Add("agent_AN", Request["agent_AN"]);
 
             return Content(DALUtility.Agent.QryDayForm(param, out int iCount));
         }
