@@ -1,0 +1,45 @@
+﻿
+@{
+    Layout = null;
+}
+
+<html>
+
+<head>
+    <title>xmGame</title>
+    <script src="~/Scripts/jquery-3.4.0.min.js"></script>
+    <script src="~/Scripts/jquery.md5.js"></script>
+</head>
+
+<body>
+    <input type="text" id="action" name="action" value="Login" />
+    <input type="text" id="AgentAN" name="AgentAN" />
+    <input type="text" id="VipAN" name="VipAN" />
+    <input type="text" id="isMobile" name="isMobile" />
+    <input type="text" id="culture" name="culture" />
+
+    <button class="btn btn-lg btn-primary btn-block" type="button" id="login">登录</button>
+    <script>
+        $("#login").click(function () {
+            var action = $("#action").val()
+            var AgentAN = $("#AgentAN").val()
+            var VipAN = $("#VipAN").val()
+            var isMobile = $("#isMobile").val()
+            var culture = $("#culture").val()
+
+            $.ajax({
+                url: 'http://172.16.31.232:9678/take',
+                method: 'POST',
+                data: { 'action': action, 'key': $.md5(AgentAN + VipAN + isMobile + 'c33e90a9-0714-48ee-89cc-8be9aff00710'), 'paras': [AgentAN, VipAN, isMobile], 'culture': culture },
+                success: function (e) {
+                    console.log(e);
+                }
+            })
+        });
+
+    </script>
+</body>
+
+
+</html>
+

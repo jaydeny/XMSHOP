@@ -1,0 +1,427 @@
+﻿<body>
+
+
+    <div id="ReportsForm">
+        <div v-show="is_show">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <h1 class="h2">营收报表</h1>
+
+                <button class="btn btn-outline-secondary" v-on:click="showEcharts()" type="button">营收图表</button>
+
+                <div>
+                    <input type="date" v-model="startTime" /> <span>~~</span>
+                    <input type="date" v-model="endTime" />
+                    <button class="btn btn-outline-secondary" v-on:click="searches()" type="button">搜索</button>
+                </div>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group mr-2">
+                        @*<button class="btn btn-sm btn-outline-secondary" v-on:click="seachTimeData(0)">周</button>*@
+                        <button class="btn btn-sm btn-outline-secondary" v-on:click="seachTimeData(1)">月</button>
+
+                    </div>
+                </div>
+            </div>
+
+            @*主页*@
+            <main role="main" class="col-md-12 ml-sm-auto col-lg-12 pt-3 px-4">
+                <table class="table table-hover" v-show="is_show_tb">
+                    <thead>
+                        <tr>
+                            <th scope="col">日期</th>
+                            <th scope="col" style="text-align:right">营收(/元)</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody v-for="(data,index) in dateTable" :key="index">
+                        <tr v-on:click="JumpPage(data.date)">
+                            @*//对钱的进行处理现实 100，221，111,000,000*@
+                            <th scope="row">{{data.date}}</th>
+                            <th scope="row" style="text-align:right">  {{data.total}}  </th>
+                            <th scope="row"></th>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <div v-show="!is_show_tb">
+                    <div style="margin:5px;padding:5px">
+                        <div id="main" style="width: 1000px;height:600px;"></div>
+                    </div>
+                </div>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link">总营收额: {{sum_turnover}} 元</a></li>
+
+                    </ul>
+                </nav>
+            </main>
+
+        </div>
+
+        @*订单页*@
+        <div v-show="!is_show">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <ul class="pagination pagination-lg">
+                    <li class="page-item" v-on:click="is_show=true"><a class="page-link" href="#">返回</a></li>
+                </ul>
+                <h1 class="h2">{{dateTile}}营收报表</h1>
+
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group mr-2">
+                    </div>
+                </div>
+            </div>
+
+            <main role="main" class="col-md-12 ml-sm-auto col-lg-12 pt-3 px-4">
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">订单编号</th>
+                            <th scope="col">下单日期</th>
+                            <th scope="col">用户名</th>
+
+                            <th scope="col" style="text-align:right">营收(/元)</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody v-for="(data,index) in dataForm" :key="index">
+                        <tr v-on:click="showData(data.id)">
+                            <th scope="row">{{data.id}}</th>
+                            <th scope="row">{{data.order_date.substring(11,19)}}</th>
+                            <th scope="row">{{data.vip_AN}}</th>
+                            <th scope="row" style="text-align:right">{{data.order_total}}</th>
+                            <th scope="row"></th>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+                @*分页*@
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+
+                        <li class="page-item">
+                            <span class="page-link">
+                                显示条数
+                                <select class="form-control form-control-sm" v-model="rows">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                </select>
+                            </span>
+                        </li>
+
+                        <li class="page-item" v-on:click="before()">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">上一页</span>
+                            </a>
+                        </li>
+
+
+
+                        <li class="page-item" v-on:click="next()">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">下一页</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">共 {{total_page}} 页</a></li>
+                        <li class="page-item"><a class="page-link" href="#">共 {{dataCount}} 条数据</a></li>
+                        <li class="page-item">
+                            <span class="page-link">
+                                跳转页码
+                                <select class="form-control form-control-sm" v-model="page">
+                                    <option :value="index" v-for="(index) in total_page" :key="index">{{index}}</option>
+                                </select>
+                            </span>
+                        </li>
+                        <li class="page-item"><a class="page-link" v-on:click="btn_sub()" href="#">确定</a></li>
+                    </ul>
+                </nav>
+            </main>
+
+        </div>
+
+        @*页面模态框*@
+
+
+        <div class="modal fade" id="showData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-body">
+
+                            <table class="table" style="margin-top:100px">
+                                <tbody v-for="(obj,index) in detailedData" :key="index">
+
+                                    <tr>
+                                        <th scope="row">订单编号</th>
+                                        <td>{{obj.id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">用户名</th>
+                                        <td>{{obj.vip_AN}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">手机号</th>
+                                        <td>{{obj.order_mp}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">地址</th>
+                                        <td>{{obj.address_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">下单时间</th>
+                                        <td>{{obj.order_date}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">商品编号</th>
+                                        <td>{{obj.goods_id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">商品名称</th>
+                                        <td>{{obj.goods_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">商品描述</th>
+                                        <td>{{obj.goods_intro}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">商品单价</th>
+                                        <td>{{obj.buy_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">商品数量</th>
+                                        <td>{{obj.buy_count}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">商品总价</th>
+                                        <td>{{obj.order_total}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: "#ReportsForm",
+            data: {
+                //显示日期营收的数据
+                dateTable: [],
+                startTime: "",
+                endTime: "",
+                is_show: true,
+                is_show_tb: true,
+                dateTile: '',
+                //一天的数据
+                dataForm: [],
+                //一天数据总和
+                dataCount: 0,
+                //分页设置
+                rows: '20',
+                page: '1',
+                page_count: '0',
+                detailedData: {}
+            },
+            created: function () {
+                const dates = new Date();
+
+                const param = {
+                    "year": dates.getFullYear(),
+                    "month": dates.getMonth() + 1
+                }
+
+                this.onloadData("/Form/QryDayTotal", param)
+            },
+            computed: {
+                //计算总营业额
+                sum_turnover() {
+                    let count = 0;
+                    for (item of this.dateTable) {
+                        count += item.total;
+                    }
+                    return count;
+                },
+                //计算页数
+                total_page() {
+                    let count = Math.ceil(this.dataCount / this.rows);
+                    this.page_count = count;
+                    return count;
+                }
+            },
+            methods: {
+                //加载首页数据，将数据初始化
+                onloadData(url, param) {
+
+                    $.ajax({
+                        url: url,
+                        method: "get",
+                        data: param,
+                        dataType: 'json'
+                    }).then((data) => {
+                        
+                        let datas = data.rows;
+                        //进行页面布局排序
+                        this.dateTable = datas.sort(function (a, b) {
+                            let x = a["date"];
+                            let y = b["date"];
+                            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                        });
+                        const dateTable = this.dateTable;
+                        const len = dateTable.length;
+                        this.startTime = dateTable[len - len].date;
+                        this.endTime = dateTable[len - 1].date;
+                        
+                    });
+                },
+                //页面跳转，到对应天的数据
+                JumpPage(date) {
+                    this.dateTile = date;
+                    this.is_show = false;
+                    const param = {
+                        "day": date
+                    }
+                    this.onloadPageData("/Form/QryDayForm", param);
+                },
+                //加载对应天的数据
+                onloadPageData(url, param) {
+                    $.ajax({
+                        url: url,
+                        method: 'get',
+                        data: param,
+                        dataType: 'json'
+                    }).then((data) => {
+
+                        this.dataForm = data.rows;
+                        this.dataCount = data.total;
+                    });
+                },
+                //加载订单详细数据
+                onloadProductData(url, param) {
+
+                    $.ajax({
+                        url: url,
+                        method: 'get',
+                        data: param,
+                        dataType: 'json'
+                    }).then((data) => {
+                        if (data.rows.length > 0) {
+                            this.detailedData = data.rows;
+                            $("#showData").modal("show");
+                        } else {
+                            alert("数据繁忙,请重新刷新")
+                        }
+                    });
+                },
+                //日期内时间搜索
+                searches() {
+                    const endTime = new Date(this.endTime);
+                    const startTime = new Date(this.startTime);
+                    const time = (endTime - startTime) / (1000 * 60 * 60 * 24);
+                    if (time > 90) {
+                        alert("当前用户可以查阅三个月内的记录")
+                    } else {
+                        const param = {
+                            "year": startTime.getFullYear(),
+                            "startMonth": startTime.getMonth() + 1,
+                            "endMonth": endTime.getMonth() + 1,
+                            "startDay": startTime.getDate(),
+                            "endDay": endTime.getDate()
+                        }
+
+                        this.onloadData("/Form/QryDayTotal", param)
+                    }
+
+                },
+                //显示详细信息
+                showData(id) {
+                   
+                    const param = {
+                        "order_id": id
+                    }
+                    this.onloadProductData("/Form/QryDetailOrder", param);
+
+                },
+                showEcharts() {
+                    this.is_show_tb = !this.is_show_tb;
+                    var myChart = echarts.init(document.getElementById('main'));
+                    let date = new Array();
+                    let total = new Array();
+                    for (let item of this.dateTable) {
+                       
+                        date.push(item.date);
+                        total.push(item.total);
+                    }
+                  
+                    // 指定图表的配置项和数据
+                    var option = {
+                        title: {
+                            text: this.startTime + '~' + this.endTime
+                        },
+                        tooltip: {},
+                        legend: {
+                            data: ['营收额']
+                        },
+                        xAxis: {
+                            data: date
+                        },
+                        yAxis: {},
+                        series: [{
+                            name: '营收额',
+                            type: 'bar',
+                            data: total
+                        }]
+                    };
+
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                },
+
+                //分页:
+                before() {
+                    if (this.page <= 1) {
+                        alert("已经是第一页了")
+                    } else {
+                        this.page--;
+                        this.btn_sub();
+                    }
+                },
+                next() {
+
+                    if (this.page >= this.page_count) {
+                        alert("已经是最后一页了")
+                    } else {
+                        this.page++;
+                        this.btn_sub();
+                    }
+                },
+                btn_sub() {
+                    const param = {
+                        "page": this.page,
+                        "rows": this.rows,
+                        "day": this.dateTile
+                    }
+                    this.onloadPageData("/Form/QryDayForm", param);
+                }
+
+            }
+        });
+
+    </script>
+
+</body>

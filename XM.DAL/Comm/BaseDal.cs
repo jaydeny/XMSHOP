@@ -66,7 +66,7 @@ namespace XM.DAL.comm
         /// <param name="connectionString"></param>
         /// <param name="builder"></param>
         /// <param name="grid"></param>
-        /// <param name="iCount"></param>
+        /// <param name="iCount">总笔数</param>
         /// <returns></returns>
         protected IEnumerable<object> SortAndPage(WhereBuilder builder, GridData grid, out int iCount)
         {
@@ -241,7 +241,7 @@ namespace XM.DAL.comm
         /// <param name="iCount"></param>
         /// <param name="some"></param>
         /// <returns></returns>
-        protected IEnumerable<object> SortAndPage(WhereBuilder builder, GridData grid, out int iCount, string some)
+        protected IEnumerable<object> SortAndPage(WhereBuilder builder, GridData grid, out int iCount, string some,string group = null)
         {
             iCount = 0;
             var sql = "";
@@ -255,7 +255,7 @@ namespace XM.DAL.comm
             }
         }
 
-        void FormartSqlToSortAndPageWithJoin(GridData grid, ref string sql, ref string countSql, ref WhereBuilder builder, string some)
+        void FormartSqlToSortAndPageWithJoin(GridData grid, ref string sql, ref string countSql, ref WhereBuilder builder, string some, string group = null)
         {
             sql = "";
             countSql = "";
@@ -275,6 +275,10 @@ namespace XM.DAL.comm
             #region 仅支持SQL Server 2012及以上
             sql += " order by " + grid.SortField + " " + grid.SortDirection;
             sql += " OFFSET @PageStartIndex ROWS FETCH NEXT @PageSize ROWS ONLY";
+            if (group != null)
+            {
+                sql += group;
+            }
             builder.Parameters.Add("PageSize", grid.PageSize);
             builder.Parameters.Add("PageStartIndex", grid.PageSize * (grid.PageIndex - 1));
             #endregion

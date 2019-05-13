@@ -1,0 +1,65 @@
+﻿
+@{
+    Layout = null;
+}
+
+<html>
+
+<head>
+    <title>xmGame</title>
+    <script src="~/Scripts/jquery-3.4.0.min.js"></script>
+    <script src="~/Scripts/jquery.md5.js"></script>
+</head>
+
+<body>
+    <input type="text" id="action" name="action" value="EditCredit" />
+    <input type="text" id="agent_AN" name="agent_AN" />
+    <input type="text" id="vip_AN" name="vip_AN" />
+    <input type="text" id="Money" name="Money" />
+    <input type="text" id="Culture" name="Culture" />
+    <input type="text" id="Code" name="Code" value="@ViewData.Model" />
+
+    <button class="btn btn-lg btn-primary btn-block" type="button" id="login">登录</button>
+    <script>
+        $("#login").click(function () {
+            var action = $("#action").val()
+            var agent_AN = $("#agent_AN").val()
+            var vip_AN = $("#vip_AN").val()
+            var Money = $("#Money").val()
+            var Culture = $("#Culture").val()
+            var Code = $("#Code").val()
+
+            $.ajax({
+                url: "/XM/EditCredit",
+                method: 'POST',
+                data: { 'vip_AN': vip_AN, 'Money': Money },
+                dataType: 'json'
+            }).done(function (data) {
+                    if (data.success) {
+                        $.ajax({
+                            url: 'http://172.16.31.232:9678/take',
+                            method: 'POST',
+                            data: { 'action': action, 'key': $.md5(agent_AN + vip_AN + Money + Code + 'c33e90a9-0714-48ee-89cc-8be9aff00710'), 'paras': [agent_AN, vip_AN, Money, Code], 'culture': Culture },
+                            dataType: 'json'
+                        }).done(function (e) {
+                                if (e.result == 0) {
+                                    $.ajax({
+                                        url: 'http://172.16.31.232:9678/take',
+                                        method: 'POST',
+                                        data: { 'action': 'EditCreditConfirm', 'key': $.md5(Code + vip_AN + 'c33e90a9-0714-48ee-89cc-8be9aff00710'), 'paras': [Code, vip_AN], 'culture': Culture },
+                                        success: function (y) {
+                                            console.log(y)
+                                        }
+                                    })
+                                }
+                           })
+                    }
+                })
+        });
+
+    </script>
+</body>
+
+
+</html>
+
