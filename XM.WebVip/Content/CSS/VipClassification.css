@@ -50,7 +50,7 @@
 }
 /*商品展示框*/
 .classification .goods-exhibition {
-    margin: 20px -20px 20px 0;
+    margin: 20px -20px -20px 0;
     overflow: hidden;
 }
 .classification .goods-exhibition > ul li {

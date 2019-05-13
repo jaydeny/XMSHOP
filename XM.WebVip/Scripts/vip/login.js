@@ -50,7 +50,6 @@ $("#bntLogin").click(function () {
     }
     else {
         $.post("/Home/Login", { "AN": an, "pwd": pwd }, function (data, status, xhr) {
-            console.log(data);
             if (data.success) {
                 $("#onlogin_box").addClass("hidden");
                 $("#login_box").removeClass("hidden");
