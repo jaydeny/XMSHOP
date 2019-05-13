@@ -412,7 +412,7 @@ namespace XM.DAL
             builder.Append("select ");
             builder.Append("convert(varchar(10),order_date, 120) as date, SUM(order_total) as total ");
             builder.Append("from tborder ");
-            builder.Append("where YEAR(order_date)= @year and  MONTH(order_date)= between @startMonth and @endMonth and DAY(order_date) between @startDay and @endDay ");
+            builder.Append("where YEAR(order_date)= @year and  MONTH(order_date) between @startMonth and @endMonth and DAY(order_date) between @startDay and @endDay ");
             builder.Append("and agent_AN = @agent_AN ");
             builder.Append("GROUP BY convert(varchar(10),order_date, 120)");
 
@@ -448,10 +448,7 @@ namespace XM.DAL
         }
 
         /// <summary>
-        /// 作者：曾贤鑫
-        /// 创建时间:2019-4/29
-        /// 修改时间：2019-
-        /// 功能：查询每一笔订单的详细详细
+        /// 查询每一笔订单的详细详细
         /// </summary>
         public string QryDetailOrder(Dictionary<string, object> paras)
         {
@@ -555,8 +552,14 @@ namespace XM.DAL
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
             return retData;
         }
+
+        public IEnumerable<T> QryAgent<T>()
+        {
+            string strSql = "select * from v_agent_list";
+            return QueryList<T>(strSql);
+        }
         #endregion
-        
+
 
     }
 }
