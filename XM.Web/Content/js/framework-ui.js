@@ -396,6 +396,7 @@ $.fn.bindSelect = function (options) {
 $.fn.authorizeButton = function () {
     var moduleId = top.$(".NFine_iframe:visible").attr("id").substr(6);
     var dataJson = top.clients.authorizeButton[moduleId];
+    console.log(dataJson);
     var $element = $(this);
     $element.find('a[authorize=yes]').attr('authorize', 'no');
     if (dataJson != undefined) {

@@ -8,7 +8,8 @@ $.clientsInit = function () {
         authorizeMenu: [],
         authorizeButton: {},
         role: [],
-        type:[]
+        type: [],
+        agents:[]
     };
     // 导航对象
     var MenuObj = function (id, name, urlAddress, sort, childNodes) {
@@ -62,16 +63,18 @@ $.clientsInit = function () {
     };
     var init = function () {
 
-        // 请求所有菜单
+        // 请求所有基础信息
         $.ajax({
             url: "/Home/GetCommonData",
             type: "get",
             dataType: "json",
             async: false,
             success: function (data) {
+                console.log("跟新");
                 dataJson.menu = data.Menus;
                 dataJson.role = data.Roles;
                 dataJson.type = data.Types;
+                dataJson.agents = data.Agents;
                 var rows = data.Navbars;
                 for (var row in rows) {
                     dataJson.authorizeButton["" + rows[row].MenuId] = rows[row];

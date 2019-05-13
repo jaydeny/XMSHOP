@@ -1,6 +1,7 @@
 ﻿
 var keyValue = $.request("keyValue");
 $(function () {
+    initControl();
     if (!!keyValue) { //判断是否有值
         $.ajax({
             url: "/Vip/GetFormJson",
@@ -15,18 +16,11 @@ $(function () {
             }
         });
     }
-    // 获取代理商
-    //$.post("/Agent/GetAllUserInfo", function (data) {
-    //    $.each(data.rows, function (i, obj) {
-    //        $("#AgentID").append("<option value='" + obj.AgentID + "'>" + obj.AgentAccountName + "</option>");
-    //    })
-    //}, "json").done(function () {
-        
-    //});
 });
 function initControl() {
-    $.each(top.clients.role, function (i, n) {
-        $("#AgentID").append("<option value='" + obj.AgentID + "'>" + obj.AgentAccountName + "</option>");
+    console.log(top.clients.agents);
+    $.each(top.clients.agents, function (i, n) {
+        $("#AgentID").append("<option value='" + n.AgentID + "'>" + n.AgentAccountName + "</option>");
     });
 
 }
