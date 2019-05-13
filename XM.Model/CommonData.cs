@@ -10,7 +10,7 @@ namespace XM.Model
     {
         public IEnumerable<RoleEntity> Roles { get; set; }
         public IEnumerable<GoodsTypeEntity> Types { get; set; }
-
         public IEnumerable<MenuEntity> Menus { get; set; }
+        public IEnumerable<Navbar> Navbars { get; set; }
     }
 }

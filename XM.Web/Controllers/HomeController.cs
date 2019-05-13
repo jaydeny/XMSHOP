@@ -50,6 +50,7 @@ namespace XM.Web.Controllers
             common.Roles = DALUtility.Role.QryRole<RoleEntity>();
             common.Types = DALUtility.Type.QryAllType<GoodsTypeEntity>();
             common.Menus = DALUtility.Menu.QryAllMenu<MenuEntity>();
+            common.Navbars = (IEnumerable<Navbar>)Session["RoleMenu"];
             return Content(JsonConvert.SerializeObject(common));
         }
     }
