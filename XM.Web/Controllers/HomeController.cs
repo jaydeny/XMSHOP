@@ -50,6 +50,11 @@ namespace XM.Web.Controllers
             common.Roles = DALUtility.Role.QryRole<RoleEntity>();
             common.Types = DALUtility.Type.QryAllType<GoodsTypeEntity>();
             common.Menus = DALUtility.Menu.QryAllMenu<MenuEntity>();
+            int roleId = Convert.ToInt32(Session["RoleID"]);
+            Dictionary<string, object> paras = new Dictionary<string, object>();
+            paras.Add("r_id", roleId);
+            var roleMenus = DALUtility.RoleMenu.QryRoleMenu<Navbar>(paras);
+            Session["RoleMenu"] = roleMenus;
             common.Navbars = (IEnumerable<Navbar>)Session["RoleMenu"];
             common.Agents = DALUtility.Agent.QryAgent<AgentEntity>();
             return Content(JsonConvert.SerializeObject(common));
