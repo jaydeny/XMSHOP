@@ -14,8 +14,6 @@ $(function () {
     }
 })
 function initControl() {
-
-
     // 按钮事件
     $('#wizard').wizard().on('change', function (e, data) {
         var $finish = $("#btn_finish");
@@ -121,6 +119,7 @@ function submitForm() {
         url: "/Role/Save",
         param: postData,
         success: function () {
+
             $.currentWindow().$("#gridList").trigger("reloadGrid");
         }
     });

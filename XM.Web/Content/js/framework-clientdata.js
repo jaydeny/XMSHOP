@@ -9,7 +9,8 @@ $.clientsInit = function () {
         authorizeButton: {},
         role: [],
         type: [],
-        agents:[]
+        agents: []
+
     };
     // 导航对象
     var MenuObj = function (id, name, urlAddress, sort, childNodes) {

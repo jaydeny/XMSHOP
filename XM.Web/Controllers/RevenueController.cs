@@ -99,10 +99,8 @@ namespace XM.Web.Controllers
         public ActionResult QryDayRechargeTotal()
         {
             int monthDay = DateTime.DaysInMonth(int.Parse(Request["year"]), int.Parse(Request["month"]));
-
             string startDay = new DateTime(int.Parse(Request["year"]), int.Parse(Request["month"]), 1).Day.ToString();
             string endDay = new DateTime(int.Parse(Request["year"]), int.Parse(Request["month"]), monthDay).Day.ToString();
-
 
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("year", Request["year"] == null ? DateTime.Now.Year.ToString() : Request["year"]);
