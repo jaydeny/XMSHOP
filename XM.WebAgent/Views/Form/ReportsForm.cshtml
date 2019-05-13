@@ -5,6 +5,9 @@
         <div v-show="is_show">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
                 <h1 class="h2">营收报表</h1>
+
+                <button class="btn btn-outline-secondary" v-on:click="showEcharts()" type="button">营收图表</button>
+
                 <div>
                     <input type="date" v-model="startTime" /> <span>~~</span>
                     <input type="date" v-model="endTime" />
@@ -12,16 +15,16 @@
                 </div>
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-outline-secondary" v-on:click="seachTimeData(0)">周</button>
+                        @*<button class="btn btn-sm btn-outline-secondary" v-on:click="seachTimeData(0)">周</button>*@
                         <button class="btn btn-sm btn-outline-secondary" v-on:click="seachTimeData(1)">月</button>
 
                     </div>
                 </div>
             </div>
 
-
+            @*主页*@
             <main role="main" class="col-md-12 ml-sm-auto col-lg-12 pt-3 px-4">
-                <table class="table table-hover">
+                <table class="table table-hover" v-show="is_show_tb">
                     <thead>
                         <tr>
                             <th scope="col">日期</th>
@@ -39,6 +42,11 @@
                         </tr>
                     </tbody>
                 </table>
+                <div v-show="!is_show_tb">
+                    <div style="margin:5px;padding:5px">
+                        <div id="main" style="width: 1000px;height:600px;"></div>
+                    </div>
+                </div>
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
                         <li class="page-item"><a class="page-link">总营收额: {{sum_turnover}} 元</a></li>
@@ -49,6 +57,7 @@
 
         </div>
 
+        @*订单页*@
         <div v-show="!is_show">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
                 <ul class="pagination pagination-lg">
@@ -58,7 +67,6 @@
 
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group mr-2">
-
                     </div>
                 </div>
             </div>
@@ -136,8 +144,10 @@
         </div>
 
         @*页面模态框*@
-        <div class="modal fade" id="showData" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+
+
+        <div class="modal fade" id="showData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
@@ -146,32 +156,67 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <table class="table">
-                            
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                     
-                                </tr>
-                              
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <div class="modal-body">
+
+                            <table class="table" style="margin-top:100px">
+                                <tbody v-for="(obj,index) in detailedData" :key="index">
+
+                                    <tr>
+                                        <th scope="row">订单编号</th>
+                                        <td>{{obj.id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">用户名</th>
+                                        <td>{{obj.vip_AN}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">手机号</th>
+                                        <td>{{obj.order_mp}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">地址</th>
+                                        <td>{{obj.address_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">下单时间</th>
+                                        <td>{{obj.order_date}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">商品编号</th>
+                                        <td>{{obj.goods_id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">商品名称</th>
+                                        <td>{{obj.goods_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">商品描述</th>
+                                        <td>{{obj.goods_intro}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">商品单价</th>
+                                        <td>{{obj.buy_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">商品数量</th>
+                                        <td>{{obj.buy_count}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">商品总价</th>
+                                        <td>{{obj.order_total}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
-
     <script>
         new Vue({
             el: "#ReportsForm",
@@ -181,6 +226,7 @@
                 startTime: "",
                 endTime: "",
                 is_show: true,
+                is_show_tb: true,
                 dateTile: '',
                 //一天的数据
                 dataForm: [],
@@ -193,11 +239,11 @@
                 detailedData: {}
             },
             created: function () {
-                let date = new Date();
-                
+                const dates = new Date();
+
                 const param = {
-                    "year": date.getFullYear(),
-                    "month": date.getMonth()+1
+                    "year": dates.getFullYear(),
+                    "month": dates.getMonth() + 1
                 }
 
                 this.onloadData("/Form/QryDayTotal", param)
@@ -215,7 +261,7 @@
                 total_page() {
                     let count = Math.ceil(this.dataCount / this.rows);
                     this.page_count = count;
-                    return  count;
+                    return count;
                 }
             },
             methods: {
@@ -228,6 +274,7 @@
                         data: param,
                         dataType: 'json'
                     }).then((data) => {
+                        
                         let datas = data.rows;
                         //进行页面布局排序
                         this.dateTable = datas.sort(function (a, b) {
@@ -239,6 +286,7 @@
                         const len = dateTable.length;
                         this.startTime = dateTable[len - len].date;
                         this.endTime = dateTable[len - 1].date;
+                        
                     });
                 },
                 //页面跳转，到对应天的数据
@@ -246,47 +294,104 @@
                     this.dateTile = date;
                     this.is_show = false;
                     const param = {
-                        "day":date 
+                        "day": date
                     }
-                    this.onloadPageData("/Form/QryDayForm",param);
+                    this.onloadPageData("/Form/QryDayForm", param);
                 },
                 //加载对应天的数据
-                onloadPageData(url,param) {
+                onloadPageData(url, param) {
                     $.ajax({
                         url: url,
                         method: 'get',
                         data: param,
                         dataType: 'json'
                     }).then((data) => {
-                        
+
                         this.dataForm = data.rows;
                         this.dataCount = data.total;
                     });
                 },
-                onloadProductData(url,param) {
+                //加载订单详细数据
+                onloadProductData(url, param) {
+
                     $.ajax({
                         url: url,
                         method: 'get',
                         data: param,
                         dataType: 'json'
                     }).then((data) => {
-                        this.detailedData = data.rows;
-                        
+                        if (data.rows.length > 0) {
+                            this.detailedData = data.rows;
+                            $("#showData").modal("show");
+                        } else {
+                            alert("数据繁忙,请重新刷新")
+                        }
                     });
                 },
                 //日期内时间搜索
                 searches() {
-                   
-                   
-                },
-                showData(id) {
-                    console.log(id)
-                    const param = {
-                        "order_id" : id
+                    const endTime = new Date(this.endTime);
+                    const startTime = new Date(this.startTime);
+                    const time = (endTime - startTime) / (1000 * 60 * 60 * 24);
+                    if (time > 90) {
+                        alert("当前用户可以查阅三个月内的记录")
+                    } else {
+                        const param = {
+                            "year": startTime.getFullYear(),
+                            "startMonth": startTime.getMonth() + 1,
+                            "endMonth": endTime.getMonth() + 1,
+                            "startDay": startTime.getDate(),
+                            "endDay": endTime.getDate()
+                        }
+
+                        this.onloadData("/Form/QryDayTotal", param)
                     }
-                    this.onloadProductData("/Form/QryDetailOrder",param);
 
                 },
+                //显示详细信息
+                showData(id) {
+                   
+                    const param = {
+                        "order_id": id
+                    }
+                    this.onloadProductData("/Form/QryDetailOrder", param);
+
+                },
+                showEcharts() {
+                    this.is_show_tb = !this.is_show_tb;
+                    var myChart = echarts.init(document.getElementById('main'));
+                    let date = new Array();
+                    let total = new Array();
+                    for (let item of this.dateTable) {
+                       
+                        date.push(item.date);
+                        total.push(item.total);
+                    }
+                  
+                    // 指定图表的配置项和数据
+                    var option = {
+                        title: {
+                            text: this.startTime + '~' + this.endTime
+                        },
+                        tooltip: {},
+                        legend: {
+                            data: ['营收额']
+                        },
+                        xAxis: {
+                            data: date
+                        },
+                        yAxis: {},
+                        series: [{
+                            name: '营收额',
+                            type: 'bar',
+                            data: total
+                        }]
+                    };
+
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                },
+
                 //分页:
                 before() {
                     if (this.page <= 1) {
@@ -297,7 +402,7 @@
                     }
                 },
                 next() {
-                   
+
                     if (this.page >= this.page_count) {
                         alert("已经是最后一页了")
                     } else {
