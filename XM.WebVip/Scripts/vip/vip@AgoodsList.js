@@ -33,7 +33,6 @@ var goodsRender = function (parameter) {
     paging.pageTotal = 15;
     paging.callbackMethod = function () {
         $.post("/Product/QryAgoods", { rows: paging.pageTotal, page: paging.currentPage }, function (data) {
-            console.log(data);
             if (data.total > 0) {
                 listGoods = data.rows;
                 $(".goods-exhibition>ul").html("");

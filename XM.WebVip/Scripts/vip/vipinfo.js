@@ -29,11 +29,9 @@ $.post("/Shop/QryOrder", function (data) {
     if (data.total > 0) {
         $("#empty_order").addClass("hidden");
         $("#order_box").removeClass("hidden");
-        // $.post("/shop/QryOrder", function (data) {
         $.each(data.rows, function (i, n) {
             $(".order-list>ul").append(orderTemplate(n));
         });
-        // },"json")
 
     }
     else {
