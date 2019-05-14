@@ -126,6 +126,23 @@
 }
 
 /*分页*/
+#paging-box .pagination {
+    float: right;
+}
+#paging-box li {
+    cursor: pointer;
+}
+
+#up_page a:hover, #below_page a:hover {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+#PageTotal, #skipPage {
+    width: 30px;
+    text-align: center;
+}
 
 
 
