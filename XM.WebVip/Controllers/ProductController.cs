@@ -79,6 +79,7 @@ namespace XM.WebVip.Controllers
         /// </summary>
         public ActionResult AgoodsList()
         {
+            ViewData["VipAccountName"] = Session["AN"];
             return View();
         }
 

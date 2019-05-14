@@ -72,7 +72,7 @@ window.onload = function () {
     },"json")
 
     // 初始化
-    loginInfo();
+    //loginInfo();
 
     // 商品查寻
     $("#btnSearch").click(function () {

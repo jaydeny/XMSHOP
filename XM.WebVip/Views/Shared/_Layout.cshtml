@@ -37,17 +37,25 @@
             <div class="main">
                 <ul>
                     <li>
-                        <div class="hidden" id="login_box">
-                            <a id="vip_name" href="/Vipinfo/vipinfopage"></a>
-                            <text>&nbsp;</text>
-                            <a id="vipExit">退出</a>
-                        </div>
-                        <div class="" id="onlogin_box">
-                            <a id="vipLogin">请登录</a>
-                            <text>&nbsp;</text>
-                            <a id="vipRegistered">注册</a>
+                        @{
+                            if (ViewData["VipAccountName"] != null)
+                            {
+                                <div class="" id="login_box">
+                                    <a id="vip_name" href="/Vipinfo/vipinfopage">@ViewData["VipAccountName"]</a>
+                                    <text>&nbsp;</text>
+                                    <a id="vipExit">退出</a>
+                                </div>
 
-                        </div>
+                            }
+                            else
+                            {
+                                <div class="" id="onlogin_box">
+                                    <a id="vipLogin">请登录</a>
+                                    <text>&nbsp;</text>
+                                    <a id="vipRegistered">注册</a>
+                                </div>
+                            }
+                        }
                     </li>
                     <li>
                         <a href="/Vipinfo/vipinfopage">我的订单</a>
