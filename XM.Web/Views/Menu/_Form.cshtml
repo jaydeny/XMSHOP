@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script src="~/Scripts/backEnd/Menu@Form.js"></script>
+<form id="form1">
+    <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
+        <div style="padding-top: 20px; margin-right: 30px;">
+            <table class="form">
+                <tr>
+                    <th class="formTitle">导航菜单名称</th>
+                    <td class="formValue">
+                        <input id="Name" name="Name" minlength="2" maxlength="16" type="text" class="form-control required" placeholder="请输入账户" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">父级节点</th>
+                    <td class="formValue">
+                        <select id="ParentId" name="ParentId" class="form-control"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">菜单标识码</th>
+                    <td class="formValue">
+                        <input id="Code" name="Code" type="text" class="form-control" required />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">控制器</th>
+                    <td class="formValue">
+                        <input id="Controller" name="Controller" type="text" class="form-control" required />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">动作</th>
+                    <td class="formValue">
+                        <input id="Action" name="Action" type="text" class="form-control" required />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">排序</th>
+                    <td class="formValue">
+                        <input id="SortValue" name="SortValue" type="text" class="form-control" required value="99"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">状态</th>
+                    <td class="formValue">
+                        <select id="State" name="State" class="form-control">
+                            <option value="1">启用</option>
+                            <option value="2">禁用</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</form>
+

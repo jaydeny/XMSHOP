@@ -263,7 +263,7 @@ namespace XM.DAL
         /// <returns></returns>
         public int CheckUseridAndEmail(Dictionary<string, object> paras)
         {
-            return QuerySingle<int>("P_tbagent_checkANandMBandEmail", paras, CommandType.StoredProcedure);
+            return QuerySingle<int>("P_agent_checkANandMBandEmail", paras, CommandType.StoredProcedure);
         }
 
         /// <summary>
@@ -448,10 +448,7 @@ namespace XM.DAL
         }
 
         /// <summary>
-        /// 作者：曾贤鑫
-        /// 创建时间:2019-4/29
-        /// 修改时间：2019-
-        /// 功能：查询每一笔订单的详细详细
+        /// 查询每一笔订单的详细详细
         /// </summary>
         public string QryDetailOrder(Dictionary<string, object> paras)
         {
@@ -555,8 +552,14 @@ namespace XM.DAL
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
             return retData;
         }
+
+        public IEnumerable<T> QryAgent<T>()
+        {
+            string strSql = "select * from v_agent_list";
+            return QueryList<T>(strSql);
+        }
         #endregion
-        
+
 
     }
 }

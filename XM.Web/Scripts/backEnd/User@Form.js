@@ -4,36 +4,31 @@ $(function () {
     initControl();
     if (!!keyValue) { //判断是否有值
         $.ajax({
-            url: "/Vip/GetFormJson",
+            url: "/User/GetFormJson",
             data: { id: keyValue },
             dataType: "json",
             async: false,
             success: function (data) {
                 $("#form1").formSerialize(data);
-                $("#vip_AN").attr('disabled', 'disabled');
+                $("#UserAccountName").attr('disabled', 'disabled');
             }
         });
     }
 });
+
 function initControl() {
-
-    // 获取代理商
-    $.post("/Agent/GetAllUserInfo", function (data) {
-        $.each(data.rows, function (i, obj) {
-            $("#agent_id").append("<option value='" + obj.AgentID + "'>" + obj.AgentAccountName + "</option>")
-        })
-    }, "json");
-
+    $.each(top.clients.role, function (i, n) {
+        $("#RoleID").append("<option value='" + n.Id + "'>" + n.Name + "</option>");
+    });
 }
 function submitForm() {
     if (!$('#form1').formValid()) {
         return false;
     }
     $.submitForm({
-        url: "/Vip/AddUser?id=" + keyValue,
+        url: "/User/Save?id=" + keyValue,
         param: $("#form1").formSerialize(),
-        success: function (data) {
-            console.log(data);
+        success: function () {
             $.currentWindow().$("#gridList").trigger("reloadGrid");
         }
     })

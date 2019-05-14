@@ -13,12 +13,12 @@ namespace XM.Web.Controllers
     /// <summary>
     /// 创建人：朱茂琛
     /// 创建时间：2019/4/22
-    /// VIP管理
+    /// 会员
     /// </summary>
     public class VipController : BaseController
     {
         #region 所有VIP页面
-        //[PermissionFilter]
+        [PermissionFilter]
         // GET: Vip
         public ActionResult Index()
         {
@@ -27,7 +27,7 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region 获取所有vip信息
-        //[PermissionFilter("Vip","Index")]
+        [PermissionFilter("Vip","Index")]
         public ActionResult GetAllUserInfo()
         {
             string sort = Request["order"] == null ? "VipID" : Request["order"];
@@ -43,10 +43,7 @@ namespace XM.Web.Controllers
             string createDateTime = Request["CreateTime"] == null ? "" : Request["CreateTime"];
             int agentId = Request["AgentID"] == null ? 1 : Convert.ToInt32(Request["AgentID"]);
             
-
-
-
-
+            
             int totalCount;   //输出参数
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["pi"] = pageindex;
@@ -65,9 +62,10 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region  添加/修改操作
+        [PermissionFilter("Vip", "Index",Operationype.Add)]
         public ActionResult Save()
         {
-            int id = Request["id"] == null ? 0 : Convert.ToInt32(Request["id"]);
+            int id = Request["id"] == "" ? 0 : Convert.ToInt32(Request["id"]);
             string userid = Request["VipAccountName"];
             string mobilephone = Request["VipMobliePhone"];
             string email = Request["VipEmail"];
@@ -132,7 +130,7 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region 删除操作
-        //[PermissionFilter("Vip", "Index", Operationype.Delete)]
+        [PermissionFilter("Vip", "Index", Operationype.Delete)]
         public ActionResult DelUserByIDs()
         {
             string Ids = Request["id"] == null ? "" : Request["id"];

@@ -1,11 +1,19 @@
 ﻿
 .pwd-alter .header {
     border-bottom: 1px solid #dedede;
+    padding: 0 0 0 25px;
 }
 
 .pwd-alter .main {
     width: 260px;
-    margin: 15px auto;
+    margin: 20px 5%;
+}
+.pwd-alter .form-group {
+    margin-bottom: 20px;
+}
+.pwd-alter .warning {
+    color: #f4786e;
+    float: left;
 }
 
 .pwd-alter .alter_but {
@@ -13,6 +21,6 @@
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    background: #ca141d;
+    background: #475059;
     color: #fff;
 }

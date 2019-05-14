@@ -1,0 +1,49 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>修改密码</title>
+    <link href="/Content/js/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/User/User@PwUpdate.css" />
+</head>
+<body>
+    <div class="pwd-alter">
+            <div class="header">
+                <h3>修改密码</h3>
+            </div>
+            <div class="main">
+                <div class="form-group">
+                    <label for="">账号</label>
+                    <input type="text" class="form-control" disabled value="@ViewData["UserAccountName"]">
+                    <span class="warning"></span>
+                </div>
+                <div class="form-group">
+                    <label>原密码</label>
+                    <input type="password" class="form-control" id="oldPwd" maxlength="16">
+                    <span class="warning" id="oldPwd_warning"></span>
+                </div>
+                <div class="form-group">
+                    <label>新密码</label>
+                    <input type="password" class="form-control" id="newPwd" maxlength="16">
+                    <span class="warning" id="newPwd_warning"></span>
+                </div>
+                <div class="form-group mar_b_20">
+                    <label>确认密码</label>
+                    <input type="password" class="form-control" id="confirmPwd" maxlength="16">
+                    <span class="warning" id="confirmPwd_warning"></span>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-default alter_but" id="submitPwdUpdate">确定</button>
+                </div>
+            </div>
+        </div>
+    <script type="text/javascript" src="~/Content/js/jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/backEnd/User@pwdUpdate.js"></script>
+</body>
+</html>
+

@@ -30,8 +30,13 @@ namespace XM.IDAL
         /// <returns></returns>
         int Save(Dictionary<string, object> paras);
         List<MenuEntity> GetAllMenuByIds(List<int> Ids);
-
+        /// <summary>
+        /// 通过Id查询
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         MenuEntity GetMenuById(string Id);
+        IEnumerable<T> QryAllMenu<T>();
 
     }
 }

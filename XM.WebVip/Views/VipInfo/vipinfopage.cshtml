@@ -35,11 +35,11 @@
                                 <img src="~/img/logged.png" class="head-portrait" />
                             </li>
                             <li>
-                                <h3 style="line-height: 120px;" id="vip_info_name"></h3>
+                                <h3 style="line-height: 120px;" id="vip_info_name">@ViewData["VipAccountName"]</h3>
                             </li>
                             <li>
                                 <div class="balance">
-                                    <p class="balance-number" id="Remainder">0</p>
+                                    <p class="balance-number" id="Remainder">@ViewData["Remainder"]</p>
                                     <p class="title">余额</p>
                                     <a id="go-top-up">去充值</a>
                                 </div>

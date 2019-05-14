@@ -1,10 +1,10 @@
-﻿
+﻿// 获取编号
 var keyValue = $.request("keyValue");
 $(function () {
     initControl();
     if (!!keyValue) { //判断是否有值
         $.ajax({
-            url: "/Goods/",
+            url: "/Type/GetFormJson",
             data: { id: keyValue },
             dataType: "json",
             async: false,
@@ -21,10 +21,10 @@ function submitForm() {
         return false;
     }
     $.submitForm({
-        url: "/Goods/GoodsAdd?id=" + keyValue,
-        param: $("#form1").formSerialize(), ser,
+        url: "/Type/Save?id=" + keyValue,
+        param: $("#form1").formSerialize(),
         success: function () {
-            $.currentWindow().$("#gridList").trigger("reloadGrid");
+             $.currentWindow().$("#gridList").trigger("reloadGrid");
         }
     })
 }

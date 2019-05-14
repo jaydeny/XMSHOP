@@ -5,7 +5,11 @@ function gridList() {
     var $gridList = $("#gridList");
     $gridList.dataGrid({
         url: "/Goods/GetAllGoodsInfo",
-        height: $(window).height() - 128,
+        height: $(window).height() - 178,
+        rowNum: 20,
+        rowList: [10, 20, 30, 40, 50],
+        sortorder: "desc",
+        pager: "#gridPager",
         colModel: [
             { label: '主键', name: 'GoodsID', hidden: true },
             { label: '类型', name: 'GoodsType', width: 80, align: 'left' },
@@ -15,8 +19,6 @@ function gridList() {
             { label: '创建人', name: 'GoodsCreateBy', width: 80, align: 'left' },
             { label: '创建时间', name: 'GoodsCreateTime', width: 140, align: 'left' }
         ],
-        pager: "#gridPager",
-        sortname: 'F_DepartmentId asc,F_CreatorTime desc',
         viewrecords: true
     });
     $("#btn_search").click(function () {
@@ -45,7 +47,7 @@ function btn_edit() {
     $.modalOpen({
         id: "Form",
         title: "修改用户",
-        url: "/Goods/GoodsAdd?keyValue=" + keyValue,
+        url: "/Goods/Form?keyValue=" + keyValue,
         width: "430px",
         height: "350px",
         callBack: function (iframeId) {
@@ -58,7 +60,8 @@ function btn_delete() {
         url: "/Goods/DelGoodsByIDs",
         param: { id: $("#gridList").jqGridRowValue().GoodsID },
         success: function () {
-            $.currentWindow().$("#gridList").trigger("reloadGrid");
+            //$.currentWindow().$("#gridList").trigger("reloadGrid");
+            $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
         }
     })
 }
@@ -78,10 +81,11 @@ function btn_disabled() {
     $.modalConfirm("注：您确定要【禁用】该项账户吗？", function (r) {
         if (r) {
             $.submitForm({
-                url: "/SystemManage/Goods/DisabledAccount",
+                url: "/Goods/Save",
                 param: { keyValue: keyValue },
                 success: function () {
-                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    //$.currentWindow().$("#gridList").trigger("reloadGrid");
+                    $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
                 }
             })
         }
@@ -92,10 +96,11 @@ function btn_enabled() {
     $.modalConfirm("注：您确定要【启用】该项账户吗？", function (r) {
         if (r) {
             $.submitForm({
-                url: "/SystemManage/Goods/EnabledAccount",
+                url: "/Goods/Save",
                 param: { keyValue: keyValue },
                 success: function () {
-                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    //$.currentWindow().$("#gridList").trigger("reloadGrid");
+                    $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
                 }
             })
         }

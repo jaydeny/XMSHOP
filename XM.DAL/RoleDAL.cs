@@ -62,10 +62,22 @@ namespace XM.DAL
         
         public int Save(Dictionary<string, object> paras)
         {
-            DataTable dtRolememu = paras["rolememu"] as DataTable;
-            paras["rolememu"] = dtRolememu.AsTableValuedParameter();
+            DataTable dtRolememu = paras["rolemenu"] as DataTable;
+            paras["rolemenu"] = dtRolememu.AsTableValuedParameter();
             return QuerySingle<int>("P_Role_Save", paras, CommandType.StoredProcedure); 
                 //StandarInsertOrUpdate("tbrole", paras);
         }
+        /// <summary>
+        /// 获取所有角色
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public IEnumerable<T> QryRole<T>()
+        {
+            string strSql = "select * from v_role_list";
+            return QueryList<T>(strSql);
+        }
+
+
     }
 }

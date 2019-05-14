@@ -29,6 +29,7 @@ namespace XM.WebVip.Controllers
         /// <returns>页面:首页</returns>
         public ActionResult Index()
         {
+            ViewData["VipAccountName"] = Session["AN"];
             return View();
         }
 
@@ -83,7 +84,6 @@ namespace XM.WebVip.Controllers
                         pairs.Add(AN, Session.SessionID);
                     }
                    
-                    //ViewData.Model = vip;
                     Session["AN"] = vip.VipAccountName;
                     Session["ID"] = vip.VipID;
                     Session["Agent_ID"] = vip.AgentID;

@@ -50,7 +50,6 @@ namespace XM.DAL
             builder.AddWhereAndParameter(paras, "endTime", "REchargeTime", "<");
             return SortAndPage<T>(builder, grid, out iCount);
         }
-
         public int Save(Dictionary<string, object> paras)
         {
             return StandardInsertOrUpdate("tbrecharge", paras);

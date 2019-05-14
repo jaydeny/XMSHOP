@@ -29,5 +29,32 @@ namespace XM.Model
         /// 状态
         /// </summary>
         public int State { get; set; }
+
+        public List<RoleMemu> roleMemus { get; set; }
+    }
+
+    public class RoleMemu
+    {
+        /// <summary>
+        /// 选单ID
+        /// </summary>
+        public int m_id { get; set; }
+        /// <summary>
+        ///  添加
+        /// </summary>
+        public bool add { get; set; }
+        /// <summary>
+        ///  修改
+        /// </summary>
+        public bool update { get; set; }
+        /// <summary>
+        ///  删除
+        /// </summary>
+        public bool delete { get; set; }
+        /// <summary>
+        ///  其他
+        /// </summary>
+        public bool other { get; set; }
+
     }
 }

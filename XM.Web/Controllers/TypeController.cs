@@ -9,10 +9,15 @@ using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
+    /// <summary>
+    /// 创建人：朱茂琛
+    /// 创建时间：2019/04/22
+    /// 商品类型
+    /// </summary>
     public class TypeController : BaseController
     {
         #region  类型页面
-        //[PermissionFilter]
+        [PermissionFilter]
         // GET: Type
         public ActionResult Index()
         {
@@ -20,7 +25,7 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region  获取所有类型信息
-        //[PermissionFilter("Type", "Index")]
+        [PermissionFilter("Type", "Index")]
         public ActionResult GetAllTypeInfo()
         {
             string sort = Request["order"] == null ? "TypeID" : Request["order"];
@@ -51,10 +56,11 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region  添加/修改操作
+        [PermissionFilter("Type", "Index",Operationype.Add)]
         public ActionResult Save()
         {
-            int id = Convert.ToInt32(Request["id"]);
-            string typeName = Request["type_name"];
+            int id = Request["id"] == "" ? 0 : Convert.ToInt32(Request["id"]);
+            string typeName = Request["TypeName"];
             int num;
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["id"] = id;
@@ -84,7 +90,7 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region  删除操作
-        //[PermissionFilter("Type", "Index",Operationype.Delete)]
+        [PermissionFilter("Type", "Index",Operationype.Delete)]
         public ActionResult DelTypeByIDs()
         {
             string Ids = Request["id"] == null ? "" : Request["id"];
