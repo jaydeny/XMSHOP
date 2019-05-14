@@ -17,7 +17,7 @@ $(function () {
 
 function initControl() {
     // 获取角色
-    $.each(top.clients.role, function (i, n) {
+    $.each(top.clients.menu, function (i, n) {
         $("#ParentId").append("<option value='" + n.Id + "'>" + n.Name + "</option>");
     });
 }

@@ -24,6 +24,7 @@
                     dataType: "json",
                     success: function (data) {
                         if (data.success) {
+                            $('.login_tips').find('.tips_msg').remove();
                             $("#login_button").find('span').html("登录成功，正在跳转...");
                             window.setTimeout(function () {
                                 window.location.href = "/Home/Index";
