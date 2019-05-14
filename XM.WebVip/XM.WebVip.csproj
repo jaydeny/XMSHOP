@@ -206,6 +206,7 @@
     <Content Include="Scripts\jquery-3.4.0.min.js" />
     <Content Include="Scripts\jquery.md5.js" />
     <Content Include="Scripts\vip\bounced.js" />
+    <Content Include="Scripts\vip\paging.js" />
     <Content Include="Scripts\vip\RequestUrl.js" />
     <Content Include="Scripts\vip\vip%40AgoodsList.js" />
     <Content Include="Scripts\vip\jqueryAjax.js" />
