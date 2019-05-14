@@ -321,11 +321,7 @@ namespace XM.DAL
         /// <returns></returns>
         public string QryVipInfo<T>(Dictionary<string, object> paras)
         {
-            var vipInfo = QuerySingle<T>("SELECT * FROM v_vip_remainder WHERE VipAccountName=@vip_AN", paras, CommandType.Text);
-
-            string retData = JsonConvert.SerializeObject(new { total = 1, rows = vipInfo });
-
-            return retData;
+            return QuerySingle<string>("SELECT remainder FROM tbremainder WHERE vip_AN=@vip_AN", paras, CommandType.Text);
         }
 
         /// <summary>

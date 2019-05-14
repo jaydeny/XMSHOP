@@ -25,6 +25,29 @@ namespace XM.WebVip.Controllers
         /// <returns>页面</returns>
         public ActionResult VipInfoPage()
         {
+            if (Session["AN"] == null)
+            {
+                Url.Action("Index","Home");
+            }
+
+            //判断回收区,是否存在sessionID
+            if (recycle.ContainsKey(Session.SessionID))
+            {
+                if (recycle[Session.SessionID] == false)
+                {
+                    RemoveSession();
+                    //存在就踢下线
+                    return OperationReturn(false, "被踢下线");
+                }
+            }
+            
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("vip_AN", Session["AN"].ToString());
+
+            string result = DALUtility.Vip.QryVipInfo<VipEntity>(param);
+            double re = Double.Parse(result);
+            ViewData["VipAccountName"] = Session["AN"];
+            ViewData["Remainder"] = re;
             return View();
         }
 
@@ -35,33 +58,10 @@ namespace XM.WebVip.Controllers
         /// 功能:返回vip个人信息
         /// </summary>
         /// <returns>json值</returns>
-        [HttpPost]
-        public ActionResult VipInfo()
-        {
-
-            if (Session["AN"] == null)
-            {
-                return OperationReturn(false, "未登录");
-            }
-
-            //判断回收区,是否存在sessionID
-            if (recycle.ContainsKey(Session.SessionID)) {
-                if (recycle[Session.SessionID] == false) {
-                    RemoveSession();
-                    //存在就踢下线
-                    return OperationReturn(false, "被踢下线");
-                }
-            }
-            
-            string strResult = "已登录";
-            string vip = "";
-
-            Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("vip_AN", Session["AN"].ToString());
-            
-            vip = DALUtility.Vip.QryVipInfo<VipEntity>(param);
-            return OperationReturn(true, strResult, vip);
-        }
+        //[HttpPost]
+        //public ActionResult VipInfo()
+        //{
+        //}
         #endregion
 
         #region _address

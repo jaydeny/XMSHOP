@@ -121,7 +121,7 @@ namespace XM.Web.Controllers
             IEnumerable<RoleMenuEntity> rolemenuList = new List<RoleMenuEntity>();
             if (roleId != "")
             {
-                // 当前角色所选的权限
+                // 当前角色菜单
                 int myMenuCount;
                 Dictionary<string, object> roleMenu = new Dictionary<string, object>();
                 roleMenu["roleId"] = roleId;
@@ -132,7 +132,7 @@ namespace XM.Web.Controllers
             paras["pageSize"] = 100;
             paras["order"] = "asc";
             paras["sort"] = "id";
-            // 所有选单
+            // 所有菜单
             int allMenuCount;
             IEnumerable<MenuEntity> allMenu = DALUtility.Menu.GetAllMenu<MenuEntity>(paras, out allMenuCount);
             ArrayList list = new ArrayList();
@@ -242,5 +242,7 @@ namespace XM.Web.Controllers
             return list;
         }
         #endregion
+        
+
     }
 }

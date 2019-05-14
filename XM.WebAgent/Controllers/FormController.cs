@@ -23,7 +23,7 @@ namespace XM.WebAgent.Controllers
         /// 功能:返回报表页面 
         /// </summary>
         /// <returns></returns>
-        public ActionResult ReportForm()
+        public ActionResult ReportsForm()
         {
             return View();
         }
@@ -49,6 +49,7 @@ namespace XM.WebAgent.Controllers
             param.Add("endDay", Request["endDay"] == null ? "31" : Request["endDay"]);
             param.Add("agent_AN", Session["agent_AN"].ToString());
             //param.Add("agent_AN", Request["agent_AN"]);
+            //param.Add("agent_AN", "agent");
 
             return Content(DALUtility.Agent.QryDayTotal(param));
         }

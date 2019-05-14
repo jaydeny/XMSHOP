@@ -1,10 +1,20 @@
 ﻿.user-info .header {
     border-bottom: 1px solid #dedede;
+    padding: 0 0 0 25px;
 }
 
 .user-info .main {
     width: 260px;
-    margin: 15px auto;
+    margin: 20px 5%;
+}
+
+.user-info .form-group {
+    margin-bottom: 20px;
+}
+
+.user-info .warning {
+    color: #f4786e;
+    float: left;
 }
 
 .user-info .alter_but {
@@ -12,6 +22,6 @@
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    background: #ca141d;
+    background: #475059;
     color: #fff;
 }

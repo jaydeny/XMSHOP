@@ -25,8 +25,6 @@ namespace XM.DAL
                 SortField = "Id"
             };
             builder.AddWhereAndParameter(paras, "roleId", "Id", "=", "@roleId");
-            //var s = 
-            //string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
             return SortAndPage<T>(builder, grid, out iCount);
         }
         public IEnumerable<T> QryRoleMenu<T>(Dictionary<string, object> paras)
