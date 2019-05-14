@@ -522,8 +522,8 @@ namespace XM.DAL
             builder.Append("select ");
             builder.Append("convert(varchar(10),recharge_time, 120) as date, SUM(recharge_price) as total ");
             builder.Append("from tbrecharge ");
-            builder.Append("where YEAR(recharge_time)= @year and  MONTH(recharge_time)=@month and DAY(recharge_time) between @startDay and @endDay ");
-            builder.Append("and agent_id = @agent_id ");
+            builder.Append("where YEAR(recharge_time)= @year and MONTH(recharge_time) between @startMonth and @endMonth and DAY(recharge_time) between @startDay and @endDay ");
+            //builder.Append("and agent_id = @agent_id ");
             builder.Append("GROUP BY convert(varchar(10),recharge_time, 120)");
 
             var s = Query(builder.ToString(), paras);

@@ -72,7 +72,7 @@ namespace XM.WebVip.Controllers
             return vipInfo;
         }
         #endregion
-        
+
         #region _order
         /// <summary>
         /// 作者：曾贤鑫
@@ -80,23 +80,23 @@ namespace XM.WebVip.Controllers
         /// 修改时间：2019-
         /// 功能：查询订单
         /// </summary>
-        //public ActionResult QryOrder()
-        //{
-        //    string sort = Request["sort"] == null ? "id" : Request["sort"];
-        //    string order = Request["order"] == null ? "desc" : Request["order"];
-        //    int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
-        //    int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-
-        //    Dictionary<string, object> param = new Dictionary<string, object>();
-        //    param.Add("pi", pageindex);
-        //    param.Add("pageSize", pagesize);
-        //    param.Add("sort", sort);
-        //    param.Add("order", order);
-        //    param.Add("agent_AN", Session["Agent_AN"].ToString());
-        //    param.Add("vip_AN", Session["AN"].ToString());
-
-        //    return Content(DALUtility.Vip.QryOrder(param, out int iCount));
-        //}
+        public ActionResult QryOrder()
+        {
+            string sort = Request["sort"] == null ? "id" : Request["sort"];
+            string order = Request["order"] == null ? "desc" : Request["order"];
+            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+            int iCount;
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("pi", pageindex);
+            param.Add("pageSize", pagesize);
+            param.Add("sort", sort);
+            param.Add("order", order);
+            param.Add("agent_AN", Session["Agent_AN"].ToString());
+            param.Add("vip_AN", Session["AN"].ToString());
+            var objOrder = DALUtility.Order.QryOrder<OrderEntity>(param, out iCount);
+            return PagerData(iCount,objOrder);
+        }
         #endregion
     }
 }

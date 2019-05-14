@@ -469,6 +469,7 @@ namespace XM.DAL
         {
             return QuerySingle<string>("SELECT agent_AN from tbagent where id = @agent_id", paras, CommandType.Text);
         }
+        
         #endregion
 
     }
