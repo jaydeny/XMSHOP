@@ -40,6 +40,8 @@ var goodsRender = function (parameter) {
                 $.each(data.rows, function (i, n) {
                     $(".goods-exhibition>ul").append(strGoods(i, n));
                 });
+                // 回到顶端
+                document.body.scrollTop = document.documentElement.scrollTop = 100;
                 //总条数
                 paging.total = data.total;
                 paging.renderPaging();
