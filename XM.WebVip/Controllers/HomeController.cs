@@ -82,8 +82,8 @@ namespace XM.WebVip.Controllers
                     else {
                         pairs.Add(AN, Session.SessionID);
                     }
-                   
-                    //ViewData.Model = vip;
+
+                    ViewData.Model = vip.VipAccountName;
                     Session["AN"] = vip.VipAccountName;
                     Session["ID"] = vip.VipID;
                     Session["Agent_ID"] = vip.AgentID;
