@@ -82,7 +82,7 @@ namespace XM.WebVip.Controllers
         /// </summary>
         public ActionResult QryOrder()
         {
-            string sort = Request["sort"] == null ? "id" : Request["sort"];
+            string sort = Request["sort"] == null ? "OrderID" : Request["sort"];
             string order = Request["order"] == null ? "desc" : Request["order"];
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
