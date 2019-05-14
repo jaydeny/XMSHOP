@@ -172,6 +172,7 @@ namespace XM.IDAL
         /// 功能：查询日期,总营业额
         /// </summary>
         string QryDayTotal(Dictionary<string, object> paras);
+        string QryDayTotals(Dictionary<string, object> paras);
 
         /// <summary>
         /// 作者：曾贤鑫
@@ -180,6 +181,7 @@ namespace XM.IDAL
         /// 功能：查询日期内的记录
         /// </summary>
         string QryDayForm(Dictionary<string, object> paras, out int iCount);
+        string QryDayForms(Dictionary<string, object> paras, out int iCount);
 
 
         /// <summary>
