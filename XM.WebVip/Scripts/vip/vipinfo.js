@@ -20,26 +20,38 @@ $(".vipinfo-nav .title").click(function () {
 });
 // 订单模板
 var orderTemplate = function (obj) {
-    return "<li><div class='flex-1' ><div style='float: left;margin: 0 10px 0 0;'><img src='' /></div><p>" + obj.id + "</p></div ><div class='flex-1'>￥<span>" + obj.order_total + "</span></div><div class='flex-1'><small>X</small><span>1</span></div><div class='flex-1'>￥<span>" + obj.order_total + "</span></div><div class='flex-2'>" + obj.order_date.replace('T', ' ')+"</div></li >";
+    return "<li><div class='flex-1' ><div style='float: left;margin: 0 10px 0 0;'><img src='' /></div><p>" + obj.OrderID + "</p></div ><div class='flex-1'>￥<span>" + obj.OrderPrice + "</span></div><div class='flex-1'><small>X</small><span>1</span></div><div class='flex-1'>￥<span>" + obj.OrderPrice + "</span></div><div class='flex-2'>" + obj.OrderDate.replace('T', ' ')+"</div></li >";
 }
 
 // 查询订单
-$.post("/Shop/QryOrder", function (data) {
-    console.log(data);
-    if (data.total > 0) {
-        $("#empty_order").addClass("hidden");
-        $("#order_box").removeClass("hidden");
-        $.each(data.rows, function (i, n) {
-            $(".order-list>ul").append(orderTemplate(n));
-        });
-
+var qryOrder = function () {
+    // 页面条数
+    paging.pageTotal = 3;
+    paging.callbackMethod = function () {
+        $.post("/Shop/QryOrder", { rows: paging.pageTotal, page: paging.currentPage }, function (data) {
+            console.log(data);
+            if (data.total > 0) {
+                $("#empty_order").addClass("hidden");
+                $("#order_box").removeClass("hidden");
+                $(".order-list>ul").html("");
+                $.each(data.rows, function (i, n) {
+                    $(".order-list>ul").append(orderTemplate(n));
+                });
+                //总条数
+                paging.total = data.total;
+                paging.renderPaging();
+            }
+            else {
+                $("#empty_order").removeClass("hidden");
+                $("#order_box").addClass("hidden");
+            }
+        }, "json")
+        
     }
-    else {
-        $("#empty_order").removeClass("hidden");
-        $("#order_box").addClass("hidden");
-    }
-}, "json")
-
+    // 回调
+    paging.callbackMethod();
+}
+qryOrder();
 // 去充值
 $("#go-top-up").click(function () {
     last_a = $("#a_top-up");
