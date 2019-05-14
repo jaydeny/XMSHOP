@@ -72,7 +72,7 @@ namespace XM.WebVip.Controllers
             return vipInfo;
         }
         #endregion
-        
+
         #region _order
         /// <summary>
         /// 作者：曾贤鑫

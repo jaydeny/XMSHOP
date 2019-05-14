@@ -119,7 +119,7 @@ namespace XM.IDAL
         /// <typeparam name="T"></typeparam>
         /// <param name="paras"></param>
         /// <returns></returns>
-        string QryVipInfo<T>(Dictionary<string, object> paras);
+        decimal QryVipInfo<T>(Dictionary<string, object> paras);
 
         /// <summary>
         /// 查询原始密码

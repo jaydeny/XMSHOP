@@ -56,6 +56,7 @@ $("#bntLogin").click(function () {
                 //$("#vip_name").text(data.data.vip_AN);
                 //$('#myModal').modal('hide');
                 window.location.href = '/Home';
+                $("#Game").href = "/GameHome/Login"
             }
             else {
                 $(".hint>p").html(data.msg);

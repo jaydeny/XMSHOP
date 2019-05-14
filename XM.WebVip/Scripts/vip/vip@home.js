@@ -84,6 +84,19 @@ window.onload = function () {
     });
 }
 
+$("#LoginGame").click(function () {
+    $.post("/GameHome/Login", function (data) {
+        console.log(data);
+        var e = JSON.parse(data.msg)
+        window.location.href = e.result;
 
+    }, "json")
+});
 
-
+$("#GetCredit").click(function () {
+    $.post("/GameHome/GetCredit", function (data) {
+        console.log(data);
+        var e = JSON.parse(data.msg)
+        alert(e.result[0].Integral)
+    }, "json")
+});

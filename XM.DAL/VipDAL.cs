@@ -319,9 +319,9 @@ namespace XM.DAL
         /// <typeparam name="T"></typeparam>
         /// <param name="paras"></param>
         /// <returns></returns>
-        public string QryVipInfo<T>(Dictionary<string, object> paras)
+        public decimal QryVipInfo<T>(Dictionary<string, object> paras)
         {
-            return QuerySingle<string>("SELECT remainder FROM tbremainder WHERE vip_AN=@vip_AN", paras, CommandType.Text);
+            return QuerySingle<decimal>("SELECT remainder FROM tbremainder WHERE vip_AN=@vip_AN", paras, CommandType.Text);
         }
 
         /// <summary>
@@ -380,8 +380,7 @@ namespace XM.DAL
             return QuerySingle<decimal>("SELECT remainder FROM tbremainder WHERE vip_AN=@vip_AN", paras, CommandType.Text);
         }
         #endregion
-
-        
+    
         #region _Address
         /// <summary>
         /// 添加/修改地址

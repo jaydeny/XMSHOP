@@ -456,8 +456,8 @@ namespace XM.DAL
             builder.Append("select ");
             builder.Append("a.id,a.order_date,a.vip_AN,a.order_mp,a.order_total,b.address_name,c.goods_id,c.buy_count,c.buy_total,d.goods_name,d.goods_intro ");
             builder.Append("from ");
-            builder.Append("tborder a join tbaddress b on a.order_address = b.id join tbbuy c on a.id = c.order_id join tbgoods d on c.goods_id = d.id ");
-            builder.Append("where order_id = @order_id ");
+            builder.Append("tborder a join tbaddress b on a.order_address = b.id join tbbuy c on a.id = c.id join tbgoods d on c.goods_id = d.id ");
+            builder.Append("where a.id = @order_id ");
 
             var s = Query(builder.ToString(), paras);
 
