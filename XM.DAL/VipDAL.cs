@@ -319,16 +319,9 @@ namespace XM.DAL
         /// <typeparam name="T"></typeparam>
         /// <param name="paras"></param>
         /// <returns></returns>
-        public decimal QryVipInfo<T>(Dictionary<string, object> paras)
+        public T QryVipInfo<T>(Dictionary<string, object> paras)
         {
-            try
-            {
-                return QuerySingle<decimal>("SELECT remainder FROM tbremainder WHERE vip_AN=@vip_AN", paras, CommandType.Text);
-            }
-            catch
-            {
-                return 0;
-            }
+            return QuerySingle<T>("SELECT VipMobliePhone,VipEmail,Remainder FROM v_vip_remainder WHERE VipAccountName=@vip_AN", paras, CommandType.Text);
         }
 
         /// <summary>

@@ -12,9 +12,6 @@ namespace XM.WebVip.Controllers
 {
     public class VipInfoController : BaseController
     {
-
-       
-     
         // GET: VipInfo
         #region _vipInfo
         /// <summary>
@@ -27,7 +24,36 @@ namespace XM.WebVip.Controllers
         {
             if (Session["AN"] == null)
             {
-                Url.Action("Index","Home");
+                Url.Action("Index", "Home");
+            }
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("vip_AN", Session["AN"].ToString());
+
+            var result = DALUtility.Vip.QryVipInfo<VipInfoDTO>(param);
+
+            ViewData["VipAccountName"] = Session["AN"];
+            ViewData["Remainder"] = Remainder;
+            ViewData["Email"] = result.VipEmail;
+            ViewData["MP"] = result.VipMobliePhone;
+
+            return View();
+        }
+
+
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/28
+        /// 功能:返回vip个人信息
+        /// </summary>
+        /// <returns>json值</returns>
+        //[HttpPost]
+        public ActionResult VipInfo()
+        {
+
+            if (Session["AN"] == null)
+            {
+                Url.Action("Index", "Home");
             }
 
             //判断回收区,是否存在sessionID
@@ -40,27 +66,8 @@ namespace XM.WebVip.Controllers
                     return OperationReturn(false, "被踢下线");
                 }
             }
-            
-            Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("vip_AN", Session["AN"].ToString());
-
-            decimal result = DALUtility.Vip.QryVipInfo<decimal>(param);
-            ViewData["VipAccountName"] = Session["AN"];
-            ViewData["Remainder"] = result;
-            return View();
+            return OperationReturn(true, "登录状态");
         }
-
-
-        /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/28
-        /// 功能:返回vip个人信息
-        /// </summary>
-        /// <returns>json值</returns>
-        //[HttpPost]
-        //public ActionResult VipInfo()
-        //{
-        //}
         #endregion
 
         #region _address

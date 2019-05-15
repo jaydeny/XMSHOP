@@ -327,8 +327,8 @@ namespace XM.WebVip.Controllers
         {
             Dictionary<string, object> Remainder = new Dictionary<string, object>();
             Remainder.Add("vip_AN", AN);
-            decimal result = DALUtility.Vip.QryVipInfo<decimal>(Remainder);
-            return result;
+            VipInfoDTO result = DALUtility.Vip.QryVipInfo<VipInfoDTO>(Remainder);
+            return result.Remainder;
         }
 
 

@@ -45,6 +45,20 @@
     //});
 
 
+
+    // 进入个人信息页
+    $("#vip_name").click(function () {
+        $.get("/vipinfo/vipinfo", function (data) {
+            if (data.success) {
+                window.location.href = "/vipinfo/vipinfopage";
+            } else {
+                alert(data.msg);
+                window.location.href = "/home/index";
+            }
+        }, "json")
+    });
+
+
     //进入游戏
     $("#LoginGame").click(function () {
         $.post("/GameHome/Login", function (data) {
