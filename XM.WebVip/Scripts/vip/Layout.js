@@ -43,4 +43,34 @@
     //        window.location.href = "/product/AgoodsList?search=" + search;
     //    }
     //});
+
+
+    //进入游戏
+    $("#LoginGame").click(function () {
+        $.post("/GameHome/Login", function (data) {
+            if (data.success) {
+                var e = JSON.parse(data.msg)
+                //window.location.href = e.result;
+                window.open(e.result,"_black");
+            } else {
+                alert(data.msg);
+                window.location.href = "/Home/Index";
+            }
+
+        }, "json")
+    });
+
+    //查询积分
+    $("#GetCredit").click(function () {
+        $.post("/GameHome/GetCredit", function (data) {
+            if (data.success) {
+                var e = JSON.parse(data.msg)
+                alert(e.result[0].Integral)
+            }
+            else {
+                alert(data.msg);
+                window.location.href = "/Home/Index";
+            }
+        }, "json")
+    });
 }

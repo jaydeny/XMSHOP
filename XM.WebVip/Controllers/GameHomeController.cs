@@ -17,27 +17,38 @@ namespace XM.WebVip.Controllers
         // GET: GameHome
         public ActionResult Login()
         {
-            string[] paras = { base.Agent_AN, AN, "0" };
+            if (Session["AN"] != null)
+            {
+                
+                string[] paras = { Agent_Acc, AN, "0" };
 
-            string strKey = Md5.GetMd5(paras[0] + paras[1] + paras[2] + KEY);
-            //string strKey = "1ad74a37af2a9894e1fed6ed542020df";
+                string strKey = Md5.GetMd5(paras[0] + paras[1] + paras[2] + KEY);
+                //string strKey = "1ad74a37af2a9894e1fed6ed542020df";
 
-            string param = GameReturn("Login", strKey, paras);
+                string param = GameReturn("Login", strKey, paras);
 
-            var result = HttpPost("http://172.16.31.232:9678/take", param);
-            return OperationReturn(true, result);
+                var result = HttpPost("http://172.16.31.232:9678/take", param);
+                return OperationReturn(true, result);
+            }
+            return OperationReturn(false, "请登录后进入游戏!");
         }
 
         public ActionResult GetCredit()
         {
-            string[] paras = { AN};
+            if (Session["AN"] != null)
+            {
+                string[] paras = { AN };
 
-            string strKey = Md5.GetMd5(paras[0] + KEY);
+                string strKey = Md5.GetMd5(paras[0] + KEY);
 
-            string param = GameReturn("GetCredit", strKey, paras);
+                string param = GameReturn("GetCredit", strKey, paras);
 
-            var result = HttpPost("http://172.16.31.232:9678/take", param);
-            return OperationReturn(true, result);
+                var result = HttpPost("http://172.16.31.232:9678/take", param);
+                return OperationReturn(true, result);
+            }
+            return OperationReturn(false, "请登录后查询积分!");
+
+            
         }
     }
 

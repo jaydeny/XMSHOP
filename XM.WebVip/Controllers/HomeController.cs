@@ -88,10 +88,10 @@ namespace XM.WebVip.Controllers
                     Session["ID"] = vip.VipID;
                     Session["PWD"] = vip.VipPassword;
                     Session["Remainder"] = getRemainder(vip.VipAccountName);
-
+                    
                     Session["Agent_ID"] = vip.AgentID;
-                    Session["Agent_AN "] = getAgentAN(vip.AgentID);
-
+                    Session["Agent_Acc"] = getAgentAN(vip.AgentID);
+                    //base.Agent_Acc = agent_an;
                     return OperationReturn(true, "登录成功,vip_id:" + vip.VipID + ";vip_AN:" + AN,
                         new
                         {
@@ -289,7 +289,7 @@ namespace XM.WebVip.Controllers
                 paras["vip_pwd"] = Request["vip_pwd"];
                 paras["vip_CDT"] = DateTime.Now;
                 paras["status_id"] = Request["status_id"] == null ? "1" : Request["status_id"];
-                paras["agent_id"] = Request["agent_id"] == null ? "2" : Request["agent_id"];
+                paras["agent_id"] = Request["agent_id"] == null ? "1" : Request["agent_id"];
                 int result = DALUtility.Vip.saveVIP(paras);
                 if (ID == 0)
                 {
@@ -344,7 +344,7 @@ namespace XM.WebVip.Controllers
             Session.Remove("AN");
             Session.Remove("ID");
             Session.Remove("Agent_ID");
-            Session.Remove("Agent_AN");
+            Session.Remove("Agent_Acc");
            
             return OperationReturn(true, "退出成功");
         }

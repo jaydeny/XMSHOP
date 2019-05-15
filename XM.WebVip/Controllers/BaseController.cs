@@ -84,8 +84,8 @@ namespace XM.Web.Controllers
         /// 记录代理的信息
         /// </summary>
         public string Agent_ID { get { return Session["Agent_ID"].ToString(); } }
-        public string Agent_AN { get { return Session["Agent_AN "].ToString(); } }
-        
+        public string Agent_Acc { get { return Session["Agent_Acc"].ToString(); } }
+
         public static Dictionary<VipEntity, string> SSOVip = new Dictionary<VipEntity, string>();
 
         public static string KEY = "c33e90a9-0714-48ee-89cc-8be9aff00710";

@@ -37,7 +37,7 @@ namespace XM.WebVip.Controllers
 
             string code = Guid.NewGuid().ToString();
 
-            string[] paras = { base.Agent_AN, AN, Money,code };
+            string[] paras = { Agent_Acc.ToString(), AN, Money,code };
 
             string strKey = Md5.GetMd5(paras[0] + paras[1] + paras[2] + paras[3] + KEY);
 
