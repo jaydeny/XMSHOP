@@ -32,7 +32,7 @@ function gridList() {
     $("#btn_search").click(function () {
         $gridList.jqGrid('setGridParam', {
             postData: {
-                keyword: $("#txt_keyword").val()
+                agent_AN: $("#txt_keyword").val()
             },
         }).trigger('reloadGrid');
     });

@@ -47,6 +47,7 @@
     <Compile Include="AgentInfoDTO.cs" />
     <Compile Include="BuyEntity.cs" />
     <Compile Include="CommonData.cs" />
+    <Compile Include="DayTotalDTO.cs" />
     <Compile Include="GoodsEntity.cs" />
     <Compile Include="GoodsTypeEntity.cs" />
     <Compile Include="JurisdictionEntity.cs" />

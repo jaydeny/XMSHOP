@@ -45,7 +45,6 @@ function initControl() {
     
 }
 
-
 // 创建对象
 var RoleMemu = function (mId, open, obj) {
     var entity = null;

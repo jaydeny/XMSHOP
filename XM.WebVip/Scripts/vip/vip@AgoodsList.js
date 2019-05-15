@@ -29,14 +29,26 @@ var listGoods
 
 // 渲染商品
 var goodsRender = function (parameter) {
-    $.post("/Product/QryAgoods", parameter,function (data) {
-        if (data.total > 0) {
-            listGoods = data.rows;
-            $.each(data.rows, function (i, n) {
-                $(".goods-exhibition>ul").append(strGoods(i,n));
-            });
-        }
-    },"json")
+    // 页面条数
+    paging.pageTotal = 15;
+    paging.callbackMethod = function () {
+        $.post("/Product/QryAgoods", { rows: paging.pageTotal, page: paging.currentPage }, function (data) {
+            if (data.total > 0) {
+                listGoods = data.rows;
+                $(".goods-exhibition>ul").html("");
+                $.each(data.rows, function (i, n) {
+                    $(".goods-exhibition>ul").append(strGoods(i, n));
+                });
+                // 回到顶端
+                document.body.scrollTop = document.documentElement.scrollTop = 100;
+                //总条数
+                paging.total = data.total;
+                paging.renderPaging();
+            }
+        }, "json");
+    }
+    // 回调
+    paging.callbackMethod();
 }
 // 立即下单
 $(".goods-exhibition").on("click", ".p-button", function () {

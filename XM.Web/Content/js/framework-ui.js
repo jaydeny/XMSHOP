@@ -41,7 +41,6 @@ $.request = function (name) {
 }
 $.currentWindow = function () {
     var iframeId = top.$(".NFine_iframe:visible").attr("id");
-
     return top.frames[iframeId];
 }
 $.browser = function () {

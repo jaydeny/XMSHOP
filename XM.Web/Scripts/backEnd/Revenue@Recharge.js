@@ -11,8 +11,8 @@ function gridList() {
         sortorder: "desc",
         pager: "#gridPager",
         colModel: [
-            { label: '日期', name: 'date', width: 80, align: 'left' },
-            { label: '营收(/元)	', name: 'total', width: 100, align: 'left' }
+            { label: '日期', name: 'date', width: 180, align: 'left' },
+            { label: '营收(/元)	', name: 'total', width: 200, align: 'left' }
         ]
     });
     $("#btn_search").click(function () {

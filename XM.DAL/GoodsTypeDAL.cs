@@ -55,7 +55,7 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString(),
                 SortDirection = paras["order"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "TypeName", "type_name", "LIKE", "'%'+@TypeName+'%'");
+            builder.AddWhereAndParameter(paras, "type_name", "TypeName", "LIKE", "'%'+@type_name+'%'");
             return SortAndPage<T>(builder, grid, out iCount);
         }
 

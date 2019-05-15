@@ -44,7 +44,7 @@ namespace XM.WebVip.Controllers
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("vip_AN", Session["AN"].ToString());
 
-            decimal result = DALUtility.Vip.QryVipInfo<VipEntity>(param);
+            decimal result = DALUtility.Vip.QryVipInfo<decimal>(param);
             ViewData["VipAccountName"] = Session["AN"];
             ViewData["Remainder"] = result;
             return View();
