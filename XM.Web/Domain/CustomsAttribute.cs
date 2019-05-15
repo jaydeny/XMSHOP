@@ -64,8 +64,8 @@ namespace XM.Web.Domain
             if (HttpContext.Current.Session["RoleMenu"] != null)
             {
                 var memuInfo = ((IEnumerable<Navbar>)HttpContext.Current.Session["RoleMenu"]).SingleOrDefault(
-                    x => x.controller.Equals(controller, StringComparison.CurrentCultureIgnoreCase)
-                    && x.action.Equals(action, StringComparison.CurrentCultureIgnoreCase));
+                    x => x.Controller.Equals(controller, StringComparison.CurrentCultureIgnoreCase)
+                    && x.Action.Equals(action, StringComparison.CurrentCultureIgnoreCase));
                 if (memuInfo != null)
                 {
                     switch (operationype)
@@ -74,21 +74,22 @@ namespace XM.Web.Domain
                             allowAccess = true;
                             break;
                         case Operationype.Add:
-                            allowAccess = memuInfo.add;
+                            allowAccess = memuInfo.RmAdd;
                             break;
                         case Operationype.Update:
-                            allowAccess = memuInfo.update;
+                            allowAccess = memuInfo.RmUpdate;
                             break;
                         case Operationype.Delete:
-                            allowAccess = memuInfo.delete;
+                            allowAccess = memuInfo.RmDelete;
                             break;
                         case Operationype.Other:
-                            allowAccess = memuInfo.other;
+                            allowAccess = memuInfo.RmOther;
                             break;
                     }
-                    filterContext.Controller.ViewData["Add"] = memuInfo.add;
-                    filterContext.Controller.ViewData["Update"] = memuInfo.update;
-                    filterContext.Controller.ViewData["Delete"] = memuInfo.delete;
+                    filterContext.Controller.ViewData["Add"] = memuInfo.RmAdd;
+                    filterContext.Controller.ViewData["Update"] = memuInfo.RmUpdate;
+                    filterContext.Controller.ViewData["Delete"] = memuInfo.RmDelete;
+
                     filterContext.Controller.ViewBag.Title = memuInfo.nameOption;
                 }
             }

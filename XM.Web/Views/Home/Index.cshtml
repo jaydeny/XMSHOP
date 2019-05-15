@@ -74,8 +74,8 @@
                                     <span class="hidden-xs">@ViewBag.RealName</span>
                                 </a>
                                 <ul class="dropdown-menu pull-right">
-                                    <li><a class="menuItem" data-id="userInfo" href="/home/UserInfo"><i class="fa fa-user"></i>个人信息</a></li>
-                                    <li><a class="menuItem" href="/home/UserAlterPwd"><i class="fa fa-inbox"></i>修改密码</a></li>
+                                    <li><a class="menuItem" data-id="userInfo" href="/User/UserInfo"><i class="fa fa-user"></i>个人信息</a></li>
+                                    <li><a class="menuItem" href="/User/PwdUpdate"><i class="fa fa-inbox"></i>修改密码</a></li>
                                     <li><a href="javascript:void();" onclick="layer.msg('浏览器缓存清除成功');"><i class="fa fa-trash-o"></i>清空缓存</a></li>
                                     <li class="divider"></li>
                                     <li><a id="home_exit"><i class="ace-icon fa fa-power-off"></i>安全退出</a></li>
@@ -104,7 +104,7 @@
                             </div>
                             <div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">
                                 <ul class="nav nav-pills nav-stacked">
-                                    <li class="common">
+                                    @*<li class="common">
                                         <a class="menuItem" href="/User/Index">
                                             <i class="fa fa-star-o"></i>
                                             <span>用户管理</span>
@@ -137,9 +137,15 @@
                                     <li class="common">
                                         <a class="menuItem" href="/Role/Index">
                                             <i class="fa fa-star-o"></i>
-                                            <span>权限管理</span>
+                                            <span>角色管理</span>
                                         </a>
                                     </li>
+                                    <li class="common">
+                                        <a class="menuItem" href="/Menu/Index">
+                                            <i class="fa fa-star-o"></i>
+                                            <span>菜单管理</span>
+                                        </a>
+                                    </li>*@
                                 </ul>
                             </div>
                         </div>

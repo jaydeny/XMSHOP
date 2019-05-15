@@ -122,7 +122,7 @@
 	flex: 1;
 }
 .order-list {
-	min-height: 300px;
+	min-height: 220px;
 	position: relative;
 }
 .empty-order {

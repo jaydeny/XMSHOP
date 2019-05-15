@@ -29,6 +29,7 @@ namespace XM.WebVip.Controllers
         /// <returns>页面:首页</returns>
         public ActionResult Index()
         {
+            ViewData["VipAccountName"] = Session["AN"];
             return View();
         }
 
@@ -82,16 +83,15 @@ namespace XM.WebVip.Controllers
                     else {
                         pairs.Add(AN, Session.SessionID);
                     }
-
-                    ViewData.Model = vip.VipAccountName;
+                   
                     Session["AN"] = vip.VipAccountName;
                     Session["ID"] = vip.VipID;
-                    Session["Agent_ID"] = vip.AgentID;
-                    Session["Agent_AN"] = DALUtility.Vip.QryAgentANByID(getAgentAN(vip.AgentID));
-
+                    Session["PWD"] = vip.VipPassword;
+                    Session["Remainder"] = getRemainder(vip.VipAccountName);
                     
-                   // SSOVip.Add(vip,"onLine");
-
+                    Session["Agent_ID"] = vip.AgentID;
+                    Session["Agent_Acc"] = getAgentAN(vip.AgentID);
+                    //base.Agent_Acc = agent_an;
                     return OperationReturn(true, "登录成功,vip_id:" + vip.VipID + ";vip_AN:" + AN,
                         new
                         {
@@ -289,7 +289,7 @@ namespace XM.WebVip.Controllers
                 paras["vip_pwd"] = Request["vip_pwd"];
                 paras["vip_CDT"] = DateTime.Now;
                 paras["status_id"] = Request["status_id"] == null ? "1" : Request["status_id"];
-                paras["agent_id"] = Request["agent_id"] == null ? "2" : Request["agent_id"];
+                paras["agent_id"] = Request["agent_id"] == null ? "1" : Request["agent_id"];
                 int result = DALUtility.Vip.saveVIP(paras);
                 if (ID == 0)
                 {
@@ -308,12 +308,27 @@ namespace XM.WebVip.Controllers
         /// 修改时间：2019-
         /// 功能：获取代理商AN
         /// </summary>
-        public Dictionary<string, object> getAgentAN(int id)
+        public string getAgentAN(int id)
         {
+            Dictionary<string, object> Agent_id = new Dictionary<string, object>();
+            Agent_id.Add("agent_id", id);
+            
+            string result = DALUtility.Vip.QryAgentANByID(Agent_id);
+            return result;
+        }
 
-            Dictionary<string, object> agent_id = new Dictionary<string, object>();
-            agent_id.Add("agent_id", id);
-            return agent_id;
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-4-28
+        /// 修改时间：2019-
+        /// 功能：获取代理商AN
+        /// </summary>
+        public decimal getRemainder(string AN)
+        {
+            Dictionary<string, object> Remainder = new Dictionary<string, object>();
+            Remainder.Add("vip_AN", AN);
+            decimal result = DALUtility.Vip.QryVipInfo<decimal>(Remainder);
+            return result;
         }
 
 
@@ -329,7 +344,7 @@ namespace XM.WebVip.Controllers
             Session.Remove("AN");
             Session.Remove("ID");
             Session.Remove("Agent_ID");
-            Session.Remove("Agent_AN");
+            Session.Remove("Agent_Acc");
            
             return OperationReturn(true, "退出成功");
         }

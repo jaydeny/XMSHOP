@@ -13,26 +13,7 @@ namespace XM.DAL
 {
     public class GoodsDAL : BaseDal, IGoodsDAL
     {
-        public int AddGoods(GoodsEntity goods)
-        {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("insert into tbGoods (goods_name,goods_intro,goods_CP,goods_CBY,goods_CDT,goods_pic,type_id)");
-            strSql.Append("values");
-            strSql.Append("(@GoodsName,@GoodsIntro,@Goodsprice,@CreateBy,@CreateDateTime,@Picture,@TypeId)");
-            strSql.Append(";SELECT @@IDENTITY");
-            SqlParameter[] paras =
-            {
-                new SqlParameter("@GoodsName",goods.GoodsName),
-                new SqlParameter("@GoodsIntro",goods.GoodsIntro),
-                new SqlParameter("@Goodsprice",goods.GoodsPrice),
-                new SqlParameter("@CreateBy",goods.GoodsCreateBy),
-                new SqlParameter("@CreateDateTime",goods.GoodsCreateTime),
-                new SqlParameter("@Picture",goods.GoodsPicture),
-                new SqlParameter("@TypeId",goods.GoodsType)
-            };
-            return Convert.ToInt32(SqlHelper.ExecuteScalar(SqlHelper.connStr, CommandType.Text, strSql.ToString(), paras));
-
-        }
+       
 
         public bool DeleteGoods(string id)
         {
@@ -55,31 +36,7 @@ namespace XM.DAL
                 return false;
             }
         }
-
-        public bool EditGoods(GoodsEntity goods)
-        {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("update tbGoods set");
-            strSql.Append("goods_name=@GoodsName,goods_intro=@GoodsIntro,goods_CP=@Goodsprice,goods_CBY=@CreateBy,goodsCDT=@CreateDateTime,goods_pic=@Picture,type_id=@TypeId");
-            strSql.Append("where id = @GoodsId");
-            SqlParameter[] paras =
-            {
-                new SqlParameter("@GoodsName",goods.GoodsName),
-                new SqlParameter("@GoodsIntro",goods.GoodsIntro),
-                new SqlParameter("@Goodsprice",goods.GoodsPrice),
-                new SqlParameter("@CreateBy",goods.GoodsCreateBy),
-                new SqlParameter("@CreateDateTime",goods.GoodsCreateTime),
-                new SqlParameter("@Picture",goods.GoodsPicture),
-                new SqlParameter("@TypeId",goods.GoodsType),
-                new SqlParameter("@GoodsId",goods.GoodsID)
-            };
-            object obj = SqlHelper.ExecuteNonQuery(SqlHelper.connStr, CommandType.Text, strSql.ToString(), paras);
-            if (Convert.ToInt32(obj) > 0)
-                return true;
-            else
-                return false;
-            
-        }
+        
         public IEnumerable<T> QryGoods<T>(Dictionary<string, object> paras, out int iCount)
         {
             iCount = 0;
@@ -107,5 +64,7 @@ namespace XM.DAL
             return StandarInsertOrUpdate("tbGoods", paras);
             
         }
+
+
     }
 }

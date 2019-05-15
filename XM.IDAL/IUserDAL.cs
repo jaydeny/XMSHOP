@@ -15,10 +15,7 @@ namespace XM.IDAL
         /// </summary>
         UserEntity GetUserByUserId(string userId);
 
-        /// <summary>
-        /// 根据id获取用户
-        /// </summary>
-        UserEntity GetUserById(string id);
+
         UserEntity GetUserByAccountName(string name);
 
         /// <summary>
@@ -35,32 +32,12 @@ namespace XM.IDAL
         /// 用户登录
         /// </summary>
         UserEntity UserLogin(string loginId, string loginPwd);
-
-        /// <summary>
-        /// 根据用户id判断用户是否可用
-        /// </summary>
-        UserEntity CheckLoginByUserId(string userId);
-
-        /// <summary>
-        /// 添加用户
-        /// </summary>
-        int AddUser(UserEntity user);
-
+        
         /// <summary>
         /// 删除用户（可批量删除，删除用户同时删除对应的：角色/权限/部门）
         /// </summary>
         bool DeleteUser(string idList);
-
-        /// <summary>
-        /// 修改用户
-        /// </summary>
-        bool EditUser(UserEntity user);
-
-        /// <summary>
-        /// 获取用户信息（“我的信息”）
-        /// </summary>
-        DataTable GetUserInfo(int userId);
-
+        
         /// <summary>
         /// 查询用户列表
         /// </summary>
@@ -91,5 +68,11 @@ namespace XM.IDAL
         /// <param name="paras"></param>
         /// <returns></returns>
         int Save(Dictionary<string, object> paras);
+        /// <summary>
+        /// 获取所有的角色
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        
     }
 }

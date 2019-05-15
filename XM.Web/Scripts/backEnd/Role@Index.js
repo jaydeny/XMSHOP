@@ -29,7 +29,7 @@ function gridList() {
     $("#btn_search").click(function () {
         $gridList.jqGrid('setGridParam', {
             postData: {
-                keyword: $("#txt_keyword").val()
+                name: $("#txt_keyword").val()
             }
         }).trigger('reloadGrid');
     });

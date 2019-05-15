@@ -17,13 +17,9 @@ $(function () {
 });
 
 function initControl() {
-    // 获取角色
-    $.get("/Role/GetALLRoleInfo", function (data) {
-        $("#RoleID").html("");
-        $.each(data.rows, function (i, n) {
-            $("#RoleID").append("<option value='"+n.Id+"'>" + n.Name+"</option>");
-        });
-    },"json")
+    $.each(top.clients.role, function (i, n) {
+        $("#RoleID").append("<option value='" + n.Id + "'>" + n.Name + "</option>");
+    });
 }
 function submitForm() {
     if (!$('#form1').formValid()) {

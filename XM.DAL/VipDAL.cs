@@ -319,13 +319,16 @@ namespace XM.DAL
         /// <typeparam name="T"></typeparam>
         /// <param name="paras"></param>
         /// <returns></returns>
-        public string QryVipInfo<T>(Dictionary<string, object> paras)
+        public decimal QryVipInfo<T>(Dictionary<string, object> paras)
         {
-            var vipInfo = QuerySingle<T>("SELECT * FROM v_vip_remainder WHERE VipAccountName=@vip_AN", paras, CommandType.Text);
-
-            string retData = JsonConvert.SerializeObject(new { total = 1, rows = vipInfo });
-
-            return retData;
+            try
+            {
+                return QuerySingle<decimal>("SELECT remainder FROM tbremainder WHERE vip_AN=@vip_AN", paras, CommandType.Text);
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
         /// <summary>
@@ -384,8 +387,7 @@ namespace XM.DAL
             return QuerySingle<decimal>("SELECT remainder FROM tbremainder WHERE vip_AN=@vip_AN", paras, CommandType.Text);
         }
         #endregion
-
-        
+    
         #region _Address
         /// <summary>
         /// 添加/修改地址
@@ -407,7 +409,18 @@ namespace XM.DAL
         /// <typeparam name="T"></typeparam>
         /// <param name="paras"></param>
         /// <returns></returns>
-        public T QryAddAndMP<T>(Dictionary<string, object> paras)
+        public int QryAdd<T>(Dictionary<string, object> paras)
+        {
+           return QuerySingle<int>("select count(0) from v_vip_address where VipAN = @vip_AN", paras, CommandType.Text);
+        }
+
+        /// <summary>
+        /// 查询地址和手机号
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public T QryTOPAdd<T>(Dictionary<string, object> paras)
         {
             return QuerySingle<T>("select top 1 * from v_vip_address where VipAN = @vip_AN", paras, CommandType.Text);
         }
@@ -473,6 +486,7 @@ namespace XM.DAL
         {
             return QuerySingle<string>("SELECT agent_AN from tbagent where id = @agent_id", paras, CommandType.Text);
         }
+        
         #endregion
 
     }

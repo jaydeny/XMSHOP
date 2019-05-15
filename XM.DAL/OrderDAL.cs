@@ -87,8 +87,6 @@ namespace XM.DAL
             };
             builder.AddWhereAndParameter(paras, "vip_AN", "VipAccountName", "LIKE", "'%'+@vip_AN+'%'");
             builder.AddWhereAndParameter(paras, "agent_AN", "AgentAccountName", "LIKE", "'%'+@agent_AN+'%'");
-            builder.AddWhereAndParameter(paras, "startTime", "OrderDate", ">");
-            builder.AddWhereAndParameter(paras, "endTime", "OrderDate", "<");
             return SortAndPage<T>(builder, grid, out iCount);
         }
 

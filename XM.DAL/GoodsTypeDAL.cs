@@ -13,19 +13,6 @@ namespace XM.DAL
 {
     public class GoodsTypeDAL : BaseDal, IGoodsTypeDAL
     {
-        public int AddType(GoodsTypeEntity goodsType)
-        {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("insert into tbtype (type_name)");
-            strSql.Append("values");
-            strSql.Append("(@TypeName)");
-            strSql.Append(";SELECT @@IDENTITY");
-            SqlParameter[] paras =
-            {
-                new SqlParameter("@TypeName",goodsType.TypeName)
-            };
-            return Convert.ToInt32(SqlHelper.ExecuteScalar(SqlHelper.connStr, CommandType.Text, strSql.ToString(), paras));
-        }
 
         public bool DeleteType(string id)
         {
@@ -49,23 +36,6 @@ namespace XM.DAL
             }
         }
 
-        public bool EditType(GoodsTypeEntity goodsType)
-        {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append("update  tbtype set");
-            strSql.Append("type_name=@TypeName");
-            strSql.Append("where id=@TypeID");
-            SqlParameter[] paras =
-            {
-                new SqlParameter("@TypeName",goodsType.TypeName),
-                new SqlParameter("@TypeID",goodsType.TypeID)
-            };
-            object obj = SqlHelper.ExecuteNonQuery(SqlHelper.connStr, CommandType.Text, strSql.ToString(), paras);
-            if (Convert.ToInt32(obj) > 0)
-                return true;
-            else
-                return false;
-        }
 
         public GoodsTypeEntity GetTypeById(string id)
         {
@@ -85,13 +55,18 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString(),
                 SortDirection = paras["order"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "TypeName", "type_name", "LIKE", "'%'+@TypeName+'%'");
+            builder.AddWhereAndParameter(paras, "type_name", "TypeName", "LIKE", "'%'+@type_name+'%'");
             return SortAndPage<T>(builder, grid, out iCount);
         }
 
         public int Save(Dictionary<string, object> paras)
         {
             return StandarInsertOrUpdate("tbtype", paras);
+        }
+        public IEnumerable<T> QryAllType<T>()
+        {
+            string strSql = "select * from v_type_list";
+            return QueryList<T>(strSql);
         }
     }
 }
