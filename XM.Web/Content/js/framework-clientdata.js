@@ -28,6 +28,7 @@ $.clientsInit = function () {
         for (var i = 0; i < authorizeMenu.length; i++) {
             boo = true;
             var j = 0;
+            // 查找父级
             for (j = 0; j < parentIdArray.length; j++) {
                 if (authorizeMenu[i].ParentId == parentIdArray[j].Id) {
                     boo = false;
@@ -37,17 +38,18 @@ $.clientsInit = function () {
             j = 0;
             if (boo) {
                 var name = "";
+                // 查找父级名称
                 for (j = 0; j < allMenu.length; j++) {
                     if (authorizeMenu[i].ParentId == allMenu[j].Id) {
                         name = allMenu[j].Name;
                         break;
                     }
                 }
-                // 获取菜单子菜单
-                var childNodes = allMenu.filter(function (x, index) {
+                // 查找父级的子集
+                var childNodes = authorizeMenu.filter(function (x, index) {
                     return x.ParentId == authorizeMenu[i].ParentId;
                 });
-                // 子菜单排序
+                // 子集单排序
                 childNodes.sort(function (before, after) {
                     if (before.SortValue < after.SortValue) {
                         return -1;
