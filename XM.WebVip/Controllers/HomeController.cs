@@ -29,7 +29,7 @@ namespace XM.WebVip.Controllers
         /// <returns>页面:首页</returns>
         public ActionResult Index()
         {
-            return View();
+              return View();
         }
 
         #region _Login
@@ -41,7 +41,8 @@ namespace XM.WebVip.Controllers
         /// <returns>页面:登录页面</returns>
         public ActionResult Login()
         {
-            return View("_Login");
+
+            return View("_Login"+Session["terminal"]);
         }
 
         /// <summary>
