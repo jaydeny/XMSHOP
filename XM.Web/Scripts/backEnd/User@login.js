@@ -16,7 +16,7 @@
                 $.login.formMessage('请输入登录密码。');
                 return false;
             } else {
-                $("#login_button").attr('disabled', 'disabled').find('span').html("loading...");
+                $("#login_button").attr('disabled', 'disabled').find('span').html("登录...");
                 $.ajax({
                     url: "/Login/CheckUserLogin",
                     data: { user_AN: $.trim($username.val()), user_pwd : $.trim($password.val()) },
@@ -24,6 +24,7 @@
                     dataType: "json",
                     success: function (data) {
                         if (data.success) {
+                            $('.login_tips').find('.tips_msg').remove();
                             $("#login_button").find('span').html("登录成功，正在跳转...");
                             window.setTimeout(function () {
                                 window.location.href = "/Home/Index";

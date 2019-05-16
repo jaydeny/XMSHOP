@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace XM.Model
 {
+    /// <summary>
+    /// 创建人：朱茂琛
+    /// 创建时间：2019/04/22
+    /// 用户类
+    /// </summary>
     public class UserEntity
     {
         /// <summary>

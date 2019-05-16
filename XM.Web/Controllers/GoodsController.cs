@@ -9,10 +9,15 @@ using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
+    /// <summary>
+    /// 创建人：朱茂琛
+    /// 创建时间：2019/04/22
+    /// 商品
+    /// </summary>
     public class GoodsController : BaseController
     {
         #region 获取所有商品页面
-        //[PermissionFilter]
+        [PermissionFilter]
         // GET: Goods
         public ActionResult Index()
         {
@@ -20,7 +25,7 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region 获取所有商品信息
-        //[PermissionFilter("Goods", "Index")]
+        [PermissionFilter("Goods", "Index")]
         public ActionResult GetAllGoodsInfo()
         {
             string sort = Request["order"] == null ? "GoodsID" : Request["order"];
@@ -57,13 +62,15 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region  添加/修改商品信息
+        [PermissionFilter("Goods", "Index",Operationype.Add)]
         public ActionResult Save()
         {
-            int id = Convert.ToInt32(Request["id"]);
+            UserEntity user = Session["User"] as UserEntity;
+            int id = Request["id"] == "" ? 0 : Convert.ToInt32(Request["id"]);
             string goodsName = Request["GoodsName"];
             string goodsIntro = Request["GoodsIntro"];
             decimal goodsPrice = Convert.ToDecimal(Request["GoodsPrice"]);
-            string createBy = Request["GoodsCreateBy"];
+            string createBy = user.UserAccountName;
             string goodsPic = Request["GoodsPicture"];
             int typeId = Convert.ToInt32(Request["GoodsType"]);
 
@@ -85,7 +92,7 @@ namespace XM.Web.Controllers
         }
         #endregion
         #region  删除商品
-        //[PermissionFilter("Goods", "Index", Operationype.Delete)]
+        [PermissionFilter("Goods", "Index", Operationype.Delete)]
         public ActionResult DelGoodsByIDs()
         {
             string Ids = Request["id"] == null ? "" : Request["id"];

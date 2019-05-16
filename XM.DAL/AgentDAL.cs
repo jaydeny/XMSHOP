@@ -263,7 +263,7 @@ namespace XM.DAL
         /// <returns></returns>
         public int CheckUseridAndEmail(Dictionary<string, object> paras)
         {
-            return QuerySingle<int>("P_tbagent_checkANandMBandEmail", paras, CommandType.StoredProcedure);
+            return QuerySingle<int>("P_agent_checkANandMBandEmail", paras, CommandType.StoredProcedure);
         }
 
         /// <summary>
@@ -401,9 +401,6 @@ namespace XM.DAL
 
         #region _Form
         /// <summary>
-        /// 作者：曾贤鑫
-        /// 创建时间:2019-4/29
-        /// 修改时间：2019-
         /// 功能：查询日期,总营业额
         /// </summary>
         public string QryDayTotal(Dictionary<string, object> paras)
@@ -421,11 +418,7 @@ namespace XM.DAL
             string retData = JsonConvert.SerializeObject(new { rows = s });
             return retData;
         }
-
         /// <summary>
-        /// 作者：曾贤鑫
-        /// 创建时间:2019-4/29
-        /// 修改时间：2019-
         /// 功能：查询日期内的记录
         /// </summary>
         public string QryDayForm(Dictionary<string, object> paras, out int iCount)
@@ -446,12 +439,8 @@ namespace XM.DAL
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
             return retData;
         }
-
         /// <summary>
-        /// 作者：曾贤鑫
-        /// 创建时间:2019-4/29
-        /// 修改时间：2019-
-        /// 功能：查询每一笔订单的详细详细
+        /// 查询每一笔订单的详细详细
         /// </summary>
         public string QryDetailOrder(Dictionary<string, object> paras)
         {
@@ -459,16 +448,66 @@ namespace XM.DAL
             builder.Append("select ");
             builder.Append("a.id,a.order_date,a.vip_AN,a.order_mp,a.order_total,b.address_name,c.goods_id,c.buy_count,c.buy_total,d.goods_name,d.goods_intro ");
             builder.Append("from ");
-            builder.Append("tborder a join tbaddress b on a.order_address = b.id join tbbuy c on a.id = c.order_id join tbgoods d on c.goods_id = d.id ");
-            builder.Append("where order_id = @order_id ");
+            builder.Append("tborder a join tbaddress b on a.order_address = b.id join tbbuy c on a.id = c.id join tbgoods d on c.goods_id = d.id ");
+            builder.Append("where a.id = @order_id ");
 
             var s = Query(builder.ToString(), paras);
 
             string retData = JsonConvert.SerializeObject(new { rows = s });
             return retData;
         }
+        #region  后台使用
+        /// <summary>
+        /// 功能：查询日期，总营业额，代理商（后台使用方法）
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <param name="iCount"></param>
+        /// <returns></returns>
+        public string QryDayTotals(Dictionary<string, object> paras)
+        {
+            var s = QueryList<DayTotalDTO>("P_Select_DayTotal", paras, CommandType.StoredProcedure);
+            string retData = JsonConvert.SerializeObject(new { rows = s });
+            return retData;
+        }
+        public string QryDayForms(Dictionary<string, object> paras, out int iCount)
+        {
+            WhereBuilder builder = new WhereBuilder();
+            builder.FromSql = "v_order_list";
+            GridData grid = new GridData()
+            {
+                PageIndex = Convert.ToInt32(paras["pi"]),
+                PageSize = Convert.ToInt32(paras["pageSize"]),
+                SortField = paras["sort"].ToString(),
+                SortDirection = paras["order"].ToString()
+            };
+            builder.AddWhereAndParameter(paras, "day", "convert(varchar(10),OrderDate, 120)");
+            builder.AddWhereAndParameter(paras, "AgentAccountName", "LIKE", "'%'+@agent_AN+'%'");
+            builder.AddWhereAndParameter(paras, "VipAccountName", "LIKE", "'%'+@vip_AN+'%'");
+            var s = SortAndPage(builder, grid, out iCount);
+            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
+            return retData;
+        }
+        public string QryDetailOrders(Dictionary<string, object> paras, out int iCount)
+        {
+            WhereBuilder builder = new WhereBuilder();
+            builder.FromSql = "v_report_info";
+            GridData grid = new GridData()
+            {
+                PageIndex = Convert.ToInt32(paras["pi"]),
+                PageSize = Convert.ToInt32(paras["pageSize"]),
+                SortField = paras["sort"].ToString(),
+                SortDirection = paras["order"].ToString()
+            };
+            builder.AddWhereAndParameter(paras, "order_id", "convert(varchar(10),OrderDate, 120)");
+            builder.AddWhereAndParameter(paras, "AgentAccountName", "LIKE", "'%'+@agent_AN+'%'");
+            builder.AddWhereAndParameter(paras, "VipAccountName", "LIKE", "'%'+@vip_AN+'%'");
+            var s = SortAndPage(builder, grid, out iCount);
+            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
+            return retData;
+        }
         #endregion
-        
+        #endregion
+
         #region _RechargeFrom
 
         /// <summary>
@@ -483,8 +522,8 @@ namespace XM.DAL
             builder.Append("select ");
             builder.Append("convert(varchar(10),recharge_time, 120) as date, SUM(recharge_price) as total ");
             builder.Append("from tbrecharge ");
-            builder.Append("where YEAR(recharge_time)= @year and  MONTH(recharge_time)=@month and DAY(recharge_time) between @startDay and @endDay ");
-            builder.Append("and agent_id = @agent_id ");
+            builder.Append("where YEAR(recharge_time)= @year and MONTH(recharge_time) between @startMonth and @endMonth and DAY(recharge_time) between @startDay and @endDay ");
+            //builder.Append("and agent_id = @agent_id ");
             builder.Append("GROUP BY convert(varchar(10),recharge_time, 120)");
 
             var s = Query(builder.ToString(), paras);
@@ -555,8 +594,14 @@ namespace XM.DAL
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
             return retData;
         }
+
+        public IEnumerable<T> QryAgent<T>()
+        {
+            string strSql = "select * from v_agent_list";
+            return QueryList<T>(strSql);
+        }
         #endregion
-        
+
 
     }
 }

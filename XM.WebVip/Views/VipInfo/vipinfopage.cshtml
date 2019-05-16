@@ -23,9 +23,10 @@
                     <ul class="nav nav-pills nav-stacked ">
                         <li role="presentation" class="title dividing-line">我的商城</li>
                         <li role="presentation" class=""><a href="/vipinfo/RechargePage" id="a_top-up">余额充值</a></li>
-                        <li role="presentation" class=""><a href="/Home/Update" id="myInfo" >信息管理</a></li>
-                        <li role="presentation" class=""><a href="/Home/UpdatePwdPage" >修改密码</a></li>
+                        <li role="presentation" class=""><a href="/Home/Update" id="myInfo">信息管理</a></li>
+                        <li role="presentation" class=""><a href="/Home/UpdatePwdPage">修改密码</a></li>
                         <li role="presentation" class=""><a href="/vipinfo/AddressPage" class="dividing-line">地址管理</a></li>
+                        <li role="presentation" class=""><a href="/GameRecharge/RechargePage" class="dividing-line">游戏积分兑换</a></li>
                     </ul>
                 </div>
                 <div class="vipinfo-form col-lg-10">
@@ -35,13 +36,25 @@
                                 <img src="~/img/logged.png" class="head-portrait" />
                             </li>
                             <li>
-                                <h3 style="line-height: 120px;" id="vip_info_name"></h3>
+                                <h3 style="line-height: 120px;" id="vip_info_name">@ViewData["VipAccountName"]</h3>
                             </li>
                             <li>
                                 <div class="balance">
-                                    <p class="balance-number" id="Remainder">0</p>
-                                    <p class="title">余额</p>
-                                    <a id="go-top-up">去充值</a>
+                                    <p class="balance-number" id="Remainder">@ViewData["Remainder"]</p>
+                                    <p class="title">商城/积分</p>
+                                    <a id="go-top-up">去充值积分</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="balance">
+                                    <p class="balance-number" id="GameCredit">@ViewData["GameCredit"]</p>
+                                    <p class="title">游戏/积分</p>
+                                    <a id="go-top-up">去充值积分</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="balance">
+                                    <a id="load">加载</a>
                                 </div>
                             </li>
 
@@ -57,13 +70,13 @@
                         </h3>
                         <div>
                             @*<ul class="order-state">
-                                <li class="flex1"><a class="selected">全部</a></li>
-                                <li class="flex1"><a>待付款</a></li>
-                                <li class="flex1"><a>待收货</a></li>
-                                <li class="flex1"><a>待评价</a></li>
-                                <li class="flex1"><a>待退货</a></li>
-                                <li class="flex1"><a>已完成</a></li>
-                            </ul>*@
+            <li class="flex1"><a class="selected">全部</a></li>
+            <li class="flex1"><a>待付款</a></li>
+            <li class="flex1"><a>待收货</a></li>
+            <li class="flex1"><a>待评价</a></li>
+            <li class="flex1"><a>待退货</a></li>
+            <li class="flex1"><a>已完成</a></li>
+        </ul>*@
                             <div class="order-list">
                                 <p class="empty-order hidden" id="empty_order">当前无近期订单，前往<a href="/vip/index">首页</a>选购吧～</p>
                                 <ul class="" id="order_box">
@@ -75,18 +88,23 @@
                                         <div class="flex-2">下单时间</div>
                                     </li>
                                     @*<li>
-                                        <div class="flex-2">
-                                            <div style="float: left;margin: 0 10px 0 0;"><img src="" /></div>
-                                            <p>商品名</p>
-                                        </div>
-                                        <div class="flex-1">￥<span>999</span></div>
-                                        <div class="flex-1"><small>X</small><span>2</span></div>
-                                        <div class="flex-1">￥<span>1888</span></div>
-                                        <div class="flex-1">
-                                            <a>待付款</a>
-                                        </div>
-                                    </li>*@
+                    <div class="flex-2">
+                        <div style="float: left;margin: 0 10px 0 0;"><img src="" /></div>
+                        <p>商品名</p>
+                    </div>
+                    <div class="flex-1">￥<span>999</span></div>
+                    <div class="flex-1"><small>X</small><span>2</span></div>
+                    <div class="flex-1">￥<span>1888</span></div>
+                    <div class="flex-1">
+                        <a>待付款</a>
+                    </div>
+                </li>*@
                                 </ul>
+                            </div>
+
+                            @*分页*@
+                            <div id="paging-box">
+                                <ul class="pagination"></ul>
                             </div>
                         </div>
                     </div>
@@ -94,6 +112,7 @@
             </div>
         </div>
     </div>
+    <script src="~/Scripts/vip/paging.js"></script>
     <script src="~/Scripts/vip/vipinfo.js"></script>
 </body>
 </html>

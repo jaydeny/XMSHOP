@@ -8,71 +8,146 @@ using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
+    /// <summary>
+    /// 创建人：曾贤鑫
+    /// 创建时间：2019/04/26
+    /// 报表
+    /// </summary>
     public class RevenueController : BaseController
     {
-        //[PermissionFilter]
-        // GET: Revenue
-        public ActionResult Index()
-        {
-            return View(); 
-        }
-        //[PermissionFilter("Revenue", "Index")]
-        public ActionResult GetRechargeRevenue()
-        {
-            string sort = Request["order"] == null ? "RechargeID" : Request["sort"];
-            string order = Request["sort"] == null ? "asc" : Request["order"];
-
-            //首先获取前台传递过来的参数
-            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
-            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-            string startTime = Request["startTime"] == null ? "" : Request["startTime"];
-            string endTime = Request["endTime"] == null ? "" : Request["endTime"];
-            int AgentID = Request["agent_id"] == null ? 1 : Convert.ToInt32(Request["agent_id"]);
-            int VipID = Request["vip_id"] == null ? 1 : Convert.ToInt32(Request["vip_id"]);
-
-            int totalCount;   //输出参数
-            Dictionary<string, object> paras = new Dictionary<string, object>();
-            paras["pi"] = pageindex;
-            paras["pageSize"] = pagesize;
-            paras["AgentID"] = AgentID;
-            paras["VipID"] = VipID;
-            paras["startTime"] = startTime;
-            paras["endTime"] = endTime;
-            paras["sort"] = sort;
-            paras["order"] = order;
-            var charge = DALUtility.Recharge.QryRecharge<RechargeEntity>(paras, out totalCount);
-            return PagerData(totalCount, charge,pageindex,pagesize);
-        }
-        
-        public ActionResult GetRevenueGoods()
+        #region _Form
+        public ActionResult ReportForm()
         {
             return View();
         }
-        //[PermissionFilter("Revenue", "GetGoodsRevenue")]
-        public ActionResult GetGoodsRevenue()
+
+        /// <summary>
+        /// 功能：查询日期,总营业额
+        /// </summary>
+        public ActionResult QryDayTotal()
         {
-            string sort = Request["order"] == null ? "OrderID" : Request["order"];
-            string order = Request["sort"] == null ? "asc" : Request["sort"];
+            string year = Request["year"];
 
-            //首先获取前台传递过来的参数
-            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
-            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-            string startTime = Request["startTime"] == null ? "" : Request["startTime"];
-            string endTime = Request["endTime"] == null ? "" : Request["endTime"];
-            string agentAccountName = Request["agent_AN"] == null ? "" : Request["agent_AN"];
+            string startMonth = Request["startMonth"];
+            string endMonth = Request["endMonth"];
+            Dictionary<string, object> param = new Dictionary<string, object>();
 
+            param.Add("year", year == null ? DateTime.Now.Year.ToString() : year);
+            param.Add("startMonth", startMonth == null ? DateTime.Now.Month.ToString() : startMonth);
+            param.Add("endMonth", endMonth == null ? DateTime.Now.Month.ToString() : endMonth);
+            param.Add("startDay", Request["startDay"] == null ? "1" : Request["startDay"]);
+            param.Add("endDay", Request["endDay"] == null ? "31" : Request["endDay"]);
+            param.Add("agent_AN", Request["agent_AN"] == null ? "" : Request["agent_AN"] );
 
-            int totalCount;   //输出参数
-            Dictionary<string, object> paras = new Dictionary<string, object>();
-            paras["pi"] = pageindex;
-            paras["pageSize"] = pagesize;
-            paras["agent_AN"] = agentAccountName;
-            paras["startTime"] = startTime;
-            paras["endTime"] = endTime;
-            paras["sort"] = sort;
-            paras["order"] = order;
-            var goods = DALUtility.Order.QryOrder<OrderEntity>(paras, out totalCount);
-            return PagerData(totalCount, goods,pageindex,pagesize);
+            return Content(DALUtility.Agent.QryDayTotals(param));
         }
+
+        /// <summary>
+        /// 查询日期内的记录
+        /// </summary>
+        /// <returns>json值</returns>
+        public ActionResult QryDayForm()
+        {
+            Dictionary<string, object> param = new Dictionary<string, object>();
+
+            param.Add("pi", Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]));
+            param.Add("pageSize", Request["rows"] == null ? 20 : Convert.ToInt32(Request["rows"]));
+            param.Add("sort", Request["sort"] == null ? "OrderID" : Request["sort"]);
+            param.Add("order", Request["order"] == null ? "asc" : Request["order"]);
+
+            param.Add("day", Request["day"]);
+            param.Add("vip_AN", Request["vip_AN"]);
+            //param.Add("agent_AN", Session["agent_AN"].ToString());
+            param.Add("agent_AN", Request["agent_AN"]);
+
+            return Content(DALUtility.Agent.QryDayForms(param, out int iCount));
+        }
+
+        /// <summary>
+        /// 功能:查询每一笔订单的详细详细
+        /// </summary>
+        /// <returns>json值</returns>
+        public ActionResult QryDetailOrder()
+        {
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("pi", Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]));
+            param.Add("pageSize", Request["rows"] == null ? 20 : Convert.ToInt32(Request["rows"]));
+            param.Add("sort", Request["sort"] == null ? "id" : Request["sort"]);
+            param.Add("order", Request["order"] == null ? "asc" : Request["order"]);
+
+            param.Add("order_id", Request["order_id"]);
+
+            return Content(DALUtility.Agent.QryDetailOrder(param));
+        }
+        #endregion
+
+        #region _RechargeForm
+        public ActionResult RechargeForm()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 功能：查询充值
+        /// </summary>
+        public ActionResult QryDayRechargeTotal()
+        {
+            //int monthDay = DateTime.DaysInMonth(int.Parse(Request["year"]), int.Parse(Request["month"]));
+
+            //string startDay = new DateTime(int.Parse(Request["year"]), int.Parse(Request["month"]), 1).Day.ToString();
+            //string endDay = new DateTime(int.Parse(Request["year"]), int.Parse(Request["month"]), monthDay).Day.ToString();
+
+
+            //Dictionary<string, object> param = new Dictionary<string, object>();
+            //param.Add("year", Request["year"] == null ? DateTime.Now.Year.ToString() : Request["year"]);
+            //param.Add("month", Request["month"] == null ? DateTime.Now.Month.ToString() : Request["month"]);
+            //param.Add("startDay", Request["startDay"] == null ? startDay : Request["startDay"]);
+            //param.Add("endDay", Request["endDay"] == null ? endDay : Request["endDay"]);
+            ////param.Add("agent_id", Session["agent_ID"].ToString());
+            //param.Add("agent_id", Request["agent_id"]);
+            string year = Request["year"];
+            string startMonth = Request["startMonth"];
+            string endMonth = Request["endMonth"];
+            int iCount;
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("pi", Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]));
+            param.Add("pageSize", Request["rows"] == null ? 20 : Convert.ToInt32(Request["rows"]));
+            param.Add("sort", Request["sort"] == null ? "RDate" : Request["sort"]);
+            param.Add("order", Request["order"] == null ? "asc" : Request["order"]);
+
+            param.Add("year", year == null ? DateTime.Now.Year.ToString() : year);
+            param.Add("startMonth", startMonth == null ? DateTime.Now.Month.ToString() : startMonth);
+            param.Add("endMonth", endMonth == null ? DateTime.Now.Month.ToString() : endMonth);
+            param.Add("startDay", Request["startDay"] == null ? "1" : Request["startDay"]);
+            param.Add("endDay", Request["endDay"] == null ? "31" : Request["endDay"]);
+            //param.Add("agent_AN", Session["agent_AN"].ToString());
+            param.Add("agent_AN", Request["agent_AN"] == null ? "" : Request["agent_AN"]);
+
+            return Content(DALUtility.Agent.QryDayRechargeTotal(param));
+        }
+
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/4/26
+        /// 功能:查询日期内的记录
+        /// </summary>
+        /// <returns>json值</returns>
+        public ActionResult QryDayRechargeForm()
+        {
+            Dictionary<string, object> param = new Dictionary<string, object>();
+
+            param.Add("pi", Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]));
+            param.Add("pageSize", Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]));
+            param.Add("sort", Request["sort"] == null ? "recharge_id" : Request["sort"]);
+            param.Add("order", Request["order"] == null ? "asc" : Request["order"]);
+
+            param.Add("day", Request["day"]);
+            param.Add("vip_id", Request["vip_id"]);
+            //param.Add("agent_id", Session["agent_ID"].ToString());
+            param.Add("agent_id", Request["agent_id"]);
+
+            return Content(DALUtility.Agent.QryDayRechargeForm(param, out int iCount));
+        }
+        #endregion
     }
 }

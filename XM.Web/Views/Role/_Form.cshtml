@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+@Model 
+<script type="text/javascript" src="~/Scripts/backEnd/Role@Form.js"></script>
+
+<form id="form1">
+    <div class="widget-body">
+        <div id="wizard" class="wizard" data-target="#wizard-steps" style="border-left: none; border-top: none; border-right: none;">
+            <ul class="steps">
+                <li data-target="#step-1" class="active"><span class="step">1</span>角色信息<span class="chevron"></span></li>
+                <li data-target="#step-2"><span class="step">2</span>功能权限<span class="chevron"></span></li>
+            </ul>
+        </div>
+        <div class="step-content" id="wizard-steps" style="border-left: none; border-bottom: none; border-right: none;">
+            <div class="step-pane active" id="step-1" style="margin: 10px; margin-bottom: 0px;">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">表单信息</h3>
+                    </div>
+                    <div class="panel-body" style="width: 98%;">
+                        <table class="form">
+                            <tr>
+                                <th class="formTitle">角色名</th>
+                                <td class="formValue">
+                                    <input id="Name" name="Name" type="text" class="form-control required" placeholder="请输入角色名称" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="formTitle">标识码</th>
+                                <td class="formValue">
+                                    <input id="Code" name="Code" type="isEnglish" class="form-control required" placeholder="请输入角色标识码" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="formTitle">状态</th>
+                                <td class="formValue">
+                                    <select id="State" name="State" class="form-control">
+                                        <option value="1">启用</option>
+                                        <option value="2">禁用</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="step-pane" id="step-2">
+                <div id="permissionTree"></div>
+            </div>
+            </div>
+        <div class="form-button" id="wizard-actions">
+            <a id="btn_last" disabled class="btn btn-default btn-prev">上一步</a>
+            <a id="btn_next" class="btn btn-default btn-next">下一步</a>
+            <a id="btn_finish" class="btn btn-default" style="display: none;" onclick="submitForm()">完成</a>
+        </div>
+    </div>
+</form>
+

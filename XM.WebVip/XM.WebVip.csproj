@@ -129,30 +129,20 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Content Include="Areas\Phone\Content\search\sousSearch.css" />
-    <Content Include="Areas\Phone\Content\ShoppingCart\cart.css" />
-    <Compile Include="Areas\Phone\Controllers\PhoneHomeController.cs" />
-    <Compile Include="Areas\Phone\Controllers\PhoneProductController.cs" />
-    <Compile Include="Areas\Phone\Controllers\PhoneVIPController.cs" />
-    <Compile Include="Areas\Phone\Controllers\PhoneVipInfoController.cs" />
-    <Compile Include="Areas\Phone\PhoneAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\GameHomeController.cs" />
+    <Compile Include="Controllers\GameRechargeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\VIPController.cs" />
     <Compile Include="Controllers\VipInfoController.cs" />
-    <Compile Include="Controllers\XMController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Phone\Content\VipInfo\personal.css" />
-    <Content Include="Areas\Phone\Script\Model\jquery-3.4.0.min.js" />
-    <Content Include="Areas\Phone\Script\ShoppingCart\cart.js" />
     <Content Include="Content\bootstrap-3.3.7\css\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-3.3.7\css\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap-3.3.7\css\bootstrap.css" />
@@ -176,10 +166,6 @@
     <Content Include="Content\CSS\vipRecharge.css" />
     <Content Include="Content\CSS\vipRegistered.css" />
     <Content Include="Content\CSS\vipSite.css" />
-    <Content Include="Areas\Phone\Content\Product\classify.css" />
-    <Content Include="Areas\Phone\Content\Home\index.css" />
-    <Content Include="Areas\Phone\Content\Model\reset.css" />
-    <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -191,14 +177,6 @@
     <Content Include="Content\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Areas\Phone\Views\web.config" />
-    <Content Include="Areas\Phone\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Phone\Views\PhoneHome\Index_MB.cshtml" />
-    <Content Include="Areas\Phone\Views\Shared\mobile_model.cshtml" />
-    <Content Include="Areas\Phone\Views\PhoneProduct\AgoodsList_MB.cshtml" />
-    <Content Include="Areas\Phone\Views\PhoneVIP\ShoppingCart_MB.cshtml" />
-    <Content Include="Areas\Phone\Views\PhoneVipInfo\InfoPage_MB.cshtml" />
-    <Content Include="Areas\Phone\Views\PhoneProduct\Search_MB.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="img\bs.jpg" />
     <Content Include="img\dq01.jpg" />
@@ -224,12 +202,13 @@
     <Content Include="img\slide_4.jpg" />
     <Content Include="img\slide_5.jpg" />
     <Content Include="img\slide_6.jpg" />
+    <Content Include="Scripts\Game\game%40Recharge.js" />
     <Content Include="Scripts\jquery-3.4.0.js" />
     <Content Include="Scripts\jquery-3.4.0.min.js" />
     <Content Include="Scripts\jquery.md5.js" />
-    <Content Include="Areas\Phone\Script\Home\scrolltopcontrol.js" />
-    <Content Include="Areas\Phone\Script\Home\TouchSlide.js" />
     <Content Include="Scripts\vip\bounced.js" />
+    <Content Include="Scripts\vip\layout.js" />
+    <Content Include="Scripts\vip\paging.js" />
     <Content Include="Scripts\vip\RequestUrl.js" />
     <Content Include="Scripts\vip\vip%40AgoodsList.js" />
     <Content Include="Scripts\vip\jqueryAjax.js" />
@@ -245,15 +224,6 @@
     <Content Include="Scripts\vip\vipinfo%40UpdatePwd.js" />
     <Content Include="Scripts\vip\vipinfo.js" />
     <Content Include="Scripts\vip\vipRetrievePassword.css" />
-    <Content Include="Scripts\vue.js" />
-    <Content Include="Scripts\vue.min.js" />
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -273,16 +243,19 @@
     <Content Include="Views\Home\_Update.cshtml" />
     <Content Include="Views\Home\_UpdatePwdPage.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\XM\Index.cshtml" />
-    <Content Include="Views\XM\GetCredit.cshtml" />
-    <Content Include="Views\XM\EditCredit.cshtml" />
-    <Content Include="Views\XM\EditCreditPage.cshtml" />
+    <Content Include="Views\GameRecharge\_Recharge.cshtml" />
+    <Content Include="web.config" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Phone\Models\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\GameHome\" />
     <Folder Include="Views\Shop\" />
   </ItemGroup>
   <ItemGroup>

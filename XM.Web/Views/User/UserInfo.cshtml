@@ -1,10 +1,11 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>用户信息</title>
     <link href="/Content/js/bootstrap/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/Content/User/UserInfo.css" />
+    <link rel="stylesheet" href="/Content/User/User@UserInfo.css" />
 </head>
 <body>
     <div class="user-info">
@@ -14,28 +15,25 @@
         <div class="main">
             <div class="form-group">
                 <label for="">账号</label>
-                <input type="text" class="form-control" disabled>
-                <span class="warning"></span>
-            </div>
-            <div class="form-group">
-                <label for="">角色</label>
-                <input type="text" class="form-control" />
+                <input type="text" class="form-control" disabled id="UserAccountName" />
                 <span class="warning"></span>
             </div>
             <div class="form-group">
                 <label for="">邮箱</label>
-                <input type="email" class="form-control" />
+                <input type="email" class="form-control" id="UserEmail" />
                 <span class="warning"></span>
             </div>
             <div class="form-group mar_b_20">
                 <label for="">手机号</label>
-                <input type="tel" class="form-control">
+                <input type="text" class="form-control" id="UserMobliePhone" />
                 <span class="warning"></span>
             </div>
             <div>
-                <button type="button" class="btn btn-default alter_but">确定</button>
+                <button type="button" class="btn btn-default alter_but" id="submitInfo">确定</button>
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="~/Content/js/jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/backEnd/User@UserInfo.js"></script>
 </body>
 </html>

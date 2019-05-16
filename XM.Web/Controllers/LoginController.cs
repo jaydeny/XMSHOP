@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,14 +19,14 @@ namespace XM.Web.Controllers
     /// </summary>
     public class LoginController : BaseController
     {
+        #region  登录页面
         // GET: Login
         public ActionResult Index()
         {
             return View();
         }
-        /// <summary>
-        /// 处理登录的信息
-        /// </summary>
+        #endregion
+        #region   处理登录的信息
         /// <param name="CookieExpires">cookie有效期</param>
         /// <returns></returns>
         public ActionResult CheckUserLogin(string CookieExpires)
@@ -40,11 +41,18 @@ namespace XM.Web.Controllers
                     CookiesHelper.SetCookie("UserID", AES.EncryptStr(currentUser.id.ToString()));
                     Dictionary<string, object> paras= new Dictionary<string, object>();
                     paras["r_id"] = currentUser.RoleID;
-                    int iCount;
-                    var roleMenus  = DALUtility.RoleMenu.QryAllRoleMenu<RoleMenuEntity>(paras,out iCount);
+                    var roleMenus  = DALUtility.RoleMenu.QryRoleMenu<Navbar>(paras);
                     Session["RoleMenu"] = roleMenus;
                     Session["RoleID"] = currentUser.RoleID;
                     Session["User"] = currentUser;
+                    DateTime dateTime = DateTime.Now;
+                    Session["LoginTime"] = dateTime;
+                    Hashtable htOnline = (Hashtable)System.Web.HttpContext.Current.Application["CurrentOnline"];
+                    if (htOnline == null)
+                    {
+                        htOnline = new Hashtable();
+                    }
+                    htOnline[Session["User"].ToString()] = dateTime;
                     return OperationReturn(true, "登录成功！"); 
                 }
                 else
@@ -57,18 +65,14 @@ namespace XM.Web.Controllers
                 return OperationReturn(false,"登录异常," + ex.Message);
             }
         }
-        /// <summary>
-        /// 忘记密码页面
-        /// </summary>
-        /// <returns></returns>
+        #endregion
+        #region   忘记密码页面
         public ActionResult ForgetPwd()
         {
             return View();
         }
-        /// <summary>
-        /// 忘记密码操作
-        /// </summary>
-        /// <returns></returns>
+        #endregion
+        #region  忘记密码操作
         public ActionResult PwdForget()
         {
             bool f = false;
@@ -84,10 +88,8 @@ namespace XM.Web.Controllers
             }
             return OperationReturn(f,"邮件已发送！");
         }
-        /// <summary>
-        /// 安全退出
-        /// </summary>
-        /// <returns></returns>
+        #endregion
+        #region  安全退出
         public ActionResult UserLoginOut()
         {
             //清空cookie
@@ -95,5 +97,6 @@ namespace XM.Web.Controllers
             Session.Clear();
             return OperationReturn(true,"退出成功！");
         }
+        #endregion
     }
 }

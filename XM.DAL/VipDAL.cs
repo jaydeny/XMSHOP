@@ -10,7 +10,7 @@ using XM.Model;
 
 namespace XM.DAL
 {
-    public class VipDAL : BaseDal, IVipDAL
+    public class VipDAL : BaseDal, IVipDAL 
     {
         /// <summary>
         /// 根据用户id获取用户
@@ -319,13 +319,9 @@ namespace XM.DAL
         /// <typeparam name="T"></typeparam>
         /// <param name="paras"></param>
         /// <returns></returns>
-        public string QryVipInfo<T>(Dictionary<string, object> paras)
+        public T QryVipInfo<T>(Dictionary<string, object> paras)
         {
-            var vipInfo = QuerySingle<T>("SELECT * FROM v_vip_remainder WHERE VipAccountName=@vip_AN", paras, CommandType.Text);
-
-            string retData = JsonConvert.SerializeObject(new { total = 1, rows = vipInfo });
-
-            return retData;
+            return QuerySingle<T>("SELECT VipMobliePhone,VipEmail,Remainder FROM v_vip_remainder WHERE VipAccountName=@vip_AN", paras, CommandType.Text);
         }
 
         /// <summary>
@@ -381,11 +377,17 @@ namespace XM.DAL
         /// <returns></returns>
         public decimal QryRemainder(Dictionary<string, object> paras)
         {
-            return QuerySingle<decimal>("SELECT remainder FROM tbremainder WHERE vip_AN=@vip_AN", paras, CommandType.Text);
+            try
+            {
+                return QuerySingle<decimal>("SELECT remainder FROM tbremainder WHERE vip_AN=@vip_AN", paras, CommandType.Text);
+            }
+            catch
+            {
+                return 0;
+            }
         }
         #endregion
-
-        
+    
         #region _Address
         /// <summary>
         /// 添加/修改地址
@@ -407,7 +409,18 @@ namespace XM.DAL
         /// <typeparam name="T"></typeparam>
         /// <param name="paras"></param>
         /// <returns></returns>
-        public T QryAddAndMP<T>(Dictionary<string, object> paras)
+        public int QryAdd<T>(Dictionary<string, object> paras)
+        {
+           return QuerySingle<int>("select count(0) from v_vip_address where VipAN = @vip_AN", paras, CommandType.Text);
+        }
+
+        /// <summary>
+        /// 查询地址和手机号
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public T QryTOPAdd<T>(Dictionary<string, object> paras)
         {
             return QuerySingle<T>("select top 1 * from v_vip_address where VipAN = @vip_AN", paras, CommandType.Text);
         }
@@ -472,6 +485,17 @@ namespace XM.DAL
         public string QryAgentANByID(Dictionary<string, object> paras)
         {
             return QuerySingle<string>("SELECT agent_AN from tbagent where id = @agent_id", paras, CommandType.Text);
+        }
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-5-16
+        /// 修改时间：2019-
+        /// 功能：新用户赠送10积分
+        /// </summary>
+        public int NweVIP(Dictionary<string, object> paras)
+        {
+            return Execute("insert into tbremainder(vip_AN,remainder) values(@vip_AN,20)", paras, CommandType.Text);
         }
         #endregion
 

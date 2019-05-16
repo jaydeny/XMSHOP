@@ -5,7 +5,11 @@ function gridList() {
     var $gridList = $("#gridList");
     $gridList.dataGrid({
         url: "/Vip/GetAllUserInfo",
-        height: $(window).height() - 128,
+        height: $(window).height() - 178,
+        rowNum: 20,
+        rowList: [10, 20, 30, 40, 50],
+        sortorder: "desc",
+        pager: "#gridPager",
         colModel: [
             { label: '主键', name: 'VipID', hidden: true },
             { label: '账户', name: 'VipAccountName', width: 80, align: 'left' },
@@ -18,21 +22,18 @@ function gridList() {
                 formatter: function (cellvalue, options, rowObject) {
                     if (cellvalue == 1) {
                         return '<span class=\"label label-success\">正常</span>';
-                    } else if (cellvalue == 0) {
-                        return '<span class=\"label label-default\">禁用</span>';
+                    } else if (cellvalue == 2) {
+                        return '<span class=\"label label-default\">冻结</span>';
                     }
                 }
             }
-        ],
-        pager: "#gridPager",
-        sortname: 'F_DepartmentId asc,F_CreatorTime desc',
-        viewrecords: true
+        ]
     });
     $("#btn_search").click(function () {
         $gridList.jqGrid('setGridParam', {
             postData: {
-                keyword: $("#txt_keyword").val()
-            },
+                VipAccountName: $("#txt_keyword").val()
+            }
         }).trigger('reloadGrid');
     });
 }
@@ -50,8 +51,7 @@ function btn_add() {
 }
 function btn_edit() {
     // 主键
-    var keyValue = $("#gridList").jqGridRowValue();
-    console.log(keyValue);
+    var keyValue = $("#gridList").jqGridRowValue().VipID;
     $.modalOpen({
         id: "Form",
         title: "修改用户",
@@ -68,7 +68,8 @@ function btn_delete() {
         url: "/Vip/DelUserByIDs",
         param: { id: $("#gridList").jqGridRowValue().VipID },
         success: function () {
-            $.currentWindow().$("#gridList").trigger("reloadGrid");
+            //$.currentWindow().$("#gridList").trigger("reloadGrid");
+            $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
         }
     })
 }
@@ -84,7 +85,7 @@ function btn_details() {
     });
 }
 function btn_revisepassword() {
-    var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    var keyValue = $("#gridList").jqGridRowValue().VipID;
     var Account = $("#gridList").jqGridRowValue().F_Account;
     var RealName = $("#gridList").jqGridRowValue().F_RealName;
     $.modalOpen({
@@ -99,28 +100,34 @@ function btn_revisepassword() {
     });
 }
 function btn_disabled() {
-    var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    var keyValue = $("#gridList").jqGridRowValue();
+    keyValue.StatusID = 2;
+    keyValue.id = keyValue.VipID;
     $.modalConfirm("注：您确定要【禁用】该项账户吗？", function (r) {
         if (r) {
             $.submitForm({
-                url: "/SystemManage/Vip/DisabledAccount",
-                param: { keyValue: keyValue },
+                url: "/Vip/Save",
+                param: keyValue,
                 success: function () {
-                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    //$.currentWindow().$("#gridList").trigger("reloadGrid");
+                    $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
                 }
             })
         }
     });
 }
 function btn_enabled() {
-    var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    var keyValue = $("#gridList").jqGridRowValue();
+    keyValue.StatusID = 1;
+    keyValue.id = keyValue.VipID;
     $.modalConfirm("注：您确定要【启用】该项账户吗？", function (r) {
         if (r) {
             $.submitForm({
-                url: "/SystemManage/Vip/EnabledAccount",
-                param: { keyValue: keyValue },
+                url: "/Vip/Save",
+                param: keyValue,
                 success: function () {
-                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    //$.currentWindow().$("#gridList").trigger("reloadGrid");
+                    $("#gridList").jqGrid().setGridParam({ datatype: 'json' }).trigger('reloadGrid');
                 }
             })
         }

@@ -119,7 +119,7 @@ namespace XM.IDAL
         /// <typeparam name="T"></typeparam>
         /// <param name="paras"></param>
         /// <returns></returns>
-        string QryVipInfo<T>(Dictionary<string, object> paras);
+        T QryVipInfo<T>(Dictionary<string, object> paras); 
 
         /// <summary>
         /// 查询原始密码
@@ -172,7 +172,15 @@ namespace XM.IDAL
         /// <typeparam name="T"></typeparam>
         /// <param name="paras"></param>
         /// <returns></returns>
-        T QryAddAndMP<T>(Dictionary<string, object> paras);
+        int QryAdd<T>(Dictionary<string, object> paras);
+
+        /// <summary>
+        /// 查询地址和手机号
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        T QryTOPAdd<T>(Dictionary<string, object> paras);
 
         /// <summary>
         /// 删除地址
@@ -205,6 +213,14 @@ namespace XM.IDAL
         /// 功能：查询代理商AN
         /// </summary>
         string QryAgentANByID(Dictionary<string, object> paras);
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-5-16
+        /// 修改时间：2019-
+        /// 功能：新用户赠送10积分
+        /// </summary>
+        int NweVIP(Dictionary<string, object> paras);
         #endregion
     }
 }

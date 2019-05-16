@@ -2,7 +2,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Index.cshtml";
 }
-<script src="~/Scripts/Agent@Index.js"></script>
+<script src="~/Scripts/backEnd/Agent@Index.js"></script>
 <div class="topPanel">
     <div class="toolbar">
         <div class="btn-group">
@@ -17,8 +17,8 @@
                 <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改代理</a></li>
                 <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>删除代理</a></li>
                 <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看代理</a></li>
-                <li class="split"></li>
-                <li><a id="NF-revisepassword" authorize="yes" onclick="btn_revisepassword()"><i class="fa fa-key"></i>密码重置</a></li>
+                @*<li class="split"></li>
+                <li><a id="NF-revisepassword" authorize="yes" onclick="btn_revisepassword()"><i class="fa fa-key"></i>密码重置</a></li>*@
                 <li class="split"></li>
                 <li><a id="NF-disabled" authorize="yes" onclick="btn_disabled()"><i class="fa fa-stop-circle"></i>禁用</a></li>
                 <li><a id="NF-enabled" authorize="yes" onclick="btn_enabled()"><i class="fa fa-play-circle"></i>启用</a></li>
@@ -26,7 +26,7 @@
             <a href="javascript:;" class="close"></a>
         </div>
         @*进行权限设置*@
-        @*<script>$('.toolbar').authorizeButton()</script>*@
+        <script>$('.toolbar').authorizeButton()</script>
     </div>
     <div class="search">
         <table>

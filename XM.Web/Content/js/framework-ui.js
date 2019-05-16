@@ -41,7 +41,6 @@ $.request = function (name) {
 }
 $.currentWindow = function () {
     var iframeId = top.$(".NFine_iframe:visible").attr("id");
-
     return top.frames[iframeId];
 }
 $.browser = function () {
@@ -399,9 +398,11 @@ $.fn.authorizeButton = function () {
     var $element = $(this);
     $element.find('a[authorize=yes]').attr('authorize', 'no');
     if (dataJson != undefined) {
-        $.each(dataJson, function (i) {
-            $element.find("#" + dataJson[i].F_EnCode).attr('authorize', 'yes');
-        });
+        $element.find("#" + "NF-add").attr('authorize', dataJson.RmAdd == true ? 'yes' : 'no');
+        $element.find("#" + "NF-edit").attr('authorize', dataJson.RmUpdate == true ? 'yes' : 'no');
+        $element.find("#" + "NF-delete").attr('authorize', dataJson.RmDelete == true ? 'yes' : 'no');
+        $element.find("#" + "NF-disabled").attr('authorize', dataJson.RmUpdate == true ? 'yes' : 'no');
+        $element.find("#" + "NF-enabled").attr('authorize', dataJson.RmUpdate == true ? 'yes' : 'no');
     }
     $element.find("[authorize=no]").parents('li').prev('.split').remove();
     $element.find("[authorize=no]").parents('li').remove();

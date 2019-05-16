@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>游戏充值</title>
+    <link rel="stylesheet" href="~/Content/CSS/vipRecharge.css" />
+</head>
+<body>
+    <div class="recharge">
+        <div class="header">
+            <h3>游戏充值</h3>
+        </div>
+        <div class="main">
+            <div class="div-table">
+                <div class="div-tr">
+                    <div class="div-td title Shop">商城积分余额:<span>@ViewData["Remainder"]</span> </div>
+                    <div class="div-td number-list2">
+                        <button id="point" class="btn btn-default actiona glyphicon glyphicon-arrow-right"></button>
+                        <br/>
+                        <input type="text" id="Money" />
+                    </div>
+                    <div class="div-td title Game">游戏厅积分余额:<span>@ViewData["Integral"]</span> </div>
+                </div>
+            </div>
+            <div class="btn-box ">
+                <button type="button" class="btn recharge-confirm" id="RechargeToGame">确定</button>
+            </div>
+        </div>
+    <script src="~/Scripts/Game/game@Recharge.js"></script>
+</body>
+</html>
