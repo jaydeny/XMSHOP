@@ -79,6 +79,7 @@ namespace XM.Web.Controllers
         public string ID { get { return Session["id"].ToString(); } }
         public decimal Remainder { get { return decimal.Parse(Session["Remainder"].ToString()); } }
 
+        public static string Integral;
 
         /// <summary>
         /// 记录代理的信息
@@ -210,6 +211,27 @@ namespace XM.Web.Controllers
             return result;
         }
 
+        public void setMark()
+        {
+            string[] paras = { AN };
+
+            string strKey = Md5.GetMd5(paras[0] + KEY);
+
+            string param = GameReturn("GetCredit", strKey, paras);
+
+            var result = HttpPost("http://172.16.31.232:9678/take", param);
+
+
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("vip_AN", AN);
+            decimal remainder = DALUtility.Vip.QryRemainder(dic);
+
+            int x = result.LastIndexOf(":");
+            string y = result.Substring(x);
+            int z = y.IndexOf("}");
+            Integral = y.Substring(1, z - 1) == "[]" ?"0": y.Substring(1, z - 1);
+            Session["Remainder"] = remainder.ToString();
+        }
     }
 
     /// <summary>

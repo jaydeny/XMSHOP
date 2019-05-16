@@ -213,6 +213,14 @@ namespace XM.IDAL
         /// 功能：查询代理商AN
         /// </summary>
         string QryAgentANByID(Dictionary<string, object> paras);
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-5-16
+        /// 修改时间：2019-
+        /// 功能：新用户赠送10积分
+        /// </summary>
+        int NweVIP(Dictionary<string, object> paras);
         #endregion
     }
 }

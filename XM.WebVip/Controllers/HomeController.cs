@@ -88,7 +88,8 @@ namespace XM.WebVip.Controllers
                     Session["ID"] = vip.VipID;
                     Session["PWD"] = vip.VipPassword;
                     Session["Remainder"] = getRemainder(vip.VipAccountName);
-                    
+
+
                     Session["Agent_ID"] = vip.AgentID;
                     Session["Agent_Acc"] = getAgentAN(vip.AgentID);
                     //base.Agent_Acc = agent_an;
@@ -147,6 +148,14 @@ namespace XM.WebVip.Controllers
         /// <returns>页面:修改信息页面</returns>
         public ActionResult Update()
         {
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("vip_AN", Session["AN"].ToString());
+
+            var result = DALUtility.Vip.QryVipInfo<VipInfoDTO>(param);
+
+            ViewData["VipAccountName"] = Session["AN"];
+            ViewData["Email"] = result.VipEmail;
+            ViewData["MP"] = result.VipMobliePhone;
             return View("_Update");
         }
 
@@ -293,6 +302,7 @@ namespace XM.WebVip.Controllers
                 int result = DALUtility.Vip.saveVIP(paras);
                 if (ID == 0)
                 {
+                    NewVIP(paras["vip_AN"].ToString());
                     return OperationReturn(true, "注册成功");
                 }
                 else
@@ -327,8 +337,8 @@ namespace XM.WebVip.Controllers
         {
             Dictionary<string, object> Remainder = new Dictionary<string, object>();
             Remainder.Add("vip_AN", AN);
-            VipInfoDTO result = DALUtility.Vip.QryVipInfo<VipInfoDTO>(Remainder);
-            return result.Remainder;
+            decimal result = DALUtility.Vip.QryRemainder(Remainder);
+            return result;
         }
 
 
@@ -347,6 +357,18 @@ namespace XM.WebVip.Controllers
             Session.Remove("Agent_Acc");
            
             return OperationReturn(true, "退出成功");
+        }
+
+        /// <summary>
+        /// 功能:新用户添加20积分
+        /// </summary>
+        /// <param name="vip_AN"></param>
+        /// <returns></returns>
+        public int NewVIP(string vip_AN)
+        {
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("vip_AN", vip_AN);
+            return DALUtility.Vip.NweVIP(dic);
         }
         #endregion
     }

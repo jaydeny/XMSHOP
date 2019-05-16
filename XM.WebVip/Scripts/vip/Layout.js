@@ -59,6 +59,12 @@
     });
 
 
+    // 进入个人信息页
+    $("#vip_name").click(function () {
+        setIntegral();
+    });
+
+
     //进入游戏
     $("#LoginGame").click(function () {
         $.post("/GameHome/Login", function (data) {
@@ -79,7 +85,7 @@
         $.post("/GameHome/GetCredit", function (data) {
             if (data.success) {
                 var e = JSON.parse(data.msg)
-                alert(e.result[0].Integral)
+                alert("你的积分为:"+e.result[0].Integral)
             }
             else {
                 alert(data.msg);
@@ -87,4 +93,29 @@
             }
         }, "json")
     });
+
+    var setIntegral = function () {
+
+        $.post("/GameHome/GetCredit", function (data) {
+
+        }, "json").done(
+                        function (data) {
+                            var e = JSON.parse(data.msg)
+                            $.ajax({
+                                url: "/vipInfo/getCredit",
+                                data: { "Integral": e.result[0].Integral },
+                                success: function () {
+                                    $.get("/vipinfo/vipinfo", function (data) {
+                                        if (data.success) {
+                                            window.location.href = "/vipinfo/vipinfopage";
+                                        } else {
+                                            alert(data.msg);
+                                            window.location.href = "/home/index";
+                                        }
+                                    }, "json")
+                                }
+                            })
+                        }
+                    )
+    }
 }

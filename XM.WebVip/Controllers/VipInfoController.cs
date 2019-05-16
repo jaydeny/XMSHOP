@@ -12,6 +12,7 @@ namespace XM.WebVip.Controllers
 {
     public class VipInfoController : BaseController
     {
+
         // GET: VipInfo
         #region _vipInfo
         /// <summary>
@@ -22,6 +23,7 @@ namespace XM.WebVip.Controllers
         /// <returns>页面</returns>
         public ActionResult VipInfoPage()
         {
+            setMark();
             if (Session["AN"] == null)
             {
                 Url.Action("Index", "Home");
@@ -31,12 +33,11 @@ namespace XM.WebVip.Controllers
             param.Add("vip_AN", Session["AN"].ToString());
 
             var result = DALUtility.Vip.QryVipInfo<VipInfoDTO>(param);
-
             ViewData["VipAccountName"] = Session["AN"];
-            ViewData["Remainder"] = Remainder;
-            ViewData["Email"] = result.VipEmail;
-            ViewData["MP"] = result.VipMobliePhone;
-
+            ViewData["Remainder"] = result.Remainder;
+            //获取游戏余额
+            ViewData["GameCredit"] = Integral;
+            
             return View();
         }
 
@@ -170,10 +171,10 @@ namespace XM.WebVip.Controllers
         public ActionResult Recharge()
         {
             DateTime date = DateTime.Now;
-
+            decimal mark = decimal.Parse(Request["recharge_price"])*10;
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("recharge_name", "测试充值");
-            param.Add("recharge_price", Request["recharge_price"]);
+            param.Add("recharge_price", mark);
             param.Add("recharge_time", date);
             param.Add("agent_id", Session["Agent_ID"].ToString());
             param.Add("vip_id", Session["ID"].ToString());
@@ -183,7 +184,8 @@ namespace XM.WebVip.Controllers
             if (iCheck > 0)
             {
                 Dictionary<string, object> p = new Dictionary<string, object>();
-                p.Add("remainder", Request["recharge_price"]);
+                //换积分
+                p.Add("remainder", mark);
                 p.Add("vip_AN", Session["AN"].ToString());
                 //p.Add("vip_AN", HttpContext.Session["vip_AN"]);
                 int i = DALUtility.Vip.InsertRemainder(p);
@@ -272,6 +274,15 @@ namespace XM.WebVip.Controllers
             Session.Remove("Agent_ID");
             Session.Remove("Agent_AN");
             return OperationReturn(true, "退出成功");
+        }
+
+        /// <summary>
+        /// 功能: 获取游戏积分
+        /// </summary>
+        /// <returns></returns>
+        public void getCredit()
+        {
+            Integral = Request["Integral"];
         }
         #endregion
     }
