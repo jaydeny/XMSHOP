@@ -18,7 +18,7 @@ namespace XM.Web.Controllers
     public class UserController : BaseController, IRequiresSessionState
     {
         #region 所有用户页面
-        [PermissionFilter]
+        [PermissionFilter("User", "Index")]
         // GET: User
         public ActionResult Index()
         {
