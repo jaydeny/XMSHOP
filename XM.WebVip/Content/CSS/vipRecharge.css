@@ -7,6 +7,7 @@
 .recharge .div-table {
 	display: table;
 	margin: 20px 0 0 0;
+    width: 95%
 }
 .recharge .div-tr {
 	display: table-row;
@@ -26,11 +27,19 @@
 .recharge .number-list,.btn-box {
 	width: 420px;
 }
-.recharge button.action {
-	background: #ca141d;
-	border: 1px solid #CA141D;
-	color: #fff;
+
+.recharge button.actiona {
+    background: #ca141d;
+    border: 1px solid #CA141D;
+    color: #fff;
+    margin-left: 50px;
 }
+    .recharge button.action {
+        background: #ca141d;
+        border: 1px solid #CA141D;
+        color: #fff;
+    }
+
 .recharge .btn-box .recharge-confirm {
 	width: 100px;
 	border: 1px solid #CA141D;
@@ -39,3 +48,10 @@
 	color: #fff;
 }
 
+.recharge .Shop {
+    float:left;
+}
+
+.recharge .Game {
+    float: right;
+}

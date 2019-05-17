@@ -13,6 +13,9 @@ namespace XM.WebVip.Controllers
         // GET: GameRecharge
         public ActionResult RechargePage()
         {
+            setMark();
+            ViewData["Remainder"] = Remainder;
+            ViewData["Integral"] = Integral;
             return View("_Recharge");
         }
 
@@ -21,18 +24,23 @@ namespace XM.WebVip.Controllers
         {
             string Money = Request["money"];
             string Code = Request["code"];
+            string Name = "充值游戏积分";
+            DateTime date = DateTime.Now;
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("vip_AN", AN);
 
             if (Code.Equals("2"))
             {
                 Money = "-" + Money;
+                Name = "提取游戏积分";
             }
-
-            Dictionary<string, object> dic = new Dictionary<string, object>();
-            dic.Add("vip_AN", AN);
-            decimal remainder = DALUtility.Xm.CheckRamainder(dic);
-            if(remainder < decimal.Parse(Money))
+            else
             {
-                return OperationReturn(false,"余额不足,请充值后再试!");
+                decimal remainder = DALUtility.Xm.CheckRamainder(dic);
+                if (remainder < decimal.Parse(Request["money"]))
+                {
+                    return OperationReturn(false, "余额不足,请充值后再试!");
+                }
             }
 
             string code = Guid.NewGuid().ToString();
@@ -53,23 +61,14 @@ namespace XM.WebVip.Controllers
 
                 if (!result.Contains("1"))
                 {
-                    dic.Add("money", Request["money"]);
-                    if (Code.Equals("1"))
-                    {
-                        if (DALUtility.Xm.GameRecharge(dic) > 0)
-                        {
-                            boo = true;
-                            str = "充值成功";
-                        }
-                    }
-                    else
-                    {
-                        if (DALUtility.Xm.ShopRecharge(dic) > 0)
-                        {
-                            boo = true;
-                            str = "反充值成功";
-                        }
-                    }
+                    dic.Add("code", Code);
+                    dic.Add("recharge_name", Name);
+                    dic.Add("recharge_price", Request["money"]);
+                    dic.Add("recharge_time", date);
+                    dic.Add("agent_id", Agent_ID);
+                    dic.Add("vip_id", ID);
+                    int iCheck = DALUtility.Xm.GameRecharge(dic);
+                    return OperationReturn(true, iCheck == 1 ? "充值成功" : "提现成功");
                 }
             }
             return OperationReturn(boo, str);

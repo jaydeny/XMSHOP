@@ -27,6 +27,7 @@
                         <li role="presentation" class=""><a href="/Home/UpdatePwdPage">修改密码</a></li>
                         <li role="presentation" class=""><a href="/vipinfo/AddressPage" class="dividing-line">地址管理</a></li>
                         <li role="presentation" class=""><a href="/GameRecharge/RechargePage" class="dividing-line">游戏积分兑换</a></li>
+                        <li role="presentation" class=""><a href="/GameRecord/RecordPage" class="dividing-line">游戏记录查询</a></li>
                     </ul>
                 </div>
                 <div class="vipinfo-form col-lg-10">
@@ -41,8 +42,20 @@
                             <li>
                                 <div class="balance">
                                     <p class="balance-number" id="Remainder">@ViewData["Remainder"]</p>
-                                    <p class="title">余额</p>
-                                    <a id="go-top-up">去充值</a>
+                                    <p class="title">商城/积分</p>
+                                    <a id="go-top-up">去充值积分</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="balance">
+                                    <p class="balance-number" id="GameCredit">@ViewData["GameCredit"]</p>
+                                    <p class="title">游戏/积分</p>
+                                    <a id="go-top-up">去充值积分</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="balance">
+                                    <a id="load">加载</a>
                                 </div>
                             </li>
 

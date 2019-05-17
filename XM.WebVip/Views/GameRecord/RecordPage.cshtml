@@ -1,0 +1,40 @@
+﻿
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <title>游戏记录</title>
+    <link rel="stylesheet" href="~/Content/CSS/vipinfo.css" />
+</head>
+
+<body>
+    <div class="info-body">
+        <h3>
+            游戏记录
+            <a class="select_order">
+                记录汇总
+            </a>
+        </h3>
+        开始时间:<input type="week" id="StartDate" />
+        结束时间:<input type="week" id="EndDate" />
+        游戏名:<input type="text" id="GameName" />
+        <div>
+            <div class="order-list">
+                <p class="empty-order hidden" id="empty_order">当前无近期订单，前往<a href="/GameHome/Login">游戏</a></p>
+                <ul class="" id="order_box">
+                    <li>
+                        <div class="flex-1">游戏名</div>
+                        <div class="flex-1">收益</div>
+                        <div class="flex-2">时间</div>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h3>总计:<p id="total"></p></h3>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

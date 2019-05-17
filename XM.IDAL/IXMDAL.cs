@@ -31,14 +31,6 @@ namespace XM.IDAL
         /// 功能：如果余额足够,就进行充值
         /// </summary>
         int GameRecharge(Dictionary<string, object> paras);
-
-
-        /// <summary>
-        /// 作者：曾贤鑫
-        /// 创建时间:2019-5-14
-        /// 修改时间：2019-
-        /// 功能：反充值
-        /// </summary>
-        int ShopRecharge(Dictionary<string, object> paras);
+        
     }
 }

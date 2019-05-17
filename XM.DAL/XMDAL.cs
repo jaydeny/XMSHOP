@@ -38,18 +38,7 @@ namespace XM.DAL
         /// </summary>
         public int GameRecharge(Dictionary<string, object> paras)
         {
-            return Execute("update tbremainder set remainder = remainder - @money where vip_AN = @vip_AN", paras, CommandType.Text);
-        }
-
-        /// <summary>
-        /// 作者：曾贤鑫
-        /// 创建时间:2019-5-14
-        /// 修改时间：2019-
-        /// 功能：反充值
-        /// </summary>
-        public int ShopRecharge(Dictionary<string, object> paras)
-        {
-            return Execute("update tbremainder set remainder = remainder + @money where vip_AN = @vip_AN", paras, CommandType.Text);
+            return QuerySingle<int>("P_game_Recharge", paras, CommandType.StoredProcedure);
         }
     }
 }
