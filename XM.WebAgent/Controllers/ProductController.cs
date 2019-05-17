@@ -71,10 +71,9 @@ namespace XM.WebAgent.Controllers
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
             param.Add("order", order);
-            //param.Add("status_id", 1);
             param.Add("goods_Name", Request["goods_name"]);
-            param.Add("status_id", 1);
-            param.Add("agent_AN", Session["Agent_AN"] != null ? Session["Agent_AN"].ToString() : "agent");
+            param.Add("status_id", 3);
+            param.Add("agent_AN", Session["Agent_AN"] != null ? Session["Agent_AN"].ToString() : "agent0");
 
             string result = DALUtility.Agent.QryAgoods(param, out int ICount);
             return Content(result);

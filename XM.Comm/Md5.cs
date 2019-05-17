@@ -26,5 +26,17 @@ namespace XM.Comm
             return builder.ToString();
         }
 
+        public static string GetMd5(string str)
+        {
+            MD5 ms_MD5Object = MD5.Create();
+            byte[] data = ms_MD5Object.ComputeHash(Encoding.UTF8.GetBytes(str));
+            StringBuilder sBuilder = new StringBuilder();
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+            return sBuilder.ToString();
+        }
     }
 }

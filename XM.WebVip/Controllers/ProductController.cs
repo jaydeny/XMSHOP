@@ -33,7 +33,7 @@ namespace XM.WebVip.Controllers
             param.Add("sort", sort);
             param.Add("goods_Name", Request["goods_Name"]);
             param.Add("status_id", 3);
-            param.Add("agent_AN", Session["agent_AN"] != null ? Session["agent_AN"].ToString() : "agent0");
+            param.Add("agent_AN", Session["Agent_Acc"] != null ? Session["Agent_Acc"].ToString() : "agent0");
 
             string result = DALUtility.Agent.QryAgoods(param, out int ICount);
             return Content(result);
@@ -101,9 +101,9 @@ namespace XM.WebVip.Controllers
             param.Add("pi", pageindex);
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
-            param.Add("agent_AN", Session["Agent_AN"] != null ? Session["Agent_AN"].ToString() : "agent");
+            param.Add("agent_AN", Session["Agent_Acc"] != null ? Session["Agent_Acc"].ToString() : "agent0");
 
-            string result = DALUtility.Agent.QryAgoods(param, out int ICount);
+                string result = DALUtility.Agent.QryAgoods(param, out int ICount);
             return Content(result);
         }
 
@@ -125,7 +125,7 @@ namespace XM.WebVip.Controllers
             param.Add("pi", pageindex);
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
-            param.Add("agent_AN", Session["Agent_AN"] != null ? Session["Agent_AN"].ToString() : "agent");
+            param.Add("agent_AN", Session["Agent_Acc"] != null ? Session["Agent_Acc"].ToString() : "agent0");
 
             string result = DALUtility.Agent.QryAgoods(param, out int ICount);
             return Content(result);
