@@ -132,6 +132,7 @@
     <Compile Include="Controllers\AgentInfoController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FormController.cs" />
+    <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\VIPController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -218,6 +219,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Game\" />
     <Folder Include="Views\VIP\" />
   </ItemGroup>
   <ItemGroup>
