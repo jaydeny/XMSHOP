@@ -41,7 +41,10 @@ namespace XM.Web.Controllers
 
             return Content(DALUtility.Agent.QryDayTotals(param));
         }
-
+        public ActionResult GetInfoForm()
+        {
+            return View();
+        }
         /// <summary>
         /// 查询日期内的记录
         /// </summary>
@@ -58,11 +61,14 @@ namespace XM.Web.Controllers
             param.Add("day", Request["day"]);
             param.Add("vip_AN", Request["vip_AN"]);
             //param.Add("agent_AN", Session["agent_AN"].ToString());
-            param.Add("agent_AN", Request["agent_AN"]);
+            param.Add("agent_AN", Request["agent_AN"] == null ? "" : Request["agent_AN"]);
 
             return Content(DALUtility.Agent.QryDayForms(param, out int iCount));
         }
-
+        public ActionResult GetOrderForm()
+        {
+            return View("_Form");
+        }
         /// <summary>
         /// 功能:查询每一笔订单的详细详细
         /// </summary>
@@ -75,7 +81,7 @@ namespace XM.Web.Controllers
             param.Add("sort", Request["sort"] == null ? "id" : Request["sort"]);
             param.Add("order", Request["order"] == null ? "asc" : Request["order"]);
 
-            param.Add("order_id", Request["order_id"]);
+            param.Add("id", Request["id"]);
 
             return Content(DALUtility.Agent.QryDetailOrder(param));
         }
@@ -92,23 +98,9 @@ namespace XM.Web.Controllers
         /// </summary>
         public ActionResult QryDayRechargeTotal()
         {
-            //int monthDay = DateTime.DaysInMonth(int.Parse(Request["year"]), int.Parse(Request["month"]));
-
-            //string startDay = new DateTime(int.Parse(Request["year"]), int.Parse(Request["month"]), 1).Day.ToString();
-            //string endDay = new DateTime(int.Parse(Request["year"]), int.Parse(Request["month"]), monthDay).Day.ToString();
-
-
-            //Dictionary<string, object> param = new Dictionary<string, object>();
-            //param.Add("year", Request["year"] == null ? DateTime.Now.Year.ToString() : Request["year"]);
-            //param.Add("month", Request["month"] == null ? DateTime.Now.Month.ToString() : Request["month"]);
-            //param.Add("startDay", Request["startDay"] == null ? startDay : Request["startDay"]);
-            //param.Add("endDay", Request["endDay"] == null ? endDay : Request["endDay"]);
-            ////param.Add("agent_id", Session["agent_ID"].ToString());
-            //param.Add("agent_id", Request["agent_id"]);
             string year = Request["year"];
             string startMonth = Request["startMonth"];
             string endMonth = Request["endMonth"];
-            int iCount;
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("pi", Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]));
             param.Add("pageSize", Request["rows"] == null ? 20 : Convert.ToInt32(Request["rows"]));
@@ -126,6 +118,10 @@ namespace XM.Web.Controllers
             return Content(DALUtility.Agent.QryDayRechargeTotal(param));
         }
 
+        public ActionResult DayRevenueForm()
+        {
+            return View();
+        }
         /// <summary>
         /// 作者:曾贤鑫
         /// 日期:2019/4/26

@@ -448,8 +448,8 @@ namespace XM.DAL
             builder.Append("select ");
             builder.Append("a.id,a.order_date,a.vip_AN,a.order_mp,a.order_total,b.address_name,c.goods_id,c.buy_count,c.buy_total,d.goods_name,d.goods_intro ");
             builder.Append("from ");
-            builder.Append("tborder a join tbaddress b on a.order_address = b.id join tbbuy c on a.id = c.order_id join tbgoods d on c.goods_id = d.id ");
-            builder.Append("where order_id = @order_id ");
+            builder.Append("tborder a join tbaddress b on a.order_address = b.id join tbbuy c on a.id = c.id join tbgoods d on c.goods_id = d.id ");
+            builder.Append("where a.id = @id ");
 
             var s = Query(builder.ToString(), paras);
 
@@ -480,11 +480,13 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString(),
                 SortDirection = paras["order"].ToString()
             };
+            int pageSize = Convert.ToInt32(paras["pageSize"]);
+            int page = Convert.ToInt32(paras["pi"]);
             builder.AddWhereAndParameter(paras, "day", "convert(varchar(10),OrderDate, 120)");
-            builder.AddWhereAndParameter(paras, "AgentAccountName", "LIKE", "'%'+@agent_AN+'%'");
+            builder.AddWhereAndParameter(paras, "agent_AN","AgentAccountName", "LIKE", "'%'+@agent_AN+'%'");
             builder.AddWhereAndParameter(paras, "VipAccountName", "LIKE", "'%'+@vip_AN+'%'");
             var s = SortAndPage(builder, grid, out iCount);
-            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
+            string retData = JsonConvert.SerializeObject(new { total = (int)Math.Ceiling((double)iCount / pageSize), rows = s, page = page });
             return retData;
         }
         public string QryDetailOrders(Dictionary<string, object> paras, out int iCount)
@@ -549,11 +551,13 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString(),
                 SortDirection = paras["order"].ToString()
             };
+            int pageSize = Convert.ToInt32(paras["pageSize"]);
+            int page = Convert.ToInt32(paras["pi"]);
             builder.AddWhereAndParameter(paras, "day", "convert(varchar(10),recharge_time, 120)", "like", "@day+'%'");
             builder.AddWhereAndParameter(paras, "agent_id");
             builder.AddWhereAndParameter(paras, "vip_id");
             var s = SortAndPage(builder, grid, out iCount);
-            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
+            string retData = JsonConvert.SerializeObject(new { total = (int)Math.Ceiling((double)iCount / pageSize), rows = s ,page = page});
             return retData;
         }
         #endregion

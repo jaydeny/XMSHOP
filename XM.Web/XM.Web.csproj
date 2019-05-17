@@ -352,7 +352,11 @@
     <Content Include="Scripts\backEnd\Home.js" />
     <Content Include="Scripts\backEnd\Menu%40Form.js" />
     <Content Include="Scripts\backEnd\Menu%40Index.js" />
+    <Content Include="Scripts\backEnd\Revenue%40DayRecharge.js" />
+    <Content Include="Scripts\backEnd\Revenue%40Form.js" />
+    <Content Include="Scripts\backEnd\Revenue%40GetInfo.js" />
     <Content Include="Scripts\backEnd\Revenue%40Recharge.js" />
+    <Content Include="Scripts\backEnd\Revenue%40Report.js" />
     <Content Include="Scripts\backEnd\Role%40Form.js" />
     <Content Include="Scripts\backEnd\Role%40Index.js" />
     <Content Include="Scripts\backEnd\User%40BackPwd.js" />
@@ -446,6 +450,12 @@
     <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Views\Menu\_Form.cshtml" />
     <Content Include="Views\Revenue\RechargeForm.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Revenue\DayRevenueForm.cshtml" />
+    <Content Include="Views\Revenue\ReportForm.cshtml" />
+    <Content Include="Views\Revenue\GetInfoForm.cshtml" />
+    <Content Include="Views\Revenue\_Form.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

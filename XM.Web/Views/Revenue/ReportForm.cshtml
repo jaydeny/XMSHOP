@@ -4,10 +4,11 @@
 }
 
 <!DOCTYPE html>
+
 <html>
 <head>
     <title></title>
-    <script src="~/Scripts/backEnd/Revenue@Recharge.js"></script>
+    <script src="~/Scripts/backEnd/Revenue@Report.js"></script>
 </head>
 <body>
     <div id="QryDayTotal">
@@ -32,6 +33,18 @@
                                 </span>
                             </div>
                         </td>
+                        <td style="padding-left:30px;">
+                            <div class="input-group">
+                                <input id="txt_search" type="text" placeholder="请输入代理商账号" class="form-control" style="width: 150px;">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button id="btn_search_agent" type="button" class="btn  btn-primary"><i class="fa fa-search"></i></button>
+                                </span>
+                            </div>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -42,4 +55,3 @@
     </div>
 </body>
 </html>
-
