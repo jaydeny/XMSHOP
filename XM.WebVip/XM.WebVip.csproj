@@ -132,6 +132,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\GameHomeController.cs" />
     <Compile Include="Controllers\GameRechargeController.cs" />
+    <Compile Include="Controllers\GameRecordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
@@ -245,6 +246,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\GameRecharge\_Recharge.cshtml" />
     <Content Include="web.config" />
+    <Content Include="Views\GameRecord\RecordPage.cshtml" />
+    <Content Include="Views\GameRecord\DetailPage.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
