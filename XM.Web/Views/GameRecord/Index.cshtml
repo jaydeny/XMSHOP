@@ -63,6 +63,20 @@
         </div>
         <div class="gridPanel">
             <table id="gridList" cellspacing="0" cellpadding="0" style="font-size:15px; border-bottom:dashed 1px"></table>
+            <div id="gridPager">
+                <input id="prev" type="button" value="上一页" />
+                <input id="pageNav" type="text" size="5px" />
+                <input id="npage" type="button" value="确定" />
+                <input id="next" type="button" value="下一页">
+                共<input id="pageSum" type="text" readonly="readonly" size="5px" />页
+                每页
+                <select id="pageSize">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                </select>
+                条
+            </div>
         </div>
     </div>
 </body>
