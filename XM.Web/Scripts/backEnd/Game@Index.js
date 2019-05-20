@@ -21,8 +21,12 @@ function gridList() {
         dataType: "json",
         success: function (data) {
             if (data.errorMsg == null) {
-                $("#gridList").html("");
-                dynamicTab(data);
+                if (data.result.total == 0) {
+                    alert("系统繁忙，请稍后重试！");
+                } else {
+                    $("#gridList").html("");
+                    dynamicTab(data);
+                }
             }
             else {
                 alert(data.errorMsg);
@@ -49,12 +53,16 @@ function gridList() {
                 },
                 dataType: "json",
                 success: function (data) {
-                    if (data.result != null) {
-                        $("#gridList").html("");
-                        dynamicTab(data);
+                    if (data.errorMsg == null) {
+                        if (data.result.total == 0) {
+                            alert("没有查询到数据");
+                        } else {
+                            $("#gridList").html("");
+                            dynamicTab(data);
+                        }
                     }
                     else {
-                        alert("没有查询到数据！");
+                        alert(data.errorMsg);
                     }
                 }
             });
@@ -80,12 +88,16 @@ function gridList() {
                 },
                 dataType: "json",
                 success: function (data) {
-                    if (data.result != null) {
-                        $("#gridList").html("");
-                        dynamicTab(data);
+                    if (data.errorMsg == null) {
+                        if (data.result.total == 0) {
+                            alert("没有查询到数据");
+                        } else {
+                            $("#gridList").html("");
+                            dynamicTab(data);
+                        }
                     }
                     else {
-                        alert("没有查询到数据");
+                        alert(data.errorMsg);
                     }
                     $("#txt_search_agent").val("");
                 }
@@ -113,12 +125,16 @@ function gridList() {
                 },
                 dataType: "json",
                 success: function (data) {
-                    if (data.result != null) {
-                        $("#gridList").html("");
-                        dynamicTab(data);
+                    if (data.errorMsg == null) {
+                        if (data.result.total == 0) {
+                            alert("没有查询到数据");
+                        } else {
+                            $("#gridList").html("");
+                            dynamicTab(data);
+                        }
                     }
                     else {
-                        alert("没有查询到数据");
+                        alert(data.errorMsg);
                     }
                     $("#txt_search_vip").val("");
                 }
