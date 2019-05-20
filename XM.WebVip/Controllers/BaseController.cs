@@ -3,17 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using XM.Comm;
 using XM.DALFactory;
 using XM.Model;
 
-namespace XM.Web.Controllers
+namespace XM.WebVIP.Controllers
 {
     public class BaseController : Controller
     {

@@ -492,6 +492,10 @@
       <Project>{a67eb676-d000-4e12-9e1b-d4f178ec497c}</Project>
       <Name>XM.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\XM.WebVip\XM.WebVip.csproj">
+      <Project>{91e5e04e-3dc3-4eff-9241-80890fa86457}</Project>
+      <Name>XM.WebVip</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
