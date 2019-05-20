@@ -269,10 +269,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Framework.MongoDB\Framework.MongoDB.csproj">
-      <Project>{64C0579A-CF14-47ED-9700-76014528262F}</Project>
-      <Name>Framework.MongoDB</Name>
-    </ProjectReference>
     <ProjectReference Include="..\XM.Comm\XM.Comm.csproj">
       <Project>{bd869537-bdc8-4ccf-9c9e-da217dcd52e6}</Project>
       <Name>XM.Comm</Name>

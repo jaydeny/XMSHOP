@@ -1,5 +1,4 @@
-﻿using FrameWork.MongoDB.MongoDbConfig;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +11,7 @@ namespace XM.Model
     /// 创建时间：2019/04/22
     /// 会员类
     /// </summary>
-    public class VipEntity : MongoEntity
+    public class VipEntity
     {
         /// <summary>
         /// 会员编号

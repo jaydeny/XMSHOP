@@ -1,5 +1,4 @@
-﻿using FrameWork.MongoDB;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -54,22 +53,7 @@ namespace XM.Web.Controllers
             return JsonConvert.SerializeObject(new { action = _action, key = _key, paras = _paras, culture = _culture });
 
         }
-
-        public void log(string Operator, string Method, string boo, string reason)
-        {
-            var dbService = new MongoDbService();
-
-            var id = Guid.NewGuid().ToString();
-            dbService.Add(new LogEntity
-            {
-                _id = id,
-                Operator = Operator,
-                Method = Method,
-                boo = boo,
-                reason = reason,
-                Time = DateTime.Now
-            });
-        } 
+        
 
         /// <summary>
         /// 功能:记录会员端的信息
