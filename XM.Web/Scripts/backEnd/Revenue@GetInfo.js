@@ -47,7 +47,7 @@ function Form() {
         var keyValue = $("#qryDayList").jqGridRowValue().OrderID;
         $.modalOpen({
             id: "Form",
-            title: "修改用户",
+            title: "订单详情",
             url: "/Revenue/GetOrderForm?keyValue=" + keyValue,
             width: "430px",
             height: "550px"

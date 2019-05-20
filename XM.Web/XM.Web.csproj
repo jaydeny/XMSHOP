@@ -345,6 +345,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\backEnd\Agent%40Index.js" />
     <Content Include="Scripts\backEnd\Agent%40Form.js" />
+    <Content Include="Scripts\backEnd\Game%40Index.js" />
     <Content Include="Scripts\backEnd\Goods%40Index.js" />
     <Content Include="Scripts\backEnd\Goods%40Form.js" />
     <Content Include="Scripts\backEnd\GoodsType%40Form.js" />
@@ -396,6 +397,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\GameRecordController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Domain\CommonData.cs" />
     <Compile Include="Domain\CustomsAttribute.cs" />
@@ -456,6 +458,7 @@
     <Content Include="Views\Revenue\ReportForm.cshtml" />
     <Content Include="Views\Revenue\GetInfoForm.cshtml" />
     <Content Include="Views\Revenue\_Form.cshtml" />
+    <Content Include="Views\GameRecord\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
