@@ -5,7 +5,7 @@
 function gridList() {
     var $gridList = $("#gridList");
     var now = new Date();
-    var startday = ("0" + (now.getDate() - 7)).slice(-2);
+    var startday = "01";
     var endday = ("0" + now.getDate()).slice(-2);
     var month = ("0" + (now.getMonth() + 1)).slice(-2);
     var start = now.getFullYear() + "-" + (month) + "-" + (startday);
@@ -13,13 +13,12 @@ function gridList() {
     $("#date_start").val(start);
     $("#date_end").val(end);
     $gridList.dataGrid({
-        url: "/Revenue/QryDayRechargeTotal",
+        url: "/Revenue/QryDayTotal",
         height: $(window).height() - 178,
         rowNum: 20,
         rowList: [10, 20, 30, 40, 50],
-        sortorder: "desc",
         colModel: [
-            { label: '日期', name: 'date', width: 180, align: 'left' },
+            { label: '日期', name: 'date', width: 180, align: 'left',},
             { label: '营收(/元)	', name: 'total', width: 200, align: 'left' }
         ]
     });
@@ -42,10 +41,25 @@ function gridList() {
             }).trigger('reloadGrid');
         }
     });
-    $gridList.click(function () {
-        var keyValue = $("#gridList").jqGridRowValue().date;
-        window.location.href = "/Revenue/DayRevenueForm?" + "keyValue=" + encodeURI(keyValue);
+    $("#btn_search_agent").click(function () {
+            $gridList.jqGrid('setGridParam', {
+                postData: {
+                    agent_AN: $("#txt_search").val()
+                }
+            }).trigger('reloadGrid');
     });
-    
+    $gridList.click(function () {
+        if ($("#txt_search").val()!= null && $("#txt_search").val() != "") {
+            var keyValue = $("#gridList").jqGridRowValue().date;
+            var agent = $("#txt_search").val();
+            // window.location.href = "/Revenue/GetInfoForm?" + "keyValue=" + keyValue + "&agent=" + encodeURI(agent);
+            window.location.href = "/Revenue/GetInfoForm?keyValue=" + keyValue + "&agent=" + agent;
+        } else {
+            var keyValue = $("#gridList").jqGridRowValue().date;
+            window.location.href = "/Revenue/GetInfoForm?" + "keyValue=" + encodeURI(keyValue);
+        }
+        
+    });
+
 }
 
