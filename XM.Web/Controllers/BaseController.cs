@@ -1,5 +1,4 @@
-﻿using FrameWork.MongoDB;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,23 +52,6 @@ namespace XM.Web.Controllers
         {
             return Content(JsonConvert.SerializeObject(new { msg = _msg != "" ? _msg : (_success ? "操作成功" : "操作失败"), success = _success }));
 
-        }
-        #endregion
-        #region  日志方法（弃用）
-        public void log(string Operator, string Method, string boo, string reason)
-        {
-            var dbService = new MongoDbService();
-
-            var id = Guid.NewGuid().ToString();
-            dbService.Add(new LogEntity
-            {
-                _id = id,
-                Operator = Operator,
-                Method = Method,
-                boo = boo,
-                reason = reason,
-                Time = DateTime.Now
-            });
         }
         #endregion
     }

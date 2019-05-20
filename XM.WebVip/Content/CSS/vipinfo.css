@@ -164,3 +164,50 @@
 	color: #9c9c9c;
 }
 
+
+.Record-list {
+    min-height: 220px;
+    position: relative;
+}
+
+    .Record-list ul {
+        margin: 10px 0 0 40px;
+    }
+
+    .Record-list li + li {
+        border-bottom: 1px solid #f6f6f6;
+    }
+
+    .Record-list li {
+        display: flex;
+        margin: 10px 0;
+    }
+
+    .Record-list .flex-1 {
+        flex: 1;
+        text-align: center;
+    }
+
+.Detail-list {
+    min-height: 220px;
+    position: relative;
+}
+
+    .Detail-list ul {
+        margin: 10px 0 0 40px;
+    }
+
+    .Detail-list li + li {
+        border-bottom: 1px solid #f6f6f6;
+    }
+
+    .Detail-list li {
+        display: flex;
+        margin: 10px 0;
+    }
+
+    .Detail-list .flex-1 {
+        flex: 1;
+        text-align: center;
+    }
+

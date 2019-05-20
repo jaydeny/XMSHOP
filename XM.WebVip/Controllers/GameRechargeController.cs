@@ -51,7 +51,7 @@ namespace XM.WebVip.Controllers
 
             string param = GameReturn("EditCredit", strKey, paras);
 
-            var result = Post("http://172.16.31.232:9678/take", param);
+            var result = HttpPost("http://172.16.31.232:9678/take", param);
 
             bool boo = false;
             string str = "充值失败";
@@ -82,7 +82,7 @@ namespace XM.WebVip.Controllers
 
             string param = GameReturnS("EditCreditConfirm", strKey, paras);
 
-            var result = Post("http://172.16.31.232:9678/take", param);
+            var result = HttpPost("http://172.16.31.232:9678/take", param);
             return result;
         }
     }
