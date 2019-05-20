@@ -48,6 +48,13 @@ namespace XM.Web.Controllers
             return JsonConvert.SerializeObject(new { action = _action, key = _key, paras = _paras, culture = _culture });
 
         }
+
+        protected ContentResult ReturnGame(string _errorCode, string _errorMsg, object _result)
+        {
+            return Content(JsonConvert.SerializeObject(new { errorCode = _errorCode, errorMsg = _errorMsg, result = _result }));
+
+        }
+
         protected static string GameReturnS(string _action, string _key, string[] _paras, string _culture = "zh-cn")
         {
             return JsonConvert.SerializeObject(new { action = _action, key = _key, paras = _paras, culture = _culture });
@@ -63,7 +70,6 @@ namespace XM.Web.Controllers
         public string ID { get { return Session["id"].ToString(); } }
         public decimal Remainder { get { return decimal.Parse(Session["Remainder"].ToString()); } }
 
-        public static string Integral;
 
         /// <summary>
         /// 记录代理的信息
@@ -71,10 +77,13 @@ namespace XM.Web.Controllers
         public string Agent_ID { get { return Session["Agent_ID"].ToString(); } }
         public string Agent_Acc { get { return Session["Agent_Acc"].ToString(); } }
 
-        public static Dictionary<VipEntity, string> SSOVip = new Dictionary<VipEntity, string>();
-
+        //游戏相关
         public static string KEY = "c33e90a9-0714-48ee-89cc-8be9aff00710";
+        public static string Integral;
 
+        //单一登录的dic
+        public static Dictionary<VipEntity, string> SSOVip = new Dictionary<VipEntity, string>();
+        
         /// <summary>
         /// 在重写的Initialize方法(继承Controller的基类中)中不断的注册SessionId：
         /// </summary>
@@ -84,8 +93,7 @@ namespace XM.Web.Controllers
             base.Initialize(requestContext);
             Session["SessionId"] = Session.SessionID;
         }
-
-
+        
         /// <summary>
         /// 指定Post地址使用Get 方式获取全部字符串
         /// </summary>
@@ -166,35 +174,10 @@ namespace XM.Web.Controllers
 
             return string.Empty;
         }
-
-
-        public static string Post(string url, string dic)
-        {
-            string result = "";
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
-            req.Method = "POST";
-            req.ContentType = "application/json";
-            #region 添加Post 参数
-            string param = dic;
-
-            byte[] data = Encoding.UTF8.GetBytes(param);
-            req.ContentLength = data.Length;
-            using (Stream reqStream = req.GetRequestStream())
-            {
-                reqStream.Write(data, 0, data.Length);
-                reqStream.Close();
-            }
-            #endregion
-            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-            Stream stream = resp.GetResponseStream();
-            //获取响应内容
-            using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
-            {
-                result = reader.ReadToEnd();
-            }
-            return result;
-        }
-
+        
+        /// <summary>
+        /// 功能:刷新积分
+        /// </summary>
         public void setMark()
         {
             string[] paras = { AN };
@@ -227,4 +210,28 @@ namespace XM.Web.Controllers
         public string errorMsg { get; set; } = "";
         public object result { get; set; }
     }
+
+    public class result
+    {
+        public string ID { get; set; } = "";
+        public string Name { get; set; } = "";
+        public object Integral { get; set; }
+    }
+
+    public class result1
+    {
+        public string pageNum { get; set; } = "";
+        public string total { get; set; } = "";
+        public string pageSum { get; set; } = "";
+        public List<object> data { get; set; }
+    }
+
+    public class result2
+    {
+        public string AccountName { get; set; }
+        public object Integral { get; set; }
+        public string Time { get; set; }
+        public string Name { get; set; }
+    }
+
 }

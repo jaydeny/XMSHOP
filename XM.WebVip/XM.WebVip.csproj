@@ -204,6 +204,7 @@
     <Content Include="img\slide_5.jpg" />
     <Content Include="img\slide_6.jpg" />
     <Content Include="Scripts\Game\game%40Recharge.js" />
+    <Content Include="Scripts\Game\game%40RecordPage.js" />
     <Content Include="Scripts\jquery-3.4.0.js" />
     <Content Include="Scripts\jquery-3.4.0.min.js" />
     <Content Include="Scripts\jquery.md5.js" />

@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XM.WebVip", "XM.WebVip\XM.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SHOP.TEST", "SHOP.TEST\SHOP.TEST.csproj", "{0634E671-C2D2-4D39-8DB0-4FC387E20945}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XM.MongoDB", "XM.MongoDB\XM.MongoDB.csproj", "{153DF1AC-444D-4E37-97AD-2C4903E06B74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{0634E671-C2D2-4D39-8DB0-4FC387E20945}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0634E671-C2D2-4D39-8DB0-4FC387E20945}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0634E671-C2D2-4D39-8DB0-4FC387E20945}.Release|Any CPU.Build.0 = Release|Any CPU
+		{153DF1AC-444D-4E37-97AD-2C4903E06B74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{153DF1AC-444D-4E37-97AD-2C4903E06B74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{153DF1AC-444D-4E37-97AD-2C4903E06B74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{153DF1AC-444D-4E37-97AD-2C4903E06B74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
