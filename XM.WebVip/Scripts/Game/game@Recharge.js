@@ -2,7 +2,8 @@
 var code = "1";
 var left = "glyphicon-arrow-left";
 var right = "glyphicon-arrow-right";
-$("#point").click(function () {
+
+$(".vipinfo-form").on("click", "#point", function () {
     if ($("#point").hasClass(left)) {
         $("#point").removeClass(left);
         $("#point").addClass(right);
@@ -14,8 +15,7 @@ $("#point").click(function () {
     }
 });
 
-
-$("#RechargeToGame").click(function () {
+$(".vipinfo-form").on("click", "#RechargeToGame", function () {
     $.ajax({
         url: "/GameRecharge/Recharge",
         type: "post",
@@ -27,3 +27,4 @@ $("#RechargeToGame").click(function () {
         }
     })
 });
+
