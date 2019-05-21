@@ -7,29 +7,31 @@
 <head>
     <title>游戏记录详情</title>
     <link rel="stylesheet" href="~/Content/CSS/vipinfo.css" />
+    <script src="~/Scripts/Game/game@RecordPage.js"></script>
 </head>
 
 <body>
     <div class="info-body">
         <h3>
             游戏记录
-            <a class="select_order">
-                记录汇总
+            <a id="back" href="#">
+                返回
             </a>
         </h3>
         <div>
-            <div class="order-list">
-                <p class="empty-order hidden" id="empty_order">当前无近期订单，前往<a href="/GameHome/Login">游戏</a></p>
+            <div class="Detail-list">
                 <ul class="" id="order_box">
                     <li>
-                        <div class="flex-1">游戏名</div>
+                        <div class="flex-1">用户名</div>
                         <div class="flex-1">收益</div>
-                        <div class="flex-2">时间</div>
+                        <div class="flex-1">时间</div>
+                        <div class="flex-1">游戏</div>
                     </li>
                 </ul>
             </div>
-            <div>
-                <h3>总计:<p id="total"></p></h3>
+            @*分页*@
+            <div id="paging-box">
+                <ul class="pagination"></ul>
             </div>
         </div>
     </div>

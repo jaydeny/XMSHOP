@@ -472,10 +472,6 @@
     <Folder Include="Views\JuriMenu\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Framework.MongoDB\Framework.MongoDB.csproj">
-      <Project>{64C0579A-CF14-47ED-9700-76014528262F}</Project>
-      <Name>Framework.MongoDB</Name>
-    </ProjectReference>
     <ProjectReference Include="..\XM.Comm\XM.Comm.csproj">
       <Project>{bd869537-bdc8-4ccf-9c9e-da217dcd52e6}</Project>
       <Name>XM.Comm</Name>
@@ -496,10 +492,17 @@
       <Project>{a67eb676-d000-4e12-9e1b-d4f178ec497c}</Project>
       <Name>XM.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\XM.WebVip\XM.WebVip.csproj">
+      <Project>{91e5e04e-3dc3-4eff-9241-80890fa86457}</Project>
+      <Name>XM.WebVip</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
@@ -518,6 +521,9 @@
           <CustomServerUrl>
           </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <servers defaultServer="SelfHostServer">
+            <server name="SelfHostServer" exePath="" cmdArgs="" url="http://localhost:51416/" workingDir="" />
+          </servers>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
