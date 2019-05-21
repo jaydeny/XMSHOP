@@ -37,7 +37,7 @@ namespace XM.Web.Controllers
         {
             string id = Request["id"];
             long iCheck = DALUtility.MDbS.Delete<NoticEntity>("XMShop", "notic", x => x._id == id);
-            if (iCheck > 0)
+            if (iCheck == 0)
             {
                 return OperationReturn(false, "删除公告失败!");
             }

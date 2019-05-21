@@ -9,6 +9,7 @@
                 data: { id },
                 success: function (data) {
                     var e = JSON.parse(data);
+                    console.log(e);
                     if (e.success) {
                         alert(e.msg)
                     }
@@ -20,22 +21,45 @@
 })
 
 function gridList() {
-    $.ajax({
+    var $gridList = $("#gridList");
+    $gridList.dataGrid({
         url: "/NoticManager/Manager",
-        data: {
-            page: "1",
-            rows: $("#pageSize option:first").val(),
-            title: $("#txt_search_title").val(),
-            receiver: $("#txt_search_receiver").val()
-        },
-        dataType: "json",
-        success: function (data) {
-            $("#pageNav").val(data.page);
-            $("#pageSum").val(data.total);
-            $("#gridList").empty();
-            dynamicTab(data.rows);
-        }
+        height: $(window).height() - 178,
+        colModel: [
+            { label: '标题', name: 'title', width: 100, align: 'center'},
+            { label: '内容', name: 'content', width: 240, align: 'center' },
+            { label: '开始时间', name: 'starttime', width: 160, align: 'center' },
+            { label: '结束时间', name: 'endtime', width: 160, align: 'center' },
+            { label: '发布人', name: 'publisher', width: 80, align: 'center' },
+            {
+                label: '操作', name: '_id', width: 160, align: 'center',
+                formatter: function (cellvalue, options, rowObject) {
+                    return '<button class="delete" data-val="' + cellvalue + '">删除</button>';
+                }
+            },
+        ],
+        rowNum: 20,
+        rowList: [10, 20, 30, 40, 50],
+        sortorder: "desc",
+        pager: "#gridPager"
     });
+
+    //$.ajax({
+    //    url: "/NoticManager/Manager",
+    //    data: {
+    //        page: "1",
+    //        rows: $("#pageSize option:first").val(),
+    //        title: $("#txt_search_title").val(),
+    //        receiver: $("#txt_search_receiver").val()
+    //    },
+    //    dataType: "json",
+    //    success: function (data) {
+    //        $("#pageNav").val(data.page);
+    //        $("#pageSum").val(data.total);
+    //        $("#gridList").empty();
+    //        dynamicTab(data.rows);
+    //    }
+    //});
 }
 
 function dynamicTab(data) {
