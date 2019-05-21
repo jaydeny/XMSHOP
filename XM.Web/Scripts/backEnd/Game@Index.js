@@ -11,15 +11,11 @@ function gridList() {
     var endtime = now.getFullYear() + "-" + (month) + "-" + (endday);
     $("#date_start").val(starttime);
     $("#date_end").val(endtime);
-    var pageNum;
+    var pageNum = 1;
     var pageSum;
     $.ajax({
         url: "/GameRecord/Record",
         type: "POST",
-        data: {
-            page: "1",
-            rows: $("#pageSize option:first").val()
-        },
         dataType: "json",
         success: function (data) {
             if (data.errorMsg == null) {
@@ -28,7 +24,6 @@ function gridList() {
                 }
                 else {
                     $("#pageNav").val(data.result.pageNum);
-                    pageNum = data.result.pageNum;
                     $("#pageSum").val(data.result.pageSum);
                     pageSum = data.result.pageSum;
                     $("#pageSize").val(data.result.pageSize);
@@ -41,53 +36,56 @@ function gridList() {
             }
         }
     });
-    $("#btn_search").click(function () {
-        searchClick();
-    });
-    $("#btn_search_agent").click(function () {
-        searchClick();
-    });
-    $("#btn_search_vip").click(function () {
-        searchClick();
+    //下一页
+    $("#next").click(function () {
+        if (pageNum < pageSum) {
+            pageNum += 1;
+            $("#pageNav").val(pageNum);
+            searchClick(pageNum);
+        }
+        else {
+            alert("已是最后一页！");
+        }
     });
     $("#prev").click(function () {
         if (pageNum > 1) {
             pageNum -= 1;
             $("#pageNav").val(pageNum);
+            searchClick(pageNum);
         }
         else {
             alert("已是第一页！");
         }
-        searchClick();
-    })
-    $("#next").click(function () {
-        if (pageNum < pageSum) {
-            pageNum += 1;
-            console.log(pageNum);
-            $("#pageNav").val(pageNum);
-        }
-        else {
-            alert("已是最后一页！");
-        }
-        searchClick();
-    })
+    });
     $("#npage").click(function () {
-        if (pageNum < 1 || pageNum >= pageSum) {
+        var pageNav = parseInt($("#pageNav").val());
+        if (pageNav < 1 || pageNav > pageSum) {
             alert("该页面不存在！");
         }
         else {
-            searchClick();
+            pageNum = pageNav;
+            searchClick(pageNum);
         }
-    })
+    });
     $("#pageSize").change(function () {
-        console.log($("#pageSize option:selected").val());
-        searchClick();
+        searchClick(pageNum);
     })
+    $("#btn_search").click(function () {
+        searchClick(pageNum);
+    });
+    $("#btn_search_agent").click(function () {
+        searchClick(pageNum);
+    });
+    $("#btn_search_vip").click(function () {
+        searchClick(pageNum);
+    });
 }
-function searchClick() {
+function searchClick(pageNum) {
     var start = new Date($("#date_start").val());
     var end = new Date($("#date_end").val());
     var time = (end - start) / (1000 * 60 * 60 * 24);
+    var pageSize = parseInt($("#pageSize option:selected").val());
+    var page = ((pageNum-1) * pageSize) + 1;
     if (time > 90) {
         alert("当前用户可以查阅三个月内的记录")
     }
@@ -95,22 +93,23 @@ function searchClick() {
         $.ajax({
             url: "/GameRecord/Record",
             type: "POST",
-            data: {
-                page: $("#pageNav").val(),
-                rows: $("#pageSize option:selected").val(),
-                starttime: start.getFullYear() + "-" + (start.getMonth() + 1) + "-" + start.getDate(),
-                endtime: end.getFullYear() + "-" + (end.getMonth() + 1) + "-" + end.getDate(),
-                agentAccount: $("#txt_search_agent").val() == "" ? null : $("#txt_search_agent").val(),
-                vipAccount: $("#txt_search_vip").val() == "" ? null : $("#txt_search_vip").val()
-            },
             dataType: "json",
+            data: {
+                page: page,
+                rows: $("#pageSize option:selected").val(),
+                vipAccount: $("#btn_search_vip").val(),
+                agentAccount: $("#btn_search_agent").val(),
+                starttime: start.getFullYear() + "-" + (start.getMonth() + 1) + "-" + start.getDate(),
+                endtime: end.getFullYear() + "-" + (end.getMonth() + 1) + "-" + end.getDate()
+        },
             success: function (data) {
                 if (data.errorMsg == null) {
                     if (data.result.total == 0) {
-                        alert("没有查询到数据");
-                    } else {
-                        $("#pageNav").val(data.result.pageNum);
+                        alert("系统繁忙，请稍后重试！");
+                    }
+                    else {
                         $("#pageSum").val(data.result.pageSum);
+                        pageSum = data.result.pageSum;
                         $("#pageSize").val(data.result.pageSize);
                         $("#gridList").empty();
                         dynamicTab(data);
@@ -119,13 +118,10 @@ function searchClick() {
                 else {
                     alert(data.errorMsg);
                 }
-                $("#txt_search_vip").val("");
-                $("#txt_search_agent").val("");
             }
         });
     }
 }
-
 function dynamicTab(data) {
     var $gridList = $("#gridList");
     var $tr = $("<tr style='background-color:#e5e2e2;'></tr>");
