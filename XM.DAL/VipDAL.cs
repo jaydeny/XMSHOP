@@ -319,16 +319,9 @@ namespace XM.DAL
         /// <typeparam name="T"></typeparam>
         /// <param name="paras"></param>
         /// <returns></returns>
-        public decimal QryVipInfo<T>(Dictionary<string, object> paras)
+        public T QryVipInfo<T>(Dictionary<string, object> paras)
         {
-            try
-            {
-                return QuerySingle<decimal>("SELECT remainder FROM tbremainder WHERE vip_AN=@vip_AN", paras, CommandType.Text);
-            }
-            catch
-            {
-                return 0;
-            }
+            return QuerySingle<T>("SELECT VipMobliePhone,VipEmail,Remainder FROM v_vip_remainder WHERE VipAccountName=@vip_AN", paras, CommandType.Text);
         }
 
         /// <summary>
@@ -384,11 +377,17 @@ namespace XM.DAL
         /// <returns></returns>
         public decimal QryRemainder(Dictionary<string, object> paras)
         {
-            return QuerySingle<decimal>("SELECT remainder FROM tbremainder WHERE vip_AN=@vip_AN", paras, CommandType.Text);
+            try
+            {
+                return QuerySingle<decimal>("SELECT remainder FROM tbremainder WHERE vip_AN=@vip_AN", paras, CommandType.Text);
+            }
+            catch
+            {
+                return 0;
+            }
         }
         #endregion
-
-        
+    
         #region _Address
         /// <summary>
         /// 添加/修改地址
@@ -487,7 +486,17 @@ namespace XM.DAL
         {
             return QuerySingle<string>("SELECT agent_AN from tbagent where id = @agent_id", paras, CommandType.Text);
         }
-        
+
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-5-16
+        /// 修改时间：2019-
+        /// 功能：新用户赠送10积分
+        /// </summary>
+        public int NweVIP(Dictionary<string, object> paras)
+        {
+            return Execute("insert into tbremainder(vip_AN,remainder) values(@vip_AN,20)", paras, CommandType.Text);
+        }
         #endregion
 
     }

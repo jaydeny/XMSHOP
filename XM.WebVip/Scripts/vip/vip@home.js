@@ -23,6 +23,3 @@ $.post("/product/BoutiqueGoods", function (data) {
     });
 },"json")
 
-
-
-

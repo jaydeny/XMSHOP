@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XM.Model;
-using XM.Web.Controllers;
+using XM.WebVIP.Controllers;
 
 namespace XM.WebVip.Controllers
 {
@@ -39,7 +37,7 @@ namespace XM.WebVip.Controllers
                 param.Add("order_address", vipInfo.AddressID);
                 param.Add("order_mp", vipInfo.VipMobliePhone);
                 param.Add("vip_AN", Session["AN"].ToString());
-                param.Add("agent_AN", Session["agent_AN"].ToString());
+                param.Add("agent_AN", Session["Agent_Acc"].ToString());
                 param.Add("order_total", decimal.Parse(Request["order_total"]));
 
                 param.Add("buy_time", date);
@@ -106,7 +104,7 @@ namespace XM.WebVip.Controllers
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
             param.Add("order", order);
-            param.Add("agent_AN", Session["Agent_AN"].ToString());
+            param.Add("agent_AN", Session["Agent_Acc"].ToString());
             param.Add("vip_AN", Session["AN"].ToString());
             var objOrder = DALUtility.Order.QryOrder<OrderEntity>(param, out iCount);
             return PagerData(iCount,objOrder);

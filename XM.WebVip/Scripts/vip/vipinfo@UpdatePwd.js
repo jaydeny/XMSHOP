@@ -18,7 +18,7 @@
                 if (data.success) {
                     // 清空数据
                     window.setTimeout(function () {
-                        window.location.href = "/Login/Index";
+                        window.location.href = "/Home/Index";
                     }, 500);
                 }
             }, "json")

@@ -41,7 +41,7 @@
                             if (ViewData["VipAccountName"] != null)
                             {
                                 <div class="" id="login_box">
-                                    <a id="vip_name" href="/Vipinfo/vipinfopage">@ViewData["VipAccountName"]</a>
+                                    <a id="vip_name" href="#">@ViewData["VipAccountName"]</a>
                                     <text>&nbsp;</text>
                                     <a id="vipExit">退出</a>
                                 </div>
@@ -71,16 +71,26 @@
     <!--头部 -->
     <nav class="navbar-default header">
         <div class="layout">
-            <div class="navbar-header main suspension_a" ">
+            <div class="navbar-header main suspension_a">
                 <a class=" navbar-brand" href="#" style="font-size: 20px;">
                     XMPJ
                     商城
                 </a>
+
+
+                <a class=" navbar-brand" id="LoginGame" href="#" style="font-size: 20px;">
+                    XMGAME
+                    游戏
+                </a>
+
+                <a class=" navbar-brand" id="GetCredit" href="#" style="font-size: 20px;">
+                    获取游戏积分
+                </a>
                 @*<a class="navbar-brand screening-goods" href="#">华为专区</a>
-                <a class="navbar-brand screening-goods" href="#">小米专区</a>
-                <a class="navbar-brand screening-goods" href="#">三星专区</a>
-                <a class="navbar-brand screening-goods" href="#">vivo专区</a>
-                <a class="navbar-brand screening-goods" href="#">iphome专区</a>*@
+        <a class="navbar-brand screening-goods" href="#">小米专区</a>
+        <a class="navbar-brand screening-goods" href="#">三星专区</a>
+        <a class="navbar-brand screening-goods" href="#">vivo专区</a>
+        <a class="navbar-brand screening-goods" href="#">iphome专区</a>*@
 
             </div>
             <form class="navbar-form navbar-right" role="search">

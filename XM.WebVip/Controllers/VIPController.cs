@@ -1,12 +1,4 @@
-﻿   using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-using XM.Comm;
-using XM.Model;
-using XM.Web.Controllers;
+﻿using XM.WebVIP.Controllers;
 
 namespace XM.WebVip.Controllers
 {

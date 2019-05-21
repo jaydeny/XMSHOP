@@ -1,0 +1,41 @@
+﻿
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <title>游戏记录</title>
+    <link rel="stylesheet" href="~/Content/CSS/vipinfo.css" />
+</head>
+
+<body>
+    <div class="info-body">
+        <h3>
+            游戏记录
+            <a class="select_order">
+                记录汇总
+            </a>
+        </h3>
+        开始时间:<input type="date" id="StartDate" value="@ViewData["StartWeek"]"/>
+        结束时间:<input type="date" id="EndDate" value="@ViewData["EndWeek"]"/>
+        <button id="Query">查询</button>
+        <div>
+            <div class="Record-list">
+                <p class="empty-order hidden" id="empty_order">当前无近期订单，前往<a href="/GameHome/Login">游戏</a></p>
+                <ul class="" id="order_box">
+                    <li>
+                        <div class="flex-1">游戏码</div>
+                        <div class="flex-1">游戏名</div>
+                        <div class="flex-1">收益</div>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h3>当前游戏积分总计:<span id="total"></span></h3>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/Game/game@RecordPage.js"></script>
+</body>
+</html>

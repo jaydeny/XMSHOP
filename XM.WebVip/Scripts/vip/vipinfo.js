@@ -29,7 +29,6 @@ var qryOrder = function () {
     paging.pageTotal = 3;
     paging.callbackMethod = function () {
         $.post("/Shop/QryOrder", { rows: paging.pageTotal, page: paging.currentPage }, function (data) {
-            console.log(data);
             if (data.total > 0) {
                 $("#empty_order").addClass("hidden");
                 $("#order_box").removeClass("hidden");
@@ -52,6 +51,7 @@ var qryOrder = function () {
     paging.callbackMethod();
 }
 qryOrder();
+
 // 去充值
 $("#go-top-up").click(function () {
     last_a = $("#a_top-up");
@@ -63,6 +63,23 @@ $("#go-top-up").click(function () {
         $(".vipinfo-main .info-body").html(data);
     }, "html")
 });
+
+
+//重新请求游戏积分
+$("#load").click(function () {
+    setIntegral();
+});
+
+var setIntegral = function () {
+    $.get("/vipinfo/vipinfo", function (data) {
+        if (data.success) {
+            window.location.href = "/vipinfo/vipinfopage";
+        } else {
+            alert(data.msg);
+            window.location.href = "/home/index";
+        }
+    }, "json")
+}
 
 
 

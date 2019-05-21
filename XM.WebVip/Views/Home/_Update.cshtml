@@ -14,17 +14,17 @@
         <div class="main">
             <div class="form-group">
                 <label for="name">账号</label>
-                <input type="text" class="form-control" id="name" disabled>
+                <input type="text" class="form-control" id="name" value="@ViewData["VipAccountName"]" disabled>
                 <span class="warning"></span>
             </div>
             <div class="form-group">
                 <label for="email">邮箱</label>
-                <input type="email" class="form-control" id="email" name="email">
+                <input type="email" class="form-control" id="email" name="email" value="@ViewData["Email"]">
                 <span class="warning"></span>
             </div>
             <div class="form-group mar_b_20">
                 <label for="tel">手机号</label>
-                <input type="tel" class="form-control" id="tel" name="tel" value="21">
+                <input type="tel" class="form-control" id="tel" name="tel" value="@ViewData["MP"]">
                 <span class="warning"></span>
             </div>
             <div>

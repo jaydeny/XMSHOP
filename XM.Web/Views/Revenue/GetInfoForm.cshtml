@@ -1,0 +1,44 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+    <script src="~/Scripts/backEnd/Revenue@GetInfo.js"></script>
+</head>
+<body>
+    <div id="QryDayForm">
+        <div id="two" class="topPanel">
+            <div class="search">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <button id="btn_back" type="button" class="btn  btn-primary" style="width: 80px;">返回</button>
+                            </div>
+                        </td>
+                        <td style="padding-left:10px">
+                            <div class="input-group">
+                                <label id="lab_date">当前日期：</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input id="txt_date" class="form-control" style="width: 100px;" readonly="readonly" />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="gridPanel">
+            <table id="qryDayList"></table>
+            <div id="gridPager"></div>
+        </div>
+    </div>
+</body>
+</html>

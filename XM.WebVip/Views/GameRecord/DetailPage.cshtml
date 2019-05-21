@@ -1,0 +1,39 @@
+﻿
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <title>游戏记录详情</title>
+    <link rel="stylesheet" href="~/Content/CSS/vipinfo.css" />
+    <script src="~/Scripts/Game/game@RecordPage.js"></script>
+</head>
+
+<body>
+    <div class="info-body">
+        <h3>
+            游戏记录
+            <a id="back" href="#">
+                返回
+            </a>
+        </h3>
+        <div>
+            <div class="Detail-list">
+                <ul class="" id="order_box">
+                    <li>
+                        <div class="flex-1">用户名</div>
+                        <div class="flex-1">收益</div>
+                        <div class="flex-1">时间</div>
+                        <div class="flex-1">游戏</div>
+                    </li>
+                </ul>
+            </div>
+            @*分页*@
+            <div id="paging-box">
+                <ul class="pagination"></ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

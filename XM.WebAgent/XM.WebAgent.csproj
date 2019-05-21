@@ -234,10 +234,6 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Framework.MongoDB\Framework.MongoDB.csproj">
-      <Project>{64C0579A-CF14-47ED-9700-76014528262F}</Project>
-      <Name>Framework.MongoDB</Name>
-    </ProjectReference>
     <ProjectReference Include="..\XM.DALFactory\XM.DALFactory.csproj">
       <Project>{1c00c967-0e30-4abe-a08e-4b5044cbfa8e}</Project>
       <Name>XM.DALFactory</Name>

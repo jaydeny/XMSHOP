@@ -110,26 +110,26 @@ $(paging.pagingBox).on("click", ".page a", function () {
     paging.callbackMethod();
 });
 // 上一页
-$(".pagination").on("click", "#up_page", function () {
+$(paging.pagingBox).on("click", "#up_page", function () {
     if ((paging.currentPage - 1) > 0) {
         --paging.currentPage;
         paging.callbackMethod();
     }
 });
 // 下一页
-$(".pagination").on("click", "#below_page", function () {
+$(paging.pagingBox).on("click", "#below_page", function () {
     if ((paging.currentPage + 1) <= paging.pageNumber) {
         ++paging.currentPage;
         paging.callbackMethod();
     }
 });
 // 刷新
-$(".pagination").on("click", "#refresh", function () {
+$(paging.pagingBox).on("click", "#refresh", function () {
     paging.currentPage = 1;
     paging.callbackMethod();
 });
 // 页数跳转
-$(".pagination").on("click", "#butConfirm", function () {
+$(paging.pagingBox).on("click", "#butConfirm", function () {
     var skipVal = $("#skipPage").val();
     if (skipVal > 0 && skipVal <= paging.pageNumber) {
         paging.currentPage = skipVal;

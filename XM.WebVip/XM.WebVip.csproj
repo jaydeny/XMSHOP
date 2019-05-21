@@ -130,13 +130,14 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\GameHomeController.cs" />
+    <Compile Include="Controllers\GameRechargeController.cs" />
+    <Compile Include="Controllers\GameRecordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\VIPController.cs" />
     <Compile Include="Controllers\VipInfoController.cs" />
-    <Compile Include="Controllers\XMController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -202,6 +203,8 @@
     <Content Include="img\slide_4.jpg" />
     <Content Include="img\slide_5.jpg" />
     <Content Include="img\slide_6.jpg" />
+    <Content Include="Scripts\Game\game%40Recharge.js" />
+    <Content Include="Scripts\Game\game%40RecordPage.js" />
     <Content Include="Scripts\jquery-3.4.0.js" />
     <Content Include="Scripts\jquery-3.4.0.min.js" />
     <Content Include="Scripts\jquery.md5.js" />
@@ -223,13 +226,6 @@
     <Content Include="Scripts\vip\vipinfo%40UpdatePwd.js" />
     <Content Include="Scripts\vip\vipinfo.js" />
     <Content Include="Scripts\vip\vipRetrievePassword.css" />
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -249,14 +245,21 @@
     <Content Include="Views\Home\_Update.cshtml" />
     <Content Include="Views\Home\_UpdatePwdPage.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\XM\Index.cshtml" />
-    <Content Include="Views\XM\GetCredit.cshtml" />
-    <Content Include="Views\XM\EditCredit.cshtml" />
-    <Content Include="Views\XM\EditCreditPage.cshtml" />
+    <Content Include="Views\GameRecharge\_Recharge.cshtml" />
+    <Content Include="web.config" />
+    <Content Include="Views\GameRecord\RecordPage.cshtml" />
+    <Content Include="Views\GameRecord\DetailPage.cshtml" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\GameHome\" />
     <Folder Include="Views\Shop\" />
   </ItemGroup>
   <ItemGroup>
@@ -267,12 +270,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Framework.MongoDB\Framework.MongoDB.csproj">
-      <Project>{64C0579A-CF14-47ED-9700-76014528262F}</Project>
-      <Name>Framework.MongoDB</Name>
-    </ProjectReference>
     <ProjectReference Include="..\XM.Comm\XM.Comm.csproj">
-      <Project>{bd869537-bdc8-4ccf-9c9e-da217dcd52e6}</Project>
+      <Project>{BD869537-BDC8-4CCF-9C9E-DA217DCD52E6}</Project>
       <Name>XM.Comm</Name>
     </ProjectReference>
     <ProjectReference Include="..\XM.DALFactory\XM.DALFactory.csproj">
