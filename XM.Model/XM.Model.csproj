@@ -53,6 +53,8 @@
     <Compile Include="JurisdictionEntity.cs" />
     <Compile Include="MenuEntity.cs" />
     <Compile Include="Navbar.cs" />
+    <Compile Include="NoticEntity.cs" />
+    <Compile Include="NoticState.cs" />
     <Compile Include="OrderEntity.cs" />
     <Compile Include="RechargeEntity.cs" />
     <Compile Include="RemainderEntity.cs" />
