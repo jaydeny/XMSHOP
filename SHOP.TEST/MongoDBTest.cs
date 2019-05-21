@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using YMOA.MongoDB;
 using XM.Comm;
 using System.Diagnostics;
+using XM.Model;
 
 namespace YMOA.UnitTest
 {
@@ -12,23 +13,12 @@ namespace YMOA.UnitTest
     {
         MongoDbService dbService = new MongoDbService();
 
-        //[TestMethod]
-        //public void AddTest()
-        //{
-        //    for (int i = 0; i < 10; i++)
-        //    {
-        //        DBLogEntity entity = new DBLogEntity();
-        //        entity.tabName = "tbUser";
-        //        entity.tId = "1";
-        //        entity.lType = 2;
-        //        entity.sql = "";
-        //        entity.paras = "";
-        //        entity.ms = 10;
-        //        entity.uId = "user" + (i + 1);
-        //        entity.ctime = DateTime.Now;
-        //        dbService.Add<DBLogEntity>("YMOA", "DBLog", entity);
-        //    }
-        //}
+        [TestMethod]
+        public void AddTest()
+        {
+            var dtNow = DateTime.Now;
+            var result = dbService.List<NoticEntity>("XMShop", "notic", x => x.starttime < dtNow && x.endtime > dtNow && x.receiver == null, null, null);
+        }
 
         ///// <summary>
         ///// 请求
@@ -45,7 +35,7 @@ namespace YMOA.UnitTest
         public void NotLoggedMsgTest()
         {
             DateTime dtNow = DateTime.Now;
-            var results = dbService.List< MsgEntity>("YMOA", "msg", x => x.starttime < dtNow && x.endtime > dtNow && x.receiver == null,null,null );
+            var results = dbService.List<NoticEntity>("YMOA", "msg", x => x.starttime < dtNow && x.endtime > dtNow && x.receiver == null,null,null );
             Debug.WriteLine(results);
             Debug.WriteLine(results.Count);
         }

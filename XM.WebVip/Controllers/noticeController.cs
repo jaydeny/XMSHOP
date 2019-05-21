@@ -12,9 +12,9 @@ namespace XM.WebVip.Controllers
     public class NoticeController : BaseController
     {
         // GET: notice
-        public ActionResult Index()
+        public ActionResult Notice()
         {
-            return View();
+            return View("_Notice");
         }
 
         /// <summary>
@@ -25,21 +25,34 @@ namespace XM.WebVip.Controllers
         {
             DateTime dtNow = DateTime.Now;
             List<NoticEntity> result = null;
-            if (AN != null)
+            if (Session["AN"] != null)
             {
-                var msgStatus = DALUtility.MDbS.List<NoticState>("YMOA", "msg_state", x => x.uid.Equals(AN) && x.state < 2, x => new NoticState() { msgid = x.msgid }, null);
+                var msgStatus = DALUtility.MDbS.List<NoticState>("XMShop", "noticstate", x => x.uid.Equals(AN) && x.state < 2, x => new NoticState() { msgid = x.msgid }, null);
                 List<string> listMsgId = new List<string>();
                 foreach (var ms in msgStatus)
                 {
                     listMsgId.Add(ms.msgid);
                 }
-                result = DALUtility.MDbS.List<NoticEntity>("YMOA", "msg", x => x.starttime < dtNow && x.endtime > dtNow && (x.receiver == null || x.receiver.Contains(Agent_ID)) && !listMsgId.Contains(x._id),null,null);
+                result = DALUtility.MDbS.List<NoticEntity>("XMShop", "notic", x => x.starttime < dtNow && x.endtime > dtNow && (x.receiver == null || x.receiver.Contains(Agent_ID)) && !listMsgId.Contains(x._id),null,null);
             }
             else
             {
-                result = DALUtility.MDbS.List<NoticEntity>("YMOA", "msg", x => x.starttime < dtNow && x.endtime > dtNow && x.receiver == null, null, null);
+                MongoDbService dbService = new MongoDbService();
+                result = dbService.List<NoticEntity>("XMShop", "notic", x => x.starttime < dtNow && x.endtime > dtNow && x.receiver == null, null, null);
             }
-            return PagerData(result.Count,result) ;
+            return PagerData(result.Count,result);
+        }
+
+        /// <summary>
+        ///  添加已读公告
+        /// </summary>
+        /// <param name="msgid"></param>
+        /// <returns></returns>
+        public ActionResult AddNotice(string msgid)
+        {
+            DALUtility.MDbS.Add<NoticState>("XMShop", "noticstate", new NoticState() { uid = AN, msgid = msgid, state = 1 });
+            var result = DALUtility.MDbS.List<NoticState>("XMShop", "noticstate", x => x.uid.Equals(AN) && x.msgid.Equals(msgid), x => new NoticState() { msgid = x.msgid }, null);
+            return OperationReturn(result.Count>0, "");
         }
 
     }
