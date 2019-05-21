@@ -132,6 +132,7 @@ namespace YMOA.UnitTest
         }
     }
 
+
     public class MsgEntity
     {
         /// <summary>
