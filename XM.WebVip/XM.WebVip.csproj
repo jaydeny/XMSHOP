@@ -134,6 +134,7 @@
     <Compile Include="Controllers\GameRechargeController.cs" />
     <Compile Include="Controllers\GameRecordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NoticeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\VIPController.cs" />
@@ -260,6 +261,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\GameHome\" />
+    <Folder Include="Views\notice\" />
     <Folder Include="Views\Shop\" />
   </ItemGroup>
   <ItemGroup>
@@ -289,6 +291,10 @@
     <ProjectReference Include="..\XM.Model\XM.Model.csproj">
       <Project>{a67eb676-d000-4e12-9e1b-d4f178ec497c}</Project>
       <Name>XM.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XM.MongoDB\XM.MongoDB.csproj">
+      <Project>{153DF1AC-444D-4E37-97AD-2C4903E06B74}</Project>
+      <Name>XM.MongoDB</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
