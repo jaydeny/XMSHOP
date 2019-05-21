@@ -53,6 +53,7 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -395,13 +396,15 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\notic\NoticJS.js" />
+    <Content Include="Scripts\notic\notic%40add.js" />
+    <Content Include="Scripts\notic\notic%40index.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\GameRecordController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\NoticController.cs" />
+    <Compile Include="Controllers\NoticManagerController.cs" />
     <Compile Include="Domain\CommonData.cs" />
     <Compile Include="Domain\CustomsAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -463,6 +466,7 @@
     <Content Include="Views\GameRecord\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Notic\Index.cshtml" />
+    <Content Include="Views\NoticManager\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -496,6 +500,10 @@
     <ProjectReference Include="..\XM.Model\XM.Model.csproj">
       <Project>{a67eb676-d000-4e12-9e1b-d4f178ec497c}</Project>
       <Name>XM.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XM.MongoDB\XM.MongoDB.csproj">
+      <Project>{153DF1AC-444D-4E37-97AD-2C4903E06B74}</Project>
+      <Name>XM.MongoDB</Name>
     </ProjectReference>
     <ProjectReference Include="..\XM.WebVip\XM.WebVip.csproj">
       <Project>{91e5e04e-3dc3-4eff-9241-80890fa86457}</Project>

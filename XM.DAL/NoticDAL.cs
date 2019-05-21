@@ -26,7 +26,7 @@ namespace XM.DAL
         {
             var s = Query("select Agent_AN from tbagent", null);
 
-            string retData = JsonConvert.SerializeObject(new { rows = s });
+            return JsonConvert.SerializeObject(new { rows = s });
         }
     }
 }
