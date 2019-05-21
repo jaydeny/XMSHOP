@@ -11,6 +11,8 @@ function gridList() {
     var endtime = now.getFullYear() + "-" + (month) + "-" + (endday);
     $("#date_start").val(starttime);
     $("#date_end").val(endtime);
+    var pageNum;
+    var pageSum;
     $.ajax({
         url: "/GameRecord/Record",
         type: "POST",
@@ -26,7 +28,9 @@ function gridList() {
                 }
                 else {
                     $("#pageNav").val(data.result.pageNum);
+                    pageNum = data.result.pageNum;
                     $("#pageSum").val(data.result.pageSum);
+                    pageSum = data.result.pageSum;
                     $("#pageSize").val(data.result.pageSize);
                     $("#gridList").empty();
                     dynamicTab(data);
@@ -37,7 +41,6 @@ function gridList() {
             }
         }
     });
-
     $("#btn_search").click(function () {
         searchClick();
     });
@@ -47,6 +50,39 @@ function gridList() {
     $("#btn_search_vip").click(function () {
         searchClick();
     });
+    $("#prev").click(function () {
+        if (pageNum > 1) {
+            pageNum -= 1;
+            $("#pageNav").val(pageNum);
+        }
+        else {
+            alert("已是第一页！");
+        }
+        searchClick();
+    })
+    $("#next").click(function () {
+        if (pageNum < pageSum) {
+            pageNum += 1;
+            console.log(pageNum);
+            $("#pageNav").val(pageNum);
+        }
+        else {
+            alert("已是最后一页！");
+        }
+        searchClick();
+    })
+    $("#npage").click(function () {
+        if (pageNum < 1 || pageNum >= pageSum) {
+            alert("该页面不存在！");
+        }
+        else {
+            searchClick();
+        }
+    })
+    $("#pageSize").change(function () {
+        console.log($("#pageSize option:selected").val());
+        searchClick();
+    })
 }
 function searchClick() {
     var start = new Date($("#date_start").val());
@@ -61,7 +97,7 @@ function searchClick() {
             type: "POST",
             data: {
                 page: $("#pageNav").val(),
-                rows: $("#pageSize option:first").val(),
+                rows: $("#pageSize option:selected").val(),
                 starttime: start.getFullYear() + "-" + (start.getMonth() + 1) + "-" + start.getDate(),
                 endtime: end.getFullYear() + "-" + (end.getMonth() + 1) + "-" + end.getDate(),
                 agentAccount: $("#txt_search_agent").val() == "" ? null : $("#txt_search_agent").val(),
@@ -93,6 +129,7 @@ function searchClick() {
 function dynamicTab(data) {
     var $gridList = $("#gridList");
     var $tr = $("<tr style='background-color:#e5e2e2;'></tr>");
+    $tr.append("<th style='border-bottom:dashed 1px'></th>");
     $tr.append("<th style='text-align: center;border-bottom:dashed 1px'>游戏账号</th>");
     $tr.append("<th style='text-align: center;border-bottom:dashed 1px'>游戏名称</th>");
     $tr.append("<th style='text-align: center;border-bottom:dashed 1px'>时间</th>");
@@ -102,6 +139,7 @@ function dynamicTab(data) {
     var result = data.result.total;
     for (var i = 0; i < result; i++) {
         var $trTamp = $("<tr></tr>");
+        $trTamp.append("<td align='center' style='width:200px;border-bottom:dashed 1px; '>" + (i + 1) + "</td>");
         $trTamp.append("<td align='center' style='width:200px;border-bottom:dashed 1px; '>" + data.result.data[i].AccountName + "</td>");
         $trTamp.append("<td align='center' style='width:200px;border-bottom:dashed 1px'>" + data.result.data[i].Name + "</td>");
         $trTamp.append("<td align='center' style='width:200px;border-bottom:dashed 1px'>" + data.result.data[i].Time + "</td>");
@@ -110,7 +148,5 @@ function dynamicTab(data) {
     }
 }
 
-function page() {
 
-}
 
