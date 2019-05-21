@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using XM.Comm;
-using XM.Web.Controllers;
+using XM.WebVIP.Controllers;
 
 namespace XM.WebVip.Controllers
 {

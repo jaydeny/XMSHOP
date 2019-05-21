@@ -271,7 +271,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XM.Comm\XM.Comm.csproj">
-      <Project>{bd869537-bdc8-4ccf-9c9e-da217dcd52e6}</Project>
+      <Project>{BD869537-BDC8-4CCF-9C9E-DA217DCD52E6}</Project>
       <Name>XM.Comm</Name>
     </ProjectReference>
     <ProjectReference Include="..\XM.DALFactory\XM.DALFactory.csproj">
