@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+    <link href="~/Content/notic/notic.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="topPanel">
+    </div>
+    <div class="toolbar">
+    </div>
+
+    <div class="release">
+        <div class="input-group">
+            <span>开始时间:</span><input type="date" id="StartDate" value="@ViewData["StartWeek"]" />
+            <span>结束时间:</span><input type="date" id="EndDate" value="@ViewData["EndWeek"]" />
+            <span>接收方:</span><input type="text" id="receiver" /> <button id="chooseReceiver">选择接收人</button><br />
+            <span class="contentTitle">内容:</span><br />
+            <textarea class="content" id="content"></textarea>
+        </div>
+    </div>
+    <script src="~/Scripts/notic/NoticJS.js"></script>
+</body>
+</html>
+
+
