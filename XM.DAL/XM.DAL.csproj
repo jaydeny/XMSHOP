@@ -69,6 +69,7 @@
     <Compile Include="GoodsTypeDAL.cs" />
     <Compile Include="JurisdictionDAL.cs" />
     <Compile Include="MenuDAL.cs" />
+    <Compile Include="NoticDAL.cs" />
     <Compile Include="OrderDAL.cs" />
     <Compile Include="RechargeDAL.cs" />
     <Compile Include="RemainderDAL.cs" />

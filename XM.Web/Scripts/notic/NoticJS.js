@@ -1,0 +1,3 @@
+﻿$("#chooseReceiver").click(function () {
+
+})

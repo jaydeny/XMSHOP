@@ -337,6 +337,7 @@
     <Content Include="Content\js\zsign\jquery.zsign.css" />
     <Content Include="Content\js\zsign\jquery.zsign.js" />
     <Content Include="Content\js\zsign\signet.gif" />
+    <Content Include="Content\notic\notic.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\User\User%40PwUpdate.css" />
     <Content Include="Content\User\User%40login.css" />
@@ -394,11 +395,13 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\notic\NoticJS.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\GameRecordController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\NoticController.cs" />
     <Compile Include="Domain\CommonData.cs" />
     <Compile Include="Domain\CustomsAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -458,6 +461,8 @@
     <Content Include="Views\Revenue\GetInfoForm.cshtml" />
     <Content Include="Views\Revenue\_Form.cshtml" />
     <Content Include="Views\GameRecord\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Notic\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
