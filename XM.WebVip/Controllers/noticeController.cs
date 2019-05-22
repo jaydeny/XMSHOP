@@ -27,7 +27,7 @@ namespace XM.WebVip.Controllers
             if (Session["AN"] != null)
             {
                 var msgStatus = DALUtility.MDbS.List<NoticState>("XMShop", "noticstate", x => x.uid.Equals(AN) && x.state < 2, x => new NoticState() { msgid = x.msgid }, null);
-                var result = DALUtility.MDbS.List<NoticEntity>("XMShop", "notic", x => x.starttime < dtNow && x.endtime > dtNow && (x.receiver == null || x.receiver.Contains(Agent_ID)),null,null);
+                var result = DALUtility.MDbS.List<NoticEntity>("XMShop", "notic", x => x.starttime < dtNow && x.endtime > dtNow && (x.receiver == null || x.receiver.Contains(Agent_ID)) && (x.receivermember == null || x.receivermember.Contains(AN)), null,null);
                 return PagerData(-1, new { msgStatus,result});
             }
             else
