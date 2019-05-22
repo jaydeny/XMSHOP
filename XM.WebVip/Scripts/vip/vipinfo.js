@@ -1,5 +1,8 @@
 ﻿var last_a;
 $(".vipinfo-nav a").click(function () {
+    if ($(this).hasClass("action")) {
+        return false;
+    }
     $(last_a).removeClass("action");
     $(this).addClass("action");
     last_a = $(this);

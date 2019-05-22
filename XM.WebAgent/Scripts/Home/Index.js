@@ -226,6 +226,7 @@ function onloadData(page, rows) {
 
 //封装列表显示函数，传入列表对象进行渲染页面
 function showList(page, objs) {
+    
     const page_count = Math.ceil(page / rows);
     num_Page_Count.innerText = "共 " + page_count + " 页";
     Page_Count.innerText = "共 " + page + "条数据";
@@ -252,7 +253,7 @@ function showList(page, objs) {
             const status_id = $("<td>" + "禁用" + "</td>");
             trs.append(status_id)
         }
-        const vip_CDT = $("<td>" + obj.CreateTime + "</td>");
+        const vip_CDT = $("<td>" + obj.CreateTime.substring(0,10) + "</td>");
         trs.append(vip_CDT)
 
         const vip_Btn = $("<td><button type='button' class='btn btn - secondary' data-toggle='modal' data-target='#editVIP'onclick='editVIP(" + index + ")'>编辑</button></td>");

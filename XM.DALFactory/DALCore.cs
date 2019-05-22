@@ -132,5 +132,10 @@ namespace XM.DALFactory
         {
             get { return new MongoDbService(); }
         }
+
+        public INoticDAL Notic
+        {
+            get { return LoadAssamblyType<INoticDAL>("NoticDAL"); }
+        }
     }
 }

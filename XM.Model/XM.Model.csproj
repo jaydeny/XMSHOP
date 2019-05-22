@@ -48,6 +48,9 @@
     <Compile Include="BuyEntity.cs" />
     <Compile Include="CommonData.cs" />
     <Compile Include="DayTotalDTO.cs" />
+    <Compile Include="GameData.cs" />
+    <Compile Include="GameRecord.cs" />
+    <Compile Include="GameResult.cs" />
     <Compile Include="GoodsEntity.cs" />
     <Compile Include="GoodsTypeEntity.cs" />
     <Compile Include="JurisdictionEntity.cs" />
@@ -57,6 +60,7 @@
     <Compile Include="NoticState.cs" />
     <Compile Include="OrderEntity.cs" />
     <Compile Include="RechargeEntity.cs" />
+    <Compile Include="RecordCollect.cs" />
     <Compile Include="RemainderEntity.cs" />
     <Compile Include="RoleEntity.cs" />
     <Compile Include="RoleMenuEntity.cs" />
@@ -69,7 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XM.Comm\XM.Comm.csproj">
-      <Project>{BD869537-BDC8-4CCF-9C9E-DA217DCD52E6}</Project>
+      <Project>{bd869537-bdc8-4ccf-9c9e-da217dcd52e6}</Project>
       <Name>XM.Comm</Name>
     </ProjectReference>
   </ItemGroup>
