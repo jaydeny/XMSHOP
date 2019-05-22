@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using XM.IDAL;
+using YMOA.MongoDB;
 
 namespace XM.DALFactory
 {
@@ -125,6 +126,16 @@ namespace XM.DALFactory
         public IXMDAL Xm
         {
             get { return LoadAssamblyType<IXMDAL>("XMDAL"); }
+        }
+
+        public MongoDbService MDbS
+        {
+            get { return new MongoDbService(); }
+        }
+
+        public INoticDAL Notic
+        {
+            get { return LoadAssamblyType<INoticDAL>("NoticDAL"); }
         }
     }
 }

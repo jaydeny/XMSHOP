@@ -134,6 +134,7 @@
     <Compile Include="Controllers\GameRechargeController.cs" />
     <Compile Include="Controllers\GameRecordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NoticeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\VIPController.cs" />
@@ -156,6 +157,7 @@
     <Content Include="Content\CSS\GoodsDetails.css" />
     <Content Include="Content\CSS\home.css" />
     <Content Include="Content\CSS\HomePage.css" />
+    <Content Include="Content\CSS\notice.css" />
     <Content Include="Content\CSS\shopping.css" />
     <Content Include="Content\CSS\vipAlterPwd.css" />
     <Content Include="Content\CSS\vipChangePwd.css" />
@@ -203,13 +205,17 @@
     <Content Include="img\slide_4.jpg" />
     <Content Include="img\slide_5.jpg" />
     <Content Include="img\slide_6.jpg" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Game\game%40Recharge.js" />
     <Content Include="Scripts\Game\game%40RecordPage.js" />
+    <Content Include="Scripts\Game\game%40DetailPage.js" />
     <Content Include="Scripts\jquery-3.4.0.js" />
     <Content Include="Scripts\jquery-3.4.0.min.js" />
     <Content Include="Scripts\jquery.md5.js" />
     <Content Include="Scripts\vip\bounced.js" />
     <Content Include="Scripts\vip\layout.js" />
+    <Content Include="Scripts\vip\notice.js" />
     <Content Include="Scripts\vip\paging.js" />
     <Content Include="Scripts\vip\RequestUrl.js" />
     <Content Include="Scripts\vip\vip%40AgoodsList.js" />
@@ -249,6 +255,7 @@
     <Content Include="web.config" />
     <Content Include="Views\GameRecord\RecordPage.cshtml" />
     <Content Include="Views\GameRecord\DetailPage.cshtml" />
+    <Content Include="Views\notice\_Notice.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -289,6 +296,10 @@
     <ProjectReference Include="..\XM.Model\XM.Model.csproj">
       <Project>{a67eb676-d000-4e12-9e1b-d4f178ec497c}</Project>
       <Name>XM.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XM.MongoDB\XM.MongoDB.csproj">
+      <Project>{153DF1AC-444D-4E37-97AD-2C4903E06B74}</Project>
+      <Name>XM.MongoDB</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

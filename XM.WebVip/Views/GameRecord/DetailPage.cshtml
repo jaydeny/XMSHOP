@@ -7,7 +7,7 @@
 <head>
     <title>游戏记录详情</title>
     <link rel="stylesheet" href="~/Content/CSS/vipinfo.css" />
-    <script src="~/Scripts/Game/game@RecordPage.js"></script>
+    
 </head>
 
 <body>
@@ -29,11 +29,52 @@
                     </li>
                 </ul>
             </div>
+
+
             @*分页*@
-            <div id="paging-box">
-                <ul class="pagination"></ul>
-            </div>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+
+                    <li class="page-item">
+                        <span class="page-link">
+                            显示条数
+                            <select class="form-control form-control-sm" id="btn_num_Rows_count" value="10">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                            </select>
+                        </span>
+                    </li>
+
+                    <li class="page-item">
+                        <a class="page-link" id="before" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">上一页</span>
+                        </a>
+                    </li>
+
+                    <li class="page-item">
+                        <a class="page-link" id="end" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">下一页</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" id="num_Page_Count" href="#"></a></li>
+                    <li class="page-item"><a class="page-link" id="Page_Count" href="#"></a></li>
+                    <li class="page-item">
+                        <span class="page-link">
+                            跳转页码
+                            <select class="form-control form-control-sm" id="btn_num_Page_count" value="1"></select>
+                        </span>
+                    </li>
+                    <li class="page-item"><a class="page-link" id="btn_num_Page" href="#">确定</a></li>
+
+                </ul>
+            </nav>
+            @*分页*@
+
         </div>
     </div>
+    <script src="~/Scripts/Game/game@RecordPage.js"></script>
 </body>
 </html>
