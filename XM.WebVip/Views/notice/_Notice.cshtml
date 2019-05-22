@@ -1,0 +1,31 @@
+﻿<link href="~/Content/CSS/notice.css" rel="stylesheet" type="text/css" />
+<div class="notice-box">
+    <div class="col-xs-4 left">
+        <ul class="nav nav-pills nav-stacked" id="notice-box">
+        </ul>
+    </div>
+    <div class="col-xs-8 right">
+        <div>
+            <h3 id="title" class="title">标题</h3>
+            <div>
+                <div id="txtcontent" class="content">
+
+                </div>
+                <div class="time-box">
+                    <p>发布时间: <span id="txt_startTime">时间</span></p>
+                    <p>结束时间: <span id="txt_endTime">时间</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="btn-box">
+            <div class="pull-right">
+                @if (ViewData["AN"] != null)
+                {
+                    <button class="btn btn-primary" type="submit" id="btnTag">标记已读</button>
+                }
+                <button type="submit" class="btn btn-info" id="btnClose">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/vip/notice.js"></script>

@@ -226,6 +226,7 @@ function onloadData(page, rows) {
 
 //封装列表显示函数，传入列表对象进行渲染页面
 function showList(page, objs) {
+    
     const page_count = Math.ceil(page / rows);
     num_Page_Count.innerText = "共 " + page_count + " 页";
     Page_Count.innerText = "共 " + page + "条数据";

@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using YMOA.MongoDB;
 using XM.Comm;
+using System.Diagnostics;
+using XM.Model;
 
 namespace YMOA.UnitTest
 {
@@ -11,31 +13,54 @@ namespace YMOA.UnitTest
     {
         MongoDbService dbService = new MongoDbService();
 
-        //[TestMethod]
-        //public void AddTest()
-        //{
-        //    for (int i = 0; i < 10; i++)
-        //    {
-        //        DBLogEntity entity = new DBLogEntity();
-        //        entity.tabName = "tbUser";
-        //        entity.tId = "1";
-        //        entity.lType = 2;
-        //        entity.sql = "";
-        //        entity.paras = "";
-        //        entity.ms = 10;
-        //        entity.uId = "user" + (i + 1);
-        //        entity.ctime = DateTime.Now;
-        //        dbService.Add<DBLogEntity>("YMOA", "DBLog", entity);
-        //    }
-        //}
+        [TestMethod]
+        public void AddTest()
+        {
+            var dtNow = DateTime.Now;
+            var result = dbService.List<NoticEntity>("XMShop", "notic", x => x.starttime < dtNow && x.endtime > dtNow && x.receiver == null, null, null);
+        }
 
-        ///// <summary>
-        ///// 请求
-        ///// </summary>
-        //public void QryDBLogs()
-        //{
-        //    var retData = dbService.List<DBLogEntity>("YMOA", "DBLog", x => x.tId == "1" && x.tabName == "tbUser", null, 1, false, x => x.ctime);
-        //}
+        /// <summary>
+        /// 请求
+        /// </summary>
+        [TestMethod]
+        public void QryDBLogs()
+        {
+            var testData = dbService.List<MsgEntity>("YMOA", "msg", x => 1 == 1, x => new MsgEntity() { content = x.content }, null);
+        }
+
+        /// <summary>
+        ///  未登录获取公告
+        /// </summary>
+        [TestMethod]
+        public void NotLoggedMsgTest()
+        {
+            DateTime dtNow = DateTime.Now;
+            var results = dbService.List<NoticEntity>("YMOA", "msg", x => x.starttime < dtNow && x.endtime > dtNow && x.receiver == null,null,null );
+            Debug.WriteLine(results);
+            Debug.WriteLine(results.Count);
+        }
+
+        /// <summary>
+        ///  获取未读公共
+        /// </summary>
+        [TestMethod]
+        public void LoggedMsgTest()
+        {
+            string uid = "ag1user1";
+            string agId = "ag2";
+            DateTime dtNow = DateTime.Now;
+            // 获取以读公告
+            var msgStatus = dbService.List<MsgState>("YMOA", "msg_state", x => x.uid.Equals(uid) && x.state < 2, x => new MsgState() { msgid = x.msgid }, null);
+            List<string> listMsgId = new List<string>();
+            foreach (var ms in msgStatus)
+            {
+                listMsgId.Add(ms.msgid);
+            }
+            // 获取未读公告
+            var result = dbService.List<MsgEntity>("YMOA", "msg", x => x.starttime < dtNow && x.endtime > dtNow && (x.receiver == null || x.receiver.Contains(agId)) && !listMsgId.Contains(x._id),null,null);
+            Debug.WriteLine(result);
+        }
 
         /// <summary>
         /// 公告测试
@@ -80,6 +105,8 @@ namespace YMOA.UnitTest
             c2 = MsgUnReadCount("ag4user1", "ag4");
             Assert.AreEqual(c1, 0);
             Assert.AreEqual(c2, 0);
+
+           
             //自行清空YMOA =》msg，msg_state内容，方便下次测试
         }
 
