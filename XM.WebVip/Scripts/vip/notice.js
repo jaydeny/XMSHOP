@@ -38,6 +38,11 @@ $("#notice-box").on("click", "li", function () {
     $("#notice-box li.active").removeClass(act);
     var id = $(this).data("id");
     $(this).addClass(act);
+    $.each(noticeData, function (i, n) {
+        if (n._id == id) {
+            txtInput(n);
+        }
+    });
 })
 $("#btnTag").click(function () {
     var that = $("#notice-box li.active");
