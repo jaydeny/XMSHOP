@@ -1,6 +1,9 @@
-﻿$(function () {
+﻿var total = 0;
+$(function () {
     gridList();
+    $("")
 })
+
 function gridList() {
     var now = new Date();
     var startday = "01";
@@ -16,9 +19,14 @@ function gridList() {
         height: $(window).height() - 178,
         colModel: [
             { label: '游戏账号', name: 'ID', width: 80, align: 'center' },
-            { label: '游戏名称', name: 'Name', width: 80, align: 'center' },
-            { label: '游戏积分', name: 'Integral', width: 80, align: 'left' }
+            { label: '游戏名称', name: 'Name', width: 80, align: 'left' },
+            { label: '游戏积分', name: 'Integral', width: 80, align: 'left'}
         ],
+        gridComplete: function (cellValue, options, rowObject) {
+            var total = $("#gridList").getCol('Integral', false, 'sum');
+            $("#gridList").footerData('set', { "ID": "合计：", "Name": total }, false);
+        },
+        footerrow: true,
         rowNum: 20,
         rowList: [10, 20, 30, 40, 50],
         sortorder: "desc",
@@ -46,6 +54,7 @@ function gridList() {
         var endtime = $("#date_end").val();
         window.location.href = "/GameRecord/GetRecord?keyValue=" + keyValue + "&starttime=" + starttime + "&endtime=" + endtime;
     });
+
 }
 
 

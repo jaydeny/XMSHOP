@@ -1,8 +1,6 @@
 ﻿var keyValue = $.request("keyValue");
 var starttime = $.request("starttime");
-console.log(starttime);
 var endtime = $.request("endtime");
-console.log(endtime);
 $(function () {
     Record();
 })

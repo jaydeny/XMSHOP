@@ -21,7 +21,12 @@ function gridList() {
         colModel: [
             { label: '日期', name: 'date', width: 180, align: 'left' },
             { label: '营收(/元)	', name: 'total', width: 200, align: 'left' }
-        ]
+        ],
+        gridComplete: function (cellValue, options, rowObject) {
+            var total = $("#gridList").getCol('total', false, 'sum');
+            $("#gridList").footerData('set', { "date": "合计：", "total": total }, false);
+        },
+        footerrow: true
     });
     $("#btn_search").click(function () {
         start = new Date($("#date_start").val());
