@@ -212,14 +212,13 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Product\getProductPage.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Form\ReportForm.cshtml" />
     <Content Include="Views\AgentInfo\AgentPersonalCenter.cshtml" />
     <Content Include="Views\Form\ReportsForm.cshtml" />
+    <Content Include="Views\Game\GameForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Game\" />
     <Folder Include="Views\VIP\" />
   </ItemGroup>
   <ItemGroup>
@@ -236,6 +235,14 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Framework.MongoDB\Framework.MongoDB.csproj">
+      <Project>{64C0579A-CF14-47ED-9700-76014528262F}</Project>
+      <Name>Framework.MongoDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XM.Comm\XM.Comm.csproj">
+      <Project>{bd869537-bdc8-4ccf-9c9e-da217dcd52e6}</Project>
+      <Name>XM.Comm</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XM.DALFactory\XM.DALFactory.csproj">
       <Project>{1c00c967-0e30-4abe-a08e-4b5044cbfa8e}</Project>
       <Name>XM.DALFactory</Name>
