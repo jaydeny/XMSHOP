@@ -348,6 +348,7 @@
     <Content Include="Scripts\backEnd\Agent%40Index.js" />
     <Content Include="Scripts\backEnd\Agent%40Form.js" />
     <Content Include="Scripts\backEnd\Game%40Index.js" />
+    <Content Include="Scripts\backEnd\Game%40Record.js" />
     <Content Include="Scripts\backEnd\Goods%40Index.js" />
     <Content Include="Scripts\backEnd\Goods%40Form.js" />
     <Content Include="Scripts\backEnd\GoodsType%40Form.js" />
@@ -390,13 +391,13 @@
     <Content Include="Content\js\simditor\css\editor.scss" />
     <Content Include="Content\js\simditor\css\fonticon.scss" />
     <Content Include="Content\js\simditor\css\simditor.scss" />
+    <Content Include="libman.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\notic\notic%40Form.js" />
     <Content Include="Scripts\notic\notic%40add.js" />
     <Content Include="Scripts\notic\notic%40index.js" />
     <Content Include="Web.config" />
@@ -459,7 +460,6 @@
     <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Views\Menu\_Form.cshtml" />
     <Content Include="Views\Revenue\RechargeForm.cshtml" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Revenue\DayRevenueForm.cshtml" />
     <Content Include="Views\Revenue\ReportForm.cshtml" />
     <Content Include="Views\Revenue\GetInfoForm.cshtml" />
@@ -468,7 +468,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Notic\Index.cshtml" />
     <Content Include="Views\NoticManager\Index.cshtml" />
-    <Content Include="Views\NoticManager\_Form.cshtml" />
+    <Content Include="Views\GameRecord\GetRecord.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

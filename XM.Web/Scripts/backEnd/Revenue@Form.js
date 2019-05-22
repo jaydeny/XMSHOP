@@ -1,5 +1,4 @@
 ﻿var orderId = $.request("keyValue");
-console.log(orderId);
 $(function () {
     if (!!orderId) { //判断是否有值
         $.ajax({

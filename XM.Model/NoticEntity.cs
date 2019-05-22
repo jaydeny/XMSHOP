@@ -31,9 +31,13 @@ namespace XM.Model
         /// </summary>
         public DateTime endtime { get; set; }
         /// <summary>
-        /// 接收方
+        /// 接收方[代理]
         /// </summary>
         public List<string> receiver { get; set; }
+        /// <summary>
+        /// 接收方[会员]
+        /// </summary>
+        public List<string> receiver4member { get; set; }
         /// <summary>
         /// 发布人
         /// </summary>
