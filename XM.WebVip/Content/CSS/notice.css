@@ -10,10 +10,14 @@
 }
 .notice-box .content {
     height: 210px;
+    text-indent: 2em;
 }
 .notice-box .time-box {
     float: right;
 }
+.notice-box .time-box p {
+    margin: 0;
+}
 .notice-box .btn-box {
-    margin: 40px 0 0 0;
+    margin: 50px 0 0 0;
 }

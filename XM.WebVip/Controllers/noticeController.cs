@@ -14,6 +14,7 @@ namespace XM.WebVip.Controllers
         // GET: notice
         public ActionResult Notice()
         {
+            ViewData["AN"] = Session["AN"];
             return View("_Notice");
         }
 

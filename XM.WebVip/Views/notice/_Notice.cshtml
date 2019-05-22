@@ -12,14 +12,18 @@
 
                 </div>
                 <div class="time-box">
-                    发布时间: <span id="txt_time">时间</span>
+                    <p>发布时间: <span id="txt_startTime">时间</span></p>
+                    <p>结束时间: <span id="txt_endTime">时间</span></p>
                 </div>
             </div>
         </div>
         <div class="btn-box">
             <div class="pull-right">
-                <button class="btn btn-primary" type="submit">已读</button>
-                <button class="btn btn-info" type="submit">关闭</button>
+                @if (ViewData["AN"] != null)
+                {
+                    <button class="btn btn-primary" type="submit" id="btnTag">标记已读</button>
+                }
+                <button type="submit" class="btn btn-info" id="btnClose">关闭</button>
             </div>
         </div>
     </div>
