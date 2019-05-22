@@ -1,0 +1,280 @@
+﻿
+<body>
+    <div id="ReportsForm">
+        <div >
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <button class="btn btn-outline-secondary" type="button" v-on:click="is_show = !is_show , theTime='' " v-show="!is_show">返回</button>
+                <h1 class="h2">{{theTime}}游戏报表</h1>
+                <div class="btn-toolbar mb-2 mb-md-0" v-show="!is_show">
+                    <div class="btn-group mr-2">
+                    </div>
+                </div>
+                <div v-show="is_show">
+                    <input type="date" v-model="startTime" /> <span>~~</span>
+                    <input type="date" v-model="endTime" />
+                    <button class="btn btn-outline-secondary" v-on:click="search()" type="button">搜索</button>
+                </div>
+                <div class="btn-toolbar mb-2 mb-md-0" v-show="is_show">
+                    <div class="btn-group mr-2">
+
+                        <button class="btn btn-sm btn-outline-secondary">月</button>
+
+                    </div>
+                </div>
+            </div>
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="list-group">
+                    <button type="button" class="list-group-item list-group-item-action" style="background-color:lightgray">
+                        游戏列表
+                    </button>
+
+                    <div v-for="(obj,index) in gameTypeTable" :key="index">
+                        <button type="button" class="list-group-item list-group-item-action" v-on:click="on_btn_type(obj.ID,$event)">{{obj.Name}}</button>
+                    </div>
+                    
+                    
+                </div>
+            </nav>
+            @*主页*@
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                <table class="table table-hover" v-show="is_show">
+                    <thead>
+                        <tr>
+                            <th scope="col">日期</th>
+                            <th scope="col" style="text-align:right">记录数</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(obj,index) in timeGameForm" :key="index" v-on:click="theDayTimeData(obj.Date.substring(0,10))">
+
+                            <th scope="row">{{obj.Date.substring(0,10)}}</th>
+                            <th scope="row" style="text-align:right">{{obj.NamRecordCount}}</th>
+                            <th scope="row"></th>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-hover" v-show="!is_show">
+                    <thead>
+                        <tr>
+                            <th scope="col">日期</th>
+                            <th scope="col">用户名</th>
+                            <th scope="col">游戏名</th>
+                            <th scope="col">积分</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                        <tr v-for="(obj,index) in dateFrom" :key="index">
+                            <th scope="row">{{obj.Time}}</th>
+                            <th scope="row">{{obj.AccountName}}</th>
+                            <th scope="row">{{obj.Name}}</th>
+                            <th scope="row">{{obj.Integral}}</th>
+                        </tr>
+                    </tbody>
+                </table>
+                @*分页*@
+                <nav aria-label="Page navigation example" v-show="!is_show">
+                    <ul class="pagination">
+
+                        <li class="page-item">
+                            <span class="page-link">
+                                显示条数
+                                <select class="form-control form-control-sm" v-model="rows">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                </select>
+                            </span>
+                        </li>
+
+                        <li class="page-item" v-on:click="before()">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">上一页</span>
+                            </a>
+                        </li>
+                        <li class="page-item" v-on:click="next()">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">下一页</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">共 {{total_page}} 页</a></li>
+                        <li class="page-item"><a class="page-link" href="#">共 {{dataCount}} 条数据</a></li>
+                        <li class="page-item">
+                            <span class="page-link">
+                                跳转页码
+                                <select class="form-control form-control-sm" v-model="page">
+                                    <option :value="index" v-for="(index) in total_page" :key="index">{{index}}</option>
+                                </select>
+                            </span>
+                        </li>
+                        <li class="page-item"><a class="page-link" v-on:click="btn_sub()" href="#">确定</a></li>
+                    </ul>
+                </nav>
+            </main>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: "#ReportsForm",
+            data: {
+                //代理游戏类型
+                gameTypeTable: [],
+                //日程游戏记录
+                timeGameForm: [],
+                //对应天的游戏记录数据
+                dateFrom:[],
+                startTime: "",
+                endTime: "",
+                //游戏ID
+                id: '',
+                //记录点击对应日期
+                theTime: '',
+                is_show: true,
+                rows: '10',
+                page: '1',
+                page_count: '0',
+                dataCount: '0'
+            },
+            created: function () {
+                //初始化页面内容
+                //显示所有游戏类型
+                this.getGameTypeData("/Game/GetGameOrByAccount", 'get', '');
+                
+            },
+            computed: {
+                //计算页数
+                total_page() {
+                    let count = Math.ceil(this.dataCount / this.rows);
+                    this.page_count = count;
+                    return count;
+                }
+            },
+            methods: {
+                //获取游戏类型
+                getGameTypeData(url,type, param) {
+                    $.ajax({
+                        url: url,
+                        data: param,
+                        method: type,
+                        dataType: 'json'
+                    }).then((data) => {
+                        if (data.errorCode == 0) {
+                            
+                            this.gameTypeTable = data.result;
+                        } else {
+                            alert(data.errorMsg);
+                        }
+                    });
+                },
+                //获取对应游戏记录信息
+                getTimeGameForm(url,param) {
+                    $.ajax({
+                        url: url,
+                        data: param,
+                        dataType: 'json'
+                    }).then((data) => {
+                        if (data.errorCode == 0) {
+                           
+                            this.timeGameForm = data.result;
+                        } else {
+                            alert(data.errorMsg);
+                        }
+                    });
+                },
+                //获取对应天的数据
+                getDateForm(url,param) {
+                    $.ajax({
+                        url: url,
+                        data: param,
+                        dataType: 'json'
+                    }).then((data) => {
+                        if (data.errorCode == 0) {
+                            this.page = data.result.pageNum;
+                            this.rows = data.result.pageSize;
+                            this.dataCount = data.result.total;
+
+                            this.dateFrom = data.result.data;
+                        } else {
+                            alert(data.errorMsg);
+                        }
+                    });
+                },
+                //将一个月的日程游戏记录数据数据可视化
+                on_btn_type(id, even) {
+                    const date = new Date();
+                    let dateMonth = date.getMonth() + 1;
+                    if (dateMonth < 10) {
+                        dateMonth = "0" + dateMonth;
+                    }
+                    this.startTime = date.getFullYear() + "-" + dateMonth + "-" + "01"
+                    this.endTime = date.getFullYear() + "-" + dateMonth + "-" + date.getDate();
+                    this.id = id;
+                    const param = {
+                        ID: this.id,
+                        startTime: this.startTime,
+                        endTime: this.endTime
+                    }
+                    this.getTimeGameForm("/Game/GetRecordCollectByAgency", param);
+                    this.btn_sub();
+                    this.btn_type_cgClass(even)
+                },
+                //改变按钮点击样式
+                btn_type_cgClass(e) {
+                    const game_TypeList = $(".list-group-item");
+                    $.each(game_TypeList, function (i, v) {
+                        v.className = "list-group-item list-group-item-action";
+                    });
+                    e.target.className = "list-group-item list-group-item-action active";
+                },
+                //将对应天的数据可视化
+                theDayTimeData(date) {
+                    this.theTime = date;
+                    this.is_show = false;
+                    this.btn_sub();
+                },
+               
+                //分页:
+                before() {
+                    if (this.page <= 1) {
+                        alert("已经是第一页了")
+                    } else {
+                        this.page--;
+                        this.btn_sub();
+                    }
+                },
+                next() {
+
+                    if (this.page >= this.page_count) {
+                        alert("已经是最后一页了")
+                    } else {
+                        this.page++;
+                        this.btn_sub();
+                    }
+                },
+                btn_sub() {
+                    const param = {
+                        "page": this.page,
+                        "rows": this.rows,
+                        "time": this.theTime,
+                        "ID": this.id
+                    }
+                    this.getDateForm("/Game/GetRecord", param);
+                },
+                //搜索
+                search() {
+                    const param = {
+                        ID: this.id,
+                        startTime: this.startTime,
+                        endTime: this.endTime
+                    }
+                    this.getTimeGameForm("/Game/GetRecordCollectByAgency", param);
+                }
+            }
+        })
+    </script>
+</body>
