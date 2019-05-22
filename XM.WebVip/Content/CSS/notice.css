@@ -1,9 +1,17 @@
 ﻿.notice-box .left {
-    padding: 30px 0 0 0;
+    margin: 30px 0 0 0;
+    width: 180px;
+    height: 320px;
+    overflow: auto;
 }
 .notice-box .left li>a {
     padding-top: 7px;
     padding-bottom: 7px;
+}
+.notice-box .left li span {
+    font-size: 10px;
+    float: right;
+    color: #c1c1c1;
 }
 .notice-box .right .title {
     margin-top: 0;
