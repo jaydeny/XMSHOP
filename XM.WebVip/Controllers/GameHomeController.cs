@@ -20,7 +20,6 @@ namespace XM.WebVip.Controllers
         {
             if (Session["AN"] != null)
             {
-                
                 string[] paras = { Agent_Acc, AN, "0" };
 
                 string strKey = Md5.GetMd5(paras[0] + paras[1] + paras[2] + KEY);
