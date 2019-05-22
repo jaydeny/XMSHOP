@@ -48,6 +48,9 @@
     <Compile Include="BuyEntity.cs" />
     <Compile Include="CommonData.cs" />
     <Compile Include="DayTotalDTO.cs" />
+    <Compile Include="GameData.cs" />
+    <Compile Include="GameRecord.cs" />
+    <Compile Include="GameResult.cs" />
     <Compile Include="GoodsEntity.cs" />
     <Compile Include="GoodsTypeEntity.cs" />
     <Compile Include="JurisdictionEntity.cs" />
@@ -57,6 +60,7 @@
     <Compile Include="NoticState.cs" />
     <Compile Include="OrderEntity.cs" />
     <Compile Include="RechargeEntity.cs" />
+    <Compile Include="RecordCollect.cs" />
     <Compile Include="RemainderEntity.cs" />
     <Compile Include="RoleEntity.cs" />
     <Compile Include="RoleMenuEntity.cs" />
