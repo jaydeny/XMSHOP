@@ -1,9 +1,23 @@
-﻿$(function () {
+﻿//弹出模态框
+function btn_add() {
+    $.modalOpen({
+        id: "Form",
+        title: "新增公告",
+        url: "/NoticManager/Form",
+        width: "700px",
+        height: "600px",
+        callBack: function (iframeId) {
+            top.frames[iframeId].submitForm();
+        }
+    });
+}
+
+$(function () {
     gridList();
     $("#gridList").on("click", ".delete", function () {
         var id = $(this).data("val");
 
-        if (confirm("确定删除该权限?")) {
+        if (confirm("确定删除该公告?")) {
             $.ajax({
                 url: "/NoticManager/Delete",
                 data: { id },

@@ -1,18 +1,21 @@
-﻿$("#Releasenotic").click(function () {
-    $.ajax({
-        url: "/Notic/Releasenotic",
-        data: { "title": $(".title").val(),"content": $(".content").val(), "StartDate": $("#StartDate").val(), "EndDate": $("#EndDate").val(), "receiver": $("#receiver").val() },
-        success: function (data) {
-            var e = JSON.parse(data);
-            if (e.success) {
-                alert(e.msg)
-            }
-            window.location.href = "/Notic/Index";
-        }
-    })
-})
+﻿function submitForm() {
+    if ($(".content").val() == "") {
+        alert("请输入内容后重试!");
+        return false;
+    }
+    else {
 
-var getAgent = function() {
+        $.submitForm({
+            url: "/Notic/Releasenotic",
+            param: { "title": $(".title").val(), "content": $(".content").val(), "StartDate": $("#StartDate").val(), "EndDate": $("#EndDate").val(), "receiver": $("#receiver").val() },
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+   }
+}
+
+var getAgent = function () {
     var ListAgent = [];
     $.ajax({
         url: "/Notic/GetAllAgent",

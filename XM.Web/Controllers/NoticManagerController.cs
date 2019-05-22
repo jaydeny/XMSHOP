@@ -17,6 +17,10 @@ namespace XM.Web.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 功能:返回视图,分页显示公告
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Manager()
         {
             var pageIndex = int.Parse(Request["page"]) != 0 ? int.Parse(Request["page"])  : 1 ;
@@ -33,6 +37,25 @@ namespace XM.Web.Controllers
             return PagerData(pageList.Total, pageList.Items, pageList.PageIndex, pageList.PageSize);
         }
 
+        /// <summary>
+        /// 功能:返回添加公告的模态框
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Form()
+        {
+            DateTime dt = DateTime.Now;
+            string StartWeek = dt.ToString("yyyy-MM-dd"); //获取一周的开始日期
+            string EndWeek = dt.AddDays(1 - Convert.ToInt32(dt.DayOfWeek.ToString("d"))).AddDays(6).ToString("yyyy-MM-dd"); //获取本周星期天日期
+
+            ViewData["StartWeek"] = StartWeek;
+            ViewData["EndWeek"] = EndWeek;
+            return View("_Form");
+        }
+
+        /// <summary>
+        /// 功能:删除一个公告
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Delete()
         {
             string id = Request["id"];
@@ -42,26 +65,6 @@ namespace XM.Web.Controllers
                 return OperationReturn(false, "删除公告失败!");
             }
             return OperationReturn(true, "删除公告成功!");
-        }
-        
-        public static Expression AddPredicate(Dictionary<string,object> dic)
-        {
-
-            foreach (var entry in dic)
-            {
-                if (entry.Value.Equals(""))
-                {
-
-                }
-            }
-
-
-            Expression con = Expression.Call
-            (
-                typeof(string).GetMethod("Contains", new Type[] { typeof(string) }),
-                Expression.Constant("a")
-            );
-            return con;
         }
     }
 }

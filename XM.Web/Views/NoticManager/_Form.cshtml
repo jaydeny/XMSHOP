@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<link href="~/Content/notic/notic.css" rel="stylesheet" />
+<form id="form1">
+    <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
+        <div style="padding-top: 20px; margin-right: 30px;">
+            <table class="form">
+                <tr>
+                    <th class="formTitle">开始时间:</th>
+                    <td class="formValue">
+                        <input type="date" id="StartDate" value="@ViewData["StartWeek"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">结束时间:</th>
+                    <td class="formValue">
+                        <input type="date" id="EndDate" value="@ViewData["EndWeek"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">标题</th>
+                    <td class="formValue">
+                        <input type="text" id="title" class="title" /><br />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">内容</th>
+                    <td class="formValue">
+                        <textarea class="content" id="content"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">接收方:</th>
+                    <td class="formValue">
+                        <input type="text" id="receiver" disabled="disabled" />
+                    </td>
+                </tr>
+            </table>
+
+            @* 选择接收方 *@
+            <div id="Choose">
+                <div class="select_side">
+                    <p>待选区</p>
+                    <select id="selectL" name="selectL" multiple="multiple"></select>
+                </div>
+                <div class="select_side">
+                    <p>已选区</p>
+                    <select id="selectR" name="selectR" multiple="multiple"></select>
+                </div>
+                <div class="sub_btn"><input type="button" id="sub" value="确认" /></div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/notic/notic@Form.js"></script>
+</form>
+
