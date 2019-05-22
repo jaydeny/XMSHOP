@@ -29,13 +29,14 @@ namespace YMOA.UnitTest
         //    }
         //}
 
-        ///// <summary>
-        ///// 请求
-        ///// </summary>
-        //public void QryDBLogs()
-        //{
-        //    var retData = dbService.List<DBLogEntity>("YMOA", "DBLog", x => x.tId == "1" && x.tabName == "tbUser", null, 1, false, x => x.ctime);
-        //}
+        /// <summary>
+        /// 请求
+        /// </summary>
+        [TestMethod]
+        public void QryDBLogs()
+        {
+            var testData = dbService.List<MsgEntity>("YMOA", "msg", x => 1 == 1, x => new MsgEntity() { content = x.content }, null);
+        }
 
         /// <summary>
         /// 公告测试
@@ -80,6 +81,8 @@ namespace YMOA.UnitTest
             c2 = MsgUnReadCount("ag4user1", "ag4");
             Assert.AreEqual(c1, 0);
             Assert.AreEqual(c2, 0);
+
+           
             //自行清空YMOA =》msg，msg_state内容，方便下次测试
         }
 
@@ -131,6 +134,7 @@ namespace YMOA.UnitTest
             return msgs;
         }
     }
+
 
     public class MsgEntity
     {

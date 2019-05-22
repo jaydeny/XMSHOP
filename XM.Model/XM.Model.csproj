@@ -67,5 +67,11 @@
     <Compile Include="VipEntity.cs" />
     <Compile Include="VipInfoDTO.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XM.Comm\XM.Comm.csproj">
+      <Project>{BD869537-BDC8-4CCF-9C9E-DA217DCD52E6}</Project>
+      <Name>XM.Comm</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

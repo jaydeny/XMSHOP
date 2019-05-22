@@ -1,0 +1,48 @@
+﻿@{
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+    <link href="~/Content/notic/notic.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="topPanel">
+    </div>
+    <div class="toolbar">
+    </div>
+
+    <div class="release">
+        <div class="input-group">
+            <span>开始时间:</span><input type="date" id="StartDate" value="@ViewData["StartWeek"]" />
+            <span>结束时间:</span><input type="date" id="EndDate" value="@ViewData["EndWeek"]" />
+            <span>接收方:</span><input type="text" id="receiver" disabled="disabled" /> <button id="chooseReceiver">选择接收人</button><br />
+            <span class="contentT">标题:</span>
+            <input type="text" id="title" class="title" /><br />
+            <span class="contentT">内容:</span><br />
+            <textarea class="content" id="content"></textarea>
+            <button id="Releasenotic">发布</button>
+        </div>
+    </div>
+
+    @* 选择接收方 *@
+    <div id="Choose">
+        <div class="select_side">
+            <p>待选区</p>
+            <select id="selectL" name="selectL" multiple="multiple"></select>
+        </div>
+        <div class="select_side">
+            <p>已选区</p>
+            <select id="selectR" name="selectR" multiple="multiple"></select>
+        </div>
+        <div class="sub_btn"><input type="button" id="sub" value="getValue" /></div>
+    </div>
+
+    <script src="~/Scripts/notic/notic@add.js"></script>
+</body>
+</html>
+
+
