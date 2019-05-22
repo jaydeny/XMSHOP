@@ -43,22 +43,6 @@ namespace XM.Web.Controllers
             return JsonConvert.SerializeObject(new { action = _action, key = _key, paras = _paras, culture = _culture });
 
         }
-
-        public void log(string Operator, string Method, string boo, string reason)
-        {
-            var dbService = new MongoDbService();
-
-            var id = Guid.NewGuid().ToString();
-            dbService.Add(new LogEntity
-            {
-                _id = id,
-                Operator = Operator,
-                Method = Method,
-                boo = boo,
-                reason = reason,
-                Time = DateTime.Now
-            });
-        }
         public string Agent_AN { get { return Session["AN"].ToString(); } }
         public string Agent_ID { get { return Session["id"].ToString(); } }
 
