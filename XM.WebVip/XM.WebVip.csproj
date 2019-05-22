@@ -129,6 +129,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Phone\Controllers\PhoneHomeController.cs" />
+    <Compile Include="Areas\Phone\Controllers\PhoneProductController.cs" />
+    <Compile Include="Areas\Phone\Controllers\PhoneVIPController.cs" />
+    <Compile Include="Areas\Phone\Controllers\PhoneVipInfoController.cs" />
+    <Compile Include="Areas\Phone\PhoneAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\GameHomeController.cs" />
     <Compile Include="Controllers\GameRechargeController.cs" />
@@ -145,6 +150,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Phone\Content\Home\index.css" />
+    <Content Include="Areas\Phone\Content\Model\reset.css" />
+    <Content Include="Areas\Phone\Content\Product\classify.css" />
+    <Content Include="Areas\Phone\Content\search\sousSearch.css" />
+    <Content Include="Areas\Phone\Content\ShoppingCart\cart.css" />
+    <Content Include="Areas\Phone\Content\VipInfo\personal.css" />
+    <Content Include="Areas\Phone\Script\Home\scrolltopcontrol.js" />
+    <Content Include="Areas\Phone\Script\Home\TouchSlide.js" />
+    <Content Include="Areas\Phone\Script\Model\jquery-3.4.0.min.js" />
+    <Content Include="Areas\Phone\Script\ShoppingCart\cart.js" />
     <Content Include="Content\bootstrap-3.3.7\css\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-3.3.7\css\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap-3.3.7\css\bootstrap.css" />
@@ -180,6 +195,14 @@
     <Content Include="Content\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Areas\Phone\Views\PhoneHome\Index_MB.cshtml" />
+    <Content Include="Areas\Phone\Views\PhoneProduct\AgoodsList_MB.cshtml" />
+    <Content Include="Areas\Phone\Views\PhoneProduct\Search_MB.cshtml" />
+    <Content Include="Areas\Phone\Views\PhoneVipInfo\InfoPage_MB.cshtml" />
+    <Content Include="Areas\Phone\Views\PhoneVIP\ShoppingCart_MB.cshtml" />
+    <Content Include="Areas\Phone\Views\Shared\mobile_model.cshtml" />
+    <Content Include="Areas\Phone\Views\web.config" />
+    <Content Include="Areas\Phone\Views\_ViewStart.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="img\bs.jpg" />
     <Content Include="img\dq01.jpg" />
@@ -265,6 +288,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Phone\Models\" />
     <Folder Include="Models\" />
     <Folder Include="Views\GameHome\" />
     <Folder Include="Views\Shop\" />
