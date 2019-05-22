@@ -38,7 +38,7 @@ namespace XM.DAL.comm
         {
             using (IDbConnection conn = GetConnection())
             {
-                return conn.QuerySingle<T>(sql, param, null, CommandTimeout, commandType);
+                return conn.QuerySingleOrDefault<T>(sql, param, null, CommandTimeout, commandType);
             }
         }
 
