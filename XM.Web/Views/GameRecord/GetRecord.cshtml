@@ -1,0 +1,58 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+    <script src="~/Scripts/backEnd/Game@Record.js"></script>
+</head>
+<body>
+    <div id="QryDayForm">
+        <div id="two" class="topPanel">
+            <div class="search">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <button id="btn_back" type="button" class="btn  btn-primary" style="width: 80px;">返回</button>
+                            </div>
+                        </td>
+                        <td style="padding-left:30px;">
+                            <div class="input-group">
+                                <input id="txt_search_vip" type="text" placeholder="请输入会员账号" class="form-control" style="width: 150px;">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button id="btn_search_vip" type="button" class="btn  btn-primary"><i class="fa fa-search"></i></button>
+                                </span>
+                            </div>
+                        </td>
+                        <td style="padding-left:30px;">
+                            <div class="input-group">
+                                <input id="txt_search_agent" type="text" placeholder="请输入代理商账号" class="form-control" style="width: 150px;">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button id="btn_search_agent" type="button" class="btn  btn-primary"><i class="fa fa-search"></i></button>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="gridPanel">
+            <table id="qryDayList"></table>
+            <div id="gridPager"></div>
+        </div>
+    </div>
+</body>
+</html>
