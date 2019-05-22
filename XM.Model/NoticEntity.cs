@@ -37,7 +37,7 @@ namespace XM.Model
         /// <summary>
         /// 接收方[会员]
         /// </summary>
-        public List<string> receiver4member { get; set; }
+        public List<string> receivermember { get; set; }
         /// <summary>
         /// 发布人
         /// </summary>
