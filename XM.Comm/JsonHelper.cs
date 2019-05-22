@@ -32,7 +32,7 @@ namespace XM.Comm
             {
                 str = str.ToLower();
             }
-            else if (type == typeof(Guid))
+            else if (type == typeof(GuidExt))
             {
                 str = "\"" + str + "\"";
             }

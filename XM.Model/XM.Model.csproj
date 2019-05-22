@@ -51,9 +51,10 @@
     <Compile Include="GoodsEntity.cs" />
     <Compile Include="GoodsTypeEntity.cs" />
     <Compile Include="JurisdictionEntity.cs" />
-    <Compile Include="LogEntity.cs" />
     <Compile Include="MenuEntity.cs" />
     <Compile Include="Navbar.cs" />
+    <Compile Include="NoticEntity.cs" />
+    <Compile Include="NoticState.cs" />
     <Compile Include="OrderEntity.cs" />
     <Compile Include="RechargeEntity.cs" />
     <Compile Include="RemainderEntity.cs" />
@@ -67,9 +68,9 @@
     <Compile Include="VipInfoDTO.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Framework.MongoDB\Framework.MongoDB.csproj">
-      <Project>{64C0579A-CF14-47ED-9700-76014528262F}</Project>
-      <Name>Framework.MongoDB</Name>
+    <ProjectReference Include="..\XM.Comm\XM.Comm.csproj">
+      <Project>{BD869537-BDC8-4CCF-9C9E-DA217DCD52E6}</Project>
+      <Name>XM.Comm</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

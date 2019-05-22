@@ -1,10 +1,14 @@
-﻿using FrameWork.MongoDB;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using XM.Comm;
 using XM.DALFactory;
 using XM.Model;
 
@@ -55,22 +59,94 @@ namespace XM.Web.Controllers
 
         }
         #endregion
-        #region  日志方法（弃用）
-        public void log(string Operator, string Method, string boo, string reason)
+        #region 游戏专用
+        protected string GameReturn(string _action, string _key, string[] _paras, string _culture = "zh-cn")
         {
-            var dbService = new MongoDbService();
+            return JsonConvert.SerializeObject(new { action = _action, key = _key, paras = _paras, culture = _culture });
 
-            var id = Guid.NewGuid().ToString();
-            dbService.Add(new LogEntity
-            {
-                _id = id,
-                Operator = Operator,
-                Method = Method,
-                boo = boo,
-                reason = reason,
-                Time = DateTime.Now
-            });
         }
+        public static string KEY = "c33e90a9-0714-48ee-89cc-8be9aff00710";
+        /// <summary>
+        /// 指定Post地址使用Get 方式获取全部字符串
+        /// </summary>
+        /// <param name="url">请求后台地址</param>
+        /// <returns></returns>
+        /// 
+        public static string HttpPost(string reqUrl, string postData)
+        {
+            Debug.WriteLine("+++++++++++++++++++++++");
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            HttpWebRequest request = null;
+            try
+            {
+                if (reqUrl.IndexOf("?") == -1)
+                {
+                    reqUrl += "?trad=" + DateTime.Now.ToBinary().ToString();
+                }
+                else
+                {
+                    reqUrl += "&trad=" + DateTime.Now.ToBinary().ToString();
+                }
+
+                request = (HttpWebRequest)WebRequest.Create(reqUrl);
+                request.Timeout = 20000;
+                request.ReadWriteTimeout = 20000;
+                request.ServicePoint.ConnectionLimit = int.MaxValue;
+                request.Method = "POST";
+                request.ContentType = "application/json; charset=UTF-8"; //"application/x-www-form-urlencoded";
+
+                byte[] byteData = null;
+                if (!string.IsNullOrEmpty(postData))
+                {
+                    byteData = UTF8Encoding.UTF8.GetBytes(postData);
+                }
+
+                if (byteData != null)
+                {
+                    request.ContentLength = byteData.Length;
+                    using (Stream postStream = request.GetRequestStream())
+                    {
+                        postStream.Write(byteData, 0, byteData.Length);
+                    }
+                }
+                else
+                {
+                    request.ContentLength = 0;
+                }
+
+                using (WebResponse response = request.GetResponse())
+                {
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                    {
+                        string retText = reader.ReadToEnd();
+
+                        sw.Stop();
+                        return retText;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (sw.IsRunning)
+                {
+                    sw.Stop();
+                }
+                long elapsedTime = sw.ElapsedMilliseconds;
+            }
+            finally
+            {
+                if (request != null)
+                {
+                    request.Abort();
+                }
+
+                request = null;
+            }
+
+            return string.Empty;
+        }
+
         #endregion
     }
     #region  返回结果

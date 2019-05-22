@@ -48,6 +48,7 @@
     <Compile Include="IGoodsDAL.cs" />
     <Compile Include="IGoodsTypeDAL.cs" />
     <Compile Include="IJurisdictionDAL.cs" />
+    <Compile Include="INoticDAL.cs" />
     <Compile Include="IOrderDAL.cs" />
     <Compile Include="IRechargeDAL.cs" />
     <Compile Include="IRemainderDAL.cs" />

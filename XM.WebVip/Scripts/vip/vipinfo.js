@@ -1,5 +1,8 @@
 ﻿var last_a;
 $(".vipinfo-nav a").click(function () {
+    if ($(this).hasClass("action")) {
+        return false;
+    }
     $(last_a).removeClass("action");
     $(this).addClass("action");
     last_a = $(this);
@@ -29,7 +32,6 @@ var qryOrder = function () {
     paging.pageTotal = 3;
     paging.callbackMethod = function () {
         $.post("/Shop/QryOrder", { rows: paging.pageTotal, page: paging.currentPage }, function (data) {
-            console.log(data);
             if (data.total > 0) {
                 $("#empty_order").addClass("hidden");
                 $("#order_box").removeClass("hidden");

@@ -2,25 +2,44 @@
 @{
     Layout = "~/Views/Shared/_Index.cshtml";
 }
-<script src="~/Scripts/backEnd/Revenue@Recharge.js"></script>
-<div class="topPanel">
-    <div class="search">
-        <table>
-            <tr>
-                <td>
-                    <div class="input-group">
-                        <input id="date_start" type="date" class="form-control" style="width: 100px;">
-                        <input id="date_end" type="date" class="form-control" style="width: 100px;">
-                        <span class="input-group-btn">
-                            <button id="btn_search" type="button" class="btn  btn-primary"><i class="fa fa-search"></i></button>
-                        </span>
-                    </div>
-                </td>
-            </tr>
-        </table>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="~/Scripts/backEnd/Revenue@Recharge.js"></script>
+</head>
+<body>
+    <div id="QryDayTotal">
+        <div class="topPanel">
+            <div class="search">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <input id="date_start" type="date" class="form-control" style="width: 120px;">——
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input id="date_end" type="date" class="form-control" style="width: 120px;">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button id="btn_search" type="button" class="btn  btn-primary"><i class="fa fa-search"></i></button>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="gridPanel">
+            <table id="gridList"></table>
+        </div>
     </div>
-</div>
-<div class="gridPanel">
-    <table id="gridList"></table>
-    <div id="gridPager"></div>
-</div>
+</body>
+</html>
+
