@@ -89,7 +89,6 @@ namespace XM.Web.Domain
                     filterContext.Controller.ViewData["Add"] = memuInfo.RmAdd;
                     filterContext.Controller.ViewData["Update"] = memuInfo.RmUpdate;
                     filterContext.Controller.ViewData["Delete"] = memuInfo.RmDelete;
-
                     filterContext.Controller.ViewBag.Title = memuInfo.nameOption;
                 }
             }

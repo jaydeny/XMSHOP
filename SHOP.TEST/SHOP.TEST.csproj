@@ -77,6 +77,10 @@
       <Project>{01AF0C24-F915-4430-BD6F-BC769C89D140}</Project>
       <Name>XM.IDAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\XM.Model\XM.Model.csproj">
+      <Project>{A67EB676-D000-4E12-9E1B-D4F178EC497C}</Project>
+      <Name>XM.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XM.MongoDB\XM.MongoDB.csproj">
       <Project>{153DF1AC-444D-4E37-97AD-2C4903E06B74}</Project>
       <Name>XM.MongoDB</Name>

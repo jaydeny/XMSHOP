@@ -13,6 +13,8 @@ namespace XM.Model
         /// 公告ID
         /// </summary>
         public string _id { get; set; } = Guid.NewGuid().To16String();
+
+        public string title { get; set; }
         /// <summary>
         /// 标题
         /// </summary>

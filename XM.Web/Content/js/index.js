@@ -164,7 +164,7 @@ function GetLoadNav() {
                 $.each(childNodes, function (i) {
                     var subrow = childNodes[i];
                     _html += '<li>';
-                    _html += '<a class="menuItem" data-id="' + subrow.Id + '" href="/' + subrow.Controller + "/" + subrow.Action + '" data-index="' + subrow.SortValue + '">' + subrow.Name + '</a>';
+                    _html += '<a class="menuItem" data-id="' + subrow.MenuId + '" href="/' + subrow.Controller + "/" + subrow.Action + '" data-index="' + subrow.SortValue + '">' + subrow.Name + '</a>';
                     _html += '</li>';
                 });
                 _html += '</ul>';
