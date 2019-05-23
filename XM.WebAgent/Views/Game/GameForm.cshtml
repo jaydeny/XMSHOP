@@ -67,7 +67,7 @@
                     </thead>
                     <tbody>
                        
-                        <tr v-for="(obj,index) in dateFrom" :key="index">
+                        <tr v-for="(obj,index) in dateFrom" :key="index" v-on:click="btn_getAllData(obj.RecordID)">
                             <th scope="row">{{obj.Time}}</th>
                             <th scope="row">{{obj.AccountName}}</th>
                             <th scope="row">{{obj.Name}}</th>
@@ -127,7 +127,9 @@
                 //日程游戏记录
                 timeGameForm: [],
                 //对应天的游戏记录数据
-                dateFrom:[],
+                dateFrom: [],
+                //详细记录信息
+                allDate:[],
                 startTime: "",
                 endTime: "",
                 //游戏ID
@@ -199,6 +201,7 @@
                             this.dataCount = data.result.total;
 
                             this.dateFrom = data.result.data;
+                           
                         } else {
                             alert(data.errorMsg);
                         }
@@ -256,6 +259,7 @@
                         this.btn_sub();
                     }
                 },
+                //确认跳转数据页面
                 btn_sub() {
                     const param = {
                         "page": this.page,
@@ -273,6 +277,30 @@
                         endTime: this.endTime
                     }
                     this.getTimeGameForm("/Game/GetRecordCollectByAgency", param);
+                },
+                //获取具体游戏记录数据
+                getAllData(url, params) {
+                   // console.log("aa")
+                    $.ajax({
+                        url: url,
+                        data: params ,
+                        dataType: 'json'
+                    }).then((data) => {
+                        console.log(data)
+                        if (data.errorCode == 0) {
+                            
+                            this.allDate = data.result;
+                        } else {
+                            alert(data.errorMsg);
+                        }
+                    });
+                },
+                btn_getAllData(id) {
+                    console.log(id)
+                    var params = {
+                        ID:id
+                    }
+                    this.getAllData("/Game/GetRecordSpecific", params);
                 }
             }
         })

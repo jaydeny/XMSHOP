@@ -37,7 +37,10 @@ namespace XM.WebAgent.Controllers
             string[] param = {  };
             return  ReturnRes(param, "GetGameOrByAccount");
         }
-
+        /// <summary>
+        /// 根据用户名获取游戏记录
+        /// </summary>
+        /// <returns></returns>
         public string GetRecordCollect()
         {
             string vipName = Request["vipName"] == null ? "" : Request["vipName"];
@@ -69,6 +72,13 @@ namespace XM.WebAgent.Controllers
             string rows = Request["rows"] == null ? "" : Request["rows"];
             string[] param = { "", ID, time, time,page, Session["agent_AN"].ToString(), rows };
             return ReturnRes(param, "GetRecord");
+        }
+
+        public string GetRecordSpecific()
+        {
+            string ID = Request["ID"] == null ? "" : Request["ID"];
+            string[] param = { "1925" };
+            return ReturnRes(param, "GetRecordSpecific");
         }
 
     }
