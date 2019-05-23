@@ -6,7 +6,7 @@ $(".home-menu").on("click", ".screening-goods", function () {
 
 // 热销模板
 var HotGoods = function (obj) {
-    return "<li><a class='screening-goods' ><div class='info'><p class='img'><img alt='图片' src='/img/" + obj.goods_pic + "'></p><div class='title'>" + obj.goods_name + "</div><p class='desc'>" + obj.goods_intro + "</p><p class='price'>¥" + obj.price + "</p><p class='tips' style='display: none'><em class=''><span class=''>标签</span></em></p></a></li >";
+    return "<li><a class='screening-goods' ><div class='info'><p class='img'><img alt='图片' src='/image/" + obj.goods_pic + "'></p><div class='title'>" + obj.goods_name + "</div><p class='desc'>" + obj.goods_intro + "</p><p class='price'>¥" + obj.price + "</p><p class='tips' style='display: none'><em class=''><span class=''>标签</span></em></p></a></li >";
 }
 
 // 获取热销
