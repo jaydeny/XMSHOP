@@ -279,24 +279,21 @@
                     this.getTimeGameForm("/Game/GetRecordCollectByAgency", param);
                 },
                 //获取具体游戏记录数据
-                getAllData(url, params) {
-                   // console.log("aa")
+                getAllData(url, param) {
                     $.ajax({
                         url: url,
-                        data: params ,
+                        data: param,
+                        method: 'get',
                         dataType: 'json'
                     }).then((data) => {
-                        console.log(data)
-                        if (data.errorCode == 0) {
-                            
-                            this.allDate = data.result;
-                        } else {
-                            alert(data.errorMsg);
-                        }
-                    });
+                        //console.log(data)
+                        alert("抱歉，暂无数据")
+                        });
+                   ///这里有BUG前端发送后台没有得到响应，数据已经是可以传输到后台的，可能是游戏API端出现问题
+                    alert("抱歉，暂无数据")
                 },
                 btn_getAllData(id) {
-                    console.log(id)
+                   // console.log(id)
                     var params = {
                         ID:id
                     }

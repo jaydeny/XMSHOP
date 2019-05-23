@@ -73,11 +73,14 @@ namespace XM.WebAgent.Controllers
             string[] param = { "", ID, time, time,page, Session["agent_AN"].ToString(), rows };
             return ReturnRes(param, "GetRecord");
         }
-
+        /// <summary>
+        /// 根据记录ID获取详细游戏信息
+        /// </summary>
+        /// <returns></returns>
         public string GetRecordSpecific()
         {
             string ID = Request["ID"] == null ? "" : Request["ID"];
-            string[] param = { "1925" };
+            string[] param = { ID };
             return ReturnRes(param, "GetRecordSpecific");
         }
 
