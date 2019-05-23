@@ -14,7 +14,6 @@ namespace XM.WebVip.Controllers
         // GET: notice
         public ActionResult Notice()
         {
-            ViewData["AN"] = Session["AN"];
             return View("_Notice");
         }
 
@@ -25,23 +24,18 @@ namespace XM.WebVip.Controllers
         public ActionResult GetNotice()
         {
             DateTime dtNow = DateTime.Now;
-            List<NoticEntity> result = null;
             if (Session["AN"] != null)
             {
                 var msgStatus = DALUtility.MDbS.List<NoticState>("XMShop", "noticstate", x => x.uid.Equals(AN) && x.state < 2, x => new NoticState() { msgid = x.msgid }, null);
-                List<string> listMsgId = new List<string>();
-                foreach (var ms in msgStatus)
-                {
-                    listMsgId.Add(ms.msgid);
-                }
-                result = DALUtility.MDbS.List<NoticEntity>("XMShop", "notic", x => x.starttime < dtNow && x.endtime > dtNow && (x.receiver == null || x.receiver.Contains(Agent_ID)) && !listMsgId.Contains(x._id),null,null);
+                var result = DALUtility.MDbS.List<NoticEntity>("XMShop", "notic", x => x.starttime < dtNow && x.endtime > dtNow && (x.receiver == null || x.receiver.Contains(Agent_Acc)) && (x.receivermember == null || x.receivermember.Contains(AN)), null,null);
+                return PagerData(-1, new { msgStatus,result});
             }
             else
             {
                 MongoDbService dbService = new MongoDbService();
-                result = dbService.List<NoticEntity>("XMShop", "notic", x => x.starttime < dtNow && x.endtime > dtNow && x.receiver == null, null, null);
+                var result = dbService.List<NoticEntity>("XMShop", "notic", x => x.starttime < dtNow && x.endtime > dtNow && x.receiver == null, null, null);
+                return PagerData(result.Count, result);
             }
-            return PagerData(result.Count,result);
         }
 
         /// <summary>

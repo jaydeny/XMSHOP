@@ -277,15 +277,17 @@ namespace XM.DAL
         public int Recharge(Dictionary<string, object> paras)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("insert into tbrecharge(recharge_name,recharge_price,recharge_time,agent_id,vip_id)");
+            strSql.Append("insert into tbrecharge(recharge_name,recharge_price,recharge_integral,recharge_time,agent_id,vip_id,status_id)");
             strSql.Append(" values ");
-            strSql.Append("(@recharge_name, @recharge_price, @recharge_time,@agent_id,@vip_id )");
+            strSql.Append("(@recharge_name, @recharge_price,@recharge_integral, @recharge_time,@agent_id,@vip_id,@status_id )");
             SqlParameter[] p = {
                                    new SqlParameter("@recharge_name",paras["recharge_name"]),
                                    new SqlParameter("@recharge_price",paras["recharge_price"]),
+                                   new SqlParameter("@recharge_integral",paras["recharge_integral"]),
                                    new SqlParameter("@recharge_time",paras["recharge_time"]),
                                    new SqlParameter("@agent_id",paras["agent_id"]),
                                    new SqlParameter("@vip_id",paras["vip_id"]),
+                                   new SqlParameter("@status_id",paras["status_id"]),
                                    };
             return Convert.ToInt32(SqlHelper.ExecuteNonQuery(SqlHelper.connStr, CommandType.Text, strSql.ToString(), p));
 

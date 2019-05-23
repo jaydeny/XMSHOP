@@ -86,7 +86,7 @@ namespace XM.WebAgent.Controllers
         public ActionResult QryDetailOrder()
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("order_id", Request["order_id"]);
+            param.Add("id", Request["order_id"]);
             
             return Content(DALUtility.Agent.QryDetailOrder(param));
         }

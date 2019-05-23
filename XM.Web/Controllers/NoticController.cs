@@ -19,20 +19,9 @@ namespace XM.Web.Controllers
     {
         // GET: Notic
         /// <summary>
-        /// 功能:返回发布公告首页
+        /// 功能:发布公告
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index()
-        {
-            DateTime dt = DateTime.Now;
-            string StartWeek = dt.ToString("yyyy-MM-dd"); //获取一周的开始日期
-            string EndWeek = dt.AddDays(1 - Convert.ToInt32(dt.DayOfWeek.ToString("d"))).AddDays(6).ToString("yyyy-MM-dd"); //获取本周星期天日期
-
-            ViewData["StartWeek"] = StartWeek;
-            ViewData["EndWeek"] = EndWeek;
-            return View();
-        }
-
         public ActionResult ReleaseNotic()
         {
             UserEntity user = Session["User"] as UserEntity;

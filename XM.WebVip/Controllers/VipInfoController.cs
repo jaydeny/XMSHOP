@@ -168,39 +168,21 @@ namespace XM.WebVip.Controllers
         public ActionResult Recharge()
         {
             DateTime date = DateTime.Now;
-            decimal mark = decimal.Parse(Request["recharge_price"])*10;
+            decimal mark = decimal.Parse(Request["recharge_price"]);
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("recharge_name", "测试充值");
             param.Add("recharge_price", mark);
+            param.Add("recharge_integral", mark*10);
             param.Add("recharge_time", date);
             param.Add("agent_id", Session["Agent_ID"].ToString());
             param.Add("vip_id", Session["ID"].ToString());
+            param.Add("status_id", 6);
 
             int iCheck = DALUtility.Vip.Recharge(param);
 
             if (iCheck > 0)
             {
-                Dictionary<string, object> p = new Dictionary<string, object>();
-                //换积分
-                p.Add("remainder", mark);
-                p.Add("vip_AN", Session["AN"].ToString());
-                //p.Add("vip_AN", HttpContext.Session["vip_AN"]);
-                int i = DALUtility.Vip.InsertRemainder(p);
-
-                if (i != 2)
-                {
-                    Url.Action("CheckRecharge", "Agent", new RouteValueDictionary {
-                    { "vip_id",Request["vip_id"]},
-                    { "recharge_price",Request["recharge_price"]},
-                    { "recharge_time", date}
-                    });
-
-                    return OperationReturn(true, "充值成功");
-                }
-                else
-                {
-                    return OperationReturn(false, "充值失败");
-                }
+                return OperationReturn(true, "充值成功,请等待审核!");
             }
             return OperationReturn(false, "充值失败");
         }
