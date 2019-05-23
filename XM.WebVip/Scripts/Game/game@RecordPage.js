@@ -138,12 +138,14 @@ function showList(page) {
     $("#Page_Count").text = "共 " + page + "条数据";
     counts = page_count;
     addOption(page_count);
+    btn_num_Page_count.val(count);
     //将条数提取出去
     allSource = page;
 }
 
 function addOption(page_count) {
     var num_page = $("#btn_num_Page_count");
+    num_page.empty();
     for (var i = 0; i < page_count; i++) {
         let op = $("<option></option>");
         op.val(i + 1);
