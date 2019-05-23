@@ -312,6 +312,30 @@ namespace XM.DAL
         {
             return QuerySingle<int>("P_tbvip_Shopping", paras, CommandType.StoredProcedure);
         }
+
+        /// <summary>
+        /// 功能:充值记录
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <param name="iCount"></param>
+        /// <returns></returns>
+        public string QryRecharge(Dictionary<string, object> paras, out int iCount)
+        {
+            WhereBuilder builder = new WhereBuilder();
+            builder.FromSql = "tbrecharge";
+            GridData grid = new GridData()
+            {
+                PageIndex = Convert.ToInt32(paras["pi"]),
+                PageSize = Convert.ToInt32(paras["pageSize"]),
+                SortField = paras["sort"].ToString()
+            };
+            builder.AddWhereAndParameter(paras, "vip_id");
+            builder.AddWhereAndParameter(paras, "recharge_time", "recharge_time","like", "'%'+@recharge_time");
+
+            var s = SortAndPage(builder, grid, out iCount);
+            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
+            return retData;
+        }
         #endregion
 
         #region _VipInfo

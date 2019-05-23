@@ -211,3 +211,25 @@
         text-align: center;
     }
 
+.Recharge-list {
+    min-height: 220px;
+    position: relative;
+}
+
+    .Recharge-list ul {
+        margin: 10px 0 0 40px;
+    }
+
+    .Recharge-list li + li {
+        border-bottom: 1px solid #f6f6f6;
+    }
+
+    .Recharge-list li {
+        display: flex;
+        margin: 10px 0;
+    }
+
+    .Recharge-list .flex-1 {
+        flex: 1;
+        text-align: center;
+    }

@@ -3,10 +3,10 @@ var EndDate = "";
 var GameID;
 // 模板
 var RecordTemplate = function (obj) {
-    return "<li></div ><div class='flex-1'><a class='gameRecord' href='/GameRecord/DetailPage'>" + obj.ID + "</a></div></div ><div class='flex-1'><span>" + obj.Name + "</span></div><div class='flex-1'><span>" + obj.Integral + "</span></div>";
+    return "<li><div class='flex-1'><a class='gameRecord' href='/GameRecord/DetailPage'>" + obj.ID + "</a></div><div class='flex-1'><span>" + obj.Name + "</span></div><div class='flex-1'><span>" + obj.Integral + "</span></div>";
 }
 var DetailTemplate = function (obj) {
-    return "<li></div><div class='flex-1'><span>" + obj.AccountName + "</span></div></div ><div class='flex-1'><span>" + obj.Integral + "</span></div><div class='flex-1'><span>" + obj.Time + "</span></div><div class='flex-1'><span>" + obj.Name + "</span></div>";
+    return "<li><div class='flex-1'><span>" + obj.AccountName + "</span></div><div class='flex-1'><span>" + obj.Integral + "</span></div><div class='flex-1'><span>" + obj.Time + "</span></div><div class='flex-1'><span>" + obj.Name + "</span></div>";
 }
 
 
@@ -75,7 +75,7 @@ var QryDetail = function () {
                 }, "json")
             }
             // 回调
-            paging.callbackMethod(); { }
+            paging.callbackMethod();
         })
         return false;
     });

@@ -1,0 +1,39 @@
+﻿
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <title>游戏记录</title>
+    <link rel="stylesheet" href="~/Content/CSS/vipinfo.css" />
+</head>
+
+<body>
+    <div class="info-body">
+        <h3>
+            充值记录
+            <a class="select_order">
+                充值汇总
+            </a>
+        </h3>
+        日期:<input type="date" id="date"/>
+        <button id="Query">查询</button>
+        <div>
+            <div class="Recharge-list">
+                <p class="empty-order hidden" id="empty_order">当前无近期订单，前往<a href="/GameHome/Login">游戏</a></p>
+                <ul class="" id="order_box">
+                    <li>
+                        <div class="flex-1">id</div>
+                        <div class="flex-1">价格</div>
+                        <div class="flex-1">积分</div>
+                        <div class="flex-1">日期</div>
+                        <div class="flex-1">状态</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/vip/vipinfo@QryRecharge.js"></script>
+</body>
+</html>
