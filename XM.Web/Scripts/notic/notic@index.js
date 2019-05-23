@@ -2,7 +2,7 @@
 function btn_add() {
     $.modalOpen({
         id: "Form",
-        title: "新增公告",
+        title: "新增",
         url: "/NoticManager/Form",
         width: "700px",
         height: "600px",
