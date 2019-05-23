@@ -289,6 +289,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Phone\Models\" />
+    <Folder Include="image\" />
     <Folder Include="Models\" />
     <Folder Include="Views\GameHome\" />
     <Folder Include="Views\Shop\" />
