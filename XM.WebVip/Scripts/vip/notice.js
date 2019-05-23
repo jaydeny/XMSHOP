@@ -1,20 +1,31 @@
 ﻿
+// 公告
 var noticeData;
+// 会员已读公告
+var msgStatus = null;
 var act = "active";
 // 公告渲染
-function applyNoticebox(id,data) {
+function applyNoticebox(data) {
     $(".notice-box nav").html("");
-    var act = ""
+    var act = "active";
+    if (msgStatus != null) {
+        var boo;
+        $.each(data, function (i, n) {
+            var boo = msgStatus.some(function (val) {
+                return n._id == val.msgid;
+            });
+            if (boo) {
+                $("#notice-box").append('<li role="presentation" data-id="' + i + '"><a href="#">' + n.title + '<span>已读</span></a></li>');
+            }
+            else {
+                $("#notice-box").prepend('<li role="presentation" data-id="' + i + '"><a href="#">' + n.title + '<span>未读</span></a></li>');
+            }
+            
+        });
+        return false;
+    }
     $.each(data, function (i, n) {
-        if (n._id == id) {
-            act = "active";
-            $("#title").text(n.title);
-            $("#txt_startTime").text(n.starttime.substr(0, 10));
-            $("#txt_endTime").text(n.endtime.substr(0, 10));
-            $("#txtcontent").html(n.content);
-        }
-        $("#notice-box").append('<li role="presentation" data-id="' + n._id + '" class="' + act + '"><a href="#">' + n.title+'</a></li>');
-        act = "";
+        $("#notice-box").append('<li role="presentation" data-id="' + i + '"><a href="#">' + n.title +'<span></span></a></li>');
     });
 }
 
@@ -28,55 +39,51 @@ function txtInput(n) {
 // 获取公告
 function getNotice() {
     $.get("/Notice/GetNotice", function (data) {
-        noticeData = data.rows;
-        applyNoticebox($("#notice").data("id"), noticeData);
+        if (data.total == -1) {
+            noticeData = data.rows.result;
+            msgStatus = data.rows.msgStatus;
+        }
+        else {
+            noticeData = data.rows;
+        }
+        applyNoticebox(noticeData);
+        $("#notice-box>li:first-child").addClass(act);
+        txtInput(noticeData[$("#notice-box>li:first-child").data("id")]);
+        if ($("#notice-box>li:first-child").find("span").text() == "未读") {
+            markRead($("#notice-box>li:first-child"));
+        }
     }, "json")
 }
 getNotice();
 // 列表事件
 $("#notice-box").on("click", "li", function () {
-    $("#notice-box li.active").removeClass(act);
-    var id = $(this).data("id");
-    $(this).addClass(act);
-    $.each(noticeData, function (i, n) {
-        if (n._id == id) {
-            txtInput(n);
-        }
-    });
-})
-$("#btnTag").click(function () {
+    if ($(this).hasClass("action")) {
+        return false;
+    }
     var that = $("#notice-box li.active");
-    var msgid = $(that).data("id");
-    var id;
+    $(that).removeClass(act);
+    $(this).addClass(act);
+    var id = $(this).data("id");
+    txtInput(noticeData[id]);
+    if ($(that).data("read") == "no") {
+        $("#notice-box").append(that);
+        $(that).data("read", "yes");
+    }
+    if ($(this).find("span").text() == "未读") {
+        markRead(this);
+    }
+})
+
+function markRead(that) {
+    var msgid = noticeData[$(that).data("id")]._id;
+    $(that).find("span").text("已读")
     $.get("/Notice/AddNotice", { msgid }, function (data) {
         if (data.success) {
-            if ($(that).next().length != 0) {
-                $(that).next().addClass(act);
-                id = $(that).next().data("id");
-                $("#span_notice").text($(that).next().siblings().length);
-                $(that).remove();
-            }
-            else if ($(that).prev().length != 0) {
-                $(that).prev().addClass(act);
-                id = $(that).prev().data("id");
-                $("#span_notice").text($(that).prev().siblings().length);
-                $(that).remove();
-            }
-            else {
-                $("#span_notice").removeClass("red").text(0);
-                $('#myModal').modal('hide');
-                return false;
-            }
-            $.each(noticeData, function (i, n) {
-                if (n._id == id) {
-                    txtInput(n);
-                    return false;
-                }
-            });
+            $(that).data("read", "no");
         }
-    },"json")
-});
+    }, "json");
+    $("#span_notice").text(parseInt($("#span_notice").text())-1);
+}
 $("#btnClose").click(function () {
     $('#myModal').modal('hide');
-    $.getNotice();
 });

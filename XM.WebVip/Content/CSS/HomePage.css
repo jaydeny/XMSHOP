@@ -41,50 +41,7 @@
 .shortcut a {
 	color: #a4a4a4;
 }
-.shortcut .dropdown .b {
-    display: none;
-    position: absolute;
-    top: 36px;
-    right: 0;
-    background: #fff;
-    box-shadow: 0 2px 36px 0 rgba(0,0,0,0.07);
-    border-radius: 8px 0 8px 8px;
-}
-.shortcut .dropdown:hover {
-    background-color: #fff;
-    z-index: 3;
-    margin: 0 -9px;
-}
-.shortcut .dropdown:hover .b {
-    display: initial;
-}
-.shortcut .dropdown:hover .h {
-    padding: 0 9px 0 9px;
-}
-.shortcut .notice {
-    width: 300px;
-    /*height: 200px;*/
-    padding: 10px 0;
-}
-.shortcut .column-notice>li:hover {
-    background-color: #f9f9f9;
-}
-.shortcut .column-notice>li {
-    position: relative;
-    padding: 0 10px;
-}
-.shortcut .column-notice .title {
-    font-size: 15px;
-}
-.shortcut .column-notice .time {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    padding: 0 10px 0 0;
-    display: inline-block;
-    font-size: 12px;
-    vertical-align: sub;
-}
+
 /*头部*/
 
 .header {
