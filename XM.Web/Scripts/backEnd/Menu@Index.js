@@ -43,7 +43,7 @@ function gridList() {
 function btn_add() {
     $.modalOpen({
         id: "Form",
-        title: "新增菜单",
+        title: "新增",
         url: "/Menu/Form",
         width: "430px",
         height: "420px",
@@ -57,7 +57,7 @@ function btn_edit() {
     var keyValue = $("#gridList").jqGridRowValue().Id;
     $.modalOpen({
         id: "Form",
-        title: "修改菜单",
+        title: "修改",
         url: "/Menu/Form?keyValue=" + keyValue,
         width: "430px",
         height: "420px",
@@ -79,7 +79,7 @@ function btn_delete() {
 function btn_disabled() {
     var keyValue = $("#gridList").jqGridRowValue();
     keyValue.State = 2;
-    $.modalConfirm("注：您确定要【禁用】该项菜单吗？", function (r) {
+    $.modalConfirm("注：您确定要【禁用】该项吗？", function (r) {
         if (r) {
             $.submitForm({
                 url: "/Menu/Save",
@@ -95,7 +95,7 @@ function btn_disabled() {
 function btn_enabled() {
     var keyValue = $("#gridList").jqGridRowValue();
     keyValue.State = 1;
-    $.modalConfirm("注：您确定要【启用】该项菜单吗？", function (r) {
+    $.modalConfirm("注：您确定要【启用】该项吗？", function (r) {
         if (r) {
             $.submitForm({
                 url: "/Menu/Save",

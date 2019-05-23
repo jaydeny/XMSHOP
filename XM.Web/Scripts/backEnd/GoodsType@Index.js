@@ -26,7 +26,7 @@ function gridList() {
 function btn_add() {
     $.modalOpen({
         id: "Form",
-        title: "新增商品类型",
+        title: "新增",
         url: "/Type/Form",
         width: "430px",
         height: "200px",
@@ -40,7 +40,7 @@ function btn_edit() {
     var keyValue = $("#gridList").jqGridRowValue().TypeID;
     $.modalOpen({
         id: "Form",
-        title: "修改商品类型",
+        title: "修改",
         url: "/Type/Form?keyValue=" + keyValue,
         width: "430px",
         height: "200px",
