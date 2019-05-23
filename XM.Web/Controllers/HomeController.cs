@@ -60,5 +60,14 @@ namespace XM.Web.Controllers
             common.Agents = DALUtility.Agent.QryAgent<AgentEntity>();
             return Content(JsonConvert.SerializeObject(common));
         }
+
+        public ActionResult Default()
+        {
+            return View();
+        }
+        public ActionResult GetDefault()
+        {
+            return Content(JsonConvert.SerializeObject(DALUtility.First.GetStore<MonthEntity>()));
+        }
     }
 }

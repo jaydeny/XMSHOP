@@ -55,6 +55,7 @@
     <Compile Include="GoodsTypeEntity.cs" />
     <Compile Include="JurisdictionEntity.cs" />
     <Compile Include="MenuEntity.cs" />
+    <Compile Include="MonthEntity.cs" />
     <Compile Include="Navbar.cs" />
     <Compile Include="NoticEntity.cs" />
     <Compile Include="NoticState.cs" />
