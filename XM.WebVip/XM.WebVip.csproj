@@ -325,7 +325,9 @@
     <Content Include="Views\Home\_UpdatePwdPage.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\GameRecharge\_Recharge.cshtml" />
-    <Content Include="web.config" />
+    <Content Include="web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\GameRecord\RecordPage.cshtml" />
     <Content Include="Views\GameRecord\DetailPage.cshtml" />
     <Content Include="Views\notice\_Notice.cshtml" />
