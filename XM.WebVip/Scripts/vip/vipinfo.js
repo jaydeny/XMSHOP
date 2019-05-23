@@ -23,7 +23,7 @@ $(".vipinfo-nav .title").click(function () {
 });
 // 订单模板
 var orderTemplate = function (obj) {
-    return "<li><div class='flex-1' ><div style='float: left;margin: 0 10px 0 0;'><img src='' /></div><p>" + obj.OrderID + "</p></div ><div class='flex-1'>￥<span>" + obj.OrderPrice + "</span></div><div class='flex-1'><small>X</small><span>1</span></div><div class='flex-1'>￥<span>" + obj.OrderPrice + "</span></div><div class='flex-2'>" + obj.OrderDate.replace('T', ' ')+"</div></li >";
+    return "<li><div class='flex-1' ><div style='float: left;margin: 0 10px 0 0;'></div><p>" + obj.OrderID + "</p></div ><div class='flex-1'>￥<span>" + obj.OrderPrice + "</span></div><div class='flex-1'><small>X</small><span>1</span></div><div class='flex-1'>￥<span>" + obj.OrderPrice + "</span></div><div class='flex-2'>" + obj.OrderDate.replace('T', ' ')+"</div></li >";
 }
 
 // 查询订单
