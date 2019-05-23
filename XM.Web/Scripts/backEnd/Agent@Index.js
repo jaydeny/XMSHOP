@@ -40,7 +40,7 @@ function gridList() {
 function btn_add() {
     $.modalOpen({
         id: "Form",
-        title: "新增用户",
+        title: "新增",
         url: "/Agent/Form",
         width: "430px",
         height: "310px",
@@ -53,7 +53,7 @@ function btn_edit() {
     var keyValue = $("#gridList").jqGridRowValue().AgentID;
     $.modalOpen({
         id: "Form",
-        title: "修改用户",
+        title: "修改",
         url: "/Agent/Form?keyValue=" + keyValue,
         width: "430px",
         height: "310px",
@@ -76,7 +76,7 @@ function btn_details() {
     var keyValue = $("#gridList").jqGridRowValue().AgentID;
     $.modalOpen({
         id: "Details",
-        title: "查看用户",
+        title: "查看",
         url: "/Agent/Details?keyValue=" + keyValue,
         width: "430px",
         height: "410px",

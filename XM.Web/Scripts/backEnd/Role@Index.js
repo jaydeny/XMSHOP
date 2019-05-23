@@ -37,7 +37,7 @@ function gridList() {
 function btn_add() {
     $.modalOpen({
         id: "Form",
-        title: "新增用户",
+        title: "新增",
         url: "/Role/Form",
         width: "550px",
         height: "370px",
@@ -49,7 +49,7 @@ function btn_edit() {
     var keyValue = $("#gridList").jqGridRowValue().Id;
     $.modalOpen({
         id: "Form",
-        title: "修改用户",
+        title: "修改",
         url: "/Role/Form?keyValue=" + keyValue,
         width: "550px",
         height: "370px",
@@ -71,7 +71,7 @@ function btn_disabled() {
     var keyValue = $("#gridList").jqGridRowValue();
     keyValue.StatusID = 0;
     keyValue.id = keyValue.Id;
-    $.modalConfirm("注：您确定要【禁用】该项权限吗？", function (r) {
+    $.modalConfirm("注：您确定要【禁用】该项吗？", function (r) {
         if (r) {
             $.submitForm({
                 url: "/Vip/Save",
@@ -88,7 +88,7 @@ function btn_enabled() {
     var keyValue = $("#gridList").jqGridRowValue();
     keyValue.StatusID = 1;
     keyValue.id = keyValue.Id;
-    $.modalConfirm("注：您确定要【启用】该项权限吗？", function (r) {
+    $.modalConfirm("注：您确定要【启用】该项吗？", function (r) {
         if (r) {
             $.submitForm({
                 url: "/Vip/Save",
