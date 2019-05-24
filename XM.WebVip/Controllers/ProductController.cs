@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using XM.Model;
 using XM.WebVIP.Controllers;
@@ -79,7 +80,8 @@ namespace XM.WebVip.Controllers
         public ActionResult AgoodsList()
         {
             ViewData["VipAccountName"] = Session["AN"];
-            ViewData["GoodsType"] = DALUtility.Dic.GetDicByTag(15).ToList();
+            List<DicEntity> list = DALUtility.Dic.GetDicByTag(15).ToList();
+            ViewData["AGoodsType"] = list;
             return View();
         }
 
