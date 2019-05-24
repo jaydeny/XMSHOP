@@ -156,8 +156,10 @@
     <Content Include="Areas\Phone\Content\search\sousSearch.css" />
     <Content Include="Areas\Phone\Content\ShoppingCart\cart.css" />
     <Content Include="Areas\Phone\Content\VipInfo\personal.css" />
+    <Content Include="Areas\Phone\img\search3.png" />
     <Content Include="Areas\Phone\Script\Home\scrolltopcontrol.js" />
     <Content Include="Areas\Phone\Script\Home\TouchSlide.js" />
+    <Content Include="Areas\Phone\Script\Home\vue.js" />
     <Content Include="Areas\Phone\Script\Model\jquery-3.4.0.min.js" />
     <Content Include="Areas\Phone\Script\ShoppingCart\cart.js" />
     <Content Include="Content\bootstrap-3.3.7\css\bootstrap-theme.css" />
@@ -203,6 +205,7 @@
     <Content Include="Areas\Phone\Views\Shared\mobile_model.cshtml" />
     <Content Include="Areas\Phone\Views\web.config" />
     <Content Include="Areas\Phone\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Phone\resources\Home\FormList.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="image\1.png" />
     <Content Include="image\10.png" />
@@ -340,7 +343,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Phone\img\" />
     <Folder Include="Areas\Phone\Models\" />
     <Folder Include="Models\" />
     <Folder Include="Views\GameHome\" />

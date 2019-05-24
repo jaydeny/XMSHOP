@@ -16,15 +16,20 @@ namespace XM.WebVip.Areas.Phone.Controllers
     /// <returns>页面:首页</returns>
     public class PhoneHomeController : HomeController
     {
-       
+
         public ActionResult Index_MB()
         {
             return View();
         }
 
-       //手机端登录方法
-
-
+        //手机端登录方法
+        [HttpPost]
+        public ActionResult Login_MB()
+        {
+            string AN = Request["name"];
+            string pwd = Request["password"];
+            return Login(AN,pwd);
+        }
 
     }
 }
