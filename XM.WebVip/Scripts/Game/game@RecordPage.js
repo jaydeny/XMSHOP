@@ -58,8 +58,6 @@ var QryDetail = function () {
                 $(".vipinfo-main .info-body").html(data);
             }
         }, "html").done(function () {
-            // 页面条数
-            paging.callbackMethod = function () {
                 $.ajax({
                     url: "/GameRecord/Detail",
                     data: { 'PIndex': count, "PSize": rows, 'GameID': GameID, 'StartDate': StartDate, 'EndDate': EndDate },
@@ -73,9 +71,6 @@ var QryDetail = function () {
                         showList(e.result.total);
                     }
                 }, "json")
-            }
-            // 回调
-            paging.callbackMethod();
         })
         return false;
     });
