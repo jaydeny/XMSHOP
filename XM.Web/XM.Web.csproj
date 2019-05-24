@@ -471,6 +471,8 @@
     <Content Include="Views\NoticManager\Index.cshtml" />
     <Content Include="Views\GameRecord\GetRecord.cshtml" />
     <Content Include="Views\Home\Default.cshtml" />
+    <Content Include="Views\Dic\Index.cshtml" />
+    <Content Include="Views\Dic\_Form.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

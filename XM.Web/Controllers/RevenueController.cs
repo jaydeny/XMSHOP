@@ -134,7 +134,7 @@ namespace XM.Web.Controllers
 
             param.Add("pi", Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]));
             param.Add("pageSize", Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]));
-            param.Add("sort", Request["sort"] == null ? "recharge_id" : Request["sort"]);
+            param.Add("sort", Request["sort"] == null ? "id" : Request["sort"]);
             param.Add("order", Request["order"] == null ? "asc" : Request["order"]);
 
             param.Add("day", Request["day"]);
