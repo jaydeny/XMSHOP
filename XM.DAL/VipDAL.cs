@@ -277,15 +277,17 @@ namespace XM.DAL
         public int Recharge(Dictionary<string, object> paras)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("insert into tbrecharge(recharge_name,recharge_price,recharge_time,agent_id,vip_id)");
+            strSql.Append("insert into tbrecharge(recharge_name,recharge_price,recharge_integral,recharge_time,agent_AN,vip_AN,status_id)");
             strSql.Append(" values ");
-            strSql.Append("(@recharge_name, @recharge_price, @recharge_time,@agent_id,@vip_id )");
+            strSql.Append("(@recharge_name, @recharge_price,@recharge_integral, @recharge_time,@agent_AN,@vip_AN,@status_id )");
             SqlParameter[] p = {
                                    new SqlParameter("@recharge_name",paras["recharge_name"]),
                                    new SqlParameter("@recharge_price",paras["recharge_price"]),
+                                   new SqlParameter("@recharge_integral",paras["recharge_integral"]),
                                    new SqlParameter("@recharge_time",paras["recharge_time"]),
-                                   new SqlParameter("@agent_id",paras["agent_id"]),
-                                   new SqlParameter("@vip_id",paras["vip_id"]),
+                                   new SqlParameter("@agent_AN",paras["agent_AN"]),
+                                   new SqlParameter("@vip_AN",paras["vip_AN"]),
+                                   new SqlParameter("@status_id",paras["status_id"]),
                                    };
             return Convert.ToInt32(SqlHelper.ExecuteNonQuery(SqlHelper.connStr, CommandType.Text, strSql.ToString(), p));
 
@@ -309,6 +311,30 @@ namespace XM.DAL
         public int Buy(Dictionary<string, object> paras)
         {
             return QuerySingle<int>("P_tbvip_Shopping", paras, CommandType.StoredProcedure);
+        }
+
+        /// <summary>
+        /// 功能:充值记录
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <param name="iCount"></param>
+        /// <returns></returns>
+        public string QryRecharge(Dictionary<string, object> paras, out int iCount)
+        {
+            WhereBuilder builder = new WhereBuilder();
+            builder.FromSql = "tbrecharge";
+            GridData grid = new GridData()
+            {
+                PageIndex = Convert.ToInt32(paras["pi"]),
+                PageSize = Convert.ToInt32(paras["pageSize"]),
+                SortField = paras["sort"].ToString()
+            };
+            builder.AddWhereAndParameter(paras, "vip_id");
+            builder.AddWhereAndParameter(paras, "recharge_time", "recharge_time","like", "'%'+@recharge_time");
+
+            var s = SortAndPage(builder, grid, out iCount);
+            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
+            return retData;
         }
         #endregion
 
