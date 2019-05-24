@@ -143,18 +143,20 @@
                     $("#profile_tab")[0].className = "nav-item nav-link"
 
                     e.target.className = "nav-item nav-link active";
+
+                    const date = new Date(this.endTime);
                     let param = {
                         "startTime": this.startTime,
-                        "endTime": this.endTime
+                        "endTime": date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (1 + date.getDate())
                     }
                     if (e.target.id != 'profile_tab') {
                         param.status = 6
                         this.status = 6;
-                        this.btn_show = false
+                        this.btn_show = true
                     } else {
                         param.status = 7
                         this.status = 7;
-                        this.btn_show = true
+                        this.btn_show = false
                     }
                     this.onLoadData("/Examine/QryDayRechargeTotal", param)
                 },
@@ -200,6 +202,7 @@
                         "integral": integral,
                         "name": name
                     }
+                    this.onExamine(param);
                 },
                 onExamine(param) {
                     $.ajax({
