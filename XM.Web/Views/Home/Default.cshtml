@@ -13,6 +13,7 @@
         $(function () {
             GetSalaryChart();
             GetLeaveChart();
+
         });
         function GetSalaryChart() {
             var labels = [];
@@ -71,43 +72,90 @@
             });
         }
         function GetLeaveChart() {
-            var randomScalingFactor = function () { return Math.round(Math.random() * 100) };
-            var a_value = randomScalingFactor();
-            var b_value = randomScalingFactor();
-            var c_value = randomScalingFactor();
-            var d_value = randomScalingFactor();
-            var doughnutData = [
-                {
-                    value: a_value,
-                    color: "#F7464A",
-                    highlight: "#FF5A5E",
-                    label: "事假"
+            var date = new Date();
+            var labels = [];
+            var locations = [];
+            var datasets = [];
+            var oos = [];
+            var obj = [];
+            $.ajax({
+                url: "/Home/GetBar",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    startMonth: date.getMonth() - 1,
+                    endMonth: date.getMonth() + 1,
+                    agent_AN: $("#agent option:selected").val()
                 },
-                {
-                    value: b_value,
-                    color: "#46BFBD",
-                    highlight: "#5AD3D1",
-                    label: "病假"
-                },
-                {
-                    value: c_value,
-                    color: "#FDB45C",
-                    highlight: "#FFC870",
-                    label: "公休假"
-                },
-                {
-                    value: d_value,
-                    color: "#949FB1",
-                    highlight: "#A8B3C5",
-                    label: "调休假"
+                success: function (data) {
+                    obj = data;
+                    for (i = 0; i < obj.month.length; i++) {
+                        if (labels.indexOf(obj.month[i].date) === -1) {
+                            labels.push(obj.month[i].date);
+                        }
+                    }
+                    console.log(labels);
+                    if (obj.month.length > 3) {
+                        var $select = $("select[name='agent']").html("");
+                        for (i = 0; i < obj.month.length; i++) {
+                            if (locations.indexOf(obj.month[i].agent_AN) === -1) {
+                                locations.push(obj.month[i].agent_AN);
+                                $select.append("<option value=" + obj.month[i].agent_AN + ">" + obj.month[i].agent_AN + "</option>");
+                            }
+                        }
+                    } else {
+                        for (i = 0; i < obj.month.length; i++) {
+                            if (locations.indexOf(obj.month[i].agent_AN) === -1) {
+                                locations.push(obj.month[i].agent_AN);
+                                //$select.append("<option value=" + obj.month[i].agent_AN + ">" + obj.month[i].agent_AN + "</option>");
+                            }
+                        }
+                    }
+                    console.log(locations);
+                    locations.forEach(function (location) {
+                        obj.month.forEach(function (report) {
+                            if (report.agent_AN === location) {
+                                oos.push(report.total);
+                            }
+                        })
+                    });
+                    console.log(oos);
+                    for (i = 0; i < obj.month.length; i++) {
+                        datasets.push([oos[i], oos[i + 1], oos[i + 2]]);
+                        if (obj.month.length > 3) {
+                            i += 3;
+                        }
+                    }
+                    console.log(datasets);
+                    var doughnutData = {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: locations[0],
+                                fillColor: "rgba(220,220,220,0.5)",
+                                strokeColor: "rgba(220,220,220,0.8)",
+                                highlightFill: "rgba(220,220,220,0.75)",
+                                highlightStroke: "rgba(220,220,220,1)",
+                                data: [oos[0], oos[1], oos[2]]
+                            },
+                            {
+                                label: obj.game.agent_AN,
+                                fillColor: "rgba(151,187,205,0.5)",
+                                strokeColor: "rgba(151,187,205,0.8)",
+                                highlightFill: "rgba(151,187,205,0.75)",
+                                highlightStroke: "rgba(151,187,205,1)",
+                                data: [0, 0, obj.game.total]
+                            }
+                        ]
+                    };
+                    var ctx = document.getElementById("leavechart").getContext("2d");
+                    window.myDoughnut = new Chart(ctx).Bar(doughnutData, { responsive: true });
                 }
-            ];
-            var ctx = document.getElementById("leavechart").getContext("2d");
-            window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, { responsive: false });
-            $("#a_value").html(a_value + "小时");
-            $("#b_value").html(b_value + "小时");
-            $("#c_value").html(c_value + "小时");
-            $("#d_value").html(d_value + "小时");
+            });
+            //$("#agent").change(function () {
+            //    console.log($("#agent option:selected").val());
+            //    GetLeaveChart();
+            //});
         }
     </script>
 </head>
@@ -176,10 +224,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-area-chart fa-lg" style="padding-right: 5px;"></i>代理营收
-                            <div name="agent" style="float: right">
-                                @*<span style="font-weight: 500;"><i class="fa fa-square" style="color: #dcdcdc; font-size: 20px; padding-right: 5px; vertical-align: middle; margin-top: -3px;"></i>agent0</span>
-                                    <span style="margin-left: 10px; font-weight: 500;"><i class="fa fa-square" style="color: #97bbcd; font-size: 20px; padding-right: 5px; vertical-align: middle; margin-top: -3px;"></i>agent1</span>*@
-                            </div>
+                            <div name="agent" style="float: right"></div>
                         </div>
                         <div class="panel-body" style="padding-bottom: 0px;">
                             <canvas id="salarychart" style="height: 285px; width: 100%; padding-right: 10px;"></canvas>
@@ -190,32 +235,17 @@
             <div style="float: right; width: 40%;">
                 <div style="height: 350px; border: 1px solid #e6e6e6; background-color: #fff;">
                     <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-pie-chart fa-lg" style="padding-right: 5px;"></i>请假统计</div>
+                        <div class="panel-heading">
+                            <i class="fa fa-line-chart fa-lg" style="padding-right: 5px;"></i>商城与游戏积分
+                            <select id="agent" name="agent" onchange="GetLeaveChart()"></select>
+                        </div>
                         <div class="panel-body" style="padding-top: 20px;">
-                            <canvas id="leavechart" style="height: 160px; width: 100%;"></canvas>
+                            <canvas id="leavechart" style="height: 285px; width: 100%;"></canvas>
                             <div style="text-align: center; padding-top: 20px;">
                                 <span><i class="fa fa-square" style="color: #F7464A; font-size: 20px; padding-right: 5px; vertical-align: middle; margin-top: -3px;"></i>事假</span>
                                 <span style="margin-left: 10px;"><i class="fa fa-square" style="color: #46BFBD; font-size: 20px; padding-right: 5px; vertical-align: middle; margin-top: -3px;"></i>病假</span>
                                 <span style="margin-left: 10px;"><i class="fa fa-square" style="color: #FDB45C; font-size: 20px; padding-right: 5px; vertical-align: middle; margin-top: -3px;"></i>公休假</span>
                                 <span style="margin-left: 10px;"><i class="fa fa-square" style="color: #949FB1; font-size: 20px; padding-right: 5px; vertical-align: middle; margin-top: -3px;"></i>调休假</span>
-                            </div>
-                            <div style="margin-top: 20px; padding-top: 18px; height: 60px; border-top: 1px solid #e6e6e6;">
-                                <div style="width: 25%; text-align: center; float: left;">
-                                    <span id="a_value">16.5小时</span>
-                                    <p style="color: #a1a1a1">事假</p>
-                                </div>
-                                <div style="width: 25%; text-align: center; float: left;">
-                                    <span id="b_value">7.5小时</span>
-                                    <p style="color: #a1a1a1">病假</p>
-                                </div>
-                                <div style="width: 25%; text-align: center; float: left;">
-                                    <span id="c_value">13小时</span>
-                                    <p style="color: #a1a1a1">公休假</p>
-                                </div>
-                                <div style="width: 25%; text-align: center; float: left;">
-                                    <span id="d_value">19小时</span>
-                                    <p style="color: #a1a1a1">调休假</p>
-                                </div>
                             </div>
                         </div>
                     </div>

@@ -8,6 +8,6 @@ namespace XM.IDAL
 {
     public interface IFirstDAL
     {
-        IEnumerable<T>GetStore<T>();
+        IEnumerable<T>GetStore<T>(Dictionary<string,object>paras);
     }
 }

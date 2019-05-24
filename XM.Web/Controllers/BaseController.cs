@@ -21,6 +21,17 @@ namespace XM.Web.Controllers
     /// </summary>
     public class BaseController : Controller
     {
+        protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            if (!filterContext.RouteData.Values["controller"].ToString().Equals("Login"))
+            {
+                UserEntity uInfo = Session["User"] as UserEntity;
+                if (uInfo == null)
+                {
+                    filterContext.RequestContext.HttpContext.Response.Redirect("/Login");
+                }
+            }
+        }
         #region 数据交互接口
         internal DALCore DALUtility => DALCore.GetInstance();
         #endregion

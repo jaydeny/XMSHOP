@@ -67,7 +67,40 @@ namespace XM.Web.Controllers
         }
         public ActionResult GetDefault()
         {
-            return Content(JsonConvert.SerializeObject(DALUtility.First.GetStore<MonthEntity>()));
+            Dictionary<string, object> paras = new Dictionary<string, object>();
+            paras.Add("year", "2019");
+            paras.Add("startMonth", Request["startMonth"] == null ? "" : Request["startMonth"]);
+            paras.Add("endMonth", Request["endMonth"] == null ? "" : Request["endMonth"]);
+            paras.Add("agent_AN", Request["agent_AN"] == null ? "" : Request["agent_AN"]);
+            return Content(JsonConvert.SerializeObject(DALUtility.First.GetStore<MonthEntity>(paras)));
+        }
+        public ActionResult GetBar()
+        {
+            Dictionary<string, object> paras = new Dictionary<string, object>();
+            paras.Add("year", "2019");
+            paras.Add("startMonth", Request["startMonth"] == null ? "" : Request["startMonth"]);
+            paras.Add("endMonth", Request["endMonth"] == null ? "" : Request["endMonth"]);
+            paras.Add("agent_AN", Request["agent_AN"] == null ? "" : Request["agent_AN"]);
+            var _month = DALUtility.First.GetStore<MonthEntity>(paras);
+
+            string date = "2019-05";
+            string agent_AN = "agent0";
+            int Integral = 20000;
+            var _game = new
+            {
+                date = date,
+                total = Integral,
+                agent_AN = agent_AN
+            };
+
+
+            var data = new
+            {
+                month = _month,
+                game = _game
+            };
+            return Content(JsonConvert.SerializeObject(data));
+            
         }
     }
 }

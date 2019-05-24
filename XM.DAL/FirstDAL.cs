@@ -9,11 +9,11 @@ using XM.IDAL;
 
 namespace XM.DAL
 {
-    public class FirstDAL :BaseDal, IFirstDAL
+    public class FirstDAL : BaseDal, IFirstDAL
     {
-        public IEnumerable<T>GetStore<T>()
+        public IEnumerable<T> GetStore<T>(Dictionary<string, object> paras)
         {
-            return QueryList<T>("P_Select_Month", CommandType.StoredProcedure);
+            return QueryList<T>("P_Select_Month", paras, CommandType.StoredProcedure);
         }
     }
 }
