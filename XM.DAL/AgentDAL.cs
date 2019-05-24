@@ -354,6 +354,7 @@ namespace XM.DAL
             builder.AddWhereAndParameter(paras, "goods_Name", "a.goods_Name", "LIKE", "'%'+@goods_Name+'%'");
             builder.AddWhereAndParameter(paras, "agent_AN");
             builder.AddWhereAndParameter(paras, "status_id");
+            builder.AddWhereAndParameter(paras, "type_id");
 
             var s = SortAndPage(builder, grid, out iCount, "a.*,b.goods_intro,b.goods_pic");
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
