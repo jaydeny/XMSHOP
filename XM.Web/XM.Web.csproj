@@ -347,6 +347,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\backEnd\Agent%40Index.js" />
     <Content Include="Scripts\backEnd\Agent%40Form.js" />
+    <Content Include="Scripts\backEnd\Default.js" />
     <Content Include="Scripts\backEnd\Game%40Index.js" />
     <Content Include="Scripts\backEnd\Game%40Record.js" />
     <Content Include="Scripts\backEnd\Goods%40Index.js" />
