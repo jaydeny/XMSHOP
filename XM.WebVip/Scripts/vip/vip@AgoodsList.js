@@ -76,7 +76,7 @@ var goodsRender = function () {
 $(".goods-exhibition").on("click", ".p-button", function () {
     var obj = listGoods[$(this).data("id")];
     //console.log(obj);
-    $.post("/Shop/buy", { goods_id: obj.goods_id, buy_count: 1, order_total: obj.price, buy_total: obj.price * 1 }, function (data) {
+    $.post("/Shop/buy", { agoods_id: obj.id, buy_count: 1, order_total: obj.price, buy_total: obj.price * 1 }, function (data) {
         if (data.success) {
             alert(data.msg);
         } else {
