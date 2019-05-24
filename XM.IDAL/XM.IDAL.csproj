@@ -45,6 +45,7 @@
     <Compile Include="IAgentDAL.cs" />
     <Compile Include="IAgentGoodsDAL.cs" />
     <Compile Include="IBuyDAL.cs" />
+    <Compile Include="IDicDAL.cs" />
     <Compile Include="IGoodsDAL.cs" />
     <Compile Include="IGoodsTypeDAL.cs" />
     <Compile Include="IJurisdictionDAL.cs" />

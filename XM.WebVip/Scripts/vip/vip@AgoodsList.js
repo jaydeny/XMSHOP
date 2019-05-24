@@ -9,6 +9,7 @@
 //        $(obj.body).html(data);
 //    })
 //}
+
 //弹出商品详情
 //$(".goods-exhibition").on("click", "img,.p-title a", function () {
 //    var obj = {

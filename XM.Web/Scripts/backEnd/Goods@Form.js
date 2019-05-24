@@ -16,7 +16,7 @@ $(function () {
 });
 function initControl() {
     $.each(top.clients.type, function (i, n) {
-        $("#GoodsType").append("<option value='" + n.TypeID + "'>" + n.TypeName + "</option>");
+        $("#GoodsType").append("<option value='" + n.id + "'>" + n.name + "</option>");
     });
 }
 function submitForm() {

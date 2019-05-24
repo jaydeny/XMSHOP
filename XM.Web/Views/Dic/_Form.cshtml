@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script src="~/Scripts/backEnd/Dic@Form.js"></script>
+<form id="form1">
+    <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
+        <div style="padding-top: 20px; margin-right: 30px;">
+            @{
+                var list = ViewData["list"] as List<XM.Model.DicEntity>;
+                var entity = ViewData["entity"] as XM.Model.DicEntity;
+                <table class="form">
+                    <tr>
+                        <th class="formTitle">名称</th>
+                        <td class="formValue">
+                            <input id="name" name="name" type="text" class="form-control required" placeholder="请输入名称" value="@entity.name" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle">标识</th>
+                        <td class="formValue">
+                            <select id="tag" name="tag" class="form-control" data-val="@entity.tag">
+                                <option value="0">===请选择===</option>
+                                    @foreach (var item in list)
+                                    {
+                                    <option value="@item.id">@item.name</option>
+                                    }
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle">排序</th>
+                        <td class="formValue">
+                            <input id="sort" name="sort" type="text" class="form-control" required value="@entity.sort" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle">编码</th>
+                        <td class="formValue">
+                            <input id="code" name="code" type="text" class="form-control" required value="@entity.code" />
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+    </div>
+</form>
+

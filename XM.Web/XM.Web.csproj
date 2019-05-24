@@ -115,6 +115,7 @@
     <Content Include="Content\css\framework-login.css" />
     <Content Include="Content\css\framework-theme.css" />
     <Content Include="Content\css\framework-ui.css" />
+    <Content Include="Content\Dic\Dic%40Index.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\weathericons-regular-webfont.svg" />
@@ -347,6 +348,8 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\backEnd\Agent%40Index.js" />
     <Content Include="Scripts\backEnd\Agent%40Form.js" />
+    <Content Include="Scripts\backEnd\Dic%40Form.js" />
+    <Content Include="Scripts\backEnd\Dic%40Index.js" />
     <Content Include="Scripts\backEnd\Game%40Index.js" />
     <Content Include="Scripts\backEnd\Game%40Record.js" />
     <Content Include="Scripts\backEnd\Goods%40Index.js" />
@@ -403,6 +406,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\DicController.cs" />
     <Compile Include="Controllers\GameRecordController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\NoticController.cs" />
@@ -469,6 +473,8 @@
     <Content Include="Views\Notic\Index.cshtml" />
     <Content Include="Views\NoticManager\Index.cshtml" />
     <Content Include="Views\GameRecord\GetRecord.cshtml" />
+    <Content Include="Views\Dic\Index.cshtml" />
+    <Content Include="Views\Dic\_Form.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
