@@ -11,7 +11,7 @@ namespace XM.WebVip.Areas.Phone.Controllers
     /// <summary>
     /// 作者:梁钧淋
     /// 日期:2019/5/16
-    /// 功能:会员端手机版操作
+    /// 功能:会员端手机版操作,登录等方法
     /// </summary>
     /// <returns>页面:首页</returns>
     public class PhoneHomeController : HomeController
@@ -21,5 +21,10 @@ namespace XM.WebVip.Areas.Phone.Controllers
         {
             return View();
         }
+
+       //手机端登录方法
+
+
+
     }
 }

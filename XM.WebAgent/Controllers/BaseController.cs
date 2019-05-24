@@ -21,6 +21,29 @@ namespace XM.Web.Controllers
         /// </summary>
         internal DALCore DALUtility => DALCore.GetInstance();
 
+        #region  分页方法（常用）
+        /// <param name="totalCount">总记录数</param>
+        /// <param name="rows">数据</param>
+        /// <param name="page">当前页</param>
+        /// <param name="pageSize">页面条数</param>
+        /// <returns></returns>
+        protected ContentResult PagerData(int totalCount, object rows, int page, int pageSize)
+        {
+            var data = new
+            {
+                // 数据
+                rows = rows,
+                // 总页数
+                total = (int)Math.Ceiling((double)totalCount / pageSize),
+                // 当前页
+                page = page,
+                // 总记录数
+                records = totalCount
+            };
+            return Content(JsonConvert.SerializeObject(data));
+        }
+        #endregion
+
         protected ContentResult PagerData(int totalCount, object rows)
         {
             return Content(JsonConvert.SerializeObject(new { total = totalCount.ToString(), rows = rows }));
