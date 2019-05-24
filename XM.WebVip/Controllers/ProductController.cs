@@ -79,6 +79,7 @@ namespace XM.WebVip.Controllers
         public ActionResult AgoodsList()
         {
             ViewData["VipAccountName"] = Session["AN"];
+            ViewData["GoodsType"] = DALUtility.Dic.GetDicByTag(15).ToList();
             return View();
         }
 
