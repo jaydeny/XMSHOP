@@ -12,14 +12,17 @@ function gridList() {
             { label: '手机', name: 'UserMobliePhone', width: 100, align: 'center' },
             { label: '邮箱', name: 'UserEmail', width: 140, align: 'center' }, 
             { label: '创建人', name: 'UserCreateBy', width: 80, align: 'center' },
-            { label: '创建时间', name: 'UserCreateDate', width: 160, align: 'center' },
+            {
+                label: '创建时间', name: 'UserCreateDate', width: 160, align: 'center',
+                formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+            },
             {
                 label: "允许登录", name: "StatusID", width: 60, align: "left",
                 formatter: function (cellvalue, options, rowObject) {
                     if (cellvalue == 1) {
-                        return '<span class=\"label label-success\">正常</span>';
+                        return '<span class=\"label label-success\">已启用</span>';
                     } else if (cellvalue == 2) {
-                        return '<span class=\"label label-default\">禁用</span>';
+                        return '<span class=\"label label-default\">已冻结</span>';
                     }
                 }
             }

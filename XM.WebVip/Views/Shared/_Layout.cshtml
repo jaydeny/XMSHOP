@@ -103,7 +103,11 @@
             </div>
             <form class="navbar-form navbar-right" role="search">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="荣耀V20 HUAWEI nova" style="width: 260px" id="txt_search">
+                    <input type="text" class="form-control" placeholder="荣耀V20 HUAWEI nova" autocomplete="off" list="tip" style="width: 260px" id="txt_search" >
+                    <datalist id="tip">
+                        <option value="荣耀V20">
+                        <option value="HUAWEI">
+                    </datalist>
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="button" id="btnSearch">搜索</button>
                     </span>

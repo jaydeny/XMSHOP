@@ -17,7 +17,10 @@ function gridList() {
             { label: '单价', name: 'GoodsPrice', width: 100, align: 'left' },
             { label: '图片', name: 'GoodsPicture', width: 80, align: 'left' },
             { label: '创建人', name: 'GoodsCreateBy', width: 80, align: 'left' },
-            { label: '创建时间', name: 'GoodsCreateTime', width: 140, align: 'left' }
+            {
+                label: '创建时间', name: 'GoodsCreateTime', width: 140, align: 'left',
+                formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+            }
         ],
         viewrecords: true
     });
