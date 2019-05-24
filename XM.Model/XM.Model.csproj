@@ -48,6 +48,7 @@
     <Compile Include="BuyEntity.cs" />
     <Compile Include="CommonData.cs" />
     <Compile Include="DayTotalDTO.cs" />
+    <Compile Include="DicEntity.cs" />
     <Compile Include="GameData.cs" />
     <Compile Include="GameRecord.cs" />
     <Compile Include="GameResult.cs" />
