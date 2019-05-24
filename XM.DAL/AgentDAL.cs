@@ -290,6 +290,8 @@ namespace XM.DAL
             return QuerySingle<int>( strSql.ToString(), paras, CommandType.Text);
         }
 
+
+
         #region _Signin
         /// <summary>
         /// 注册代理商时,检查是否有登录名,邮箱,手机重复
@@ -352,6 +354,7 @@ namespace XM.DAL
             builder.AddWhereAndParameter(paras, "goods_Name", "a.goods_Name", "LIKE", "'%'+@goods_Name+'%'");
             builder.AddWhereAndParameter(paras, "agent_AN");
             builder.AddWhereAndParameter(paras, "status_id");
+            builder.AddWhereAndParameter(paras, "type_id");
 
             var s = SortAndPage(builder, grid, out iCount, "a.*,b.goods_intro,b.goods_pic");
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
@@ -457,6 +460,7 @@ namespace XM.DAL
             string retData = JsonConvert.SerializeObject(new { rows = s });
             return retData;
         }
+
         #region  后台使用
         /// <summary>
         /// 功能：查询日期，总营业额，代理商（后台使用方法）

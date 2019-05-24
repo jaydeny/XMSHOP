@@ -122,6 +122,10 @@ namespace XM.DALFactory
         {
             get { return LoadAssamblyType<IMenuDAL>("MenuDAL"); }
         }
+        public IDicDAL Dic
+        {
+            get { return LoadAssamblyType<IDicDAL>("DicDAL"); }
+        }
 
         public IXMDAL Xm
         {
@@ -136,6 +140,10 @@ namespace XM.DALFactory
         public INoticDAL Notic
         {
             get { return LoadAssamblyType<INoticDAL>("NoticDAL"); }
+        }
+        public IFirstDAL First
+        {
+            get { return LoadAssamblyType<IFirstDAL>("FirstDAL"); }
         }
     }
 }

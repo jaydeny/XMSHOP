@@ -16,20 +16,22 @@
         <div class="filter_box">
             <div class="item">
                 <div class="title">分类：</div>
-                <a class="first-category main-color">全部</a>
+                <a class="first-category type-action type">全部</a>
                 <ul class="" style="flex: auto">
-                    @*<li><a>HUAWEI</a></li>
-                        <li><a>Mate系列荣耀HUAWEI</a></li>
-                        <li><a>P系列荣耀畅玩系列HUAWEI</a></li>
-                        <li><a>nova系列华为畅享系列HUAWEI</a></li>
-                        <li><a>麦芒系列移动4G+专区</a></li>
-                        <li><a>麦芒系列移动4G+专区</a></li>
-                        <li><a>麦芒系列移动4G+专区</a></li>*@
+
+                    @{
+                        var list = ViewData["AGoodsType"] as List<XM.Model.DicEntity>;
+                        foreach (XM.Model.DicEntity entity in list)
+                        {
+                            <li><a class="type" data-id="@entity.id">@entity.name</a></li>
+                        }
+                    }
+
                 </ul>
             </div>
             <div class="item">
                 <div class="title">排序：</div>
-                <a class="first-category main-color">上架时间</a>
+                <a class="first-category">上架时间</a>
                 <ul class="" style="flex: auto">
                     <li><a>价格</a></li>
                 </ul>
@@ -40,27 +42,30 @@
         <div class="goods-exhibition">
             <ul>
                 @*<li>
-                        <div class="goods-item">
-                            <p class="p-img">
-                                <a>
-                                    <img />
-                                </a>
-                            </p>
-                            <p class="p-title">
-                                <a>
-                                    <span>名称</span>
-                                    <span class="red">亮点</span>
-                                </a>
-                            </p>
-                            <p class="p-price">
-                                <b>￥99</b>
-                            </p>
-                            <div class="p-button">
-                                <a class="">立即下单</a>
-                            </div>
-                        </div>
-                    </li>*@
+                <div class="goods-item">
+                    <p class="p-img">
+                        <a>
+                            <img />
+                        </a>
+                    </p>
+                    <p class="p-title">
+                        <a>
+                            <span>名称</span>
+                            <span class="red">亮点</span>
+                        </a>
+                    </p>
+                    <p class="p-price">
+                        <b>￥99</b>
+                    </p>
+                    <div class="p-button">
+                        <a class="">立即下单</a>
+                    </div>
+                </div>
+            </li>*@
             </ul>
+            <div class="empty">
+                暂无商品~~
+            </div>
         </div>
 
         @*分页*@
@@ -70,5 +75,6 @@
     </div>
 </div>
 <script src="~/Scripts/vip/paging.js"></script>
+<script src="~/Scripts/vip/nanobar.min.js"></script>
 <script src="~/Scripts/vip/vip@AgoodsList.js"></script>
 

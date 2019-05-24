@@ -174,8 +174,8 @@ namespace XM.WebVip.Controllers
             param.Add("recharge_price", mark);
             param.Add("recharge_integral", mark*10);
             param.Add("recharge_time", date);
-            param.Add("agent_id", Session["Agent_ID"].ToString());
-            param.Add("vip_id", Session["ID"].ToString());
+            param.Add("agent_AN", Agent_Acc);
+            param.Add("vip_AN", AN);
             param.Add("status_id", 6);
 
             int iCheck = DALUtility.Vip.Recharge(param);
@@ -185,6 +185,37 @@ namespace XM.WebVip.Controllers
                 return OperationReturn(true, "充值成功,请等待审核!");
             }
             return OperationReturn(false, "充值失败");
+        }
+
+        /// <summary>
+        /// 功能:跳转充值记录页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult QryRechargePage()
+        {
+            return View("_QryRechargePage");
+        }
+
+        /// <summary>
+        /// 功能:返回充值记录
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult QryRecharge()
+        {
+            string sort = Request["sort"] == null ? "id" : Request["sort"];
+            string order = Request["order"] == null ? "asc" : Request["order"];
+            int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
+            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+
+            Dictionary<string, object> paras = new Dictionary<string, object>();
+            paras.Add("vip_AN",AN);
+            paras.Add("recharge_time", Request["date"] == "" ? "" : Request["date"]);
+            paras.Add("pi", pageindex);
+            paras.Add("pageSize", pagesize);
+            paras.Add("sort", sort);
+
+            string result = DALUtility.Vip.QryRecharge(paras,out int iCount);
+            return Content(result);
         }
         #endregion
 

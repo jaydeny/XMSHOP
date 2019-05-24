@@ -291,6 +291,7 @@
     <Content Include="Scripts\jquery.md5.js" />
     <Content Include="Scripts\vip\bounced.js" />
     <Content Include="Scripts\vip\layout.js" />
+    <Content Include="Scripts\vip\nanobar.min.js" />
     <Content Include="Scripts\vip\notice.js" />
     <Content Include="Scripts\vip\paging.js" />
     <Content Include="Scripts\vip\RequestUrl.js" />
@@ -303,6 +304,7 @@
     <Content Include="Scripts\vip\Vip%40Signin.js" />
     <Content Include="Scripts\vip\vip%40home.js" />
     <Content Include="Scripts\vip\vipinfo%40Address.js" />
+    <Content Include="Scripts\vip\vipinfo%40QryRecharge.js" />
     <Content Include="Scripts\vip\vipinfo%40Recharge.js" />
     <Content Include="Scripts\vip\vipInfo%40Update.js" />
     <Content Include="Scripts\vip\vipinfo%40UpdatePwd.js" />
@@ -334,6 +336,7 @@
     <Content Include="Views\GameRecord\RecordPage.cshtml" />
     <Content Include="Views\GameRecord\DetailPage.cshtml" />
     <Content Include="Views\notice\_Notice.cshtml" />
+    <Content Include="Views\VipInfo\_QryRechargePage.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

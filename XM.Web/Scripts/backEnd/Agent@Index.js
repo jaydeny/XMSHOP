@@ -16,7 +16,10 @@ function gridList() {
             { label: '手机', name: 'MobliePhone', width: 100, align: 'left' },
             { label: '邮箱', name: 'Email', width: 140, align: 'left' },
             { label: '创建人', name: 'CreateBy', width: 80, align: 'center' },
-            { label: '创建时间', name: 'CreateTime', width: 140, align: 'left' },
+            {
+                label: '创建时间', name: 'CreateTime', width: 140, align: 'left',
+                formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+            },
             {
                 label: "状态", name: "StatusID", width: 60, align: "left",
                 formatter: function (cellvalue, options, rowObject) {

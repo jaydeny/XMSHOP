@@ -49,7 +49,7 @@ namespace XM.Web.Controllers
         {
             CommonDataDTO common = new CommonDataDTO();
             common.Roles = DALUtility.Role.QryRole<RoleEntity>();
-            common.Types = DALUtility.Type.QryAllType<GoodsTypeEntity>();
+            common.Types = DALUtility.Dic.GetDicByTag(15).ToList();
             common.Menus = DALUtility.Menu.QryAllMenu<MenuEntity>();
             int roleId = Convert.ToInt32(Session["RoleID"]);
             Dictionary<string, object> paras = new Dictionary<string, object>();
@@ -59,6 +59,48 @@ namespace XM.Web.Controllers
             common.Navbars = (IEnumerable<Navbar>)Session["RoleMenu"];
             common.Agents = DALUtility.Agent.QryAgent<AgentEntity>();
             return Content(JsonConvert.SerializeObject(common));
+        }
+
+        public ActionResult Default()
+        {
+            return View();
+        }
+        public ActionResult GetDefault()
+        {
+            Dictionary<string, object> paras = new Dictionary<string, object>();
+            paras.Add("year", "2019");
+            paras.Add("startMonth", Request["startMonth"] == null ? "" : Request["startMonth"]);
+            paras.Add("endMonth", Request["endMonth"] == null ? "" : Request["endMonth"]);
+            paras.Add("agent_AN", Request["agent_AN"] == null ? "" : Request["agent_AN"]);
+            return Content(JsonConvert.SerializeObject(DALUtility.First.GetStore<MonthEntity>(paras)));
+        }
+        public ActionResult GetBar()
+        {
+            Dictionary<string, object> paras = new Dictionary<string, object>();
+            paras.Add("year", "2019");
+            paras.Add("startMonth", Request["startMonth"] == null ? "" : Request["startMonth"]);
+            paras.Add("endMonth", Request["endMonth"] == null ? "" : Request["endMonth"]);
+            paras.Add("agent_AN", Request["agent_AN"] == null ? "" : Request["agent_AN"]);
+            var _month = DALUtility.First.GetStore<MonthEntity>(paras);
+
+            string date = "2019-05";
+            string agent_AN = "agent0";
+            int Integral = 20000;
+            var _game = new
+            {
+                date = date,
+                total = Integral,
+                agent_AN = agent_AN
+            };
+
+
+            var data = new
+            {
+                month = _month,
+                game = _game
+            };
+            return Content(JsonConvert.SerializeObject(data));
+            
         }
     }
 }
