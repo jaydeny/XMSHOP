@@ -141,5 +141,9 @@ namespace XM.DALFactory
         {
             get { return LoadAssamblyType<INoticDAL>("NoticDAL"); }
         }
+        public IFirstDAL First
+        {
+            get { return LoadAssamblyType<IFirstDAL>("FirstDAL"); }
+        }
     }
 }
