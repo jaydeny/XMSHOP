@@ -3,7 +3,7 @@ var EndDate = "";
 var GameID;
 // 模板
 var RecordTemplate = function (obj) {
-    return "<li><div class='flex-1'><a class='gameRecord' href='/GameRecord/DetailPage'>" + obj.ID + "</a></div><div class='flex-1'><span>" + obj.Name + "</span></div><div class='flex-1'><span>" + obj.Integral + "</span></div>";
+    return "<li  class='gameRecord' data-id='" + obj.ID+"'><div class='flex-1'><a>" + obj.ID + "</a></div><div class='flex-1'><span>" + obj.Name + "</span></div><div class='flex-1'><span>" + obj.Integral + "</span></div>";
 }
 var DetailTemplate = function (obj) {
     return "<li><div class='flex-1'><span>" + obj.AccountName + "</span></div><div class='flex-1'><span>" + obj.Integral + "</span></div><div class='flex-1'><span>" + obj.Time + "</span></div><div class='flex-1'><span>" + obj.Name + "</span></div>";
@@ -48,9 +48,9 @@ $(".vipinfo-form").on("click", "#back", function () {
 //以下是详情
 var QryDetail = function () {
     $(".vipinfo-form").on("click", ".gameRecord", function () {
-        GameID = $(this).text();
+        GameID = $(this).data("id");
         $.ajax({
-            url: $(this).prop("href"),
+            url: "/GameRecord/DetailPage",
             success: function (data) {
                 if (!$(".vipinfo-main .info-head").hasClass("hidden")) {
                     $(".vipinfo-main .info-head").addClass("hidden");
