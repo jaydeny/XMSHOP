@@ -290,6 +290,8 @@ namespace XM.DAL
             return QuerySingle<int>( strSql.ToString(), paras, CommandType.Text);
         }
 
+
+
         #region _Signin
         /// <summary>
         /// 注册代理商时,检查是否有登录名,邮箱,手机重复
@@ -457,6 +459,7 @@ namespace XM.DAL
             string retData = JsonConvert.SerializeObject(new { rows = s });
             return retData;
         }
+
         #region  后台使用
         /// <summary>
         /// 功能：查询日期，总营业额，代理商（后台使用方法）
