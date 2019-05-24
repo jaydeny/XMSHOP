@@ -1,0 +1,223 @@
+﻿
+<body>
+    <div id="msg">
+        <div>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <h1 class="h2">{{title}}充值审核</h1>
+                <div v-show="is_show">
+                    <input type="date" v-model="startTime" /> <span>~~</span>
+                    <input type="date" v-model="endTime" />
+                    <button class="btn btn-outline-secondary" v-on:click="searches()" type="button">搜索</button>
+                </div>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group mr-2">
+                    </div>
+                </div>
+            </div>
+
+            <main role="main" class="col-md-12 ml-sm-auto col-lg-12 pt-3 px-4">
+                <div v-show="is_show">
+                    <nav>
+                        <div class="nav nav-tabs" role="tablist">
+                            <a class="nav-item nav-link active" id="home_tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" v-on:click="show($event)">充值审核</a>
+                            <a class="nav-item nav-link" id="profile_tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false" v-on:click="show($event)">审核记录</a>
+                        </div>
+                    </nav>
+
+                    <div>
+                        <div v-if="dataTable.length <= 0">抱歉，没有要审核的数据</div>
+                        <table class="table table-hover">
+
+                            <tbody v-for="(data,index) in dataTable" :key="index">
+                                <tr v-on:click="jumpData(data.date)">
+                                    <th scope="row">
+                                        {{data.date}}
+                                        @*<span class="badge badge-secondary badge-pill" style="margin-left:5px">{{data.count}}</span>*@
+                                        @*<span style="text-align:right">{{data.total}}</span>*@
+                                    </th>
+                                    <th scope="row"></th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div v-show="!is_show">
+                    <button v-on:click="is_show = true">返回</button>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">订单编号</th>
+                                    <th scope="col">下单时间</th>
+                                    <th scope="col">用户名</th>
+                                    <th scope="col">充值金额</th>
+                                    <th scope="col" v-show="btn_show">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody v-for="(data,indexs ) in dataList" :key="indexs">
+                                <tr>
+                                    <th scope="row">{{data.id}}</th>
+                                    <td>{{data.recharge_time}}</td>
+                                    <td>{{data.vip_AN}}</td>
+                                    <td>{{data.recharge_price}}</td>
+                                    <td v-show="btn_show">
+                                        <button class="btn  btn-default collapsed" v-on:click="btn_adopt(data.id,data.recharge_integral,data.vip_AN)">通过</button>
+                                        <button class="btn  btn-default collapsed" v-on:click="btn_Backward(data.id,data.recharge_integral,data.vip_AN)">回退</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+
+        </div>
+    </div>
+    <script>
+
+        new Vue({
+            el: "#msg",
+            data: {
+                dataTable: [],
+                dataList: [],
+                is_show: true,
+                title: '',
+                startTime: "",
+                endTime: "",
+                status: "",
+                btn_show: true
+            },
+            created: function () {
+                const date = new Date();
+                let dateMonth = date.getMonth() + 1;
+                if (dateMonth < 10) {
+                    dateMonth = "0" + dateMonth;
+                }
+                this.startTime = date.getFullYear() + "-" + dateMonth + "-" + "01"
+                this.endTime = date.getFullYear() + "-" + dateMonth + "-" + date.getDate();
+                this.status = 6;
+                const param = {
+                    endTime: date.getFullYear() + "-" + dateMonth + "-" + (1 + date.getDate()),
+                    status: 6,
+                }
+                const url = "/Examine/QryDayRechargeTotal";
+                this.onLoadData(url, param);
+            },
+            computed: {
+
+            },
+            methods: {
+                onLoadData(url, param) {
+                    $.ajax({
+                        url: url,
+                        dataType: 'json',
+                        data: param
+                    }).then((data) => {
+                        console.log(data)
+                        let datas = data.rows;
+                        this.dataSort(datas);
+                    });
+                },
+                onLoadDayData(url, param) {
+                    $.ajax({
+                        url: url,
+                        dataType: 'json',
+                        data: param
+                    }).then((data) => {
+                        //console.log(data)
+                        this.dataList = data.rows;
+                    });
+                },
+                //进行日期排序
+                dataSort(datas) {
+                    this.dataTable = datas.sort(function (a, b) {
+                        let x = a["date"];
+                        let y = b["date"];
+                        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                    });
+                },
+                show(e) {
+                    $("#home_tab")[0].className = "nav-item nav-link"
+                    $("#profile_tab")[0].className = "nav-item nav-link"
+
+                    e.target.className = "nav-item nav-link active";
+                    let param = {
+                        "startTime": this.startTime,
+                        "endTime": this.endTime
+                    }
+                    if (e.target.id != 'profile_tab') {
+                        param.status = 6
+                        this.status = 6;
+                        this.btn_show = false
+                    } else {
+                        param.status = 7
+                        this.status = 7;
+                        this.btn_show = true
+                    }
+                    this.onLoadData("/Examine/QryDayRechargeTotal", param)
+                },
+                //页面跳转
+                jumpData(date) {
+                    this.title = date
+                    this.is_show = !this.is_show;
+                    const param = {
+                        day: date,
+                        status: this.status
+                    }
+                    this.onLoadDayData("/Examine/QryDayRechargeForm", param);
+                },
+                //时间段搜索
+                searches() {
+                    let date = new Date(this.endTime);
+                    let dateMonth = date.getMonth() + 1;
+                    if (dateMonth < 10) {
+                        dateMonth = "0" + dateMonth;
+                    }
+                    date.setDate(date.getDate() + 1);
+                    const param = {
+                        "startTime": this.startTime,
+                        "endTime": date.getFullYear() + "-" + dateMonth + "-" + 1 + date.getDate(),
+                        "status": this.status,
+                    }
+                    const url = "/Examine/QryDayRechargeTotal";
+                    this.onLoadData(url, param);
+                }
+                btn_adopt(id, integral, name) {
+                    const param = {
+                        "type": 0,
+                        "id": id,
+                        "integral": integral,
+                        "name": name
+                    }
+                    this.onExamine(param);
+                },
+                btn_Backward(id, integral, name) {
+                    const param = {
+                        "type": 1,
+                        "id": id,
+                        "integral": integral,
+                        "name": name
+                    }
+                },
+                onExamine(param) {
+                    $.ajax({
+                        url: "/Form/RechargeAudit",
+                        data: param,
+                        dataType: 'json',
+                        method: 'post'
+                    }).then((data) => {
+                        const param = {
+                            day: this.title,
+                            status: this.status
+                        }
+                        this.onLoadDayData("/Examine/QryDayRechargeForm", param);
+                        alert(data.msg);
+                    });
+                }
+            }
+        });
+
+    </script>
+</body>

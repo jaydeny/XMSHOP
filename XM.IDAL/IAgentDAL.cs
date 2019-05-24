@@ -215,6 +215,35 @@ namespace XM.IDAL
 
         #endregion
 
+        #region _Examine(会员充值审核)
+
+        /// <summary>
+        /// 作者：梁钧淋
+        /// 创建时间:2019-5-23
+        /// 修改时间：2019-
+        /// 功能：查询时间段内的充值数据
+        /// </summary>
+        string QryDayExamineTotal(Dictionary<string, object> paras);
+
+
+        /// <summary>
+        /// 作者：梁钧淋
+        /// 创建时间:2019-5-23
+        /// 修改时间：2019-
+        /// 功能：查询日期内的记录
+        /// </summary>
+        string QryDayExamineForm(Dictionary<string, object> paras, out int iCount);
+        /// <summary>
+        /// 充值审核动作
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns>
+        ///     0,1 通过
+        ///     2, 不通过
+        /// </returns>
+        int RechargeAudit(Dictionary<string, object> paras);
+        #endregion
+
         #region 自定义
         /// <summary>
         /// 添加和修改代理商共用的方法,区别在于id是否为0

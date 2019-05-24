@@ -131,6 +131,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AgentInfoController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ExamineController.cs" />
     <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -218,6 +219,7 @@
     <Content Include="Views\Game\GameForm.cshtml" />
     <Content Include="Views\Notice\Index.cshtml" />
     <Content Include="Views\Notice\NoticRecord.cshtml" />
+    <Content Include="Views\Examine\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

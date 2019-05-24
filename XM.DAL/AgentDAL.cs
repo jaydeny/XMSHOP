@@ -563,6 +563,74 @@ namespace XM.DAL
         }
         #endregion
 
+        #region _Examine(会员充值审核)
+
+        /// <summary>
+        /// 作者：梁钧淋
+        /// 创建时间:2019-5-23
+        /// 修改时间：2019-
+        /// 功能：查询时间段内的充值数据
+        /// </summary>
+        public string QryDayExamineTotal(Dictionary<string, object> paras)
+        {
+
+            StringBuilder builder = new StringBuilder();
+            builder.Append("select ");
+            builder.Append(" convert(varchar(10),recharge_time, 120) as date, SUM(recharge_price) as total , count(id) as count ");
+            builder.Append("from tbrecharge ");
+            builder.Append("where recharge_time <= @endTime and recharge_time >= @startTime ");
+            builder.Append("and agent_AN = @agent_AN ");
+            if (paras["status"] != null)
+                builder.Append(" and status_id = @status ");
+            if (paras["vip_AN"] != null)
+                builder.Append(" and vip_AN = @vip_AN ");
+            builder.Append("GROUP BY convert(varchar(10),recharge_time, 120)");
+
+            var s = Query(builder.ToString(), paras);
+
+            string retData = JsonConvert.SerializeObject(new { rows = s });
+            return retData;
+        }
+
+        /// <summary>
+        /// 作者：梁钧淋
+        /// 创建时间:2019-5-23
+        /// 修改时间：2019-
+        /// 功能：查询日期内的记录
+        /// </summary>
+        public string QryDayExamineForm(Dictionary<string, object> paras, out int iCount)
+        {
+            WhereBuilder builder = new WhereBuilder();
+            builder.FromSql = "tbrecharge";
+            GridData grid = new GridData()
+            {
+                PageIndex = Convert.ToInt32(paras["pi"]),
+                PageSize = Convert.ToInt32(paras["pageSize"]),
+                SortField = paras["sort"].ToString(),
+                SortDirection = paras["order"].ToString()
+            };
+            builder.AddWhereAndParameter(paras, "day", "convert(varchar(10),recharge_time, 120)", "like", "@day+'%'");
+            builder.AddWhereAndParameter(paras, "agent_AN");
+            builder.AddWhereAndParameter(paras, "vip_AN");
+            builder.AddWhereAndParameter(paras, "status_id");
+            var s = SortAndPage(builder, grid, out iCount);
+            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
+            return retData;
+        }
+        /// <summary>
+        /// 审核存储过程
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns>
+        ///     0,1 通过审核
+        ///     2 审核不通过
+        /// </returns>
+        public int RechargeAudit(Dictionary<string, object> paras)
+        {
+            return QuerySingle<int>("P_tbremiander_remiand", paras, CommandType.StoredProcedure);
+        }
+        #endregion
+
         #region _自定义
         /// <summary>
         /// 添加和修改代理商共用的方法,区别在于id是否为0
