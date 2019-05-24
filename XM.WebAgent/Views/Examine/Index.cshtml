@@ -183,7 +183,7 @@
                     }
                     const url = "/Examine/QryDayRechargeTotal";
                     this.onLoadData(url, param);
-                }
+                },
                 btn_adopt(id, integral, name) {
                     const param = {
                         "type": 0,
@@ -203,7 +203,7 @@
                 },
                 onExamine(param) {
                     $.ajax({
-                        url: "/Form/RechargeAudit",
+                        url: "/Examine/RechargeAudit",
                         data: param,
                         dataType: 'json',
                         method: 'post'
