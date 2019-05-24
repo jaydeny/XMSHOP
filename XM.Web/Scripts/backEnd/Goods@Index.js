@@ -17,7 +17,10 @@ function gridList() {
             { label: '单价', name: 'GoodsPrice', width: 100, align: 'left' },
             { label: '图片', name: 'GoodsPicture', width: 80, align: 'left' },
             { label: '创建人', name: 'GoodsCreateBy', width: 80, align: 'left' },
-            { label: '创建时间', name: 'GoodsCreateTime', width: 140, align: 'left' }
+            {
+                label: '创建时间', name: 'GoodsCreateTime', width: 140, align: 'left',
+                formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+            }
         ],
         viewrecords: true
     });
@@ -32,7 +35,7 @@ function gridList() {
 function btn_add() {
     $.modalOpen({
         id: "Form",
-        title: "新增用户",
+        title: "新增",
         url: "/Goods/Form",
         width: "430px",
         height: "350px",
@@ -46,7 +49,7 @@ function btn_edit() {
     var keyValue = $("#gridList").jqGridRowValue().GoodsID;
     $.modalOpen({
         id: "Form",
-        title: "修改用户",
+        title: "修改",
         url: "/Goods/Form?keyValue=" + keyValue,
         width: "430px",
         height: "350px",
@@ -69,7 +72,7 @@ function btn_details() {
     var keyValue = $("#gridList").jqGridRowValue().GoodsID;
     $.modalOpen({
         id: "Details",
-        title: "查看用户",
+        title: "查看",
         url: "/Goods/Details?keyValue=" + keyValue,
         width: "430px",
         height: "410px",
@@ -78,7 +81,7 @@ function btn_details() {
 }
 function btn_disabled() {
     var keyValue = $("#gridList").jqGridRowValue().F_Id;
-    $.modalConfirm("注：您确定要【禁用】该项账户吗？", function (r) {
+    $.modalConfirm("注：您确定要【禁用】该项吗？", function (r) {
         if (r) {
             $.submitForm({
                 url: "/Goods/Save",

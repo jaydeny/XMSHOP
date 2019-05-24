@@ -16,7 +16,10 @@ function gridList() {
             { label: '手机', name: 'VipMobliePhone', width: 100, align: 'left' },
             { label: '邮箱', name: 'VipEmail', width: 140, align: 'left' },
             { label: '代理编号', name: 'AgentID', width: 80, align: 'left' },
-            { label: '创建时间', name: 'CreateTime', width: 140, align: 'left' },
+            {
+                label: '创建时间', name: 'CreateTime', width: 140, align: 'left',
+                formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+            },
             {
                 label: "允许登录", name: "StatusID", width: 60, align: "left",
                 formatter: function (cellvalue, options, rowObject) {
@@ -40,7 +43,7 @@ function gridList() {
 function btn_add() {
     $.modalOpen({
         id: "Form",
-        title: "新增用户",
+        title: "新增",
         url: "/Vip/Form",
         width: "430px",
         height: "350px",
@@ -54,7 +57,7 @@ function btn_edit() {
     var keyValue = $("#gridList").jqGridRowValue().VipID;
     $.modalOpen({
         id: "Form",
-        title: "修改用户",
+        title: "修改",
         url: "/Vip/Form?keyValue=" + keyValue,
         width: "430px",
         height: "350px",
@@ -77,7 +80,7 @@ function btn_details() {
     var keyValue = $("#gridList").jqGridRowValue().F_Id;
     $.modalOpen({
         id: "Details",
-        title: "查看用户",
+        title: "查看",
         url: "/Vip/Details?keyValue=" + keyValue,
         width: "430px",
         height: "410px",
@@ -103,7 +106,7 @@ function btn_disabled() {
     var keyValue = $("#gridList").jqGridRowValue();
     keyValue.StatusID = 2;
     keyValue.id = keyValue.VipID;
-    $.modalConfirm("注：您确定要【禁用】该项账户吗？", function (r) {
+    $.modalConfirm("注：您确定要【禁用】该项吗？", function (r) {
         if (r) {
             $.submitForm({
                 url: "/Vip/Save",
@@ -120,7 +123,7 @@ function btn_enabled() {
     var keyValue = $("#gridList").jqGridRowValue();
     keyValue.StatusID = 1;
     keyValue.id = keyValue.VipID;
-    $.modalConfirm("注：您确定要【启用】该项账户吗？", function (r) {
+    $.modalConfirm("注：您确定要【启用】该项吗？", function (r) {
         if (r) {
             $.submitForm({
                 url: "/Vip/Save",

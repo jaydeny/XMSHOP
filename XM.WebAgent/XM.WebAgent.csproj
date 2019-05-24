@@ -131,8 +131,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AgentInfoController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ExamineController.cs" />
     <Compile Include="Controllers\FormController.cs" />
+    <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NoticeController.cs" />
     <Compile Include="Controllers\VIPController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
@@ -211,9 +214,12 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Product\getProductPage.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Form\ReportForm.cshtml" />
     <Content Include="Views\AgentInfo\AgentPersonalCenter.cshtml" />
     <Content Include="Views\Form\ReportsForm.cshtml" />
+    <Content Include="Views\Game\GameForm.cshtml" />
+    <Content Include="Views\Notice\Index.cshtml" />
+    <Content Include="Views\Notice\NoticRecord.cshtml" />
+    <Content Include="Views\Examine\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -234,6 +240,14 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Framework.MongoDB\Framework.MongoDB.csproj">
+      <Project>{64C0579A-CF14-47ED-9700-76014528262F}</Project>
+      <Name>Framework.MongoDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XM.Comm\XM.Comm.csproj">
+      <Project>{bd869537-bdc8-4ccf-9c9e-da217dcd52e6}</Project>
+      <Name>XM.Comm</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XM.DALFactory\XM.DALFactory.csproj">
       <Project>{1c00c967-0e30-4abe-a08e-4b5044cbfa8e}</Project>
       <Name>XM.DALFactory</Name>
@@ -249,6 +263,10 @@
     <ProjectReference Include="..\XM.Model\XM.Model.csproj">
       <Project>{a67eb676-d000-4e12-9e1b-d4f178ec497c}</Project>
       <Name>XM.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XM.MongoDB\XM.MongoDB.csproj">
+      <Project>{153DF1AC-444D-4E37-97AD-2C4903E06B74}</Project>
+      <Name>XM.MongoDB</Name>
     </ProjectReference>
     <ProjectReference Include="..\XM.WebVip\XM.WebVip.csproj">
       <Project>{91E5E04E-3DC3-4EFF-9241-80890FA86457}</Project>

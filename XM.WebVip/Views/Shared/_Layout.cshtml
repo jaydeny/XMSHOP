@@ -58,25 +58,11 @@
                         }
                     </li>
                     <li>
-                        <div class="dropdown" id="notice">
-                            <div class="h">
-                                <a href="javascript:;">
-                                    公告
-                                    <span>(</span><span id="span_notice"></span><span>)</span>
-                                </a>
-                            </div>
-                            <div class="b">
-                                <div class="notice" id="notice">
-                                    <ul class="column-notice">
-                                        @*<li>
-                                            <div>
-                                                <a href="#" class="title">标题</a>
-                                                <span class="time">时间</span>
-                                            </div>
-                                        </li>*@
-                                    </ul>
-                                </div>
-                            </div>
+                        <div>
+                            <a href="javascript:;" id="notice">
+                                公告
+                                <span>(</span><span id="span_notice">0</span><span>)</span>
+                            </a>
                         </div>
                     </li>
                     <li>
@@ -117,7 +103,11 @@
             </div>
             <form class="navbar-form navbar-right" role="search">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="荣耀V20 HUAWEI nova" style="width: 260px" id="txt_search">
+                    <input type="text" class="form-control" placeholder="荣耀V20 HUAWEI nova" autocomplete="off" list="tip" style="width: 260px" id="txt_search" >
+                    <datalist id="tip">
+                        <option value="荣耀V20">
+                        <option value="HUAWEI">
+                    </datalist>
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="button" id="btnSearch">搜索</button>
                     </span>

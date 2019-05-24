@@ -66,5 +66,7 @@ namespace XM.Web.Controllers
             }
             return OperationReturn(true, "删除公告成功!");
         }
+
+
     }
 }

@@ -49,7 +49,7 @@ namespace XM.Web.Controllers
         {
             CommonDataDTO common = new CommonDataDTO();
             common.Roles = DALUtility.Role.QryRole<RoleEntity>();
-            common.Types = DALUtility.Type.QryAllType<GoodsTypeEntity>();
+            common.Types = DALUtility.Dic.GetDicByTag(15).ToList();
             common.Menus = DALUtility.Menu.QryAllMenu<MenuEntity>();
             int roleId = Convert.ToInt32(Session["RoleID"]);
             Dictionary<string, object> paras = new Dictionary<string, object>();

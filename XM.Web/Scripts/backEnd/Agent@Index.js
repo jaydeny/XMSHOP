@@ -16,7 +16,10 @@ function gridList() {
             { label: '手机', name: 'MobliePhone', width: 100, align: 'left' },
             { label: '邮箱', name: 'Email', width: 140, align: 'left' },
             { label: '创建人', name: 'CreateBy', width: 80, align: 'center' },
-            { label: '创建时间', name: 'CreateTime', width: 140, align: 'left' },
+            {
+                label: '创建时间', name: 'CreateTime', width: 140, align: 'left',
+                formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+            },
             {
                 label: "状态", name: "StatusID", width: 60, align: "left",
                 formatter: function (cellvalue, options, rowObject) {
@@ -40,7 +43,7 @@ function gridList() {
 function btn_add() {
     $.modalOpen({
         id: "Form",
-        title: "新增用户",
+        title: "新增",
         url: "/Agent/Form",
         width: "430px",
         height: "310px",
@@ -53,7 +56,7 @@ function btn_edit() {
     var keyValue = $("#gridList").jqGridRowValue().AgentID;
     $.modalOpen({
         id: "Form",
-        title: "修改用户",
+        title: "修改",
         url: "/Agent/Form?keyValue=" + keyValue,
         width: "430px",
         height: "310px",
@@ -76,7 +79,7 @@ function btn_details() {
     var keyValue = $("#gridList").jqGridRowValue().AgentID;
     $.modalOpen({
         id: "Details",
-        title: "查看用户",
+        title: "查看",
         url: "/Agent/Details?keyValue=" + keyValue,
         width: "430px",
         height: "410px",

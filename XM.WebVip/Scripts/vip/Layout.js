@@ -43,38 +43,39 @@
     //        window.location.href = "/product/AgoodsList?search=" + search;
     //    }
     //});
-
+    
     // 公告
-    $("#notice").on("click", "li", function () {
+    $("#notice").click(function () {
         $("#notice").data("id", $(this).data("id"));
         obj.width = "600px";
         obj.height = "400px";
         obj.url = "/Notice/Notice";
         bouncedLogin(obj);
     })
-
-    // 公告渲染
-    function applyNotice(data) {
-        $("#span_notice").addClass("red").text(data.length);
-        $("#notice .column-notice>li").remove();
-        $.each(data, function (i, n) {
-            $("#notice .column-notice").append('<li data-id="' + n._id + '"><div><a href="#" class="title">' + n.title + '</a><span class="time">' + n.starttime.substr(0,10)+'</span></div></li>');
-        });
-    }
-
     // 获取公告
-    var noticeData;
-    $.getNotice = function() {
+    function getNotice() {
         $.get("/Notice/GetNotice", function (data) {
-            if (data.total <= 0) {
-                return false;
+            if (data.total == "-1") {
+                var rows = data.rows;
+                var count = rows.result.length;
+                for (var i = 0; i < rows.result.length; i++) {
+                    for (var j = 0; j < rows.msgStatus.length; j++) {
+                        if (rows.result[i]._id == rows.msgStatus[j].msgid) {
+                            count--;
+                            break;
+                        }
+                    }
+                }
+                if (count > 0) {
+                    $("#span_notice").addClass("red").text(count);
+                }
             }
-            noticeData = data.rows;
-            applyNotice(data.rows);
+            else if (data.total > 0) {
+                $("#span_notice").addClass("red").text(data.total);
+            }
         }, "json")
     }
-    $.getNotice();
-
+    getNotice();
 
     // 进入个人信息页
     $("#vip_name").click(function () {

@@ -71,12 +71,14 @@ btn_num_Rows_count.bind("input propertychange", function (e) {
 
 function addOption(page_count) {
     var num_page = $("#btn_num_Page_count");
+    num_page.empty();
     for (var i = 0; i < page_count; i++) {
         let op = $("<option></option>");
         op.val(i + 1);
         op.text(i + 1);
         num_page.append(op)
     }
+    btn_num_Page_count.val(count);
 }
 
 //封装查询功能
@@ -253,7 +255,7 @@ function showList(page, objs) {
             const status_id = $("<td>" + "禁用" + "</td>");
             trs.append(status_id)
         }
-        const vip_CDT = $("<td>" + obj.CreateTime + "</td>");
+        const vip_CDT = $("<td>" + obj.CreateTime.substring(0,10) + "</td>");
         trs.append(vip_CDT)
 
         const vip_Btn = $("<td><button type='button' class='btn btn - secondary' data-toggle='modal' data-target='#editVIP'onclick='editVIP(" + index + ")'>编辑</button></td>");

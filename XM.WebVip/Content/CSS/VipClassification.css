@@ -44,14 +44,21 @@
 .classification .filter_box .title,.classification .filter_box .first-category {
     margin-right: 20px;
     white-space : nowrap;
+    color: #999;
 }
-.classification .filter_box .first-category {
+.classification .filter_box .type-action {
     color: #e01d20;
 }
 /*商品展示框*/
 .classification .goods-exhibition {
     margin: 20px -20px -20px 0;
+    min-height: 380px;
     overflow: hidden;
+}
+.classification .goods-exhibition .empty {
+    color: #999;
+    text-align: center;
+    margin-right: 20px;
 }
 .classification .goods-exhibition > ul li {
     float: left;

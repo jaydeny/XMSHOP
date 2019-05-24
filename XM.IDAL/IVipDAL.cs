@@ -53,7 +53,13 @@ namespace XM.IDAL
         /// <returns></returns>
         int Save(Dictionary<string, object> paras);
 
-        
+        /// <summary>
+        /// 功能:充值记录
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <param name="iCount"></param>
+        /// <returns></returns>
+        string QryRecharge(Dictionary<string,object> paras,out int iCount);
         ///作者:曾贤鑫
 
         #region _Signin
@@ -97,6 +103,8 @@ namespace XM.IDAL
         /// <param name="paras"></param>
         /// <returns></returns>
         int InsertRemainder(Dictionary<string, object> paras);
+
+        
         #endregion
 
         #region _Shop

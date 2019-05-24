@@ -12,14 +12,17 @@ function gridList() {
             { label: '手机', name: 'UserMobliePhone', width: 100, align: 'center' },
             { label: '邮箱', name: 'UserEmail', width: 140, align: 'center' }, 
             { label: '创建人', name: 'UserCreateBy', width: 80, align: 'center' },
-            { label: '创建时间', name: 'UserCreateDate', width: 160, align: 'center' },
+            {
+                label: '创建时间', name: 'UserCreateDate', width: 160, align: 'center',
+                formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+            },
             {
                 label: "允许登录", name: "StatusID", width: 60, align: "left",
                 formatter: function (cellvalue, options, rowObject) {
                     if (cellvalue == 1) {
-                        return '<span class=\"label label-success\">正常</span>';
+                        return '<span class=\"label label-success\">已启用</span>';
                     } else if (cellvalue == 2) {
-                        return '<span class=\"label label-default\">禁用</span>';
+                        return '<span class=\"label label-default\">已冻结</span>';
                     }
                 }
             }
@@ -40,7 +43,7 @@ function gridList() {
 function btn_add() {
     $.modalOpen({
         id: "Form",
-        title: "新增用户",
+        title: "新增",
         url: "/User/Form",
         width: "430px",
         height: "350px",
@@ -54,7 +57,7 @@ function btn_edit() {
     var keyValue = $("#gridList").jqGridRowValue().id;
     $.modalOpen({
         id: "Form",
-        title: "修改用户",
+        title: "修改",
         url: "/User/Form?keyValue=" + keyValue,
         width: "430px",
         height: "350px",
@@ -77,7 +80,7 @@ function btn_details() {
     var keyValue = $("#gridList").jqGridRowValue().F_Id;
     $.modalOpen({
         id: "Details",
-        title: "查看用户",
+        title: "查看",
         url: "/User/Details?keyValue=" + keyValue,
         width: "430px",
         height: "410px",
@@ -102,7 +105,7 @@ function btn_revisepassword() {
 function btn_disabled() {
     var keyValue = $("#gridList").jqGridRowValue();
     keyValue.StatusID = 2;
-    $.modalConfirm("注：您确定要【禁用】该项账户吗？", function (r) {
+    $.modalConfirm("注：您确定要【禁用】该项吗？", function (r) {
         if (r) {
             $.submitForm({
                 url: "/User/Save",
@@ -118,7 +121,7 @@ function btn_disabled() {
 function btn_enabled() {
     var keyValue = $("#gridList").jqGridRowValue();
     keyValue.StatusID = 1;
-    $.modalConfirm("注：您确定要【启用】该项账户吗？", function (r) {
+    $.modalConfirm("注：您确定要【启用】该项吗？", function (r) {
         if (r) {
             $.submitForm({
                 url: "/User/Save",

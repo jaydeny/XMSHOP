@@ -1,0 +1,81 @@
+﻿
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <title>游戏记录</title>
+    <link rel="stylesheet" href="~/Content/CSS/vipinfo.css" />
+</head>
+
+<body>
+    <div class="info-body">
+        <h3>
+            充值记录
+            <a class="select_order">
+                充值汇总
+            </a>
+        </h3>
+        日期:<input type="date" id="date" />
+        <button id="Query">查询</button>
+        <div>
+            <div class="Recharge-list">
+                <p class="empty-order hidden" id="empty_order">当前无近期订单，前往<a href="/GameHome/Login">游戏</a></p>
+                <ul class="" id="order_box">
+                    <li>
+                        <div class="flex-1">id</div>
+                        <div class="flex-1">价格</div>
+                        <div class="flex-1">积分</div>
+                        <div class="flex-1">日期</div>
+                        <div class="flex-1">状态</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        @*分页*@
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+
+                <li class="page-item">
+                    <span class="page-link">
+                        显示条数
+                        <select class="form-control form-control-sm" id="btn_num_Rows_count" value="10">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                        </select>
+                    </span>
+                </li>
+
+                <li class="page-item">
+                    <a class="page-link" id="before" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">上一页</span>
+                    </a>
+                </li>
+
+                <li class="page-item">
+                    <a class="page-link" id="end" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">下一页</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" id="num_Page_Count" href="#"></a></li>
+                <li class="page-item"><a class="page-link" id="Page_Count" href="#"></a></li>
+                <li class="page-item">
+                    <span class="page-link">
+                        跳转页码
+                        <select class="form-control form-control-sm" id="btn_num_Page_count" value="1"></select>
+                    </span>
+                </li>
+                <li class="page-item"><a class="page-link" id="btn_num_Page" href="#">确定</a></li>
+
+            </ul>
+        </nav>
+        @*分页*@
+    </div>
+    <script src="~/Scripts/vip/vipinfo@QryRecharge.js"></script>
+</body>
+</html>

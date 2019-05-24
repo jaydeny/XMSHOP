@@ -129,6 +129,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Phone\Controllers\PhoneHomeController.cs" />
+    <Compile Include="Areas\Phone\Controllers\PhoneProductController.cs" />
+    <Compile Include="Areas\Phone\Controllers\PhoneVIPController.cs" />
+    <Compile Include="Areas\Phone\Controllers\PhoneVipInfoController.cs" />
+    <Compile Include="Areas\Phone\PhoneAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\GameHomeController.cs" />
     <Compile Include="Controllers\GameRechargeController.cs" />
@@ -145,6 +150,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Phone\Content\Home\index.css" />
+    <Content Include="Areas\Phone\Content\Model\reset.css" />
+    <Content Include="Areas\Phone\Content\Product\classify.css" />
+    <Content Include="Areas\Phone\Content\search\sousSearch.css" />
+    <Content Include="Areas\Phone\Content\ShoppingCart\cart.css" />
+    <Content Include="Areas\Phone\Content\VipInfo\personal.css" />
+    <Content Include="Areas\Phone\Script\Home\scrolltopcontrol.js" />
+    <Content Include="Areas\Phone\Script\Home\TouchSlide.js" />
+    <Content Include="Areas\Phone\Script\Model\jquery-3.4.0.min.js" />
+    <Content Include="Areas\Phone\Script\ShoppingCart\cart.js" />
     <Content Include="Content\bootstrap-3.3.7\css\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-3.3.7\css\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap-3.3.7\css\bootstrap.css" />
@@ -180,7 +195,65 @@
     <Content Include="Content\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Areas\Phone\Views\PhoneHome\Index_MB.cshtml" />
+    <Content Include="Areas\Phone\Views\PhoneProduct\AgoodsList_MB.cshtml" />
+    <Content Include="Areas\Phone\Views\PhoneProduct\Search_MB.cshtml" />
+    <Content Include="Areas\Phone\Views\PhoneVipInfo\InfoPage_MB.cshtml" />
+    <Content Include="Areas\Phone\Views\PhoneVIP\ShoppingCart_MB.cshtml" />
+    <Content Include="Areas\Phone\Views\Shared\mobile_model.cshtml" />
+    <Content Include="Areas\Phone\Views\web.config" />
+    <Content Include="Areas\Phone\Views\_ViewStart.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="image\1.png" />
+    <Content Include="image\10.png" />
+    <Content Include="image\11.png" />
+    <Content Include="image\12.png" />
+    <Content Include="image\13.png" />
+    <Content Include="image\14.png" />
+    <Content Include="image\15.png" />
+    <Content Include="image\16.png" />
+    <Content Include="image\17.png" />
+    <Content Include="image\18.png" />
+    <Content Include="image\19.png" />
+    <Content Include="image\2.png" />
+    <Content Include="image\20.png" />
+    <Content Include="image\21.png" />
+    <Content Include="image\22.png" />
+    <Content Include="image\23.png" />
+    <Content Include="image\24.png" />
+    <Content Include="image\25.png" />
+    <Content Include="image\26.png" />
+    <Content Include="image\27.png" />
+    <Content Include="image\28.png" />
+    <Content Include="image\29.png" />
+    <Content Include="image\3.png" />
+    <Content Include="image\30.png" />
+    <Content Include="image\31.png" />
+    <Content Include="image\32.png" />
+    <Content Include="image\33.png" />
+    <Content Include="image\34.png" />
+    <Content Include="image\35.png" />
+    <Content Include="image\36.png" />
+    <Content Include="image\37.png" />
+    <Content Include="image\38.png" />
+    <Content Include="image\39.png" />
+    <Content Include="image\4.png" />
+    <Content Include="image\40.png" />
+    <Content Include="image\41.png" />
+    <Content Include="image\42.png" />
+    <Content Include="image\43.png" />
+    <Content Include="image\44.png" />
+    <Content Include="image\45.png" />
+    <Content Include="image\46.png" />
+    <Content Include="image\47.png" />
+    <Content Include="image\48.png" />
+    <Content Include="image\49.png" />
+    <Content Include="image\5.png" />
+    <Content Include="image\50.png" />
+    <Content Include="image\6.png" />
+    <Content Include="image\7.png" />
+    <Content Include="image\8.png" />
+    <Content Include="image\9.png" />
     <Content Include="img\bs.jpg" />
     <Content Include="img\dq01.jpg" />
     <Content Include="img\failure.png" />
@@ -215,6 +288,7 @@
     <Content Include="Scripts\jquery.md5.js" />
     <Content Include="Scripts\vip\bounced.js" />
     <Content Include="Scripts\vip\layout.js" />
+    <Content Include="Scripts\vip\nanobar.min.js" />
     <Content Include="Scripts\vip\notice.js" />
     <Content Include="Scripts\vip\paging.js" />
     <Content Include="Scripts\vip\RequestUrl.js" />
@@ -227,6 +301,7 @@
     <Content Include="Scripts\vip\Vip%40Signin.js" />
     <Content Include="Scripts\vip\vip%40home.js" />
     <Content Include="Scripts\vip\vipinfo%40Address.js" />
+    <Content Include="Scripts\vip\vipinfo%40QryRecharge.js" />
     <Content Include="Scripts\vip\vipinfo%40Recharge.js" />
     <Content Include="Scripts\vip\vipInfo%40Update.js" />
     <Content Include="Scripts\vip\vipinfo%40UpdatePwd.js" />
@@ -252,10 +327,13 @@
     <Content Include="Views\Home\_UpdatePwdPage.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\GameRecharge\_Recharge.cshtml" />
-    <Content Include="web.config" />
+    <Content Include="web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\GameRecord\RecordPage.cshtml" />
     <Content Include="Views\GameRecord\DetailPage.cshtml" />
     <Content Include="Views\notice\_Notice.cshtml" />
+    <Content Include="Views\VipInfo\_QryRechargePage.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -265,6 +343,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Phone\img\" />
+    <Folder Include="Areas\Phone\Models\" />
     <Folder Include="Models\" />
     <Folder Include="Views\GameHome\" />
     <Folder Include="Views\Shop\" />

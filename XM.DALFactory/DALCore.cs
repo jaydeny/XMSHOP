@@ -122,6 +122,10 @@ namespace XM.DALFactory
         {
             get { return LoadAssamblyType<IMenuDAL>("MenuDAL"); }
         }
+        public IDicDAL Dic
+        {
+            get { return LoadAssamblyType<IDicDAL>("DicDAL"); }
+        }
 
         public IXMDAL Xm
         {
