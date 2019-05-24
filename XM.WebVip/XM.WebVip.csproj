@@ -288,6 +288,7 @@
     <Content Include="Scripts\jquery.md5.js" />
     <Content Include="Scripts\vip\bounced.js" />
     <Content Include="Scripts\vip\layout.js" />
+    <Content Include="Scripts\vip\nanobar.min.js" />
     <Content Include="Scripts\vip\notice.js" />
     <Content Include="Scripts\vip\paging.js" />
     <Content Include="Scripts\vip\RequestUrl.js" />

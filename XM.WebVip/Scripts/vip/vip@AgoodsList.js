@@ -21,36 +21,57 @@
 //    bounced(obj);
 //});
 
+$(".filter_box").on("click", ".type", function () {
+    $(".filter_box .type-action").removeClass("type-action");
+    $(this).addClass("type-action");
+    paging.currentPage = 1;
+    var id = $(this).data("id");
+    getQryAgoods(id);
+});
+
+// 商品集合
+var listGoods
 // 商品模板
 var strGoods = function (i,obj) {
     return "<li><div class='goods-item' ><p class='p-img'><a><img src='/image/" + obj.goods_pic + "'  /></a></p><p class='p-title'><a><span>" + obj.goods_name + "</span><span class='red'>" + obj.goods_intro + "</span></a></p><p class='p-price'><b>￥" + obj.price + "</b></p><div class='p-button' data-id=" + i +" ><a class='' >立即下单</a></div></div ></li >";
 }
-
-var listGoods
+var getQryAgoods = function (typeId) {
+    $.post("/Product/QryAgoods", { rows: paging.pageTotal, page: paging.currentPage, type_id: typeId }, function (data) {
+        if (data.total > 0) {
+            $(".goods-exhibition>.empty").hide();
+            listGoods = data.rows;
+            $(".goods-exhibition>ul").html("");
+            $.each(data.rows, function (i, n) {
+                $(".goods-exhibition>ul").append(strGoods(i, n));
+            });
+            // 回到顶端
+            document.body.scrollTop = document.documentElement.scrollTop = 100;
+            //总条数
+            paging.total = data.total;
+            paging.renderPaging();
+        }
+        else {
+            $(".goods-exhibition>ul").html("");
+            paging.total = data.total;
+            paging.renderPaging();
+            $(".goods-exhibition>.empty").show();
+        }
+    }, "json");
+}
 
 // 渲染商品
-var goodsRender = function (parameter) {
+var goodsRender = function () {
     // 页面条数
     paging.pageTotal = 15;
     paging.callbackMethod = function () {
-        $.post("/Product/QryAgoods", { rows: paging.pageTotal, page: paging.currentPage }, function (data) {
-            if (data.total > 0) {
-                listGoods = data.rows;
-                $(".goods-exhibition>ul").html("");
-                $.each(data.rows, function (i, n) {
-                    $(".goods-exhibition>ul").append(strGoods(i, n));
-                });
-                // 回到顶端
-                document.body.scrollTop = document.documentElement.scrollTop = 100;
-                //总条数
-                paging.total = data.total;
-                paging.renderPaging();
-            }
-        }, "json");
+        var typeId = $(".filter_box .type-action").data("id");
+        getQryAgoods(typeId);
     }
     // 回调
     paging.callbackMethod();
 }
+
+
 // 立即下单
 $(".goods-exhibition").on("click", ".p-button", function () {
     var obj = listGoods[$(this).data("id")];
