@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using XM.Model;
 using XM.WebVIP.Controllers;
@@ -31,6 +32,7 @@ namespace XM.WebVip.Controllers
             param.Add("sort", sort);
             param.Add("goods_Name", Request["goods_Name"]);
             param.Add("status_id", 3);
+            param.Add("type_id", Request["type_id"]);
             param.Add("agent_AN", Session["Agent_Acc"] != null ? Session["Agent_Acc"].ToString() : "agent0");
 
             string result = DALUtility.Agent.QryAgoods(param, out int ICount);
@@ -78,6 +80,8 @@ namespace XM.WebVip.Controllers
         public ActionResult AgoodsList()
         {
             ViewData["VipAccountName"] = Session["AN"];
+            List<DicEntity> list = DALUtility.Dic.GetDicByTag(15).ToList();
+            ViewData["AGoodsType"] = list;
             return View();
         }
 

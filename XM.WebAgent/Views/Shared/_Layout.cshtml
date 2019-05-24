@@ -48,7 +48,7 @@
                         </ul>
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                @Html.ActionLink("充值审核", "Index", "Home") <span class="sr-only">(current)</span>
+                                @Html.ActionLink("充值审核", "Index", "Examine") <span class="sr-only">(current)</span>
                             </li>
                         </ul>
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -74,7 +74,11 @@
                                 @Html.ActionLink("发布公告", "Index", "Notice")
                             </li>
                         </ul>
-
+                        <ul class="nav flex-column mb-2">
+                            <li class="nav-item">
+                                @Html.ActionLink("公告记录", "NoticRecord", "Notice")
+                            </li>
+                        </ul>
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                             <span>报表</span>
                             <a class="d-flex align-items-center text-muted" href="#">

@@ -38,5 +38,6 @@ namespace XM.Model
         /// 充值编号
         /// </summary>
         public int VipID { get; set; }
+        public int StatusID { get; set; }
     }
 }
