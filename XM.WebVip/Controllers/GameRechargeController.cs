@@ -57,16 +57,13 @@ namespace XM.WebVip.Controllers
             string str = "充值失败";
             if(!result.Contains("1"))
             {
-                var resultConfirm = CheckRecharge(AN,code);
-
-                if (!result.Contains("1"))
+                if (!CheckRecharge(AN, code).Contains("1"))
                 {
                     dic.Add("code", Code);
                     dic.Add("recharge_name", Name);
-                    dic.Add("recharge_price", Request["money"]);
+                    dic.Add("recharge_integral", Request["money"]);
                     dic.Add("recharge_time", date);
                     dic.Add("agent_AN", Agent_Acc);
-                    dic.Add("vip_AN", AN);
                     int iCheck = DALUtility.Xm.GameRecharge(dic);
                     return OperationReturn(true, iCheck == 1 ? "充值成功" : "提现成功");
                 }
@@ -76,7 +73,7 @@ namespace XM.WebVip.Controllers
 
         public static string CheckRecharge(string AN,string code)
         {
-            string[] paras = { AN,  code };
+            string[] paras = { code,AN };
 
             string strKey = Md5.GetMd5(paras[0] + paras[1] + KEY);
 
