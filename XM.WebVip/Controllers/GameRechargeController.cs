@@ -65,8 +65,8 @@ namespace XM.WebVip.Controllers
                     dic.Add("recharge_name", Name);
                     dic.Add("recharge_price", Request["money"]);
                     dic.Add("recharge_time", date);
-                    dic.Add("agent_id", Agent_ID);
-                    dic.Add("vip_id", ID);
+                    dic.Add("agent_AN", Agent_Acc);
+                    dic.Add("vip_AN", AN);
                     int iCheck = DALUtility.Xm.GameRecharge(dic);
                     return OperationReturn(true, iCheck == 1 ? "充值成功" : "提现成功");
                 }
