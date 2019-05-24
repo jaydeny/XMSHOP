@@ -33,6 +33,7 @@ paging.renderPaging = function () {
     // 总页数
     paging.pageNumber = Math.ceil(paging.total / paging.pageTotal);
     if (paging.pageNumber < 2) {
+        $(paging.pagingBox).html("");
         return false;
     }
     // 形式一
