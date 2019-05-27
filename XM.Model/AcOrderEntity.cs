@@ -41,4 +41,5 @@ namespace XM.Model
         /// </summary>
         public DateTime date { get; set; }
     }
+
 }
