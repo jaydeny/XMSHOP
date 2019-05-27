@@ -15,30 +15,30 @@ namespace XM.Model
         /// <summary>
         /// 活动标题
         /// </summary>
-        public string title { get; set; }
+        public string Title { get; set; }
         /// <summary>
         /// 活动内容
         /// </summary>
-        public string content { get; set; }
+        public string Content { get; set; }
         /// <summary>
         /// 创建时间
         /// </summary>
-        public DateTime createDate { get; set; }
+        public DateTime CreateDate { get; set; }
         /// <summary>
         /// 开始时间
         /// </summary>
-        public DateTime startDate { get; set; }
+        public DateTime StartDate { get; set; }
         /// <summary>
         /// 结束时间
         /// </summary>
-        public DateTime endDate { get; set; }
+        public DateTime EndDate { get; set; }
         /// <summary>
         /// 发起人
         /// </summary>
-        public string publisher { get; set; }
+        public string Publisher { get; set; }
         /// <summary>
         /// 活动类型
         /// </summary>
-        public int ac_type { get; set; }
+        public int Ac_type { get; set; }
     }
 }

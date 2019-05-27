@@ -15,18 +15,18 @@ namespace XM.Model
         /// <summary>
         /// 活动id
         /// </summary>
-        public int ac_id { get; set; }
+        public int Ac_id { get; set; }
         /// <summary>
         /// 活动类型id
         /// </summary>
-        public int ac_type { get; set; }
+        public int Ac_type { get; set; }
         /// <summary>
         /// 折扣
         /// </summary>
-        public string discount { get; set; }
+        public string Discount { get; set; }
         /// <summary>
         /// 次数
         /// </summary>
-        public string times { get; set; }
+        public string Times { get; set; }
     }
 }

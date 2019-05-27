@@ -15,22 +15,22 @@ namespace XM.Model
         /// <summary>
         /// 折扣
         /// </summary>
-        public string award { get; set; }
+        public string Award { get; set; }
         /// <summary>
         /// 领取人AN
         /// </summary>
-        public string vip_AN { get; set; }
+        public string Vip_AN { get; set; }
         /// <summary>
         /// 领取时间
         /// </summary>
-        public string receiveDate { get; set; }
+        public string ReceiveDate { get; set; }
         /// <summary>
         /// 状态
         /// </summary>
-        public int status_id { get; set; }
+        public int Status_id { get; set; }
         /// <summary>
         /// 活动id
         /// </summary>
-        public int ac_id { get; set; }
+        public int Ac_id { get; set; }
     }
 }
