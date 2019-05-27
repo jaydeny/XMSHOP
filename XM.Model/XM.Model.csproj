@@ -61,6 +61,7 @@
     <Compile Include="NoticEntity.cs" />
     <Compile Include="NoticState.cs" />
     <Compile Include="OrderEntity.cs" />
+    <Compile Include="ParticipationAcEntity.cs" />
     <Compile Include="RechargeEntity.cs" />
     <Compile Include="RecordCollect.cs" />
     <Compile Include="RemainderEntity.cs" />
