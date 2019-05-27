@@ -78,12 +78,6 @@ paging.renderPaging = function () {
         booPageTotal = true;
     }
     // 形式四
-    console.log("当前页数:" + paging.currentPage)
-    console.log("paging.pageNumber > paging.maxpage:" + (paging.pageNumber > paging.maxpage))
-    console.log("paging.currentPage >= paging.showPage:" + (paging.currentPage >= paging.showPage))
-    console.log("paging.currentPage <= (paging.pageNumber - paging.showPage):" + (paging.currentPage <= (paging.pageNumber - paging.showPage)))
-    console.log(paging.pageNumber);
-    console.log(paging.showPage);
     if (paging.pageNumber > paging.maxpage && paging.currentPage >= paging.showPage && paging.currentPage <= (paging.pageNumber -
         paging.showPage)) {
         strHtml += beforePage.replace('@', 1);

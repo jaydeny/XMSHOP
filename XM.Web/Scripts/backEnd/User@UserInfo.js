@@ -1,17 +1,44 @@
-﻿var userInfoData;
-$.get("/User/InfoUser", function (data) {
-    userInfoData = data;
-    $("#UserAccountName").val(data.UserAccountName);
-    $("#UserEmail").val(data.UserEmail);
-    $("#UserMobliePhone").val(data.UserMobliePhone);
-}, "json");
-$("#submitInfo").click(function () {
-    var txtEmail = $("#UserEmail").val();
-    var txtphone = $("#UserMobliePhone").val();
-    userInfoData.UserEmail = txtEmail;
-    userInfoData.UserMobliePhone = txtphone;
-    $.post("/User/Save", userInfoData, function (data) {
-        console.log(data);
-        alert(data.msg);
-    },"json");
-});
+﻿
+$(function () {
+    $('.wrapper').height($(window).height() - 11);
+    $("#submitInfo").click(function () {
+        if (!$('#formInfo').formValid()) {
+            return false;
+        }
+        $.submitForm({
+            url: "/User/UpdataInfo",
+            param: $("#formInfo").formSerialize(),
+            success: function () {
+            }
+        })
+    });
+    $("#submitPwd").click(function () {
+        if (!$('#formPwd').formValid()) {
+            return false;
+        }
+        $.submitForm({
+            url: "/User/UpdatePwd",
+            param: $("#formPwd").formSerialize(),
+            success: function (data) {
+                console.log(data);
+                if (data.success) {
+                    window.setTimeout(function () {
+                        // 页面跳转
+                        top.window.location.href = "/Login/Index";
+                    }, 500);
+                }
+            }
+        })
+    });
+})
+
+
+
+
+
+
+
+
+
+
+

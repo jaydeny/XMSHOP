@@ -81,7 +81,6 @@ function GetLeaveChart() {
                     labels.push(obj.month[i].date);
                 }
             }
-            console.log(labels);
             if (obj.month.length > 3) {
                 var $select = $("select[name='agent']").html("");
                 for (i = 0; i < obj.month.length; i++) {
@@ -98,7 +97,6 @@ function GetLeaveChart() {
                     }
                 }
             }
-            console.log(locations);
             locations.forEach(function (location) {
                 obj.month.forEach(function (report) {
                     if (report.agent_AN === location) {
@@ -106,14 +104,12 @@ function GetLeaveChart() {
                     }
                 })
             });
-            console.log(oos);
             for (i = 0; i < obj.month.length; i++) {
                 datasets.push([oos[i], oos[i + 1], oos[i + 2]]);
                 if (obj.month.length > 3) {
                     i += 3;
                 }
             }
-            console.log(datasets);
             var doughnutData = {
                 labels: labels,
                 datasets: [
