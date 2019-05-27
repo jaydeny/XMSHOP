@@ -75,7 +75,7 @@ namespace XM.Web.Controllers
         //连接键
         public static string KEY = "c33e90a9-0714-48ee-89cc-8be9aff00710";
         //游戏端API接口
-        public static string GameUrl = "http://172.16.31.232:9678/take";
+        public static string GameUrl = "http://172.16.31.249:9678/take";
         ////封装游戏端请求API
         public static string HttpPost(string reqUrl, string postData)
         {

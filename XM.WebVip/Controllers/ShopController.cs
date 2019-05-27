@@ -29,9 +29,9 @@ namespace XM.WebVip.Controllers
                 {
                     return OperationReturn(false, "请添加地址后购物");
                 }
+                
                 var vipInfo = QryTOPAdd();
                 DateTime date = DateTime.Now;
-
                 Dictionary<string, object> param = new Dictionary<string, object>();
                 param.Add("order_date", date);
                 param.Add("order_address", vipInfo.AddressID);
@@ -43,10 +43,10 @@ namespace XM.WebVip.Controllers
                 param.Add("buy_time", date);
                 param.Add("buy_count", int.Parse(Request["buy_count"]));
                 param.Add("buy_AN", Session["AN"].ToString());
-                param.Add("goods_id", int.Parse(Request["goods_id"]));
+                param.Add("agoods_id", int.Parse(Request["agoods_id"]));
                 param.Add("buy_total", decimal.Parse(Request["buy_total"]));
 
-                int iCheck = DALUtility.Vip.Buy(param);
+                int iCheck = Shop(param);
 
                 if (iCheck > 0)
                 {
@@ -54,6 +54,18 @@ namespace XM.WebVip.Controllers
                 }
                 return OperationReturn(true, "购物成功");
             }
+        }
+        
+        /// <summary>
+        /// 作者：曾贤鑫
+        /// 创建时间:2019-5-27
+        /// 修改时间：2019-
+        /// 功能：返回购买是否成功
+        /// </summary>
+        public int Shop(Dictionary<string, object> param)
+        {
+            int iCheck = DALUtility.Vip.Buy(param);
+            return iCheck;
         }
 
         /// <summary>
@@ -84,6 +96,17 @@ namespace XM.WebVip.Controllers
             return vipInfo;
         }
         #endregion
+
+        #region _活动相关
+        public void Activity()
+        {
+
+
+            List<ParticipationAcEntity> list = DALUtility.MDbS.List<ParticipationAcEntity>("XMShop","activity",x => x.Vip_AN == AN,null,null );
+
+        }
+        #endregion
+
 
         #region _order
         /// <summary>

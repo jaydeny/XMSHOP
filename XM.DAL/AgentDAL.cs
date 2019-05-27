@@ -450,9 +450,9 @@ namespace XM.DAL
         {
             StringBuilder builder = new StringBuilder();
             builder.Append("select ");
-            builder.Append("a.id,a.order_date,a.vip_AN,a.order_mp,a.order_total,b.address_name,c.goods_id,c.buy_count,c.buy_total,d.goods_name,d.goods_intro ");
+            builder.Append("a.id,a.order_date,a.vip_AN,a.order_mp,a.order_total,b.address_name,c.agoods_id,c.buy_count,c.buy_total,d.goods_name,d.goods_intro ");
             builder.Append("from ");
-            builder.Append("tborder a join tbaddress b on a.order_address = b.id join tbbuy c on a.id = c.id join tbgoods d on c.goods_id = d.id ");
+            builder.Append("tborder a join tbaddress b on a.order_address = b.id join tbbuy c on a.id = c.id join tbgoods d on c.agoods_id = d.id ");
             builder.Append("where a.id = @id ");
 
             var s = Query(builder.ToString(), paras);

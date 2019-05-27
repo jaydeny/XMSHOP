@@ -404,6 +404,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\DicController.cs" />
     <Compile Include="Controllers\GameRecordController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\NoticController.cs" />
@@ -471,6 +472,8 @@
     <Content Include="Views\NoticManager\Index.cshtml" />
     <Content Include="Views\GameRecord\GetRecord.cshtml" />
     <Content Include="Views\Home\Default.cshtml" />
+    <Content Include="Views\Dic\Index.cshtml" />
+    <Content Include="Views\Dic\_Form.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

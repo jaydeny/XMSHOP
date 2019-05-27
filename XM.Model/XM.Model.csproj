@@ -41,13 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activity.cs" />
+    <Compile Include="AcOrderEntity.cs" />
+    <Compile Include="ActivityEntity.cs" />
     <Compile Include="AddressEntity.cs" />
     <Compile Include="AgentEntity.cs" />
     <Compile Include="AgentGoodsEntity.cs" />
     <Compile Include="AgentInfoDTO.cs" />
     <Compile Include="BuyEntity.cs" />
     <Compile Include="CommonData.cs" />
+    <Compile Include="CustomDisEntity.cs" />
+    <Compile Include="CustomFullEntity.cs" />
     <Compile Include="DayTotalDTO.cs" />
     <Compile Include="DicEntity.cs" />
     <Compile Include="GameData.cs" />
@@ -62,6 +65,8 @@
     <Compile Include="NoticEntity.cs" />
     <Compile Include="NoticState.cs" />
     <Compile Include="OrderEntity.cs" />
+    <Compile Include="ParticipationAcEntity.cs" />
+    <Compile Include="ReceiverAwardEntity.cs" />
     <Compile Include="RechargeEntity.cs" />
     <Compile Include="RecordCollect.cs" />
     <Compile Include="RemainderEntity.cs" />

@@ -51,22 +51,19 @@ namespace XM.WebVip.Controllers
 
             string param = GameReturn("EditCredit", strKey, paras);
 
-            var result = HttpPost("http://172.16.31.232:9678/take", param);
+            var result = HttpPost(param);
 
             bool boo = false;
             string str = "充值失败";
             if(!result.Contains("1"))
             {
-                var resultConfirm = CheckRecharge(AN,code);
-
-                if (!result.Contains("1"))
+                if (!CheckRecharge(AN, code).Contains("1"))
                 {
                     dic.Add("code", Code);
                     dic.Add("recharge_name", Name);
-                    dic.Add("recharge_price", Request["money"]);
+                    dic.Add("recharge_integral", Request["money"]);
                     dic.Add("recharge_time", date);
-                    dic.Add("agent_id", Agent_ID);
-                    dic.Add("vip_id", ID);
+                    dic.Add("agent_AN", Agent_Acc);
                     int iCheck = DALUtility.Xm.GameRecharge(dic);
                     return OperationReturn(true, iCheck == 1 ? "充值成功" : "提现成功");
                 }
@@ -76,13 +73,13 @@ namespace XM.WebVip.Controllers
 
         public static string CheckRecharge(string AN,string code)
         {
-            string[] paras = { AN,  code };
+            string[] paras = { code,AN };
 
             string strKey = Md5.GetMd5(paras[0] + paras[1] + KEY);
 
             string param = GameReturnS("EditCreditConfirm", strKey, paras);
 
-            var result = HttpPost("http://172.16.31.232:9678/take", param);
+            var result = HttpPost(param);
             return result;
         }
     }
