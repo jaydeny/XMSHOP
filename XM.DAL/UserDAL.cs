@@ -177,7 +177,8 @@ namespace XM.DAL
         /// <returns></returns>
         public bool JudgeEmail(int id, string userEmail)
         {
-            return Execute("SELECT COUNT(0) FROM tbuser WHERE id !=@id AND user_email = @userEmail", new { id,userEmail }) <= 0;
+            int count = QuerySingle<int>("SELECT COUNT(*) FROM tbuser WHERE id !=@id AND user_email =@userEmail", new { id,userEmail });
+            return count <= 0;
         }
 
     }
