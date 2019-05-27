@@ -98,8 +98,9 @@ namespace XM.WebVIP.Controllers
         /// <param name="url">请求后台地址</param>
         /// <returns></returns>
         /// 
-        public static string HttpPost(string reqUrl, string postData)
+        public static string HttpPost( string postData)
         {
+            string reqUrl = "http://172.16.31.249:9678/take";
             Debug.WriteLine("+++++++++++++++++++++++");
             Stopwatch sw = new Stopwatch();
             sw.Start();
@@ -184,7 +185,7 @@ namespace XM.WebVIP.Controllers
 
             string param = GameReturn("GetCredit", strKey, paras);
 
-            var result = HttpPost("http://172.16.31.232:9678/take", param);
+            var result = HttpPost(param);
 
 
             Dictionary<string, object> dic = new Dictionary<string, object>();

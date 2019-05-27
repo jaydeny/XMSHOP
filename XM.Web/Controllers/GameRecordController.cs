@@ -24,7 +24,7 @@ namespace XM.Web.Controllers
             string[] paras = { vipAccount, starttime, endtime };
             string key = Md5.GetMd5(paras[0] + paras[1] + paras[2] + KEY);
             string param = GameReturn(action, key, paras);
-            var result = HttpPost("http://172.16.31.232:9678/take", param);
+            var result = HttpPost("http://172.16.31.249:9678/take", param);
             RecordCollect game = JsonConvert.DeserializeObject<RecordCollect>(value: result);
             var data = new
             {
@@ -55,7 +55,7 @@ namespace XM.Web.Controllers
 
             string param = GameReturn(action, key, paras);
 
-            var result = HttpPost("http://172.16.31.232:9678/take", param);
+            var result = HttpPost("http://172.16.31.249:9678/take", param);
             GameRecord game = JsonConvert.DeserializeObject<GameRecord>(value: result);
             return PagerData(game.result.total, game.result.data, game.result.pageNum, game.result.pageSize);
         }

@@ -30,9 +30,9 @@ namespace XM.WebVip.Controllers
             string[] paras = { AN, StartDate, EndDate };
 
             string param = GameReturn(action, strKey, paras);
-            var x = HttpPost("http://172.16.31.232:9678/take", param);
+            var result = HttpPost(param);
 
-            return Content(x);
+            return Content(result);
         }
 
 
@@ -62,8 +62,8 @@ namespace XM.WebVip.Controllers
             string[] paras = { AN, GameID, StartDate, EndDate, PIndex, "", PSize };
 
             string param = GameReturn(action, strKey, paras);
-            var x = HttpPost("http://172.16.31.232:9678/take", param);
-            return Content(x);
+            var result = HttpPost(param);
+            return Content(result);
         }
 
         public ActionResult Detail1()
@@ -86,8 +86,8 @@ namespace XM.WebVip.Controllers
             string[] paras = { "vip00", GameID, StartDate, EndDate, PIndex, "", PSize };
 
             string param = GameReturn(action, strKey, paras);
-            var x = HttpPost("http://172.16.31.232:9678/take", param);
-            return Content(x);
+            var result = HttpPost(param);
+            return Content(result);
         }
     }
 }
