@@ -9,5 +9,6 @@ namespace XM.IDAL
     public interface IActivityDAL
     {
         IEnumerable<ActivityEntity> QryAC<ActivityEntity>(Dictionary<string, object> param);
+
     }
 }

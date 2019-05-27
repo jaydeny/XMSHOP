@@ -102,7 +102,8 @@ namespace XM.WebVip.Controllers
         {
 
 
-            List<ParticipationAcEntity> list = DALUtility.MDbS.List<ParticipationAcEntity>("XMShop","activity",x => x.Vip_AN == AN,null,null );
+
+           //List<ParticipationAcEntity> list = DALUtility.MDbS.List<ParticipationAcEntity>("XMShop","activity",x => x.Vip_AN == AN,null,null );
 
         }
         #endregion

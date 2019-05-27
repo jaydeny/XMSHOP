@@ -345,6 +345,7 @@
     <Content Include="Content\User\User%40UserInfo.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Activity\activity_index.js" />
     <Content Include="Scripts\backEnd\Agent%40Index.js" />
     <Content Include="Scripts\backEnd\Agent%40Form.js" />
     <Content Include="Scripts\backEnd\Default.js" />
@@ -404,6 +405,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\DicController.cs" />
     <Compile Include="Controllers\GameRecordController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
@@ -474,6 +476,8 @@
     <Content Include="Views\Home\Default.cshtml" />
     <Content Include="Views\Dic\Index.cshtml" />
     <Content Include="Views\Dic\_Form.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Activity\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
