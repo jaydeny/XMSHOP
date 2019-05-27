@@ -15,6 +15,7 @@ namespace XM.Web.Controllers
     /// </summary>
     public class RevenueController : BaseController
     {
+        [PermissionFilter]
         #region _Form
         public ActionResult ReportForm()
         {
@@ -24,6 +25,7 @@ namespace XM.Web.Controllers
         /// <summary>
         /// 功能：查询日期,总营业额
         /// </summary>
+        [PermissionFilter("Revenue", "ReportForm")]
         public ActionResult QryDayTotal()
         {
             string year = Request["year"];
@@ -49,6 +51,7 @@ namespace XM.Web.Controllers
         /// 查询日期内的记录
         /// </summary>
         /// <returns>json值</returns>
+        [PermissionFilter("Revenue", "ReportForm")]
         public ActionResult QryDayForm()
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
@@ -73,6 +76,7 @@ namespace XM.Web.Controllers
         /// 功能:查询每一笔订单的详细详细
         /// </summary>
         /// <returns>json值</returns>
+        [PermissionFilter("Revenue", "ReportForm")]
         public ActionResult QryDetailOrder()
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
@@ -92,7 +96,7 @@ namespace XM.Web.Controllers
         {
             return View();
         }
-
+        [PermissionFilter("Revenue", "RechargeForm")]
         /// <summary>
         /// 功能：查询充值
         /// </summary>
@@ -128,6 +132,7 @@ namespace XM.Web.Controllers
         /// 功能:查询日期内的记录
         /// </summary>
         /// <returns>json值</returns>
+        [PermissionFilter("Revenue", "RechargeForm")]
         public ActionResult QryDayRechargeForm()
         {
             Dictionary<string, object> param = new Dictionary<string, object>();

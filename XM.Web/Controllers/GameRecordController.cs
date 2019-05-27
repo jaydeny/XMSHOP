@@ -3,16 +3,19 @@ using System;
 using System.Web.Mvc;
 using XM.Comm;
 using XM.Model;
+using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
     public class GameRecordController : BaseController
     {
+        [PermissionFilter]
         // GET: GameRecord
         public ActionResult Index()
         {
             return View();
         }
+        [PermissionFilter("GameRecord", "Index")]
         public ActionResult GetRecordCollect()
         {
             string action = "GetRecordCollect";
@@ -24,7 +27,7 @@ namespace XM.Web.Controllers
             string[] paras = { vipAccount, starttime, endtime };
             string key = Md5.GetMd5(paras[0] + paras[1] + paras[2] + KEY);
             string param = GameReturn(action, key, paras);
-            var result = HttpPost("http://172.16.31.232:9678/take", param);
+            var result = HttpPost(param);
             RecordCollect game = JsonConvert.DeserializeObject<RecordCollect>(value: result);
             var data = new
             {
@@ -38,6 +41,7 @@ namespace XM.Web.Controllers
         {
             return View();
         }
+        [PermissionFilter("GameRecord", "Index")]
         public ActionResult Record()
         {
             string action = "GetRecord";
@@ -55,7 +59,7 @@ namespace XM.Web.Controllers
 
             string param = GameReturn(action, key, paras);
 
-            var result = HttpPost("http://172.16.31.232:9678/take", param);
+            var result = HttpPost(param);
             GameRecord game = JsonConvert.DeserializeObject<GameRecord>(value: result);
             return PagerData(game.result.total, game.result.data, game.result.pageNum, game.result.pageSize);
         }

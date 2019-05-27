@@ -83,7 +83,8 @@ namespace XM.Web.Controllers
         /// <param name="url">请求后台地址</param>
         /// <returns></returns>
         /// 
-        public static string HttpPost(string reqUrl, string postData)
+        //public static string URL = "http://172.16.31.249:9678/take";
+        public static string HttpPost(string postData, string reqUrl = "http://172.16.31.249:9678/take")
         {
             Debug.WriteLine("+++++++++++++++++++++++");
             Stopwatch sw = new Stopwatch();
