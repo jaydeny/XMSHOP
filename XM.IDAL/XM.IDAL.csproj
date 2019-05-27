@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IActivityDAL.cs" />
     <Compile Include="IAddressDAL.cs" />
     <Compile Include="IAgentDAL.cs" />
     <Compile Include="IAgentGoodsDAL.cs" />

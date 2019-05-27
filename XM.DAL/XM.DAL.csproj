@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivityDAL.cs" />
     <Compile Include="AddressDAL.cs" />
     <Compile Include="AgentDAL.cs" />
     <Compile Include="AgentGoodsDAL.cs" />
@@ -65,6 +66,8 @@
     <Compile Include="Comm\BaseDal.cs" />
     <Compile Include="Comm\DapperExtendItems.cs" />
     <Compile Include="Comm\SqlHelper.cs" />
+    <Compile Include="DicDAL.cs" />
+    <Compile Include="FirstDAL.cs" />
     <Compile Include="GoodsDAL.cs" />
     <Compile Include="GoodsTypeDAL.cs" />
     <Compile Include="JurisdictionDAL.cs" />

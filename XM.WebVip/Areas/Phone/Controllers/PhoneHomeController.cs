@@ -24,12 +24,21 @@ namespace XM.WebVip.Areas.Phone.Controllers
 
         //手机端登录方法
         [HttpPost]
-        public ActionResult Login_MB()
+        public ActionResult SignIn_MB()
         {
             string AN = Request["name"];
             string pwd = Request["password"];
-            return Login(AN,pwd);
+            return Login(AN, pwd);
         }
-
+        //登录页面返回
+        public ActionResult Login_MBV()
+        {
+            return View();
+        }
+        //用户退出方法
+        public ActionResult SignUp_MB()
+        {
+            return RemoveSession();
+        }
     }
 }

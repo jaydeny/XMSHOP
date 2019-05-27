@@ -141,6 +141,10 @@ namespace XM.DALFactory
         {
             get { return LoadAssamblyType<INoticDAL>("NoticDAL"); }
         }
+        public IActivityDAL Activity
+        {
+            get { return LoadAssamblyType<IActivityDAL>("ActivityDAL"); }
+        }
         public IFirstDAL First
         {
             get { return LoadAssamblyType<IFirstDAL>("FirstDAL"); }

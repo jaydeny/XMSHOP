@@ -76,7 +76,7 @@ namespace XM.WebAgent.Controllers
             param.Add("vip_AN", Request["name"]);
             param.Add("remainder", Request["integral"]);
             var code = DALUtility.Agent.RechargeAudit(param);
-            if (code < 1)
+            if (code == 1)
                 return OperationReturn(true, "审核通过");
             else
                 return OperationReturn(false, "审核已回退");
