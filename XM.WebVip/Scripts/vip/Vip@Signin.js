@@ -2,11 +2,11 @@
 $("#btnSignin").click(function () {
     var an = $.trim($("#name").val());
     var pwd = $.trim($("#pwd").val());
-    var confirm_pwd = $.trim($("#name").val());
+    var confirm_pwd = $.trim($("#confirm_pwd").val());
     var email = $.trim($("#email").val());
     var tel = $.trim($("#tel").val());
     // 验证邮箱
-    if (vailAN("#name_warning", an) && vailPwd("#pwd_warning", pwd) && vailConfPwd("#confirm_pwd_warning", confirm_pwd) && vailEmail("#email_warning", email) && vailPhone("#tel_warning", tel)) {
+    if (vailAN("#name_warning", an) && vailPwd("#pwd_warning", pwd) && vailConfPwd("#confirm_pwd_warning", pwd,confirm_pwd) && vailEmail("#email_warning", email) && vailPhone("#tel_warning", tel)) {
 
         $.post("/Home/Signin", { "vip_AN": an, "vip_mp": tel, "vip_Email": email, "vip_pwd": pwd, "status_id": 1, "agent_id": 2 },
             function (data) {
@@ -30,11 +30,11 @@ $("#btnSignin").click(function () {
 
 });
 // 验证确定密码
-function vailConfPwd(id, confirm_pwd) {
+function vailConfPwd(id, pwd,confirm_pwd) {
     if (confirm_pwd == "") {
         $(id).text("请输入您的密码。");
         return false;
-    } else if (confirm_pwd == pwd) {
+    } else if (confirm_pwd != pwd) {
         $(id).text("两次密码不一致。");
         return false;
     }
@@ -45,7 +45,6 @@ function vailConfPwd(id, confirm_pwd) {
 }
 // 验证密码
 function vailPwd(id, pwd) {
-
     if (pwd == "") {
         $(id).text("请输入您的密码");
         return false;
