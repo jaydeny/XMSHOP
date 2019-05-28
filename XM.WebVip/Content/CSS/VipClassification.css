@@ -49,6 +49,26 @@
 .classification .filter_box .type-action {
     color: #e01d20;
 }
+.classification .filter_box s {
+    height: 10px;
+    width: 8px;
+    margin-left: 3px;
+    display: inline-block;
+    background: transparent url(/img/icon1.png) scroll no-repeat;
+    background-position: 0 -70px;
+    /*background-position: 0 -110px;*/
+    /*background-position: 0 -90px;*/
+}
+.sort-action {
+    color: #e01d20 !important;
+}
+.sort-asc s {
+    background-position: 0 -90px !important;
+}
+.sort-desc s {
+    background-position: 0 -110px !important;
+}
+
 /*商品展示框*/
 .classification .goods-exhibition {
     margin: 20px -20px -20px 0;

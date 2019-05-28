@@ -349,7 +349,8 @@ namespace XM.DAL
             {
                 PageIndex = Convert.ToInt32(paras["pi"]),
                 PageSize = Convert.ToInt32(paras["pageSize"]),
-                SortField = paras["sort"].ToString()
+                SortField = paras["sort"].ToString(),
+                SortDirection = paras["order"].ToString()
             };
             builder.AddWhereAndParameter(paras, "goods_Name", "a.goods_Name", "LIKE", "'%'+@goods_Name+'%'");
             builder.AddWhereAndParameter(paras, "agent_AN");

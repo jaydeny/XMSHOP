@@ -10,23 +10,22 @@ $("#btnSignin").click(function () {
 
         $.post("/Home/Signin", { "vip_AN": an, "vip_mp": tel, "vip_Email": email, "vip_pwd": pwd, "status_id": 1, "agent_id": 2 },
             function (data) {
-    if (data.success) {
-    $("#btnSignin").text("注册成功,将跳转到登录页面。");
-                    window.setTimeout(function () {
-                        var obj = {
-                            "modal": "#myModal", "dialog": "#dialog", "content": "#content", "body": "#body"
-                        };
-                        obj.width = "400px";
-                        obj.height = "400px";
-                        obj.url = "/Home/Login";
-                        bouncedLogin(obj);
-                    }, 3000);
+                if (data.success) {
+                    $("#btnSignin").text("注册成功,将跳转到登录页面。");
+                        window.setTimeout(function () {
+                            var obj = {
+                                "modal": "#myModal", "dialog": "#dialog", "content": "#content", "body": "#body"
+                            };
+                            obj.width = "400px";
+                            obj.height = "400px";
+                            obj.url = "/Home/Login";
+                            bouncedLogin(obj);
+                        }, 3000);
                 }
                 else {
                     $("#name_warning").text(data.msg);
                 }
             },"json");
-
     }
 
 });
@@ -40,8 +39,8 @@ function vailConfPwd(id, confirm_pwd) {
         return false;
     }
     else {
-        return true;
         $(id).text("");
+        return true;
     }
 }
 // 验证密码
@@ -51,13 +50,13 @@ function vailPwd(id, pwd) {
         $(id).text("请输入您的密码");
         return false;
     }
-    else if (pwd.length > 16 || pwd.length < 8) {
-        $(id).text("密码长度不在8-16位之间!");
+    else if (pwd.length > 16 || pwd.length < 6) {
+        $(id).text("密码长度不在6-16位之间!");
         return false;
     }
     else {
-        return true;
         $(id).text("");
+        return true;
     }
 }
 
