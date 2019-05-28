@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcOrderEntity.cs" />
+    <Compile Include="ActDisDTO.cs" />
+    <Compile Include="ActFullDTO.cs" />
     <Compile Include="ActivityEntity.cs" />
     <Compile Include="AddressEntity.cs" />
     <Compile Include="AgentEntity.cs" />

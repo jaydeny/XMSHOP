@@ -17,9 +17,14 @@
                 记录汇总
             </a>
         </h3>
-        开始时间:<input type="date" id="StartDate" value="@ViewData["StartWeek"]"/>
-        结束时间:<input type="date" id="EndDate" value="@ViewData["EndWeek"]"/>
-        <button id="Query">查询</button>
+        开始时间:<input type="date" id="StartDate" value="@ViewData["StartWeek"]" />
+        结束时间:<input type="date" id="EndDate" value="@ViewData["EndWeek"]" />
+        <button id="Query" onclick="QueryRecord()">查询</button>
+
+        <button id="ThisWeek" onclick="ThisWeek()">本周</button>
+        <button id="LastWeek" onclick="LastWeek()">上周</button>
+        <button id="ThisMonth" onclick="ThisMonth()">本月</button>
+        <button id="LastMonth" onclick="LastMonth()">上月</button>
         <div>
             <div class="Record-list">
                 <p class="empty-order hidden" id="empty_order">当前无近期订单，前往<a href="/GameHome/Login">游戏</a></p>

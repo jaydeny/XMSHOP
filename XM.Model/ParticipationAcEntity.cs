@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XM.Comm;
 
 namespace XM.Model
 {
@@ -11,7 +12,7 @@ namespace XM.Model
         /// <summary>
         /// 主键
         /// </summary>
-        public int? _id { get; set; }
+        public string _id { get; set; } = Guid.NewGuid().To16String();
 
         /// <summary>
         /// 用户名

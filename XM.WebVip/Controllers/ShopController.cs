@@ -45,13 +45,13 @@ namespace XM.WebVip.Controllers
                 param.Add("buy_AN", Session["AN"].ToString());
                 param.Add("agoods_id", int.Parse(Request["agoods_id"]));
                 param.Add("buy_total", decimal.Parse(Request["buy_total"]));
-
-                int iCheck = Shop(param);
-
-                if (iCheck > 0)
+                
+                List<int> AcResult = Shop(param);
+                if (!AcResult.Contains(0))
                 {
-                    return OperationReturn(false, iCheck == 1 ? "用户余额不足,请充值后从试!" : "购物出错,请重试!");
+                    return OperationReturn(false, AcResult.Contains(1) ? "用户余额不足,请充值后从试!" : "购物出错,请重试!");
                 }
+                
                 return OperationReturn(true, "购物成功");
             }
         }
@@ -62,10 +62,25 @@ namespace XM.WebVip.Controllers
         /// 修改时间：2019-
         /// 功能：返回购买是否成功
         /// </summary>
-        public int Shop(Dictionary<string, object> param)
+        public List<int> Shop(Dictionary<string, object> param)
         {
-            int iCheck = DALUtility.Vip.Buy(param);
-            return iCheck;
+            List<int> AcResult = new List<int>();
+
+            Dictionary<string, object> AcDic = new Dictionary<string, object>();
+            AcDic.Add("agent_AN", Agent_Acc);
+            AcDic.Add("Date", DateTime.Now);
+
+            List<ActivityEntity> AcList = DALUtility.Activity.QryAC<ActivityEntity>(AcDic);
+            if (AcList.Count != 0)
+            {
+                AcResult = QryAC(param, AcList);
+            }
+            else
+            {
+                int iCheck = DALUtility.Vip.Buy(param);
+                AcResult.Add(iCheck);
+            }
+            return AcResult;
         }
 
         /// <summary>
@@ -98,11 +113,203 @@ namespace XM.WebVip.Controllers
         #endregion
 
         #region _活动相关
-        public void Activity()
+        /// <summary>
+        /// 功能:返回符合要求的活动
+        /// </summary>
+        public List<int> QryAC(Dictionary<string, object> OrderAndBuyInfoDic, List<ActivityEntity> AcList)
         {
+            List<ParticipationAcEntity> PAclist = DALUtility.MDbS.List<ParticipationAcEntity>("XMShop", "activity", x => x.Vip_AN == AN, null, null);
 
+            return FullAction(AcList, PAclist, OrderAndBuyInfoDic);
+            
+        }
 
-            List<ParticipationAcEntity> list = DALUtility.MDbS.List<ParticipationAcEntity>("XMShop","activity",x => x.Vip_AN == AN,null,null );
+        /// <summary>
+        /// 活动的具体方法
+        /// </summary>
+        /// <param name="AcList"></param>
+        /// <param name="PAclist"></param>
+        /// <param name="OrderAndBuyInfoDic"></param>
+        /// <returns></returns>
+        public List<int> FullAction(List<ActivityEntity> AcList, List<ParticipationAcEntity> PAclist, Dictionary<string, object> OrderAndBuyInfoDic)
+        {
+            int nowIntegral = int.Parse(OrderAndBuyInfoDic["order_total"].ToString());
+            List<int> intResult = new List<int>();
+            if (PAclist.Count != 0)
+            {
+                foreach (var item in PAclist)
+                {
+                    intResult = getRecordAcInfoResult(nowIntegral, AcList, OrderAndBuyInfoDic, item);
+                }
+            }
+            else
+            {
+                intResult = getRecordAcInfoResult(nowIntegral, AcList, OrderAndBuyInfoDic);
+            }
+            return intResult;
+        }
+
+        /// <summary>
+        /// 因为活动可能有多个,所以有一个区分的方法
+        /// </summary>
+        /// <param name="nowIntegral"></param>
+        /// <param name="AcList"></param>
+        /// <param name="OrderAndBuyInfoDic"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public List<int> getRecordAcInfoResult(int nowIntegral, List<ActivityEntity> AcList, Dictionary<string, object> OrderAndBuyInfoDic, ParticipationAcEntity item = null)
+        {
+            //结果的集合
+            List<int> intResult = new List<int>();
+
+            for (int i = 0; i < AcList.Count; i++)
+            {
+                if (AcList[i].Ac_type == 1002)
+                {
+                    intResult = FullResult(nowIntegral,AcList[i], OrderAndBuyInfoDic,item );
+                }
+                else if (AcList[i].Ac_type == 1003)
+                {
+
+                }
+            }
+            return intResult;
+        }
+
+        /// <summary>
+        /// 获取插入数据库的结束,主要是满赠活动使用这个方法
+        /// </summary>
+        /// <param name="nowIntegral"></param>
+        /// <param name="AcItem"></param>
+        /// <param name="OrderAndBuyInfoDic"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public List<int> FullResult(int nowIntegral, ActivityEntity AcItem, Dictionary<string, object> OrderAndBuyInfoDic, ParticipationAcEntity item = null)
+        {
+            //结果的集合
+            List<int> intResult = new List<int>();
+            //结果
+            long iCheck = 0;
+
+            //获取活动的信息,type,溢满值,增送值
+            CustomFullEntity Full = QryACTypeInfo<CustomFullEntity>(AcItem.id);
+
+            //余下积分 4100%1000=100
+            int remainingPoints = nowIntegral % int.Parse(Full.Ac_full);
+            //如果item为null,则返回0,是添加的情况
+            int nowCount = item != null ? item.PresentCount.Value : 0;
+            //有效次数
+            int EffectiveNumber = (nowIntegral / int.Parse(Full.Ac_full))+ nowCount > int.Parse(Full.Times)  ? int.Parse(Full.Times)-item.PresentCount.Value : nowIntegral / int.Parse(Full.Ac_full);
+            //返回次数,用min函数对比,返回最小值
+            int intTimes = Math.Min(int.Parse(Full.Times), item != null ? item.PresentCount.Value + EffectiveNumber : EffectiveNumber);
+            if ( item != null)
+            {
+                if (item.PresentNow+ remainingPoints >= item.ActTarget)
+                {
+                    Dictionary<string, object> TimesAndPresentNow = CheckTimesAndPresentNow(intTimes, item.PresentNow.Value+ remainingPoints, item.ActTarget.Value);
+                    //现有积分
+                    item.PresentNow = int.Parse(TimesAndPresentNow["PresentNow"].ToString());
+                    //有效次数
+                    item.PresentCount = int.Parse(TimesAndPresentNow["intTimes"].ToString());
+                    EffectiveNumber++;
+                }
+                else
+                {
+                    //现有积分
+                    item.PresentNow = item.PresentNow + remainingPoints;
+                    //有效次数
+                    item.PresentCount = intTimes;
+                }
+                //将数据添加到mongodb中
+                iCheck = DALUtility.MDbS.Update<ParticipationAcEntity>("XMShop", "activity",
+                    x => x._id == item._id,
+                    item);
+                //将数据添加到sqlserver中
+                intResult.Add(RecordAcInfo(OrderAndBuyInfoDic, AcItem.id, int.Parse(Full.Minus), Full.Ac_type, EffectiveNumber));
+            }
+            else
+            {
+                //将数据添加到mongodb中
+                DALUtility.MDbS.Add<ParticipationAcEntity>("XMShop", "activity",
+                        new ParticipationAcEntity()
+                        {
+                            Vip_AN = AN,
+                            ActID = AcItem.id,
+                            ActTarget = int.Parse(Full.Ac_full),
+                            PresentNow = remainingPoints,
+                            Total = int.Parse(Full.Times),
+                            PresentCount = intTimes
+                        });
+                //将数据添加到sqlserver中
+                intResult.Add(RecordAcInfo(OrderAndBuyInfoDic, AcItem.id, int.Parse(Full.Minus), Full.Ac_type, EffectiveNumber));
+            }
+            return intResult;
+        }
+
+        /// <summary>
+        /// 功能:向tbAc_order和tbReceiveAward添加记录
+        /// </summary>
+        /// <param name="OrderAndBuyInfoDic"></param>
+        /// <param name="Ac_id"></param>
+        /// <param name="Award">奖励</param>
+        /// <param name="Code">标识</param>
+        /// <param name="Times">次数</param>
+        /// <returns></returns>
+        public int RecordAcInfo(Dictionary<string, object> OrderAndBuyInfoDic, int Ac_id, object Award, int Code, int Times)
+        {
+            DateTime date = DateTime.Now;
+            Dictionary<string, object> FullAc = new Dictionary<string, object>();
+            FullAc.Add("Code", Code);
+            FullAc.Add("Ac_id", Ac_id);
+            FullAc.Add("Agoods_id", OrderAndBuyInfoDic["agoods_id"]);
+            FullAc.Add("Vip_AN",AN);
+            FullAc.Add("Agent_AN", Agent_Acc);
+            FullAc.Add("Integral", OrderAndBuyInfoDic["order_total"]);
+            FullAc.Add("Date", date);
+            FullAc.Add("Award", Award);
+            FullAc.Add("Status_id", 1004);
+            FullAc.Add("Times", Times);
+
+            FullAc.Add("order_date", date);
+            FullAc.Add("order_address", OrderAndBuyInfoDic["order_address"]);
+            FullAc.Add("order_mp", OrderAndBuyInfoDic["order_mp"]);
+            FullAc.Add("order_total", decimal.Parse(Request["order_total"]));
+
+            FullAc.Add("buy_time", date);
+            FullAc.Add("buy_count", int.Parse(Request["buy_count"]));
+            FullAc.Add("buy_AN", Session["AN"].ToString());
+            FullAc.Add("buy_total", decimal.Parse(Request["buy_total"]));
+
+            return DALUtility.Vip.BuyWithAc(FullAc);
+        }
+
+        /// <summary>
+        /// 获取活动的类型信息
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public T QryACTypeInfo<T>(int Ac_id)
+        {
+            T result = DALUtility.Activity.QryACTypeInfo<T>(Ac_id);
+            return result;
+        }
+
+        /// <summary>
+        /// 如果mongodb中的当前积分+剩余积分大于目标积分的处理
+        /// </summary>
+        /// <param name="intTimes"></param>
+        /// <param name="PresentNow"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public Dictionary<string,object> CheckTimesAndPresentNow(int intTimes, int PresentNow,  int target)
+        {
+            intTimes += PresentNow / target;
+            PresentNow = PresentNow % target;
+            Dictionary<string, object> TimesAndPresentNow = new Dictionary<string, object>();
+            TimesAndPresentNow.Add("intTimes", intTimes);
+            TimesAndPresentNow.Add("PresentNow", PresentNow);
+            return TimesAndPresentNow;
 
         }
         #endregion

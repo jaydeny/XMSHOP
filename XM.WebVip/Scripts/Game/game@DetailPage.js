@@ -58,7 +58,7 @@ function showList(page) {
 
 //模板
 var DetailTemplate = function (obj) {
-    return "<li></div><div class='flex-1'><span>" + obj.AccountName + "</span></div></div ><div class='flex-1'><span>" + obj.Integral + "</span></div><div class='flex-1'><span>" + obj.Time + "</span></div><div class='flex-1'><span>" + obj.Name + "</span></div>";
+    return "<li></div><div class='flex-1'><span>" + obj.AccountName + "</span></div></div ><div class='flex-1'><span>" + obj.Integral + "</span></div><div class='flex-1'><span>" + obj.Time.replace('T', ' ') + "</span></div><div class='flex-1'><span>" + obj.Name + "</span></div>";
 }
 
 //以下是详情

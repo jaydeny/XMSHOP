@@ -17,146 +17,147 @@ namespace YMOA.UnitTest
         public void AddTest()
         {
             var dtNow = DateTime.Now;
-            var result = dbService.List<NoticEntity>("XMShop", "notic", x => x.starttime < dtNow && x.endtime > dtNow && x.receiver == null, null, null);
+            ParticipationAcEntity part = new ParticipationAcEntity();
+            dbService.Add<ParticipationAcEntity>("XMShop", "activity", part);
         }
 
-        /// <summary>
-        /// 请求
-        /// </summary>
-        [TestMethod]
-        public void QryDBLogs()
-        {
-            var testData = dbService.List<MsgEntity>("YMOA", "msg", x => 1 == 1, x => new MsgEntity() { content = x.content }, null);
-        }
+        ///// <summary>
+        ///// 请求
+        ///// </summary>
+        //[TestMethod]
+        //public void QryDBLogs()
+        //{
+        //    var testData = dbService.List<MsgEntity>("YMOA", "msg", x => 1 == 1, x => new MsgEntity() { content = x.content }, null);
+        //}
 
-        /// <summary>
-        ///  未登录获取公告
-        /// </summary>
-        [TestMethod]
-        public void NotLoggedMsgTest()
-        {
-            DateTime dtNow = DateTime.Now;
-            var results = dbService.List<NoticEntity>("YMOA", "msg", x => x.starttime < dtNow && x.endtime > dtNow && x.receiver == null,null,null );
-            Debug.WriteLine(results);
-            Debug.WriteLine(results.Count);
-        }
+        ///// <summary>
+        /////  未登录获取公告
+        ///// </summary>
+        //[TestMethod]
+        //public void NotLoggedMsgTest()
+        //{
+        //    DateTime dtNow = DateTime.Now;
+        //    var results = dbService.List<NoticEntity>("YMOA", "msg", x => x.starttime < dtNow && x.endtime > dtNow && x.receiver == null,null,null );
+        //    Debug.WriteLine(results);
+        //    Debug.WriteLine(results.Count);
+        //}
 
-        /// <summary>
-        ///  获取未读公共
-        /// </summary>
-        [TestMethod]
-        public void LoggedMsgTest()
-        {
-            string uid = "ag1user1";
-            string agId = "ag2";
-            DateTime dtNow = DateTime.Now;
-            // 获取以读公告
-            var msgStatus = dbService.List<MsgState>("YMOA", "msg_state", x => x.uid.Equals(uid) && x.state < 2, x => new MsgState() { msgid = x.msgid }, null);
-            List<string> listMsgId = new List<string>();
-            foreach (var ms in msgStatus)
-            {
-                listMsgId.Add(ms.msgid);
-            }
-            // 获取未读公告
-            var result = dbService.List<MsgEntity>("YMOA", "msg", x => x.starttime < dtNow && x.endtime > dtNow && (x.receiver == null || x.receiver.Contains(agId)) && !listMsgId.Contains(x._id),null,null);
-            Debug.WriteLine(result);
-        }
+        ///// <summary>
+        /////  获取未读公共
+        ///// </summary>
+        //[TestMethod]
+        //public void LoggedMsgTest()
+        //{
+        //    string uid = "ag1user1";
+        //    string agId = "ag2";
+        //    DateTime dtNow = DateTime.Now;
+        //    // 获取以读公告
+        //    var msgStatus = dbService.List<MsgState>("YMOA", "msg_state", x => x.uid.Equals(uid) && x.state < 2, x => new MsgState() { msgid = x.msgid }, null);
+        //    List<string> listMsgId = new List<string>();
+        //    foreach (var ms in msgStatus)
+        //    {
+        //        listMsgId.Add(ms.msgid);
+        //    }
+        //    // 获取未读公告
+        //    var result = dbService.List<MsgEntity>("YMOA", "msg", x => x.starttime < dtNow && x.endtime > dtNow && (x.receiver == null || x.receiver.Contains(agId)) && !listMsgId.Contains(x._id),null,null);
+        //    Debug.WriteLine(result);
+        //}
 
-        /// <summary>
-        /// 公告测试
-        /// </summary>
-        [TestMethod]
-        public void MsgTest()
-        {
-            //添加测试数据
-            MsgAdd();
-            //读取未读
-            //会员ag1user1 代理ag1
-            var c1 = MsgUnReadCount("ag1user1", "ag1");
-            //会员ag4user1 代理ag4
-            var c2 = MsgUnReadCount("ag4user1", "ag4");
-            Assert.AreEqual(c1, 2);
-            Assert.AreEqual(c2, 1);
+        ///// <summary>
+        ///// 公告测试
+        ///// </summary>
+        //[TestMethod]
+        //public void MsgTest()
+        //{
+        //    //添加测试数据
+        //    MsgAdd();
+        //    //读取未读
+        //    //会员ag1user1 代理ag1
+        //    var c1 = MsgUnReadCount("ag1user1", "ag1");
+        //    //会员ag4user1 代理ag4
+        //    var c2 = MsgUnReadCount("ag4user1", "ag4");
+        //    Assert.AreEqual(c1, 2);
+        //    Assert.AreEqual(c2, 1);
 
-            //读取当前会员公告
-            var c1Msgs = ReadMsgs("ag1");
-            var c1MsgStatus = dbService.List<MsgState>("YMOA", "msg_state", x => x.uid.Equals("ag1user1") && x.state < 2, null, null);
-            var c2Msgs = ReadMsgs("ag4");
-            var c2MsgStatus = dbService.List<MsgState>("YMOA", "msg_state", x => x.uid.Equals("ag4user1") && x.state < 2, null, null);
-            //将未读公告标识为已读
-            foreach (var _m in c1Msgs)
-            {
-                if (c1MsgStatus.Find(x => x.msgid.Equals(_m._id) && x.uid.Equals("ag1user1")) == null)
-                {
-                    dbService.Add<MsgState>("YMOA", "msg_state", new MsgState() { uid = "ag1user1", msgid = _m._id, state = 1 });
-                }
-            }
-            foreach (var _m in c2Msgs)
-            {
-                if (c1MsgStatus.Find(x => x.msgid.Equals(_m._id) && x.uid.Equals("ag4user1")) == null)
-                {
-                    dbService.Add<MsgState>("YMOA", "msg_state", new MsgState() { uid = "ag4user1", msgid = _m._id, state = 1 });
-                }
-            }
-            //读取未读
-            //会员ag1user1 代理ag1
-            c1 = MsgUnReadCount("ag1user1", "ag1");
-            //会员ag4user1 代理ag4
-            c2 = MsgUnReadCount("ag4user1", "ag4");
-            Assert.AreEqual(c1, 0);
-            Assert.AreEqual(c2, 0);
+        //    //读取当前会员公告
+        //    var c1Msgs = ReadMsgs("ag1");
+        //    var c1MsgStatus = dbService.List<MsgState>("YMOA", "msg_state", x => x.uid.Equals("ag1user1") && x.state < 2, null, null);
+        //    var c2Msgs = ReadMsgs("ag4");
+        //    var c2MsgStatus = dbService.List<MsgState>("YMOA", "msg_state", x => x.uid.Equals("ag4user1") && x.state < 2, null, null);
+        //    //将未读公告标识为已读
+        //    foreach (var _m in c1Msgs)
+        //    {
+        //        if (c1MsgStatus.Find(x => x.msgid.Equals(_m._id) && x.uid.Equals("ag1user1")) == null)
+        //        {
+        //            dbService.Add<MsgState>("YMOA", "msg_state", new MsgState() { uid = "ag1user1", msgid = _m._id, state = 1 });
+        //        }
+        //    }
+        //    foreach (var _m in c2Msgs)
+        //    {
+        //        if (c1MsgStatus.Find(x => x.msgid.Equals(_m._id) && x.uid.Equals("ag4user1")) == null)
+        //        {
+        //            dbService.Add<MsgState>("YMOA", "msg_state", new MsgState() { uid = "ag4user1", msgid = _m._id, state = 1 });
+        //        }
+        //    }
+        //    //读取未读
+        //    //会员ag1user1 代理ag1
+        //    c1 = MsgUnReadCount("ag1user1", "ag1");
+        //    //会员ag4user1 代理ag4
+        //    c2 = MsgUnReadCount("ag4user1", "ag4");
+        //    Assert.AreEqual(c1, 0);
+        //    Assert.AreEqual(c2, 0);
 
            
-            //自行清空YMOA =》msg，msg_state内容，方便下次测试
-        }
+        //    //自行清空YMOA =》msg，msg_state内容，方便下次测试
+        //}
 
-        void MsgAdd()
-        {
-            MsgEntity msgEntity = new MsgEntity();
-            msgEntity.content = "公告测试1,to ag1 ag2 ag3";
-            msgEntity.starttime = DateTime.Now;
-            msgEntity.endtime = msgEntity.starttime.AddDays(10);
-            msgEntity.receiver = new List<string>() { "ag1", "ag2", "ag3" };
-            dbService.Add<MsgEntity>("YMOA", "msg", msgEntity);
+        //void MsgAdd()
+        //{
+        //    MsgEntity msgEntity = new MsgEntity();
+        //    msgEntity.content = "公告测试1,to ag1 ag2 ag3";
+        //    msgEntity.starttime = DateTime.Now;
+        //    msgEntity.endtime = msgEntity.starttime.AddDays(10);
+        //    msgEntity.receiver = new List<string>() { "ag1", "ag2", "ag3" };
+        //    dbService.Add<MsgEntity>("YMOA", "msg", msgEntity);
 
-            msgEntity = new MsgEntity();
-            msgEntity.content = "公告测试2,to all agent";
-            msgEntity.starttime = DateTime.Now;
-            msgEntity.endtime = msgEntity.starttime.AddDays(10);
-            dbService.Add<MsgEntity>("YMOA", "msg", msgEntity);
+        //    msgEntity = new MsgEntity();
+        //    msgEntity.content = "公告测试2,to all agent";
+        //    msgEntity.starttime = DateTime.Now;
+        //    msgEntity.endtime = msgEntity.starttime.AddDays(10);
+        //    dbService.Add<MsgEntity>("YMOA", "msg", msgEntity);
 
-            msgEntity = new MsgEntity();
-            msgEntity.content = "公告测试3,to ag2";
-            msgEntity.starttime = DateTime.Now;
-            msgEntity.endtime = msgEntity.starttime.AddDays(10);
-            msgEntity.receiver = new List<string>() { "ag2"};
-            dbService.Add<MsgEntity>("YMOA", "msg", msgEntity);
-        }
+        //    msgEntity = new MsgEntity();
+        //    msgEntity.content = "公告测试3,to ag2";
+        //    msgEntity.starttime = DateTime.Now;
+        //    msgEntity.endtime = msgEntity.starttime.AddDays(10);
+        //    msgEntity.receiver = new List<string>() { "ag2"};
+        //    dbService.Add<MsgEntity>("YMOA", "msg", msgEntity);
+        //}
 
-        /// <summary>
-        /// 返回未读笔数
-        /// </summary>
-        /// <param name="uid"></param>
-        /// <param name="agId"></param>
-        /// <returns></returns>
-        long MsgUnReadCount(string uid, string agId)
-        {
-            DateTime dtNow = DateTime.Now;
-            var msgStatus = dbService.List<MsgState>("YMOA", "msg_state", x => x.uid.Equals(uid) && x.state < 2, x => new MsgState() { msgid = x.msgid }, null);
-            List<string> listMsgId = new List<string>();
-            foreach (var ms in msgStatus)
-            {
-                listMsgId.Add(ms.msgid);
-            }
-            return dbService.GetCount<MsgEntity>("YMOA", "msg", x => x.starttime < dtNow && x.endtime > dtNow && (x.receiver == null || x.receiver.Contains(agId)) && !listMsgId.Contains(x._id));
-        }
+        ///// <summary>
+        ///// 返回未读笔数
+        ///// </summary>
+        ///// <param name="uid"></param>
+        ///// <param name="agId"></param>
+        ///// <returns></returns>
+        //long MsgUnReadCount(string uid, string agId)
+        //{
+        //    DateTime dtNow = DateTime.Now;
+        //    var msgStatus = dbService.List<MsgState>("YMOA", "msg_state", x => x.uid.Equals(uid) && x.state < 2, x => new MsgState() { msgid = x.msgid }, null);
+        //    List<string> listMsgId = new List<string>();
+        //    foreach (var ms in msgStatus)
+        //    {
+        //        listMsgId.Add(ms.msgid);
+        //    }
+        //    return dbService.GetCount<MsgEntity>("YMOA", "msg", x => x.starttime < dtNow && x.endtime > dtNow && (x.receiver == null || x.receiver.Contains(agId)) && !listMsgId.Contains(x._id));
+        //}
 
-        List<MsgEntity> ReadMsgs(string agId)
-        {
-            DateTime dtNow = DateTime.Now;
-            var msgs = dbService.List<MsgEntity>("YMOA", "msg", x => x.starttime < dtNow && x.endtime > dtNow && (x.receiver == null || x.receiver.Contains(agId)), null, null);
-            return msgs;
-        }
+        //List<MsgEntity> ReadMsgs(string agId)
+        //{
+        //    DateTime dtNow = DateTime.Now;
+        //    var msgs = dbService.List<MsgEntity>("YMOA", "msg", x => x.starttime < dtNow && x.endtime > dtNow && (x.receiver == null || x.receiver.Contains(agId)), null, null);
+        //    return msgs;
+        //}
     }
 
 
