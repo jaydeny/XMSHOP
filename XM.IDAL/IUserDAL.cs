@@ -68,11 +68,15 @@ namespace XM.IDAL
         /// <param name="paras"></param>
         /// <returns></returns>
         int Save(Dictionary<string, object> paras);
+
+
         /// <summary>
-        /// 获取所有的角色
+        ///  判断邮箱是否重复
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <param name="userEmail"></param>
         /// <returns></returns>
-        
+        bool JudgeEmail(int id, string userEmail);
+
+
     }
 }

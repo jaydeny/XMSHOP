@@ -1,5 +1,4 @@
-﻿
-// 弹出商品框
+﻿// 弹出商品框
 //var bounced = function (obj) {
 //    console.log("ok");
 //    $(obj.dialog).css({ "width": obj.width });

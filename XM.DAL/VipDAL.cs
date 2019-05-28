@@ -329,7 +329,7 @@ namespace XM.DAL
                 PageSize = Convert.ToInt32(paras["pageSize"]),
                 SortField = paras["sort"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "vip_id");
+            builder.AddWhereAndParameter(paras, "vip_AN");
             builder.AddWhereAndParameter(paras, "recharge_time", "recharge_time","like", "'%'+@recharge_time");
 
             var s = SortAndPage(builder, grid, out iCount);

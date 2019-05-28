@@ -24,6 +24,8 @@ namespace XM.WebAgent.Controllers
         //返回商品操作页
         public ActionResult getProductPage()
         {
+            List<DicEntity> list = DALUtility.Dic.GetDicByTag(15).ToList();
+            ViewData["AGoodsType"] = list;
             return View();
         }
 
@@ -61,25 +63,25 @@ namespace XM.WebAgent.Controllers
         public ActionResult QryAgoods()
         {
             string sort = Request["sort"] == null ? "id" : Request["sort"];
-            string order = Request["order"] == null ? "desc" : Request["order"];
+            string order = Request["order"] == null ? "asc" : Request["order"];
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
-            int pagesize = Request["rows"] == null ? 20 : Convert.ToInt32(Request["rows"]);
+            int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
 
 
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("pi", pageindex);
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
-            param.Add("order", order);
-            param.Add("goods_Name", Request["goods_name"]);
+            param.Add("goods_Name", Request["goods_Name"]);
             param.Add("status_id", 3);
-            param.Add("agent_AN", Session["Agent_AN"] != null ? Session["Agent_AN"].ToString() : "agent0");
+            param.Add("type_id", Request["type_id"]);
+            param.Add("agent_AN", Session["Agent_Acc"] != null ? Session["Agent_Acc"].ToString() : "agent0");
 
             string result = DALUtility.Agent.QryAgoods(param, out int ICount);
             return Content(result);
+            
         }
-
-
+        
         /// <summary>
         /// 查询所有的商品
         /// </summary>
