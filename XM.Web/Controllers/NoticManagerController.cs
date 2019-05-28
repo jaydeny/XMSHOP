@@ -34,7 +34,7 @@ namespace XM.Web.Controllers
                 x => 1==1,
                 null, pageIndex, pageSize, null, true);
             
-            return PagerData(pageList.Total, y, pageList.PageIndex, pageList.PageSize);
+            return PagerData(pageList.Total, pageList.Items, pageList.PageIndex, pageList.PageSize);
         }
 
         /// <summary>
