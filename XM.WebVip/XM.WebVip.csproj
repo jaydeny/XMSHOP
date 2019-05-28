@@ -292,6 +292,7 @@
     <Content Include="Scripts\vip\nanobar.min.js" />
     <Content Include="Scripts\vip\notice.js" />
     <Content Include="Scripts\vip\paging.js" />
+    <Content Include="Scripts\vip\validation.js" />
     <Content Include="Scripts\vip\vip%40AgoodsList.js" />
     <Content Include="Scripts\vip\login.js" />
     <Content Include="Scripts\vip\vip%40FoundPwdPage.js" />
