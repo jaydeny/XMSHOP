@@ -19,13 +19,34 @@
 //    obj.url = "/home/GoodsDetails";
 //    bounced(obj);
 //});
-
+// 商品分类
 $(".filter_box").on("click", ".type", function () {
     $(".filter_box .type-action").removeClass("type-action");
     $(this).addClass("type-action");
+    if ($(this).data("id") == undefined) {
+        $("#txt_search").val("");
+    }
     paging.currentPage = 1;
-    var id = $(this).data("id");
-    getQryAgoods(id);
+    getQryAgoods();
+});
+// 商品排序
+$(".filter_box").on("click", ".sort", function () {
+    if ($(this).hasClass("sort-action")) {
+        if ($(this).hasClass("sort-asc")) {
+            $(this).removeClass("sort-asc");
+            $(this).addClass("sort-desc").data("order", "desc");;
+        }
+        else {
+            $(this).removeClass("sort-desc");
+            $(this).addClass("sort-asc").data("order","asc");
+        }
+    }
+    else {
+        $(".filter_box .sort-action").removeClass("sort-action").removeClass("sort-asc").removeClass("sort-desc");
+        $(this).addClass("sort-action").addClass("sort-asc").data("order", "asc");
+    }
+    paging.currentPage = 1;
+    getQryAgoods();
 });
 
 // 商品集合
@@ -34,8 +55,12 @@ var listGoods
 var strGoods = function (i,obj) {
     return "<li><div class='goods-item' ><p class='p-img'><a><img src='/image/" + obj.goods_pic + "'  /></a></p><p class='p-title'><a><span>" + obj.goods_name + "</span><span class='red'>" + obj.goods_intro + "</span></a></p><p class='p-price'><b>￥" + obj.price + "</b></p><div class='p-button' data-id=" + i +" ><a class='' >立即下单</a></div></div ></li >";
 }
-var getQryAgoods = function (typeId) {
-    $.post("/Product/QryAgoods", { rows: paging.pageTotal, page: paging.currentPage, type_id: typeId }, function (data) {
+var getQryAgoods = function () {
+    var typeId = $(".filter_box .type-action").data("id");
+    var name = $("#txt_search").val();
+    var sort = $(".filter_box .sort-action").data("val");
+    var order = $(".filter_box .sort-action").data("order");
+    $.post("/Product/QryAgoods", { rows: paging.pageTotal, page: paging.currentPage, type_id: typeId, goods_Name: name, sort: sort, order:order }, function (data) {
         if (data.total > 0) {
             $(".goods-exhibition>.empty").hide();
             listGoods = data.rows;
@@ -63,8 +88,7 @@ var goodsRender = function () {
     // 页面条数
     paging.pageTotal = 15;
     paging.callbackMethod = function () {
-        var typeId = $(".filter_box .type-action").data("id");
-        getQryAgoods(typeId);
+        getQryAgoods();
     }
     // 回调
     paging.callbackMethod();
@@ -74,7 +98,6 @@ var goodsRender = function () {
 // 立即下单
 $(".goods-exhibition").on("click", ".p-button", function () {
     var obj = listGoods[$(this).data("id")];
-    //console.log(obj);
     $.post("/Shop/buy", { goods_id: obj.goods_id, buy_count: 1, order_total: obj.price, buy_total: obj.price * 1 }, function (data) {
         if (data.success) {
             alert(data.msg);
@@ -93,14 +116,10 @@ function getQueryVariable(variable) {
     }
     return (false);
 }
-// 初始商品
-goodsRender();
-// 请求商品
-var search = getQueryVariable("search");
 
-//if (search != null && search != "") {
-//    goodsRender({ Agoods_Name: search });
-//}
-//else {
-//    goodsRender();
-//}
+// 请求商品
+var search = decodeURI(getQueryVariable("search"));
+if (search != "false") {
+    $("#txt_search").val(search);
+}
+goodsRender();

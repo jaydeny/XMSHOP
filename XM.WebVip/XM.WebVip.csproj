@@ -271,6 +271,7 @@
     <Content Include="img\i-8.png" />
     <Content Include="img\icon-empty-shopping.png" />
     <Content Include="img\icon01.svg" />
+    <Content Include="img\icon1.png" />
     <Content Include="img\logged.png" />
     <Content Include="img\slide_1.jpg" />
     <Content Include="img\slide_2.jpg" />
@@ -291,13 +292,9 @@
     <Content Include="Scripts\vip\nanobar.min.js" />
     <Content Include="Scripts\vip\notice.js" />
     <Content Include="Scripts\vip\paging.js" />
-    <Content Include="Scripts\vip\RequestUrl.js" />
     <Content Include="Scripts\vip\vip%40AgoodsList.js" />
-    <Content Include="Scripts\vip\jqueryAjax.js" />
     <Content Include="Scripts\vip\login.js" />
-    <Content Include="Scripts\vip\vin%40login-configuration.js" />
     <Content Include="Scripts\vip\vip%40FoundPwdPage.js" />
-    <Content Include="Scripts\vip\vip%40index.js" />
     <Content Include="Scripts\vip\Vip%40Signin.js" />
     <Content Include="Scripts\vip\vip%40home.js" />
     <Content Include="Scripts\vip\vipinfo%40Address.js" />
