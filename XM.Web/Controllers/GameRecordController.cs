@@ -61,7 +61,15 @@ namespace XM.Web.Controllers
 
             var result = HttpPost(param);
             GameRecord game = JsonConvert.DeserializeObject<GameRecord>(value: result);
-            return PagerData(game.result.total, game.result.data, game.result.pageNum, game.result.pageSize);
+            if (game.result != null)
+            {
+                return PagerData(game.result.total, game.result.data, game.result.pageNum, game.result.pageSize);
+            }
+            else
+            {
+                return Content("没有查询到相关数据！");
+            }
+            
         }
         
     }

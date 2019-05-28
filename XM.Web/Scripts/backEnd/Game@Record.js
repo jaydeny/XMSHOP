@@ -23,8 +23,6 @@ function Record() {
     $("#btn_search_vip").click(function () {
         $gridList.jqGrid('setGridParam', {
             postData: {
-                starttime: starttime.getFullYear() + "-" + (starttime.getMonth() + 1) + "-" + starttime.getDate(),
-                endtime: endtime.getFullYear() + "-" + (endtime.getMonth() + 1) + "-" + endtime.getDate(),
                 vipAccount: $("#txt_search_vip").val()
             }
         }).trigger('reloadGrid');
@@ -32,8 +30,6 @@ function Record() {
     $("#btn_search_agent").click(function () {
         $gridList.jqGrid('setGridParam', {
             postData: {
-                starttime: starttime.getFullYear() + "-" + (starttime.getMonth() + 1) + "-" + starttime.getDate(),
-                endtime: endtime.getFullYear() + "-" + (endtime.getMonth() + 1) + "-" + endtime.getDate(),
                 agentAccount: $("#txt_search_agent").val()
             }
         }).trigger('reloadGrid');
