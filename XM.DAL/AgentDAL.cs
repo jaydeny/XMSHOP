@@ -559,8 +559,8 @@ namespace XM.DAL
             int pageSize = Convert.ToInt32(paras["pageSize"]);
             int page = Convert.ToInt32(paras["pi"]);
             builder.AddWhereAndParameter(paras, "day", "convert(varchar(10),recharge_time, 120)", "like", "@day+'%'");
-            builder.AddWhereAndParameter(paras, "agent_id");
-            builder.AddWhereAndParameter(paras, "vip_id");
+            builder.AddWhereAndParameter(paras, "agent_AN");
+            builder.AddWhereAndParameter(paras, "vip_AN");
             var s = SortAndPage(builder, grid, out iCount);
             string retData = JsonConvert.SerializeObject(new { total = (int)Math.Ceiling((double)iCount / pageSize), rows = s ,page = page});
             return retData;

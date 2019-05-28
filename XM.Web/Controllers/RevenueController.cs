@@ -143,9 +143,9 @@ namespace XM.Web.Controllers
             param.Add("order", Request["order"] == null ? "asc" : Request["order"]);
 
             param.Add("day", Request["day"]);
-            param.Add("vip_id", Request["vip_id"]);
+            param.Add("vip_id", Request["vip_AN"]);
             //param.Add("agent_id", Session["agent_ID"].ToString());
-            param.Add("agent_id", Request["agent_id"]);
+            param.Add("agent_id", Request["agent_AN"]);
 
             return Content(DALUtility.Agent.QryDayRechargeForm(param, out int iCount));
         }

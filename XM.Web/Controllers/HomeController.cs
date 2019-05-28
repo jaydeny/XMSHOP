@@ -77,21 +77,6 @@ namespace XM.Web.Controllers
         }
         public ActionResult GetBar()
         {
-            //List<object> list = new List<object>();
-            //for(int i = 0; i < 3; i++)
-            //{
-            //    for (int j = 0; j < 6; j++)
-            //    {
-            //        Random random = new Random();
-            //        var _game = new
-            //        {
-            //            date = "2019-0" + (j + 1),
-            //            total = 2000 + (int)random.Next(1,20) * 100,
-            //            agent_AN = "agent"+i
-            //        };
-            //        list.Add(_game);
-            //    }
-            //};
             string action = "GetRecordCollectByAllAgency";
 
             string starttime = Request["starttime"] == null ? "2019-04" : Request["starttime"];
