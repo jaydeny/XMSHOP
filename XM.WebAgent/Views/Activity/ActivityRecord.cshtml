@@ -17,7 +17,7 @@
                                 <th>内容</th>
                                 <th>活动创建时间</th>
                                 <th>活动开始时间</th>
-                                <th>活动介绍时间</th>
+                                <th>活动结束时间</th>
                                 <th>发布人</th>
                                 <th>操作</th>
                             </tr>
@@ -95,7 +95,7 @@
                 rows: 10,
                 count: '',
 
-                //公告数据
+                //活动数据
                 RecordTable:[]
             },
             created: function () {
@@ -107,7 +107,7 @@
                 }
             },
             methods: {
-                //获取公告历史数据
+                //获取活动历史数据
                 getNoticData() {
                     const param = {
                         page: this.page,
@@ -124,7 +124,7 @@
                         this.count = data.records;
                     });
                 },
-                //撤销公告
+                //撤销活动
                 del_Notic(id) {
                     const param = {
                         id: id

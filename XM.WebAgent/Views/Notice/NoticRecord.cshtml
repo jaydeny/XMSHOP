@@ -28,7 +28,7 @@
                                 <td>{{chageTime(obj.starttime)}}</td>
                                 <td>{{chageTime(obj.endtime)}}</td>
                                 <td>{{obj.publisher}}</td>
-                                <td>{{obj.receivermember}}</td>
+                                <td>{{chageReceiver(obj.receivermember)}}</td>
                                 <td> <button v-on:click="del_Notic(obj._id)">撤销公告</button> </td>
                             </tr>
                         </tbody>
@@ -160,7 +160,16 @@
                 //时间转换
                 chageTime(time) {
                     return time.replace("T", " ").substring(0, 19)
+                },
+                //公告接收人数据呈现方式改变
+                chageReceiver(receiver) {
+                    //console.log(receiver)
+                    if (receiver != null) {
+                        return receiver+""
+                    }
+                    return ""
                 }
+
                 
             }
         })

@@ -78,7 +78,7 @@
 
             },
             created: function () {
-
+                this.init()
                 this.getAllVIP();
             },
             computed: {
@@ -102,6 +102,19 @@
                         this.count = data.total;
                         this.unseleTable = data.rows;
                     });
+                },
+                init() {
+                    let date = new Date();
+                    this.startTime = date.getFullYear() + "-" + this.dateChage(date.getMonth() + 1) + "-" + this.dateChage(date.getDate());
+                    let day = date.getDate();
+                    date.setDate(day + 7);
+                    this.endTime = date.getFullYear() + "-" + this.dateChage(date.getMonth() + 1) + "-" + this.dateChage(date.getDate());
+                },
+                //日期格式变换
+                dateChage(date) {
+                    if (date < 10)
+                        date = "0" + date;
+                    return date
                 },
                 send() {
                     let str = '';
