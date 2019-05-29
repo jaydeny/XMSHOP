@@ -19,6 +19,7 @@
 //    obj.url = "/home/GoodsDetails";
 //    bounced(obj);
 //});
+
 // 商品分类
 $(".filter_box").on("click", ".type", function () {
     $(".filter_box .type-action").removeClass("type-action");
