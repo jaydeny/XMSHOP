@@ -72,6 +72,51 @@
                         </table>
                     </div>
                 </div>
+
+                @*分页*@
+                <nav aria-label="Page navigation example" v-show="!is_show">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">显示条数</label>
+                                </div>
+                                <select class="custom-select" id="inputGroupSelect01" v-model="rows">
+
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="page-item" v-on:click="before()">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">上一页</span>
+                            </a>
+                        </li>
+                        <li class="page-item" v-on:click="next()">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">下一页</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">共 {{total_page}} 页</a></li>
+                        <li class="page-item"><a class="page-link" href="#">共 {{count}} 条数据</a></li>
+                        <li class="page-item">
+                            <div class="input-group mb-3">
+                                <select class="custom-select" id="inputGroupSelect0" v-model="page">
+                                    <option :value="index" v-for="(index) in total_page" :key="index">{{index}}</option>
+                                </select>
+                                <div class="input-group-append">
+                                    <label class="input-group-text" for="inputGroupSelect0">显示条数</label>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="page-item"><a class="page-link" v-on:click="btn_sub()" href="#">确定</a></li>
+                    </ul>
+                </nav>
+
             </main>
 
         </div>
@@ -81,6 +126,11 @@
         new Vue({
             el: "#msg",
             data: {
+                //分页参数
+                page: 1,
+                rows: 10,
+                count: '',
+
                 dataTable: [],
                 dataList: [],
                 is_show: true,
@@ -107,7 +157,9 @@
                 this.onLoadData(url, param);
             },
             computed: {
-
+                total_page() {
+                    return Math.ceil(this.count / this.rows)
+                }
             },
             methods: {
                 onLoadData(url, param) {
@@ -116,7 +168,6 @@
                         dataType: 'json',
                         data: param
                     }).then((data) => {
-                       
                         let datas = data.rows;
                         this.dataSort(datas);
                     });
@@ -127,8 +178,9 @@
                         dataType: 'json',
                         data: param
                     }).then((data) => {
-                        
+                        //console.log(data)
                         this.dataList = data.rows;
+                        this.count = data.total;
                     });
                 },
                 //进行日期排序
@@ -168,13 +220,10 @@
                 },
                 //页面跳转
                 jumpData(date) {
+                    this.page = 1;
                     this.title = date
                     this.is_show = !this.is_show;
-                    const param = {
-                        day: date,
-                        status: this.status
-                    }
-                    this.onLoadDayData("/Examine/QryDayRechargeForm", param);
+                    this.btn_sub();
                 },
                 //时间段搜索
                 searches() {
@@ -231,8 +280,35 @@
                //时间转换
                 chageTime(time) {
                     return time.replace("T", " ").substring(0, 19)
+                },
+                //分页
+                //上一页
+                before() {
+                    if (this.page <= 1) {
+                        alert("已经是第一页了")
+                    } else {
+                        this.page--;
+                        this.getNoticData();
+                    }
+                },
+                //下一页
+                next() {
+                    if (this.page >= this.page_count) {
+                        alert("已经是最后一页了")
+                    } else {
+                        this.page++;
+                        this.getNoticData();
+                    }
+                },
+                btn_sub() {
+                    const param = {
+                        page: this.page,
+                        rows : this.rows,
+                        day: this.title ,
+                        status: this.status
+                    }
+                    this.onLoadDayData("/Examine/QryDayRechargeForm", param);
                 }
-
             }
         });
 

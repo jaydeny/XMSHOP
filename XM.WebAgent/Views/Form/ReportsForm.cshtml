@@ -99,27 +99,25 @@
                 @*分页*@
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
-
                         <li class="page-item">
-                            <span class="page-link">
-                                显示条数
-                                <select class="form-control form-control-sm" v-model="rows">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">显示条数</label>
+                                </div>
+                                <select class="custom-select" id="inputGroupSelect01" v-model="rows">
+
                                     <option value="10">10</option>
                                     <option value="20">20</option>
                                     <option value="50">50</option>
                                 </select>
-                            </span>
+                            </div>
                         </li>
-
                         <li class="page-item" v-on:click="before()">
                             <a class="page-link" href="#" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                                 <span class="sr-only">上一页</span>
                             </a>
                         </li>
-
-
-
                         <li class="page-item" v-on:click="next()">
                             <a class="page-link" href="#" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
@@ -129,12 +127,14 @@
                         <li class="page-item"><a class="page-link" href="#">共 {{total_page}} 页</a></li>
                         <li class="page-item"><a class="page-link" href="#">共 {{dataCount}} 条数据</a></li>
                         <li class="page-item">
-                            <span class="page-link">
-                                跳转页码
-                                <select class="form-control form-control-sm" v-model="page">
+                            <div class="input-group mb-3">
+                                <select class="custom-select" id="inputGroupSelect0" v-model="page">
                                     <option :value="index" v-for="(index) in total_page" :key="index">{{index}}</option>
                                 </select>
-                            </span>
+                                <div class="input-group-append">
+                                    <label class="input-group-text" for="inputGroupSelect0">显示条数</label>
+                                </div>
+                            </div>
                         </li>
                         <li class="page-item"><a class="page-link" v-on:click="btn_sub()" href="#">确定</a></li>
                     </ul>
@@ -179,7 +179,7 @@
                                     </tr>
                                     <tr>
                                         <th scope="row">下单时间</th>
-                                        <td>{{obj.order_date}}</td>
+                                        <td>{{chageTime(obj.order_date)}}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">商品编号</th>
@@ -292,12 +292,10 @@
                 },
                 //页面跳转，到对应天的数据
                 JumpPage(date) {
+                    this.page = '1';
                     this.dateTile = date;
                     this.is_show = false;
-                    const param = {
-                        "day": date
-                    }
-                    this.onloadPageData("/Form/QryDayForm", param);
+                    this.btn_sub();
                 },
                 //加载对应天的数据
                 onloadPageData(url, param) {
@@ -307,14 +305,12 @@
                         data: param,
                         dataType: 'json'
                     }).then((data) => {
-
                         this.dataForm = data.rows;
                         this.dataCount = data.total;
                     });
                 },
                 //加载订单详细数据
                 onloadProductData(url, param) {
-
                     $.ajax({
                         url: url,
                         method: 'get',
@@ -344,10 +340,8 @@
                             "startDay": startTime.getDate(),
                             "endDay": endTime.getDate()
                         }
-
                         this.onloadData("/Form/QryDayTotal", param)
                     }
-
                 },
                 //进行数值和金钱的转化
                 tranfoMoney(num) {
@@ -374,14 +368,12 @@
                 },
                 //显示详细信息
                 showData(id) {
-                   
                     const param = {
                         "order_id": id
                     }
                     this.onloadProductData("/Form/QryDetailOrder", param);
-
                 },
-                
+                //数据图示化
                 showEcharts() {
                     this.is_show_tb = !this.is_show_tb;
                     var myChart = echarts.init(document.getElementById('main'));
@@ -416,7 +408,10 @@
                     // 使用刚指定的配置项和数据显示图表。
                     myChart.setOption(option);
                 },
-
+                //时间转换
+                chageTime(time) {
+                    return time.replace("T", " ").substring(0, 19)
+                },
                 //分页:
                 before() {
                     if (this.page <= 1) {
@@ -437,9 +432,9 @@
                 },
                 btn_sub() {
                     const param = {
-                        "page": this.page,
-                        "rows": this.rows,
-                        "day": this.dateTile
+                        page: this.page,
+                        rows: this.rows,
+                        day: this.dateTile
                     }
                     this.onloadPageData("/Form/QryDayForm", param);
                 }

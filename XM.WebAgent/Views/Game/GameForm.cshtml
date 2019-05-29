@@ -78,18 +78,19 @@
                 @*分页*@
                 <nav aria-label="Page navigation example" v-show="!is_show">
                     <ul class="pagination">
-
                         <li class="page-item">
-                            <span class="page-link">
-                                显示条数
-                                <select class="form-control form-control-sm" v-model="rows">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">显示条数</label>
+                                </div>
+                                <select class="custom-select" id="inputGroupSelect01" v-model="rows">
+
                                     <option value="10">10</option>
                                     <option value="20">20</option>
                                     <option value="50">50</option>
                                 </select>
-                            </span>
+                            </div>
                         </li>
-
                         <li class="page-item" v-on:click="before()">
                             <a class="page-link" href="#" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
@@ -105,12 +106,14 @@
                         <li class="page-item"><a class="page-link" href="#">共 {{total_page}} 页</a></li>
                         <li class="page-item"><a class="page-link" href="#">共 {{dataCount}} 条数据</a></li>
                         <li class="page-item">
-                            <span class="page-link">
-                                跳转页码
-                                <select class="form-control form-control-sm" v-model="page">
+                            <div class="input-group mb-3">
+                                <select class="custom-select" id="inputGroupSelect0" v-model="page">
                                     <option :value="index" v-for="(index) in total_page" :key="index">{{index}}</option>
                                 </select>
-                            </span>
+                                <div class="input-group-append">
+                                    <label class="input-group-text" for="inputGroupSelect0">显示条数</label>
+                                </div>
+                            </div>
                         </li>
                         <li class="page-item"><a class="page-link" v-on:click="btn_sub()" href="#">确定</a></li>
                     </ul>
