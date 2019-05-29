@@ -88,6 +88,7 @@
                 }
             },
             methods: {
+                //获取该代理商下的所有vip用户
                 getAllVIP() {
                     const param = {
                         page:this.page,
@@ -122,6 +123,7 @@
                         dataType: 'json'
                     }).then((data) => {
                         alert(data.msg);
+                        location.href = "/Notice/NoticRecord"
                     });
                 },
                 //上一页

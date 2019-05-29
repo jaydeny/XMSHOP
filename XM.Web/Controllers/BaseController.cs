@@ -85,7 +85,7 @@ namespace XM.Web.Controllers
         /// 
         public static string HttpPost(string reqUrl, string postData)
         {
-            Debug.WriteLine("+++++++++++++++++++++++");
+           
             Stopwatch sw = new Stopwatch();
             sw.Start();
             HttpWebRequest request = null;

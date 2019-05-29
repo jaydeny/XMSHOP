@@ -46,6 +46,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\XM.Comm\XM.Comm.csproj">
+      <Project>{BD869537-BDC8-4CCF-9C9E-DA217DCD52E6}</Project>
+      <Name>XM.Comm</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XM.IDAL\XM.IDAL.csproj">
       <Project>{01af0c24-f915-4430-bd6f-bc769c89d140}</Project>
       <Name>XM.IDAL</Name>

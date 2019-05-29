@@ -220,11 +220,11 @@
     <Content Include="Views\Notice\Index.cshtml" />
     <Content Include="Views\Notice\NoticRecord.cshtml" />
     <Content Include="Views\Examine\Index.cshtml" />
+    <Content Include="Views\Activity\ActivityIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Activity\" />
     <Folder Include="Views\VIP\" />
   </ItemGroup>
   <ItemGroup>
@@ -268,14 +268,6 @@
     <ProjectReference Include="..\XM.MongoDB\XM.MongoDB.csproj">
       <Project>{153DF1AC-444D-4E37-97AD-2C4903E06B74}</Project>
       <Name>XM.MongoDB</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\XM.WebVip\XM.WebVip.csproj">
-      <Project>{91E5E04E-3DC3-4EFF-9241-80890FA86457}</Project>
-      <Name>XM.WebVip</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\XM.Web\XM.Web.csproj">
-      <Project>{4BA20083-0E28-4353-A1F2-53A7E1C93872}</Project>
-      <Name>XM.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

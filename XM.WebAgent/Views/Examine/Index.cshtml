@@ -20,7 +20,8 @@
                     <nav>
                         <div class="nav nav-tabs" role="tablist">
                             <a class="nav-item nav-link active" id="home_tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" v-on:click="show($event)">充值审核</a>
-                            <a class="nav-item nav-link" id="profile_tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false" v-on:click="show($event)">审核记录</a>
+                            <a class="nav-item nav-link" id="profile_tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false" v-on:click="show($event)">审核通过记录</a>
+                            <a class="nav-item nav-link" id="regression_tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false" v-on:click="show($event)">审核回退记录</a>
                         </div>
                     </nav>
 
@@ -59,7 +60,7 @@
                             <tbody v-for="(data,indexs ) in dataList" :key="indexs">
                                 <tr>
                                     <th scope="row">{{data.id}}</th>
-                                    <td>{{data.recharge_time}}</td>
+                                    <td>{{chageTime(data.recharge_time)}}</td>
                                     <td>{{data.vip_AN}}</td>
                                     <td>{{data.recharge_price}}</td>
                                     <td v-show="btn_show">
@@ -115,7 +116,7 @@
                         dataType: 'json',
                         data: param
                     }).then((data) => {
-                        console.log(data)
+                       
                         let datas = data.rows;
                         this.dataSort(datas);
                     });
@@ -126,7 +127,7 @@
                         dataType: 'json',
                         data: param
                     }).then((data) => {
-                        //console.log(data)
+                        
                         this.dataList = data.rows;
                     });
                 },
@@ -141,6 +142,7 @@
                 show(e) {
                     $("#home_tab")[0].className = "nav-item nav-link"
                     $("#profile_tab")[0].className = "nav-item nav-link"
+                    $("#regression_tab")[0].className = "nav-item nav-link"
 
                     e.target.className = "nav-item nav-link active";
 
@@ -149,13 +151,17 @@
                         "startTime": this.startTime,
                         "endTime": date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (1 + date.getDate())
                     }
-                    if (e.target.id != 'profile_tab') {
+                    if (e.target.id == 'home_tab') {
                         param.status = 6
                         this.status = 6;
                         this.btn_show = true
-                    } else {
+                    } else if (e.target.id == 'profile_tab') {
                         param.status = 7
                         this.status = 7;
+                        this.btn_show = false
+                    } else {
+                        param.status = 8
+                        this.status = 8;
                         this.btn_show = false
                     }
                     this.onLoadData("/Examine/QryDayRechargeTotal", param)
@@ -186,6 +192,7 @@
                     const url = "/Examine/QryDayRechargeTotal";
                     this.onLoadData(url, param);
                 },
+                //通过审核方法
                 btn_adopt(id, integral, name) {
                     const param = {
                         "type": 0,
@@ -195,6 +202,7 @@
                     }
                     this.onExamine(param);
                 },
+                //回退审核的方法
                 btn_Backward(id, integral, name) {
                     const param = {
                         "type": 1,
@@ -204,6 +212,7 @@
                     }
                     this.onExamine(param);
                 },
+                //审核请求方法
                 onExamine(param) {
                     $.ajax({
                         url: "/Examine/RechargeAudit",
@@ -218,7 +227,12 @@
                         this.onLoadDayData("/Examine/QryDayRechargeForm", param);
                         alert(data.msg);
                     });
+                },
+               //时间转换
+                chageTime(time) {
+                    return time.replace("T", " ").substring(0, 19)
                 }
+
             }
         });
 

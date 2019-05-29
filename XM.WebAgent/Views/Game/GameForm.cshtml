@@ -68,7 +68,7 @@
                     <tbody>
                        
                         <tr v-for="(obj,index) in dateFrom" :key="index" v-on:click="btn_getAllData(obj.RecordID)">
-                            <th scope="row">{{obj.Time}}</th>
+                            <th scope="row">{{chageTime(obj.Time)}}</th>
                             <th scope="row">{{obj.AccountName}}</th>
                             <th scope="row">{{obj.Name}}</th>
                             <th scope="row">{{obj.Integral}}</th>
@@ -292,12 +292,17 @@
                    ///这里有BUG前端发送后台没有得到响应，数据已经是可以传输到后台的，可能是游戏API端出现问题
                     alert("抱歉，暂无数据")
                 },
+                //单击具体游戏记录
                 btn_getAllData(id) {
                    // console.log(id)
                     var params = {
                         ID:id
                     }
                     this.getAllData("/Game/GetRecordSpecific", params);
+                },
+                //时间转换
+                chageTime(time) {
+                    return time.replace("T", " ").substring(0, 19)
                 }
             }
         })

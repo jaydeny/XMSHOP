@@ -9,7 +9,7 @@ namespace XM.WebAgent.Controllers
     public class ActivityController : Controller
     {
         // GET: Activity
-        public ActionResult Index()
+        public ActionResult ActivityIndex()
         {
             return View();
         }

@@ -35,7 +35,7 @@ namespace XM.WebAgent.Controllers
         /// <returns></returns>
         public string GetGameOrByAccount() {
             string[] param = {  };
-            return  ReturnRes(param, "GetGameOrByAccount");
+            return DALUtility.Game.ReturnRes(param, "GetGameOrByAccount");
         }
         /// <summary>
         /// 根据用户名获取游戏记录
@@ -47,7 +47,7 @@ namespace XM.WebAgent.Controllers
             string startTime = Request["startTime"] == null ? "" : Request["startTime"];
             string endTime = Request["endTime"] == null ? "" : Request["endTime"];
             string[] param = { vipName,startTime,endTime };
-            return ReturnRes(param, "GetRecordCollect");
+            return DALUtility.Game.ReturnRes(param, "GetRecordCollect");
         }
         /// <summary>
         /// 获取当前时间段（天）的记录数据
@@ -59,7 +59,7 @@ namespace XM.WebAgent.Controllers
             string startTime = Request["startTime"] == null ? "" : Request["startTime"];
             string endTime = Request["endTime"] == null ? "" : Request["endTime"];
             string[] param = { Session["agent_AN"].ToString(), ID, startTime,endTime };
-            return ReturnRes(param, "GetRecordCollectByAgency");
+            return DALUtility.Game.ReturnRes(param, "GetRecordCollectByAgency");
         }
         /// <summary>
         /// 获取当天的游戏记录数据
@@ -71,7 +71,7 @@ namespace XM.WebAgent.Controllers
             string page = Request["page"] == null ? "" : Request["page"];
             string rows = Request["rows"] == null ? "" : Request["rows"];
             string[] param = { "", ID, time, time,page, Session["agent_AN"].ToString(), rows };
-            return ReturnRes(param, "GetRecord");
+            return DALUtility.Game.ReturnRes(param, "GetRecord");
         }
         /// <summary>
         /// 根据记录ID获取详细游戏信息
@@ -81,8 +81,7 @@ namespace XM.WebAgent.Controllers
         {
             string ID = Request["ID"] == null ? "" : Request["ID"];
             string[] param = { ID };
-            return ReturnRes(param, "GetRecordSpecific");
+            return DALUtility.Game.ReturnRes(param, "GetRecordSpecific");
         }
-
     }
 }

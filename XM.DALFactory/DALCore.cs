@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XM.Comm;
 using XM.IDAL;
 using YMOA.MongoDB;
 
@@ -135,6 +136,11 @@ namespace XM.DALFactory
         public MongoDbService MDbS
         {
             get { return new MongoDbService(); }
+        }
+
+        public GameUtil Game
+        {
+            get { return new GameUtil(); }
         }
 
         public INoticDAL Notic
