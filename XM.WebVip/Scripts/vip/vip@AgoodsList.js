@@ -26,6 +26,7 @@ $(".filter_box").on("click", ".type", function () {
     if ($(this).data("id") == undefined) {
         $("#txt_search").val("");
     }
+    $("#typeName").text($(this).text());
     paging.currentPage = 1;
     getQryAgoods();
 });
