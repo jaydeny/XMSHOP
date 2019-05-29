@@ -221,6 +221,7 @@
     <Content Include="Views\Notice\NoticRecord.cshtml" />
     <Content Include="Views\Examine\Index.cshtml" />
     <Content Include="Views\Activity\ActivityIndex.cshtml" />
+    <Content Include="Views\Activity\ActivityRecord.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

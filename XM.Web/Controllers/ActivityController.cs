@@ -18,6 +18,7 @@ namespace XM.Web.Controllers
         //获取当前后台用户所发布的活动
         public ActionResult  getAllActtvity()
         {
+            UserEntity user = Session["User"] as UserEntity;
             string sort = Request["order"] == null ? "id" : Request["order"];
             string order = Request["sort"] == null ? "asc" : Request["sort"];
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
@@ -27,7 +28,7 @@ namespace XM.Web.Controllers
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["pi"] = pageindex;
             paras["pageSize"] = pagesize;
-            paras["Publisher"] = "admin";
+            paras["Publisher"] = user.UserAccountName;
             paras["sort"] = sort;
             paras["order"] = order;
             var users = DALUtility.Activity.getAllActivity<ActivityEntity>(paras, out totalCount);
@@ -52,7 +53,10 @@ namespace XM.Web.Controllers
             var ActDic = DALUtility.Dic.GetDicByTag(17);
             return JsonConvert.SerializeObject(ActDic);
         }
-
+        /// <summary>
+        /// 添加活动 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Activity4Add() {
             
             UserEntity user = Session["User"] as UserEntity;
@@ -82,9 +86,13 @@ namespace XM.Web.Controllers
             //次数
             paras["count"] = Request["count"];
 
-            var aa = DALUtility.Activity.AddActivity(paras);
+            var res = DALUtility.Activity.AddActivity(paras);
 
-            return OperationReturn(true, "发布公告成功!");
+            if(res == 1)
+                return OperationReturn(true, "添加折扣活动成功!");
+            else if (res == 0)
+                return OperationReturn(true, "添加满减活动成功!");
+            return OperationReturn(false, "发布活动失败!");
         }
 
     }

@@ -1,1 +1,178 @@
 ﻿
+<body>
+    <div id="app">
+        <main role="main" class="col-md-12 ml-sm-auto col-lg-12 pt-3 px-4">
+            <div>
+                <nav>
+                    <div class="nav nav-tabs" role="tablist">
+                        <a class="nav-item nav-link active" id="home_tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">发布活动</a>
+                    </div>
+                </nav>
+
+
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-body rounded-soft bg-gradient">
+                    开始时间: <input type="date" v-model="startTime" style="margin:5px" /> <br />
+                    结束时间: <input type="date" v-model="endTime" style="margin:5px" />
+                    <div class="input-group mb-3" style="margin-top:5px">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">标题</span>
+                        </div>
+                        <input type="text" class="form-control" v-model="title" placeholder="标题" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">内容</span>
+                        </div>
+                        <textarea class="form-control" aria-label="With textarea" v-model="content"></textarea>
+                    </div>
+
+                    <div class="input-group mb-6" style="margin-top:5px">
+                        <div class="form-group">
+                            <label>优惠活动方案</label>
+                            <select class="form-control" v-model="typeNum">
+                                <option v-for="(obj,index) in activityTypeTable" :key="index" :value="obj.id">{{obj.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group mb-6" style="margin-top:5px" id="container">
+
+                    </div>
+                    <div class="input-group mb-2" style="margin-top:5px">
+                        <input type="number" class="form-control" v-model="countNum" placeholder="优惠次数">
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-secondary btn-lg" style="margin-top:10px;margin-left:90px" v-on:click="send()">一键发布活动</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                startTime: '',
+                endTime: '',
+                title: '',
+                content: '',
+                //活动类型
+                activityTypeTable: [],
+                page: 1,
+                rows: 20,
+                count: '',
+                pageCount: '',
+                typeNum: '',
+                countNum:''
+            },
+            created: function () {
+                this.init()
+                this.getActivityType();
+            },
+            computed: {
+                getPageCount() {
+                    this.pageCount = Math.ceil(this.count / this.rows);
+                    return this.pageCount;
+                }
+
+            },
+            methods: {
+                init() {
+                    let date = new Date();
+                    this.startTime = date.getFullYear() + "-" + this.dateChage(date.getMonth() + 1) + "-" + this.dateChage(date.getDate());
+                    let day = date.getDate();
+                    date.setDate(day + 7);
+                    this.endTime = date.getFullYear() + "-" + this.dateChage(date.getMonth() + 1) + "-" + this.dateChage(date.getDate()); 
+                },
+                //日期格式变换
+                dateChage(date) {
+                    if (date < 10)
+                        date = "0" + date;
+                    return date
+                },
+                //获取当前活动类型
+                getActivityType() {
+                    $.ajax({
+                        url: "/Activity/ActivityType",
+                        dataType: 'json'
+                    }).then((data) => {
+                        //console.log(data)
+                        this.activityTypeTable = data;
+                    });
+                },
+                
+                //发送添加活动请求到后台
+                send() {
+                    const param = {
+                        title: this.title,
+                        content: this.content,
+                        StartDate: this.startTime,
+                        EndDate: this.endTime,
+                        typeNum: this.typeNum,
+                        full: $("#full").val(),
+                        minus: $("#minus").val(),
+                        discount: $("#discount").val(),
+                        count: this.countNum
+                    }
+                    $.ajax({
+                        url: "/Activity/Activity4Add",
+                        data: param,
+                        dataType: 'json'
+                    }).then((data) => {
+                        alert(data.msg);
+                        location.href = "/Notice/NoticRecord"
+                    });
+                },
+                //上一页
+                before() {
+                    if (this.page <= 1) {
+                        alert("已经是第一页了")
+                    } else {
+                        this.page--;
+                        this.getAllVIP();
+                    }
+                },
+                //下一页
+                next() {
+                    if (this.page >= this.pageCount) {
+                        alert("已经是最后一页了")
+                    } else {
+                        this.page++;
+                        this.getAllVIP();
+                    }
+                },
+                //添加到选中事件
+                add_sele(index) {
+                    const item = this.unseleTable[index];
+                   // this.unseleTable.splice(index, 1);
+                    if (this.seleTable.indexOf(item) == -1) {
+                        this.seleTable.splice(0, 0, item)
+                    }
+                },
+                //删除
+                del_sele(index) {
+                    this.seleTable.splice(index, 1);
+                }
+            }
+        });
+        //对typeNum值进行监听
+        vm.$watch('typeNum', function () {
+            $("#container").empty();
+            if (this.typeNum == '1002') {
+
+                var text = $(" <span>满</span> <input type='number' id='full'  value='' /> <span>减</span> <input type='number' id='minus'  value='' /> ");
+            }
+            else if (this.typeNum == '1003') {
+
+                var text = $(" <span>打</span> <input type='number' value='' id='discount' /> <span>%折扣</span>");
+            }
+            $("#container").append(text);
+        });
+
+
+    </script>
+</body>

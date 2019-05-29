@@ -1,0 +1,172 @@
+﻿
+<body>
+    <div id="app">
+        <main role="main" class="col-md-12 ml-sm-auto col-lg-12 pt-3 px-4">
+            <div>
+                <nav>
+                    <div class="nav nav-tabs" role="tablist">
+                        <a class="nav-item nav-link active" id="home_tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">公告发布记录</a>
+                    </div>
+                </nav>
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>标题</th>
+                                <th>内容</th>
+                                <th>活动创建时间</th>
+                                <th>活动开始时间</th>
+                                <th>活动介绍时间</th>
+                                <th>发布人</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody v-for="(obj,index) in RecordTable" :key="index">
+                            <tr>
+                                <td>{{obj.Title}}</td>
+                                <td>{{obj.Content}}</td>
+                                <td>{{chageTime(obj.CreateDate)}}</td>
+                                <td>{{chageTime(obj.StartDate)}}</td>
+                                <td>{{chageTime(obj.EndDate)}}</td>
+                                <td>{{obj.Publisher}}</td>
+                                <td>
+                                    <button v-on:click="del_Notic(obj._id)">撤销活动</button>
+                                    <button v-on:click="del_Notic(obj._id)">修改活动</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            @*分页*@
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+
+                    <li class="page-item">
+                        <span class="page-link">
+                            显示条数
+                            <select class="form-control form-control-sm" v-model="rows">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                            </select>
+                        </span>
+                    </li>
+
+                    <li class="page-item" v-on:click="before()">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">上一页</span>
+                        </a>
+                    </li>
+
+
+
+                    <li class="page-item" v-on:click="next()">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">下一页</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">共 {{total_page}} 页</a></li>
+                    <li class="page-item"><a class="page-link" href="#">共 {{count}} 条数据</a></li>
+                    <li class="page-item">
+                        <span class="page-link">
+                            跳转页码
+                            <select class="form-control form-control-sm" v-model="page">
+                                <option :value="index" v-for="(index) in total_page" :key="index">{{index}}</option>
+                            </select>
+                        </span>
+                    </li>
+                    <li class="page-item"><a class="page-link" v-on:click="getNoticData()" href="#">确定</a></li>
+                </ul>
+            </nav>
+
+        </main>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                //分页参数
+                page: 1,
+                rows: 10,
+                count: '',
+
+                //公告数据
+                RecordTable:[]
+            },
+            created: function () {
+                this.getNoticData();
+            },
+            computed: {
+                total_page() {
+                    return Math.ceil(this.count / this.rows)
+                }
+            },
+            methods: {
+                //获取公告历史数据
+                getNoticData() {
+                    const param = {
+                        page: this.page,
+                        rows: this.rows
+                    }
+                    $.ajax({
+                        url: "/Activity/getAllActtvity",
+                        data: param,
+                        dataType: 'json'
+                    }).then((data) => {
+                        console.log(data)
+                        this.count = data.records;
+                        this.RecordTable = data.rows;
+                        this.count = data.records;
+                    });
+                },
+                //撤销公告
+                del_Notic(id) {
+                    const param = {
+                        id: id
+                    }
+                    $.ajax({
+                        url: "/Notice/Del_NoticbyID",
+                        data: param,
+                        dataType: 'json'
+                    }).then((data) => {
+                        if (data.success) {
+                            alert(data.msg);
+                            this.getNoticData();
+                        } else {
+                            alert(data.msg)
+                        }
+                    });
+                },
+                //分页
+                //上一页
+                before() {
+                    if (this.page <= 1) {
+                        alert("已经是第一页了")
+                    } else {
+                        this.page--;
+                        this.getNoticData();
+                    }
+                },
+                //下一页
+                next() {
+                    if (this.page >= this.page_count) {
+                        alert("已经是最后一页了")
+                    } else {
+                        this.page++;
+                        this.getNoticData();
+                    }
+                },
+                //时间转换
+                chageTime(time) {
+                    return time.replace("T", " ").substring(0, 19)
+                }
+
+            }
+        })
+    </script>
+</body>

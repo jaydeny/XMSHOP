@@ -80,6 +80,22 @@
                             </li>
                         </ul>
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <span>活动操作</span>
+                            <a class="d-flex align-items-center text-muted" href="#">
+                                <span data-feather="plus-circle"></span>
+                            </a>
+                        </h6>
+                        <ul class="nav flex-column mb-2">
+                            <li class="nav-item">
+                                @Html.ActionLink("发布活动", "ActivityIndex", "Activity")
+                            </li>
+                        </ul>
+                        <ul class="nav flex-column mb-2">
+                            <li class="nav-item">
+                                @Html.ActionLink("活动记录", "ActivityRecord", "Activity")
+                            </li>
+                        </ul>
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                             <span>报表</span>
                             <a class="d-flex align-items-center text-muted" href="#">
                                 <span data-feather="plus-circle"></span>
