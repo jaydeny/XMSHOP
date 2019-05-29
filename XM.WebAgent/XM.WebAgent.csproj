@@ -154,6 +154,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\Activity\Index.js" />
+    <Content Include="Scripts\Activity\Record.js" />
+    <Content Include="Scripts\AgentInfo\AgentPersonalCenter.js" />
     <Content Include="Scripts\axios.js" />
     <Content Include="Scripts\axios.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -182,6 +185,9 @@
     <Content Include="Scripts\ECharts\chart\wordCloud.js" />
     <Content Include="Scripts\ECharts\echarts-all.js" />
     <Content Include="Scripts\ECharts\echarts.js" />
+    <Content Include="Scripts\Examine\Index.js" />
+    <Content Include="Scripts\Form\ReportsForm.js" />
+    <Content Include="Scripts\Game\GameForm.js" />
     <Content Include="Scripts\Home\Index.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -194,6 +200,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Notice\Index.js" />
+    <Content Include="Scripts\Notice\NoticRecord.js" />
+    <Content Include="Scripts\Product\ProductPage.js" />
     <Content Include="Scripts\vue-resource.common.js" />
     <Content Include="Scripts\vue-resource.es2015.js" />
     <Content Include="Scripts\vue-resource.js" />

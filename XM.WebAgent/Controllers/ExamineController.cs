@@ -59,7 +59,10 @@ namespace XM.WebAgent.Controllers
             param.Add("order", Request["order"] == null ? "asc" : Request["order"]);
             param.Add("status_id", Request["status"]);
             param.Add("day", Request["day"]);
-            param.Add("vip_AN", Request["vip_id"]);
+            if ("".Equals(Request["vip_id"]))
+                param.Add("vip_AN", null);
+            else
+                param.Add("vip_AN", Request["vip_id"]);
             param.Add("agent_AN", Session["agent_AN"].ToString());
             return Content(DALUtility.Agent.QryDayExamineForm(param, out int iCount));
         }
