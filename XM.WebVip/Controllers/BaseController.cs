@@ -184,7 +184,7 @@ namespace XM.WebVIP.Controllers
 
             string param = GameReturn("GetCredit", strKey, paras);
 
-            var result = HttpPost("http://172.16.31.232:9678/take", param);
+            var result = HttpPost("http://172.16.31.249:9678/take", param);
 
 
             Dictionary<string, object> dic = new Dictionary<string, object>();

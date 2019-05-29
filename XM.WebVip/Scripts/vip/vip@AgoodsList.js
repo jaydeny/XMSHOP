@@ -19,6 +19,7 @@
 //    obj.url = "/home/GoodsDetails";
 //    bounced(obj);
 //});
+
 // 商品分类
 $(".filter_box").on("click", ".type", function () {
     $(".filter_box .type-action").removeClass("type-action");
@@ -26,6 +27,7 @@ $(".filter_box").on("click", ".type", function () {
     if ($(this).data("id") == undefined) {
         $("#txt_search").val("");
     }
+    $("#typeName").text($(this).text());
     paging.currentPage = 1;
     getQryAgoods();
 });

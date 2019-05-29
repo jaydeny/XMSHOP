@@ -8,10 +8,17 @@
 	
 }
 .pwd-alter .alter_but {
-	width: 90px;
-	position: relative;
-	left: 50%;
-	transform: translateX(-50%);
+    width: 90px;
+    margin-top: 10px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
     background: #ca141d;
-	color: #fff;
+    color: #fff;
+}
+
+.pwd-alter .main .warning {
+    float: right;
+    color: #f00;
+    font-size: 12px;
 }
