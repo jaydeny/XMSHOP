@@ -44,6 +44,7 @@
                 method: type,
                 dataType: 'json'
             }).then((data) => {
+                console.log(data)
                 if (data.errorCode == 0) {
 
                     this.gameTypeTable = data.result;
@@ -59,6 +60,7 @@
                 data: param,
                 dataType: 'json'
             }).then((data) => {
+                console.log(data)
                 if (data.errorCode == 0) {
 
                     this.timeGameForm = data.result;
@@ -74,6 +76,7 @@
                 data: param,
                 dataType: 'json'
             }).then((data) => {
+                console.log(data)
                 if (data.errorCode == 0) {
                     this.page = data.result.pageNum;
                     this.rows = data.result.pageSize;
@@ -102,7 +105,7 @@
                 endTime: this.endTime
             }
             this.getTimeGameForm("/Game/GetRecordCollectByAgency", param);
-            this.btn_sub();
+            //this.btn_sub();
             this.btn_type_cgClass(even)
         },
         //改变按钮点击样式

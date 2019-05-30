@@ -46,6 +46,18 @@ namespace XM.DAL
             return SortAndPage<T>(builder, grid, out iCount);
         }
 
+        public IEnumerable<CustomDisEntity> GetDisByTag(int id)
+        {
+            string sql = "SELECT * FROM tbCustomDis WHERE Ac_id = @id";
+            return QueryList<CustomDisEntity>(sql, new { id });
+        }
+
+        public IEnumerable<CustomFullEntity> GetfullByTag(int id)
+        {
+            string sql = "SELECT * FROM tbCustomFull WHERE Ac_id = @id";
+            return QueryList<CustomFullEntity>(sql, new { id });
+        }
+
         public IEnumerable<ActivityEntity> QryAC<ActivityEntity>(Dictionary<string,object> param)
         {
             string sql = "select * from tbActivity where startDate < @Date and endDate > @Date and receiver == @agent_AN or receiver == null";

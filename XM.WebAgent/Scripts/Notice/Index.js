@@ -79,6 +79,24 @@
                 location.href = "/Notice/NoticRecord"
             });
         },
+        //给所有会员发送公告
+        sendAll() {
+            const param = {
+                title: this.title,
+                content: this.content,
+                StartDate: this.startTime,
+                EndDate: this.endTime,
+                receiver: null
+            }
+            $.ajax({
+                url: "/Notice/ReleaseNotic",
+                data: param,
+                dataType: 'json'
+            }).then((data) => {
+                alert(data.msg);
+                location.href = "/Notice/NoticRecord"
+            });
+        },
         //上一页
         before() {
             if (this.page <= 1) {

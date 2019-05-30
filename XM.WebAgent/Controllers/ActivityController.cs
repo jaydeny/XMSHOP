@@ -31,13 +31,14 @@ namespace XM.WebAgent.Controllers
         }
         #endregion
 
+        #region _select
         /// <summary>
         /// 获取活动优惠类型
         /// </summary>
         /// <returns></returns>
         public string ActivityType()
         {
-            var ActDic = DALUtility.Dic.GetDicByTag(17);
+            var ActDic = DALUtility.Dic.GetDicByTag(1007);
             return JsonConvert.SerializeObject(ActDic);
         }
 
@@ -63,14 +64,38 @@ namespace XM.WebAgent.Controllers
             return PagerData(totalCount, users, pageindex, pagesize);
         }
 
+        public ActionResult detailedInfo() {
 
+            string typeNum = Request["typeNum"];
+            int id = Convert.ToInt32(Request["id"]);
+
+            if (typeNum == "1002")
+            {
+               var data = DALUtility.Activity.GetfullByTag(id);
+                return PagerData(1, data);
+            }
+            else if (typeNum == "1003") {
+               var data =  DALUtility.Activity.GetDisByTag(id);
+                return PagerData(1, data);
+            }
+
+            return PagerData(0, "");
+        }
+
+        #endregion
+
+        #region _insert
         /// <summary>
-        /// 添加活动 
+        /// 添加/修改活动 
         /// </summary>
         /// <returns></returns>
         public ActionResult Activity4Add()
         {
             Dictionary<string, object> paras = new Dictionary<string, object>();
+            //操作类型
+            paras["allType"] = Request["allType"];
+            //修改时活动ID
+            paras["actID"] = Request["actID"];
             //标题
             paras["title"] = Request["title"];
             //内容
@@ -95,6 +120,8 @@ namespace XM.WebAgent.Controllers
             paras["discount"] = Request["discount"];
             //次数
             paras["count"] = Request["count"];
+            //活动状态
+            paras["status"] = Request["status"];
 
             var res = DALUtility.Activity.AddActivity(paras);
 
@@ -104,7 +131,7 @@ namespace XM.WebAgent.Controllers
                 return OperationReturn(true, "添加满减活动成功!");
             return OperationReturn(false, "发布活动失败!");
         }
-
+        #endregion
 
     }
 }

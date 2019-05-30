@@ -50,7 +50,7 @@ namespace XM.Web.Controllers
         //获取活动优惠类型
         public string  ActivityType()
         {
-            var ActDic = DALUtility.Dic.GetDicByTag(17);
+            var ActDic = DALUtility.Dic.GetDicByTag(1007);
             return JsonConvert.SerializeObject(ActDic);
         }
         /// <summary>
@@ -61,6 +61,11 @@ namespace XM.Web.Controllers
             
             UserEntity user = Session["User"] as UserEntity;
             Dictionary<string, object> paras = new Dictionary<string, object>();
+
+            //操作类型
+            paras["allType"] = Request["allType"];
+            //修改时活动ID
+            paras["actID"] = Request["actID"];
             //标题
             paras["title"] = Request["title"];
             //内容
@@ -85,6 +90,8 @@ namespace XM.Web.Controllers
             paras["discount"] = Request["discount"];
             //次数
             paras["count"] = Request["count"];
+            //活动状态
+            paras["status"] = Request["status"];
 
             var res = DALUtility.Activity.AddActivity(paras);
 

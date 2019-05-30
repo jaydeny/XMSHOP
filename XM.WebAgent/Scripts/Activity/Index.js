@@ -49,29 +49,66 @@
                 this.activityTypeTable = data;
             });
         },
+        //数据校验
+        checkData() {
+           
+            if (this.title.trim() == '') {
+                alert("标题不能为空");
+                return false
+            }
+            else if (this.content.trim() == '') {
+                alert("内容不能为空");
+                return false
+            } else if (this.typeNum == '') {
+                alert("请选择优惠");
+                return false
+            } else if (this.typeNum == '1002') {
+                
+                if ($("#full").val() == '' || $("#minus").val() == '') {
+                    alert("优惠方案提供数据不完整");
+                    return false
+                }
+            } else if (this.typeNum == '1003') {
 
+                if ($("#discount").val() == '') {
+                    alert("优惠方案提供数据不完整");
+                    return false
+                }
+            }
+            else if (this.count == '') {
+                alert("请选择优惠次数");
+                return false
+            }
+            return true
+        },
         //发送添加活动请求到后台
         send() {
-            const param = {
-                title: this.title,
-                content: this.content,
-                StartDate: this.startTime,
-                EndDate: this.endTime,
-                typeNum: this.typeNum,
-                full: $("#full").val(),
-                minus: $("#minus").val(),
-                discount: $("#discount").val(),
-                count: this.countNum
+            if (this.checkData()) {
+                const param = {
+                    allType:1,
+                    title: this.title,
+                    content: this.content,
+                    StartDate: this.startTime,
+                    EndDate: this.endTime,
+                    typeNum: this.typeNum,
+                    full: $("#full").val(),
+                    minus: $("#minus").val(),
+                    discount: $("#discount").val(),
+                    count: this.countNum
+                }
+                $.ajax({
+                    url: "/Activity/Activity4Add",
+                    data: param,
+                    dataType: 'json'
+                }).then((data) => {
+                    if (data.success) { 
+                        location.href = "/Activity/ActivityRecord"
+                    } 
+                    alert(data.msg);
+                });
             }
-            $.ajax({
-                url: "/Activity/Activity4Add",
-                data: param,
-                dataType: 'json'
-            }).then((data) => {
-                alert(data.msg);
-                location.href = "/Notice/NoticRecord"
-            });
         },
+
         //上一页
         before() {
             if (this.page <= 1) {

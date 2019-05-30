@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XM.Model;
 
 namespace XM.IDAL
 {
@@ -32,5 +33,19 @@ namespace XM.IDAL
         ///  2  添加不成功
         /// </returns>
         int AddActivity(Dictionary<string, object> paras);
+        /// <summary>
+        ///  根据活动ID获取详细信息
+        /// </summary>
+        /// <param name="id">活动ID</param>
+        /// <returns>返回折扣活动详细信息</returns>
+        IEnumerable<CustomDisEntity> GetDisByTag(int id);
+
+        /// <summary>
+        ///  根据活动ID获取详细信息
+        /// </summary>
+        /// <param name="id">活动ID</param>
+        /// <returns>返回满减活动详细信息</returns>
+        IEnumerable<CustomFullEntity> GetfullByTag(int id);
+
     }
 }

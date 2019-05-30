@@ -19,11 +19,11 @@
                                 <th>活动开始时间</th>
                                 <th>活动结束时间</th>
                                 <th>发布人</th>
-                                <th>操作</th>
+                                @*<th>操作</th>*@
                             </tr>
                         </thead>
                         <tbody v-for="(obj,index) in RecordTable" :key="index">
-                            <tr>
+                            <tr v-on:click="getInfoData(obj.Ac_type,obj.id,index)">
                                 <td>{{obj.Title}}</td>
                                 <td>{{obj.Content}}</td>
                                 <td>{{chageTime(obj.CreateDate)}}</td>
@@ -31,8 +31,8 @@
                                 <td>{{chageTime(obj.EndDate)}}</td>
                                 <td>{{obj.Publisher}}</td>
                                 <td>
-                                    <button v-on:click="del_Notic(obj._id)">撤销活动</button>
-                                    <button v-on:click="del_Notic(obj._id)">修改活动</button>
+                                    @*<button v-on:click="del_Notic(obj._id)">撤销活动</button>
+                                    <button v-on:click="del_Notic(obj._id)">修改活动</button>*@
                                 </td>
                             </tr>
                         </tbody>
@@ -85,6 +85,81 @@
             </nav>
 
         </main>
+
+        @*页面模态框*@
+        <div class="modal fade" id="showData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">活动详情</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-body">
+                            <table class="table" style="margin-top:80px">
+                                <tbody v-for="(obj,index) in RecordIndexData" :key="index">
+                                    <tr>
+                                        <th scope="row">订单编号</th>
+                                        <td>{{obj.id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">活动名</th>
+                                        <td>{{obj.Title}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">活动内容</th>
+                                        <td>{{obj.Content}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">活动创建时间</th>
+                                        <td>{{chageTime(obj.CreateDate)}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">活动发布人</th>
+                                        <td>{{obj.Publisher}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">活动开始时间</th>
+                                        <td>{{chageTime(obj.StartDate)}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">活动结束时间</th>
+                                        <td>{{chageTime(obj.EndDate)}}</td>
+                                    </tr>
+
+                                </tbody>
+                                <tbody v-for="(obj,index) in res" :key="index">
+                                    <tr>
+                                        <th scope="row">折扣(%)</th>
+                                        <td>{{obj.Discount}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">满额</th>
+                                        <td>{{obj.Ac_full}} </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">减额</th>
+                                        <td>{{obj.Minus}} </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">优惠次数</th>
+                                        <td>{{obj.Times}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
     <script src="~/Scripts/Activity/Record.js"></script>
 </body>

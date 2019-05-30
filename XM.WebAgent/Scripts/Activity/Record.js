@@ -5,15 +5,21 @@
         page: 1,
         rows: 10,
         count: '',
-
+        page_count: 1,
         //活动数据
-        RecordTable: []
+        RecordTable: [],
+        //详细信息返回数据
+        res: [],
+        //单击获取的信息
+        RecordIndexData:[]
     },
     created: function () {
         this.getNoticData();
     },
     computed: {
         total_page() {
+            this.page_count = Math.ceil(this.count / this.rows);
+
             return Math.ceil(this.count / this.rows)
         }
     },
@@ -29,11 +35,32 @@
                 data: param,
                 dataType: 'json'
             }).then((data) => {
-                console.log(data)
-                this.count = data.records;
+                this.page_count = data.total;
+                
                 this.RecordTable = data.rows;
                 this.count = data.records;
             });
+        },
+        //获取详细信息
+        getInfoData(typeID, id, index) {
+            let arr = new Array();
+            arr[0] = this.RecordTable[index];
+            this.RecordIndexData = arr;
+            
+            const param = {
+                typeNum: typeID,
+                id: id
+            }
+            
+            $.ajax({
+                url: "/Activity/detailedInfo",
+                data: param,
+                dataType: 'json'
+            }).then((data) => {
+                this.res = data.rows;
+                });
+            $("#showData").modal("show");
+            
         },
         //撤销活动
         del_Notic(id) {

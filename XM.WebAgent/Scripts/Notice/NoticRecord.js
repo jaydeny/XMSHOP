@@ -5,7 +5,7 @@
         page: 1,
         rows: 10,
         count: '',
-
+        page_count:1,
         //公告数据
         RecordTable: []
     },
@@ -14,6 +14,7 @@
     },
     computed: {
         total_page() {
+            this.page_count = Math.ceil(this.count / this.rows);
             return Math.ceil(this.count / this.rows)
         }
     },
@@ -29,8 +30,7 @@
                 data: param,
                 dataType: 'json'
             }).then((data) => {
-
-                // this.count = data.records;
+                this.page_count = data.total;
                 this.RecordTable = data.rows;
                 this.count = data.records;
             });
@@ -82,7 +82,7 @@
             if (receiver != null) {
                 return receiver + ""
             }
-            return ""
+            return "全体会员"
         }
     }
 });
