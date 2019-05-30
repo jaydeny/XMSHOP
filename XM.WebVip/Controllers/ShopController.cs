@@ -35,8 +35,7 @@ namespace XM.WebVip.Controllers
                 {
                     return OperationReturn(false, "请添加地址后购物");
                 }
-
-
+                
                 var vipInfo = QryTOPAdd();
                 DateTime date = DateTime.Now;
                 Dictionary<string, object> param = new Dictionary<string, object>();
