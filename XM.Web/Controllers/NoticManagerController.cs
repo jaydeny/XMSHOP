@@ -33,6 +33,7 @@ namespace XM.Web.Controllers
             PageList<NoticEntity> pageList = DALUtility.MDbS.PageList<NoticEntity>("XMShop", "notic",
                 x => 1==1,
                 null, pageIndex, pageSize, null, true);
+            
 
            List<NoticEntity> nes = pageList.Items;
            

@@ -118,6 +118,17 @@ namespace XM.IDAL
         /// 2:事务出错
         /// </returns>
         int Buy(Dictionary<string, object> paras);
+
+        /// <summary>
+        /// 检查余额,购物
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns>
+        /// 0:成功
+        /// 1:余额不足
+        /// 2:事务出错
+        /// </returns>
+        int BuyWithAc(Dictionary<string, object> paras);
         #endregion
 
         #region _VipInfo

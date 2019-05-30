@@ -71,19 +71,34 @@ var goodsRender = function () {
     paging.callbackMethod();
 }
 
-
+var obj;
 // 立即下单
 $(".goods-exhibition").on("click", ".p-button", function () {
-    var obj = listGoods[$(this).data("id")];
-    //console.log(obj);
-    $.post("/Shop/buy", { agoods_id: obj.id, buy_count: 1, order_total: obj.price, buy_total: obj.price * 1 }, function (data) {
+    obj = listGoods[$(this).data("id")];
+    
+    var Form = {
+        "modal": "#myModal", "dialog": "#dialog", "content": "#content", "body": "#body"
+    };
+    Form.width = "500px";
+    Form.height = "400px";
+    Form.url = "/Shop/ChooseAc";
+    bouncedLogin(Form);
+});
+
+$(".choose-main").on("click", "#ChooseAc", function () {
+    var Ac = $(this).data('val')
+    $.post("/Shop/buy", { agoods_id: obj.id, buy_count: 1, order_total: obj.price, buy_total: obj.price * 1, Ac_id: Ac }, function (data) {
         if (data.success) {
             alert(data.msg);
+            $("#myModal").modal('hide');
         } else {
             alert(data.msg);
         }
-    },"json")
+    }, "json")
 });
+
+
+
 // 获得url的参数
 function getQueryVariable(variable) {
     var query = window.location.search.substring(1);

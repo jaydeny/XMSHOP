@@ -17,7 +17,8 @@ var Page_Count = document.getElementById("Page_Count");
 //上一页功能
 document.querySelector("#before").onclick = function () {
     if (count == 1) {
-        alert("已经是第一页了")
+        var txt = "第一页";
+        window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.info);
     } else {
         count -= 1;
         btn_num_Page_count.val(count);
@@ -30,7 +31,8 @@ document.querySelector("#end").onclick = function () {
     //拿到总页数
     const counts = $("#num_Page_Count")[0].name;
     if (count >= counts) {
-        alert("最后一页了")
+        var txt = "最后一页";
+        window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.info);
     } else {
         count += 1;
         btn_num_Page_count.val(count);
@@ -58,7 +60,7 @@ function showList(page) {
 
 //模板
 var DetailTemplate = function (obj) {
-    return "<li></div><div class='flex-1'><span>" + obj.AccountName + "</span></div></div ><div class='flex-1'><span>" + obj.Integral + "</span></div><div class='flex-1'><span>" + obj.Time + "</span></div><div class='flex-1'><span>" + obj.Name + "</span></div>";
+    return "<li></div><div class='flex-1'><span>" + obj.AccountName + "</span></div></div ><div class='flex-1'><span>" + obj.Integral + "</span></div><div class='flex-1'><span>" + obj.Time.replace('T', ' ') + "</span></div><div class='flex-1'><span>" + obj.Name + "</span></div>";
 }
 
 //以下是详情

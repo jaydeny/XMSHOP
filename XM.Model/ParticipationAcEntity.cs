@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XM.Comm;
 
 namespace XM.Model
 {
@@ -11,7 +12,7 @@ namespace XM.Model
         /// <summary>
         /// 主键
         /// </summary>
-        public int? _id { get; set; }
+        public string _id { get; set; } = Guid.NewGuid().To16String();
 
         /// <summary>
         /// 用户名
@@ -21,26 +22,26 @@ namespace XM.Model
         /// <summary>
         /// 活动ID
         /// </summary>
-        public int? ActID { get; set; }
+        public int? Ac_id { get; set; }
 
         /// <summary>
         /// 目标积分
         /// </summary>
-        public int? ActTarget { get; set; }
+        public int? Integral_Target { get; set; }
 
         /// <summary>
         /// 当前的积分
         /// </summary>
-        public int? PresentNow { get; set; }
+        public int? Integral_now { get; set; }
 
         /// <summary>
         /// 总次数
         /// </summary>
-        public int? Total { get; set; } = -1;
+        public int? Times { get; set; } = -1;
 
         /// <summary>
         /// 当前次数
         /// </summary>
-        public int? PresentCount { get; set; }
+        public int? Times_now { get; set; }
     }
 }

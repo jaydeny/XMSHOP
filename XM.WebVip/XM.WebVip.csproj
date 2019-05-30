@@ -176,6 +176,7 @@
     <Content Include="Content\bootstrap-3.3.7\js\bootstrap.min.js" />
     <Content Include="Content\bootstrap-3.3.7\js\npm.js" />
     <Content Include="Content\CSS\base.css" />
+    <Content Include="Content\CSS\ChooseAc.css" />
     <Content Include="Content\CSS\GoodsDetails.css" />
     <Content Include="Content\CSS\home.css" />
     <Content Include="Content\CSS\HomePage.css" />
@@ -191,6 +192,7 @@
     <Content Include="Content\CSS\vipRecharge.css" />
     <Content Include="Content\CSS\vipRegistered.css" />
     <Content Include="Content\CSS\vipSite.css" />
+    <Content Include="Content\CSS\xcConfirm.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -292,6 +294,8 @@
     <Content Include="Scripts\Game\game%40Recharge.js" />
     <Content Include="Scripts\Game\game%40RecordPage.js" />
     <Content Include="Scripts\Game\game%40DetailPage.js" />
+    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\xcConfirm.js" />
     <Content Include="Scripts\jquery-3.4.0.js" />
     <Content Include="Scripts\jquery-3.4.0.min.js" />
     <Content Include="Scripts\jquery.md5.js" />
@@ -343,6 +347,7 @@
     <Content Include="Views\GameRecord\DetailPage.cshtml" />
     <Content Include="Views\notice\_Notice.cshtml" />
     <Content Include="Views\VipInfo\_QryRechargePage.cshtml" />
+    <Content Include="Views\Shop\ChooseAc.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -355,7 +360,6 @@
     <Folder Include="Areas\Phone\Models\" />
     <Folder Include="Models\" />
     <Folder Include="Views\GameHome\" />
-    <Folder Include="Views\Shop\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

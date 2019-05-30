@@ -1,0 +1,39 @@
+﻿@using XM.Model
+@model ActivityEntity
+<link href="~/Content/CSS/ChooseAc.css" rel="stylesheet" />
+<div class="choose-main">
+
+    <div id="Ac_div">
+        <table>
+            <tr>
+                <td>类型</td>
+                <td>活动</td>
+                <td>开始时间</td>
+                <td>结束时间</td>
+                <td>选择</td>
+            </tr>
+
+            @foreach (ActivityEntity item in (IEnumerable<ActivityEntity>)@ViewData["AcList"])
+            {
+                <tr>
+                    <td>
+                        @item.Ac_type
+                    </td>
+                    <td>
+                        @item.Content
+                    </td>
+                    <td>
+                        @item.StartDate
+                    </td>
+                    <td>
+                        @item.EndDate
+                    </td>
+                    <td>
+                        <button id="ChooseAc" data-val=@item.id onclick="Shop()">选择</button>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <script src="~/Scripts/vip/vip@AgoodsList.js"></script>
+</div>

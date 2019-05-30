@@ -6,7 +6,7 @@ var RecordTemplate = function (obj) {
     return "<li  class='gameRecord' data-id='" + obj.ID+"'><div class='flex-1'><a>" + obj.ID + "</a></div><div class='flex-1'><span>" + obj.Name + "</span></div><div class='flex-1'><span>" + obj.Integral + "</span></div>";
 }
 var DetailTemplate = function (obj) {
-    return "<li><div class='flex-1'><span>" + obj.AccountName + "</span></div><div class='flex-1'><span>" + obj.Integral + "</span></div><div class='flex-1'><span>" + obj.Time + "</span></div><div class='flex-1'><span>" + obj.Name + "</span></div>";
+    return "<li><div class='flex-1'><span>" + obj.AccountName + "</span></div><div class='flex-1'><span>" + obj.Integral + "</span></div><div class='flex-1'><span>" + obj.Time.replace('T', ' ') + "</span></div><div class='flex-1'><span>" + obj.Name + "</span></div>";
 }
 
 
@@ -29,11 +29,7 @@ var QueryRecord = function () {
         }
     }, "json")
 }
-QueryRecord();
 
-$(".vipinfo-form").on("click", "#Query", function () {
-    QueryRecord();
-});
 
 $(".vipinfo-form").on("click", "#back", function () {
     $.get("/GameRecord/RecordPage", function (data, status, xhr) {
@@ -99,7 +95,7 @@ var Page_Count = document.getElementById("Page_Count");
 //上一页
 $(".vipinfo-form").on("click", "#before", function () {
     if (count == 1) {
-        alert("已经是第一页了")
+        alert("第一页")
     } else {
         count -= 1;
         btn_num_Page_count.val(count);
@@ -111,7 +107,7 @@ $(".vipinfo-form").on("click", "#before", function () {
 $(".vipinfo-form").on("click", "#end", function () {
     //拿到总页数
     if (count >= counts) {
-        alert("最后一页了")
+        alert("最后一页")
     } else {
         count += 1;
         btn_num_Page_count.val(count);
@@ -165,4 +161,127 @@ var QueryDetail = function () {
             showList(e.result.total);
         }
     }, "json")
+}
+
+//以下是汇总
+var QueryRecordBtn = function (date) {
+    var sum = 0;
+    $.ajax({
+        url: "/GameRecord/Record",
+        data: date,
+        success: function (data) {
+            var e = JSON.parse(data)
+            $(".Record-list>ul>li:not(:first-child)").remove();
+            $.each(e.result, function (index, obj) {
+                $(".Record-list>ul").append(RecordTemplate(obj));
+                sum = sum + obj.Integral
+            });
+            $("#total").text(sum);
+        }
+    }, "json")
+}
+
+
+function normal() {
+    var normal = { "StartDate": StartDate, "EndDate": EndDate },
+    date = normal;
+    QueryRecordBtn(normal)
+}
+
+function ThisWeek() {
+    var ThisWeek = { "StartDate": getWeekStartDate(), "EndDate": getWeekEndDate() };
+    date = ThisWeek;
+    QueryRecordBtn(ThisWeek)
+}
+
+function LastWeek() {
+    var LastWeek = { "StartDate": getLastWeekStartDate(), "EndDate": getLastWeekEndDate() };
+    date = LastWeek;
+    QueryRecordBtn(LastWeek)
+}
+
+function ThisMonth() {
+
+    var ThisMonth = { "StartDate": getMonthStartDate(), "EndDate": getMonthEndDate() };
+    date = ThisMonth;
+    QueryRecordBtn(ThisMonth)
+}
+
+function LastMonth() {
+    var LastMonth = { "StartDate": getLastMonthStartDate(), "EndDate": getLastMonthEndDate() };
+    date = LastMonth;
+    QueryRecordBtn(LastMonth)
+}
+
+//--------------------------------------------------------------日期查询
+var now = new Date(); //当前日期
+var nowDayOfWeek = now.getDay(); //今天本周的第几天
+var nowDay = now.getDate(); //当前日
+var nowMonth = now.getMonth(); //当前月
+var nowYear = now.getYear(); //当前年
+nowYear += (nowYear < 2000) ? 1900 : 0; //
+var lastMonthDate = new Date(); //上月日期
+lastMonthDate.setDate(1);
+lastMonthDate.setMonth(lastMonthDate.getMonth() - 1);
+var lastYear = lastMonthDate.getYear();
+var lastMonth = lastMonthDate.getMonth();
+//格式化日期：yyyy-MM-dd
+function formatDate(date) {
+    var myyear = date.getFullYear();
+    var mymonth = date.getMonth() + 1;
+    var myweekday = date.getDate();
+    if (mymonth < 10) {
+        mymonth = "0" + mymonth;
+    }
+    if (myweekday < 10) {
+        myweekday = "0" + myweekday;
+    }
+    return (myyear + "-" + mymonth + "-" + myweekday);
+}
+//获得某月的天数
+function getMonthDays(myMonth) {
+    var monthStartDate = new Date(nowYear, myMonth, 1);
+    var monthEndDate = new Date(nowYear, myMonth + 1, 1);
+    var days = (monthEndDate - monthStartDate) / (1000 * 60 * 60 * 24);
+    return days;
+}
+//获得本周的开始日期
+function getWeekStartDate() {
+    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek);
+    return formatDate(weekStartDate);
+}
+//获得本周的结束日期
+function getWeekEndDate() {
+    var weekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek));
+    return formatDate(weekEndDate);
+}
+//获得上周的开始日期
+function getLastWeekStartDate() {
+    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek - 7);
+    return formatDate(weekStartDate);
+}
+//获得上周的结束日期
+function getLastWeekEndDate() {
+    var weekEndDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek - 1);
+    return formatDate(weekEndDate);
+}
+//获得本月的开始日期
+function getMonthStartDate() {
+    var monthStartDate = new Date(nowYear, nowMonth, 1);
+    return formatDate(monthStartDate);
+}
+//获得本月的结束日期
+function getMonthEndDate() {
+    var monthEndDate = new Date(nowYear, nowMonth, getMonthDays(nowMonth));
+    return formatDate(monthEndDate);
+}
+//获得上月开始时间
+function getLastMonthStartDate() {
+    var lastMonthStartDate = new Date(nowYear, lastMonth, 1);
+    return formatDate(lastMonthStartDate);
+}
+//获得上月结束时间
+function getLastMonthEndDate() {
+    var lastMonthEndDate = new Date(nowYear, lastMonth, getMonthDays(lastMonth));
+    return formatDate(lastMonthEndDate);
 }
