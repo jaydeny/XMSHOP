@@ -97,9 +97,7 @@ $(".choose-main").on("click", "#ChooseAc", function () {
     }, "json")
 });
 
-var Shop = function (obj) {
-    
-}
+
 
 // 获得url的参数
 function getQueryVariable(variable) {

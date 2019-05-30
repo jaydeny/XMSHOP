@@ -8,18 +8,21 @@ namespace XM.WebVip.Controllers
 {
     public class ShopController : BaseController
     {
+        // GET: Shop
+        #region _shopping
+
+        /// <summary>
+        /// 功能:进入选择活动类型
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ChooseAc()
         {
             ViewData["AcList"] = GetAllAc();
             return View();
         }
 
-        // GET: Shop
-        #region _shopping
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
-        /// 查看余额
+        /// 功能:查看余额
         /// </summary>
         /// <returns></returns>
         public ActionResult Buy()
@@ -66,9 +69,6 @@ namespace XM.WebVip.Controllers
         }
         
         /// <summary>
-        /// 作者：曾贤鑫
-        /// 创建时间:2019-5-27
-        /// 修改时间：2019-
         /// 功能：返回购买是否成功
         /// </summary>
         public List<int> Shop(Dictionary<string, object> OrderAndBuyInfoDic, int ChooseAcID)
@@ -379,9 +379,6 @@ namespace XM.WebVip.Controllers
 
         #region _order
         /// <summary>
-        /// 作者：曾贤鑫
-        /// 创建时间:2019-
-        /// 修改时间：2019-
         /// 功能：查询订单
         /// </summary>
         public ActionResult QryOrder()
@@ -405,9 +402,6 @@ namespace XM.WebVip.Controllers
 
         #region _自定义
         /// <summary>
-        /// 作者：曾贤鑫
-        /// 创建时间:2019-4/30
-        /// 修改时间：2019-
         /// 功能：查询地址
         /// </summary>
         public int QryAdd()
@@ -419,9 +413,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者：曾贤鑫
-        /// 创建时间:2019-4/30
-        /// 修改时间：2019-
         /// 功能：查询地址
         /// </summary>
         public VipInfoDTO QryTOPAdd()
@@ -456,6 +447,10 @@ namespace XM.WebVip.Controllers
             return result;
         }
 
+        /// <summary>
+        /// 功能:获取符合条件的活动
+        /// </summary>
+        /// <returns></returns>
         public List<ActivityEntity> GetAllAc()
         {
             Dictionary<string, object> AcDic = new Dictionary<string, object>();
