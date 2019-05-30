@@ -90,6 +90,7 @@ $(".choose-main").on("click", "#ChooseAc", function () {
     $.post("/Shop/buy", { agoods_id: obj.id, buy_count: 1, order_total: obj.price, buy_total: obj.price * 1, Ac_id: Ac }, function (data) {
         if (data.success) {
             alert(data.msg);
+            $("#myModal").modal('hide');
         } else {
             alert(data.msg);
         }
