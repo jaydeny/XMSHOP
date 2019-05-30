@@ -27,15 +27,39 @@ namespace XM.DAL
         }
 
         /// <summary>
+        /// 功能:查询活动的信息
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ActivityEntity ActivityEntity<ActivityEntity>(int Ac_id)
+        {
+            string sql = "select * from tbActivity where id = @Ac_id";
+            return QuerySingle<ActivityEntity>(sql, new { Ac_id });
+        }
+
+        /// <summary>
         /// 功能:查询单一活动的类型信息
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="param"></param>
         /// <returns></returns>
-        public T QryACTypeInfo<T>(int Ac_id)
+        public CustomFullEntity QryACTypeInfoFull<CustomFullEntity>(int Ac_id)
         {
             string sql = "select * from tbCustomFull where Ac_id = @Ac_id";
-            return QuerySingle<T>(sql, new { Ac_id});
+            return QuerySingle<CustomFullEntity>(sql, new { Ac_id});
+        }
+
+        /// <summary>
+        /// 功能:查询单一活动的类型信息
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public CustomDisEntity QryACTypeInfoDis<CustomDisEntity>(int Ac_id)
+        {
+            string sql = "select * from tbCustomDis where Ac_id = @Ac_id";
+            return QuerySingle<CustomDisEntity>(sql, new { Ac_id });
         }
 
         /// <summary>

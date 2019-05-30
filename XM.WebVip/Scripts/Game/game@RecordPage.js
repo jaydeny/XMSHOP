@@ -95,7 +95,7 @@ var Page_Count = document.getElementById("Page_Count");
 //上一页
 $(".vipinfo-form").on("click", "#before", function () {
     if (count == 1) {
-        alert("已经是第一页了")
+        alert("第一页")
     } else {
         count -= 1;
         btn_num_Page_count.val(count);
@@ -107,7 +107,7 @@ $(".vipinfo-form").on("click", "#before", function () {
 $(".vipinfo-form").on("click", "#end", function () {
     //拿到总页数
     if (count >= counts) {
-        alert("最后一页了")
+        alert("最后一页")
     } else {
         count += 1;
         btn_num_Page_count.val(count);
