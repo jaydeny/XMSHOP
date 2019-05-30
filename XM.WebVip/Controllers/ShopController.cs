@@ -8,6 +8,12 @@ namespace XM.WebVip.Controllers
 {
     public class ShopController : BaseController
     {
+        public ActionResult ChooseAc()
+        {
+            ViewData["AcList"] = GetAllAc();
+            return View();
+        }
+
         // GET: Shop
         #region _shopping
         /// <summary>
@@ -30,7 +36,6 @@ namespace XM.WebVip.Controllers
                     return OperationReturn(false, "请添加地址后购物");
                 }
 
-                ViewData["AcList"] = GetAllAc();
 
                 var vipInfo = QryTOPAdd();
                 DateTime date = DateTime.Now;
@@ -48,7 +53,7 @@ namespace XM.WebVip.Controllers
                 param.Add("agoods_id", int.Parse(Request["agoods_id"]));
                 param.Add("buy_total", decimal.Parse(Request["buy_total"]));
 
-                int ChooseAcID = int.Parse(Request["Ac"].ToString());
+                int ChooseAcID = int.Parse(Request["Ac_id"].ToString());
 
 
                 List<int> AcResult = Shop(param, ChooseAcID);
