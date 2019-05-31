@@ -6,14 +6,14 @@
 
 <body>
 
-    <div class="index-bigbox" style="margin-top: 0px;">
+    <div class="index-bigbox" style="margin-top: 0px;" id="Info">
         <!--头部开始-->
         <div class="personal-top">
             <img src="http://www.17sucai.com/preview/1528155/2019-04-18/fresh/images/599aa36d5e4a4.jpg" alt="" class="personal-img">
             <div class="personal-top-box1">
-                <span class="personal-top-img1"><img src="http://www.17sucai.com/preview/1528155/2019-04-18/fresh/del/timg1.jpg" alt=""></span>
+                <span class="personal-top-img1"><img src="~/Areas/Phone/img/Headportrait.jpg" alt=""></span>
                 <div class="personal-top-box2">
-                    <span class="personal-top-text1">青春微凉伴离殇</span>
+                    <span class="personal-top-text1">{{name}}</span>
                 </div>
             </div>
         </div>
@@ -55,8 +55,42 @@
             <span class="personal-box5-img1"><img src="http://www.17sucai.com/preview/1528155/2019-04-18/fresh/images/personal-center-img12.png" alt=""></span>
             <span>售后服务</span>
         </a>
-        <span class="personal-box5-text2">退出登录</span>
+        <span class="personal-box5-text2" v-show="is_SignIn" v-on:click="loginUP()">退出登录</span>
     </div>
+    <script>
+        new Vue({
+            el: "#Info",
+            data: {
+                name: "",
+                is_SignIn: false
+            },
+            created: function () {
+                this.init()
+            },
+            methods: {
+                //用户退出发送请求
+                loginUP() {
+                    $.ajax({
+                        url: "/Phone/PhoneHome/SignUp_MB"
+                    }).then((data) => {
+                        localStorage.setItem("name", '');
+                        location.href = "/Phone/PhoneHome/Index_MB";
+                    });
+                },
+                init() {
+                    const name = this.name = localStorage.getItem("name");
+                    if (name == null || name == '') {
+                        this.is_SignIn = false;
+                        this.name = "请登录...";
+                    } else {
+                        this.is_SignIn = true;
+                        this.name = name;
+                    }
+                }
 
+            }
+
+        })
+    </script>
 </body>
 </html>

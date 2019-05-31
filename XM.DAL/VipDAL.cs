@@ -313,6 +313,18 @@ namespace XM.DAL
             return QuerySingle<int>("P_tbvip_Shopping", paras, CommandType.StoredProcedure);
         }
 
+
+
+        /// <summary>
+        /// 活动购物
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public int BuyWithAc(Dictionary<string, object> paras)
+        {
+            return QuerySingle<int>("P_tbReceiveAward_RecordAcInfoAndShop", paras, CommandType.StoredProcedure);
+        }
+
         /// <summary>
         /// 功能:充值记录
         /// </summary>
@@ -330,7 +342,8 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString()
             };
             builder.AddWhereAndParameter(paras, "vip_AN");
-            builder.AddWhereAndParameter(paras, "recharge_time", "recharge_time","like", "'%'+@recharge_time");
+            builder.AddWhereAndParameter(paras, "StartDate", "recharge_time", ">=", "@StartDate");
+            builder.AddWhereAndParameter(paras, "EndDate", "recharge_time", "<=", "@EndDate");
 
             var s = SortAndPage(builder, grid, out iCount);
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });

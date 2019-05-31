@@ -346,6 +346,8 @@
     <Content Include="Content\User\User%40UserInfo.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Activity\activityAdd.js" />
+    <Content Include="Scripts\Activity\activity_index.js" />
     <Content Include="Scripts\backEnd\Agent%40Index.js" />
     <Content Include="Scripts\backEnd\Agent%40Form.js" />
     <Content Include="Scripts\backEnd\Default.js" />
@@ -401,10 +403,12 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\notic\notic%40add.js" />
+    <Content Include="Scripts\notic\notic%40Form.js" />
     <Content Include="Scripts\notic\notic%40index.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\DicController.cs" />
     <Compile Include="Controllers\GameRecordController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
@@ -475,6 +479,10 @@
     <Content Include="Views\Home\Default.cshtml" />
     <Content Include="Views\Dic\Index.cshtml" />
     <Content Include="Views\Dic\_Form.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Activity\Index.cshtml" />
+    <Content Include="Views\Activity\ActivityAdd.cshtml" />
+    <Content Include="Views\NoticManager\_Form.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

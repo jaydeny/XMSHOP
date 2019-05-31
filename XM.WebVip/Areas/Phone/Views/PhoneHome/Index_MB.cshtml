@@ -8,17 +8,17 @@
         <!--头部开始-->
         <div class="yx-index-top">
             <a href="/Phone/PhoneProduct/Search_MB" class="index-top-box1">
-                <span class="index-top-img1"><img src="http://www.17sucai.com/preview/1528155/2019-04-18/fresh/images/search3.png" alt=""></span>
+                <span class="index-top-img1"><img src="~/Areas/Phone/img/search3.png" alt=""></span>
                 <span class="index-top-text1">搜索</span>
             </a>
             <div class="index-top-box2">
                 <span class="fresh-toptext1">XMSHOP</span>
 
             </div>
-            @*<a href="./search.html" class="index-top-box1">
-                    <span class="index-top-img1"><img src="./images/search3.png" alt=""></span>
-                    <span class="index-top-text1">登录</span>
-                </a>*@
+            <a href="./search.html" class="index-top-box1">
+                    <span class="index-top-img1"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAEwUlEQVRoQ+2aXWhcRRTHz/+udxMMpUihCgVJUzS0IevOTCr6pG/aVkQLoi+VasUvrB8E+6BWLYYKWkUrEYtWMVIEQX3wow/qg09+zux6l2iD0RakCvWhhCYP2bvZIxOz4WZzN3eTvaG7mzuPO3Nm/r+ZOYedcw9ojTWsMV4KAjtSyh5m3sTMbbERABjAWWPMH0TE9nBnwaSU1wE4QUQ9bXriOd/3b/Y87xyUUuuJaIyILm9T2AqWZZSQUu4F8F6bw1bw9toTPkJEg5VfmHkSwDPMfFkrbwKA80R0mIguDbAdscBHiWh/4Mc7jTEftTJsRbsQ4i7HcT4MsBxdBOz7fo/neafbAbi/v78nnU7bCF1pi4FnZmY25/P5M+0AnMlkNruu+2cCHPTh5IRb+G4nV5ooCVqU+HDiw62zA0nQSoIWURK0WsdjFyuN3Ye7u7s7N2zYcICZtxPRmXK5/EodD4+UEOIxADcAOMfMbxljdNTGKqXuY+YdRDTFzCO5XO7rKJtYgfv6+tKdnZ3fE5EIJg9KpdKA53k2nRLalFJfENHOQKc/MzOzK5/Pf1XLRkr5BoBHAuvYhNw+Y8ySmZpYgZVSDxHRm9UimfmkMSYIND9ECLHDcZwvQ2x+M8ZsCwOWUm4F8GuIzaQxxubjyrU2KlZgKeUwgIdDFvtLa31lDfFPAngpRDwbY1KVVGqwXyl1BxGFZmCKxeKWQqEQfO8umDpWYKWUhR1ezglns9mdqVTKXunqdkprvTVsk4QQ2xzHGb3oJ2x9uKOj4ycAmYCYC77vb29LH7aQlShNRNcy8+l6o7SU8lEiutFG6XK5fCyXy/0cFXGFEPcC2HXRonSUwGboj9WHmwEoSkMCnDweksdDlJc0d3/iw4kPJz7c3D4apS7x4cSH//fhq/P5/O9R16UV+jOZTK/ruqcCWhd/WyKiZ7XWL7QCUJRGKeVzAJ5fACylHALwdNCYmb8jomLUhEv1M/MHuVzueNQctizBdd0XV6FsKg3g+qr1h2yNx21E9GmUsBX036K1DstuzE7V29u7rqur6yCAx4nIXcH8yzZh5t2VSryPAexe9gw1DJi5PD09vX50dHQyZAiEEHsAvAxgY1xr1jGP0VoPVGoqU1LK14jodgCb6jBecggza2PMQPUgIcQ1AI4DUI2uUa89M58FcLJYLB4oFArnYykiVUptIaLxgIhXtdbzxW6ZTGaj67qHmdmmaRasycw2VrxeKpUOeZ43VS/ISsfFAiyE2Oc4zjsVEcx8qzHmMyK6REq5H8AhIlpXLZKZv/F9//6lUq0rBatlFwuwlHIEwB67SMV/0+m0AvA2gKtCQO1teMIY83ncQFHzxQKslPqHiK6YA/4bwI9EZKP/gmbrOJl5yHEce+X9KHGr0d8wcEh53yKdzGy/BZ0olUqDtmZ5NUDqnbNhYCnlPQDerbUgM/8C4AGt9Q/1ilrNcQ0DK6XeJ6K7Q67vvwCe0lrbf1uz5ffN0OIAnvffOaASMw9PTU0dHBsbu9AMkEENDQFns9nuVCo1X2rMzN8CeFBrHXyhNBVzQ8D2L6LjOCPMbMuNB40xnzQVXYiYhoDn3ps3TUxMHBsfH59udlirryHgVgCs1rjmgP8Du0cjEogEwXcAAAAASUVORK5CYII=" alt=""></span>
+                    <span class="index-top-text1">消息</span>
+                </a>
         </div>
         <!--头部结束-->
         <div class="index-bigbox">
@@ -119,11 +119,15 @@
     <script type="text/javascript" src="~/Areas/Phone/Script/Home/scrolltopcontrol.js"></script>
     <script type="text/javascript" src="~/Areas/Phone/Script/Home/TouchSlide.js"></script>
     <script>
-
         new Vue({
-            el: "#app"
-        })
+            el: "#app",
+            data: {
 
+            },
+            created: function () {
+                
+            }
+        })
     </script>
     <script>
         TouchSlide({
@@ -135,6 +139,6 @@
             autoPlay: true, //自动播放
         });
     </script>
-
+    
 </body>
 </html>

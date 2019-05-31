@@ -461,6 +461,7 @@ namespace XM.DAL
             string retData = JsonConvert.SerializeObject(new { rows = s });
             return retData;
         }
+        #endregion
 
         #region  后台使用
         /// <summary>
@@ -513,7 +514,6 @@ namespace XM.DAL
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
             return retData;
         }
-        #endregion
         #endregion
 
         #region _RechargeFrom

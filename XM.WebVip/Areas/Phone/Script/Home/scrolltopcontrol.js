@@ -5,7 +5,7 @@
         scrollduration: 400,
         fadeduration: [500, 100]
     },
-    controlHTML: '<img src="http://www.17sucai.com/preview/1528155/2019-04-18/fresh/images/topback.png" style="width:35px; height:35px; border:0;border-radius: 50%;overflow: hidden;background:rgba(255,255,255,0.5);" />',
+    controlHTML: '<img src="../../Areas/Phone/img/topback.png" style="width:35px; height:35px; border:0;border-radius: 50%;overflow: hidden;background:rgba(255,255,255,0.5);" />',
     controlattrs: { offsetx: 20, offsety: 70 },
     anchorkeyword: "#top",
     state: {

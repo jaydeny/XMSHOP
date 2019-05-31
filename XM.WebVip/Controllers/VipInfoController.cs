@@ -193,6 +193,11 @@ namespace XM.WebVip.Controllers
         /// <returns></returns>
         public ActionResult QryRechargePage()
         {
+            DateTime dt = DateTime.Now;
+            string StartWeek = dt.AddDays(1 - Convert.ToInt32(dt.DayOfWeek.ToString("d"))).ToString("yyyy-MM-dd"); //获取一周的开始日期
+            string EndWeek = dt.AddDays(1 - Convert.ToInt32(dt.DayOfWeek.ToString("d"))).AddDays(6).ToString("yyyy-MM-dd"); //获取本周星期天日期
+            ViewData["StartWeek"] = StartWeek;
+            ViewData["EndWeek"] = EndWeek;
             return View("_QryRechargePage");
         }
 
@@ -206,10 +211,12 @@ namespace XM.WebVip.Controllers
             string order = Request["order"] == null ? "asc" : Request["order"];
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+            
 
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras.Add("vip_AN",AN);
-            paras.Add("recharge_time", Request["date"] == "" ? "" : Request["date"]);
+            paras.Add("StartDate", DateTime.Parse(Request["StartDate"]));
+            paras.Add("EndDate", DateTime.Parse(Request["EndDate"]).AddHours(23).AddMinutes(59));
             paras.Add("pi", pageindex);
             paras.Add("pageSize", pagesize);
             paras.Add("sort", sort);

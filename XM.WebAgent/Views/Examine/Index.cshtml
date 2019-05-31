@@ -16,16 +16,18 @@
             </div>
 
             <main role="main" class="col-md-12 ml-sm-auto col-lg-12 pt-3 px-4">
+                @*时间段数据呈现*@
                 <div v-show="is_show">
                     <nav>
                         <div class="nav nav-tabs" role="tablist">
                             <a class="nav-item nav-link active" id="home_tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" v-on:click="show($event)">充值审核</a>
-                            <a class="nav-item nav-link" id="profile_tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false" v-on:click="show($event)">审核记录</a>
+                            <a class="nav-item nav-link" id="profile_tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false" v-on:click="show($event)">审核通过记录</a>
+                            <a class="nav-item nav-link" id="regression_tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false" v-on:click="show($event)">审核回退记录</a>
                         </div>
                     </nav>
 
                     <div>
-                        <div v-if="dataTable.length <= 0">抱歉，没有要审核的数据</div>
+                        <div v-if="dataTable.length <= 0">抱歉，没有审核数据哦~~</div>
                         <table class="table table-hover">
 
                             <tbody v-for="(data,index) in dataTable" :key="index">
@@ -42,9 +44,15 @@
                     </div>
                 </div>
 
-
+                @*日期数据呈现*@
                 <div v-show="!is_show">
-                    <button v-on:click="is_show = true">返回</button>
+                    <div>
+                        <button v-on:click="is_show = true , title=''">返回</button>
+                        <input type="text" class="form-control" style="display: inline-table " v-model="sear_vipName">
+                        <button class="btn btn-primary mb-2" v-on:click="schByName()">
+                            搜索
+                        </button>
+                    </div>
                     <div class="card-body">
                         <table class="table table-striped">
                             <thead>
@@ -57,170 +65,123 @@
                                 </tr>
                             </thead>
                             <tbody v-for="(data,indexs ) in dataList" :key="indexs">
-                                <tr>
+                                <tr v-on:click="show_Details(indexs)">
                                     <th scope="row">{{data.id}}</th>
-                                    <td>{{data.recharge_time}}</td>
+                                    <td>{{chageTime(data.recharge_time)}}</td>
                                     <td>{{data.vip_AN}}</td>
                                     <td>{{data.recharge_price}}</td>
                                     <td v-show="btn_show">
-                                        <button class="btn  btn-default collapsed" v-on:click="btn_adopt(data.id,data.recharge_integral,data.vip_AN)">通过</button>
-                                        <button class="btn  btn-default collapsed" v-on:click="btn_Backward(data.id,data.recharge_integral,data.vip_AN)">回退</button>
+                                        <button class="btn  btn-default collapsed" v-on:click="btn_adopt(data.id,data.recharge_integral,data.vip_AN,$event)">通过</button>
+                                        <button class="btn  btn-default collapsed" v-on:click="btn_Backward(data.id,data.recharge_integral,data.vip_AN,$event) ">回退</button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
+
+                @*分页*@
+                <nav aria-label="Page navigation example" v-show="!is_show">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">显示条数</label>
+                                </div>
+                                <select class="custom-select" id="inputGroupSelect01" v-on:click="btn_sub()" v-model="rows">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="page-item" v-on:click="before()">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">上一页</span>
+                            </a>
+                        </li>
+                        <li class="page-item" v-on:click="next()">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">下一页</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">共 {{total_page}} 页</a></li>
+                        <li class="page-item"><a class="page-link" href="#">共 {{count}} 条数据</a></li>
+                        <li class="page-item">
+                            <div class="input-group mb-3">
+                                <select class="custom-select" id="inputGroupSelect0" v-model="page">
+                                    <option :value="index" v-for="(index) in total_page" :key="index">{{index}}</option>
+                                </select>
+                                <div class="input-group-append">
+                                    <label class="input-group-text" for="inputGroupSelect0">显示条数</label>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="page-item"><a class="page-link" v-on:click="btn_sub()" href="#">确定</a></li>
+                    </ul>
+                </nav>
+
             </main>
-
         </div>
+
+        @*页面模态框*@
+        <div class="modal fade" id="showData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">订单详情</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-body">
+                            <table class="table" style="margin-top:80px">
+                                <tbody v-for="(obj,index) in dataDetails" :key="index">
+                                    <tr>
+                                        <th scope="row">订单编号</th>
+                                        <td>{{obj.id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">用户名</th>
+                                        <td>{{obj.vip_AN}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">充值信息</th>
+                                        <td>{{obj.recharge_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">充值金额</th>
+                                        <td>{{obj.recharge_price}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">下单时间</th>
+                                        <td>{{obj.recharge_time}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">审核状态</th>
+                                        <td>
+                                            <select :value="obj.status_id" disabled>
+                                                <option value="7">充值成功</option>
+                                                <option value="8">充值回退</option>
+                                                <option value="6">等待审核</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-    <script>
-
-        new Vue({
-            el: "#msg",
-            data: {
-                dataTable: [],
-                dataList: [],
-                is_show: true,
-                title: '',
-                startTime: "",
-                endTime: "",
-                status: "",
-                btn_show: true
-            },
-            created: function () {
-                const date = new Date();
-                let dateMonth = date.getMonth() + 1;
-                if (dateMonth < 10) {
-                    dateMonth = "0" + dateMonth;
-                }
-                this.startTime = date.getFullYear() + "-" + dateMonth + "-" + "01"
-                this.endTime = date.getFullYear() + "-" + dateMonth + "-" + date.getDate();
-                this.status = 6;
-                const param = {
-                    endTime: date.getFullYear() + "-" + dateMonth + "-" + (1 + date.getDate()),
-                    status: 6,
-                }
-                const url = "/Examine/QryDayRechargeTotal";
-                this.onLoadData(url, param);
-            },
-            computed: {
-
-            },
-            methods: {
-                onLoadData(url, param) {
-                    $.ajax({
-                        url: url,
-                        dataType: 'json',
-                        data: param
-                    }).then((data) => {
-                        console.log(data)
-                        let datas = data.rows;
-                        this.dataSort(datas);
-                    });
-                },
-                onLoadDayData(url, param) {
-                    $.ajax({
-                        url: url,
-                        dataType: 'json',
-                        data: param
-                    }).then((data) => {
-                        //console.log(data)
-                        this.dataList = data.rows;
-                    });
-                },
-                //进行日期排序
-                dataSort(datas) {
-                    this.dataTable = datas.sort(function (a, b) {
-                        let x = a["date"];
-                        let y = b["date"];
-                        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-                    });
-                },
-                show(e) {
-                    $("#home_tab")[0].className = "nav-item nav-link"
-                    $("#profile_tab")[0].className = "nav-item nav-link"
-
-                    e.target.className = "nav-item nav-link active";
-
-                    const date = new Date(this.endTime);
-                    let param = {
-                        "startTime": this.startTime,
-                        "endTime": date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (1 + date.getDate())
-                    }
-                    if (e.target.id != 'profile_tab') {
-                        param.status = 6
-                        this.status = 6;
-                        this.btn_show = true
-                    } else {
-                        param.status = 7
-                        this.status = 7;
-                        this.btn_show = false
-                    }
-                    this.onLoadData("/Examine/QryDayRechargeTotal", param)
-                },
-                //页面跳转
-                jumpData(date) {
-                    this.title = date
-                    this.is_show = !this.is_show;
-                    const param = {
-                        day: date,
-                        status: this.status
-                    }
-                    this.onLoadDayData("/Examine/QryDayRechargeForm", param);
-                },
-                //时间段搜索
-                searches() {
-                    let date = new Date(this.endTime);
-                    let dateMonth = date.getMonth() + 1;
-                    if (dateMonth < 10) {
-                        dateMonth = "0" + dateMonth;
-                    }
-                    date.setDate(date.getDate() + 1);
-                    const param = {
-                        "startTime": this.startTime,
-                        "endTime": date.getFullYear() + "-" + dateMonth + "-" + 1 + date.getDate(),
-                        "status": this.status,
-                    }
-                    const url = "/Examine/QryDayRechargeTotal";
-                    this.onLoadData(url, param);
-                },
-                btn_adopt(id, integral, name) {
-                    const param = {
-                        "type": 0,
-                        "id": id,
-                        "integral": integral,
-                        "name": name
-                    }
-                    this.onExamine(param);
-                },
-                btn_Backward(id, integral, name) {
-                    const param = {
-                        "type": 1,
-                        "id": id,
-                        "integral": integral,
-                        "name": name
-                    }
-                    this.onExamine(param);
-                },
-                onExamine(param) {
-                    $.ajax({
-                        url: "/Examine/RechargeAudit",
-                        data: param,
-                        dataType: 'json',
-                        method: 'post'
-                    }).then((data) => {
-                        const param = {
-                            day: this.title,
-                            status: this.status
-                        }
-                        this.onLoadDayData("/Examine/QryDayRechargeForm", param);
-                        alert(data.msg);
-                    });
-                }
-            }
-        });
-
-    </script>
+    <script src="~/Scripts/Examine/Index.js"></script>
 </body>

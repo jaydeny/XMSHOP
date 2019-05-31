@@ -25,10 +25,10 @@
                             <tr>
                                 <td>{{obj.title}}</td>
                                 <td>{{obj.content}}</td>
-                                <td>{{obj.starttime}}</td>
-                                <td>{{obj.endtime}}</td>
+                                <td>{{chageTime(obj.starttime)}}</td>
+                                <td>{{chageTime(obj.endtime)}}</td>
                                 <td>{{obj.publisher}}</td>
-                                <td>{{obj.receivermember}}</td>
+                                <td>{{chageReceiver(obj.receivermember)}}</td>
                                 <td> <button v-on:click="del_Notic(obj._id)">撤销公告</button> </td>
                             </tr>
                         </tbody>
@@ -39,27 +39,25 @@
             @*分页*@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-
                     <li class="page-item">
-                        <span class="page-link">
-                            显示条数
-                            <select class="form-control form-control-sm" v-model="rows">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">显示条数</label>
+                            </div>
+                            <select class="custom-select" id="inputGroupSelect01" v-on:click="getNoticData()" v-model="rows">
+
                                 <option value="10">10</option>
                                 <option value="20">20</option>
                                 <option value="50">50</option>
                             </select>
-                        </span>
+                        </div>
                     </li>
-
                     <li class="page-item" v-on:click="before()">
                         <a class="page-link" href="#" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                             <span class="sr-only">上一页</span>
                         </a>
                     </li>
-
-
-
                     <li class="page-item" v-on:click="next()">
                         <a class="page-link" href="#" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
@@ -69,12 +67,14 @@
                     <li class="page-item"><a class="page-link" href="#">共 {{total_page}} 页</a></li>
                     <li class="page-item"><a class="page-link" href="#">共 {{count}} 条数据</a></li>
                     <li class="page-item">
-                        <span class="page-link">
-                            跳转页码
-                            <select class="form-control form-control-sm" v-model="page">
+                        <div class="input-group mb-3">
+                            <select class="custom-select" id="inputGroupSelect0" v-model="page">
                                 <option :value="index" v-for="(index) in total_page" :key="index">{{index}}</option>
                             </select>
-                        </span>
+                            <div class="input-group-append">
+                                <label class="input-group-text" for="inputGroupSelect0">显示条数</label>
+                            </div>
+                        </div>
                     </li>
                     <li class="page-item"><a class="page-link" v-on:click="getNoticData()" href="#">确定</a></li>
                 </ul>
@@ -82,81 +82,5 @@
 
         </main>
     </div>
-    <script>
-        new Vue({
-            el: "#app",
-            data: {
-                //分页参数
-                page: 1,
-                rows: 10,
-                count: '',
-                
-                //公告数据
-                RecordTable:[]
-            },
-            created: function () {
-                this.getNoticData();
-            },
-            computed: {
-                total_page() {
-                    return Math.ceil(this.count / this.rows)
-                }
-            },
-            methods: {
-                //获取公告历史数据
-                getNoticData() {
-                    const param = {
-                        page: this.page,
-                        rows: this.rows
-                    }
-                    $.ajax({
-                        url: "/Notice/Manager",
-                        data: param,
-                        dataType: 'json'
-                    }).then((data) => {
-                       
-                        this.count = data.records;
-                        this.RecordTable = data.rows;
-                        this.count = data.records;
-                    });
-                },
-                //撤销公告
-                del_Notic(id) {
-                    const param = {
-                        id: id
-                    }
-                    $.ajax({
-                        url: "/Notice/Del_NoticbyID",
-                        data: param,
-                        dataType: 'json'
-                    }).then((data) => {
-                        if (data.success) {
-                            alert(data.msg);
-                            this.getNoticData();
-                        } else {
-                            alert(data.msg)
-                        }
-                    });   
-                },
-                //分页
-                before() {
-                    if (this.page <= 1) {
-                        alert("已经是第一页了")
-                    } else {
-                        this.page--;
-                        this.getNoticData();
-                    }
-                },
-                next() {
-                    if (this.page >= this.page_count) {
-                        alert("已经是最后一页了")
-                    } else {
-                        this.page++;
-                        this.getNoticData();
-                    }
-                }
-                
-            }
-        })
-    </script>
+    <script src="~/Scripts/Notice/NoticRecord.js"></script>
 </body>

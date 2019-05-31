@@ -27,7 +27,7 @@ namespace XM.WebVip.Controllers
 
                 string param = GameReturn("Login", strKey, paras);
 
-                var result = HttpPost("http://172.16.31.232:9678/take", param);
+                var result = HttpPost(param);
                 return OperationReturn(true, result);
             }
             return OperationReturn(false, "请登录后进入游戏!");
@@ -44,7 +44,7 @@ namespace XM.WebVip.Controllers
 
                 string param = GameReturn("GetCredit", strKey, paras);
 
-                var result = HttpPost("http://172.16.31.249:9678/take", param);
+                var result = HttpPost(param);
 
                 int x = result.LastIndexOf(":");
                 string y = result.Substring(x);
