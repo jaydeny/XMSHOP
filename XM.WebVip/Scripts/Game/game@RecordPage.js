@@ -28,6 +28,7 @@ var QueryRecord = function () {
         }
     }, "json")
 }
+QueryRecord()
 
 //以下是详情
 var QryDetail = function () {
