@@ -52,7 +52,6 @@ namespace XM.IDAL
         /// <param name="param"></param>
         /// <returns></returns>
         int RecordAcInfo(Dictionary<string, object> param);
-        IEnumerable<ActivityEntity> QryAC<ActivityEntity>(Dictionary<string, object> param);
         /// <summary>
         /// 获取符合条件的所有活动类数据
         /// </summary>

@@ -23,7 +23,13 @@ namespace XM.DAL
         /// <typeparam name="ActivityEntity"></typeparam>
         /// <param name="param"></param>
         /// <returns></returns>
-        public List<ActivityEntity> QryAC<ActivityEntity>(Dictionary<string,object> param)
+        public List<ActivityEntity> QryAC<ActivityEntity>(Dictionary<string, object> param)
+        {
+            string sql = "select * from tbActivity where ( Receiver is null or Receiver = @agent_AN) and StartDate < @Date and EndDate > @Date";
+            IEnumerable<ActivityEntity> list = QueryList<ActivityEntity>(sql, param);
+            List<ActivityEntity> result = list.ToList();
+            return result;
+        }
 
         /// <summary>
         /// 添加活动
@@ -64,14 +70,6 @@ namespace XM.DAL
         {
             string sql = "SELECT * FROM tbCustomFull WHERE Ac_id = @id";
             return QueryList<CustomFullEntity>(sql, new { id });
-        }
-
-        public IEnumerable<ActivityEntity> QryAC<ActivityEntity>(Dictionary<string,object> param)
-        {
-            string sql = "select * from tbActivity where ( Receiver is null or Receiver = @agent_AN) and StartDate < @Date and EndDate > @Date";
-            IEnumerable<ActivityEntity> list = QueryList<ActivityEntity>(sql,param);
-            List<ActivityEntity> result = list.ToList();
-            return result;
         }
 
         /// <summary>
