@@ -38,6 +38,7 @@
                 });
             }
         },
+        
         init: function () {
             $('.wrapper').height($(window).height());
             $(".container").css("margin-top", ($(window).height() - $(".container").height()) / 2 - 50);
@@ -54,13 +55,14 @@
                     document.getElementById("login_button").focus();
                     document.getElementById("login_button").click();
                 }
-            }
+            };
+          
         }
     };
     $(function () {
         $.login.init();
     });
 
-
+   
 
 })(jQuery);

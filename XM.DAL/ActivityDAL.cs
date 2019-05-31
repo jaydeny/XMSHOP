@@ -57,6 +57,7 @@ namespace XM.DAL
                 SortDirection = paras["order"].ToString()
             };
             builder.AddWhereAndParameter(paras, "Publisher");
+            builder.AddWhereAndParameter(paras, "Title");
             return SortAndPage<T>(builder, grid, out iCount);
         }
 

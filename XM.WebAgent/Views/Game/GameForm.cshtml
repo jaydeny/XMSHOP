@@ -22,19 +22,21 @@
                     </div>
                 </div>
             </div>
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                <div class="list-group">
-                    <button type="button" class="list-group-item list-group-item-action" style="background-color:lightgray">
-                        游戏列表
-                    </button>
+            <div  v-show="is_show">
+                <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                    <div class="list-group">
+                        <button type="button" class="list-group-item list-group-item-action" style="background-color:lightgray">
+                            游戏列表
+                        </button>
 
-                    <div v-for="(obj,index) in gameTypeTable" :key="index">
-                        <button type="button" class="list-group-item list-group-item-action" v-on:click="on_btn_type(obj.ID,$event)">{{obj.Name}}</button>
+                        <div v-for="(obj,index) in gameTypeTable" :key="index">
+                            <button type="button" class="list-group-item list-group-item-action" v-on:click="on_btn_type(obj.ID,$event)">{{obj.Name}}</button>
+                        </div>
+
+
                     </div>
-                    
-                    
-                </div>
-            </nav>
+                </nav>
+            </div>
             @*主页*@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                 <table class="table table-hover" v-show="is_show">
@@ -83,7 +85,7 @@
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">显示条数</label>
                                 </div>
-                                <select class="custom-select" id="inputGroupSelect01" v-model="rows">
+                                <select class="custom-select" id="inputGroupSelect01" v-on:click="btn_sub()" v-model="rows">
 
                                     <option value="10">10</option>
                                     <option value="20">20</option>
