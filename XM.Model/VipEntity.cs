@@ -47,6 +47,10 @@ namespace XM.Model
         /// 归属代理编号
         /// </summary>
         public int AgentID { get; set; }
+        /// <summary>
+        /// 代理账号
+        /// </summary>
+        public string AgentAccountName { get; set; }
         public decimal Remainder { get; set; }
     }
 }

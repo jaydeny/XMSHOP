@@ -84,7 +84,7 @@ namespace XM.DAL
                                    new SqlParameter("@UserMobliePhone",user.VipMobliePhone),
                                    new SqlParameter("@UserEmail",user.VipEmail),
                                    new SqlParameter("@UserCreateDate",user.CreateTime),
-                                   new SqlParameter("@RoleID",user.AgentID),
+                                   new SqlParameter("@RoleID",user.AgentAccountName),
                                    new SqlParameter("@StatusID",user.StatusID)
                                    };
             return Convert.ToInt32(SqlHelper.ExecuteScalar(SqlHelper.connStr, CommandType.Text, strSql.ToString(), paras));
@@ -131,7 +131,7 @@ namespace XM.DAL
                                    new SqlParameter("@UserMobliePhone",user.VipMobliePhone),
                                    new SqlParameter("@Email",user.VipEmail),
                                    new SqlParameter("@StatusID",user.StatusID),
-                                   new SqlParameter("@RoleID",user.AgentID),
+                                   new SqlParameter("@RoleID",user.AgentAccountName),
                                    new SqlParameter("@Id",user.VipID),
                                    };
             object obj = SqlHelper.ExecuteNonQuery(SqlHelper.connStr, CommandType.Text, strSql.ToString(), paras);
@@ -177,7 +177,7 @@ namespace XM.DAL
                 model.CreateTime = Convert.ToDateTime(dr["vip_CDT"]);
 
             if (!DBNull.Value.Equals(dr["agent_id"]))
-                model.AgentID = int.Parse(dr["agent_id"].ToString());
+                model.AgentAccountName = dr["agent_id"].ToString();
 
             if (!DBNull.Value.Equals(dr["status_id"]))
                 model.StatusID = int.Parse(dr["status_id"].ToString());

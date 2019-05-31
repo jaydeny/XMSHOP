@@ -37,12 +37,12 @@
 
 
     // 商品查寻
-    //$("#btnSearch").click(function () {
-    //    var search = $.trim($("#txt_search").val());
-    //    if (search != "") {
-    //        window.location.href = "/product/AgoodsList?search=" + search;
-    //    }
-    //});
+    $("#btnSearch").click(function () {
+        var search = $.trim($("#txt_search").val());
+        if (search != "") {
+            window.location.href = "/product/AgoodsList?search=" + search;
+        }
+    });
     
     // 公告
     $("#notice").click(function () {

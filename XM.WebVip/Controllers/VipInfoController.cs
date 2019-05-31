@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Routing;
+using XM.Comm;
 using XM.Model;
 using XM.WebVIP.Controllers;
 
@@ -48,22 +49,11 @@ namespace XM.WebVip.Controllers
         //[HttpPost]
         public ActionResult VipInfo()
         {
-
             if (Session["AN"] == null)
             {
                 Url.Action("Index", "Home");
             }
-
-            //判断回收区,是否存在sessionID
-            if (recycle.ContainsKey(Session.SessionID))
-            {
-                if (recycle[Session.SessionID] == false)
-                {
-                    RemoveSession();
-                    //存在就踢下线
-                    return OperationReturn(false, "被踢下线");
-                }
-            }
+            
             return OperationReturn(true, "登录状态");
         }
         #endregion
@@ -285,7 +275,6 @@ namespace XM.WebVip.Controllers
         /// </summary>
         public ActionResult RemoveSession()
         {
-            pairs.Remove(Session["AN"].ToString());
             Session.Remove("AN");
             Session.Remove("ID");
             Session.Remove("Agent_ID");
@@ -300,6 +289,30 @@ namespace XM.WebVip.Controllers
         public void getCredit()
         {
             Integral = Request["Integral"];
+        }
+
+        /// <summary>
+        /// 功能:刷新积分
+        /// </summary>
+        public void setMark()
+        {
+            string[] paras = { AN };
+
+            string strKey = Md5.GetMd5(paras[0] + System.Configuration.ConfigurationManager.AppSettings["GameKey"]);
+
+            string param = GameReturn("GetCredit", strKey, paras);
+
+            var result = GameUtil.HttpPost(param);
+            
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("vip_AN", AN);
+            decimal remainder = DALUtility.Vip.QryRemainder(dic);
+
+            int x = result.LastIndexOf(":");
+            string y = result.Substring(x);
+            int z = y.IndexOf("}");
+            Integral = y.Substring(1, z - 1) == "[]" ? "0" : y.Substring(1, z - 1);
+            Session["Remainder"] = remainder.ToString();
         }
         #endregion
     }

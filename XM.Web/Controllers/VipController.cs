@@ -41,7 +41,7 @@ namespace XM.Web.Controllers
             string userEmail = Request["VipEmail"] == null ? "" : Request["VipEmail"];
             int statusId = Request["StatusID"] == null ? 1 : Convert.ToInt32(Request["StatusID"]);
             string createDateTime = Request["CreateTime"] == null ? "" : Request["CreateTime"];
-            int agentId = Request["AgentID"] == null ? 1 : Convert.ToInt32(Request["AgentID"]);
+            int agentId = Request["AgentAccountName"] == null ? 1 : Convert.ToInt32(Request["AgentAccountName"]);
             
             
             int totalCount;   //输出参数

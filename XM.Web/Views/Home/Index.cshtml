@@ -36,38 +36,6 @@
                     </div>
                     <div class="nav-no-collapse pull-right" id="header-nav">
                         <ul class="nav navbar-nav pull-right">
-                            <li class="mobile-search">
-                                <a class="btn">
-                                    <i class="fa fa-search"></i>
-                                </a>
-                                <div class="drowdown-search">
-                                    <form role="search">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Search...">
-                                            <i class="fa fa-search nav-search-icon"></i>
-                                        </div>
-                                    </form>
-                                </div>
-                            </li>
-                            <li class="dropdown hidden-xs">
-                                <a class="btn dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-tasks"></i>
-                                    <span class="count">5</span>
-                                </a>
-                            </li>
-                            <li class="dropdown hidden-xs">
-                                <a class="btn dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-bell"></i>
-                                    <span class="count">8</span>
-                                </a>
-                            </li>
-
-                            <li class="dropdown hidden-xs">
-                                <a class="btn dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-envelope-o"></i>
-                                    <span class="count">16</span>
-                                </a>
-                            </li>
                             <li class="dropdown profile-dropdown">
                                 <a href="#" class="dropdown" data-toggle="dropdown">
                                     <img src="/Content/img/samples/scarlet-159.png" alt="">
@@ -75,7 +43,6 @@
                                 </a>
                                 <ul class="dropdown-menu pull-right">
                                     <li><a class="menuItem" data-id="userInfo" href="/User/UserInfo"><i class="fa fa-user"></i>个人信息</a></li>
-                                    <li><a class="menuItem" href="/User/PwdUpdate"><i class="fa fa-inbox"></i>修改密码</a></li>
                                     <li><a href="javascript:void();" onclick="layer.msg('浏览器缓存清除成功');"><i class="fa fa-trash-o"></i>清空缓存</a></li>
                                     <li class="divider"></li>
                                     <li><a id="home_exit"><i class="ace-icon fa fa-power-off"></i>安全退出</a></li>
@@ -104,48 +71,6 @@
                             </div>
                             <div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">
                                 <ul class="nav nav-pills nav-stacked">
-                                    @*<li class="common">
-                                        <a class="menuItem" href="/User/Index">
-                                            <i class="fa fa-star-o"></i>
-                                            <span>用户管理</span>
-                                        </a>
-                                    </li>
-                                    <li class="common">
-                                        <a class="menuItem" href="/Agent/Index">
-                                            <i class="fa fa-star-o"></i>
-                                            <span>代理管理</span>
-                                        </a>
-                                    </li>
-                                    <li class="common">
-                                        <a class="menuItem" href="/Vip/Index">
-                                            <i class="fa fa-star-o"></i>
-                                            <span>会员管理</span>
-                                        </a>
-                                    </li>
-                                    <li class="common">
-                                        <a class="menuItem" href="/Type/Index">
-                                            <i class="fa fa-star-o"></i>
-                                            <span>商品类型</span>
-                                        </a>
-                                    </li>
-                                    <li class="common">
-                                        <a class="menuItem" href="/Goods/Index">
-                                            <i class="fa fa-star-o"></i>
-                                            <span>商品管理</span>
-                                        </a>
-                                    </li>
-                                    <li class="common">
-                                        <a class="menuItem" href="/Role/Index">
-                                            <i class="fa fa-star-o"></i>
-                                            <span>角色管理</span>
-                                        </a>
-                                    </li>
-                                    <li class="common">
-                                        <a class="menuItem" href="/Menu/Index">
-                                            <i class="fa fa-star-o"></i>
-                                            <span>菜单管理</span>
-                                        </a>
-                                    </li>*@
                                 </ul>
                             </div>
                         </div>
@@ -159,7 +84,6 @@
                         <nav class="page-tabs menuTabs">
                             <div class="page-tabs-content" style="margin-left: 0px;">
                                 <a href="javascript:;" class="menuTab active" data-id="/Home/Default">欢迎首页</a>
-                                @*<a href="javascript:;" class="menuTab" data-id="/Home/About" style="padding-right: 15px;">平台介绍</a>*@
                             </div>
                         </nav>
                         <button class="roll-nav roll-right tabRight">

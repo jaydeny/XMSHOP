@@ -40,19 +40,16 @@ namespace XM.Web.Controllers
         /// </summary>
         /// <param name="UserPwd"></param>
         /// <param name="NewPwd"></param>
-        /// <param name="ConfirmPwd"></param>
         /// <returns></returns>
-        public ActionResult UpdatePwd(string UserPwd, string NewPwd, string ConfirmPwd)
+        public ActionResult UpdatePwd(string userPwd, string newPwd)
         {
             //string result = "";
             UserEntity uInfo = Session["User"] as UserEntity;
-
             UserEntity userChangePwd = new UserEntity();
             userChangePwd.id = uInfo.id;
-            userChangePwd.UserPassword = NewPwd;
-
-            if (UserPwd == uInfo.UserPassword)
+            if (userPwd == uInfo.UserPassword)
             {
+                userChangePwd.UserPassword = newPwd;
                 if (DALUtility.User.ChangePwd(userChangePwd))
                 {
                     return OperationReturn(true, "修改成功，请重新登录！");
@@ -66,7 +63,6 @@ namespace XM.Web.Controllers
             {
                 return OperationReturn(false, "原密码不正确！");
             }
-            //return Content(result);
         }
         #endregion
         #region  获取所有用户信息
@@ -197,6 +193,11 @@ namespace XM.Web.Controllers
         #region 获取当前用户个人信息页面
         public ActionResult UserInfo()
         {
+            UserEntity user = Session["User"] as UserEntity;
+            ViewData["id"] = user.id;
+            ViewData["UserAccountName"] = user.UserAccountName;
+            ViewData["UserMobliePhone"] = user.UserMobliePhone;
+            ViewData["UserEmail"] = user.UserEmail;
             return View();
         }
         #endregion
@@ -205,6 +206,38 @@ namespace XM.Web.Controllers
         {
             UserEntity user = Session["User"] as UserEntity;
             return GetFormJson(user.id.ToString());
+        }
+        #endregion
+        #region 修改当前用户信息
+        /// <summary>
+        ///  修改当前用户信息
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult UpdataInfo()
+        {
+            UserEntity user = Session["User"] as UserEntity;
+            string email = Request["UserEmail"];
+            bool boo = DALUtility.User.JudgeEmail(user.id, email);
+            if (boo)
+            {
+                Dictionary<string, object> paras = new Dictionary<string, object>();
+                paras["id"] = user.id;
+                paras["user_email"] = email;
+                paras["user_mp"] = Request["UserMobliePhone"];
+                int num = DALUtility.User.Save(paras);
+                if (num > 0)
+                {
+                    return OperationReturn(true, "修改成功！");
+                }
+                else
+                {
+                    return OperationReturn(false, "修改失败！");
+                }
+            }
+            else
+            {
+                return OperationReturn(false, "邮箱重复");
+            }
         }
         #endregion
     }

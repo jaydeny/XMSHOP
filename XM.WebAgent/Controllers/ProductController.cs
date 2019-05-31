@@ -72,6 +72,7 @@ namespace XM.WebAgent.Controllers
             param.Add("pi", pageindex);
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
+            param.Add("order", order);
             param.Add("goods_Name", Request["goods_Name"]);
             param.Add("status_id", 3);
             param.Add("type_id", Request["type_id"] == "" ? null : Request["type_id"]);

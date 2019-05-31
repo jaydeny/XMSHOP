@@ -26,11 +26,11 @@ namespace XM.WebVip.Controllers
             string EndDate = Request["EndDate"] == null ? "" : Request["EndDate"];
 
             string action = "GetRecordCollect";
-            string strKey = Md5.GetMd5(AN + StartDate + EndDate + KEY);
+            string strKey = Md5.GetMd5(AN + StartDate + EndDate + GameUtil.KEY);
             string[] paras = { AN, StartDate, EndDate };
 
             string param = GameReturn(action, strKey, paras);
-            var result = HttpPost(param);
+            var result = GameUtil.HttpPost(param);
 
             return Content(result);
         }
@@ -57,11 +57,11 @@ namespace XM.WebVip.Controllers
             string EndDate = (DateTime.Parse(Request["EndDate"]).AddHours(23).AddMinutes(59)).ToString() == null ? "" : (DateTime.Parse(Request["EndDate"]).AddHours(23).AddMinutes(59)).ToString();
 
             string action = "GetRecord";
-            string strKey = Md5.GetMd5(AN + GameID + StartDate + EndDate + PIndex + "" + PSize + KEY);
+            string strKey = Md5.GetMd5(AN + GameID + StartDate + EndDate + PIndex + "" + PSize + GameUtil.KEY);
             string[] paras = { AN, GameID, StartDate, EndDate, PIndex, "", PSize };
 
             string param = GameReturn(action, strKey, paras);
-            var result = HttpPost(param);
+            var result = GameUtil.HttpPost(param);
             return Content(result);
         }
 

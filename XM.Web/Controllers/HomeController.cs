@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using XM.Comm;
 using XM.Model;
 using XM.Web.Domain;
 
@@ -76,30 +77,16 @@ namespace XM.Web.Controllers
         }
         public ActionResult GetBar()
         {
-            Dictionary<string, object> paras = new Dictionary<string, object>();
-            paras.Add("year", "2019");
-            paras.Add("startMonth", Request["startMonth"] == null ? "" : Request["startMonth"]);
-            paras.Add("endMonth", Request["endMonth"] == null ? "" : Request["endMonth"]);
-            paras.Add("agent_AN", Request["agent_AN"] == null ? "" : Request["agent_AN"]);
-            var _month = DALUtility.First.GetStore<MonthEntity>(paras);
+            string action = "GetRecordCollectByAllAgency";
 
-            string date = "2019-05";
-            string agent_AN = "agent0";
-            int Integral = 20000;
-            var _game = new
-            {
-                date = date,
-                total = Integral,
-                agent_AN = agent_AN
-            };
+            string starttime = Request["starttime"] == null ? "2019-04" : Request["starttime"];
+            string endtime = Request["endtime"] == null ? "2019-06" : Request["endtime"];
 
-
-            var data = new
-            {
-                month = _month,
-                game = _game
-            };
-            return Content(JsonConvert.SerializeObject(data));
+            string[] paras = { starttime, endtime };
+            string key = Md5.GetMd5(paras[0] + paras[1]  + KEY);
+            string param = GameReturn(action, key, paras);
+            var result = HttpPost(param);
+            return Content(result);
             
         }
     }

@@ -15,7 +15,7 @@ function gridList() {
             { label: '账户', name: 'VipAccountName', width: 80, align: 'left' },
             { label: '手机', name: 'VipMobliePhone', width: 100, align: 'left' },
             { label: '邮箱', name: 'VipEmail', width: 140, align: 'left' },
-            { label: '代理编号', name: 'AgentID', width: 80, align: 'left' },
+            { label: '代理账号', name: 'AgentAccountName', width: 80, align: 'left' },
             {
                 label: '创建时间', name: 'CreateTime', width: 140, align: 'left',
                 formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }

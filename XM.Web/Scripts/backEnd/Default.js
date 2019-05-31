@@ -1,6 +1,7 @@
 ﻿$(function () {
     GetSalaryChart();
     GetLeaveChart();
+    GetReportForm();
 });
 function GetSalaryChart() {
     var labels = [];
@@ -70,78 +71,66 @@ function GetLeaveChart() {
         type: "POST",
         dataType: "json",
         data: {
-            startMonth: date.getMonth() - 1,
-            endMonth: date.getMonth() + 1,
-            agent_AN: $("#agent option:selected").val()
+            starttime: date.getFullYear() + "-" + (date.getMonth()),
+            endtime: date.getFullYear() + "-" + (date.getMonth() + 2)
         },
         success: function (data) {
-            obj = data;
-            for (i = 0; i < obj.month.length; i++) {
-                if (labels.indexOf(obj.month[i].date) === -1) {
-                    labels.push(obj.month[i].date);
+            obj = data.result;
+            console.log(obj);
+            for (i = 0; i < obj.length; i++) {
+                if (labels.indexOf(obj[i].Date) === -1) {
+                    labels.push(obj[i].Date);
                 }
             }
             console.log(labels);
-            if (obj.month.length > 3) {
-                var $select = $("select[name='agent']").html("");
-                for (i = 0; i < obj.month.length; i++) {
-                    if (locations.indexOf(obj.month[i].agent_AN) === -1) {
-                        locations.push(obj.month[i].agent_AN);
-                        $select.append("<option value=" + obj.month[i].agent_AN + ">" + obj.month[i].agent_AN + "</option>");
-                    }
-                }
-            } else {
-                for (i = 0; i < obj.month.length; i++) {
-                    if (locations.indexOf(obj.month[i].agent_AN) === -1) {
-                        locations.push(obj.month[i].agent_AN);
-                        //$select.append("<option value=" + obj.month[i].agent_AN + ">" + obj.month[i].agent_AN + "</option>");
-                    }
+            for (i = 0; i < obj.length; i++) {
+                if (locations.indexOf(obj[i].Agent) === -1) {
+                    locations.push(obj[i].Agent);
                 }
             }
             console.log(locations);
             locations.forEach(function (location) {
-                obj.month.forEach(function (report) {
-                    if (report.agent_AN === location) {
-                        oos.push(report.total);
+                obj.forEach(function (report) {
+                    if (report.Agent === location) {
+                        oos.push(report.IntegralSum);
                     }
                 })
             });
             console.log(oos);
-            for (i = 0; i < obj.month.length; i++) {
-                datasets.push([oos[i], oos[i + 1], oos[i + 2]]);
-                if (obj.month.length > 3) {
-                    i += 3;
-                }
+            for (j = 0; j < obj.length; j++) {
+                datasets.push({
+                    label: obj[j].Agent,
+                    fillColor: "rgba(" + (j * 5) * 2 + "," + (j + 5) * 3 + "," + (j + 15) * 2 + ",0.2)",
+                    strokeColor: "rgba(" + (j * 5) * 2 + "," + (j + 5) * 3 + "," + (j + 15) * 2 + ",1)",
+                    pointColor: "rgba(" + (j * 5) * 2 + "," + (j + 5) * 3 + "," + (j + 15) * 2 + ",1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(" + (j * 5) * 2 + "," + (j + 5) * 3 + "," + (j + 15) * 2 + ",1)",
+                    data: [oos[j], oos[j + 1], oos[j + 2]]
+                });
+                var $span = $("div[name='game']").append("<span style='margin-left: 10px; font-weight: 500;'></span>");
+                $span.append("<i class='fa fa-square' style='color: " + "rgba(" + (j * 5) * 2 + ", " + (j + 5) * 2 + ", " + (j + 15) * 2 + ", 1)" + "; font-size: 20px; padding-right: 5px; vertical-align: middle; margin-top: -3px;'></i>" + obj[j].Agent);
+                j += 3;
             }
-            console.log(datasets);
-            var doughnutData = {
+            var lineChartData = {
                 labels: labels,
-                datasets: [
-                    {
-                        label: locations[0],
-                        fillColor: "rgba(220,220,220,0.5)",
-                        strokeColor: "rgba(220,220,220,0.8)",
-                        highlightFill: "rgba(220,220,220,0.75)",
-                        highlightStroke: "rgba(220,220,220,1)",
-                        data: [oos[0], oos[1], oos[2]]
-                    },
-                    {
-                        label: obj.game.agent_AN,
-                        fillColor: "rgba(151,187,205,0.5)",
-                        strokeColor: "rgba(151,187,205,0.8)",
-                        highlightFill: "rgba(151,187,205,0.75)",
-                        highlightStroke: "rgba(151,187,205,1)",
-                        data: [0, 0, obj.game.total]
-                    }
-                ]
+                datasets: datasets
             };
             var ctx = document.getElementById("leavechart").getContext("2d");
-            window.myDoughnut = new Chart(ctx).Bar(doughnutData, { responsive: true });
+            window.myLine = new Chart(ctx).Line(lineChartData, {
+                responsive: false,
+                bezierCurve: false
+            });
         }
     });
-    //$("#agent").change(function () {
-    //    console.log($("#agent option:selected").val());
-    //    GetLeaveChart();
-    //});
+
+}
+function GetReportForm() {
+    $("span[name='report']").on("click", function () {
+        //window.location.href = "/Revenue/ReportForm";
+        $("a[data-id='14']").click(function () {
+            alert("ok");
+        })
+    })
 }
 
