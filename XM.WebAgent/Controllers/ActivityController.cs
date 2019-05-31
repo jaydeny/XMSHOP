@@ -63,7 +63,13 @@ namespace XM.WebAgent.Controllers
             var users = DALUtility.Activity.getAllActivity<ActivityEntity>(paras, out totalCount);
             return PagerData(totalCount, users, pageindex, pagesize);
         }
-
+        /// <summary>
+        /// 获取活动编号对应的活动优惠方案
+        /// </summary>
+        /// <returns>
+        ///  1002 满减优惠
+        ///  1003 折扣优惠
+        /// </returns>
         public ActionResult detailedInfo() {
 
             string typeNum = Request["typeNum"];
@@ -84,7 +90,7 @@ namespace XM.WebAgent.Controllers
 
         #endregion
 
-        #region _insert
+        #region _Update
         /// <summary>
         /// 添加/修改活动 
         /// </summary>
