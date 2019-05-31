@@ -36,9 +36,15 @@
                 <button type="button" class="list-group-item list-group-item-action active">
                     {{config.goodsType}}
                 </button>
-                <button type="button" class="list-group-item list-group-item-action">{{config.goodsTypeAll}}</button>
+                <button type="button" class="list-group-item list-group-item-action" v-on:click="chageType(null)">{{config.goodsTypeAll}}</button>
                 <div>
-                    <button type="button" class="list-group-item list-group-item-action">手机</button>
+                    @{
+                        var list = ViewData["AGoodsType"] as List<XM.Model.DicEntity>;
+                        foreach (XM.Model.DicEntity entity in list)
+                        {
+                            <button type="button" class="list-group-item list-group-item-action"  v-on:click="chageType(@entity.id)" >@entity.name</button>
+                        }
+                    }
                 </div>
             </div>
         </nav>
@@ -52,7 +58,7 @@
                     <p class="card-text"><span>{{obj.GoodsIntro}}</span> </p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">{{config.cardGoodsTime}} <span>{{obj.GoodsCreateTime}}</span> </li>
+                    <li class="list-group-item">{{config.cardGoodsTime}} <span>{{chageTime(obj.GoodsCreateTime)}}</span> </li>
                     <li class="list-group-item">{{config.cardGoodsReferencePrice}} <span>{{tranfoMoney(obj.GoodsPrice)}}</span> </li>
                     <li class="list-group-item">{{config.cardGoodsPrice}} <input type="number" class="price" /> </li>
                 </ul>
@@ -69,7 +75,7 @@
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="inputGroupSelect01">显示条数</label>
                             </div>
-                            <select class="custom-select" id="inputGroupSelect01" v-model="All_count">
+                            <select class="custom-select" id="inputGroupSelect01" v-on:click="All_btn_sub()" v-model="All_count">
                                 <option value="10">10</option>
                                 <option value="20">20</option>
                                 <option value="50">50</option>

@@ -6,6 +6,7 @@ new Vue({
         page: 1,
         rows: 10,
         count: '',
+        page_count:'',
 
         dataTable: [],
         dataList: [],
@@ -28,7 +29,7 @@ new Vue({
         this.endTime = date.getFullYear() + "-" + dateMonth + "-" + date.getDate();
         this.status = 6;
         const param = {
-            endTime: date.getFullYear() + "-" + dateMonth + "-" + (1 + date.getDate()),
+            endTime: this.retEndTime(),
             status: 6,
         }
         const url = "/Examine/QryDayRechargeTotal";
@@ -36,6 +37,7 @@ new Vue({
     },
     computed: {
         total_page() {
+            this.page_count = Math.ceil(this.count / this.rows);
             return Math.ceil(this.count / this.rows)
         }
     },
@@ -58,9 +60,10 @@ new Vue({
                 dataType: 'json',
                 data: param
             }).then((data) => {
-
+                
                 this.dataList = data.rows;
                 this.count = data.total;
+                this.page_count = Math.ceil(this.count / this.rows);
             });
         },
         //进行日期排序
@@ -71,6 +74,7 @@ new Vue({
                 return ((x < y) ? -1 : ((x > y) ? 1 : 0));
             });
         },
+        // 选择显示
         show(e) {
             $("#home_tab")[0].className = "nav-item nav-link"
             $("#profile_tab")[0].className = "nav-item nav-link"
@@ -81,7 +85,7 @@ new Vue({
             const date = new Date(this.endTime);
             let param = {
                 "startTime": this.startTime,
-                "endTime": date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (1 + date.getDate())
+                "endTime": this.retEndTime()
             }
             if (e.target.id == 'home_tab') {
                 param.status = 6
@@ -97,6 +101,12 @@ new Vue({
                 this.btn_show = false
             }
             this.onLoadData("/Examine/QryDayRechargeTotal", param)
+        },
+        //返回最后的正确时间
+        retEndTime() {
+            let date = new Date(this.endTime);
+            date.setDate(date.getDate()+1);
+            return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
         },
         //页面跳转
         jumpData(date) {
@@ -115,18 +125,20 @@ new Vue({
             date.setDate(date.getDate() + 1);
             const param = {
                 "startTime": this.startTime,
-                "endTime": date.getFullYear() + "-" + dateMonth + "-" + 1 + date.getDate(),
+                "endTime": this.retEndTime(),
                 "status": this.status,
             }
             const url = "/Examine/QryDayRechargeTotal";
             this.onLoadData(url, param);
         },
+        //根据名字进行搜索
         schByName() {
             this.page = 1;
             this.btn_sub();
         },
         //通过审核方法
-        btn_adopt(id, integral, name) {
+        btn_adopt(id, integral, name, $event) {
+            $event.stopPropagation();
             const param = {
                 "type": 0,
                 "id": id,
@@ -136,7 +148,8 @@ new Vue({
             this.onExamine(param);
         },
         //回退审核的方法
-        btn_Backward(id, integral, name) {
+        btn_Backward(id, integral, name, $event) {
+            $event.stopPropagation();
             const param = {
                 "type": 1,
                 "id": id,
@@ -146,7 +159,8 @@ new Vue({
             this.onExamine(param);
         },
         //审核请求方法
-        onExamine(param) {
+        onExamine(param ) {
+          
             $.ajax({
                 url: "/Examine/RechargeAudit",
                 data: param,
@@ -159,7 +173,8 @@ new Vue({
                 }
                 this.onLoadDayData("/Examine/QryDayRechargeForm", param);
                 alert(data.msg);
-            });
+                });
+            
         },
         //审核表单详情
         show_Details(index) {
@@ -180,7 +195,7 @@ new Vue({
                 alert("已经是第一页了")
             } else {
                 this.page--;
-                this.getNoticData();
+                this.btn_sub();
             }
         },
         //下一页
@@ -189,7 +204,7 @@ new Vue({
                 alert("已经是最后一页了")
             } else {
                 this.page++;
-                this.getNoticData();
+                this.btn_sub();
             }
         },
         btn_sub() {

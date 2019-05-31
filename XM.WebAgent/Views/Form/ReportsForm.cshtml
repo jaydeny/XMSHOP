@@ -104,7 +104,7 @@
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">显示条数</label>
                                 </div>
-                                <select class="custom-select" id="inputGroupSelect01" v-model="rows">
+                                <select class="custom-select" id="inputGroupSelect01" v-on:click="btn_sub()" v-model="rows">
 
                                     <option value="10">10</option>
                                     <option value="20">20</option>

@@ -57,45 +57,64 @@
         },
         //发布公告请求
         send() {
-            let str = '';
+            if (this.checkData()) {
+                let str = '';
 
-            this.seleTable.forEach((data) => {
-                str += data.VipAccountName + ',';
-            })
-            str = str.substring(0, str.length - 1);
-            const param = {
-                title: this.title,
-                content: this.content,
-                StartDate: this.startTime,
-                EndDate: this.endTime,
-                receiver: str
+                this.seleTable.forEach((data) => {
+                    str += data.VipAccountName + ',';
+                })
+                str = str.substring(0, str.length - 1);
+                if (str == '') {
+                    alert("请选择你要发送公告的会员")
+                } else {
+                    const param = {
+                        title: this.title,
+                        content: this.content,
+                        StartDate: this.startTime,
+                        EndDate: this.endTime,
+                        receiver: str
+                    }
+                    $.ajax({
+                        url: "/Notice/ReleaseNotic",
+                        data: param,
+                        dataType: 'json'
+                    }).then((data) => {
+                        alert(data.msg);
+                        location.href = "/Notice/NoticRecord"
+                    });
+                }
             }
-            $.ajax({
-                url: "/Notice/ReleaseNotic",
-                data: param,
-                dataType: 'json'
-            }).then((data) => {
-                alert(data.msg);
-                location.href = "/Notice/NoticRecord"
-            });
         },
         //给所有会员发送公告
         sendAll() {
-            const param = {
-                title: this.title,
-                content: this.content,
-                StartDate: this.startTime,
-                EndDate: this.endTime,
-                receiver: null
+            if (this.checkData()) {
+                const param = {
+                    title: this.title,
+                    content: this.content,
+                    StartDate: this.startTime,
+                    EndDate: this.endTime,
+                    receiver: null
+                }
+                $.ajax({
+                    url: "/Notice/ReleaseNotic",
+                    data: param,
+                    dataType: 'json'
+                }).then((data) => {
+                    alert(data.msg);
+                    location.href = "/Notice/NoticRecord"
+                });
             }
-            $.ajax({
-                url: "/Notice/ReleaseNotic",
-                data: param,
-                dataType: 'json'
-            }).then((data) => {
-                alert(data.msg);
-                location.href = "/Notice/NoticRecord"
-            });
+        },
+        checkData() {
+            if (this.title.trim() == '') {
+                alert("标题不能为空");
+                return false;
+            }
+            else if (this.content.trim() == '') {
+                alert("内容不能为空");
+                return false;
+            }
+            return true;
         },
         //上一页
         before() {

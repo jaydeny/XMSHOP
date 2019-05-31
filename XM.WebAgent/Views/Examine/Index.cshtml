@@ -71,8 +71,8 @@
                                     <td>{{data.vip_AN}}</td>
                                     <td>{{data.recharge_price}}</td>
                                     <td v-show="btn_show">
-                                        <button class="btn  btn-default collapsed" v-on:click="btn_adopt(data.id,data.recharge_integral,data.vip_AN)">通过</button>
-                                        <button class="btn  btn-default collapsed" v-on:click="btn_Backward(data.id,data.recharge_integral,data.vip_AN)">回退</button>
+                                        <button class="btn  btn-default collapsed" v-on:click="btn_adopt(data.id,data.recharge_integral,data.vip_AN,$event)">通过</button>
+                                        <button class="btn  btn-default collapsed" v-on:click="btn_Backward(data.id,data.recharge_integral,data.vip_AN,$event) ">回退</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -88,8 +88,7 @@
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">显示条数</label>
                                 </div>
-                                <select class="custom-select" id="inputGroupSelect01" v-model="rows">
-
+                                <select class="custom-select" id="inputGroupSelect01" v-on:click="btn_sub()" v-model="rows">
                                     <option value="10">10</option>
                                     <option value="20">20</option>
                                     <option value="50">50</option>

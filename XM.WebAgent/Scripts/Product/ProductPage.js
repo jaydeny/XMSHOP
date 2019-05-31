@@ -29,7 +29,9 @@ var VM = new Vue({
         editName: "",
         editIntro: "",
         editPrice: "",
-        editStatus: "1"
+        editStatus: "1",
+        //商品类型ID
+        typeID : ''
     },
     created: function () {
         //加载配置文件，将数据填充
@@ -235,10 +237,11 @@ var VM = new Vue({
         },
         //提交页
         btn_sub() {
-            console.log(this.pageSize)
+           // console.log(this.pageSize)
             const param = {
                 "page": this.pageSize,
-                "rows": this.count
+                "rows": this.count,
+                type_id: this.typeID
             }
             this.onloadMyGoodsData(this.config.goodsUrl.myGoods, param);
         },
@@ -266,11 +269,13 @@ var VM = new Vue({
         },
         //提交页
         All_btn_sub() {
-            console.log(this.All_pageSize)
-            console.log(this.All_count)
+            //console.log(this.All_pageSize)
+            //console.log(this.All_count)
             const param = {
                 "page": this.All_pageSize,
-                "rows": this.All_count
+                "rows": this.All_count,
+                type_id: this.typeID
+           
             }
             this.onloadData(this.config.goodsUrl.getAllGoods, param);
         },
@@ -287,6 +292,7 @@ var VM = new Vue({
             this.editStatus = product.status_id;
             $('#AlertAgentGoods').modal('show');
         },
+        // 修改代理商品
         Goods_Alert_Submir() {
 
             //定义参数集
@@ -317,6 +323,24 @@ var VM = new Vue({
 
             })
             $('#AlertAgentGoods').modal('hide');
+        },
+        //时间转换
+        chageTime(time) {
+            return time.replace("T", " ").substring(0, 19)
+        },
+        chageType(id) {
+            this.typeID = id;
+            if (id == null) {
+                this.typeID = null;
+            }
+            //console.log(id)
+            if (this.myGoodsShow) {
+                //console.log(true)
+                this.All_btn_sub();
+            } else {
+                //console.log(false)
+                this.btn_sub();
+            }
         }
     }
 });
