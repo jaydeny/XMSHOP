@@ -346,7 +346,7 @@ namespace XM.WebVip.Controllers
         /// 修改时间：2019-
         /// 功能：安全退出
         /// </summary>
-        public ActionResult RemoveSession()
+        public ActionResult RemoveSession() 
         {
             pairs.Remove(Session["AN"].ToString());
             Session.Remove("AN");

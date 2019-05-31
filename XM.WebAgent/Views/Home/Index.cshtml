@@ -1,9 +1,9 @@
 ﻿
 
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "Index";
+    ViewBag.Title = "Index";
 }
 
 <!DOCTYPE html>
@@ -15,7 +15,15 @@
             <h1 class="h2">会员管理</h1>
 
         </div>
-        <div><button type="button" class="btn btn-secondary" onclick="editVIP" data-toggle="modal" data-target="#exampleModalCenter">添加会员</button>  <input type="text" class="form-control" style="display: inline-table " onkeypress="searches()" id="search"><button class="btn btn-primary mb-2" onclick="searches()">搜索</button> </div>
+        <div>
+            <button type="button" class="btn btn-secondary" onclick="editVIP" data-toggle="modal" data-target="#exampleModalCenter">
+                添加会员
+            </button>
+            <input type="text" class="form-control" style="display: inline-table " onkeypress="searches()" id="search">
+            <button class="btn btn-primary mb-2" onclick="searches()">
+                搜索
+            </button>
+        </div>
 
 
         <div class="table-responsive">
@@ -37,27 +45,24 @@
         @*分页*@
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-
                 <li class="page-item">
-                    <span class="page-link">
-                        显示条数
-                        <select class="form-control form-control-sm" id="btn_num_Rows_count" value="10">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="btn_num_Rows_count">显示条数</label>
+                        </div>
+                        <select class="custom-select" id="btn_num_Rows_count" value="10">
                             <option value="10">10</option>
                             <option value="20">20</option>
                             <option value="50">50</option>
                         </select>
-                    </span>
+                    </div>
                 </li>
-
                 <li class="page-item" id="before">
                     <a class="page-link" href="#" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                         <span class="sr-only">上一页</span>
                     </a>
                 </li>
-
-
-
                 <li class="page-item">
                     <a class="page-link" href="#" id="end" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
@@ -67,10 +72,12 @@
                 <li class="page-item"><a class="page-link" id="num_Page_Count" href="#"></a></li>
                 <li class="page-item"><a class="page-link" id="Page_Count" href="#"></a></li>
                 <li class="page-item">
-                    <span class="page-link">
-                        跳转页码
-                        <select class="form-control form-control-sm" id="btn_num_Page_count" value="1"></select>
-                    </span>
+                    <div class="input-group mb-3">
+                        <select class="custom-select" id="btn_num_Page_count" value="1"></select>
+                        <div class="input-group-append">
+                            <label class="input-group-text" for="btn_num_Page_count">显示条数</label>
+                        </div>
+                    </div>
                 </li>
                 <li class="page-item"><a class="page-link" id="btn_num_Page" href="#">确定</a></li>
 
@@ -105,13 +112,13 @@
                         <div class="form-group row">
                             <label for="inputPassword" class="col-sm-2 col-form-label">手机号</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="vip_mp" placeholder="手机号">
+                                <input type="tel" class="form-control" id="vip_mp" placeholder="手机号">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputPassword" class="col-sm-2 col-form-label">邮箱</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="vip_email" placeholder="邮箱">
+                                <input type="email" class="form-control" id="vip_email" placeholder="邮箱">
                             </div>
                         </div>
                         <div class="form-group row">

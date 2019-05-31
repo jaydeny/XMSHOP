@@ -366,6 +366,8 @@ namespace XM.WebVip.Controllers
             //当笔消费优惠后余下积分
             int intExpenseIntegral = intExpense % AcTarget;
 
+           //List<ParticipationAcEntity> list = DALUtility.MDbS.List<ParticipationAcEntity>("XMShop","activity",x => x.Vip_AN == AN,null,null );
+
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("AcFull", AcFull);
             param.Add("AcTarget", AcTarget);

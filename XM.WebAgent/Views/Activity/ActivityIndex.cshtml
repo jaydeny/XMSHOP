@@ -1,0 +1,56 @@
+﻿
+<body>
+    <div id="app">
+        <main role="main" class="col-md-12 ml-sm-auto col-lg-12 pt-3 px-4">
+            <div>
+                <nav>
+                    <div class="nav nav-tabs" role="tablist">
+                        <a class="nav-item nav-link active" id="home_tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">发布活动</a>
+                    </div>
+                </nav>
+
+
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-body rounded-soft bg-gradient">
+                    开始时间: <input type="date" v-model="startTime" style="margin:5px" /> <br />
+                    结束时间: <input type="date" v-model="endTime" style="margin:5px" />
+                    <div class="input-group mb-3" style="margin-top:5px">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">标题</span>
+                        </div>
+                        <input type="text" class="form-control" v-model="title" placeholder="标题" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">内容</span>
+                        </div>
+                        <textarea class="form-control" aria-label="With textarea" v-model="content"></textarea>
+                    </div>
+
+                    <div class="input-group mb-6" style="margin-top:5px">
+                        <div class="form-group">
+                            <label>优惠活动方案</label>
+                            <select class="form-control" v-model="typeNum">
+                                <option v-for="(obj,index) in activityTypeTable" :key="index" :value="obj.id">{{obj.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group mb-6" style="margin-top:5px" id="container">
+
+                    </div>
+                    <div class="input-group mb-2" style="margin-top:5px">
+                        <input type="number" min="1" max="100" class="form-control" v-model="countNum" placeholder="优惠次数">
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-secondary btn-lg" style="margin-top:10px;margin-left:90px" v-on:click="send()">一键发布活动</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+    <script src="~/Scripts/Activity/Index.js"></script>
+</body>

@@ -151,15 +151,22 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Phone\Content\Home\index.css" />
+    <Content Include="Areas\Phone\Content\Home\login.css" />
     <Content Include="Areas\Phone\Content\Model\reset.css" />
     <Content Include="Areas\Phone\Content\Product\classify.css" />
     <Content Include="Areas\Phone\Content\search\sousSearch.css" />
     <Content Include="Areas\Phone\Content\ShoppingCart\cart.css" />
     <Content Include="Areas\Phone\Content\VipInfo\personal.css" />
+    <Content Include="Areas\Phone\img\Headportrait.jpg" />
+    <Content Include="Areas\Phone\img\icon-psd.png" />
+    <Content Include="Areas\Phone\img\icon-user.png" />
+    <Content Include="Areas\Phone\img\search3.png" />
+    <Content Include="Areas\Phone\img\topback.png" />
     <Content Include="Areas\Phone\Script\Home\scrolltopcontrol.js" />
     <Content Include="Areas\Phone\Script\Home\TouchSlide.js" />
     <Content Include="Areas\Phone\Script\Model\jquery-3.4.0.min.js" />
     <Content Include="Areas\Phone\Script\ShoppingCart\cart.js" />
+    <Content Include="Areas\Phone\Script\vue.min.js" />
     <Content Include="Content\bootstrap-3.3.7\css\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-3.3.7\css\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap-3.3.7\css\bootstrap.css" />
@@ -205,6 +212,8 @@
     <Content Include="Areas\Phone\Views\Shared\mobile_model.cshtml" />
     <Content Include="Areas\Phone\Views\web.config" />
     <Content Include="Areas\Phone\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Phone\resources\Home\Index.json" />
+    <Content Include="Areas\Phone\Views\PhoneHome\Login_MBV.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="image\1.png" />
     <Content Include="image\10.png" />
@@ -348,7 +357,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Phone\img\" />
     <Folder Include="Areas\Phone\Models\" />
     <Folder Include="Models\" />
     <Folder Include="Views\GameHome\" />

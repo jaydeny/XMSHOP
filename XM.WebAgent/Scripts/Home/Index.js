@@ -78,7 +78,7 @@ function addOption(page_count) {
         op.text(i + 1);
         num_page.append(op)
     }
-    btn_num_Page_count.val(count);
+   // btn_num_Page_count.val(count);
 }
 
 //封装查询功能
@@ -237,6 +237,7 @@ function showList(page, objs) {
     //将条数提取出去
     allSource = page;
     $("#tbody").empty();
+    btn_num_Page_count.val(count);
     //进行数据可视化封装
     $.each(objs, function (index, obj) {
        

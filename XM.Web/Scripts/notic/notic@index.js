@@ -42,8 +42,12 @@ function gridList() {
         colModel: [
             { label: '标题', name: 'title', width: 100, align: 'center'},
             { label: '内容', name: 'content', width: 240, align: 'center' },
-            { label: '开始时间', name: 'starttime', width: 160, align: 'center' },
-            { label: '结束时间', name: 'endtime', width: 160, align: 'center' },
+            {
+                label: '开始时间', name: 'starttime', width: 160, align: 'center',
+                formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' } },
+            {
+                label: '结束时间', name: 'endtime', width: 160, align: 'center',
+                formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' } },
             { label: '发布人', name: 'publisher', width: 80, align: 'center' },
             {
                 label: '操作', name: '_id', width: 160, align: 'center',
@@ -98,5 +102,7 @@ function dynamicTab(data) {
         $trTamp.appendTo($gridList);
     })
 };
+
+
 
 

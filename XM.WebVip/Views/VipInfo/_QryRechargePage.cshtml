@@ -7,6 +7,7 @@
 <head>
     <title>游戏记录</title>
     <link rel="stylesheet" href="~/Content/CSS/vipinfo.css" />
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body>
@@ -21,10 +22,10 @@
         结束时间:<input type="date" id="EndDate" value="@ViewData["EndWeek"]" />
         <button id="Query" onclick="normal()">查询</button>
 
-        <button id="ThisWeek" onclick="ThisWeek()" class="btn recharge-confirm" >本周</button>
-        <button id="LastWeek" onclick="LastWeek()" class="btn recharge-confirm" >上周</button>
-        <button id="ThisMonth" onclick="ThisMonth()" class="btn recharge-confirm" >本月</button>
-        <button id="LastMonth" onclick="LastMonth()" class="btn recharge-confirm" >上月</button>
+        <button id="ThisWeek" onclick="ThisWeek()" class="btn recharge-confirm">本周</button>
+        <button id="LastWeek" onclick="LastWeek()" class="btn recharge-confirm">上周</button>
+        <button id="ThisMonth" onclick="ThisMonth()" class="btn recharge-confirm">本月</button>
+        <button id="LastMonth" onclick="LastMonth()" class="btn recharge-confirm">上月</button>
         <div>
             <div class="Recharge-list">
                 <p class="empty-order hidden" id="empty_order">当前无近期订单，前往<a href="/GameHome/Login">游戏</a></p>
@@ -45,14 +46,16 @@
             <ul class="pagination">
 
                 <li class="page-item">
-                    <span class="page-link">
-                        显示条数
-                        <select class="form-control form-control-sm" id="btn_num_Rows_count" value="10">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="btn_num_Rows_count">显示条数</label>
+                        </div>
+                        <select class="custom-select" id="btn_num_Rows_count" value="10">
                             <option value="10">10</option>
                             <option value="20">20</option>
                             <option value="50">50</option>
                         </select>
-                    </span>
+                    </div>
                 </li>
 
                 <li class="page-item">
@@ -69,10 +72,12 @@
                     </a>
                 </li>
                 <li class="page-item">
-                    <span class="page-link" >
-                        跳转页码
-                        <select class="form-control form-control-sm" id="btn_num_Page_count" value="1"></select>
-                    </span>
+                    <div class="input-group mb-3">
+                        <select class="custom-select" id="btn_num_Page_count" value="1"></select>
+                        <div class="input-group-append">
+                            <label class="input-group-text" for="btn_num_Page_count">显示条数</label>
+                        </div>
+                    </div>
                 </li>
                 <li class="page-item"><a class="page-link" id="btn_num_Page" href="#">确定</a></li>
 

@@ -34,6 +34,10 @@ namespace XM.Web.Controllers
                 x => 1==1,
                 null, pageIndex, pageSize, null, true);
             
+
+           List<NoticEntity> nes = pageList.Items;
+           
+
             return PagerData(pageList.Total, pageList.Items, pageList.PageIndex, pageList.PageSize);
         }
 

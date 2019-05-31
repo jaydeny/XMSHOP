@@ -129,6 +129,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\AgentInfoController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ExamineController.cs" />
@@ -153,6 +154,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\Activity\Index.js" />
+    <Content Include="Scripts\Activity\Record.js" />
+    <Content Include="Scripts\AgentInfo\AgentPersonalCenter.js" />
     <Content Include="Scripts\axios.js" />
     <Content Include="Scripts\axios.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -160,7 +164,6 @@
     <Content Include="Content\StaticJson\list.json" />
     <Content Include="Content\StaticJson\ReportForm.json" />
     <Content Include="Content\StaticJson\ReportsForm.json" />
-    <Content Include="Content\StaticJson\FormList.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\echarts.js" />
@@ -182,6 +185,9 @@
     <Content Include="Scripts\ECharts\chart\wordCloud.js" />
     <Content Include="Scripts\ECharts\echarts-all.js" />
     <Content Include="Scripts\ECharts\echarts.js" />
+    <Content Include="Scripts\Examine\Index.js" />
+    <Content Include="Scripts\Form\ReportsForm.js" />
+    <Content Include="Scripts\Game\GameForm.js" />
     <Content Include="Scripts\Home\Index.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -194,6 +200,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Notice\Index.js" />
+    <Content Include="Scripts\Notice\NoticRecord.js" />
+    <Content Include="Scripts\Product\ProductPage.js" />
     <Content Include="Scripts\vue-resource.common.js" />
     <Content Include="Scripts\vue-resource.es2015.js" />
     <Content Include="Scripts\vue-resource.js" />
@@ -220,6 +229,8 @@
     <Content Include="Views\Notice\Index.cshtml" />
     <Content Include="Views\Notice\NoticRecord.cshtml" />
     <Content Include="Views\Examine\Index.cshtml" />
+    <Content Include="Views\Activity\ActivityIndex.cshtml" />
+    <Content Include="Views\Activity\ActivityRecord.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -267,14 +278,6 @@
     <ProjectReference Include="..\XM.MongoDB\XM.MongoDB.csproj">
       <Project>{153DF1AC-444D-4E37-97AD-2C4903E06B74}</Project>
       <Name>XM.MongoDB</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\XM.WebVip\XM.WebVip.csproj">
-      <Project>{91E5E04E-3DC3-4EFF-9241-80890FA86457}</Project>
-      <Name>XM.WebVip</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\XM.Web\XM.Web.csproj">
-      <Project>{4BA20083-0E28-4353-A1F2-53A7E1C93872}</Project>
-      <Name>XM.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

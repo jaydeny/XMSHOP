@@ -70,12 +70,14 @@ namespace XM.Web.Controllers
 
         }
         #endregion
+
         #region 游戏专用
         protected string GameReturn(string _action, string _key, string[] _paras, string _culture = "zh-cn")
         {
             return JsonConvert.SerializeObject(new { action = _action, key = _key, paras = _paras, culture = _culture });
 
         }
+
         public static string KEY = "c33e90a9-0714-48ee-89cc-8be9aff00710";
         /// <summary>
         /// 指定Post地址使用Get 方式获取全部字符串
@@ -85,7 +87,7 @@ namespace XM.Web.Controllers
         /// 
         public static string HttpPost(string reqUrl, string postData)
         {
-            Debug.WriteLine("+++++++++++++++++++++++");
+           
             Stopwatch sw = new Stopwatch();
             sw.Start();
             HttpWebRequest request = null;

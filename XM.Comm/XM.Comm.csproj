@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Framework">
+      <HintPath>..\XM.MongoDB\Lib\Framework.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
@@ -71,6 +74,7 @@
     <Compile Include="CookiesHelper.cs" />
     <Compile Include="DataConvert.cs" />
     <Compile Include="EmailHelper.cs" />
+    <Compile Include="GameUtil.cs" />
     <Compile Include="GuidExt.cs" />
     <Compile Include="ImgHelper.cs" />
     <Compile Include="JsonHelper.cs" />
@@ -98,6 +102,9 @@
     <Folder Include="bin\Debug\" />
     <Folder Include="bin\Release\" />
     <Folder Include="obj\Debug\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,111 @@
+﻿
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>XMSHOP</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link href="~/Areas/Phone/Content/Home/login.css" rel="stylesheet" type="text/css" />
+    <script src="~/Areas/Phone/Script/vue.min.js"></script>
+    <script src="~/Areas/Phone/Script/Model/jquery-3.4.0.min.js"></script>
+</head>
+<body>
+    <section class="aui-flexView" id="app">
+        <header class="aui-navBar aui-navBar-fixed">
+            <a href="history.go(-1)" class="aui-navBar-item">
+                <i class="icon icon-return"></i>
+            </a>
+            <div class="aui-center">
+                <span class="aui-center-title">XMSHOP</span>
+            </div>
+
+        </header>
+        <section class="aui-scrollView">
+            <div class="aui-entry-box">
+                <div class="aui-entry-head">
+                    <div class="aui-entry-img">
+
+                    </div>
+                    <div class="aui-flex-item">
+                        <div class="aui-flex b-line">
+                            <div class="aui-flex-icon">
+                                <img src="~/Areas/Phone/img/icon-user.png" alt="">
+                            </div>
+                            <div class="aui-flex-box">
+                                <input type="text" v-model="username" placeholder="用户名/邮箱/手机">
+                            </div>
+                        </div>
+                        <div class="aui-flex">
+                            <div class="aui-flex-icon">
+                                <img src="~/Areas/Phone/img/icon-psd.png" alt="">
+                            </div>
+                            <div class="aui-flex-box">
+                                <input type="password" v-model="psd" placeholder="密码">
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div>{{msg}}</div>
+                    <div class="aui-entry-button">
+                        <button v-on:click="login()">登录</button>
+                    </div>
+                    <div class="aui-entry-forget">
+                        <a href="javascript:;">忘记密码？</a>
+                    </div>
+                </div>
+                <div class="aui-entry-text">
+                    <p>第三方快速登录</p>
+                </div>
+                <div class="aui-entry-signs">
+                    <button> <i class="icon icon-wx"></i> 微信</button>
+                    <button style="color:#38a9d3"><i class="icon icon-qq"></i>QQ</button>
+                </div>
+            </div>
+        </section>
+    </section>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                username: "vip00",
+                psd: "vip00",
+                msg:""
+            },
+            methods: {
+                //登录请求
+                login() {
+                    const param = {
+                        name: this.username,
+                        password: this.psd
+                    }
+                    $.ajax({
+                        url: "/Phone/PhoneHome/SignIn_MB",
+                        method: 'post',
+                        data: param,
+                        dataType: 'json'
+                    }).then((data) => {
+                       
+                        if (data.success) {
+                            //跳转到个人首页
+                            localStorage.setItem("name", this.username);
+                            location.href = "/Phone/PhoneVipInfo/InfoPage_MB"
+                        } else {
+                            this.msg = "账号或密码不正确";
+                        }   
+                    });
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>
+
