@@ -15,9 +15,9 @@ namespace XM.Comm
     public class GameUtil
     {
         //连接键
-        private readonly string KEY = "GameKey".ValueOfAppSetting();
+        public readonly static string KEY = "GameKey".ValueOfAppSetting();
         //游戏端API接口URL
-        private readonly string GameUrl = "GameUrl".ValueOfAppSetting();
+        private readonly static string GameUrl = "GameUrl".ValueOfAppSetting();
 
 
         /// <summary>
@@ -39,9 +39,88 @@ namespace XM.Comm
         /// <param name="reqUrl">游戏端接口URL</param>
         /// <param name="postData">加密成string的请求参数</param>
         /// <returns>游戏端产出的json字符串</returns>
-        protected string HttpPost(string reqUrl, string postData)
+        public string HttpPost(string reqUrl , string postData)
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            HttpWebRequest request = null;
+            try
+            {
+                if (reqUrl.IndexOf("?") == -1)
+                {
+                    reqUrl += "?trad=" + DateTime.Now.ToBinary().ToString();
+                }
+                else
+                {
+                    reqUrl += "&trad=" + DateTime.Now.ToBinary().ToString();
+                }
 
+                request = (HttpWebRequest)WebRequest.Create(reqUrl);
+                request.Timeout = 20000;
+                request.ReadWriteTimeout = 20000;
+                request.ServicePoint.ConnectionLimit = int.MaxValue;
+                request.Method = "POST";
+                request.ContentType = "application/json; charset=UTF-8"; //"application/x-www-form-urlencoded";
+
+                byte[] byteData = null;
+                if (!string.IsNullOrEmpty(postData))
+                {
+                    byteData = UTF8Encoding.UTF8.GetBytes(postData);
+                }
+
+                if (byteData != null)
+                {
+                    request.ContentLength = byteData.Length;
+                    using (Stream postStream = request.GetRequestStream())
+                    {
+                        postStream.Write(byteData, 0, byteData.Length);
+                    }
+                }
+                else
+                {
+                    request.ContentLength = 0;
+                }
+                using (WebResponse response = request.GetResponse())
+                {
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                    {
+                        string retText = reader.ReadToEnd();
+
+                        sw.Stop();
+                        return retText;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (sw.IsRunning)
+                {
+                    sw.Stop();
+                }
+                long elapsedTime = sw.ElapsedMilliseconds;
+            }
+            finally
+            {
+                if (request != null)
+                {
+                    request.Abort();
+                }
+
+                request = null;
+            }
+
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// 连接游戏端，并发送参数
+        /// </summary>
+        /// <param name="reqUrl">游戏端接口URL</param>
+        /// <param name="postData">加密成string的请求参数</param>
+        /// <returns>游戏端产出的json字符串</returns>
+        public static string HttpPost(string postData)
+        {
+            string reqUrl = GameUrl;
             Stopwatch sw = new Stopwatch();
             sw.Start();
             HttpWebRequest request = null;
@@ -118,9 +197,8 @@ namespace XM.Comm
         /// <param name="strs">参数数组</param>
         /// <param name="action">接口方法名</param>
         /// <returns>游戏端产出的json字符串</returns>
-        public  string ReturnRes(string[] strs, string action)
+        public string ReturnRes(string[] strs, string action)
         {
-
             int len = strs.Length;
             var sb = new StringBuilder();
             for (int i = 0; i < len; i++)
@@ -133,5 +211,7 @@ namespace XM.Comm
 
             return HttpPost(GameUrl, paras);
         }
+        
     }
 }
+

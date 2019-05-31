@@ -67,20 +67,7 @@ namespace XM.WebVip.Controllers
                         return OperationReturn(false, "用户已被禁用，请您联系管理员");
                     }
 
-                    //判断当前登录账户,是否存在于Dictionary,如果存在,则把第一人,放入回收区
-                    if (pairs.ContainsKey(AN))
-                    {
-                        recycle.Add(pairs[AN],false);
-                    }
 
-                    //当有第二个相同账户登录时,替换第一个人的sessionID
-                    if (pairs.ContainsKey(AN))
-                    {
-                        pairs[AN] = Session.SessionID;
-                    }
-                    else {
-                        pairs.Add(AN, Session.SessionID);
-                    }
                    
                     Session["AN"] = vip.VipAccountName;
                     Session["ID"] = vip.VipID;
@@ -348,7 +335,6 @@ namespace XM.WebVip.Controllers
         /// </summary>
         public ActionResult RemoveSession() 
         {
-            pairs.Remove(Session["AN"].ToString());
             Session.Remove("AN");
             Session.Remove("ID");
             Session.Remove("Agent_ID");
