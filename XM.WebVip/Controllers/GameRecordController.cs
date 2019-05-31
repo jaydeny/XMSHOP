@@ -34,8 +34,7 @@ namespace XM.WebVip.Controllers
 
             return Content(result);
         }
-
-
+        
         // GET: GameRecord
         public ActionResult DetailPage()
         {
@@ -55,7 +54,7 @@ namespace XM.WebVip.Controllers
             //获取前端传过来的数据
             //游戏名,开始时间,结束时间,没有则为空
             string StartDate = Request["StartDate"] == null ? "" : Request["StartDate"];
-            string EndDate = Request["EndDate"] == null ? "" : Request["EndDate"];
+            string EndDate = (DateTime.Parse(Request["EndDate"]).AddHours(23).AddMinutes(59)).ToString() == null ? "" : (DateTime.Parse(Request["EndDate"]).AddHours(23).AddMinutes(59)).ToString();
 
             string action = "GetRecord";
             string strKey = Md5.GetMd5(AN + GameID + StartDate + EndDate + PIndex + "" + PSize + KEY);
@@ -66,28 +65,5 @@ namespace XM.WebVip.Controllers
             return Content(result);
         }
 
-        public ActionResult Detail1()
-        {
-            //获取前端数据
-            //分页所需
-            string PIndex = "2";
-            string PSize = "10";
-
-            //游戏id
-            string GameID = "2";
-
-            //获取前端传过来的数据
-            //游戏名,开始时间,结束时间,没有则为空
-            string StartDate = "2019-5-20";
-            string EndDate = "2019-5-26";
-
-            string action = "GetRecord";
-            string strKey = Md5.GetMd5("vip00" + GameID + StartDate + EndDate + PIndex + "" + PSize + KEY);
-            string[] paras = { "vip00", GameID, StartDate, EndDate, PIndex, "", PSize };
-
-            string param = GameReturn(action, strKey, paras);
-            var result = HttpPost(param);
-            return Content(result);
-        }
     }
 }

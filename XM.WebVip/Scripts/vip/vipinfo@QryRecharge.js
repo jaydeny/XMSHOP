@@ -1,10 +1,27 @@
-﻿//--------------------------------------------分页
+﻿//默认显示本周的数据
+var Default = function () {
+    $.ajax({
+        url: "/VipInfo/QryRecharge",
+        data: { "page": count, "rows": rows, "StartDate": $("#StartDate").val(), "EndDate": $("#EndDate").val() },
+        success: function (data) {
+            var e = JSON.parse(data);
+            $(".Recharge-list>ul>li:not(:first-child)").remove();
+            $.each(e.rows, function (index, obj) {
+                $(".Recharge-list>ul").append(Template(obj));
+            });
+            showList(e.total);
+        }
+    })
+};
+Default();
+
+//--------------------------------------------分页
 //当前页数
 var count = 1;
 var rows = 10;
 var allSource = 0;
 var counts = 1;
-var date;
+var data = { "page": count, "rows": rows, "StartDate": $("#StartDate").val(), "EndDate": $("#EndDate").val() };
 
 //每页显示条数
 var btn_num_Rows_count = $("#btn_num_Rows_count");
@@ -24,9 +41,8 @@ $(".vipinfo-form").on("click", "#before", function () {
     } else {
         count -= 1;
         btn_num_Page_count.val(count);
-        date.page = count
-        QryRecharge(date);
-
+        data.page = count;
+        QryRecharge(data);
     }
 });
 
@@ -38,16 +54,18 @@ $(".vipinfo-form").on("click", "#end", function () {
     } else {
         count += 1;
         btn_num_Page_count.val(count);
-        date.page = count
-        QryRecharge(date);
+        data.page = count;
+        console.log(data)
+        QryRecharge(data);
     }
 });
 
-
-//点击分页
-$("#btn_num_Page").click = function () {
-    QryRecharge();
-}
+//点击确定
+$(".vipinfo-form").on("click", "#btn_num_Page", function () {
+    data.page = $("#btn_num_Page_count").val();
+    btn_num_Page_count.val($("#btn_num_Page_count").val());
+    QryRecharge(data);
+});
 
 //封装列表显示函数，传入列表对象进行渲染页面
 function showList(page) {
@@ -73,24 +91,7 @@ function addOption(page_count) {
     }
 }
 
-
-
-var Default = function () {
-    $.ajax({
-        url: "/VipInfo/QryRecharge",
-        data: { "page": count, "rows": rows, "StartDate": $("#StartDate").val(), "EndDate": $("#EndDate").val() },
-        success: function (data) {
-            var e = JSON.parse(data);
-            $(".Recharge-list>ul>li:not(:first-child)").remove();
-            $.each(e.rows, function (index, obj) {
-                $(".Recharge-list>ul").append(Template(obj));
-            });
-            showList(e.total);
-        }
-    })
-};
-Default();
-
+//table的模板
 var Template = function (obj) {
     var status;
     obj.status_id == 6 ? status = "审核中" : obj.status_id == 7 ? status = "充值成功" : status = "充值失败";
@@ -98,11 +99,10 @@ var Template = function (obj) {
 }
 
 //时段查询
-var QryRecharge = function (date) {
-    console.log(date)
+var QryRecharge = function (data) {
     $.ajax({
         url: "/VipInfo/QryRecharge",
-        data: date,
+        data: data,
         success: function (data) {
             var e = JSON.parse(data);
             $(".Recharge-list>ul>li:not(:first-child)").remove();
@@ -116,37 +116,41 @@ var QryRecharge = function (date) {
 
 function normal() {
     var normal = { "page": count, "rows": rows, "StartDate": $("#StartDate").val(), "EndDate": $("#EndDate").val() };
-    date = normal;
+    data = normal;
     QryRecharge(normal)
 }
 
 function ThisWeek() {
     var ThisWeek = { "page": count, "rows": rows, "StartDate": getWeekStartDate(), "EndDate": getWeekEndDate() };
-    date = ThisWeek;
+    $("#StartDate").val(getWeekStartDate());
+    $("#EndDate").val(getWeekEndDate());
+    data = ThisWeek;
     QryRecharge(ThisWeek)
 }
 
 function LastWeek() {
     var LastWeek = { "page": count, "rows": rows, "StartDate": getLastWeekStartDate(), "EndDate": getLastWeekEndDate() };
-    date = LastWeek;
+    $("#StartDate").val(getLastWeekStartDate());
+    $("#EndDate").val(getLastWeekEndDate());
+    data = LastWeek;
     QryRecharge(LastWeek)
 }
 
 function ThisMonth() {
-    
     var ThisMonth = { "page": count, "rows": rows, "StartDate": getMonthStartDate(), "EndDate": getMonthEndDate() };
-    date = ThisMonth;
+    $("#StartDate").val(getMonthStartDate());
+    $("#EndDate").val(getMonthEndDate());
+    data = ThisMonth;
     QryRecharge(ThisMonth)
 }
 
 function LastMonth() {
     var LastMonth = { "page": count, "rows": rows, "StartDate": getLastMonthStartDate(), "EndDate": getLastMonthEndDate() };
-    date = LastMonth;
+    $("#StartDate").val(getLastMonthStartDate());
+    $("#EndDate").val(getLastMonthEndDate());
+    data = LastMonth;
     QryRecharge(LastMonth)
 }
-
-
-
 
 //--------------------------------------------------------------日期查询
 var now = new Date(); //当前日期
@@ -182,22 +186,22 @@ function getMonthDays(myMonth) {
 }
 //获得本周的开始日期
 function getWeekStartDate() {
-    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek);
+    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek + 1);
     return formatDate(weekStartDate);
 }
 //获得本周的结束日期
 function getWeekEndDate() {
-    var weekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek));
+    var weekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek) + 1);
     return formatDate(weekEndDate);
 }
 //获得上周的开始日期
 function getLastWeekStartDate() {
-    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek - 7);
+    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek - 6);
     return formatDate(weekStartDate);
 }
 //获得上周的结束日期
 function getLastWeekEndDate() {
-    var weekEndDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek - 1);
+    var weekEndDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek);
     return formatDate(weekEndDate);
 }
 //获得本月的开始日期

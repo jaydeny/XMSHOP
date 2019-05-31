@@ -342,8 +342,8 @@ namespace XM.DAL
                 SortField = paras["sort"].ToString()
             };
             builder.AddWhereAndParameter(paras, "vip_AN");
-            builder.AddWhereAndParameter(paras, "StartDate", "recharge_time", ">", "@StartDate");
-            builder.AddWhereAndParameter(paras, "EndDate", "recharge_time", "<", "@EndDate");
+            builder.AddWhereAndParameter(paras, "StartDate", "recharge_time", ">=", "@StartDate");
+            builder.AddWhereAndParameter(paras, "EndDate", "recharge_time", "<=", "@EndDate");
 
             var s = SortAndPage(builder, grid, out iCount);
             string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });

@@ -9,7 +9,6 @@ var DetailTemplate = function (obj) {
     return "<li><div class='flex-1'><span>" + obj.AccountName + "</span></div><div class='flex-1'><span>" + obj.Integral + "</span></div><div class='flex-1'><span>" + obj.Time.replace('T', ' ') + "</span></div><div class='flex-1'><span>" + obj.Name + "</span></div>";
 }
 
-
 //以下是汇总
 var QueryRecord = function () {
     var sum = 0;
@@ -30,7 +29,40 @@ var QueryRecord = function () {
     }, "json")
 }
 
+//以下是详情
+var QryDetail = function () {
+    $(".vipinfo-form").on("click", ".gameRecord", function () {
+        GameID = $(this).data("id");
 
+        $.ajax({
+            url: "/GameRecord/DetailPage",
+            success: function (data) {
+                if (!$(".vipinfo-main .info-head").hasClass("hidden")) {
+                    $(".vipinfo-main .info-head").addClass("hidden");
+                }
+                $(".vipinfo-main .info-body").html(data);
+            }
+        }, "html").done(function () {
+            $.ajax({
+                url: "/GameRecord/Detail",
+                data: { 'PIndex': count, "PSize": rows, 'GameID': GameID, 'StartDate': StartDate, 'EndDate': EndDate },
+                success: function (data) {
+                    var e = JSON.parse(data);
+                    $(".Detail-list>ul>li:not(:first-child)").remove();
+                    $.each(e.result.data, function (index, obj) {
+                        $(".Detail-list>ul").append(DetailTemplate(obj));
+                    });
+                    //总条数
+                    showList(e.result.total);
+                }
+            }, "json")
+        })
+        return false;
+    });
+}
+QryDetail();
+
+//返回方法
 $(".vipinfo-form").on("click", "#back", function () {
     $.get("/GameRecord/RecordPage", function (data, status, xhr) {
             if (!$(".vipinfo-main .info-head").hasClass("hidden")) {
@@ -41,45 +73,31 @@ $(".vipinfo-form").on("click", "#back", function () {
     QueryRecord();
 });
 
-//以下是详情
-var QryDetail = function () {
-    $(".vipinfo-form").on("click", ".gameRecord", function () {
-        GameID = $(this).data("id");
-        $.ajax({
-            url: "/GameRecord/DetailPage",
-            success: function (data) {
-                if (!$(".vipinfo-main .info-head").hasClass("hidden")) {
-                    $(".vipinfo-main .info-head").addClass("hidden");
-                }
-                $(".vipinfo-main .info-body").html(data);
-            }
-        }, "html").done(function () {
-                $.ajax({
-                    url: "/GameRecord/Detail",
-                    data: { 'PIndex': count, "PSize": rows, 'GameID': GameID, 'StartDate': StartDate, 'EndDate': EndDate },
-                    success: function (data) {
-                        var e = JSON.parse(data);
-                        $(".Detail-list>ul>li:not(:first-child)").remove();
-                        $.each(e.result.data, function (index, obj) {
-                            $(".Detail-list>ul").append(DetailTemplate(obj));
-                        });
-                        //总条数
-                        showList(e.result.total);
-                    }
-                }, "json")
-        })
-        return false;
-    });
+//--------------------------------------------分页
+//读取数据
+var QueryDetail = function (data) {
+    $.ajax({
+        url: "/GameRecord/Detail",
+        data: data,
+        success: function (data) {
+            var e = JSON.parse(data);
+            console.log(e)
+            $(".Detail-list>ul>li:not(:first-child)").remove();
+            $.each(e.result.data, function (index, obj) {
+                $(".Detail-list>ul").append(DetailTemplate(obj));
+            });
+            //总条数
+            showList(e.result.total);
+        }
+    }, "json")
 }
-
-QryDetail();
-
 
 //当前页数
 var count = 1;
 var rows = 10;
 var allSource = 0;
 var counts = 1;
+
 
 //每页显示条数
 var btn_num_Rows_count = $("#btn_num_Rows_count");
@@ -99,7 +117,8 @@ $(".vipinfo-form").on("click", "#before", function () {
     } else {
         count -= 1;
         btn_num_Page_count.val(count);
-        QueryDetail();
+        var data = { 'PIndex': count, "PSize": rows, 'GameID': GameID, 'StartDate': StartDate, 'EndDate': EndDate };
+        QueryDetail(data);
     }
 });
 
@@ -111,14 +130,17 @@ $(".vipinfo-form").on("click", "#end", function () {
     } else {
         count += 1;
         btn_num_Page_count.val(count);
-        QueryDetail();
+        var data = { 'PIndex': count, "PSize": rows, 'GameID': GameID, 'StartDate': StartDate, 'EndDate': EndDate };
+
+        QueryDetail(data);
     }
 });
 
-
 //点击分页
 $("#btn_num_Page").click = function () {
-    QueryDetail();
+    data.page = $("#btn_num_Page_count").val();
+    btn_num_Page_count.val($("#btn_num_Page_count").val());
+    QueryDetail(data);
 }
 
 //封装列表显示函数，传入列表对象进行渲染页面
@@ -145,25 +167,8 @@ function addOption(page_count) {
     }
 }
 
-//读取数据
-var QueryDetail = function () {
-    $.ajax({
-        url: "/GameRecord/Detail",
-        data: { 'PIndex': count, "PSize": rows, 'GameID': GameID, 'StartDate': StartDate, 'EndDate': EndDate },
-        success: function (data) {
-            var e = JSON.parse(data);
-            console.log(e)
-            $(".Detail-list>ul>li:not(:first-child)").remove();
-            $.each(e.result.data, function (index, obj) {
-                $(".Detail-list>ul").append(DetailTemplate(obj));
-            });
-            //总条数
-            showList(e.result.total);
-        }
-    }, "json")
-}
-
-//以下是汇总
+//-------------------------------------------本周,上周,本月,上月
+//四个按钮的方法
 var QueryRecordBtn = function (date) {
     var sum = 0;
     $.ajax({
@@ -180,36 +185,46 @@ var QueryRecordBtn = function (date) {
         }
     }, "json")
 }
-
-
 function normal() {
     var normal = { "StartDate": StartDate, "EndDate": EndDate },
-    date = normal;
+    data = normal;
     QueryRecordBtn(normal)
 }
 
 function ThisWeek() {
     var ThisWeek = { "StartDate": getWeekStartDate(), "EndDate": getWeekEndDate() };
-    date = ThisWeek;
+    $("#StartDate").val(getWeekStartDate());
+    $("#EndDate").val(getWeekEndDate());
+    StartDate = getWeekStartDate();
+    EndDate = getWeekEndDate();
     QueryRecordBtn(ThisWeek)
 }
 
 function LastWeek() {
     var LastWeek = { "StartDate": getLastWeekStartDate(), "EndDate": getLastWeekEndDate() };
-    date = LastWeek;
+    $("#StartDate").val(getLastWeekStartDate());
+    $("#EndDate").val(getLastWeekEndDate());
+    StartDate = getLastWeekStartDate();
+    EndDate = getLastWeekEndDate();
     QueryRecordBtn(LastWeek)
 }
 
 function ThisMonth() {
 
     var ThisMonth = { "StartDate": getMonthStartDate(), "EndDate": getMonthEndDate() };
-    date = ThisMonth;
+    $("#StartDate").val(getMonthStartDate());
+    $("#EndDate").val(getMonthEndDate());
+    StartDate = getMonthStartDate();
+    EndDate = getMonthEndDate();
     QueryRecordBtn(ThisMonth)
 }
 
 function LastMonth() {
     var LastMonth = { "StartDate": getLastMonthStartDate(), "EndDate": getLastMonthEndDate() };
-    date = LastMonth;
+    $("#StartDate").val(getLastMonthStartDate());
+    $("#EndDate").val(getLastMonthEndDate());
+    StartDate = getLastMonthStartDate();
+    EndDate = getLastMonthEndDate();
     QueryRecordBtn(LastMonth)
 }
 
@@ -247,22 +262,22 @@ function getMonthDays(myMonth) {
 }
 //获得本周的开始日期
 function getWeekStartDate() {
-    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek);
+    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek+1);
     return formatDate(weekStartDate);
 }
 //获得本周的结束日期
 function getWeekEndDate() {
-    var weekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek));
+    var weekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek)+1);
     return formatDate(weekEndDate);
 }
 //获得上周的开始日期
 function getLastWeekStartDate() {
-    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek - 7);
+    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek - 6);
     return formatDate(weekStartDate);
 }
 //获得上周的结束日期
 function getLastWeekEndDate() {
-    var weekEndDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek - 1);
+    var weekEndDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek );
     return formatDate(weekEndDate);
 }
 //获得本月的开始日期
