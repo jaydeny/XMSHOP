@@ -211,11 +211,12 @@ namespace XM.WebVip.Controllers
             string order = Request["order"] == null ? "asc" : Request["order"];
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
+            
 
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras.Add("vip_AN",AN);
             paras.Add("StartDate", DateTime.Parse(Request["StartDate"]));
-            paras.Add("EndDate", DateTime.Parse(Request["EndDate"]));
+            paras.Add("EndDate", DateTime.Parse(Request["EndDate"]).AddHours(23).AddMinutes(59));
             paras.Add("pi", pageindex);
             paras.Add("pageSize", pagesize);
             paras.Add("sort", sort);

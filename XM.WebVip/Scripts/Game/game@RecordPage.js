@@ -9,7 +9,6 @@ var DetailTemplate = function (obj) {
     return "<li><div class='flex-1'><span>" + obj.AccountName + "</span></div><div class='flex-1'><span>" + obj.Integral + "</span></div><div class='flex-1'><span>" + obj.Time.replace('T', ' ') + "</span></div><div class='flex-1'><span>" + obj.Name + "</span></div>";
 }
 
-
 //以下是汇总
 var QueryRecord = function () {
     var sum = 0;
@@ -30,7 +29,17 @@ var QueryRecord = function () {
     }, "json")
 }
 
+//以下是详情
+var QryDetail = function () {
+    $(".vipinfo-form").on("click", ".gameRecord", function () {
+        GameID = $(this).data("id");
+        data.page = count;
+        QueryDetail(data)
+    });
+}
+QryDetail();
 
+//返回方法
 $(".vipinfo-form").on("click", "#back", function () {
     $.get("/GameRecord/RecordPage", function (data, status, xhr) {
             if (!$(".vipinfo-main .info-head").hasClass("hidden")) {
@@ -41,45 +50,31 @@ $(".vipinfo-form").on("click", "#back", function () {
     QueryRecord();
 });
 
-//以下是详情
-var QryDetail = function () {
-    $(".vipinfo-form").on("click", ".gameRecord", function () {
-        GameID = $(this).data("id");
-        $.ajax({
-            url: "/GameRecord/DetailPage",
-            success: function (data) {
-                if (!$(".vipinfo-main .info-head").hasClass("hidden")) {
-                    $(".vipinfo-main .info-head").addClass("hidden");
-                }
-                $(".vipinfo-main .info-body").html(data);
-            }
-        }, "html").done(function () {
-                $.ajax({
-                    url: "/GameRecord/Detail",
-                    data: { 'PIndex': count, "PSize": rows, 'GameID': GameID, 'StartDate': StartDate, 'EndDate': EndDate },
-                    success: function (data) {
-                        var e = JSON.parse(data);
-                        $(".Detail-list>ul>li:not(:first-child)").remove();
-                        $.each(e.result.data, function (index, obj) {
-                            $(".Detail-list>ul").append(DetailTemplate(obj));
-                        });
-                        //总条数
-                        showList(e.result.total);
-                    }
-                }, "json")
-        })
-        return false;
-    });
+//--------------------------------------------分页
+//读取数据
+var QueryDetail = function (data) {
+    $.ajax({
+        url: "/GameRecord/Detail",
+        data: data,
+        success: function (data) {
+            var e = JSON.parse(data);
+            console.log(e)
+            $(".Detail-list>ul>li:not(:first-child)").remove();
+            $.each(e.result.data, function (index, obj) {
+                $(".Detail-list>ul").append(DetailTemplate(obj));
+            });
+            //总条数
+            showList(e.result.total);
+        }
+    }, "json")
 }
-
-QryDetail();
-
 
 //当前页数
 var count = 1;
 var rows = 10;
 var allSource = 0;
 var counts = 1;
+var data = { 'PIndex': count, "PSize": rows, 'GameID': GameID, 'StartDate': StartDate, 'EndDate': EndDate };
 
 //每页显示条数
 var btn_num_Rows_count = $("#btn_num_Rows_count");
@@ -99,7 +94,8 @@ $(".vipinfo-form").on("click", "#before", function () {
     } else {
         count -= 1;
         btn_num_Page_count.val(count);
-        QueryDetail();
+        data.page = count;
+        QueryDetail(data);
     }
 });
 
@@ -111,14 +107,16 @@ $(".vipinfo-form").on("click", "#end", function () {
     } else {
         count += 1;
         btn_num_Page_count.val(count);
-        QueryDetail();
+        data.page = count;
+        QueryDetail(data);
     }
 });
 
-
 //点击分页
 $("#btn_num_Page").click = function () {
-    QueryDetail();
+    data.page = $("#btn_num_Page_count").val();
+    btn_num_Page_count.val($("#btn_num_Page_count").val());
+    QueryDetail(data);
 }
 
 //封装列表显示函数，传入列表对象进行渲染页面
@@ -145,25 +143,8 @@ function addOption(page_count) {
     }
 }
 
-//读取数据
-var QueryDetail = function () {
-    $.ajax({
-        url: "/GameRecord/Detail",
-        data: { 'PIndex': count, "PSize": rows, 'GameID': GameID, 'StartDate': StartDate, 'EndDate': EndDate },
-        success: function (data) {
-            var e = JSON.parse(data);
-            console.log(e)
-            $(".Detail-list>ul>li:not(:first-child)").remove();
-            $.each(e.result.data, function (index, obj) {
-                $(".Detail-list>ul").append(DetailTemplate(obj));
-            });
-            //总条数
-            showList(e.result.total);
-        }
-    }, "json")
-}
-
-//以下是汇总
+//-------------------------------------------本周,上周,本月,上月
+//四个按钮的方法
 var QueryRecordBtn = function (date) {
     var sum = 0;
     $.ajax({
@@ -180,8 +161,6 @@ var QueryRecordBtn = function (date) {
         }
     }, "json")
 }
-
-
 function normal() {
     var normal = { "StartDate": StartDate, "EndDate": EndDate },
     date = normal;
@@ -190,12 +169,16 @@ function normal() {
 
 function ThisWeek() {
     var ThisWeek = { "StartDate": getWeekStartDate(), "EndDate": getWeekEndDate() };
+    $("#StartDate").val(getWeekStartDate());
+    $("#EndDate").val(getWeekEndDate());
     date = ThisWeek;
     QueryRecordBtn(ThisWeek)
 }
 
 function LastWeek() {
     var LastWeek = { "StartDate": getLastWeekStartDate(), "EndDate": getLastWeekEndDate() };
+    $("#StartDate").val(getLastWeekStartDate());
+    $("#EndDate").val(getLastWeekEndDate());
     date = LastWeek;
     QueryRecordBtn(LastWeek)
 }
@@ -203,12 +186,16 @@ function LastWeek() {
 function ThisMonth() {
 
     var ThisMonth = { "StartDate": getMonthStartDate(), "EndDate": getMonthEndDate() };
+    $("#StartDate").val(getMonthStartDate());
+    $("#EndDate").val(getMonthEndDate());
     date = ThisMonth;
     QueryRecordBtn(ThisMonth)
 }
 
 function LastMonth() {
     var LastMonth = { "StartDate": getLastMonthStartDate(), "EndDate": getLastMonthEndDate() };
+    $("#StartDate").val(getLastMonthStartDate());
+    $("#EndDate").val(getLastMonthEndDate());
     date = LastMonth;
     QueryRecordBtn(LastMonth)
 }
