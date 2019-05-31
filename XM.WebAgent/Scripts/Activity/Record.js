@@ -11,7 +11,9 @@
         //详细信息返回数据
         res: [],
         //单击获取的信息
-        RecordIndexData:[]
+        RecordIndexData: [],
+        //标题搜索
+        title:''
     },
     created: function () {
         this.getNoticData();
@@ -28,7 +30,8 @@
         getNoticData() {
             const param = {
                 page: this.page,
-                rows: this.rows
+                rows: this.rows,
+                title: this.title
             }
             $.ajax({
                 url: "/Activity/getAllActtvity",

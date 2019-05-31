@@ -1,0 +1,50 @@
+﻿@{ 
+
+ Layout = "~/Views/Shared/_Form.cshtml";
+}
+<form id="form1">
+    <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
+        <div style="padding-top: 20px; margin-right: 30px;">
+            <table class="form">
+                <tr>
+                    <th class="formTitle">订单编号</th>
+                    <td class="formValue">
+                        <input id="Ac_id" name="Ac_id" minlength="6" maxlength="16" type="text" class="form-control required" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">优惠类型</th>
+                    <td class="formValue">
+                        <input id="Ac_type" name="Ac_type" minlength="6" maxlength="16" type="text" class="form-control required" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">折扣</th>
+                    <td class="formValue">
+                        <input id="Discount" name="vip_AN" minlength="6" maxlength="16" type="text" class="form-control required" />
+                    </td>
+                </tr>
+               
+                <tr>
+                    <th class="formTitle">满额</th>
+                    <td class="formValue">
+                        <input id="Ac_full" name="Ac_full" type="text" class="form-control" required />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">减额</th>
+                    <td class="formValue">
+                        <input id="Minus" name="Minus" type="text" class="form-control" required />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">优惠次数</th>
+                    <td class="formValue">
+                        <input id="Times" name="Times" type="text" class="form-control" required />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</form>
+<script src="~/Scripts/Activity/_Form.js"></script>

@@ -41,6 +41,8 @@ namespace XM.DAL
             return QuerySingle<int>("P_tbActivity_addActivity", paras, CommandType.StoredProcedure);
         }
 
+
+
         /// <summary>
         /// 获取符合条件的所有活动类数据
         /// </summary>
@@ -57,6 +59,7 @@ namespace XM.DAL
                 SortDirection = paras["order"].ToString()
             };
             builder.AddWhereAndParameter(paras, "Publisher");
+            builder.AddWhereAndParameter(paras, "Title");
             return SortAndPage<T>(builder, grid, out iCount);
         }
 

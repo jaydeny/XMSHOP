@@ -10,11 +10,29 @@ namespace XM.Web.Controllers
 {
     public class ActivityController : BaseController
     {
+        #region _View
         // GET: Activity
         public ActionResult Index()
         {
             return View();
         }
+
+        // 添加活动页面
+        public ActionResult ActivityAdd()
+        {
+            DateTime dt = DateTime.Now;
+            string StartWeek = dt.ToString("yyyy-MM-dd"); //获取一周的开始日期
+            string EndWeek = dt.AddDays(1 - Convert.ToInt32(dt.DayOfWeek.ToString("d"))).AddDays(6).ToString("yyyy-MM-dd"); //获取本周星期天日期
+
+            ViewData["StartWeek"] = StartWeek;
+            ViewData["EndWeek"] = EndWeek;
+            return View();
+        }
+        public ActionResult GetOrderForm()
+        {
+            return View("_Form");
+        }
+        #endregion
         //获取当前后台用户所发布的活动
         public ActionResult  getAllActtvity()
         {
@@ -28,6 +46,8 @@ namespace XM.Web.Controllers
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["pi"] = pageindex;
             paras["pageSize"] = pagesize;
+            
+            paras["Title"] = Request["Title"] == "" ? null : Request["Title"];
             paras["Publisher"] = user.UserAccountName;
             paras["sort"] = sort;
             paras["order"] = order;
@@ -35,18 +55,32 @@ namespace XM.Web.Controllers
             return PagerData(totalCount, users, pageindex, pagesize);
         }
         
-        // 添加活动页面
-        public ActionResult ActivityAdd()
-        {
-            DateTime dt = DateTime.Now;
-            string StartWeek = dt.ToString("yyyy-MM-dd"); //获取一周的开始日期
-            string EndWeek = dt.AddDays(1 - Convert.ToInt32(dt.DayOfWeek.ToString("d"))).AddDays(6).ToString("yyyy-MM-dd"); //获取本周星期天日期
-
-            ViewData["StartWeek"] = StartWeek;
-            ViewData["EndWeek"] = EndWeek;
-            return View();
-        }
         
+        /// <summary>
+        /// 获取活动编号对应的活动优惠方案
+        /// </summary>
+        /// <returns>
+        ///  1002 满减优惠
+        ///  1003 折扣优惠
+        /// </returns>
+        public ActionResult detailedInfo()
+        {
+            string typeNum = Request["typeNum"];
+            int id = Convert.ToInt32(Request["id"]);
+
+            if (typeNum == "1002")
+            {
+                var data = DALUtility.Activity.GetfullByTag(id);
+                return PagerData(1, data);
+            }
+            else if (typeNum == "1003")
+            {
+                var data = DALUtility.Activity.GetDisByTag(id);
+                return PagerData(1, data);
+            }
+
+            return PagerData(0, "");
+        }
         //获取活动优惠类型
         public string  ActivityType()
         {
@@ -54,7 +88,7 @@ namespace XM.Web.Controllers
             return JsonConvert.SerializeObject(ActDic);
         }
         /// <summary>
-        /// 添加活动 
+        /// 添加/修改活动 
         /// </summary>
         /// <returns></returns>
         public ActionResult Activity4Add() {
@@ -87,7 +121,7 @@ namespace XM.Web.Controllers
             //减额
             paras["minus"] = Request["minus"];
             //折扣
-            paras["discount"] = Request["discount"];
+            paras["discount"] = Convert.ToDouble(Request["discount"]) / 100;
             //次数
             paras["count"] = Request["count"];
             //活动状态

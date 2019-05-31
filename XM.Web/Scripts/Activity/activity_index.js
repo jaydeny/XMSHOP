@@ -41,6 +41,9 @@ function gridList() {
         url: "/Activity/getAllActtvity",
         height: $(window).height() - 178,
         colModel: [
+            { label: '活动ID', name: 'id', hidden: true },
+            { label: '活动类型', name: 'Ac_type', hidden: true },
+            { label: '活动状态', name: 'status_id', hidden: true },
             { label: '标题', name: 'Title', width: 100, align: 'center' },
             { label: '内容', name: 'Content', width: 240, align: 'center' },
             {
@@ -54,43 +57,47 @@ function gridList() {
             {
                 label: '结束时间', name: 'EndDate', width: 160, align: 'center',
                 formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' } },
-            { label: '发布人', name: 'Publisher', width: 80, align: 'center' },
-            {
-                label: '操作', name: '_id', width: 160, align: 'center',
-                formatter: function (cellvalue, options, rowObject) {
-                    return '<button class="delete" data-val="' + cellvalue + '">删除</button>';
-                }
-            },
+            { label: '发布人', name: 'Publisher', width: 80, align: 'center' }
+            //,
+            //{
+            //    label: '操作', name: '_id', width: 160, align: 'center',
+            //    formatter: function (cellvalue, options, rowObject) {
+            //        //console.log(cellvalue)
+            //        //console.log(options)
+            //        //console.log(rowObject)
+            //        return '<button class="btn-group" data-val="' + rowObject + '" onclick = "btn_edit()">编辑</button >';
+            //    }
+            //}
         ],
         rowNum: 20,
         rowList: [10, 20, 30, 40, 50],
         sortorder: "desc",
         pager: "#gridPager"
     });
-}
-
-function dynamicTab(data) {
-    var $gridList = $("#gridList");
-    var $tr = $("<tr style='background-color:#e5e2e2;'></tr>");
-    $tr.append("<th style='text-align: center;border-bottom:dashed 1px'>标题</th>");
-    $tr.append("<th style='text-align: center;border-bottom:dashed 1px'>内容</th>");
-    $tr.append("<th style='text-align: center;border-bottom:dashed 1px'>创建时间</th>");
-    $tr.append("<th style='text-align: center;border-bottom:dashed 1px'>开始时间</th>");
-    $tr.append("<th style='text-align: center;border-bottom:dashed 1px'>结束时间</th>");
-    $tr.append("<th style='text-align: center;border-bottom:dashed 1px'>发布人</th>");
-    $tr.append("<th style='text-align: center;border-bottom:dashed 1px'>操作</th>");
-    $tr.append("<th></th>");
-    $gridList.append($tr);
-    $.each(data, function (index, obj) {
-        var $trTamp = $("<tr></tr>");
-        
-        $trTamp.append("<td align='center' style='width:200px;border-bottom:dashed 1px; '>" + obj.Title + "</td>");
-        $trTamp.append("<td align='center' style='width:200px;border-bottom:dashed 1px'>" + obj.Content + "</td>");
-        $trTamp.append("<td align='center' style='width:200px;border-bottom:dashed 1px'>" + obj.CreateDate + "</td>");
-        $trTamp.append("<td align='center' style='width:200px;border-bottom:dashed 1px'>" + obj.StartDate + "</td>");
-        $trTamp.append("<td align='center' style='width:200px;border-bottom:dashed 1px'>" + obj.EndDate + "</td>");
-        $trTamp.append("<td align='center' style='width:200px;border-bottom:dashed 1px'>" + obj.Publisher + "</td>");
-        $trTamp.append("<td align='center' style='width:200px;border-bottom:dashed 1px'> <button class='delete' data-val='" + obj.id + "'>删除</button> </td>");
-        $trTamp.appendTo($gridList);
-    })
+    $gridList.click(function () {
+        let typeNum = $("#gridList").jqGridRowValue().Ac_type;
+        let id = $("#gridList").jqGridRowValue().id;
+       
+        $.modalOpen({
+            id: "Form",
+            title: "订单详情",
+            url: "/Activity/GetOrderForm?typeNum=" + typeNum + "&id=" + id,
+            width: "430px",
+            height: "400px"
+        });
+    });
+    $("#btn_search_title").click(function () {
+       
+        $gridList.jqGrid('setGridParam', {
+            postData: {
+                Title: $("#txt_search_receiver").val(),
+                Person: null
+            },
+        }).trigger('reloadGrid');
+    });
 };
+function btn_edit() {
+    console.log(event)
+};
+
+
