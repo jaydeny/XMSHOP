@@ -15,6 +15,19 @@ namespace XM.WebVip.Controllers
         /// 功能:进入选择活动类型
         /// </summary>
         /// <returns></returns>
+        public ActionResult ChooseAcPage()
+        {
+            if (Session["AN"] != null)
+            {
+                return OperationReturn(true, "已登录");
+            }
+            return OperationReturn(false, "请登录后重试");
+        }
+
+        /// <summary>
+        /// 功能:进入选择活动类型
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ChooseAc()
         {
             ViewData["AcList"] = GetAllAc();
@@ -27,12 +40,6 @@ namespace XM.WebVip.Controllers
         /// <returns></returns>
         public ActionResult Buy()
         {
-            if (Session["AN"] == null)
-            {
-                return OperationReturn(false, "请点击登录页面进行登录");
-            }
-            else
-            {
                 //后续需要修改,有关于选中地址的方式
                 if (QryAdd() == 0)
                 {
@@ -65,7 +72,6 @@ namespace XM.WebVip.Controllers
                 }
                 
                 return OperationReturn(true, "购物成功");
-            }
         }
         
         /// <summary>

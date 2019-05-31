@@ -12,7 +12,13 @@
                 <td>结束时间</td>
                 <td>选择</td>
             </tr>
-
+            <tr>
+                <td>正常消费</td>
+                <td>不消耗活动次数</td>
+                <td>~</td>
+                <td>~</td>
+                <td><button id="ChooseAc" data-val="0">选择</button></td>
+            </tr>
             @foreach (ActivityEntity item in (IEnumerable<ActivityEntity>)@ViewData["AcList"])
             {
                 <tr>
@@ -29,7 +35,7 @@
                         @item.EndDate
                     </td>
                     <td>
-                        <button id="ChooseAc" data-val=@item.id onclick="Shop()">选择</button>
+                        <button id="ChooseAc" data-val=@item.id >选择</button>
                     </td>
                 </tr>
             }

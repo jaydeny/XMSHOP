@@ -75,14 +75,21 @@ var obj;
 // 立即下单
 $(".goods-exhibition").on("click", ".p-button", function () {
     obj = listGoods[$(this).data("id")];
-    
-    var Form = {
-        "modal": "#myModal", "dialog": "#dialog", "content": "#content", "body": "#body"
-    };
-    Form.width = "500px";
-    Form.height = "400px";
-    Form.url = "/Shop/ChooseAc";
-    bouncedLogin(Form);
+
+    $.post("/Shop/ChooseAcPage",  function (data) {
+        if (data.success) {
+            var Form = {
+                "modal": "#myModal", "dialog": "#dialog", "content": "#content", "body": "#body"
+            };
+            Form.width = "500px";
+            Form.height = "400px";
+            Form.url = "/Shop/ChooseAc";
+            bouncedLogin(Form);
+        } else {
+            alert(data.msg);
+        }
+    }, "json")
+
 });
 
 $(".choose-main").on("click", "#ChooseAc", function () {
