@@ -186,22 +186,22 @@ function getMonthDays(myMonth) {
 }
 //获得本周的开始日期
 function getWeekStartDate() {
-    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek);
+    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek + 1);
     return formatDate(weekStartDate);
 }
 //获得本周的结束日期
 function getWeekEndDate() {
-    var weekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek));
+    var weekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek) + 1);
     return formatDate(weekEndDate);
 }
 //获得上周的开始日期
 function getLastWeekStartDate() {
-    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek - 7);
+    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek - 6);
     return formatDate(weekStartDate);
 }
 //获得上周的结束日期
 function getLastWeekEndDate() {
-    var weekEndDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek - 1);
+    var weekEndDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek);
     return formatDate(weekEndDate);
 }
 //获得本月的开始日期

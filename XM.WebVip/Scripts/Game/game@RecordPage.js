@@ -33,8 +33,31 @@ var QueryRecord = function () {
 var QryDetail = function () {
     $(".vipinfo-form").on("click", ".gameRecord", function () {
         GameID = $(this).data("id");
-        data.page = count;
-        QueryDetail(data)
+
+        $.ajax({
+            url: "/GameRecord/DetailPage",
+            success: function (data) {
+                if (!$(".vipinfo-main .info-head").hasClass("hidden")) {
+                    $(".vipinfo-main .info-head").addClass("hidden");
+                }
+                $(".vipinfo-main .info-body").html(data);
+            }
+        }, "html").done(function () {
+            $.ajax({
+                url: "/GameRecord/Detail",
+                data: { 'PIndex': count, "PSize": rows, 'GameID': GameID, 'StartDate': StartDate, 'EndDate': EndDate },
+                success: function (data) {
+                    var e = JSON.parse(data);
+                    $(".Detail-list>ul>li:not(:first-child)").remove();
+                    $.each(e.result.data, function (index, obj) {
+                        $(".Detail-list>ul").append(DetailTemplate(obj));
+                    });
+                    //总条数
+                    showList(e.result.total);
+                }
+            }, "json")
+        })
+        return false;
     });
 }
 QryDetail();
@@ -74,7 +97,7 @@ var count = 1;
 var rows = 10;
 var allSource = 0;
 var counts = 1;
-var data = { 'PIndex': count, "PSize": rows, 'GameID': GameID, 'StartDate': StartDate, 'EndDate': EndDate };
+
 
 //每页显示条数
 var btn_num_Rows_count = $("#btn_num_Rows_count");
@@ -94,7 +117,7 @@ $(".vipinfo-form").on("click", "#before", function () {
     } else {
         count -= 1;
         btn_num_Page_count.val(count);
-        data.page = count;
+        var data = { 'PIndex': count, "PSize": rows, 'GameID': GameID, 'StartDate': StartDate, 'EndDate': EndDate };
         QueryDetail(data);
     }
 });
@@ -107,7 +130,8 @@ $(".vipinfo-form").on("click", "#end", function () {
     } else {
         count += 1;
         btn_num_Page_count.val(count);
-        data.page = count;
+        var data = { 'PIndex': count, "PSize": rows, 'GameID': GameID, 'StartDate': StartDate, 'EndDate': EndDate };
+
         QueryDetail(data);
     }
 });
@@ -163,7 +187,7 @@ var QueryRecordBtn = function (date) {
 }
 function normal() {
     var normal = { "StartDate": StartDate, "EndDate": EndDate },
-    date = normal;
+    data = normal;
     QueryRecordBtn(normal)
 }
 
@@ -171,7 +195,8 @@ function ThisWeek() {
     var ThisWeek = { "StartDate": getWeekStartDate(), "EndDate": getWeekEndDate() };
     $("#StartDate").val(getWeekStartDate());
     $("#EndDate").val(getWeekEndDate());
-    date = ThisWeek;
+    StartDate = getWeekStartDate();
+    EndDate = getWeekEndDate();
     QueryRecordBtn(ThisWeek)
 }
 
@@ -179,7 +204,8 @@ function LastWeek() {
     var LastWeek = { "StartDate": getLastWeekStartDate(), "EndDate": getLastWeekEndDate() };
     $("#StartDate").val(getLastWeekStartDate());
     $("#EndDate").val(getLastWeekEndDate());
-    date = LastWeek;
+    StartDate = getLastWeekStartDate();
+    EndDate = getLastWeekEndDate();
     QueryRecordBtn(LastWeek)
 }
 
@@ -188,7 +214,8 @@ function ThisMonth() {
     var ThisMonth = { "StartDate": getMonthStartDate(), "EndDate": getMonthEndDate() };
     $("#StartDate").val(getMonthStartDate());
     $("#EndDate").val(getMonthEndDate());
-    date = ThisMonth;
+    StartDate = getMonthStartDate();
+    EndDate = getMonthEndDate();
     QueryRecordBtn(ThisMonth)
 }
 
@@ -196,7 +223,8 @@ function LastMonth() {
     var LastMonth = { "StartDate": getLastMonthStartDate(), "EndDate": getLastMonthEndDate() };
     $("#StartDate").val(getLastMonthStartDate());
     $("#EndDate").val(getLastMonthEndDate());
-    date = LastMonth;
+    StartDate = getLastMonthStartDate();
+    EndDate = getLastMonthEndDate();
     QueryRecordBtn(LastMonth)
 }
 
@@ -234,22 +262,22 @@ function getMonthDays(myMonth) {
 }
 //获得本周的开始日期
 function getWeekStartDate() {
-    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek);
+    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek+1);
     return formatDate(weekStartDate);
 }
 //获得本周的结束日期
 function getWeekEndDate() {
-    var weekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek));
+    var weekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek)+1);
     return formatDate(weekEndDate);
 }
 //获得上周的开始日期
 function getLastWeekStartDate() {
-    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek - 7);
+    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek - 6);
     return formatDate(weekStartDate);
 }
 //获得上周的结束日期
 function getLastWeekEndDate() {
-    var weekEndDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek - 1);
+    var weekEndDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek );
     return formatDate(weekEndDate);
 }
 //获得本月的开始日期
