@@ -52,12 +52,13 @@ namespace XM.WebAgent.Controllers
             string order = Request["sort"] == null ? "asc" : Request["sort"];
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-
+           
             int totalCount;   //输出参数
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["pi"] = pageindex;
             paras["pageSize"] = pagesize;
             paras["Publisher"] = Session["agent_AN"].ToString();
+            paras["Title"] = Request["Title"] == "" ? null : Request["Title"];
             paras["sort"] = sort;
             paras["order"] = order;
             var users = DALUtility.Activity.getAllActivity<ActivityEntity>(paras, out totalCount);
@@ -87,7 +88,6 @@ namespace XM.WebAgent.Controllers
 
             return PagerData(0, "");
         }
-
         #endregion
 
         #region _Update
@@ -138,6 +138,9 @@ namespace XM.WebAgent.Controllers
             return OperationReturn(false, "发布活动失败!");
         }
         #endregion
+
+
+
 
     }
 }

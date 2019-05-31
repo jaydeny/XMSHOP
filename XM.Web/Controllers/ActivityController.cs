@@ -10,6 +10,7 @@ namespace XM.Web.Controllers
 {
     public class ActivityController : BaseController
     {
+        #region _View
         // GET: Activity
         public ActionResult Index()
         {
@@ -31,7 +32,7 @@ namespace XM.Web.Controllers
         {
             return View("_Form");
         }
-
+        #endregion
         //获取当前后台用户所发布的活动
         public ActionResult  getAllActtvity()
         {
