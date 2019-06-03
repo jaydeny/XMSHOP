@@ -29,7 +29,9 @@
 
         //修改密码
         updatePswSubmir() {
-            console.log(this.agentTable)
+            if (this.agentPassWord.trim() == '' || this.againPassWord.trim() == '' || this.newPassWord.trim() == '') {
+                alert("密码为空或格式出现问题");
+            }
             if (this.agentPassWord !== this.agentTable.AgentPassword) {
                 this.msg = "抱歉，当前密码与原密码不一致";
             } else if (this.newPassWord !== this.againPassWord) {

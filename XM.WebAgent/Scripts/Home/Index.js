@@ -54,37 +54,27 @@ document.querySelector("#btn_num_Page").onclick = function () {
 btn_num_Page_count.bind("input propertychange", function (e) {
     //console.log(e.target.value);
     count = e.target.value;
-
+    if (count != null || count != '' || count != 0) {
+         onloadData(count, rows);
+    }
+    console.log("aaa")
+   // onloadData(count, rows);
 });
 
 //监听文本框改变事件
 btn_num_Rows_count.bind("input propertychange", function (e) {
-   
-    //console.log(e.target.value);
     rows = e.target.value;
     const page_count = Math.ceil(allSource / rows);
     num_Page_Count.innerText = "共 " + page_count + " 页";
     num_Page_Count.name = page_count;
-    //id = "btn_num_Page_count" value = "1"
-    addOption(page_count);
+    onloadData(count, rows);
 });
 
-function addOption(page_count) {
-    var num_page = $("#btn_num_Page_count");
-    num_page.empty();
-    for (var i = 0; i < page_count; i++) {
-        let op = $("<option></option>");
-        op.val(i + 1);
-        op.text(i + 1);
-        num_page.append(op)
-    }
-   // btn_num_Page_count.val(count);
-}
 
 //封装查询功能
 function searches() {
     const search = $("#search").val();
-    
+
     let datapram = {
         "vip_AN": search
     }
@@ -95,11 +85,11 @@ function searches() {
         data: datapram,
         dataType: 'json'
     }).done(function (data) {
-        
+
         objs = data.rows;
-       
+
         //调用列表数据可视化函数
-        showList(data.total,objs);
+        showList(data.total, objs);
     })
 
 }
@@ -129,80 +119,153 @@ function editVIP(id) {
 }
 //发送请求，带这个VIP去进行修改
 function editToVIP() {
-    let edit_vip_AN = $("#edit_vip_AN");
-    let edit_vip_mp = $("#edit_vip_mp");
-    let edit_vip_email = $("#edit_vip_email");
-    let edit_status_id = $("#edit_status_id");
-    let vip_id = $("#v_id");
-    let agent_id = $("#agent_id");
 
-    //将数据封装
-    let datapram = {
-        "vip_AN": edit_vip_AN.val(),
-        "vip_mp": edit_vip_mp.val(),
-        "vip_email": edit_vip_email.val(),
-        "status_id": edit_status_id.val(),
-        "ID": vip_id.val(),
-        "agent_id": agent_id.val()
-    }
+    if (checkEditData) {
+        let edit_vip_AN = $("#edit_vip_AN");
+        let edit_vip_mp = $("#edit_vip_mp");
+        let edit_vip_email = $("#edit_vip_email");
+        let edit_status_id = $("#edit_status_id");
+        let vip_id = $("#v_id");
+        let agent_id = $("#agent_id");
 
-    $.ajax({
-        url: '/VIP/Update',
-        method: 'post',
-        data: datapram,
-        dataType: 'json'
-    }).done((data) => {
-        if (data.success) {
-            //console.log(data)
-            $("#editVIP").modal('hide');
-            onloadData();
-            alert(data.msg)
+        //将数据封装
+        let datapram = {
+            "vip_AN": edit_vip_AN.val(),
+            "vip_mp": edit_vip_mp.val(),
+            "vip_email": edit_vip_email.val(),
+            "status_id": edit_status_id.val(),
+            "ID": vip_id.val(),
+            "agent_id": agent_id.val()
         }
-    });
-}
 
+        $.ajax({
+            url: '/VIP/Update',
+            method: 'post',
+            data: datapram,
+            dataType: 'json'
+        }).done((data) => {
+            if (data.success) {
+                //console.log(data)
+                $("#editVIP").modal('hide');
+                onloadData();
+                alert(data.msg)
+            }
+        });
+    }
+}
+//修改会员数据校验
+function checkEditData() {
+    let vip_AN = $("#edit_vip_AN").val();
+    let vip_mp = $("#edit_vip_mp").val();
+    let vip_email = $("#edit_vip_email").val();
+    let status_id = $("#status_id").val();
+    if (vip_AN.trim() == '' || vip_mp.trim() == '' || vip_email.trim() == '' || status_id.trim() == '') {
+        alert("会员信息不能为空或数据格式不正确");
+        return false;
+    } else {
+        if (vip_AN.length <= 4 || vip_AN.length > 20) {
+            alert("账号输入长度小于6");
+            return false;
+        }
+        else if (!checkTel(vip_mp)) {
+            alert("手机号输入不正确");
+            return false;
+        } else if (!checkEmail(vip_email)) {
+            alert("邮箱输入不正确");
+            return false;
+        }
+
+    }
+    return true;
+}
 //添加用户
 function addVIP() {
-    //拿表单数据
-    let vip_AN = $("#vip_AN");
-    let vip_pwd = $("#vip_pwd");
-    let vip_mp = $("#vip_mp");
-    let vip_email = $("#vip_email");
-    let status_id = $("#status_id");
-    //将数据封装
-    let datapram = {
-        "ID":0,
-        "vip_AN": vip_AN.val(),
-        "vip_pwd": vip_pwd.val(),
-        "vip_mp": vip_mp.val(),
-        "vip_email": vip_email.val(),
-        "status_id": status_id.val(),
-        "agent_id": localStorage.getItem("Agent_ID")
-    }
-    //发送ajax请求
-    $.ajax({
-        url: '/VIP/Update',
-        method: 'post',
-        data: datapram,
-        dataType: 'json'
-    }).done((data) => {
-
-        if (data.success) {
-            vip_AN.val("");
-            vip_pwd.val("");
-            vip_mp.val("");
-            vip_email.val("");
-            status_id.val("");
-            $("#exampleModalCenter").modal('hide');
-            onloadData();
-            alert("添加成功");
-        } else {
-            alert("添加失败");
+    if (checkData()) {
+        //拿表单数据
+        let vip_AN = $("#vip_AN");
+        let vip_pwd = $("#vip_pwd");
+        let vip_mp = $("#vip_mp");
+        let vip_email = $("#vip_email");
+        let status_id = $("#status_id");
+        //将数据封装
+        let datapram = {
+            "ID": 0,
+            "vip_AN": vip_AN.val(),
+            "vip_pwd": vip_pwd.val(),
+            "vip_mp": vip_mp.val(),
+            "vip_email": vip_email.val(),
+            "status_id": status_id.val(),
+            "agent_id": localStorage.getItem("Agent_ID")
         }
-    });
-    //console.log(vip_AN + status_id)
-    //清除表单数据并关闭添加窗口
+        //发送ajax请求
+        $.ajax({
+            url: '/VIP/Update',
+            method: 'post',
+            data: datapram,
+            dataType: 'json'
+        }).done((data) => {
+
+            if (data.success) {
+                vip_AN.val("");
+                vip_pwd.val("");
+                vip_mp.val("");
+                vip_email.val("");
+                status_id.val("1");
+                $("#exampleModalCenter").modal('hide');
+                onloadData();
+                alert("添加成功");
+            } else {
+                alert("添加失败,该手机号或邮箱已被注册");
+            }
+        });
+        //console.log(vip_AN + status_id)
+        //清除表单数据并关闭添加窗口
+    }
 }
+//添加会员数据校验
+function checkData() {
+    let vip_AN = $("#vip_AN").val();
+    let vip_pwd = $("#vip_pwd").val();
+    let vip_mp = $("#vip_mp").val();
+    let vip_email = $("#vip_email").val();
+    let status_id = $("#status_id").val();
+    if (vip_AN.trim() == '' || vip_pwd.trim() == '' || vip_mp.trim() == '' || vip_email.trim() == '' || status_id.trim() == '') {
+        alert("会员信息不能为空或数据格式不正确");
+        return false;
+    } else {
+        if (vip_AN.length <= 4 || vip_AN.length > 20) {
+            alert("账号输入长度小于6,或账号过长");
+            return false;
+        }
+        else if (vip_pwd.length < 6 || vip_pwd.length > 20) {
+            alert("密码输入长度小于6,或密码过长");
+            return false;
+        }
+        else if (!checkTel(vip_mp)) {
+            alert("手机号输入不正确");
+            return false;
+        } else if (!checkEmail(vip_email)) {
+            alert("邮箱输入不正确");
+            return false;
+        }
+
+    }
+    return true;
+}
+
+
+
+// 校验手机号
+function checkTel(tel) {
+    let pattern = /^1[34578]\d{9}$/;
+    return pattern.test(tel);
+}
+// 校验邮箱
+function checkEmail(email) {
+    let pattern = /^([a-zA-Z0-9_-]{1,16})@([a-zA-Z0-9]{1,9})(\.[a-zA-Z0-9]{1,9}){0,3}(\.(?:com|net|org|edu|gov|mil|cn|us)){1,4}$/;
+    return pattern.test(email)
+}
+
 
 //页面加载时，去后台拿数据
 function onloadData(page, rows) {
@@ -215,32 +278,33 @@ function onloadData(page, rows) {
     $.ajax({
         url: "/VIP/GetAll",
         method: 'get',
-        data : param,
+        data: param,
         dataType: 'json'
     }).done(function (data) {
-       
+
         objs = data.rows;
         //调用列表数据可视化函数
-       
-        showList(data.total,objs);
+
+        showList(data.total, objs);
+        objs = {};
     })
 }
 
 //封装列表显示函数，传入列表对象进行渲染页面
 function showList(page, objs) {
-    
+
     const page_count = Math.ceil(page / rows);
     num_Page_Count.innerText = "共 " + page_count + " 页";
     Page_Count.innerText = "共 " + page + "条数据";
     num_Page_Count.name = page_count;
-    addOption(page_count);
+
     //将条数提取出去
     allSource = page;
     $("#tbody").empty();
     btn_num_Page_count.val(count);
     //进行数据可视化封装
     $.each(objs, function (index, obj) {
-       
+
         const trs = $("<tr></tr>");
 
         const vip_mp = $("<td>" + obj.VipMobliePhone + "</td>");
@@ -256,7 +320,7 @@ function showList(page, objs) {
             const status_id = $("<td>" + "禁用" + "</td>");
             trs.append(status_id)
         }
-        const vip_CDT = $("<td>" + obj.CreateTime.substring(0,10) + "</td>");
+        const vip_CDT = $("<td>" + obj.CreateTime.substring(0, 10) + "</td>");
         trs.append(vip_CDT)
 
         const vip_Btn = $("<td><button type='button' class='btn btn - secondary' data-toggle='modal' data-target='#editVIP'onclick='editVIP(" + index + ")'>编辑</button></td>");
@@ -269,7 +333,7 @@ function showList(page, objs) {
 
 //入口函数
 $(document).ready(function () {
-        onloadData(1,10);
+    onloadData(1, 10);
 });
 
 

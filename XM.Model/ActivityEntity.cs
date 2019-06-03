@@ -40,5 +40,9 @@ namespace XM.Model
         /// 活动类型
         /// </summary>
         public int Ac_type { get; set; }
+        /// <summary>
+        /// 活动状态
+        /// </summary>
+        public int status_id { get; set; }
     }
 }
