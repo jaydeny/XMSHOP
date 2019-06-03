@@ -135,6 +135,8 @@ namespace XM.WebAgent.Controllers
                 return OperationReturn(true, "添加折扣活动成功!");
             else if (res == 0)
                 return OperationReturn(true, "添加满减活动成功!");
+            else if (res == 3 || res == 4)
+                return OperationReturn(true, "修改活动成功!");
             return OperationReturn(false, "发布活动失败!");
         }
         #endregion
