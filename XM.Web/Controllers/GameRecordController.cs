@@ -8,7 +8,7 @@ namespace XM.Web.Controllers
 {
     public class GameRecordController : BaseController
     {
-        private GameUtil gameUtil = new GameUtil();
+        //private GameUtil gameUtil = new GameUtil();
 
         // GET: GameRecord
         public ActionResult Index()
@@ -24,7 +24,7 @@ namespace XM.Web.Controllers
             string vipAccount = Request["vipAccount"] == null ? "" : Request["vipAccount"]; ;
 
             string[] paras = { vipAccount, starttime, endtime };
-           var result = gameUtil.ReturnRes(paras,action);
+           var result = DALUtility.Game.ReturnRes(paras,action);
             RecordCollect game = JsonConvert.DeserializeObject<RecordCollect>(value: result);
             var data = new
             {
@@ -51,7 +51,7 @@ namespace XM.Web.Controllers
             string ID = Request["ID"] == null ? "" : Request["ID"];
        
             string[] paras = { vipAccount, ID, starttime, endtime, page, agentAccount, rows };
-            var result = gameUtil.ReturnRes(paras, action);
+            var result = DALUtility.Game.ReturnRes(paras, action);
             GameRecord game = JsonConvert.DeserializeObject<GameRecord>(value: result);
             return PagerData(game.result.total, game.result.data, game.result.pageNum, game.result.pageSize);
         }

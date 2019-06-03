@@ -54,11 +54,19 @@ document.querySelector("#btn_num_Page").onclick = function () {
 btn_num_Page_count.bind("input propertychange", function (e) {
     //console.log(e.target.value);
     count = e.target.value;
-    if (count != null || count != '' || count != 0) {
-         onloadData(count, rows);
+    if (count == null || count == '' || count == 0) {
+        count = 1;
+        
+    } 
+    const counts = $("#num_Page_Count")[0].name;
+    //console.log(count)
+    //console.log(counts)
+    if (counts < count) {
+        console.log(count)
+        console.log(counts)
+        //count = counts
     }
-    console.log("aaa")
-   // onloadData(count, rows);
+    //onloadData(count, rows);
 });
 
 //监听文本框改变事件
