@@ -51,7 +51,7 @@ namespace XM.WebVip.Controllers
         {
             if (Session["AN"] == null)
             {
-                Url.Action("Index", "Home");
+                return OperationReturn(false, "请登录后进入个人中心");
             }
             
             return OperationReturn(true, "登录状态");

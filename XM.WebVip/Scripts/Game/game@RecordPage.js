@@ -73,7 +73,7 @@ $(".vipinfo-form").on("click", "#back", function () {
         }, "html")
     QueryRecord();
 });
-
+alert
 //--------------------------------------------分页
 //读取数据
 var QueryDetail = function (data) {
@@ -114,7 +114,7 @@ var Page_Count = document.getElementById("Page_Count");
 //上一页
 $(".vipinfo-form").on("click", "#before", function () {
     if (count == 1) {
-        alert("第一页")
+        narn('log', '第一页')
     } else {
         count -= 1;
         btn_num_Page_count.val(count);
@@ -127,7 +127,7 @@ $(".vipinfo-form").on("click", "#before", function () {
 $(".vipinfo-form").on("click", "#end", function () {
     //拿到总页数
     if (count >= counts) {
-        alert("最后一页")
+        narn('log', '最后一页')
     } else {
         count += 1;
         btn_num_Page_count.val(count);
@@ -147,7 +147,6 @@ $("#btn_num_Page").click = function () {
 //封装列表显示函数，传入列表对象进行渲染页面
 function showList(page) {
     const page_count = Math.ceil(page / rows);
-    //alert(page_count);
     $("#num_Page_Count").text = "共 " + page_count + " 页";
     $("#Page_Count").text = "共 " + page + "条数据";
     counts = page_count;
@@ -300,4 +299,27 @@ function getLastMonthStartDate() {
 function getLastMonthEndDate() {
     var lastMonthEndDate = new Date(nowYear, lastMonth, getMonthDays(lastMonth));
     return formatDate(lastMonthEndDate);
+}
+
+//提示框弹出方法
+function narn(type, text) {
+    naranja()[type]({
+        title: '温馨提示',
+        text: text,
+        timeout: '5000',
+        buttons: [{
+            text: '接受',
+            click: function (e) {
+                naranja().success({
+                    title: '通知',
+                    text: '通知被接受'
+                })
+            }
+        }, {
+            text: '取消',
+            click: function (e) {
+                e.closeNotification()
+            }
+        }]
+    })
 }

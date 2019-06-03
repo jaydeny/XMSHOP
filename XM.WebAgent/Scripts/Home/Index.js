@@ -21,7 +21,7 @@ var Page_Count = document.getElementById("Page_Count");
 //上一页功能
 document.querySelector("#before").onclick = function () {
     if (count == 1) {
-        alert("已经是第一页了")
+        narn('log', '第一页')
     } else {
         count -= 1;
         btn_num_Page_count.val(count);
@@ -34,7 +34,7 @@ document.querySelector("#end").onclick = function () {
     //拿到总页数
     const counts = $("#num_Page_Count")[0].name;
     if (count >= counts) {
-        alert("最后一页了")
+        narn('log', '最后一页')
     } else {
         count += 1;
         btn_num_Page_count.val(count);
@@ -156,7 +156,7 @@ function editToVIP() {
             //console.log(data)
             $("#editVIP").modal('hide');
             onloadData();
-            alert(data.msg)
+            narn('success', data.msg)
         }
     });
 }
@@ -195,9 +195,9 @@ function addVIP() {
             status_id.val("");
             $("#exampleModalCenter").modal('hide');
             onloadData();
-            alert("添加成功");
+            narn('success', '添加成功')
         } else {
-            alert("添加失败");
+            narn('warn', '添加失败')
         }
     });
     //console.log(vip_AN + status_id)
@@ -273,3 +273,25 @@ $(document).ready(function () {
 });
 
 
+//提示框弹出方法
+function narn(type, text) {
+    naranja()[type]({
+        title: '温馨提示',
+        text: text,
+        timeout: '5000',
+        buttons: [{
+            text: '接受',
+            click: function (e) {
+                naranja().success({
+                    title: '通知',
+                    text: '通知被接受'
+                })
+            }
+        }, {
+            text: '取消',
+            click: function (e) {
+                e.closeNotification()
+            }
+        }]
+    })
+}

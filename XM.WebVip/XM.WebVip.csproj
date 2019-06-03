@@ -193,6 +193,7 @@
     <Content Include="Content\CSS\vipRegistered.css" />
     <Content Include="Content\CSS\vipSite.css" />
     <Content Include="Content\CSS\xcConfirm.css" />
+    <Content Include="Content\naranja\naranja.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -296,6 +297,7 @@
     <Content Include="Scripts\Game\game%40RecordPage.js" />
     <Content Include="Scripts\Game\game%40DetailPage.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\naranja\naranja.min.js" />
     <Content Include="Scripts\xcConfirm.js" />
     <Content Include="Scripts\jquery-3.4.0.js" />
     <Content Include="Scripts\jquery-3.4.0.min.js" />

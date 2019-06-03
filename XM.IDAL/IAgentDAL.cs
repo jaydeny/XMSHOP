@@ -150,7 +150,7 @@ namespace XM.IDAL
         /// </summary>
         /// <param name="paras"></param>
         /// <returns></returns>
-        string QryGoods(Dictionary<string, object> paras, out int iCount);
+        string QryGoods(Dictionary<string, object> paras);
         #endregion
 
         #region _Info
