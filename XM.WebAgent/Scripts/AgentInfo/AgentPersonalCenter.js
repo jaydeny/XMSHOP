@@ -19,7 +19,6 @@
                 url: "/AgentInfo/QryAgentInfo",
                 dataType: 'json'
             }).then((data) => {
-                console.log(data)
                 this.agentTable = data.rows;
                 //填充页面模态框信息
                 this.phone = this.agentTable.MobliePhone;
@@ -47,10 +46,10 @@
                     dataType: 'json'
                 }).then((data) => {
                     if (data.success) {
-                        alert("修改成功");
+                        narn('success', '修改成功')
                         this.onLoadData();
                     } else {
-                        alert("修改失败请联系管理员")
+                        narn('warn', '修改失败请联系管理员')
                     }
                     $('#updatePsw').modal('hide')
                 });
@@ -60,9 +59,6 @@
         },
         //修改信息
         updateInfoSubmir() {
-
-
-
             const param = {
                 "agent_mp": this.phone,
                 "agent_email": this.email
@@ -74,13 +70,36 @@
                 dataType: "json"
             }).then((data) => {
                 if (data.success) {
-                    alert("修改成功");
+                    narn('success', '修改成功')
                     this.onLoadData();
                 } else {
-                    alert("修改失败请联系管理员")
+                    narn('warn', '修改失败请联系管理员')
                 }
             });
             $('#updateInfo').modal('hide');
         }
     }
 });
+
+//提示框弹出方法
+function narn(type, text) {
+    naranja()[type]({
+        title: '温馨提示',
+        text: text,
+        timeout: '5000',
+        buttons: [{
+            text: '接受',
+            click: function (e) {
+                naranja().success({
+                    title: '通知',
+                    text: '通知被接受'
+                })
+            }
+        }, {
+            text: '取消',
+            click: function (e) {
+                e.closeNotification()
+            }
+        }]
+    })
+}

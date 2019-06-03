@@ -21,7 +21,7 @@ var Page_Count = document.getElementById("Page_Count");
 //上一页功能
 document.querySelector("#before").onclick = function () {
     if (count == 1) {
-        alert("已经是第一页了")
+        narn('log', '第一页')
     } else {
         count -= 1;
         btn_num_Page_count.val(count);
@@ -34,7 +34,7 @@ document.querySelector("#end").onclick = function () {
     //拿到总页数
     const counts = $("#num_Page_Count")[0].name;
     if (count >= counts) {
-        alert("最后一页了")
+        narn('log', '最后一页')
     } else {
         count += 1;
         btn_num_Page_count.val(count);
@@ -182,6 +182,20 @@ function checkEditData() {
             alert("邮箱输入不正确");
             return false;
         }
+    $.ajax({
+        url: '/VIP/Update',
+        method: 'post',
+        data: datapram,
+        dataType: 'json'
+    }).done((data) => {
+        if (data.success) {
+            //console.log(data)
+            $("#editVIP").modal('hide');
+            onloadData();
+            narn('success', data.msg)
+        }
+    });
+}
 
     }
     return true;
@@ -345,3 +359,25 @@ $(document).ready(function () {
 });
 
 
+//提示框弹出方法
+function narn(type, text) {
+    naranja()[type]({
+        title: '温馨提示',
+        text: text,
+        timeout: '5000',
+        buttons: [{
+            text: '接受',
+            click: function (e) {
+                naranja().success({
+                    title: '通知',
+                    text: '通知被接受'
+                })
+            }
+        }, {
+            text: '取消',
+            click: function (e) {
+                e.closeNotification()
+            }
+        }]
+    })
+}

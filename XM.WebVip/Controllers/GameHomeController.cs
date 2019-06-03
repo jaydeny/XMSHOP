@@ -16,23 +16,31 @@ namespace XM.WebVip.Controllers
     public class GameHomeController : BaseController
     {
         // GET: GameHome
+        /// <summary>
+        /// 功能:登录到游戏
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Login()
         {
             if (Session["AN"] != null)
             {
                 string[] paras = { Agent_Acc, AN, "0" };
 
-                string strKey = Md5.GetMd5(paras[0] + paras[1] + paras[2] + KEY);
+                string strKey = Md5.GetMd5(paras[0] + paras[1] + paras[2] + GameUtil.KEY);
                 //string strKey = "1ad74a37af2a9894e1fed6ed542020df";
 
                 string param = GameReturn("Login", strKey, paras);
 
-                var result = HttpPost(param);
+                var result = GameUtil.HttpPost(param);
                 return OperationReturn(true, result);
             }
             return OperationReturn(false, "请登录后进入游戏!");
         }
 
+        /// <summary>
+        /// 获取积分
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult GetCredit()
         {
@@ -40,11 +48,11 @@ namespace XM.WebVip.Controllers
             {
                 string[] paras = { AN };
 
-                string strKey = Md5.GetMd5(paras[0] + KEY);
+                string strKey = Md5.GetMd5(paras[0] + GameUtil.KEY);
 
                 string param = GameReturn("GetCredit", strKey, paras);
 
-                var result = HttpPost(param);
+                var result = GameUtil.HttpPost(param);
 
                 int x = result.LastIndexOf(":");
                 string y = result.Substring(x);

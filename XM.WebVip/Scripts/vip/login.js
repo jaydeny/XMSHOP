@@ -51,10 +51,6 @@ $("#bntLogin").click(function () {
     else {
         $.post("/Home/Login", { "AN": an, "pwd": pwd }, function (data, status, xhr) {
             if (data.success) {
-                //$("#onlogin_box").addClass("hidden");
-                //$("#login_box").removeClass("hidden");
-                //$("#vip_name").text(data.data.vip_AN);
-                //$('#myModal').modal('hide');
                 window.location.href = '/Home';
                 $("#Game").href = "/GameHome/Login"
             }

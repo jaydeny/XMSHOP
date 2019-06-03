@@ -22,9 +22,31 @@ $(".vipinfo-form").on("click", "#RechargeToGame", function () {
         data: { "money": $(Money).val(), "code": code },
         success: function (data) {
             var data = JSON.parse(data);
-            alert(data.msg);
-            window.location.href = "/vipinfo/vipinfopage";
+            //window.location.href = "/vipinfo/vipinfopage";
+            narn('log', data.msg)
         }
     })
 });
 
+//提示框弹出方法
+function narn(type, text) {
+    naranja()[type]({
+        title: '温馨提示',
+        text: text,
+        timeout: '5000',
+        buttons: [{
+            text: '接受',
+            click: function (e) {
+                naranja().success({
+                    title: '通知',
+                    text: '通知被接受'
+                })
+            }
+        }, {
+            text: '取消',
+            click: function (e) {
+                e.closeNotification()
+            }
+        }]
+    })
+}

@@ -10,7 +10,12 @@ namespace XM.WebVip.Controllers
 {
     public class GameRechargeController : BaseController
     {
+
         // GET: GameRecharge
+        /// <summary>
+        /// 功能:返回充值,反充值页面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult RechargePage()
         {
             setMark();
@@ -19,6 +24,10 @@ namespace XM.WebVip.Controllers
             return View("_Recharge");
         }
 
+        /// <summary>
+        /// 功能:充值游戏积分
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Recharge()
         {
@@ -47,11 +56,11 @@ namespace XM.WebVip.Controllers
 
             string[] paras = { Agent_Acc.ToString(), AN, Money,code };
 
-            string strKey = Md5.GetMd5(paras[0] + paras[1] + paras[2] + paras[3] + KEY);
+            string strKey = Md5.GetMd5(paras[0] + paras[1] + paras[2] + paras[3] + GameUtil.KEY);
 
             string param = GameReturn("EditCredit", strKey, paras);
 
-            var result = HttpPost(param);
+            var result = GameUtil.HttpPost(param);
 
             bool boo = false;
             string str = "充值失败";
@@ -75,12 +84,37 @@ namespace XM.WebVip.Controllers
         {
             string[] paras = { code,AN };
 
-            string strKey = Md5.GetMd5(paras[0] + paras[1] + KEY);
+            string strKey = Md5.GetMd5(paras[0] + paras[1] + GameUtil.KEY);
 
             string param = GameReturnS("EditCreditConfirm", strKey, paras);
 
-            var result = HttpPost(param);
+            var result = GameUtil.HttpPost(param);
             return result;
+        }
+
+        /// <summary>
+        /// 功能:刷新积分
+        /// </summary>
+        public void setMark()
+        {
+            string[] paras = { AN };
+
+            string strKey = Md5.GetMd5(paras[0] + GameUtil.KEY);
+
+            string param = GameReturn("GetCredit", strKey, paras);
+
+            var result = GameUtil.HttpPost(param);
+
+
+            Dictionary<string, object> dic = new Dictionary<string, object>();
+            dic.Add("vip_AN", AN);
+            decimal remainder = DALUtility.Vip.QryRemainder(dic);
+
+            int x = result.LastIndexOf(":");
+            string y = result.Substring(x);
+            int z = y.IndexOf("}");
+            Integral = y.Substring(1, z - 1) == "[]" ? "0" : y.Substring(1, z - 1);
+            Session["Remainder"] = remainder.ToString();
         }
     }
 }

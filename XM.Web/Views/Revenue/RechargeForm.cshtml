@@ -8,6 +8,7 @@
 <head>
     <title></title>
     <script src="~/Scripts/backEnd/Revenue@Recharge.js"></script>
+    <script src="~/Content/js/datepicker/WdatePicker.js"></script>
 </head>
 <body>
     <div id="QryDayTotal">
@@ -17,12 +18,12 @@
                     <tr>
                         <td>
                             <div class="input-group">
-                                <input id="date_start" type="date" class="form-control" style="width: 120px;">——
+                                <input id="date_start" type="text" class="form-control" style="width: 120px;" onfocus="WdatePicker()">——
                             </div>
                         </td>
                         <td>
                             <div class="input-group">
-                                <input id="date_end" type="date" class="form-control" style="width: 120px;">
+                                <input id="date_end" type="text" class="form-control" style="width: 120px;" onfocus="WdatePicker()">
                             </div>
                         </td>
                         <td>

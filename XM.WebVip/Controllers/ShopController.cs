@@ -10,6 +10,18 @@ namespace XM.WebVip.Controllers
     {
         // GET: Shop
         #region _shopping
+        /// <summary>
+        /// 功能:进入选择活动类型
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ChooseAcPage()
+        {
+            if (Session["AN"] != null)
+            {
+                return OperationReturn(true, "已登录");
+            }
+            return OperationReturn(false, "请登录后重试");
+        }
 
         /// <summary>
         /// 功能:进入选择活动类型
@@ -27,12 +39,6 @@ namespace XM.WebVip.Controllers
         /// <returns></returns>
         public ActionResult Buy()
         {
-            if (Session["AN"] == null)
-            {
-                return OperationReturn(false, "请点击登录页面进行登录");
-            }
-            else
-            {
                 //后续需要修改,有关于选中地址的方式
                 if (QryAdd() == 0)
                 {
@@ -65,7 +71,6 @@ namespace XM.WebVip.Controllers
                 }
                 
                 return OperationReturn(true, "购物成功");
-            }
         }
         
         /// <summary>
@@ -89,7 +94,9 @@ namespace XM.WebVip.Controllers
             }
             return AcResult;
         }
+        #endregion
 
+        #region _活动相关
         /// <summary>
         /// 功能:根据活动类型来确定执行的方法
         /// </summary>
@@ -231,9 +238,9 @@ namespace XM.WebVip.Controllers
             PAclist.Times_now = NowTimes;
             //将数据添加到mongodb中
             int iCheck = (int)DALUtility.MDbS.Update<ParticipationAcEntity>("XMShop", "activity",
-                    x => x._id == PAclist._id, PAclist);
-            
-            if (iCheck == 0)
+                        x => x._id == PAclist._id, PAclist);
+
+            if (iCheck == 0 && PAclist.Times_now != PAclist.Times)
             {
                 return 1;
             }

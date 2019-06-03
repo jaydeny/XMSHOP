@@ -43,7 +43,7 @@
             this.page_count = count;
             return count;
         }
-
+        
     },
     methods: {
         //加载首页数据，将数据初始化
@@ -101,7 +101,7 @@
                     this.detailedData = data.rows;
                     $("#showData").modal("show");
                 } else {
-                    alert("数据繁忙,请重新刷新")
+                    narn('warn', '数据繁忙,请稍后再试!')
                 }
             });
         },
@@ -111,7 +111,7 @@
             const startTime = new Date(this.startTime);
             const time = (endTime - startTime) / (1000 * 60 * 60 * 24);
             if (time > 90) {
-                alert("当前用户可以查阅三个月内的记录")
+                narn('warn', '当前用户可以查阅三个月内的记录')
             } else {
                 const param = {
                     "year": startTime.getFullYear(),
@@ -195,7 +195,7 @@
         //分页:
         before() {
             if (this.page <= 1) {
-                alert("已经是第一页了")
+                narn('log', '第一页')
             } else {
                 this.page--;
                 this.btn_sub();
@@ -204,7 +204,7 @@
         next() {
 
             if (this.page >= this.page_count) {
-                alert("已经是最后一页了")
+                narn('log', '最后一页')
             } else {
                 this.page++;
                 this.btn_sub();
@@ -221,3 +221,26 @@
 
     }
 });
+
+//提示框弹出方法
+function narn(type, text) {
+    naranja()[type]({
+        title: '温馨提示',
+        text: text,
+        timeout: '5000',
+        buttons: [{
+            text: '接受',
+            click: function (e) {
+                naranja().success({
+                    title: '通知',
+                    text: '通知被接受'
+                })
+            }
+        }, {
+            text: '取消',
+            click: function (e) {
+                e.closeNotification()
+            }
+        }]
+    })
+}

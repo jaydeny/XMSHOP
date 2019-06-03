@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Security.Cryptography;
+using System;
 
 namespace XM.Comm
 {
@@ -37,6 +38,11 @@ namespace XM.Comm
                 sBuilder.Append(data[i].ToString("x2"));
             }
             return sBuilder.ToString();
+        }
+
+        public static string GetMd5(object p)
+        {
+            throw new NotImplementedException();
         }
     }
 }

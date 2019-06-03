@@ -20,12 +20,12 @@
             <div class="form-group">
                 <label for="email">邮箱</label>
                 <input type="email" class="form-control" id="email" name="email" value="@ViewData["Email"]">
-                <span class="warning"></span>
+                <span class="warning" id="warningEmail"></span>
             </div>
-            <div class="form-group mar_b_20">
+            <div class="form-group">
                 <label for="tel">手机号</label>
                 <input type="tel" class="form-control" id="tel" name="tel" value="@ViewData["MP"]">
-                <span class="warning"></span>
+                <span class="warning" id="warningTel"></span>
             </div>
             <div>
                 <button type="button" class="btn btn-default alter_but" id="btnUpdate">确定</button>
