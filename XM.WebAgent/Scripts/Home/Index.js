@@ -33,6 +33,7 @@ document.querySelector("#before").onclick = function () {
 document.querySelector("#end").onclick = function () {
     //拿到总页数
     const counts = $("#num_Page_Count")[0].name;
+    
     if (count >= counts) {
         narn('log', '最后一页')
     } else {
@@ -59,14 +60,15 @@ btn_num_Page_count.bind("input propertychange", function (e) {
 
     }
     const counts = $("#num_Page_Count")[0].name;
+   
     //console.log(count)
     //console.log(counts)
-    if (counts < count) {
+    if (Number(counts) <= count) {
         console.log(count)
         console.log(counts)
-        //count = counts
+        count = counts
     }
-    //onloadData(count, rows);
+    onloadData(count, rows);
 });
 
 //监听文本框改变事件

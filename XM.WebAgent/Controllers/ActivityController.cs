@@ -9,6 +9,13 @@ using XM.Web.Controllers;
 
 namespace XM.WebAgent.Controllers
 {
+
+    /// <summary>
+    /// 创建人:梁钧淋
+    /// 创建日期:2019-5-26
+    /// 修改日期:2019-5-30
+    /// 功能: 活动
+    /// </summary>
     public class ActivityController : BaseController
     {
         #region _View

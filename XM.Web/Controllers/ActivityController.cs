@@ -8,6 +8,13 @@ using XM.Model;
 
 namespace XM.Web.Controllers
 {
+
+    /// <summary>
+    /// 创建人:梁钧淋
+    /// 创建日期:2019-5-26
+    /// 修改日期:2019-5-30
+    /// 功能: 活动
+    /// </summary>
     public class ActivityController : BaseController
     {
         #region _View
@@ -17,7 +24,10 @@ namespace XM.Web.Controllers
             return View();
         }
 
-        // 添加活动页面
+        /// <summary>
+        /// 添加活动页面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ActivityAdd()
         {
             DateTime dt = DateTime.Now;
@@ -28,12 +38,19 @@ namespace XM.Web.Controllers
             ViewData["EndWeek"] = EndWeek;
             return View();
         }
+        /// <summary>
+        /// 前端框架详细信息页
+        /// </summary>
+        /// <returns></returns>
         public ActionResult GetOrderForm()
         {
             return View("_Form");
         }
         #endregion
-        //获取当前后台用户所发布的活动
+        /// <summary>
+        /// 获取当前后台用户所发布的活动
+        /// </summary>
+        /// <returns></returns>
         public ActionResult  getAllActtvity()
         {
             UserEntity user = Session["User"] as UserEntity;
