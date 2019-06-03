@@ -30,6 +30,7 @@ namespace XM.WebVip.Controllers
             param.Add("pi", pageindex);
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
+            param.Add("order", order);
             param.Add("goods_Name", Request["goods_Name"]);
             param.Add("status_id", 3);
             param.Add("type_id", Request["type_id"]);
@@ -103,6 +104,7 @@ namespace XM.WebVip.Controllers
             param.Add("pi", pageindex);
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
+            param.Add("order", order);
             param.Add("agent_AN", Session["Agent_Acc"] != null ? Session["Agent_Acc"].ToString() : "agent0");
 
                 string result = DALUtility.Agent.QryAgoods(param, out int ICount);
@@ -127,6 +129,7 @@ namespace XM.WebVip.Controllers
             param.Add("pi", pageindex);
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
+            param.Add("order", order);
             param.Add("agent_AN", Session["Agent_Acc"] != null ? Session["Agent_Acc"].ToString() : "agent0");
 
             string result = DALUtility.Agent.QryAgoods(param, out int ICount);

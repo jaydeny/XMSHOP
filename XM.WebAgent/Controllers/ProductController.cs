@@ -72,6 +72,7 @@ namespace XM.WebAgent.Controllers
             param.Add("pi", pageindex);
             param.Add("pageSize", pagesize);
             param.Add("sort", sort);
+            param.Add("order", order);
             param.Add("goods_Name", Request["goods_Name"]);
             param.Add("status_id", 3);
             param.Add("type_id", Request["type_id"] == "" ? null : Request["type_id"]);
@@ -104,7 +105,7 @@ namespace XM.WebAgent.Controllers
             paras["sort"] = sort;
             paras["order"] = order;
             paras.Add("agent_AN", Session["Agent_AN"] != null ? Session["Agent_AN"].ToString() : "agent0");
-            var goods = DALUtility.Agent.QryGoods(paras, out int ICount);
+            var goods = DALUtility.Agent.QryGoods(paras);
             return Content(goods);
         }
 

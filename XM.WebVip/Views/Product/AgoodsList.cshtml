@@ -9,7 +9,7 @@
     <div class="layout">
         @*路径栏*@
         <div class="path_bar fcn">
-            <a>首页</a>&nbsp;>&nbsp;<a>手机</a>
+            <a>首页</a>&nbsp;>&nbsp;<a id="typeName">全部</a>
         </div>
 
         @*筛选框*@
@@ -30,10 +30,11 @@
                 </ul>
             </div>
             <div class="item">
+                <!-- 升序选择（从低到高）： sort-asc selected   降序选择（从高到低）： sort-desc selected -->
                 <div class="title">排序：</div>
-                <a class="first-category">上架时间</a>
+                <a class="first-category sort sort-action sort-asc" data-val="up_time" data-order="asc">上架时间<s></s></a>
                 <ul class="" style="flex: auto">
-                    <li><a>价格</a></li>
+                    <li><a class="sort" data-val="price">价格<s></s></a></li>
                 </ul>
             </div>
         </div>
@@ -75,6 +76,5 @@
     </div>
 </div>
 <script src="~/Scripts/vip/paging.js"></script>
-<script src="~/Scripts/vip/nanobar.min.js"></script>
 <script src="~/Scripts/vip/vip@AgoodsList.js"></script>
 

@@ -26,8 +26,8 @@ function Form() {
             },
             { label: '充值流水号', name: 'recharge_name', width: 200, align: 'left' },
             { label: '充值金额', name: 'recharge_price', width: 200, align: 'left' },
-            { label: '审核人', name: 'agent_id', width: 200, align: 'left' },
-            { label: '充值人', name: 'vip_id', width: 200, align: 'left' }
+            { label: '审核人', name: 'agent_AN', width: 200, align: 'left' },
+            { label: '充值人', name: 'vip_AN', width: 200, align: 'left' }
         ]
     });
     $("#btn_back").click(function () {

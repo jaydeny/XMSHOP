@@ -349,7 +349,8 @@ namespace XM.DAL
             {
                 PageIndex = Convert.ToInt32(paras["pi"]),
                 PageSize = Convert.ToInt32(paras["pageSize"]),
-                SortField = paras["sort"].ToString()
+                SortField = paras["sort"].ToString(),
+                SortDirection = paras["order"].ToString()
             };
             builder.AddWhereAndParameter(paras, "goods_Name", "a.goods_Name", "LIKE", "'%'+@goods_Name+'%'");
             builder.AddWhereAndParameter(paras, "agent_AN");
@@ -366,7 +367,7 @@ namespace XM.DAL
         /// </summary>
         /// <param name="paras"></param>
         /// <returns></returns>
-        public string QryGoods(Dictionary<string, object> paras, out int iCount)
+        public string QryGoods(Dictionary<string, object> paras)
         {
             WhereBuilder builder = new WhereBuilder();
             builder.FromSql = "v_goods_list a left join tbagoods b on a.GoodsID=b.goods_id";
@@ -376,12 +377,13 @@ namespace XM.DAL
                 PageSize = Convert.ToInt32(paras["pageSize"]),
                 SortField = paras["sort"].ToString()
             };
-            builder.AddWhereAndParameter(paras, "goods_id", "a.id", "in", "null");
+            builder.AddWhereAndParameter(paras, "goods_id", "a.id", "is", "null");
             builder.AddWhereAndParameter(paras, "goods_Name", "a.GoodsName", "LIKE", "'%'+@goods_Name+'%'");
             builder.AddWhereAndParameter(paras, "agent_AN");
 
-            var s = SortAndPage(builder, grid, out iCount, "a.* ");
-            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
+            var result = Query("select a.* from v_goods_list a left join tbagoods b on a.GoodsID=b.goods_id where b.goods_id is null",paras);
+            var iCount = Execute("select count(0)  from v_goods_list a left join tbagoods b on a.GoodsID=b.goods_id where b.goods_id is null", paras);
+            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = result });
             return retData;
         }
         #endregion
@@ -559,8 +561,8 @@ namespace XM.DAL
             int pageSize = Convert.ToInt32(paras["pageSize"]);
             int page = Convert.ToInt32(paras["pi"]);
             builder.AddWhereAndParameter(paras, "day", "convert(varchar(10),recharge_time, 120)", "like", "@day+'%'");
-            builder.AddWhereAndParameter(paras, "agent_id");
-            builder.AddWhereAndParameter(paras, "vip_id");
+            builder.AddWhereAndParameter(paras, "agent_AN");
+            builder.AddWhereAndParameter(paras, "vip_AN");
             var s = SortAndPage(builder, grid, out iCount);
             string retData = JsonConvert.SerializeObject(new { total = (int)Math.Ceiling((double)iCount / pageSize), rows = s ,page = page});
             return retData;

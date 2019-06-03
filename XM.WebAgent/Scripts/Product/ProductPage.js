@@ -29,7 +29,7 @@ var VM = new Vue({
         editName: "",
         editIntro: "",
         editPrice: "",
-        editStatus: "1",
+        editStatus: "3",
         //商品类型ID
         typeID : ''
     },
@@ -91,7 +91,7 @@ var VM = new Vue({
                 this.Goods = data.rows;
                 this.GoodsCount = data.total;
                 if (this.Goods.length == 0) {
-                    alert("没有数据")
+                    narn('warn,', '没有数据');
                 }
             });
         },
@@ -107,7 +107,7 @@ var VM = new Vue({
                 this.myGoods = data.rows;
                 this.myGoodsCount = data.total;
                 if (this.myGoods.length == 0) {
-                    alert("没有数据")
+                    narn('warn,', '没有数据');
                 }
             });
 
@@ -120,9 +120,8 @@ var VM = new Vue({
 
             //进行验证
             if (price == '') {
-
                 //定价为空，消息警告，前期使用alert
-                alert(this.config.message.warm.priceIsNull);
+                narn('warn',this.config.message.warm.priceIsNull);
 
 
             } else {
@@ -133,7 +132,7 @@ var VM = new Vue({
                 //设置请求参数
                 this.fromData = {
                     "goods_id": releaseGoods.GoodsID,
-                    "status_id": 1,
+                    "status_id": 3,
                     "price": price,
                     "goods_name": releaseGoods.GoodsName
 
@@ -175,9 +174,9 @@ var VM = new Vue({
             }).then((data) => {
                 if (data.success) {
 
-                    alert(data.msg);
+                    narn('success',data.msg);
                 } else {
-                    alert(data.msg);
+                    narn('warn',data.msg);
                 }
             });
             $('#exampleModalCenter').modal('hide');
@@ -219,7 +218,7 @@ var VM = new Vue({
         before() {
             const page = this.pageSize;
             if (page <= 1) {
-                alert("已经是第一页了")
+                narn('log', '第一页')
             } else {
                 this.pageSize -= 1;
                 this.btn_sub();
@@ -229,7 +228,7 @@ var VM = new Vue({
         end() {
             const page = this.pageSize;
             if (page >= this.total) {
-                alert("已经是最后一页了")
+                narn('log', '最后一页')
             } else {
                 this.pageSize += 1;
                 this.btn_sub();
@@ -251,17 +250,17 @@ var VM = new Vue({
         All_before() {
             const page = this.All_pageSize;
             if (page <= 1) {
-                alert("已经是第一页了")
+                narn('log', '第一页')
             } else {
                 this.All_pageSize -= 1;
                 this.All_btn_sub();
             }
-        },
+        }, 
         //下一页
         All_end() {
             const page = this.All_pageSize;
             if (page >= this.All_total) {
-                alert("已经是最后一页了")
+                narn('log', '最后一页')
             } else {
                 this.All_pageSize += 1;
                 this.All_btn_sub();
@@ -275,7 +274,7 @@ var VM = new Vue({
                 "page": this.All_pageSize,
                 "rows": this.All_count,
                 type_id: this.typeID
-           
+                
             }
             this.onloadData(this.config.goodsUrl.getAllGoods, param);
         },
@@ -311,9 +310,9 @@ var VM = new Vue({
                 dataType: "json"
             }).then((data) => {
                 if (data.success) {
-                    alert(data.msg);
+                    narn('success',data.msg);
                 } else {
-                    alert(data.msg)
+                    narn('warn',data.msg)
                 }
                 const param = {
                     "page": this.pageSize,
@@ -344,3 +343,28 @@ var VM = new Vue({
         }
     }
 });
+
+//提示框弹出方法
+function narn(type, text) {
+    naranja()[type]({
+        title: '温馨提示',
+        text: text,
+        timeout: '5000',
+        buttons: [{
+            text: '接受',
+            click: function (e) {
+                naranja().success({
+                    title: '通知',
+                    text: '通知被接受'
+                })
+            }
+        }, {
+            text: '取消',
+            click: function (e) {
+                e.closeNotification()
+            }
+        }]
+    })
+}
+
+groundSubmir

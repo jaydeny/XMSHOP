@@ -115,6 +115,7 @@
     <Content Include="Content\css\framework-login.css" />
     <Content Include="Content\css\framework-theme.css" />
     <Content Include="Content\css\framework-ui.css" />
+    <Content Include="Content\Dic\Dic%40Index.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\weathericons-regular-webfont.svg" />
@@ -347,6 +348,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\Activity\activityAdd.js" />
     <Content Include="Scripts\Activity\activity_index.js" />
+    <Content Include="Scripts\Activity\_Form.js" />
     <Content Include="Scripts\backEnd\Agent%40Index.js" />
     <Content Include="Scripts\backEnd\Agent%40Form.js" />
     <Content Include="Scripts\backEnd\Default.js" />
@@ -482,6 +484,7 @@
     <Content Include="Views\Activity\Index.cshtml" />
     <Content Include="Views\Activity\ActivityAdd.cshtml" />
     <Content Include="Views\NoticManager\_Form.cshtml" />
+    <Content Include="Views\Activity\_Form.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

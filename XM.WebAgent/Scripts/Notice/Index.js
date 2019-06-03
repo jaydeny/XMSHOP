@@ -65,7 +65,7 @@
                 })
                 str = str.substring(0, str.length - 1);
                 if (str == '') {
-                    alert("请选择你要发送公告的会员")
+                    norn('log',"请选择你要发送公告的会员")
                 } else {
                     const param = {
                         title: this.title,
@@ -79,8 +79,9 @@
                         data: param,
                         dataType: 'json'
                     }).then((data) => {
-                        alert(data.msg);
-                        location.href = "/Notice/NoticRecord"
+                        narnLo('success', data.msg, "/Notice/NoticRecord")
+                        //alert(data.msg);
+                        //location.href = "/Notice/NoticRecord"
                     });
                 }
             }
@@ -100,18 +101,19 @@
                     data: param,
                     dataType: 'json'
                 }).then((data) => {
-                    alert(data.msg);
-                    location.href = "/Notice/NoticRecord"
+                    narnLo('success', data.msg, "/Notice/NoticRecord")
+                    //alert(data.msg);
+                    //location.href = "/Notice/NoticRecord"
                 });
             }
         },
         checkData() {
             if (this.title.trim() == '') {
-                alert("标题不能为空");
+                narn('log', '标题不能为空')
                 return false;
             }
             else if (this.content.trim() == '') {
-                alert("内容不能为空");
+                narn('log', '内容不能为空')
                 return false;
             }
             return true;
@@ -119,7 +121,7 @@
         //上一页
         before() {
             if (this.page <= 1) {
-                alert("已经是第一页了")
+                narn('log', '第一页')
             } else {
                 this.page--;
                 this.getAllVIP();
@@ -128,7 +130,7 @@
         //下一页
         next() {
             if (this.page >= this.pageCount) {
-                alert("已经是最后一页了")
+                narn('log', '最后一页')
             } else {
                 this.page++;
                 this.getAllVIP();
@@ -146,3 +148,51 @@
         }
     }
 });
+
+//提示框弹出方法
+function narn(type, text) {
+    naranja()[type]({
+        title: '温馨提示',
+        text: text,
+        timeout: '5000',
+        buttons: [{
+            text: '接受',
+            click: function (e) {
+                naranja().success({
+                    title: '通知',
+                    text: '通知被接受'
+                })
+            }
+        }, {
+            text: '取消',
+            click: function (e) {
+                e.closeNotification()
+            }
+        }]
+    })
+}
+
+//提示框弹出方法
+function narnLo(type, text,href) {
+    naranja()[type]({
+        title: '温馨提示',
+        text: text,
+        timeout: '5000',
+        buttons: [{
+            text: '接受',
+            click: function (e) {
+                naranja().success({
+                    title: '通知',
+                    text: '通知被接受'
+                })
+
+                location.href = href
+            }
+        }, {
+            text: '取消',
+            click: function (e) {
+                e.closeNotification()
+            }
+        }]
+    })
+}

@@ -193,6 +193,7 @@
     <Content Include="Content\CSS\vipRegistered.css" />
     <Content Include="Content\CSS\vipSite.css" />
     <Content Include="Content\CSS\xcConfirm.css" />
+    <Content Include="Content\naranja\naranja.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -282,6 +283,7 @@
     <Content Include="img\i-8.png" />
     <Content Include="img\icon-empty-shopping.png" />
     <Content Include="img\icon01.svg" />
+    <Content Include="img\icon1.png" />
     <Content Include="img\logged.png" />
     <Content Include="img\slide_1.jpg" />
     <Content Include="img\slide_2.jpg" />
@@ -295,6 +297,7 @@
     <Content Include="Scripts\Game\game%40RecordPage.js" />
     <Content Include="Scripts\Game\game%40DetailPage.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\naranja\naranja.min.js" />
     <Content Include="Scripts\xcConfirm.js" />
     <Content Include="Scripts\jquery-3.4.0.js" />
     <Content Include="Scripts\jquery-3.4.0.min.js" />
@@ -304,13 +307,10 @@
     <Content Include="Scripts\vip\nanobar.min.js" />
     <Content Include="Scripts\vip\notice.js" />
     <Content Include="Scripts\vip\paging.js" />
-    <Content Include="Scripts\vip\RequestUrl.js" />
+    <Content Include="Scripts\vip\validation.js" />
     <Content Include="Scripts\vip\vip%40AgoodsList.js" />
-    <Content Include="Scripts\vip\jqueryAjax.js" />
     <Content Include="Scripts\vip\login.js" />
-    <Content Include="Scripts\vip\vin%40login-configuration.js" />
     <Content Include="Scripts\vip\vip%40FoundPwdPage.js" />
-    <Content Include="Scripts\vip\vip%40index.js" />
     <Content Include="Scripts\vip\Vip%40Signin.js" />
     <Content Include="Scripts\vip\vip%40home.js" />
     <Content Include="Scripts\vip\vipinfo%40Address.js" />

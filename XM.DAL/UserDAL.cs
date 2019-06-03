@@ -170,5 +170,16 @@ namespace XM.DAL
             return StandarInsertOrUpdate("tbUser", paras);
         }
 
+        /// <summary>
+        ///  判断邮箱是否重复
+        /// </summary>
+        /// <param name="userEmail"></param>
+        /// <returns></returns>
+        public bool JudgeEmail(int id, string userEmail)
+        {
+            int count = QuerySingle<int>("SELECT COUNT(*) FROM tbuser WHERE id !=@id AND user_email =@userEmail", new { id,userEmail });
+            return count <= 0;
+        }
+
     }
 }

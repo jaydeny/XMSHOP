@@ -37,12 +37,12 @@ namespace XM.Web.Controllers
         {
             IEnumerable<Navbar> objRoleMenu = (IEnumerable<Navbar>)Session["RoleMenu"];
             List<int> objIDs = new List<int>();
-            foreach(Navbar roleMenu in objRoleMenu)
+            foreach (Navbar roleMenu in objRoleMenu)
             {
                 objIDs.Add(roleMenu.MenuId);
             }
             List<MenuEntity> objMenus = DALUtility.Menu.GetAllMenuByIds(objIDs);
-            return PagerData(objMenus.Count,objMenus);
+            return PagerData(objMenus.Count, objMenus);
         }
         #endregion
         public ActionResult GetCommonData()
@@ -100,7 +100,7 @@ namespace XM.Web.Controllers
                 game = _game
             };
             return Content(JsonConvert.SerializeObject(data));
-            
+
         }
     }
 }

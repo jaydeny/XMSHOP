@@ -52,12 +52,13 @@ namespace XM.WebAgent.Controllers
             string order = Request["sort"] == null ? "asc" : Request["sort"];
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
             int pagesize = Request["rows"] == null ? 10 : Convert.ToInt32(Request["rows"]);
-
+           
             int totalCount;   //输出参数
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["pi"] = pageindex;
             paras["pageSize"] = pagesize;
             paras["Publisher"] = Session["agent_AN"].ToString();
+            paras["Title"] = Request["Title"] == "" ? null : Request["Title"];
             paras["sort"] = sort;
             paras["order"] = order;
             var users = DALUtility.Activity.getAllActivity<ActivityEntity>(paras, out totalCount);
@@ -87,7 +88,6 @@ namespace XM.WebAgent.Controllers
 
             return PagerData(0, "");
         }
-
         #endregion
 
         #region _Update
@@ -123,7 +123,7 @@ namespace XM.WebAgent.Controllers
             //减额
             paras["minus"] = Request["minus"];
             //折扣
-            paras["discount"] = Request["discount"];
+            paras["discount"] = Convert.ToDouble(Request["discount"])/100;
             //次数
             paras["count"] = Request["count"];
             //活动状态
@@ -135,9 +135,14 @@ namespace XM.WebAgent.Controllers
                 return OperationReturn(true, "添加折扣活动成功!");
             else if (res == 0)
                 return OperationReturn(true, "添加满减活动成功!");
+            else if (res == 3 || res == 4)
+                return OperationReturn(true, "修改活动成功!");
             return OperationReturn(false, "发布活动失败!");
         }
         #endregion
+
+
+
 
     }
 }
