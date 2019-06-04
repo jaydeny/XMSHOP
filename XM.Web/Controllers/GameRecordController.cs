@@ -24,7 +24,7 @@ namespace XM.Web.Controllers
             string vipAccount = Request["vipAccount"] == null ? "" : Request["vipAccount"]; ;
 
             string[] paras = { vipAccount, starttime, endtime };
-           var result = DALUtility.Game.ReturnRes(paras,action);
+            var result = DALUtility.Game.ReturnRes(paras,action);
             RecordCollect game = JsonConvert.DeserializeObject<RecordCollect>(value: result);
             var data = new
             {
