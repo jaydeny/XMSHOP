@@ -28,7 +28,7 @@ namespace XM.Comm
         /// <param name="_paras">参数数组</param>
         /// <param name="_culture">国际化参数</param>
         /// <returns>游戏json数据</returns>
-        protected string GameReturn(string _action, string _key, string[] _paras, string _culture = "zh-cn")
+        public static string GameReturn(string _action, string _key, string[] _paras, string _culture = "zh-cn")
         {
             return JsonConvert.SerializeObject(new { action = _action, key = _key, paras = _paras, culture = _culture });
         }

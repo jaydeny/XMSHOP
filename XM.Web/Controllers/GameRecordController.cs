@@ -25,9 +25,9 @@ namespace XM.Web.Controllers
             string vipAccount = Request["vipAccount"] == null ? "" : Request["vipAccount"]; ;
 
             string[] paras = { vipAccount, starttime, endtime };
-            string key = Md5.GetMd5(paras[0] + paras[1] + paras[2] + KEY);
-            string param = GameReturn(action, key, paras);
-            var result = HttpPost(param);
+            string key = Md5.GetMd5(paras[0] + paras[1] + paras[2] + GameUtil. KEY);
+            string param = GameUtil.GameReturn(action, key, paras);
+            var result = GameUtil.HttpPost(param);
             RecordCollect game = JsonConvert.DeserializeObject<RecordCollect>(value: result);
             var data = new
             {
@@ -55,11 +55,11 @@ namespace XM.Web.Controllers
             string ID = Request["ID"] == null ? "" : Request["ID"];
 
             string[] paras = { vipAccount, ID, starttime, endtime, page, agentAccount, rows };
-            string key = Md5.GetMd5(paras[0] + paras[1] + paras[2] + paras[3] + paras[4] + paras[5] + paras[6] + KEY);
+            string key = Md5.GetMd5(paras[0] + paras[1] + paras[2] + paras[3] + paras[4] + paras[5] + paras[6] + GameUtil.KEY);
 
-            string param = GameReturn(action, key, paras);
+            string param = GameUtil.GameReturn(action, key, paras);
 
-            var result = HttpPost(param);
+            var result = GameUtil.HttpPost(param);
             GameRecord game = JsonConvert.DeserializeObject<GameRecord>(value: result);
             if (game.result != null)
             {
