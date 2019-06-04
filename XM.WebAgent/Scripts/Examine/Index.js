@@ -6,7 +6,7 @@ new Vue({
         page: 1,
         rows: 10,
         count: '',
-        page_count:'',
+        page_count: 1,
 
         dataTable: [],
         dataList: [],
@@ -25,8 +25,12 @@ new Vue({
         if (dateMonth < 10) {
             dateMonth = "0" + dateMonth;
         }
+        let day = date.getDate();
+        if (day < 10) {
+            day = "0" + day;
+        }
         this.startTime = date.getFullYear() + "-" + dateMonth + "-" + "01"
-        this.endTime = date.getFullYear() + "-" + dateMonth + "-" + date.getDate();
+        this.endTime = date.getFullYear() + "-" + dateMonth + "-" + day;
         this.status = 6;
         const param = {
             endTime: this.retEndTime(),
@@ -208,6 +212,17 @@ new Vue({
             }
         },
         btn_sub() {
+            
+            if (this.page == null || this.page == '' || this.page == 0) {
+                this.page = 1;
+            }
+            if (this.page_count == 0)
+                this.page_count = 1;
+            if (this.page >= this.page_count) {
+                
+                this.page = this.page_count;
+            }
+           
             const param = {
                 page: this.page,
                 rows: this.rows,

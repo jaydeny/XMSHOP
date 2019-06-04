@@ -31,6 +31,12 @@
     methods: {
         //获取活动历史数据
         getNoticData() {
+            if (this.page == null || this.page == '' || this.page == 0) {
+                this.page = 1;
+            }
+            if (this.page > this.page_count) {
+                this.page = this.page_count;
+            }
             const param = {
                 page: this.page,
                 rows: this.rows,
@@ -41,7 +47,7 @@
                 data: param,
                 dataType: 'json'
             }).then((data) => {
-                console.log(data);
+                
                 this.page_count = data.total;
                 
                 this.RecordTable = data.rows;
@@ -75,21 +81,6 @@
         },
         //撤销活动
         edit_Activity( index,event) {
-            //const param = {
-            //    id: id
-            //}
-            //$.ajax({
-            //    url: "/Notice/Del_NoticbyID",
-            //    data: param,
-            //    dataType: 'json'
-            //}).then((data) => {
-            //    if (data.success) {
-            //        alert(data.msg);
-            //        this.getNoticData();
-            //    } else {
-            //        alert(data.msg)
-            //    }
-            //});
 
             //获取当前时间
             let date = new Date();

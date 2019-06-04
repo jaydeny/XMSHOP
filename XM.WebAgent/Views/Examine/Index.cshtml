@@ -111,11 +111,9 @@
                         <li class="page-item"><a class="page-link" href="#">共 {{count}} 条数据</a></li>
                         <li class="page-item">
                             <div class="input-group mb-3">
-                                <select class="custom-select" id="inputGroupSelect0" v-model="page">
-                                    <option :value="index" v-for="(index) in total_page" :key="index">{{index}}</option>
-                                </select>
+                                <input type="number" class="form-control" v-model="page" style="width:80px" min="1" placeholder="显示页数" />
                                 <div class="input-group-append">
-                                    <label class="input-group-text" for="inputGroupSelect0">显示条数</label>
+                                    <label class="input-group-text" for="inputGroupSelect0">显示页数</label>
                                 </div>
                             </div>
                         </li>
