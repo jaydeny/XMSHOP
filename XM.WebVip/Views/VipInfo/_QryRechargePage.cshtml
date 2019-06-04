@@ -17,8 +17,8 @@
                 充值汇总
             </a>
         </h3>
-        开始时间:<input type="date" id="StartDate" value="@ViewData["StartWeek"]">
-        结束时间:<input type="date" id="EndDate" value="@ViewData["EndWeek"]" />
+        开始时间:<input type="text" id="StartDate" value="@ViewData["StartWeek"]" class="input-wdatepicker" autocomplete="off" onfocus="WdatePicker()" />
+        结束时间:<input type="text" id="EndDate" value="@ViewData["EndWeek"]" class="input-wdatepicker" autocomplete="off" onfocus="WdatePicker()" />
         <button id="Query" onclick="normal()">查询</button>
 
         <button id="ThisWeek" onclick="ThisWeek()" class="btn recharge-confirm">本周</button>
