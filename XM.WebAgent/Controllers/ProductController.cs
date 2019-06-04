@@ -99,7 +99,7 @@ namespace XM.WebAgent.Controllers
             
             //int totalCount;   //输出参数
             Dictionary<string, object> paras = new Dictionary<string, object>();
-            paras["pi"] = pageindex;
+            paras["pi"] = pagesize * (pageindex - 1);
             paras["pageSize"] = pagesize;
             paras["goods_Name"] = Request["goods_name"];
             paras["sort"] = sort;
