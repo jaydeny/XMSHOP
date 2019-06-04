@@ -11,28 +11,23 @@ function btn_add() {
             top.frames[iframeId].submitForm();
         }
     });
+};
+//查看活动详情
+function btn_info() {
+    let typeNum = $("#gridList").jqGridRowValue().Ac_type;
+    let id = $("#gridList").jqGridRowValue().id;
+
+    $.modalOpen({
+        id: "Form",
+        title: "活动详情",
+        url: "/Activity/GetOrderForm?typeNum=" + typeNum + "&id=" + id,
+        width: "430px",
+        height: "400px"
+    });
 }
 
 $(function () {
     gridList();
-    $("#gridList").on("click", ".delete", function () {
-        var id = $(this).data("val");
-
-        if (confirm("确定删除该活动?")) {
-            $.ajax({
-                url: "/NoticManager/Delete",
-                data: { id },
-                success: function (data) {
-                    var e = JSON.parse(data);
-                    console.log(e);
-                    if (e.success) {
-                        alert(e.msg)
-                    }
-                    gridList();
-                }
-            })
-        }
-    });
 })
 
 function gridList() {
@@ -74,18 +69,18 @@ function gridList() {
         sortorder: "desc",
         pager: "#gridPager"
     });
-    $gridList.click(function () {
-        let typeNum = $("#gridList").jqGridRowValue().Ac_type;
-        let id = $("#gridList").jqGridRowValue().id;
+    //$gridList.click(function () {
+    //    let typeNum = $("#gridList").jqGridRowValue().Ac_type;
+    //    let id = $("#gridList").jqGridRowValue().id;
        
-        $.modalOpen({
-            id: "Form",
-            title: "订单详情",
-            url: "/Activity/GetOrderForm?typeNum=" + typeNum + "&id=" + id,
-            width: "430px",
-            height: "400px"
-        });
-    });
+    //    $.modalOpen({
+    //        id: "Form",
+    //        title: "订单详情",
+    //        url: "/Activity/GetOrderForm?typeNum=" + typeNum + "&id=" + id,
+    //        width: "430px",
+    //        height: "400px"
+    //    });
+    //});
     $("#btn_search_title").click(function () {
        
         $gridList.jqGrid('setGridParam', {
@@ -97,7 +92,20 @@ function gridList() {
     });
 };
 function btn_edit() {
-    console.log(event)
+    //console.log(event)
+    let typeNum = $("#gridList").jqGridRowValue().Ac_type;
+    let id = $("#gridList").jqGridRowValue().id;
+
+    $.modalOpen({
+        id: "Form",
+        title: "修改",
+        url: "/Activity/EditOrderForm?typeNum=" + typeNum + "&id=" + id,
+        width: "430px",
+        height: "400px",
+        callBack: function (iframeId) {
+            top.frames[iframeId].submitForm();
+        }
+    });
 };
 
 

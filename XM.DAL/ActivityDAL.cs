@@ -60,6 +60,7 @@ namespace XM.DAL
             };
             builder.AddWhereAndParameter(paras, "Publisher");
             builder.AddWhereAndParameter(paras, "Title");
+            builder.AddWhereAndParameter(paras, "id");
             return SortAndPage<T>(builder, grid, out iCount);
         }
 

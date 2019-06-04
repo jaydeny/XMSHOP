@@ -46,6 +46,15 @@ namespace XM.Web.Controllers
         {
             return View("_Form");
         }
+
+        /// <summary>
+        /// 前端框架修改信息页
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult EditOrderForm()
+        {
+            return View("_Edit");
+        }
         #endregion
         /// <summary>
         /// 获取当前后台用户所发布的活动
@@ -65,6 +74,7 @@ namespace XM.Web.Controllers
             paras["pageSize"] = pagesize;
             
             paras["Title"] = Request["Title"] == "" ? null : Request["Title"];
+            paras["id"] = Request["id"] == "" ? null : Request["id"];
             paras["Publisher"] = user.UserAccountName;
             paras["sort"] = sort;
             paras["order"] = order;
@@ -146,10 +156,12 @@ namespace XM.Web.Controllers
 
             var res = DALUtility.Activity.AddActivity(paras);
 
-            if(res == 1)
+            if (res == 1)
                 return OperationReturn(true, "添加折扣活动成功!");
             else if (res == 0)
                 return OperationReturn(true, "添加满减活动成功!");
+            else if (res == 3 || res == 4)
+                return OperationReturn(true, "修改活动成功!");
             return OperationReturn(false, "发布活动失败!");
         }
 
