@@ -28,7 +28,7 @@ namespace XM.DAL
             string sql = "select * from tbActivity where ( Receiver is null or Receiver = @agent_AN) and StartDate < @Date and EndDate > @Date";
             IEnumerable<ActivityEntity> list = QueryList<ActivityEntity>(sql, param);
             List<ActivityEntity> result = list.ToList();
-            return result;
+            return result ;
         }
 
         /// <summary>
@@ -40,6 +40,8 @@ namespace XM.DAL
         {
             return QuerySingle<int>("P_tbActivity_addActivity", paras, CommandType.StoredProcedure);
         }
+
+
 
         /// <summary>
         /// 获取符合条件的所有活动类数据
@@ -57,6 +59,8 @@ namespace XM.DAL
                 SortDirection = paras["order"].ToString()
             };
             builder.AddWhereAndParameter(paras, "Publisher");
+            builder.AddWhereAndParameter(paras, "Title");
+            builder.AddWhereAndParameter(paras, "id");
             return SortAndPage<T>(builder, grid, out iCount);
         }
 

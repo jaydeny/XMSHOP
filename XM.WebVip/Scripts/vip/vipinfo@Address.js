@@ -36,11 +36,11 @@ $(".site-list").on("click", ".delete", function () {
     var address_id = myAddress[$(this).parent().data("index")].id;
     $.get("/vipinfo/DeleteAddress", { "address_id": address_id }, function (data) {
         if (data.success) {
-            alert(data.msg);
+            narn('success', data.msg) 
             $(".site-list>ul > li:not(:first-child)").remove();
             addressAll();
         } else {
-            alert(data.msg);
+            narn('warn', data.msg) 
         }
     }, "json")
 })
@@ -55,7 +55,7 @@ $(".site-list").on("click", ".update", function () {
 $("#btnAddAddress").click(function () {
     var site = $.trim($("#txt_address").val());
     if (site == "") {
-        alert("请输入地址");
+        narn('log', '请输入地址') 
         return false;
     }
     var url = "InsertAddress";
@@ -64,10 +64,10 @@ $("#btnAddAddress").click(function () {
     }
     $.post("/vipinfo/" + url, { "address_id": updateId, "address_name": site }, function (data) {
         if (data.success) {
-            alert(data.msg);
+            narn('success', data.msg) 
             addressAll();
         } else {
-            alert(data.msg);
+            narn('warn', data.msg) 
         }
     }, "json")
 });
@@ -75,3 +75,25 @@ $("#btnAddAddress").click(function () {
 // 初始化
 addressAll();
 
+//提示框弹出方法
+function narn(type, text) {
+    naranja()[type]({
+        title: '温馨提示',
+        text: text,
+        timeout: '5000',
+        buttons: [{
+            text: '接受',
+            click: function (e) {
+                naranja().success({
+                    title: '通知',
+                    text: '通知被接受'
+                })
+            }
+        }, {
+            text: '取消',
+            click: function (e) {
+                e.closeNotification()
+            }
+        }]
+    })
+}

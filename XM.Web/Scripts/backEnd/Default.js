@@ -75,7 +75,8 @@ function GetLeaveChart() {
             endtime: date.getFullYear() + "-" + (date.getMonth() + 2)
         },
         success: function (data) {
-            obj = data.result;
+            console.log(data);
+            obj = data;
             console.log(obj);
             for (i = 0; i < obj.length; i++) {
                 if (labels.indexOf(obj[i].Date) === -1) {

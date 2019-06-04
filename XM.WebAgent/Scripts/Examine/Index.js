@@ -6,7 +6,7 @@ new Vue({
         page: 1,
         rows: 10,
         count: '',
-        page_count:'',
+        page_count: 1,
 
         dataTable: [],
         dataList: [],
@@ -25,8 +25,12 @@ new Vue({
         if (dateMonth < 10) {
             dateMonth = "0" + dateMonth;
         }
+        let day = date.getDate();
+        if (day < 10) {
+            day = "0" + day;
+        }
         this.startTime = date.getFullYear() + "-" + dateMonth + "-" + "01"
-        this.endTime = date.getFullYear() + "-" + dateMonth + "-" + date.getDate();
+        this.endTime = date.getFullYear() + "-" + dateMonth + "-" + day;
         this.status = 6;
         const param = {
             endTime: this.retEndTime(),
@@ -172,7 +176,7 @@ new Vue({
                     status: this.status
                 }
                 this.onLoadDayData("/Examine/QryDayRechargeForm", param);
-                alert(data.msg);
+                narn('success', data.msg)
                 });
             
         },
@@ -192,7 +196,7 @@ new Vue({
         //上一页
         before() {
             if (this.page <= 1) {
-                alert("已经是第一页了")
+                narn('log', '第一页')
             } else {
                 this.page--;
                 this.btn_sub();
@@ -201,13 +205,24 @@ new Vue({
         //下一页
         next() {
             if (this.page >= this.page_count) {
-                alert("已经是最后一页了")
+                narn('log', '最后一页')
             } else {
                 this.page++;
                 this.btn_sub();
             }
         },
         btn_sub() {
+            
+            if (this.page == null || this.page == '' || this.page == 0) {
+                this.page = 1;
+            }
+            if (this.page_count == 0)
+                this.page_count = 1;
+            if (this.page >= this.page_count) {
+                
+                this.page = this.page_count;
+            }
+           
             const param = {
                 page: this.page,
                 rows: this.rows,
@@ -219,3 +234,27 @@ new Vue({
         }
     }
 });
+
+
+//提示框弹出方法
+function narn(type, text) {
+    naranja()[type]({
+        title: '温馨提示',
+        text: text,
+        timeout: '5000',
+        buttons: [{
+            text: '接受',
+            click: function (e) {
+                naranja().success({
+                    title: '通知',
+                    text: '通知被接受'
+                })
+            }
+        }, {
+            text: '取消',
+            click: function (e) {
+                e.closeNotification()
+            }
+        }]
+    })
+}

@@ -99,13 +99,13 @@ namespace XM.WebAgent.Controllers
             
             //int totalCount;   //输出参数
             Dictionary<string, object> paras = new Dictionary<string, object>();
-            paras["pi"] = pageindex;
+            paras["pi"] = pagesize * (pageindex - 1);
             paras["pageSize"] = pagesize;
             paras["goods_Name"] = Request["goods_name"];
             paras["sort"] = sort;
             paras["order"] = order;
             paras.Add("agent_AN", Session["Agent_AN"] != null ? Session["Agent_AN"].ToString() : "agent0");
-            var goods = DALUtility.Agent.QryGoods(paras, out int ICount);
+            var goods = DALUtility.Agent.QryGoods(paras);
             return Content(goods);
         }
 

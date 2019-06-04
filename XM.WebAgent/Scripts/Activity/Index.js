@@ -23,7 +23,7 @@
             this.pageCount = Math.ceil(this.count / this.rows);
             return this.pageCount;
         }
-
+        
     },
     methods: {
         init() {
@@ -53,30 +53,31 @@
         checkData() {
            
             if (this.title.trim() == '') {
-                alert("标题不能为空");
+                narn('warn', '标题不能为空')
                 return false
             }
             else if (this.content.trim() == '') {
-                alert("内容不能为空");
+                narn('warn', '内容不能为空')
+                
                 return false
             } else if (this.typeNum == '') {
-                alert("请选择优惠");
+                narn('warn', '请选择优惠')
                 return false
             } else if (this.typeNum == '1002') {
                 
                 if ($("#full").val() == '' || $("#minus").val() == '') {
-                    alert("优惠方案提供数据不完整");
+                    narn('warn', '优惠方案提供数据不完整')
                     return false
                 }
             } else if (this.typeNum == '1003') {
 
                 if ($("#discount").val() == '') {
-                    alert("优惠方案提供数据不完整");
+                    narn('warn', '优惠方案提供数据不完整')
                     return false
                 }
             }
             else if (this.count == '') {
-                alert("请选择优惠次数");
+                narn('warn', '请选择优惠次数')
                 return false
             }
             return true
@@ -103,8 +104,8 @@
                 }).then((data) => {
                     if (data.success) { 
                         location.href = "/Activity/ActivityRecord"
-                    } 
-                    alert(data.msg);
+                    }
+                    narn('warn', data.msg)
                 });
             }
         },
@@ -112,7 +113,7 @@
         //上一页
         before() {
             if (this.page <= 1) {
-                alert("已经是第一页了")
+                narn('log','第一页')
             } else {
                 this.page--;
                 this.getAllVIP();
@@ -121,7 +122,7 @@
         //下一页
         next() {
             if (this.page >= this.pageCount) {
-                alert("已经是最后一页了")
+                narn('log', '最后一页')
             } else {
                 this.page++;
                 this.getAllVIP();
@@ -154,3 +155,26 @@ vm.$watch('typeNum', function () {
     }
     $("#container").append(text);
 });
+
+//提示框弹出方法
+function narn(type, text) {
+    naranja()[type]({
+        title: '温馨提示',
+        text: text,
+        timeout: '5000',
+        buttons: [{
+            text: '接受',
+            click: function (e) {
+                naranja().success({
+                    title: '通知',
+                    text: '通知被接受'
+                })
+            }
+        }, {
+            text: '取消',
+            click: function (e) {
+                e.closeNotification()
+            }
+        }]
+    })
+}

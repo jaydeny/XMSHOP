@@ -10,7 +10,6 @@ namespace XM.WebVip.Controllers
     {
         // GET: Shop
         #region _shopping
-
         /// <summary>
         /// 功能:进入选择活动类型
         /// </summary>
@@ -95,7 +94,9 @@ namespace XM.WebVip.Controllers
             }
             return AcResult;
         }
+        #endregion
 
+        #region _活动相关
         /// <summary>
         /// 功能:根据活动类型来确定执行的方法
         /// </summary>
@@ -237,9 +238,9 @@ namespace XM.WebVip.Controllers
             PAclist.Times_now = NowTimes;
             //将数据添加到mongodb中
             int iCheck = (int)DALUtility.MDbS.Update<ParticipationAcEntity>("XMShop", "activity",
-                    x => x._id == PAclist._id, PAclist);
-            
-            if (iCheck == 0)
+                        x => x._id == PAclist._id, PAclist);
+
+            if (iCheck == 0 && PAclist.Times_now != PAclist.Times)
             {
                 return 1;
             }
