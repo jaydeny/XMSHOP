@@ -33,6 +33,7 @@ document.querySelector("#before").onclick = function () {
 document.querySelector("#end").onclick = function () {
     //拿到总页数
     const counts = $("#num_Page_Count")[0].name;
+    
     if (count >= counts) {
         narn('log', '最后一页')
     } else {
@@ -54,11 +55,20 @@ document.querySelector("#btn_num_Page").onclick = function () {
 btn_num_Page_count.bind("input propertychange", function (e) {
     //console.log(e.target.value);
     count = e.target.value;
-    if (count != null || count != '' || count != 0) {
-         onloadData(count, rows);
+    if (count == null || count == '' || count == 0) {
+        count = 1;
+
     }
-    console.log("aaa")
-   // onloadData(count, rows);
+    const counts = $("#num_Page_Count")[0].name;
+   
+    //console.log(count)
+    //console.log(counts)
+    if (Number(counts) <= count) {
+        console.log(count)
+        console.log(counts)
+        count = counts
+    }
+    onloadData(count, rows);
 });
 
 //监听文本框改变事件
@@ -120,7 +130,7 @@ function editVIP(id) {
 //发送请求，带这个VIP去进行修改
 function editToVIP() {
 
-    if (checkEditData) {
+    if (checkEditData()) {
         let edit_vip_AN = $("#edit_vip_AN");
         let edit_vip_mp = $("#edit_vip_mp");
         let edit_vip_email = $("#edit_vip_email");
@@ -148,7 +158,7 @@ function editToVIP() {
                 //console.log(data)
                 $("#editVIP").modal('hide');
                 onloadData();
-                alert(data.msg)
+                narn('success', data.msg);
             }
         });
     }
@@ -160,38 +170,25 @@ function checkEditData() {
     let vip_email = $("#edit_vip_email").val();
     let status_id = $("#status_id").val();
     if (vip_AN.trim() == '' || vip_mp.trim() == '' || vip_email.trim() == '' || status_id.trim() == '') {
-        alert("会员信息不能为空或数据格式不正确");
+        narn("warn", "会员信息不能为空或数据格式不正确");
         return false;
     } else {
         if (vip_AN.length <= 4 || vip_AN.length > 20) {
-            alert("账号输入长度小于6");
+            narn("warn", "账号输入长度小于6");
             return false;
         }
         else if (!checkTel(vip_mp)) {
-            alert("手机号输入不正确");
+            narn("warn", "手机号输入不正确");
             return false;
         } else if (!checkEmail(vip_email)) {
-            alert("邮箱输入不正确");
+            narn("warn", "邮箱输入不正确");
             return false;
         }
-    $.ajax({
-        url: '/VIP/Update',
-        method: 'post',
-        data: datapram,
-        dataType: 'json'
-    }).done((data) => {
-        if (data.success) {
-            //console.log(data)
-            $("#editVIP").modal('hide');
-            onloadData();
-            narn('success', data.msg)
-        }
-    });
-}
-
     }
     return true;
 }
+
+
 //添加用户
 function addVIP() {
     if (checkData()) {
@@ -227,9 +224,10 @@ function addVIP() {
                 status_id.val("1");
                 $("#exampleModalCenter").modal('hide');
                 onloadData();
-                alert("添加成功");
+                narn("success", "添加成功");
             } else {
-                alert("添加失败,该手机号或邮箱已被注册");
+
+                narn("warn", "添加失败,该手机号或邮箱已被注册");
             }
         });
         //console.log(vip_AN + status_id)
@@ -244,30 +242,29 @@ function checkData() {
     let vip_email = $("#vip_email").val();
     let status_id = $("#status_id").val();
     if (vip_AN.trim() == '' || vip_pwd.trim() == '' || vip_mp.trim() == '' || vip_email.trim() == '' || status_id.trim() == '') {
-        alert("会员信息不能为空或数据格式不正确");
+        narn("warn", "会员信息不能为空或数据格式不正确");
         return false;
     } else {
         if (vip_AN.length <= 4 || vip_AN.length > 20) {
-            alert("账号输入长度小于6,或账号过长");
+            narn("warn", "账号输入长度小于6,或账号过长");
             return false;
         }
         else if (vip_pwd.length < 6 || vip_pwd.length > 20) {
-            alert("密码输入长度小于6,或密码过长");
+            narn("warn", "手机号输入不正确");
             return false;
         }
         else if (!checkTel(vip_mp)) {
-            alert("手机号输入不正确");
+
+            narn("warn", "手机号输入不正确");
             return false;
         } else if (!checkEmail(vip_email)) {
-            alert("邮箱输入不正确");
+            narn("warn", "邮箱输入不正确");
             return false;
         }
 
     }
     return true;
 }
-
-
 
 // 校验手机号
 function checkTel(tel) {
@@ -300,7 +297,7 @@ function onloadData(page, rows) {
         //调用列表数据可视化函数
 
         showList(data.total, objs);
-        objs = {};
+        
     })
 }
 

@@ -8,6 +8,13 @@ using XM.Model;
 
 namespace XM.Web.Controllers
 {
+
+    /// <summary>
+    /// 创建人:梁钧淋
+    /// 创建日期:2019-5-26
+    /// 修改日期:2019-5-30
+    /// 功能: 活动
+    /// </summary>
     public class ActivityController : BaseController
     {
         #region _View
@@ -17,7 +24,10 @@ namespace XM.Web.Controllers
             return View();
         }
 
-        // 添加活动页面
+        /// <summary>
+        /// 添加活动页面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ActivityAdd()
         {
             DateTime dt = DateTime.Now;
@@ -28,12 +38,28 @@ namespace XM.Web.Controllers
             ViewData["EndWeek"] = EndWeek;
             return View();
         }
+        /// <summary>
+        /// 前端框架详细信息页
+        /// </summary>
+        /// <returns></returns>
         public ActionResult GetOrderForm()
         {
             return View("_Form");
         }
+
+        /// <summary>
+        /// 前端框架修改信息页
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult EditOrderForm()
+        {
+            return View("_Edit");
+        }
         #endregion
-        //获取当前后台用户所发布的活动
+        /// <summary>
+        /// 获取当前后台用户所发布的活动
+        /// </summary>
+        /// <returns></returns>
         public ActionResult  getAllActtvity()
         {
             UserEntity user = Session["User"] as UserEntity;
@@ -48,6 +74,7 @@ namespace XM.Web.Controllers
             paras["pageSize"] = pagesize;
             
             paras["Title"] = Request["Title"] == "" ? null : Request["Title"];
+            paras["id"] = Request["id"] == "" ? null : Request["id"];
             paras["Publisher"] = user.UserAccountName;
             paras["sort"] = sort;
             paras["order"] = order;
@@ -129,10 +156,12 @@ namespace XM.Web.Controllers
 
             var res = DALUtility.Activity.AddActivity(paras);
 
-            if(res == 1)
+            if (res == 1)
                 return OperationReturn(true, "添加折扣活动成功!");
             else if (res == 0)
                 return OperationReturn(true, "添加满减活动成功!");
+            else if (res == 3 || res == 4)
+                return OperationReturn(true, "修改活动成功!");
             return OperationReturn(false, "发布活动失败!");
         }
 

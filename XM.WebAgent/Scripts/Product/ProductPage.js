@@ -12,8 +12,8 @@ var VM = new Vue({
         count: '',
         //计算得出代理商品的最后一页
         total: '',
-        All_pageSize: '',
-        All_count: '',
+        All_pageSize: 1,
+        All_count: 10,
         All_total: '',
         //全部商品总条数
         GoodsCount: "",
@@ -87,9 +87,9 @@ var VM = new Vue({
                 data: param,
                 dataType: 'json'
             }).done((data) => {
-                //console.log(data)
+                //console.log(data.rows.length)
                 this.Goods = data.rows;
-                this.GoodsCount = data.total;
+                this.GoodsCount = data.rows.length;
                 if (this.Goods.length == 0) {
                     narn('warn,', '没有数据');
                 }
@@ -367,4 +367,3 @@ function narn(type, text) {
     })
 }
 
-groundSubmir

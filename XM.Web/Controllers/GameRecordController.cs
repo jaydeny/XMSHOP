@@ -24,7 +24,7 @@ namespace XM.Web.Controllers
             string vipAccount = Request["vipAccount"] == null ? "" : Request["vipAccount"]; ;
 
             string[] paras = { vipAccount, starttime, endtime };
-            var result = DALUtility.Game.ReturnRes(paras, action);
+           var result = DALUtility.Game.ReturnRes(paras,action);
             RecordCollect game = JsonConvert.DeserializeObject<RecordCollect>(value: result);
             var data = new
             {
@@ -49,12 +49,12 @@ namespace XM.Web.Controllers
             string starttime = Request["starttime"] == null ? "2019-05-01" : Request["starttime"];
             string endtime = Request["endtime"] == null ? DateTime.Now.Date.ToString() : Request["endtime"];
             string ID = Request["ID"] == null ? "" : Request["ID"];
-
+       
             string[] paras = { vipAccount, ID, starttime, endtime, page, agentAccount, rows };
             var result = DALUtility.Game.ReturnRes(paras, action);
             GameRecord game = JsonConvert.DeserializeObject<GameRecord>(value: result);
             return PagerData(game.result.total, game.result.data, game.result.pageNum, game.result.pageSize);
         }
-
+        
     }
 }
