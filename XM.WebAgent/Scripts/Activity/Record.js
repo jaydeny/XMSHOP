@@ -47,9 +47,7 @@
                 data: param,
                 dataType: 'json'
             }).then((data) => {
-                
                 this.page_count = data.total;
-                
                 this.RecordTable = data.rows;
                 this.count = data.records;
             });
@@ -79,7 +77,7 @@
             //弹出模态框
             $("#showData").modal("show");
         },
-        //撤销活动
+        //修改活动
         edit_Activity( index,event) {
 
             //获取当前时间
@@ -90,7 +88,7 @@
             let arr = new Array();
             arr[0] = this.RecordTable[index];
             this.editData = arr;
-            
+            //this.editData.Discount = this.editData.Discount * 100;
             const typeID = this.editData[0].Ac_type;
             const ID = this.editData[0].id;
             this.getInfoData(typeID, ID);
@@ -98,7 +96,7 @@
             //将数据进行转换
             //let start = new Date(this.RecordIndexData.StartDate);
             //let end = new Date(this.RecordIndexData.EndDate);
-            console.log(this.editData)
+            //console.log(this.editData)
             //判断当天是否是在活动范围内 如果是就进行编辑
             //if (start <= date && date <= end) {
 
@@ -127,7 +125,6 @@
         edit_sub() {
             const data = this.editData[0];
             const infodata = this.editRes[0];
-            console.log(infodata)
             const param = {
                 allType: 2,
                 actID: data.id,
@@ -138,7 +135,7 @@
                 typeNum: data.Ac_type,
                 full: infodata.Ac_full,
                 minus: infodata.Minus,
-                discount: infodata.Discount * 100,
+                discount: infodata.Discount,
                 count: infodata.Times,
                 status: data.status_id
             }
@@ -147,7 +144,8 @@
                 data: param,
                 dataType: 'json'
             }).then((data) => {
-                console.log(data);
+             
+                narn('success', data.msg)
                 });
             $("#showInfoData").modal("hide");
         },
@@ -162,7 +160,7 @@
                 },
                 dataType: 'json'
             }).then((data) => {
-                console.log(data)
+                //console.log(data)
                 return data;
                 if (data.success) {
                     narn('success', data.msg)

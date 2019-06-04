@@ -130,7 +130,7 @@ namespace XM.WebAgent.Controllers
             //减额
             paras["minus"] = Request["minus"];
             //折扣
-            paras["discount"] = Convert.ToDouble(Request["discount"])/100;
+            paras["discount"] = Convert.ToDouble(Request["discount"]);
             //次数
             paras["count"] = Request["count"];
             //活动状态
