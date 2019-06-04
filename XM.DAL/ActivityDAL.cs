@@ -25,10 +25,10 @@ namespace XM.DAL
         /// <returns></returns>
         public List<ActivityEntity> QryAC<ActivityEntity>(Dictionary<string, object> param)
         {
-            string sql = "select * from tbActivity where ( Receiver is null or Receiver = @agent_AN or Receiver in @agent_AN) and StartDate < @Date and EndDate > @Date";
+            string sql = "select * from tbActivity where ( Receiver is null or Receiver = @agent_AN) and StartDate < @Date and EndDate > @Date";
             IEnumerable<ActivityEntity> list = QueryList<ActivityEntity>(sql, param);
             List<ActivityEntity> result = list.ToList();
-            return result;
+            return result ;
         }
 
         /// <summary>
