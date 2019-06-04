@@ -152,7 +152,7 @@
                                 <tbody v-for="(obj,index) in res" :key="index">
                                     <tr>
                                         <th scope="row">折扣(%)</th>
-                                        <td>{{obj.Discount}}</td>
+                                        <td>{{obj.Discount*100}}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">满额</th>
@@ -223,7 +223,7 @@
                                 <tbody v-for="(obj,index) in editRes" :key="index" >
                                     <tr>
                                         <th scope="row">折扣(%)</th>
-                                        <td> <input type="number"  v-model="obj.Discount*100" /> </td>
+                                        <td> <input type="number"  max="1" v-model="obj.Discount" /> </td>
                                     </tr>
                                     <tr >
                                         <th scope="row">满额</th>
