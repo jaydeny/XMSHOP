@@ -86,7 +86,8 @@ namespace XM.Web.Controllers
             paras["goods_CP"] = goodsPrice;
             paras["type_id"] = typeId;
             paras["goods_pic"] = fileName;
-            
+
+            //"D:\\Shop\\img"是服务器路径,调试则修改成本地路径
             string serverPath = string.Format("{0}\\{1}", "D:\\Shop\\img", fileName);
             //文件存在,则删除
             if (System.IO.File.Exists(serverPath))
