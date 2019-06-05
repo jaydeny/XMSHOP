@@ -90,7 +90,7 @@ namespace XM.DALFactory
         {
             get { return LoadAssamblyType<IVipDAL>("VipDAL"); }
         }
-        
+
         public IGoodsDAL Goods
         {
             get { return LoadAssamblyType<IGoodsDAL>("GoodsDAL"); }
@@ -133,16 +133,6 @@ namespace XM.DALFactory
             get { return LoadAssamblyType<IXMDAL>("XMDAL"); }
         }
 
-        public MongoDbService MDbS
-        {
-            get { return new MongoDbService(); }
-        }
-
-        public GameUtil Game
-        {
-            get { return new GameUtil(); }
-        }
-
         public INoticDAL Notic
         {
             get { return LoadAssamblyType<INoticDAL>("NoticDAL"); }
@@ -155,6 +145,20 @@ namespace XM.DALFactory
         {
             get { return LoadAssamblyType<IFirstDAL>("FirstDAL"); }
         }
-        
+
+        public MongoDbService MDbS
+        {
+            get { return new MongoDbService(); }
+        }
+
+        public GameUtil Game
+        {
+            get { return new GameUtil(); }
+        }
+
+        public ResourceHelper GetResource
+        {
+            get { return new ResourceHelper(); }
+        }
     }
 }

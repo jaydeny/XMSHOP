@@ -86,7 +86,7 @@ $(".goods-exhibition").on("click", ".p-button", function () {
             Form.url = "/Shop/ChooseAc";
             bouncedLogin(Form);
         } else {
-            narn('warn',data.msg)
+            narn('warn',"请登录后重试")
         }
     }, "json")
 
@@ -97,10 +97,13 @@ $(".choose-main").on("click", "#ChooseAc", function () {
     var Ac = $(this).data('val')
     $.post("/Shop/buy", { agoods_id: obj.id, buy_count: 1, order_total: obj.price, buy_total: obj.price * 1, Ac_id: Ac }, function (data) {
         if (data.success) {
-            narn('success', data.msg)
+            narn('success', "购物成功")
             $("#myModal").modal('hide');
         } else {
-            narn('warn', data.msg)
+            if (data.msg == "vip013") {
+                narn('warn', "用户余额不足,请充值后从试!")
+            }
+            narn('warn', "购物出错,请重试!")
         }
     }, "json")
 });

@@ -64,7 +64,7 @@ namespace XM.WebVip.Controllers
                 {
                     if (vip.StatusID == 2)
                     {
-                        return OperationReturn(false, "用户已被禁用，请您联系管理员");
+                        return OperationReturn(false, "vip002");
                     }
 
 
@@ -78,23 +78,17 @@ namespace XM.WebVip.Controllers
                     Session["Agent_ID"] = vip.AgentID;
                     Session["Agent_Acc"] = getAgentAN(vip.AgentID);
                     //base.Agent_Acc = agent_an;
-                    return OperationReturn(true, "登录成功,vip_id:" + vip.VipID + ";vip_AN:" + AN,
-                        new
-                        {
-                            vip_id = vip.VipID,
-                            vip_AN = vip.VipAccountName,
-                            agent_id = vip.AgentID
-                        });
+                    return OperationReturn(true, "vip001");
 
                 }
                 else
                 {
-                    return OperationReturn(false, "用户名密码错误，请您检查");
+                    return OperationReturn(false, "vip003");
                 }
             }
             catch (Exception ex)
             {
-                return OperationReturn(false, "登录异常," + ex.Message);
+                return OperationReturn(false, "vip004");
             }
         }
         #endregion
@@ -189,7 +183,7 @@ namespace XM.WebVip.Controllers
                 boo = EmailHelper.send(vip.VipEmail, "修改密码", strMailContent);
             }
 
-            return OperationReturn(boo, "邮件已发送,请登录邮箱进行下一步操作!");
+            return OperationReturn(boo, "vip005");
         }
 
         /// <summary>
@@ -251,7 +245,7 @@ namespace XM.WebVip.Controllers
             }
             else
             {
-                return OperationReturn(false, "修改失败,原始密码出错,请重新输入!");
+                return OperationReturn(false, "vip006");
             }
         }
         #endregion
@@ -288,11 +282,11 @@ namespace XM.WebVip.Controllers
                 if (ID == 0)
                 {
                     NewVIP(paras["vip_AN"].ToString());
-                    return OperationReturn(true, "注册成功");
+                    return OperationReturn(true, "vip007");
                 }
                 else
                 {
-                    return OperationReturn(true, "修改成功");
+                    return OperationReturn(true, "vip008");
                 }
             }
         }
@@ -340,7 +334,7 @@ namespace XM.WebVip.Controllers
             Session.Remove("Agent_ID");
             Session.Remove("Agent_Acc");
            
-            return OperationReturn(true, "退出成功");
+            return OperationReturn(true, "vip009");
         }
 
         /// <summary>

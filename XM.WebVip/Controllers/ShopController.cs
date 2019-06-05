@@ -18,9 +18,9 @@ namespace XM.WebVip.Controllers
         {
             if (Session["AN"] != null)
             {
-                return OperationReturn(true, "已登录");
+                return OperationReturn(true, "vip010");
             }
-            return OperationReturn(false, "请登录后重试");
+            return OperationReturn(false, "vip011");
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace XM.WebVip.Controllers
                 //后续需要修改,有关于选中地址的方式
                 if (QryAdd() == 0)
                 {
-                    return OperationReturn(false, "请添加地址后购物");
+                    return OperationReturn(false, "vip012");
                 }
                 
                 var vipInfo = QryTOPAdd();
@@ -67,10 +67,10 @@ namespace XM.WebVip.Controllers
                 List<int> AcResult = Shop(param, ChooseAcID);
                 if (AcResult.Contains(1))
                 {
-                    return OperationReturn(false, AcResult.Contains(1) ? "用户余额不足,请充值后从试!" : "购物出错,请重试!");
+                    return OperationReturn(false, AcResult.Contains(1) ? "vip013" : "vip014");
                 }
                 
-                return OperationReturn(true, "购物成功");
+                return OperationReturn(true, "vip015");
         }
         
         /// <summary>

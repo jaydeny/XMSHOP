@@ -85,7 +85,7 @@
             }
             else
             {
-                narn('warn',data.mag)
+                narn('warn',"请登录后重试")
             }
         }, "json")
     });
@@ -104,7 +104,7 @@
                 var e = JSON.parse(data.msg)
                 window.open(e.result,"_black");
             } else {
-                narn('warn',data.msg)
+                narn('warn',"请登录后进入游戏!")
             }
 
         }, "json")
@@ -122,7 +122,7 @@
             }
             else {
                 type = 'warn';
-                text = data.msg;
+                text = "请登录后查询积分";
             }
             narn(type,text)
         }, "json")

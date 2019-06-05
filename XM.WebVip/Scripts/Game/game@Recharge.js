@@ -23,7 +23,10 @@ $(".vipinfo-form").on("click", "#RechargeToGame", function () {
         success: function (data) {
             var data = JSON.parse(data);
             //window.location.href = "/vipinfo/vipinfopage";
-            narn('log', data.msg)
+            if (data.msg == "vip004") {
+                narn('success', "充值成功!")
+            }
+            narn('success', "提现成功!")
         }
     })
 });

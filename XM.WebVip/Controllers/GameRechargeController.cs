@@ -48,7 +48,7 @@ namespace XM.WebVip.Controllers
                 decimal remainder = DALUtility.Xm.CheckRamainder(dic);
                 if (remainder < decimal.Parse(Request["money"]))
                 {
-                    return OperationReturn(false, "余额不足,请充值后再试!");
+                    return OperationReturn(false, "game003");
                 }
             }
 
@@ -74,7 +74,7 @@ namespace XM.WebVip.Controllers
                     dic.Add("recharge_time", date);
                     dic.Add("agent_AN", Agent_Acc);
                     int iCheck = DALUtility.Xm.GameRecharge(dic);
-                    return OperationReturn(true, iCheck == 1 ? "充值成功" : "提现成功");
+                    return OperationReturn(true, iCheck == 1 ? "game004" : "game005");
                 }
             }
             return OperationReturn(boo, str);

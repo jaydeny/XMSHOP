@@ -34,7 +34,7 @@ namespace XM.WebVip.Controllers
                 var result = GameUtil.HttpPost(param);
                 return OperationReturn(true, result);
             }
-            return OperationReturn(false, "请登录后进入游戏!");
+            return OperationReturn(false, "game001");
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace XM.WebVip.Controllers
                 string p = y.Substring(1,z-1);
                 return OperationReturn(true, result);
             }
-            return OperationReturn(false, "请登录后查询积分!");
+            return OperationReturn(false, "game002");
         }
     }
 
