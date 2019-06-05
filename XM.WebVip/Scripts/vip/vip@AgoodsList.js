@@ -72,7 +72,7 @@ var goodsRender = function () {
 }
 
 var obj;
-// 立即下单
+// 立即下单,让客户选择活动
 $(".goods-exhibition").on("click", ".p-button", function () {
     obj = listGoods[$(this).data("id")];
 
@@ -86,20 +86,21 @@ $(".goods-exhibition").on("click", ".p-button", function () {
             Form.url = "/Shop/ChooseAc";
             bouncedLogin(Form);
         } else {
-            alert(data.msg);
+            narn('warn',data.msg)
         }
     }, "json")
 
 });
 
+//选择活动后,购物的方法
 $(".choose-main").on("click", "#ChooseAc", function () {
     var Ac = $(this).data('val')
     $.post("/Shop/buy", { agoods_id: obj.id, buy_count: 1, order_total: obj.price, buy_total: obj.price * 1, Ac_id: Ac }, function (data) {
         if (data.success) {
-            alert(data.msg);
+            narn('success', data.msg)
             $("#myModal").modal('hide');
         } else {
-            alert(data.msg);
+            narn('warn', data.msg)
         }
     }, "json")
 });
@@ -120,6 +121,31 @@ function getQueryVariable(variable) {
 goodsRender();
 // 请求商品
 var search = getQueryVariable("search");
+
+
+
+//提示框弹出方法
+function narn(type, text) {
+    naranja()[type]({
+        title: '温馨提示',
+        text: text,
+        timeout: '5000',
+        buttons: [{
+            text: '接受',
+            click: function (e) {
+                naranja().success({
+                    title: '通知',
+                    text: '通知被接受'
+                })
+            }
+        }, {
+            text: '取消',
+            click: function (e) {
+                e.closeNotification()
+            }
+        }]
+    })
+}
 
 //if (search != null && search != "") {
 //    goodsRender({ Agoods_Name: search });

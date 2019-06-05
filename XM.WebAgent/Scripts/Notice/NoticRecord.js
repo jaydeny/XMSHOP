@@ -46,10 +46,10 @@
                 dataType: 'json'
             }).then((data) => {
                 if (data.success) {
-                    alert(data.msg);
+                    narn('sueecss', data.msg)
                     this.getNoticData();
                 } else {
-                    alert(data.msg)
+                    narn('warn', data.msg)
                 }
             });
         },
@@ -57,7 +57,7 @@
         //上一页
         before() {
             if (this.page <= 1) {
-                alert("已经是第一页了")
+                narn('log', '第一页')
             } else {
                 this.page--;
                 this.getNoticData();
@@ -66,7 +66,7 @@
         //下一页
         next() {
             if (this.page >= this.page_count) {
-                alert("已经是最后一页了")
+                narn('log', '最后一页')
             } else {
                 this.page++;
                 this.getNoticData();
@@ -86,3 +86,26 @@
         }
     }
 });
+
+//提示框弹出方法
+function narn(type, text) {
+    naranja()[type]({
+        title: '温馨提示',
+        text: text,
+        timeout: '5000',
+        buttons: [{
+            text: '接受',
+            click: function (e) {
+                naranja().success({
+                    title: '通知',
+                    text: '通知被接受'
+                })
+            }
+        }, {
+            text: '取消',
+            click: function (e) {
+                e.closeNotification()
+            }
+        }]
+    })
+}

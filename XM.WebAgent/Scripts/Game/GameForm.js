@@ -49,7 +49,7 @@
 
                     this.gameTypeTable = data.result;
                 } else {
-                    alert(data.errorMsg);
+                    norn('warn', data.errorMsg);
                 }
             });
         },
@@ -65,7 +65,7 @@
 
                     this.timeGameForm = data.result;
                 } else {
-                    alert(data.errorMsg);
+                    norn('warn', data.errorMsg);
                 }
             });
         },
@@ -85,7 +85,7 @@
                     this.dateFrom = data.result.data;
 
                 } else {
-                    alert(data.errorMsg);
+                    norn('warn',data.errorMsg);
                 }
             });
         },
@@ -126,7 +126,7 @@
         //分页:
         before() {
             if (this.page <= 1) {
-                alert("已经是第一页了")
+                narn('log', '第一页')
             } else {
                 this.page--;
                 this.btn_sub();
@@ -135,7 +135,7 @@
         next() {
 
             if (this.page >= this.page_count) {
-                alert("已经是最后一页了")
+                narn('log', '最后一页')
             } else {
                 this.page++;
                 this.btn_sub();
@@ -169,10 +169,10 @@
                 dataType: 'json'
             }).then((data) => {
                 //console.log(data)
-                alert("抱歉，暂无数据")
+                narn('log', '抱歉，暂无数据')
             });
             ///这里有BUG前端发送后台没有得到响应，数据已经是可以传输到后台的，可能是游戏API端出现问题
-            alert("抱歉，暂无数据")
+            narn('log', '抱歉，暂无数据')
         },
         //单击具体游戏记录
         btn_getAllData(id) {
@@ -188,3 +188,26 @@
         }
     }
 });
+
+//提示框弹出方法
+function narn(type, text) {
+    naranja()[type]({
+        title: '温馨提示',
+        text: text,
+        timeout: '5000',
+        buttons: [{
+            text: '接受',
+            click: function (e) {
+                naranja().success({
+                    title: '通知',
+                    text: '通知被接受'
+                })
+            }
+        }, {
+            text: '取消',
+            click: function (e) {
+                e.closeNotification()
+            }
+        }]
+    })
+}

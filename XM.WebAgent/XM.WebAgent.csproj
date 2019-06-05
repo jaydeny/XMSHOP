@@ -150,6 +150,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Login\Login.css" />
+    <Content Include="Content\naranja\naranja.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -200,6 +201,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\naranja\naranja.min.js" />
     <Content Include="Scripts\Notice\Index.js" />
     <Content Include="Scripts\Notice\NoticRecord.js" />
     <Content Include="Scripts\Product\ProductPage.js" />

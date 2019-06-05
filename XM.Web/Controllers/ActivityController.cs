@@ -8,14 +8,58 @@ using XM.Model;
 
 namespace XM.Web.Controllers
 {
+
+    /// <summary>
+    /// 创建人:梁钧淋
+    /// 创建日期:2019-5-26
+    /// 修改日期:2019-5-30
+    /// 功能: 活动
+    /// </summary>
     public class ActivityController : BaseController
     {
+        #region _View
         // GET: Activity
         public ActionResult Index()
         {
             return View();
         }
-        //获取当前后台用户所发布的活动
+
+        /// <summary>
+        /// 添加活动页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ActivityAdd()
+        {
+            DateTime dt = DateTime.Now;
+            string StartWeek = dt.ToString("yyyy-MM-dd"); //获取一周的开始日期
+            string EndWeek = dt.AddDays(1 - Convert.ToInt32(dt.DayOfWeek.ToString("d"))).AddDays(6).ToString("yyyy-MM-dd"); //获取本周星期天日期
+
+            ViewData["StartWeek"] = StartWeek;
+            ViewData["EndWeek"] = EndWeek;
+            return View();
+        }
+        /// <summary>
+        /// 前端框架详细信息页
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetOrderForm()
+        {
+            return View("_Form");
+        }
+
+        /// <summary>
+        /// 前端框架修改信息页
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult EditOrderForm()
+        {
+            return View("_Edit");
+        }
+        #endregion
+        /// <summary>
+        /// 获取当前后台用户所发布的活动
+        /// </summary>
+        /// <returns></returns>
         public ActionResult  getAllActtvity()
         {
             UserEntity user = Session["User"] as UserEntity;
@@ -28,6 +72,9 @@ namespace XM.Web.Controllers
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["pi"] = pageindex;
             paras["pageSize"] = pagesize;
+            
+            paras["Title"] = Request["Title"] == "" ? null : Request["Title"];
+            paras["id"] = Request["id"] == "" ? null : Request["id"];
             paras["Publisher"] = user.UserAccountName;
             paras["sort"] = sort;
             paras["order"] = order;
@@ -35,18 +82,32 @@ namespace XM.Web.Controllers
             return PagerData(totalCount, users, pageindex, pagesize);
         }
         
-        // 添加活动页面
-        public ActionResult ActivityAdd()
-        {
-            DateTime dt = DateTime.Now;
-            string StartWeek = dt.ToString("yyyy-MM-dd"); //获取一周的开始日期
-            string EndWeek = dt.AddDays(1 - Convert.ToInt32(dt.DayOfWeek.ToString("d"))).AddDays(6).ToString("yyyy-MM-dd"); //获取本周星期天日期
-
-            ViewData["StartWeek"] = StartWeek;
-            ViewData["EndWeek"] = EndWeek;
-            return View();
-        }
         
+        /// <summary>
+        /// 获取活动编号对应的活动优惠方案
+        /// </summary>
+        /// <returns>
+        ///  1002 满减优惠
+        ///  1003 折扣优惠
+        /// </returns>
+        public ActionResult detailedInfo()
+        {
+            string typeNum = Request["typeNum"];
+            int id = Convert.ToInt32(Request["id"]);
+
+            if (typeNum == "1002")
+            {
+                var data = DALUtility.Activity.GetfullByTag(id);
+                return PagerData(1, data);
+            }
+            else if (typeNum == "1003")
+            {
+                var data = DALUtility.Activity.GetDisByTag(id);
+                return PagerData(1, data);
+            }
+
+            return PagerData(0, "");
+        }
         //获取活动优惠类型
         public string  ActivityType()
         {
@@ -54,7 +115,7 @@ namespace XM.Web.Controllers
             return JsonConvert.SerializeObject(ActDic);
         }
         /// <summary>
-        /// 添加活动 
+        /// 添加/修改活动 
         /// </summary>
         /// <returns></returns>
         public ActionResult Activity4Add() {
@@ -87,7 +148,7 @@ namespace XM.Web.Controllers
             //减额
             paras["minus"] = Request["minus"];
             //折扣
-            paras["discount"] = Request["discount"];
+            paras["discount"] = Convert.ToDouble(Request["discount"]) / 100;
             //次数
             paras["count"] = Request["count"];
             //活动状态
@@ -95,10 +156,12 @@ namespace XM.Web.Controllers
 
             var res = DALUtility.Activity.AddActivity(paras);
 
-            if(res == 1)
+            if (res == 1)
                 return OperationReturn(true, "添加折扣活动成功!");
             else if (res == 0)
                 return OperationReturn(true, "添加满减活动成功!");
+            else if (res == 3 || res == 4)
+                return OperationReturn(true, "修改活动成功!");
             return OperationReturn(false, "发布活动失败!");
         }
 
