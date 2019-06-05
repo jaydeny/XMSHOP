@@ -43,6 +43,12 @@ function submitForm() {
     })
 }
 
+
+var Pic = function () {
+    var files = $('#GoodsPicture').prop('files')
+    $("#img").attr("src", URL.createObjectURL(files[0]));
+}
+
 //验证图片是否为图片格式
 var checkFile = function checkImg() {
     var files =  $('#GoodsPicture').prop('files')
