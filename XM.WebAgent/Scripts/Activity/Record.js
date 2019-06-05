@@ -64,7 +64,6 @@
                 data: param,
                 dataType: 'json'
             }).then((data) => {
-                console.log(data)
                 this.res = data.rows;
                 this.editRes = data.rows;
                 });
@@ -83,42 +82,18 @@
             //获取当前时间
             let date = new Date();
             date.setMonth(date.getMonth() + 1);
-            //获取点击记录信息
-            //this.RecordIndexData = this.RecordTable[index]
+            //将要修改的内容放到editData里面
             let arr = new Array();
             arr[0] = this.RecordTable[index];
             this.editData = arr;
-            //this.editData.Discount = this.editData.Discount * 100;
+
             const typeID = this.editData[0].Ac_type;
             const ID = this.editData[0].id;
+
             this.getInfoData(typeID, ID);
-           
-            //将数据进行转换
-            //let start = new Date(this.RecordIndexData.StartDate);
-            //let end = new Date(this.RecordIndexData.EndDate);
-            //console.log(this.editData)
-            //判断当天是否是在活动范围内 如果是就进行编辑
-            //if (start <= date && date <= end) {
-
-            //    console.log("date" + date)
-            //    console.log("start" + start)
-            //    console.log("end" + end)
-
-            //    console.log(this.RecordIndexData)
-                
-            //    alert("活动已经开始，无法进行编辑");
-            //} else {
-            //    console.log("bbb")
-            //    if (id == 1) {
-            //        //this.edit_subByID(this.RecordIndexData.id,1011);
-            //    }
-            //}
-
-            //if (id == 1) {
-            //    this.edit_subByID(this.RecordIndexData.id, 1011);
-            //}
             
             $("#showInfoData").modal("show");
+            //阻止事件冒泡
             event.stopPropagation();
         },
         //编辑记录请求
@@ -198,6 +173,11 @@
                 return "无法显示"
             }
             //return time.replace("T", " ").substring(0, 19)
+        },
+        isNaN(num) {
+            if (isNaN(num))
+                return "";
+            return num;
         }
 
     }

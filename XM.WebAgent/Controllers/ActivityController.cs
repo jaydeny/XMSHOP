@@ -147,9 +147,5 @@ namespace XM.WebAgent.Controllers
             return OperationReturn(false, "发布活动失败!");
         }
         #endregion
-
-
-
-
     }
 }
