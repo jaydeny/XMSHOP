@@ -12,8 +12,8 @@
 
             <div class="card mb-3">
                 <div class="card-body rounded-soft bg-gradient">
-                    开始时间: <input type="date" v-model="startTime" style="margin:5px" /> <br />
-                    结束时间: <input type="date" v-model="endTime" style="margin:5px" />
+                    开始时间: <input type="text" class="layui-input" id="startDatetime" placeholder="yyyy-MM-dd HH:mm:ss" v-model="startTime">  <br />
+                    结束时间:<input type="text" class="layui-input" id="endDatetime" placeholder="yyyy-MM-dd HH:mm:ss" v-model="endTime">
                     <div class="input-group mb-3" style="margin-top:5px">
                         <div class="input-group-prepend">
                             <span class="input-group-text">标题</span>
