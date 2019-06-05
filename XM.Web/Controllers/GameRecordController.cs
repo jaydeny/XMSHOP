@@ -3,28 +3,31 @@ using System;
 using System.Web.Mvc;
 using XM.Comm;
 using XM.Model;
+using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
     public class GameRecordController : BaseController
     {
-        //private GameUtil gameUtil = new GameUtil();
-
+        [PermissionFilter]
         // GET: GameRecord
         public ActionResult Index()
         {
             return View();
         }
+        [PermissionFilter("GameRecord", "Index")]
         public ActionResult GetRecordCollect()
         {
             string action = "GetRecordCollect";
 
-            string starttime = Request["starttime"] == null ? "2019-05-01" : Request["starttime"];
+            string starttime = Request["starttime"] == null ? "2019-06-01" : Request["starttime"];
             string endtime = Request["endtime"] == null ? DateTime.Now.Date.ToString() : Request["endtime"];
             string vipAccount = Request["vipAccount"] == null ? "" : Request["vipAccount"]; ;
 
             string[] paras = { vipAccount, starttime, endtime };
-           var result = DALUtility.Game.ReturnRes(paras,action);
+            string key = Md5.GetMd5(paras[0] + paras[1] + paras[2] + GameUtil. KEY);
+            string param = GameUtil.GameReturn(action, key, paras);
+            var result = GameUtil.HttpPost(param);
             RecordCollect game = JsonConvert.DeserializeObject<RecordCollect>(value: result);
             var data = new
             {
@@ -38,6 +41,7 @@ namespace XM.Web.Controllers
         {
             return View();
         }
+        [PermissionFilter("GameRecord", "Index")]
         public ActionResult Record()
         {
             string action = "GetRecord";
@@ -46,14 +50,26 @@ namespace XM.Web.Controllers
             string rows = Request["rows"] == null ? "10" : Request["rows"];
             string vipAccount = Request["vipAccount"] == null ? "" : Request["vipAccount"];
             string agentAccount = Request["agentAccount"] == null ? "" : Request["agentAccount"];
-            string starttime = Request["starttime"] == null ? "2019-05-01" : Request["starttime"];
+            string starttime = Request["starttime"] == null ? "2019-06-01" : Request["starttime"];
             string endtime = Request["endtime"] == null ? DateTime.Now.Date.ToString() : Request["endtime"];
             string ID = Request["ID"] == null ? "" : Request["ID"];
-       
+
             string[] paras = { vipAccount, ID, starttime, endtime, page, agentAccount, rows };
-            var result = DALUtility.Game.ReturnRes(paras, action);
+            string key = Md5.GetMd5(paras[0] + paras[1] + paras[2] + paras[3] + paras[4] + paras[5] + paras[6] + GameUtil.KEY);
+
+            string param = GameUtil.GameReturn(action, key, paras);
+
+            var result = GameUtil.HttpPost(param);
             GameRecord game = JsonConvert.DeserializeObject<GameRecord>(value: result);
-            return PagerData(game.result.total, game.result.data, game.result.pageNum, game.result.pageSize);
+            if (game.result != null)
+            {
+                return PagerData(game.result.total, game.result.data, game.result.pageNum, game.result.pageSize);
+            }
+            else
+            {
+                return Content("没有查询到相关数据！");
+            }
+            
         }
         
     }
