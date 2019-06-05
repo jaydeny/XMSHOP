@@ -1,0 +1,29 @@
+{
+  "heard": {
+    "title": "发布活动"
+  },
+  "body": {
+    "from": {
+      "startTime": "开始时间:",
+      "startHod": "yyyy-MM-dd HH:mm:ss",
+      "endTime": "结束时间:",
+      "endHod": "yyyy-MM-dd HH:mm:ss",
+      "titles": "标题",
+      "titleHod": "标题",
+      "content": "内容",
+      "pro": "优惠活动方案",
+      "proCount": "优惠次数",
+      "btn_send": "一键发布活动"
+    }
+  },
+  "js": {
+    "checkData": {
+      "title": "标题不能为空",
+      "content": "内容不能为空",
+      "pro": "请选择优惠",
+      "proToE": "优惠方案提供数据不完整",
+      "count": "请选择优惠次数"
+    }
+  }
+
+}

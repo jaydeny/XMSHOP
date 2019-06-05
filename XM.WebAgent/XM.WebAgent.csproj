@@ -240,6 +240,7 @@
     <Content Include="Scripts\laydate\theme\default\font\iconfont.eot" />
     <Content Include="Scripts\laydate\theme\default\font\iconfont.ttf" />
     <Content Include="Scripts\laydate\theme\default\font\iconfont.woff" />
+    <Content Include="Static\Activity\Index_cn.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -315,6 +316,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties Static_4Activity_4Index_3cn_1json__JSONSchema="http://json.schemastore.org/appveyor" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
