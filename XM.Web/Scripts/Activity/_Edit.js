@@ -41,31 +41,58 @@ function submitForm() {
     //if (!$('#form1').formValid()) {
     //    return false;
     //}
-    const param = {
-        allType: 2,
-        actID: id,
-        title: $("#Title").val(),
-        content: $("#Content").val(),
-        StartDate: chageTime($("#StartDate").val()),
-        EndDate: chageTime($("#EndDate").val()),
-        status: $("#status_id").val(),
-        discount: $("#Discount").val(),
-        full: $("#Ac_full").val(),
-        minus: $("#Minus").val(),
-        count: $("#Times").val(),
-        typeNum: typeNum
-    };
 
-    $.submitForm({
-        
-        url: "/Activity/Activity4Add",
-        param: param,
-        success: function () {
-            $.currentWindow().$("#gridList").trigger("reloadGrid");
-        } 
-    })
+    const title = $("#Title").val();
+    const Content = $("#Content").val();
+    const StartDate = $("#StartDate").val();
+    const EndDate = $("#EndDate").val();
+    let Times = $("#Times").val();
+
+    const dataToCheck = new Array ( title, Content, StartDate, EndDate, Times );
+
+    if (checkData(dataToCheck)) {
+        const param = {
+            allType: 2,
+            actID: id,
+            title: title,
+            content: Content,
+            StartDate: chageTime(StartDate),
+            EndDate: chageTime(EndDate),
+            status: $("#status_id").val(),
+            discount: $("#Discount").val(),
+            full: $("#Ac_full").val(),
+            minus: $("#Minus").val(),
+            count: Times,
+            typeNum: typeNum
+        };
+
+        $.submitForm({
+
+            url: "/Activity/Activity4Add",
+            param: param,
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        });
+    } else {
+        alert("数据格式输入错误，请重新输入");
+    }
 }
 //时间转换
 function chageTime(time) {
+    
     return time.replace("T", " ").substring(0, 19)
+}
+
+//数据验证
+function checkData(parm) {
+    const len = parm.length;
+    console.log(parm);
+    console.log(len)
+    for (var i = 0; i < len; i++) {
+        console.log(parm[i]);
+        if (parm[i].trim() == '')
+            return false;
+    }
+    return true;
 }

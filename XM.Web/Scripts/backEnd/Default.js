@@ -75,21 +75,21 @@ function GetLeaveChart() {
             endtime: date.getFullYear() + "-" + (date.getMonth() + 2)
         },
         success: function (data) {
-            console.log(data);
+            //console.log(data);
             obj = data;
-            console.log(obj);
+           //console.log(obj);
             for (i = 0; i < obj.length; i++) {
                 if (labels.indexOf(obj[i].Date) === -1) {
                     labels.push(obj[i].Date);
                 }
             }
-            console.log(labels);
+            //console.log(labels);
             for (i = 0; i < obj.length; i++) {
                 if (locations.indexOf(obj[i].Agent) === -1) {
                     locations.push(obj[i].Agent);
                 }
             }
-            console.log(locations);
+           // console.log(locations);
             locations.forEach(function (location) {
                 obj.forEach(function (report) {
                     if (report.Agent === location) {
@@ -97,7 +97,7 @@ function GetLeaveChart() {
                     }
                 })
             });
-            console.log(oos);
+           // console.log(oos);
             for (j = 0; j < obj.length; j++) {
                 datasets.push({
                     label: obj[j].Agent,
