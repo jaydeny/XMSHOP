@@ -87,7 +87,7 @@ namespace XM.Web.Controllers
             paras["type_id"] = typeId;
             paras["goods_pic"] = fileName;
             
-            string serverPath = string.Format("{0}\\{1}", "F:\\xm-pj\\xiemiShop\\XM.WebVip\\image", fileName);
+            string serverPath = string.Format("{0}\\{1}", "D:\\Shop\\img", fileName);
             //文件存在,则删除
             if (System.IO.File.Exists(serverPath))
             {
