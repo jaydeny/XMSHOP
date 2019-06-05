@@ -28,10 +28,10 @@
     methods: {
         init() {
             let date = new Date();
-            this.startTime = date.getFullYear() + "-" + this.dateChage(date.getMonth() + 1) + "-" + this.dateChage(date.getDate());
+            this.startTime = date.getFullYear() + "-" + this.dateChage(date.getMonth() + 1) + "-" + this.dateChage(date.getDate()) + " 00:00:00";
             let day = date.getDate();
             date.setDate(day + 7);
-            this.endTime = date.getFullYear() + "-" + this.dateChage(date.getMonth() + 1) + "-" + this.dateChage(date.getDate());
+            this.endTime = date.getFullYear() + "-" + this.dateChage(date.getMonth() + 1) + "-" + this.dateChage(date.getDate()) + " 00:00:00";
         },
         //日期格式变换
         dateChage(date) {
@@ -53,31 +53,31 @@
         checkData() {
            
             if (this.title.trim() == '') {
-                narn('warn', '标题不能为空')
+                this.narn('warn', '标题不能为空')
                 return false
             }
             else if (this.content.trim() == '') {
-                narn('warn', '内容不能为空')
+                this.narn('warn', '内容不能为空')
                 
                 return false
             } else if (this.typeNum == '') {
-                narn('warn', '请选择优惠')
+                this.narn('warn', '请选择优惠')
                 return false
             } else if (this.typeNum == '1002') {
                 
                 if ($("#full").val() == '' || $("#minus").val() == '') {
-                    narn('warn', '优惠方案提供数据不完整')
+                    this.narn('warn', '优惠方案提供数据不完整')
                     return false
                 }
             } else if (this.typeNum == '1003') {
 
                 if ($("#discount").val() == '') {
-                    narn('warn', '优惠方案提供数据不完整')
+                    this.narn('warn', '优惠方案提供数据不完整')
                     return false
                 }
             }
             else if (this.count == '') {
-                narn('warn', '请选择优惠次数')
+                this.narn('warn', '请选择优惠次数')
                 return false
             }
             return true
@@ -105,7 +105,7 @@
                     if (data.success) { 
                         location.href = "/Activity/ActivityRecord"
                     }
-                    narn('warn', data.msg)
+                    this.narn('warn', data.msg)
                 });
             }
         },
@@ -113,7 +113,7 @@
         //上一页
         before() {
             if (this.page <= 1) {
-                narn('log','第一页')
+                this.narn('log','第一页')
             } else {
                 this.page--;
                 this.getAllVIP();
@@ -122,7 +122,7 @@
         //下一页
         next() {
             if (this.page >= this.pageCount) {
-                narn('log', '最后一页')
+                this.narn('log', '最后一页')
             } else {
                 this.page++;
                 this.getAllVIP();
@@ -139,6 +139,27 @@
         //删除
         del_sele(index) {
             this.seleTable.splice(index, 1);
+        },
+        narn(type, text) {
+            naranja()[type]({
+                title: '温馨提示',
+                text: text,
+                timeout: '5000',
+                buttons: [{
+                    text: '接受',
+                    click: function (e) {
+                        naranja().success({
+                            title: '通知',
+                            text: '通知被接受'
+                        })
+                    }
+                }, {
+                    text: '取消',
+                    click: function (e) {
+                        e.closeNotification()
+                    }
+                }]
+            })
         }
     }
 });
@@ -156,25 +177,20 @@ vm.$watch('typeNum', function () {
     $("#container").append(text);
 });
 
-//提示框弹出方法
-function narn(type, text) {
-    naranja()[type]({
-        title: '温馨提示',
-        text: text,
-        timeout: '5000',
-        buttons: [{
-            text: '接受',
-            click: function (e) {
-                naranja().success({
-                    title: '通知',
-                    text: '通知被接受'
-                })
-            }
-        }, {
-            text: '取消',
-            click: function (e) {
-                e.closeNotification()
-            }
-        }]
-    })
-}
+
+//开始时间选择器
+laydate.render({
+    elem: '#startDatetime'
+    , type: 'datetime',
+    done: function (val) {
+        vm.startTime = val;
+    }
+});
+//结束时间选择器
+laydate.render({
+    elem: '#endDatetime'
+    , type: 'datetime',
+    done: function (val) {
+        vm.endTime = val;
+    }
+});

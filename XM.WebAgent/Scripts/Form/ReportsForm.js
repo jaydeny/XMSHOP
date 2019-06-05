@@ -107,6 +107,10 @@
         },
         //日期内时间搜索
         searches() {
+            //将日期拿下了，因为数据绑定已失效
+            this.startTime = $("#startlattice").val();
+            this.endTime = $("#endlattice").val();
+
             const endTime = new Date(this.endTime);
             const startTime = new Date(this.startTime);
             const time = (endTime - startTime) / (1000 * 60 * 60 * 24);

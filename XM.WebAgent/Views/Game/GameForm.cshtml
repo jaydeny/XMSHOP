@@ -10,8 +10,8 @@
                     </div>
                 </div>
                 <div v-show="is_show">
-                    <input type="date" v-model="startTime" /> <span>~~</span>
-                    <input type="date" v-model="endTime" />
+                    <input type="text" class="layui-input" id="startlattice" placeholder="yyyy-MM-dd" v-model="startTime"><span>~~</span>
+                    <input type="text" class="layui-input" id="endlattice" placeholder="yyyy-MM-dd" v-model="endTime">
                     <button class="btn btn-outline-secondary" v-on:click="search()" type="button">搜索</button>
                 </div>
                 <div class="btn-toolbar mb-2 mb-md-0" v-show="is_show">

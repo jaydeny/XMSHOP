@@ -22,6 +22,7 @@
         dataCount: '0'
     },
     created: function () {
+        this.init();
         //初始化页面内容
         //显示所有游戏类型
         this.getGameTypeData("/Game/GetGameOrByAccount", 'get', '');
@@ -36,6 +37,20 @@
         }
     },
     methods: {
+        //初始化
+        init() {
+            let date = new Date();
+            this.startTime = date.getFullYear() + "-" + this.dateChage(date.getMonth() + 1) + "-" + this.dateChage(date.getDate()) ;
+            let day = date.getDate();
+            date.setDate(day + 7);
+            this.endTime = date.getFullYear() + "-" + this.dateChage(date.getMonth() + 1) + "-" + this.dateChage(date.getDate()) ;
+        },
+        //日期格式变换
+        dateChage(date) {
+            if (date < 10)
+                date = "0" + date;
+            return date
+        },
         //获取游戏类型
         getGameTypeData(url, type, param) {
             $.ajax({
@@ -153,6 +168,9 @@
         },
         //搜索
         search() {
+            //将日期拿下了，因为数据绑定已失效
+            this.startTime = $("#startlattice").val();
+            this.endTime = $("#endlattice").val();
             const param = {
                 ID: this.id,
                 startTime: this.startTime,

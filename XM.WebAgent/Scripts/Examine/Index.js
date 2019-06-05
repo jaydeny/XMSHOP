@@ -121,6 +121,10 @@ new Vue({
         },
         //时间段搜索
         searches() {
+            //将日期拿下了，因为数据绑定已失效
+            this.startTime = $("#startlattice").val();
+            this.endTime = $("#endlattice").val();
+
             let date = new Date(this.endTime);
             let dateMonth = date.getMonth() + 1;
             if (dateMonth < 10) {
