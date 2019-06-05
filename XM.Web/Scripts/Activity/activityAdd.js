@@ -9,7 +9,19 @@ function submitForm() {
     else {
         $.submitForm({
             url: "/Activity/Activity4Add",
-            param: { "title": $(".title").val(), "content": $(".content").val(), "StartDate": $("#StartDate").val(), "EndDate": $("#EndDate").val(), "full": $("#full").val(), "minus": $("#minus").val(), "discount": $("#discount").val(), "count": $("#count").val(), "typeNum": ActivityTypeNum, "allType": "1","status":"1008" },
+            param: {
+                "title": $(".title").val(),
+                "content": $(".content").val(),
+                "StartDate": $("#StartDate").val(),
+                "EndDate": $("#EndDate").val(),
+                "full": $("#full").val(),
+                "minus": $("#minus").val(),
+                "discount": $("#discount").val(),
+                "count": $("#count").val(),
+                "typeNum": ActivityTypeNum,
+                "allType": "1",
+                "status": "1008"
+            },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
             }
