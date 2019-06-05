@@ -20,7 +20,7 @@ namespace XM.Web.Controllers
         {
             string action = "GetRecordCollect";
 
-            string starttime = Request["starttime"] == null ? "2019-05-01" : Request["starttime"];
+            string starttime = Request["starttime"] == null ? "2019-06-01" : Request["starttime"];
             string endtime = Request["endtime"] == null ? DateTime.Now.Date.ToString() : Request["endtime"];
             string vipAccount = Request["vipAccount"] == null ? "" : Request["vipAccount"]; ;
 
@@ -50,7 +50,7 @@ namespace XM.Web.Controllers
             string rows = Request["rows"] == null ? "10" : Request["rows"];
             string vipAccount = Request["vipAccount"] == null ? "" : Request["vipAccount"];
             string agentAccount = Request["agentAccount"] == null ? "" : Request["agentAccount"];
-            string starttime = Request["starttime"] == null ? "2019-05-01" : Request["starttime"];
+            string starttime = Request["starttime"] == null ? "2019-06-01" : Request["starttime"];
             string endtime = Request["endtime"] == null ? DateTime.Now.Date.ToString() : Request["endtime"];
             string ID = Request["ID"] == null ? "" : Request["ID"];
 
