@@ -17,6 +17,8 @@ namespace XM.Web.Controllers
     public class BaseController : Controller
     {
         #region Session属性
+
+        //这两个字段有可能赋予失败,引用实例失败
         /// <summary>
         /// Session对象中的代理名
         /// </summary>
