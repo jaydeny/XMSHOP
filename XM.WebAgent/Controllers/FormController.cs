@@ -80,7 +80,7 @@ namespace XM.WebAgent.Controllers
         /// <summary>
         /// 作者:曾贤鑫
         /// 日期:2019/5/10
-        /// 功能:查询每一笔订单的详细详细
+        /// 功能:查询每一笔订单的详细情况
         /// </summary>
         /// <returns>json值</returns>
         public ActionResult QryDetailOrder()
