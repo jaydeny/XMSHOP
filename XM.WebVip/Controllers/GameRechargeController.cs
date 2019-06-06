@@ -66,7 +66,8 @@ namespace XM.WebVip.Controllers
             string str = "充值失败";
             if(!result.Contains("1"))
             {
-                if (!CheckRecharge(AN, code).Contains("1"))
+                var resultCon = CheckRecharge(AN, code);
+                if (!resultCon.Contains("1"))
                 {
                     dic.Add("code", Code);
                     dic.Add("recharge_name", Name);
