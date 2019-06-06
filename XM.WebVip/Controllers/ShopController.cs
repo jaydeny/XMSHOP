@@ -11,7 +11,7 @@ namespace XM.WebVip.Controllers
         // GET: Shop
         #region _shopping
         /// <summary>
-        /// 功能:进入选择活动类型
+        /// 功能:进入选择活动类型页面
         /// </summary>
         /// <returns></returns>
         public ActionResult ChooseAcPage()
@@ -39,39 +39,39 @@ namespace XM.WebVip.Controllers
         /// <returns></returns>
         public ActionResult Buy()
         {
-                //后续需要修改,有关于选中地址的方式
-                if (QryAdd() == 0)
-                {
-                    return OperationReturn(false, "vip012");
-                }
-                
-                //获取数据
-                var vipInfo = QryTOPAdd();
-                DateTime date = DateTime.Now;
-                Dictionary<string, object> param = new Dictionary<string, object>();
-                param.Add("order_date", date);
-                param.Add("order_address", vipInfo.AddressID);
-                param.Add("order_mp", vipInfo.VipMobliePhone);
-                param.Add("vip_AN", Session["AN"].ToString());
-                param.Add("agent_AN", Session["Agent_Acc"].ToString());
-                param.Add("order_total", decimal.Parse(Request["order_total"]));
+            //后续需要修改,有关于选中地址的方式
+            if (QryAdd() == 0)
+            {
+                return OperationReturn(false, "vip012");
+            }
 
-                param.Add("buy_time", date);
-                param.Add("buy_count", int.Parse(Request["buy_count"]));
-                param.Add("buy_AN", Session["AN"].ToString());
-                param.Add("agoods_id", int.Parse(Request["agoods_id"]));
-                param.Add("buy_total", decimal.Parse(Request["buy_total"]));
+            //获取数据
+            var vipInfo = QryTOPAdd();
+            DateTime date = DateTime.Now;
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("order_date", date);
+            param.Add("order_address", vipInfo.AddressID);
+            param.Add("order_mp", vipInfo.VipMobliePhone);
+            param.Add("vip_AN", Session["AN"].ToString());
+            param.Add("agent_AN", Session["Agent_Acc"].ToString());
+            param.Add("order_total", decimal.Parse(Request["order_total"]));
 
-                int ChooseAcID = int.Parse(Request["Ac_id"].ToString());
+            param.Add("buy_time", date);
+            param.Add("buy_count", int.Parse(Request["buy_count"]));
+            param.Add("buy_AN", Session["AN"].ToString());
+            param.Add("agoods_id", int.Parse(Request["agoods_id"]));
+            param.Add("buy_total", decimal.Parse(Request["buy_total"]));
 
+            int ChooseAcID = int.Parse(Request["Ac_id"].ToString());
 
-                List<int> AcResult = Shop(param, ChooseAcID);
-                if (AcResult.Contains(1))
-                {
-                    return OperationReturn(false, AcResult.Contains(1) ? "vip013" : "vip014");
-                }
-                
-                return OperationReturn(true, "vip015");
+            //购物方法
+            List<int> AcResult = Shop(param, ChooseAcID);
+            if (AcResult.Contains(1))
+            {
+                return OperationReturn(false, AcResult.Contains(1) ? "vip013" : "vip014");
+            }
+
+            return OperationReturn(true, "vip015");
         }
         
         /// <summary>
@@ -80,9 +80,9 @@ namespace XM.WebVip.Controllers
         public List<int> Shop(Dictionary<string, object> OrderAndBuyInfoDic, int ChooseAcID)
         {
             List<int> AcResult = new List<int>();
-
+            //获取活动
             ActivityEntity AcEntity = DALUtility.Activity.ActivityEntity<ActivityEntity>(ChooseAcID);
-
+            //不为空
             if (AcEntity != null)
             {
                 AcResult.AddRange(ExecuteAcShop(AcEntity, OrderAndBuyInfoDic));

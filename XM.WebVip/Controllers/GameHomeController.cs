@@ -22,15 +22,16 @@ namespace XM.WebVip.Controllers
         /// <returns></returns>
         public ActionResult Login()
         {
+            //判断是否有会员在线
             if (Session["AN"] != null)
             {
+                //传入游戏后台的数据
                 string[] paras = { Agent_Acc, AN, "0" };
-
+                //md5 加密出key
                 string strKey = Md5.GetMd5(paras[0] + paras[1] + paras[2] + GameUtil.KEY);
-                //string strKey = "1ad74a37af2a9894e1fed6ed542020df";
 
                 string param = GameReturn("Login", strKey, paras);
-
+                //结果
                 var result = GameUtil.HttpPost(param);
                 return OperationReturn(true, result);
             }
@@ -54,10 +55,12 @@ namespace XM.WebVip.Controllers
 
                 var result = GameUtil.HttpPost(param);
 
+                //截取出当前登录会员的积分
                 int x = result.LastIndexOf(":");
                 string y = result.Substring(x);
                 int z = y.IndexOf("}");
                 string p = y.Substring(1,z-1);
+
                 return OperationReturn(true, result);
             }
             return OperationReturn(false, "game002");

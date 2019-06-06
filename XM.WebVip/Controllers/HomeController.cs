@@ -57,29 +57,28 @@ namespace XM.WebVip.Controllers
                 Dictionary<string, object> paras = new Dictionary<string, object>();
                 paras["vip_AN"] = AN;
                 paras["vip_pwd"] = pwd;
-                //paras["vip_pwd"] = Md5.GetMD5String(pwd);   //md5加密
 
+                //查询数据库是否有当前登录会员
                 var vip = DALUtility.Vip.QryVipToLogin<VipEntity>(paras);
+
                 if (vip != null)
                 {
+                    //判断vip状态
                     if (vip.StatusID == 2)
                     {
                         return OperationReturn(false, "vip002");
                     }
-
-
-                   
+                    
+                    //数据存session
                     Session["AN"] = vip.VipAccountName;
                     Session["ID"] = vip.VipID;
                     Session["PWD"] = vip.VipPassword;
                     Session["Remainder"] = getRemainder(vip.VipAccountName);
-
-
+                    
                     Session["Agent_ID"] = vip.AgentID;
                     Session["Agent_Acc"] = getAgentAN(vip.AgentID);
-                    //base.Agent_Acc = agent_an;
-                    return OperationReturn(true, "vip001");
 
+                    return OperationReturn(true, "vip001");
                 }
                 else
                 {
@@ -233,14 +232,13 @@ namespace XM.WebVip.Controllers
 
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("vip_id", vip_id);
-
+            //新密码
             string strOrgPwd = DALUtility.Vip.QryOrgPwd(param);
-
+            //原始密码
             string strOriginalPwd = Request["oldPwd"];
 
             if (strOrgPwd.Equals(strOriginalPwd))
             {
-
                 return save(vip_id);
             }
             else

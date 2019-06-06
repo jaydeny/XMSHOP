@@ -18,7 +18,9 @@ namespace XM.WebVip.Controllers
         /// <returns></returns>
         public ActionResult RechargePage()
         {
+            //刷新积分的方法
             setMark();
+            //将游戏积分和商城积分放到ViewData里
             ViewData["Remainder"] = Remainder;
             ViewData["Integral"] = Integral;
             return View("_Recharge");
@@ -31,13 +33,16 @@ namespace XM.WebVip.Controllers
         [HttpPost]
         public ActionResult Recharge()
         {
+            //获取需要充值的积分额度
             string Money = Request["money"];
+            //标识,1 : 商城to游戏 ; 2 : 游戏to商城
             string Code = Request["code"];
             string Name = "充值游戏积分";
             DateTime date = DateTime.Now;
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add("vip_AN", AN);
 
+            //游戏to商城的情况下,积分额度又变成负数传入
             if (Code.Equals("2"))
             {
                 Money = "-" + Money;
@@ -45,7 +50,9 @@ namespace XM.WebVip.Controllers
             }
             else
             {
+                //商城to游戏的情况下,判断商城积分是否足够
                 decimal remainder = DALUtility.Xm.CheckRamainder(dic);
+                //不够的话,返回相应数据
                 if (remainder < decimal.Parse(Request["money"]))
                 {
                     return OperationReturn(false, "game003");
@@ -61,11 +68,10 @@ namespace XM.WebVip.Controllers
             string param = GameReturn("EditCredit", strKey, paras);
 
             var result = GameUtil.HttpPost(param);
-
-            bool boo = false;
-            string str = "充值失败";
+            //判断结果
             if(!result.Contains("1"))
             {
+                //CheckRecharge方法是查询充值回执,相当于确认方法
                 var resultCon = CheckRecharge(AN, code);
                 if (!resultCon.Contains("1"))
                 {
@@ -78,11 +84,11 @@ namespace XM.WebVip.Controllers
                     return OperationReturn(true, iCheck == 1 ? "game004" : "game005");
                 }
             }
-            return OperationReturn(boo, str);
+            return OperationReturn(false, "充值失败");
         }
 
         /// <summary>
-        /// 功能:确认充值师傅成功
+        /// 功能:确认充值是否成功
         /// </summary>
         /// <param name="AN"></param>
         /// <param name="code"></param>

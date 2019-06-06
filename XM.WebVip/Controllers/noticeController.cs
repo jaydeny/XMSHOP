@@ -24,6 +24,7 @@ namespace XM.WebVip.Controllers
         public ActionResult GetNotice()
         {
             DateTime dtNow = DateTime.Now;
+            //判断是否有登录用户
             if (Session["AN"] != null)
             {
                 var msgStatus = DALUtility.MDbS.List<NoticState>("XMShop", "noticstate", x => x.uid.Equals(AN) && x.state < 2, x => new NoticState() { msgid = x.msgid }, null);
