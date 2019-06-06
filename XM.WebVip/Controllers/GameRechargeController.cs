@@ -80,6 +80,12 @@ namespace XM.WebVip.Controllers
             return OperationReturn(boo, str);
         }
 
+        /// <summary>
+        /// 功能:确认充值师傅成功
+        /// </summary>
+        /// <param name="AN"></param>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public static string CheckRecharge(string AN,string code)
         {
             string[] paras = { code,AN };
