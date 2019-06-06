@@ -71,6 +71,9 @@ namespace XM.WebAgent.Controllers
             var users = DALUtility.Activity.getAllActivity<ActivityEntity>(paras, out totalCount);
             return PagerData(totalCount, users, pageindex, pagesize);
         }
+
+       
+
         /// <summary>
         /// 获取活动编号对应的活动优惠方案
         /// </summary>
