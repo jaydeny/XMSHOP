@@ -45,6 +45,7 @@ namespace XM.WebVip.Controllers
                     return OperationReturn(false, "vip012");
                 }
                 
+                //获取数据
                 var vipInfo = QryTOPAdd();
                 DateTime date = DateTime.Now;
                 Dictionary<string, object> param = new Dictionary<string, object>();

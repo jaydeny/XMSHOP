@@ -48,6 +48,7 @@ namespace XM.WebAgent.Controllers
             paras["vip_AN"] = userAn;
             paras["sort"] = sort;
             paras["order"] = order;
+            paras["agent_AN"] = Session["Agent_AN"];
             var users = DALUtility.Vip.QryUsers<VipEntity>(paras, out totalCount);
             return PagerData(totalCount, users);
         }

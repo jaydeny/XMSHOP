@@ -198,6 +198,7 @@ namespace XM.DAL
                 SortDirection = paras["order"].ToString()
             };
             builder.AddWhereAndParameter(paras, "vip_AN", "VipAccountName", "LIKE", "'%'+@vip_AN+'%'");
+            builder.AddWhereAndParameter(paras, "agent_AN", "AgentAccountName");
             return SortAndPage<T>(builder, grid, out iCount);
         }
 
