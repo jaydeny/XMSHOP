@@ -64,6 +64,7 @@ namespace XM.WebAgent.Controllers
                     {
                         return OperationReturn(false, "用户已被禁用，请您联系管理员");
                     }
+                    
                     Session["Agent_AN"] = agent.AgentAccountName;
                     Session["Agent_ID"] = agent.AgentID;
                     SSOAgent.Add(agent,"onLine");
