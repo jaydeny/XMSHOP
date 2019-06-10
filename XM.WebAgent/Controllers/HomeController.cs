@@ -17,6 +17,15 @@ namespace XM.WebAgent.Controllers
     /// </summary>
     public class HomeController : BaseController
     {
+
+
+        public ActionResult hello() {
+
+            var aa = DALUtility.ShoppCart.QryDataByVIPID(1);
+            return OperationReturn(true,"操作成功",aa);
+        }
+
+
         // GET: Home
         #region _Login
         /// <summary>

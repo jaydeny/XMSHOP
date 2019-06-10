@@ -78,6 +78,7 @@
     <Compile Include="RemainderDAL.cs" />
     <Compile Include="RoleDAL.cs" />
     <Compile Include="RoleMenuDAL.cs" />
+    <Compile Include="ShoppCartDAL.cs" />
     <Compile Include="StatusDAL.cs" />
     <Compile Include="UserDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

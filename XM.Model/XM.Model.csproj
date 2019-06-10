@@ -74,6 +74,7 @@
     <Compile Include="RemainderEntity.cs" />
     <Compile Include="RoleEntity.cs" />
     <Compile Include="RoleMenuEntity.cs" />
+    <Compile Include="ShoppCartEntity.cs" />
     <Compile Include="StatusEntity.cs" />
     <Compile Include="TreeViewModel.cs" />
     <Compile Include="UserEntity.cs" />

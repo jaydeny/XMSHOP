@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using XM.Comm;
 using XM.IDAL;
+using XM.Model;
 using YMOA.MongoDB;
 
 namespace XM.DALFactory
@@ -155,6 +156,10 @@ namespace XM.DALFactory
         {
             get { return LoadAssamblyType<IFirstDAL>("FirstDAL"); }
         }
-        
+        public IShoppCartDAL ShoppCart
+        {
+            get { return LoadAssamblyType<IShoppCartDAL>("ShoppCartDAL"); }
+        }
+
     }
 }
