@@ -9,7 +9,6 @@ var bounced = function (obj) {
     })
 }
 
-
 $(".filter_box").on("click", ".type", function () {
     $(".filter_box .type-action").removeClass("type-action");
     $(this).addClass("type-action");
@@ -97,7 +96,6 @@ $(".choose-main").on("click", "#ChooseAc", function () {
     }, "json")
 });
 
-
 //弹出商品详情
 $(".goods-exhibition").on("click", ".d-button", function () {
     var agoods = listGoods[$(this).data("id")];
@@ -109,8 +107,6 @@ $(".goods-exhibition").on("click", ".d-button", function () {
     obj.url = "/ShoppingCart/AgoodsDetail?id="+agoods.id;
     bounced(obj);
 });
-
-
 
 // 获得url的参数
 function getQueryVariable(variable) {
@@ -126,8 +122,6 @@ function getQueryVariable(variable) {
 goodsRender();
 // 请求商品
 var search = getQueryVariable("search");
-
-
 
 //提示框弹出方法
 function narn(type, text) {
@@ -151,10 +145,3 @@ function narn(type, text) {
         }]
     })
 }
-
-//if (search != null && search != "") {
-//    goodsRender({ Agoods_Name: search });
-//}
-//else {
-//    goodsRender();
-//}
