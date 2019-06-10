@@ -128,6 +128,7 @@
         }, "json")
     });
 
+    
     //提示框弹出方法
     function narn(type,text) {
         naranja()[type]({
@@ -150,4 +151,5 @@
             }]
         })
     }
+
 }

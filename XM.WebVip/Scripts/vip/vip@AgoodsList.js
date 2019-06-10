@@ -1,25 +1,14 @@
-﻿
-// 弹出商品框
-//var bounced = function (obj) {
-//    console.log("ok");
-//    $(obj.dialog).css({ "width": obj.width });
-//    $(obj.content).css({ "height": obj.height });
-//    $(obj.modal).modal('show');
-//    $.post(obj.url, function (data, status, xhr) {
-//        $(obj.body).html(data);
-//    })
-//}
+﻿//弹出商品框
+var bounced = function (obj) {
+    console.log("ok");
+    $(obj.dialog).css({ "width": obj.width });
+    $(obj.content).css({ "height": obj.height });
+    $(obj.modal).modal('show');
+    $.post(obj.url, function (data, status, xhr) {
+        $(obj.body).html(data);
+    })
+}
 
-//弹出商品详情
-//$(".goods-exhibition").on("click", "img,.p-title a", function () {
-//    var obj = {
-//        "modal": "#myModal", "dialog": "#dialog", "content": "#content", "body": "#body"
-//    };
-//    obj.width = "640px";
-//    obj.height = "440px";
-//    obj.url = "/home/GoodsDetails";
-//    bounced(obj);
-//});
 
 $(".filter_box").on("click", ".type", function () {
     $(".filter_box .type-action").removeClass("type-action");
@@ -32,8 +21,8 @@ $(".filter_box").on("click", ".type", function () {
 // 商品集合
 var listGoods
 // 商品模板
-var strGoods = function (i,obj) {
-    return "<li><div class='goods-item' ><p class='p-img'><a><img src='/image/" + obj.goods_pic + "'  /></a></p><p class='p-title'><a><span>" + obj.goods_name + "</span><span class='red'>" + obj.goods_intro + "</span></a></p><p class='p-price'><b>￥" + obj.price + "</b></p><div class='p-button' data-id=" + i +" ><a class='' >立即下单</a></div></div ></li >";
+var strGoods = function (i, obj) {
+    return "<li><div class='goods-item' ><p class='p-img d-button' data-id=" + i + "><a><img src='/image/" + obj.goods_pic + "'  /></a></p><p class='p-title'><a><span>" + obj.goods_name + "</span><span class='red'>" + obj.goods_intro + "</span></a></p><p class='p-price'><b>￥" + obj.price + "</b></p><div class='p-button' data-id=" + i + " ><a class='' >立即下单</a></div><div class='c-button' data-id=" + i + " ><a class='' >添加购物车</a></div></div ></li >";
 }
 var getQryAgoods = function (typeId) {
     $.post("/Product/QryAgoods", { rows: paging.pageTotal, page: paging.currentPage, type_id: typeId }, function (data) {
@@ -106,6 +95,30 @@ $(".choose-main").on("click", "#ChooseAc", function () {
             narn('warn', "购物出错,请重试!")
         }
     }, "json")
+});
+
+// 商品详情
+$(".goods-exhibition").on("click", ".d-button", function () {
+    var agoods = listGoods[$(this).data("id")];
+    console.log(agoods.id)
+    //$.ajax({
+    //    url: "/ShoppingCart/AgoodsDetail",
+    //    data: { "id": agoods.id }
+    //})
+
+});
+
+
+//弹出商品详情
+$(".goods-exhibition").on("click", ".d-button", function () {
+    var agoods = listGoods[$(this).data("id")];
+    var obj = {
+        "modal": "#myModal", "dialog": "#dialog", "content": "#content", "body": "#body"
+    };
+    obj.width = "640px";
+    obj.height = "440px";
+    obj.url = "/ShoppingCart/AgoodsDetail?id="+agoods.id;
+    bounced(obj);
 });
 
 

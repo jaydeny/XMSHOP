@@ -142,6 +142,8 @@
     <Compile Include="Controllers\NoticeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
+    <Compile Include="Controllers\VIPController.cs" />
     <Compile Include="Controllers\VipInfoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -354,7 +356,7 @@
     <Content Include="Views\Error\Error404.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Product\AgoodsList.cshtml" />
-    <Content Include="Views\VIP\GoodsDetails.cshtml" />
+    <Content Include="Views\ShoppingCart\AgoodsDetail.cshtml" />
     <Content Include="Views\VIP\PwdFoundPage.cshtml" />
     <Content Include="Views\VIP\Shopping.cshtml" />
     <Content Include="Views\VipInfo\vipinfopage.cshtml" />
@@ -375,6 +377,7 @@
     <Content Include="Views\notice\_Notice.cshtml" />
     <Content Include="Views\VipInfo\_QryRechargePage.cshtml" />
     <Content Include="Views\Shop\ChooseAc.cshtml" />
+    <Content Include="Views\ShoppingCart\ShoppingCartPage.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

@@ -1,8 +1,5 @@
-﻿
-@{
-    Layout = null;
-}
-
+﻿@using XM.Model
+@model AgoodsDTO
 <!DOCTYPE html>
 
 <html>
@@ -18,10 +15,10 @@
         <div class="left">
             <p class="img-box">
                 <a>
-                    <img />
+                    <img src="~/image/@Model.goods_pic" style="width:300px; height:300px"/>
                 </a>
             </p>
-            <div class="img-nav">
+            @*<div class="img-nav">
                 <a class="img_but last"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span></a>
                 <div class="img-list">
                     <ul>
@@ -43,14 +40,14 @@
                     </ul>
                 </div>
                 <a class="img_but next"><span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a>
-            </div>
+            </div>*@
         </div>
         <div class="right">
-            <p class="name">商品名商品名商品名</p>
-            <p class="sell">活动推销活动推销活动推销</p>
+            <p class="name">@Model.goods_name</p>
+            <p class="sell">@Model.goods_intro</p>
             <div class="prominent">
                 <div class="price">
-                    <span>价格</span><a><em>￥</em>99</a>
+                    <span></span><a><em>￥</em>@Model.price</a>
                 </div>
                 <div class="number">
                     <div class="row">

@@ -9,7 +9,7 @@ namespace XM.WebVip.Controllers
     public class ShopController : BaseController
     {
         // GET: Shop
-        #region _shopping
+        #region _chooseAC
         /// <summary>
         /// 功能:进入选择活动类型页面
         /// </summary>
@@ -32,9 +32,36 @@ namespace XM.WebVip.Controllers
             ViewData["AcList"] = GetAllAc();
             return View();
         }
+        #endregion
+
+        #region _chooseAD
+        /// <summary>
+        /// 功能:进入选择地址
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ChooseAdPage()
+        {
+            if (Session["AN"] != null)
+            {
+                return OperationReturn(true, "vip010");
+            }
+            return OperationReturn(false, "vip011");
+        }
 
         /// <summary>
-        /// 功能:查看余额
+        /// 功能:选择地址
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ChooseAd()
+        {
+            ViewData["AcList"] = GetAllAc();
+            return View();
+        }
+        #endregion
+
+        #region _shopping
+        /// <summary>
+        /// 功能:检查余额,购物
         /// </summary>
         /// <returns></returns>
         public ActionResult Buy()

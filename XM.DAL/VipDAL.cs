@@ -539,5 +539,17 @@ namespace XM.DAL
         }
         #endregion
 
+        #region _商品详情
+        /// <summary>
+        /// 功能:查询商品详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public AgoodsDTO QryAgoodsDetail(int id)
+        {
+            string sql = "SELECT * FROM tbagoods a join tbgoods b on a.goods_id = b.id WHERE a.id = @id";
+            return QuerySingle<AgoodsDTO>(sql, new { id }, CommandType.Text);
+        }
+        #endregion
     }
 }
