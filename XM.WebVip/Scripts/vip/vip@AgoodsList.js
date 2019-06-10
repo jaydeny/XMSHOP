@@ -97,17 +97,6 @@ $(".choose-main").on("click", "#ChooseAc", function () {
     }, "json")
 });
 
-// 商品详情
-$(".goods-exhibition").on("click", ".d-button", function () {
-    var agoods = listGoods[$(this).data("id")];
-    console.log(agoods.id)
-    //$.ajax({
-    //    url: "/ShoppingCart/AgoodsDetail",
-    //    data: { "id": agoods.id }
-    //})
-
-});
-
 
 //弹出商品详情
 $(".goods-exhibition").on("click", ".d-button", function () {
