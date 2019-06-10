@@ -327,6 +327,7 @@
     <Content Include="Scripts\Game\game%40DetailPage.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\naranja\naranja.min.js" />
+    <Content Include="Scripts\vip\game%40AgoodsDetail.js" />
     <Content Include="Scripts\xcConfirm.js" />
     <Content Include="Scripts\jquery-3.4.0.js" />
     <Content Include="Scripts\jquery-3.4.0.min.js" />

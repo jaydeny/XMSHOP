@@ -1,7 +1,6 @@
 ﻿@using XM.Model
 @model AgoodsDTO
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -15,32 +14,32 @@
         <div class="left">
             <p class="img-box">
                 <a>
-                    <img src="~/image/@Model.goods_pic" style="width:300px; height:300px"/>
+                    <img src="~/image/@Model.goods_pic" style="width:300px; height:300px" />
                 </a>
             </p>
             @*<div class="img-nav">
-                <a class="img_but last"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span></a>
-                <div class="img-list">
-                    <ul>
-                        <li>
-                            <a><img /></a>
-                        </li>
-                        <li>
-                            <a><img /></a>
-                        </li>
-                        <li>
-                            <a><img /></a>
-                        </li>
-                        <li>
-                            <a><img /></a>
-                        </li>
-                        <li>
-                            <a><img /></a>
-                        </li>
-                    </ul>
-                </div>
-                <a class="img_but next"><span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a>
-            </div>*@
+                    <a class="img_but last"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span></a>
+                    <div class="img-list">
+                        <ul>
+                            <li>
+                                <a><img /></a>
+                            </li>
+                            <li>
+                                <a><img /></a>
+                            </li>
+                            <li>
+                                <a><img /></a>
+                            </li>
+                            <li>
+                                <a><img /></a>
+                            </li>
+                            <li>
+                                <a><img /></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <a class="img_but next"><span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a>
+                </div>*@
         </div>
         <div class="right">
             <p class="name">@Model.goods_name</p>
@@ -54,13 +53,13 @@
                         <div class="col-lg-6">
                             <div class="input-group">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
+                                    <button class="btn btn-default minus" type="button">
                                         <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                                     </button>
                                 </span>
-                                <input type="text" class="form-control" value="1">
+                                <input type="text" class="form-control" id="count" value="1" >
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
+                                    <button class="btn btn-default plus" type="button">
                                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                     </button>
                                 </span>
@@ -75,5 +74,6 @@
             </div>
         </div>
     </div>
+    <script src="~/Scripts/vip/game@AgoodsDetail.js"></script>
 </body>
 </html>
