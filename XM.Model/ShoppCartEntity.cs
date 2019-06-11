@@ -11,6 +11,10 @@ namespace XM.Model
         /// <summary>
         /// 会员编号
         /// </summary>
+        public int item_ID { get; set; }
+        /// <summary>
+        /// 会员编号
+        /// </summary>
         public int vip_ID { get; set; }
         /// <summary>
         /// 商品编号
@@ -24,10 +28,6 @@ namespace XM.Model
         /// 购买数量
         /// </summary>
         public int Agoods_Count { get; set; }
-        /// <summary>
-        /// 活动编号
-        /// </summary>
-        public int Ac_ID { get; set; }
         /// <summary>
         /// 商品状态
         /// </summary>

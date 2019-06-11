@@ -77,6 +77,9 @@ namespace XM.WebVip.Controllers
 
                     Session["Agent_ID"] = vip.AgentID;
                     Session["Agent_Acc"] = getAgentAN(vip.AgentID);
+                    //把购物车项添加到数据库
+                    addCart();
+
                     //base.Agent_Acc = agent_an;
                     return OperationReturn(true, "登录成功,vip_id:" + vip.VipID + ";vip_AN:" + AN,
                         new
@@ -354,6 +357,23 @@ namespace XM.WebVip.Controllers
             dic.Add("vip_AN", vip_AN);
             return DALUtility.Vip.NweVIP(dic);
         }
+
+        public void addCart() {
+            if (cartTable.Count > 0)
+            {
+                foreach (ShoppCartEntity item in cartTable.Values)
+                {
+                    Dictionary<string, object> paras = new Dictionary<string, object>();
+                    paras["editType"] = 1;
+                    paras["itemID"] = 0;
+                    paras["vipID"] = ID;
+                    paras["AgoodsID"] = item.Agoods_ID;
+                    paras["count"] = item.Agoods_Count;
+                    int res = DALUtility.ShoppCart.EditCart(paras);
+                }
+            }
+        } 
+        
         #endregion
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -15,7 +16,9 @@ namespace XM.WebVIP.Controllers
 {
     public class BaseController : Controller
     {
-        
+
+        //购物车项
+       public static Hashtable cartTable = new Hashtable();
         /// <summary>
         /// 数据交互接口
         /// </summary>

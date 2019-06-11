@@ -1,11 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using XM.Web.Controllers;
+using XM.Model;
+using XM.WebVIP.Controllers;
 
-namespace XM.WebAgent.Controllers
+namespace XM.WebVip.Controllers
 {
     public class ShoppCartController : BaseController
     {
@@ -14,25 +17,28 @@ namespace XM.WebAgent.Controllers
         {
             return View();
         }
+
+        
+
         /// <summary>
         /// 根据用户ID获取对应的购物车项
         /// </summary>
         /// <returns></returns>
         public ActionResult GetCartByVIPID()
         {
-            int id;
-            try
+
+
+            if (ID == null)
             {
-                id = Convert.ToInt32(Request["id"]);
-            }
-            catch (Exception)
-            {
-                return OperationReturn(false, "数据输入错误，请重新输入");
+                return OperationReturn(true, "未登录状态", cartTable.Values);
             }
 
-            var data = DALUtility.ShoppCart.QryDataByVIPID(id);
-            return OperationReturn(true, "操作成功", data);
+            var data = DALUtility.ShoppCart.QryDataByVIPID(Convert.ToInt32(ID));
+            return OperationReturn(true, "登录状态", data);
         }
+
+
+
 
         /// <summary>
         /// 编辑购物车
@@ -50,19 +56,33 @@ namespace XM.WebAgent.Controllers
             if (editType == null)
                 return OperationReturn(false, "数据传输错误");
             string itemID = Request["itemID"];
-            string vipID = Request["vipID"];
-            string AgoodsID = Request["AgoodsID"];
-            string count = Request["count"];
-            string acID = Request["acID"];
+           
+            int AgoodsID = Convert.ToInt32(Request["AgoodsID"]);
+            int count = Convert.ToInt32(Request["count"]);
 
+            if (ID == null)
+            {
+                ShoppCartEntity cartEntity = new ShoppCartEntity();
+                cartEntity.goods_id = AgoodsID;
+                cartEntity.Agoods_Count = count;
+                GoodsEntity goods = DALUtility.Goods.QryGoodsInfo(AgoodsID.ToString());
+                cartEntity.price = goods.GoodsPrice;
+                cartEntity.goods_name = goods.GoodsName;
+                if (cartTable.ContainsKey(AgoodsID))
+                    cartTable.Remove(AgoodsID);
+                cartTable.Add(AgoodsID, cartEntity);
+                return OperationReturn(true, "添加到购物车成功");
+
+            }
+
+            string vipID = ID;
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["editType"] = editType;
             paras["itemID"] = itemID;
             paras["vipID"] = vipID;
             paras["AgoodsID"] = AgoodsID;
             paras["count"] = count;
-            paras["acID"] = acID;
-
+           
             int res = DALUtility.ShoppCart.EditCart(paras);
             if (res == 2 || res == 4)
                 return OperationReturn(false, "操作失败");
