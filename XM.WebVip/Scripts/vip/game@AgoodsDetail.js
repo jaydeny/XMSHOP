@@ -1,7 +1,7 @@
 ﻿//商品数量减一
 $(".minus").click(function () {
     var x = Number($.trim($("#count").val()));
-    if (x < 1) {
+    if (x > 1) {
         $("#count").val(x - 1);
     } else {
         narn("log","最低买一个")
