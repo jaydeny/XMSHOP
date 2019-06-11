@@ -56,6 +56,7 @@
             <span>售后服务</span>
         </a>
         <span class="personal-box5-text2" v-show="is_SignIn" v-on:click="loginUP()">退出登录</span>
+        <span class="personal-box5-text2" v-show="!is_SignIn" v-on:click="login()">登录</span>
     </div>
     <script>
         new Vue({
@@ -74,9 +75,10 @@
                         url: "/Phone/PhoneHome/SignUp_MB"
                     }).then((data) => {
                         localStorage.setItem("name", '');
-                        location.href = "/Phone/PhoneHome/Index_MB";
+                        location.href = "/Phone/PhoneVipInfo/InfoPage_MB";
                     });
                 },
+                //初始化
                 init() {
                     const name = this.name = localStorage.getItem("name");
                     if (name == null || name == '') {
@@ -86,8 +88,11 @@
                         this.is_SignIn = true;
                         this.name = name;
                     }
+                },
+                //点击登陆按钮
+                login() {
+                    location.href = "/Phone/PhoneHome/Login_MBV";
                 }
-
             }
 
         })

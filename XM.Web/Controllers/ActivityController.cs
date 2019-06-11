@@ -147,8 +147,9 @@ namespace XM.Web.Controllers
             paras["full"] = Request["full"];
             //减额
             paras["minus"] = Request["minus"];
+
             //折扣
-            paras["discount"] = Convert.ToDouble(Request["discount"]) / 100;
+            paras["discount"] = Request["discount"] == "" ? 0 : Convert.ToDouble(Request["discount"]) / 100;
             //次数
             paras["count"] = Request["count"];
             //活动状态

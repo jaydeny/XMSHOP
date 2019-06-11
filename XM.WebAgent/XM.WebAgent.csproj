@@ -137,6 +137,7 @@
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NoticeController.cs" />
+    <Compile Include="Controllers\ShoppCartController.cs" />
     <Compile Include="Controllers\VIPController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
@@ -240,10 +241,12 @@
     <Content Include="Scripts\laydate\theme\default\font\iconfont.eot" />
     <Content Include="Scripts\laydate\theme\default\font\iconfont.ttf" />
     <Content Include="Scripts\laydate\theme\default\font\iconfont.woff" />
+    <Content Include="Static\Activity\Index_cn.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\ShoppCart\" />
     <Folder Include="Views\VIP\" />
   </ItemGroup>
   <ItemGroup>
@@ -315,6 +318,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties Static_4Activity_4Index_3cn_1json__JSONSchema="http://json.schemastore.org/appveyor" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

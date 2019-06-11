@@ -1,5 +1,4 @@
 ﻿@{
-
     Layout = "~/Views/Shared/_Form.cshtml";
 }
 <form id="form1">
@@ -37,7 +36,7 @@
                         <select id="status_id" name="status_id" value="status_id">
                             <option value="1008">启用</option>
                             <option value="1009">冻结</option>
-                            <option value="1011">删除</option>
+                            <option value="1011">弃用</option>
                         </select>
                     </td>
                 </tr>
@@ -50,26 +49,26 @@
                 <tr>
                     <th class="formTitle">折扣</th>
                     <td class="formValue">
-                        <input id="Discount" name="Discount" minlength="6" maxlength="16" type="text" class="form-control required" />
+                        <input id="Discount" name="Discount" min="0" max="100" type="text" class="form-control required" />
                     </td>
                 </tr>
 
                 <tr>
                     <th class="formTitle">满额</th>
                     <td class="formValue">
-                        <input id="Ac_full" name="Ac_full" type="text" class="form-control" required />
+                        <input id="Ac_full" name="Ac_full" min="0" type="number" class="form-control" required />
                     </td>
                 </tr>
                 <tr>
                     <th class="formTitle">减额</th>
                     <td class="formValue">
-                        <input id="Minus" name="Minus" type="text" class="form-control" required />
+                        <input id="Minus" name="Minus" min="0" type="number" class="form-control" required />
                     </td>
                 </tr>
                 <tr>
                     <th class="formTitle">优惠次数</th>
                     <td class="formValue">
-                        <input id="Times" name="Times" type="text" class="form-control" required />
+                        <input id="Times" name="Times" type="number" min="0" class="form-control" required />
                     </td>
                 </tr>
             </table>

@@ -122,7 +122,7 @@ namespace XM.WebVip.Controllers
             string sort = Request["sort"] == null ? "price" : Request["sort"];
             string order = Request["order"] == null ? "asc" : Request["order"];
             int pageindex = Request["page"] == null ? 1 : Convert.ToInt32(Request["page"]);
-            int pagesize = Request["rows"] == null ? 5 : Convert.ToInt32(Request["rows"]);
+            int pagesize = Request["rows"] == null ? 6 : Convert.ToInt32(Request["rows"]);
 
 
             Dictionary<string, object> param = new Dictionary<string, object>();

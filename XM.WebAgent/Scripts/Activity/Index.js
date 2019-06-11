@@ -12,10 +12,18 @@
         count: '',
         pageCount: '',
         typeNum: '',
-        countNum: ''
+        countNum: '',
+        //配置
+        //语言
+        language: "_cn",
+        //配置路径
+        url: "/Static/Activity/Index",
+        //配置文件数据
+        cfg: {}
     },
     created: function () {
-        this.init()
+        this.init();
+        this.initToConfig();
         this.getActivityType();
     },
     computed: {
@@ -39,6 +47,15 @@
                 date = "0" + date;
             return date
         },
+        initToConfig() {
+            const url = this.url + this.language+".json";
+            $.ajax({
+                url: url,
+                dataType: 'json'
+            }).then((data) => {
+                this.cfg = data;
+            });
+        },
         //获取当前活动类型
         getActivityType() {
             $.ajax({
@@ -53,31 +70,31 @@
         checkData() {
            
             if (this.title.trim() == '') {
-                this.narn('warn', '标题不能为空')
+                this.narn('warn', this.cfg.js.checkData.title)
                 return false
             }
             else if (this.content.trim() == '') {
-                this.narn('warn', '内容不能为空')
+                this.narn('warn', this.cfg.js.checkData.content)
                 
                 return false
             } else if (this.typeNum == '') {
-                this.narn('warn', '请选择优惠')
+                this.narn('warn', this.cfg.js.checkData.pro)
                 return false
             } else if (this.typeNum == '1002') {
                 
                 if ($("#full").val() == '' || $("#minus").val() == '') {
-                    this.narn('warn', '优惠方案提供数据不完整')
+                    this.narn('warn', this.cfg.js.checkData.proToE)
                     return false
                 }
             } else if (this.typeNum == '1003') {
 
                 if ($("#discount").val() == '') {
-                    this.narn('warn', '优惠方案提供数据不完整')
+                    this.narn('warn', this.cfg.js.checkData.proToE)
                     return false
                 }
             }
             else if (this.count == '') {
-                this.narn('warn', '请选择优惠次数')
+                this.narn('warn', this.cfg.js.checkData.count)
                 return false
             }
             return true
