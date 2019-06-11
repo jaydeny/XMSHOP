@@ -26,8 +26,6 @@ namespace XM.WebVip.Controllers
         /// <returns></returns>
         public ActionResult GetCartByVIPID()
         {
-
-
             if (Session["id"] == null)
             {
                 return OperationReturn(true, "未登录状态", cartTable.Values);

@@ -21,8 +21,8 @@ $(".plus").click(function () {
 //添加购物车
 $("#AddCart").click(function () {
     $.ajax({
-        url: "/ShoppingCart/AddCart",
-        data: { "Agoods_ID": $("#agoods_id").val(), "Agoods_Count": $.trim($("#count").val()), "Ac_ID": 0 },
+        url: "/ShoppCart/EditCart",
+        data: { "editType": 1, "AgoodsID": $("#agoods_id").val(), "count": $.trim($("#count").val())},
         success: function (data) {
             if (data.success) {
                 narn("success","添加购物车成功!")

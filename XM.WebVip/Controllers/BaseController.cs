@@ -34,7 +34,13 @@ namespace XM.WebVIP.Controllers
             return Content(JsonConvert.SerializeObject(new { msg = _msg != "" ? _msg : (_success ? "操作成功" : "操作失败"), success = _success }));
 
         }
-        
+
+        protected ContentResult OperationReturn(bool _success, string _msg = "", object obj = null)
+        {
+            return Content(JsonConvert.SerializeObject(new { msg = _msg != "" ? _msg : (_success ? "操作成功" : "操作失败"), success = _success, data = obj }));
+
+        }
+
         protected string GameReturn(string _action,string _key,string[] _paras,string _culture = "zh-cn")
         {
             return JsonConvert.SerializeObject(new { action = _action, key = _key, paras = _paras, culture = _culture });

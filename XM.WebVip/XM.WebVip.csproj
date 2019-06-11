@@ -398,7 +398,6 @@
     <Content Include="Views\notice\_Notice.cshtml" />
     <Content Include="Views\VipInfo\_QryRechargePage.cshtml" />
     <Content Include="Views\Shop\ChooseAc.cshtml" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\ShoppCart\Index.cshtml" />
     <Content Include="Views\ShoppingCart\ShoppingCartPage.cshtml" />
     <Content Include="Views\ShoppingCart\ChooseAddress.cshtml" />
