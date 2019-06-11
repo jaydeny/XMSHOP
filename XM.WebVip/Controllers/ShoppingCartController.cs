@@ -37,6 +37,10 @@ namespace XM.WebVip.Controllers
             return View(Agoods);
         }
          
+        /// <summary>
+        /// 功能:选择地址
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ChooseAddress()
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
