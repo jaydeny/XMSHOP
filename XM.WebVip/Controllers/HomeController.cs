@@ -57,24 +57,24 @@ namespace XM.WebVip.Controllers
                 Dictionary<string, object> paras = new Dictionary<string, object>();
                 paras["vip_AN"] = AN;
                 paras["vip_pwd"] = pwd;
-                //paras["vip_pwd"] = Md5.GetMD5String(pwd);   //md5加密
 
+                //查询数据库是否有当前登录会员
                 var vip = DALUtility.Vip.QryVipToLogin<VipEntity>(paras);
+
                 if (vip != null)
                 {
+                    //判断vip状态
                     if (vip.StatusID == 2)
                     {
-                        return OperationReturn(false, "用户已被禁用，请您联系管理员");
+                        return OperationReturn(false, "vip002");
                     }
-
-
-                   
+                    
+                    //数据存session
                     Session["AN"] = vip.VipAccountName;
                     Session["ID"] = vip.VipID;
                     Session["PWD"] = vip.VipPassword;
                     Session["Remainder"] = getRemainder(vip.VipAccountName);
-
-
+                    
                     Session["Agent_ID"] = vip.AgentID;
                     Session["Agent_Acc"] = getAgentAN(vip.AgentID);
                     //把购物车项添加到数据库
@@ -89,15 +89,16 @@ namespace XM.WebVip.Controllers
                             agent_id = vip.AgentID
                         });
 
+                    return OperationReturn(true, "vip001");
                 }
                 else
                 {
-                    return OperationReturn(false, "用户名密码错误，请您检查");
+                    return OperationReturn(false, "vip003");
                 }
             }
             catch (Exception ex)
             {
-                return OperationReturn(false, "登录异常," + ex.Message);
+                return OperationReturn(false, "vip004");
             }
         }
         #endregion
@@ -192,7 +193,7 @@ namespace XM.WebVip.Controllers
                 boo = EmailHelper.send(vip.VipEmail, "修改密码", strMailContent);
             }
 
-            return OperationReturn(boo, "邮件已发送,请登录邮箱进行下一步操作!");
+            return OperationReturn(boo, "vip005");
         }
 
         /// <summary>
@@ -242,19 +243,18 @@ namespace XM.WebVip.Controllers
 
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("vip_id", vip_id);
-
+            //新密码
             string strOrgPwd = DALUtility.Vip.QryOrgPwd(param);
-
+            //原始密码
             string strOriginalPwd = Request["oldPwd"];
 
             if (strOrgPwd.Equals(strOriginalPwd))
             {
-
                 return save(vip_id);
             }
             else
             {
-                return OperationReturn(false, "修改失败,原始密码出错,请重新输入!");
+                return OperationReturn(false, "vip006");
             }
         }
         #endregion
@@ -291,11 +291,11 @@ namespace XM.WebVip.Controllers
                 if (ID == 0)
                 {
                     NewVIP(paras["vip_AN"].ToString());
-                    return OperationReturn(true, "注册成功");
+                    return OperationReturn(true, "vip007");
                 }
                 else
                 {
-                    return OperationReturn(true, "修改成功");
+                    return OperationReturn(true, "vip008");
                 }
             }
         }
@@ -343,7 +343,7 @@ namespace XM.WebVip.Controllers
             Session.Remove("Agent_ID");
             Session.Remove("Agent_Acc");
            
-            return OperationReturn(true, "退出成功");
+            return OperationReturn(true, "vip009");
         }
 
         /// <summary>

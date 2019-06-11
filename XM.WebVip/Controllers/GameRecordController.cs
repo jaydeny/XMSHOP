@@ -11,8 +11,11 @@ namespace XM.WebVip.Controllers
         public ActionResult RecordPage()
         {
             DateTime dt = DateTime.Now;
-            string StartWeek = dt.AddDays(1 - Convert.ToInt32(dt.DayOfWeek.ToString("d"))).ToString("yyyy-MM-dd"); //获取一周的开始日期
-            string EndWeek = dt.AddDays(1 - Convert.ToInt32(dt.DayOfWeek.ToString("d"))).AddDays(6).ToString("yyyy-MM-dd"); //获取本周星期天日期
+            //获取一周的开始日期
+            string StartWeek = dt.AddDays(1 - Convert.ToInt32(dt.DayOfWeek.ToString("d"))).ToString("yyyy-MM-dd");
+            //获取本周星期天日期
+            string EndWeek = dt.AddDays(1 - Convert.ToInt32(dt.DayOfWeek.ToString("d"))).AddDays(6).ToString("yyyy-MM-dd"); 
+            
             ViewData["StartWeek"] = StartWeek;
             ViewData["EndWeek"] = EndWeek; 
             return View();

@@ -107,7 +107,7 @@ namespace XM.WebVip.Controllers
             param.Add("order", order);
             param.Add("agent_AN", Session["Agent_Acc"] != null ? Session["Agent_Acc"].ToString() : "agent0");
 
-                string result = DALUtility.Agent.QryAgoods(param, out int ICount);
+            string result = DALUtility.Agent.QryAgoods(param, out int ICount);
             return Content(result);
         }
 

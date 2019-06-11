@@ -1,0 +1,30 @@
+﻿@using XM.Model
+@model AddressEntity
+<link href="~/Content/CSS/ChooseAc.css" rel="stylesheet" />
+<div class="choose-main">
+
+    <div id="Add_div">
+        <table>
+            <tr>
+                <td>id</td>
+                <td>地址</td>
+                <td>选择</td>
+            </tr>
+            @foreach (AddressEntity item in (IEnumerable<AddressEntity>)@ViewData["AddList"])
+            {
+                <tr>
+                    <td>
+                        @item.AddressID
+                    </td>
+                    <td>
+                        @item.AddressName
+                    </td>
+                    <td>
+                        <button id="ChooseAdd" data-val=@item.AddressID>选择</button>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <script src="~/Scripts/vip/vip@AgoodsList.js"></script>
+</div>

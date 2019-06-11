@@ -6,10 +6,10 @@ $("#fen").text(1000);
 $(".vipinfo").on("click", "#top-up", function () {
     $.post("/vipinfo/Recharge", { recharge_price: $(lastRechargeBtn).text() }, function (data) {
         if (data.success) {
-            narn('success', data.msg)
+            narn('success', "充值成功,请等待审核!")
         }
         else {
-            narn('warn', data.msg)
+            narn('warn', "充值失败!")
         }
     }, "json")
 })

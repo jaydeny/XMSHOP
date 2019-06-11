@@ -28,5 +28,52 @@ namespace XM.DAL
             string sql = "select * from tbShoppCart sc inner join v_goods_list agoods on sc.Agoods_ID = agoods.GoodsID where vip_ID = @id";
             return QueryList<ShoppCartEntity>(sql, new { id = vipID });
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// 功能:添加购物车
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public int AddCart(Dictionary<string, object> param)
+        {
+            string sql = "insert into tbShoppCart values(@vip_ID,@Agoods_ID,@Agoods_Count,@Ac_ID)";
+            return Execute(sql, param);
+        }
+
+        
     }
 }

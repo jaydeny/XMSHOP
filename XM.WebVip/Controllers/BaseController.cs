@@ -37,28 +37,32 @@ namespace XM.WebVIP.Controllers
 
         protected ContentResult OperationReturn(bool _success, string _msg = "", object obj = null)
         {
-            return Content(JsonConvert.SerializeObject(new { msg = _msg != "" ? _msg : (_success ? "操作成功" : "操作失败"), success = _success, data = obj}));
+            return Content(JsonConvert.SerializeObject(new { msg = _msg != "" ? _msg : (_success ? "操作成功" : "操作失败"), success = _success, data = obj }));
 
         }
-        
+
         protected string GameReturn(string _action,string _key,string[] _paras,string _culture = "zh-cn")
         {
             return JsonConvert.SerializeObject(new { action = _action, key = _key, paras = _paras, culture = _culture });
 
         }
-
+        
         protected static string GameReturnS(string _action, string _key, string[] _paras, string _culture = "zh-cn")
         {
             return JsonConvert.SerializeObject(new { action = _action, key = _key, paras = _paras, culture = _culture });
 
         }
-        
+
         /// <summary>
         /// 功能:记录会员端的信息
         /// </summary>
+        //会员账号
         public string AN { get { return Session["AN"].ToString(); } }
+        //密码
         public string PWD { get { return Session["PWD"].ToString(); } }
+        //id
         public string ID { get { return Session["id"].ToString(); } }
+        //余额
         public decimal Remainder { get { return decimal.Parse(Session["Remainder"].ToString()); } }
         //积分
         public static string Integral;
@@ -66,9 +70,9 @@ namespace XM.WebVIP.Controllers
         /// <summary>
         /// 记录代理的信息
         /// </summary>
+        //代理id
         public string Agent_ID { get { return Session["Agent_ID"].ToString(); } }
+        //代理账号
         public string Agent_Acc { get { return Session["Agent_Acc"].ToString(); } }
-        
-
     }
 }

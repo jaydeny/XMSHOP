@@ -19,7 +19,7 @@
                     }
                 }, "json")
             } else {
-                narn('warn', data.msg)
+                narn('warn', "修改失败,原始密码出错,请重新输入!")
             }
         }, "json")
     }

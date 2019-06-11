@@ -22,8 +22,14 @@ $(".vipinfo-form").on("click", "#RechargeToGame", function () {
         data: { "money": $(Money).val(), "code": code },
         success: function (data) {
             var data = JSON.parse(data);
-            //window.location.href = "/vipinfo/vipinfopage";
-            narn('log', data.msg)
+            if (data.success) {
+                if (data.msg == "vip004") {
+                    narn('success', "充值成功!")
+                }
+                narn('success', "提现成功!")
+            } else {
+                narn('warn', "充值失败!")
+            }
         }
     })
 });
@@ -41,6 +47,7 @@ function narn(type, text) {
                     title: '通知',
                     text: '通知被接受'
                 })
+                window.location.href = "/GameRecharge/RechargePage";
             }
         }, {
             text: '取消',

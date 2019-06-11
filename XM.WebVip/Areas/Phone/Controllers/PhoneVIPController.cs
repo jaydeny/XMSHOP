@@ -7,12 +7,9 @@ using XM.WebVip.Controllers;
 
 namespace XM.WebVip.Areas.Phone.Controllers
 {
-    public class PhoneVIPController : VIPController
+    public class PhoneVIPController 
     {
         // GET: Phone/PhoneVIP
-        public ActionResult ShoppingCart_MB()
-        {
-            return View();
-        }
+
     }
 }

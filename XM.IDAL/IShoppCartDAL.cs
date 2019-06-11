@@ -22,5 +22,44 @@ namespace XM.IDAL
       /// <param name="paras"></param>
       /// <returns></returns>
        int EditCart(Dictionary<string, object> paras);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// 功能:添加购物车
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        int AddCart(Dictionary<string, object> param);
     }
 }
