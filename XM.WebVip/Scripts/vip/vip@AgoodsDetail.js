@@ -18,6 +18,21 @@ $(".plus").click(function () {
     }
 })
 
+//添加购物车
+$("#AddCart").click(function () {
+    $.ajax({
+        url: "/ShoppingCart/AddCart",
+        data: { "Agoods_ID": $("#agoods_id").val(), "Agoods_Count": $.trim($("#count").val()), "Ac_ID": 0 },
+        success: function (data) {
+            if (data.success) {
+                narn("success","添加购物车成功!")
+            } else {
+                narn("warn","添加购物车失败!")
+            }
+        }
+    })
+})
+
 //提示框弹出方法
 function narn(type, text) {
     naranja()[type]({

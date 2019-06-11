@@ -207,6 +207,13 @@ namespace XM.IDAL
         /// <param name="paras"></param>
         /// <returns></returns>
         int DeleteAddress(Dictionary<string, object> paras);
+
+        /// <summary>
+        /// 功能:查询所有地址
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        List<AddressEntity> QryAllAdd(Dictionary<string,object> paras);
         #endregion
 
         #region _自定义

@@ -137,6 +137,14 @@
     <value>game005</value>
     <comment>提现成功</comment>
   </data>
+  <data name="shop001" xml:space="preserve">
+    <value>shop001</value>
+    <comment>添加购物车成功</comment>
+  </data>
+  <data name="shop002" xml:space="preserve">
+    <value>shop002</value>
+    <comment>添加购物车失败</comment>
+  </data>
   <data name="vip001" xml:space="preserve">
     <value>vip001</value>
     <comment>登录成功</comment>

@@ -344,7 +344,8 @@
     <Content Include="Scripts\Game\game%40DetailPage.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\naranja\naranja.min.js" />
-    <Content Include="Scripts\vip\game%40AgoodsDetail.js" />
+    <Content Include="Scripts\vip\vip%40AgoodsDetail.js" />
+    <Content Include="Scripts\vip\vip%40ShoppingCart.js" />
     <Content Include="Scripts\xcConfirm.js" />
     <Content Include="Scripts\jquery-3.4.0.js" />
     <Content Include="Scripts\jquery-3.4.0.min.js" />
@@ -396,6 +397,7 @@
     <Content Include="Views\VipInfo\_QryRechargePage.cshtml" />
     <Content Include="Views\Shop\ChooseAc.cshtml" />
     <Content Include="Views\ShoppingCart\ShoppingCartPage.cshtml" />
+    <Content Include="Views\ShoppingCart\ChooseAddress.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

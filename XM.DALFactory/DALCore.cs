@@ -134,6 +134,16 @@ namespace XM.DALFactory
             get { return LoadAssamblyType<IXMDAL>("XMDAL"); }
         }
 
+        public MongoDbService MDbS
+        {
+            get { return new MongoDbService(); }
+        }
+
+        public GameUtil Game
+        {
+            get { return new GameUtil(); }
+        }
+
         public INoticDAL Notic
         {
             get { return LoadAssamblyType<INoticDAL>("NoticDAL"); }

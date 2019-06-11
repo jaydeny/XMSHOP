@@ -106,6 +106,24 @@ namespace XM.Comm {
         }
         
         /// <summary>
+        ///   查找类似 shop001 的本地化字符串。
+        /// </summary>
+        internal static string shop001 {
+            get {
+                return ResourceManager.GetString("shop001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 shop002 的本地化字符串。
+        /// </summary>
+        internal static string shop002 {
+            get {
+                return ResourceManager.GetString("shop002", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 vip001 的本地化字符串。
         /// </summary>
         internal static string vip001 {

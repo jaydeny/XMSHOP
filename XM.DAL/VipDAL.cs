@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 using XM.DAL.comm;
 using XM.IDAL;
@@ -474,6 +475,18 @@ namespace XM.DAL
         public int DeleteAddress(Dictionary<string, object> paras)
         {
             return Execute("delete tbaddress where id=@id and vip_id=@vip_id", paras, CommandType.Text);
+        }
+
+        /// <summary>
+        /// 功能:查询所有地址
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public List<AddressEntity> QryAllAdd(Dictionary<string, object> paras)
+        {
+            var list = QueryList<AddressEntity>("select * from v_address_list where vipID = @vip_id", paras);
+            List<AddressEntity> result = list.ToList();
+            return result ;
         }
         #endregion
 

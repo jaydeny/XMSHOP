@@ -5,8 +5,8 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>GoodsDetails</title>
-    <link href="~/Content/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="~/Content/CSS/base.css"  />
+    <link href="~/Content/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/CSS/base.css" />
     <link rel="stylesheet" href="~/Content/CSS/GoodsDetails.css" />
 </head>
 <body>
@@ -42,8 +42,12 @@
                 </div>*@
         </div>
         <div class="right">
+            <input type="text" id="agoods_id" value="@Model.id" hidden />
             <p class="name">@Model.goods_name</p>
             <p class="sell">@Model.goods_intro</p>
+            @{ 
+
+            }
             <div class="prominent">
                 <div class="price">
                     <span></span><a><em>￥</em>@Model.price</a>
@@ -57,7 +61,7 @@
                                         <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                                     </button>
                                 </span>
-                                <input type="text" class="form-control" id="count" value="1" >
+                                <input type="text" class="form-control" id="count" value="1">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default plus" type="button">
                                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -69,11 +73,11 @@
                 </div>
             </div>
             <div class="button">
-                <button type="button" class="btn btn-primary">加入购物车</button>
+                <button type="button" class="btn btn-primary" id="AddCart">加入购物车</button>
                 <button type="button" class="btn btn-primary">立即下单</button>
             </div>
         </div>
     </div>
-    <script src="~/Scripts/vip/game@AgoodsDetail.js"></script>
+    <script src="~/Scripts/vip/vip@AgoodsDetail.js"></script>
 </body>
 </html>
