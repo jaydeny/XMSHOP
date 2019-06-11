@@ -21,28 +21,34 @@ namespace XM.Model
         /// </summary>
         public int Agoods_ID { get; set; }
         /// <summary>
-        /// 商品编号
-        /// </summary>
-        public int goods_id { get; set; }
-        /// <summary>
         /// 购买数量
         /// </summary>
         public int Agoods_Count { get; set; }
-        /// <summary>
-        /// 商品状态
-        /// </summary>
-        public int status_id { get; set; }
+
         /// <summary>
         /// 商品价格
         /// </summary>
-        public decimal price { get; set; }
+        public decimal GoodsPrice { get; set; }
         /// <summary>
         /// 商品上架时间
         /// </summary>
-        public DateTime up_time { get; set; }
+        public DateTime GoodsCreateTime { get; set; }
         /// <summary>
         /// 商品名称
         /// </summary>
-        public string goods_name { get; set; }
+        public string GoodsName { get; set; }
+        /// <summary>
+        /// 商品名称
+        /// </summary>
+        public string GoodsIntro { get; set; }
+        /// <summary>
+        /// 商品图片
+        /// </summary>
+        public string GoodsPicture { get; set; }
+        /// <summary>
+        /// 商品类型
+        /// </summary>
+        public int GoodsType { get; set; }
+
     }
 }

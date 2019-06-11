@@ -367,7 +367,7 @@ namespace XM.WebVip.Controllers
                     paras["editType"] = 1;
                     paras["itemID"] = 0;
                     paras["vipID"] = Convert.ToInt32(ID);
-                    paras["AgoodsID"] = item.goods_id;
+                    paras["AgoodsID"] = item.Agoods_ID;
                     paras["count"] = item.Agoods_Count;
                     int res = DALUtility.ShoppCart.EditCart(paras);
                 }

@@ -63,11 +63,14 @@ namespace XM.WebVip.Controllers
             if (Session["id"] == null)
             {
                 ShoppCartEntity cartEntity = new ShoppCartEntity();
-                cartEntity.goods_id = AgoodsID;
+                cartEntity.Agoods_ID = AgoodsID;
                 cartEntity.Agoods_Count = count;
                 GoodsEntity goods = DALUtility.Goods.QryGoodsInfo(AgoodsID.ToString());
-                cartEntity.price = goods.GoodsPrice;
-                cartEntity.goods_name = goods.GoodsName;
+                cartEntity.GoodsPrice = goods.GoodsPrice;
+                cartEntity.GoodsName = goods.GoodsName;
+                cartEntity.GoodsPicture = goods.GoodsPicture;
+                cartEntity.GoodsType = goods.GoodsType;
+                cartEntity.GoodsIntro = goods.GoodsIntro;
                 if (cartTable.ContainsKey(AgoodsID))
                     cartTable.Remove(AgoodsID);
                 cartTable.Add(AgoodsID, cartEntity);
@@ -87,6 +90,7 @@ namespace XM.WebVip.Controllers
                 return OperationReturn(false, "操作失败");
             return OperationReturn(true, "操作成功");
         }
+
 
 
         
