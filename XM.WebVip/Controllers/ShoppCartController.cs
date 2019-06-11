@@ -28,7 +28,7 @@ namespace XM.WebVip.Controllers
         {
 
 
-            if (ID == null)
+            if (Session["id"] == null)
             {
                 return OperationReturn(true, "未登录状态", cartTable.Values);
             }
@@ -60,7 +60,7 @@ namespace XM.WebVip.Controllers
             int AgoodsID = Convert.ToInt32(Request["AgoodsID"]);
             int count = Convert.ToInt32(Request["count"]);
 
-            if (ID == null)
+            if (Session["id"] == null)
             {
                 ShoppCartEntity cartEntity = new ShoppCartEntity();
                 cartEntity.goods_id = AgoodsID;
@@ -72,7 +72,6 @@ namespace XM.WebVip.Controllers
                     cartTable.Remove(AgoodsID);
                 cartTable.Add(AgoodsID, cartEntity);
                 return OperationReturn(true, "添加到购物车成功");
-
             }
 
             string vipID = ID;
@@ -90,6 +89,7 @@ namespace XM.WebVip.Controllers
         }
 
 
+        
 
     }
 }

@@ -366,8 +366,8 @@ namespace XM.WebVip.Controllers
                     Dictionary<string, object> paras = new Dictionary<string, object>();
                     paras["editType"] = 1;
                     paras["itemID"] = 0;
-                    paras["vipID"] = ID;
-                    paras["AgoodsID"] = item.Agoods_ID;
+                    paras["vipID"] = Convert.ToInt32(ID);
+                    paras["AgoodsID"] = item.goods_id;
                     paras["count"] = item.Agoods_Count;
                     int res = DALUtility.ShoppCart.EditCart(paras);
                 }

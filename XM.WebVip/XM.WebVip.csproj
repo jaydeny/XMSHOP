@@ -395,6 +395,8 @@
     <Content Include="Views\notice\_Notice.cshtml" />
     <Content Include="Views\VipInfo\_QryRechargePage.cshtml" />
     <Content Include="Views\Shop\ChooseAc.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\ShoppCart\Index.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -408,7 +410,6 @@
     <Folder Include="Areas\Phone\Views\PhoneShoppCart\" />
     <Folder Include="Models\" />
     <Folder Include="Views\GameHome\" />
-    <Folder Include="Views\ShoppCart\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
