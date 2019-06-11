@@ -10,6 +10,17 @@ namespace XM.IDAL
 {
     public interface IShoppCartDAL
     {
+        /// <summary>
+        /// 根据ID获取购物车信息
+        /// </summary>
+        /// <param name="vipID"></param>
+        /// <returns></returns>
         IEnumerable<ShoppCartEntity> QryDataByVIPID(int vipID);
+      /// <summary>
+      /// 编辑购物车项
+      /// </summary>
+      /// <param name="paras"></param>
+      /// <returns></returns>
+       int EditCart(Dictionary<string, object> paras);
     }
 }
