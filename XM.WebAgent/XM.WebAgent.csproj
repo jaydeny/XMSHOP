@@ -137,7 +137,6 @@
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NoticeController.cs" />
-    <Compile Include="Controllers\ShoppCartController.cs" />
     <Compile Include="Controllers\VIPController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">

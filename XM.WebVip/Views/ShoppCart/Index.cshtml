@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>测试</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script>
+</head>
+<body>
+    <div>
+        类型: <input type="text" id="typeID" />
+        <br />
+        购物车项 <input type="number" id="item" />
+        <br />
+        商品ID <input type="number" id="goodsid" /> <br />
+        数量 <input type="number" id="count" /><br />
+        <button id="edit">加入购物车</button>
+        <button id="see">查看购物车</button>
+    </div>
+    <script>
+        window.onload = function () {
+           // console.log("aa")
+            $("#edit").click ( function () {
+                const param = {
+                    editType: $("#typeID").val(),
+                    itemID: $("#item").val(),
+                    AgoodsID: $("#goodsid").val(),
+                    count: $("#count").val()
+                }
+
+                $.ajax({
+                    url: "/ShoppCart/EditCart",
+                    data: param,
+                    dataType: "json"
+                }).then((data) => {
+                    console.log(data);
+                });
+            });
+            $("#see").click(function () {
+
+                $.ajax({
+                    url: "/ShoppCart/GetCartByVIPID",
+                    dataType: "json"
+                }).then((data) => {
+                    console.log(data);
+                });
+            });
+        }
+            
+    </script>
+</body>
+</html>

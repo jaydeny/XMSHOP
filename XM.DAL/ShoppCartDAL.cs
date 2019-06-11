@@ -25,7 +25,7 @@ namespace XM.DAL
         /// <returns></returns>
         public IEnumerable<ShoppCartEntity> QryDataByVIPID(int vipID)
         {
-            string sql = "select * from tbShoppCart sc inner join tbAgoods agoods on sc.Agoods_ID = agoods.id where vip_ID = @id";
+            string sql = "select * from tbShoppCart sc inner join v_goods_list agoods on sc.Agoods_ID = agoods.GoodsID where vip_ID = @id";
             return QueryList<ShoppCartEntity>(sql, new { id = vipID });
         }
 

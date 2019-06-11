@@ -131,6 +131,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Phone\Controllers\PhoneHomeController.cs" />
     <Compile Include="Areas\Phone\Controllers\PhoneProductController.cs" />
+    <Compile Include="Areas\Phone\Controllers\PhoneShoppCartController.cs" />
     <Compile Include="Areas\Phone\Controllers\PhoneVIPController.cs" />
     <Compile Include="Areas\Phone\Controllers\PhoneVipInfoController.cs" />
     <Compile Include="Areas\Phone\PhoneAreaRegistration.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Controllers\NoticeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
+    <Compile Include="Controllers\ShoppCartController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\VIPController.cs" />
     <Compile Include="Controllers\VipInfoController.cs" />
@@ -396,6 +398,8 @@
     <Content Include="Views\notice\_Notice.cshtml" />
     <Content Include="Views\VipInfo\_QryRechargePage.cshtml" />
     <Content Include="Views\Shop\ChooseAc.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\ShoppCart\Index.cshtml" />
     <Content Include="Views\ShoppingCart\ShoppingCartPage.cshtml" />
     <Content Include="Views\ShoppingCart\ChooseAddress.cshtml" />
     <None Include="web.Debug.config">
@@ -408,6 +412,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Phone\Models\" />
+    <Folder Include="Areas\Phone\Views\PhoneShoppCart\" />
     <Folder Include="Models\" />
     <Folder Include="Views\GameHome\" />
   </ItemGroup>
