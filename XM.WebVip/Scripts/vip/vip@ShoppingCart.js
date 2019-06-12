@@ -112,11 +112,7 @@ function narn(type, text) {
     })
 }
 
-var list = $("#agoods .check:checked")
-$.each(list, function (index, obj) {
-    $(obj).closest("div.shopping-row");
-    $(obj).closest("div.shopping-row").find("#count");
-})
+
 
 $("#Orders").click(function () {
     alert("111")
@@ -127,6 +123,8 @@ $("#Orders").click(function () {
         idList.push($(obj).closest("div.shopping-row").data("val"));
         countList.push($(obj).closest("div.shopping-row").find("#count").data("val"));
     })
+    var list = [];
+    list.push({"":123})
     console.log(x)
     console.log(y)
 })
