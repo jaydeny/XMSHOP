@@ -57,7 +57,7 @@
                     <form>
                         @foreach (ShoppCartEntity item in (IEnumerable<ShoppCartEntity>)@ViewData["list"])
                         {
-                            <div class="shopping-row">
+                            <div class="shopping-row" data-val="@item.Agoods_ID">
                                 <div class="flex-1">
                                     <input class="check" type="checkbox" />
                                     <img class="img" src="~/image/@item.GoodsPicture"/>

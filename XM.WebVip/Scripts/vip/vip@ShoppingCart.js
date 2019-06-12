@@ -8,6 +8,7 @@ var bounced = function (obj) {
     })
 }
 
+//点击下单,让用户选择地址
 $("#Orders").click(function () {
     var obj = {
         "modal": "#myModal", "dialog": "#dialog", "content": "#content", "body": "#body"
@@ -18,6 +19,7 @@ $("#Orders").click(function () {
     bounced(obj);
 })
 
+//删除购物车中的一项
 $(".delete").click(function () {
     var itemID = $(this).data("val");
     alert(itemID)
@@ -39,8 +41,22 @@ $(".delete").click(function () {
 $(".minus").click(function () {
     var that = $(this).closest("div").children("#count");
     var x = Number($.trim($(that).val()));
+    
+    var agoodsID = $(this).closest("div.shopping-row").data("val");
     if (x > 1) {
         $(that).val(x - 1);
+        $.ajax({
+            url: "/ShoppCart/EditCart",
+            data: { "editType": 1, "itemID": itemID, "count":x-1 },
+            success: function (data) {
+                var e = JSON.parse(data)
+                if (e.success) {
+                    narn("success", "修改成功")
+                } else {
+                    narn("warn", "修改失败")
+                }
+            }
+        })
     } else {
         narn("log", "最低买一个")
     }
@@ -50,8 +66,22 @@ $(".minus").click(function () {
 $(".plus").click(function () {
     var that = $(this).closest("div").children("#count");
     var x = Number($.trim($(that).val()));
+
+    var agoodsID = $(this).closest("div.shopping-row").data("val");
     if (x < 50) {
         $(that).val(x + 1);
+        $.ajax({
+            url: "/ShoppCart/EditCart",
+            data: { "editType": 1, "itemID": itemID, "count": x + 1 },
+            success: function (data) {
+                var e = JSON.parse(data)
+                if (e.success) {
+                    narn("success", "修改成功")
+                } else {
+                    narn("warn", "修改失败")
+                }
+            }
+        })
     } else {
         narn("log", "请理性消费")
     }
