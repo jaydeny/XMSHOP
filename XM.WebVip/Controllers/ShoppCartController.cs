@@ -98,7 +98,13 @@ namespace XM.WebVip.Controllers
         {
             if (Session["id"] == null)
             {
-                ViewData["list"] = cartTable.Values;
+                List < ShoppCartEntity > list = new List<ShoppCartEntity>();
+                var result = cartTable.Values;
+                foreach (ShoppCartEntity item in result)
+                {
+                    list.Add(item);
+                }
+                ViewData["list"] = list;
                 return View();
             }
 

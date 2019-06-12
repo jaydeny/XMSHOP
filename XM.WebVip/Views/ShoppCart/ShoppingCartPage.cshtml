@@ -63,10 +63,10 @@
                                     <img class="img" src="~/image/@item.GoodsPicture"/>
                                 </div>
                                 <div class="flex-3">
-                                    商品名
+                                    @item.GoodsName
                                 </div>
                                 <div class="flex-1">
-                                    @item.GoodsName
+                                    @item.GoodsPrice
                                 </div>
                                 <div class="flex-1">
                                     <div class="input-group" style="margin: 0 auto; width: 120px;">
@@ -84,7 +84,7 @@
                                     </div>
                                 </div>
                                 <div class="flex-1">
-                                    <span class="price">@item.GoodsPrice</span>
+                                    <span class="price">@item.GoodsPrice*@item.Agoods_Count</span>
                                 </div>
                                 <div class="flex-1">
                                     <a class="delete" data-val="@item.item_ID">删除</a>

@@ -491,7 +491,7 @@ namespace XM.WebVip.Controllers
         public List<ActivityEntity> GetAllAc()
         {
             Dictionary<string, object> AcDic = new Dictionary<string, object>();
-            AcDic.Add("agent_AN", Agent_Acc);
+            AcDic.Add("agent_AN", Agent_Acc.Trim());
             AcDic.Add("Date", DateTime.Now);
 
             return DALUtility.Activity.QryAC<ActivityEntity>(AcDic);
