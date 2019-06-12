@@ -9,7 +9,7 @@ namespace XM.Model
     public class BuyStructEntity
     {
         private int addressID;
-        private string phoneNum;
+        
         private string orderTotal;
         private int count;
         private int proID;
@@ -17,7 +17,7 @@ namespace XM.Model
         private int tcID;
 
         public int AddressID { get => addressID; set => addressID = value; }
-        public string PhoneNum { get => phoneNum; set => phoneNum = value; }
+        
         public string OrderTotal { get => orderTotal; set => orderTotal = value; }
         public int Count { get => count; set => count = value; }
         public int ProID { get => proID; set => proID = value; }

@@ -116,14 +116,14 @@ namespace XM.WebVip.Controllers
             }
 
             //获取数据
-           // var vipInfo = QryTOPAdd();
+            var vipInfo = QryTOPAdd();
             DateTime date = DateTime.Now;
             foreach (BuyStructEntity item in buys)
             {
                 Dictionary<string, object> param = new Dictionary<string, object>();
                 param.Add("order_date", date);
                 param.Add("order_address", item.AddressID);
-                param.Add("order_mp", item.PhoneNum);
+                param.Add("order_mp", vipInfo.VipMobliePhone);
                 param.Add("vip_AN", Session["AN"].ToString());
                 param.Add("agent_AN", Session["Agent_Acc"].ToString());
                 param.Add("order_total", decimal.Parse(item.OrderTotal));
