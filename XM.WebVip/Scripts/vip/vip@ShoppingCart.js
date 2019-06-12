@@ -113,18 +113,12 @@ function narn(type, text) {
 }
 
 
-
+var result = [];
 $("#Orders").click(function () {
-    alert("111")
     var list = $("#agoods .check:checked")
-    var idList = [];
-    var countList = [];
     $.each(list, function (index, obj) {
-        idList.push($(obj).closest("div.shopping-row").data("val"));
-        countList.push($(obj).closest("div.shopping-row").find("#count").data("val"));
+        id = $(obj).closest("div.shopping-row").find("#count").data("val")
+        count = $(obj).closest("div.shopping-row").data("val")
+        result.push({ "addressID": addressID, "count": count, "proID": id, "proTotal": 单价, "tcID":活动id});
     })
-    var list = [];
-    list.push({"":123})
-    console.log(x)
-    console.log(y)
 })
