@@ -24,14 +24,14 @@ $(".gdetails-layer-bg").click(function () {
  	 $("body").removeClass("gdetails-ovrerHide");
 });
 /*加入购物车*/
-$(function() {
-     var addNumText = parseInt($(".add-num").text());
-     if (addNumText==0) {
-          $(".add-num").hide();
-     }
-     $(".addcar").click(function(event){
-          $(".add-num").show();
-          addNumText++;
-          $(".add-num").text(addNumText);
-     });
-});
+//$(function() {
+//     var addNumText = parseInt($(".add-num").text());
+//     if (addNumText==0) {
+//          $(".add-num").hide();
+//     }
+//     $(".addcar").click(function(event){
+//          $(".add-num").show();
+//          addNumText++;
+//          $(".add-num").text(addNumText);
+//     });
+//});

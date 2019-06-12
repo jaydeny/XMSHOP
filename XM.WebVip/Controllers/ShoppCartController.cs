@@ -50,6 +50,8 @@ namespace XM.WebVip.Controllers
         /// <returns></returns>
         public ActionResult EditCart()
         {
+
+
             string editType = Request["editType"];
             if (editType == null)
                 return OperationReturn(false, "数据传输错误");
@@ -88,10 +90,6 @@ namespace XM.WebVip.Controllers
                 return OperationReturn(false, "操作失败");
             return OperationReturn(true, "操作成功");
         }
-
-
-
-        
 
     }
 }
