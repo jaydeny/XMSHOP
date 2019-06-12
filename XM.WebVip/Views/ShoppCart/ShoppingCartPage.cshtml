@@ -56,41 +56,41 @@
                     <!-- 主体 -->
                     <form>
                         @foreach (ShoppCartEntity item in (IEnumerable<ShoppCartEntity>)@ViewData["list"])
-                         {
-                                    <div class="shopping-row">
-                                        <div class="flex-1">
-                                            <input class="check" type="checkbox" />
-                                            <img class="img" src="~/image/@item.GoodsPicture" />
-                                        </div>
-                                        <div class="flex-3">
-                                            商品名
-                                        </div>
-                                        <div class="flex-1">
-                                            @item.GoodsName
-                                        </div>
-                                        <div class="flex-1">
-                                            <div class="input-group" style="margin: 0 auto; width: 120px;">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button">
-                                                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-                                                    </button>
-                                                </span>
-                                                <input type="text" class="form-control" value="1" style="font-size: 18px;text-align: center;padding: 0;">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button">
-                                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                                    </button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="flex-1">
-                                            <span class="price">@item.GoodsPrice</span>
-                                        </div>
-                                        <div class="flex-1" class="">
-                                            <a class="delete">删除</a>
-                                        </div>
+                        {
+                            <div class="shopping-row">
+                                <div class="flex-1">
+                                    <input class="check" type="checkbox" />
+                                    <img class="img" src="~/image/@item.GoodsPicture"/>
+                                </div>
+                                <div class="flex-3">
+                                    商品名
+                                </div>
+                                <div class="flex-1">
+                                    @item.GoodsName
+                                </div>
+                                <div class="flex-1">
+                                    <div class="input-group" style="margin: 0 auto; width: 120px;">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default minus" type="button">
+                                                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+                                        <input type="text" id="count" class="form-control" value="1" style="font-size: 18px;text-align: center;padding: 0;">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default plus" type="button">
+                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
                                     </div>
-                         }
+                                </div>
+                                <div class="flex-1">
+                                    <span class="price">@item.GoodsPrice</span>
+                                </div>
+                                <div class="flex-1">
+                                    <a class="delete" data-val="@item.item_ID">删除</a>
+                                </div>
+                            </div>
+                        }
                         <!-- 底部 -->
                         <div class="shopping-bottom">
                             <div class="operation">
@@ -103,7 +103,7 @@
                                 <p class="hint">已选择<span>6</span>件商品</p>
                             </div>
                         </div>
-</div>
+                </div>
             </div>
         </div>
         <script src="~/Scripts/vip/vip@ShoppingCart.js"></script>

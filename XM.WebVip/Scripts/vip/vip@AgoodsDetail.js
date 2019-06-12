@@ -24,7 +24,8 @@ $("#AddCart").click(function () {
         url: "/ShoppCart/EditCart",
         data: { "editType": 1, "AgoodsID": $("#agoods_id").val(), "count": $.trim($("#count").val())},
         success: function (data) {
-            if (data.success) {
+            var e = JSON.parse(data)
+            if (e.success) {
                 narn("success","添加购物车成功!")
             } else {
                 narn("warn","添加购物车失败!")

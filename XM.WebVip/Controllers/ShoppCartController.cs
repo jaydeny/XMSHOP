@@ -90,8 +90,22 @@ namespace XM.WebVip.Controllers
         }
 
 
+        /// <summary>
+        /// 根据用户ID获取对应的购物车项
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ShoppingCartPage()
+        {
+            if (Session["id"] == null)
+            {
+                ViewData["list"] = cartTable.Values;
+                return View();
+            }
 
-        
-
+            var data = DALUtility.ShoppCart.QryDataByVIPID(Convert.ToInt32(ID));
+            ViewData["VipAccountName"] = Session["AN"];
+            ViewData["list"] = data;
+            return View();
+        }
     }
 }
