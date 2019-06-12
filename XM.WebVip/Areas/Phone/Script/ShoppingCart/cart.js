@@ -1,5 +1,6 @@
 ﻿$(function () {
     $(".shop-cart-add").click(function () {
+        console.log("aa")
         var multi = 0;
         var vall = $(this).prev().val();
         vall++;
@@ -17,16 +18,16 @@
         TotalPrice();
     });
 
-    $(".btn1").click(function () {
-        var $btn2 = $(this).parent(".shop-cart-box2").siblings(".index-goods").children(".shop-cart-check2").children(".btn2");
-        if ($(this).is(':checked')) {
-            $btn2.prop("checked", this.checked);
-            TotalPrice();
-        } else {
-            $btn2.removeAttr("checked");
-            TotalPrice();
-        }
-    });
+    //$(".btn1").click(function () {
+    //    var $btn2 = $(this).parent(".shop-cart-box2").siblings(".index-goods").children(".shop-cart-check2").children(".btn2");
+    //    if ($(this).is(':checked')) {
+    //        $btn2.prop("checked", this.checked);
+    //        TotalPrice();
+    //    } else {
+    //        $btn2.removeAttr("checked");
+    //        TotalPrice();
+    //    }
+    //});
 
     $(".btn2").click(function () {
         var goods = $(this).closest(".shop-cart-listbox1").find(".btn2");
@@ -82,7 +83,9 @@
             $(this).find(".btn2").each(function () {
                 if ($(this).is(":checked")) {
                     var num = $(this).parents(".index-goods").find(".shop-cart-numer").val();
-                    var price = parseFloat($(this).parents(".index-goods").find(".priceJs").text());
+                   
+                    var price = parseFloat($(this).parents(".index-goods").find(".priceJs").text().replace(",", ""));
+                   
                     var total = price * num;
                     oprice += total;
                 }
@@ -91,6 +94,27 @@
             var oneprice = parseFloat($(this).find(".ShopTotal").text());
             allprice += oneprice;
         });
-        $("#AllTotal").text(allprice.toFixed(2));
+        console.log(allprice)
+        $("#AllTotal").text(tranfoMoneyber(allprice.toFixed(2),2));
+    };
+
+    function tranfoMoneyber(number, n) {
+        if (n != 0) {
+            n = (n > 0 && n <= 20) ? n : 2;
+        }
+        number = parseFloat((number + "").replace(/[^\d\.-]/g, "")).toFixed(n) + "";
+        var sub_val = number.split(".")[0].split("").reverse();
+        var sub_xs = number.split(".")[1];
+
+        var show_html = "";
+        for (i = 0; i < sub_val.length; i++) {
+            show_html += sub_val[i] + ((i + 1) % 3 == 0 && (i + 1) != sub_val.length ? "," : "");
+        }
+
+        if (n == 0) {
+            return show_html.split("").reverse().join("");
+        } else {
+            return show_html.split("").reverse().join("") + "." + sub_xs;
+        }
     }
 });

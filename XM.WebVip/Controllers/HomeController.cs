@@ -358,6 +358,9 @@ namespace XM.WebVip.Controllers
             return DALUtility.Vip.NweVIP(dic);
         }
 
+        /// <summary>
+        /// 将存储在HashTable里的数据添加到数据库
+        /// </summary>
         public void addCart() {
             if (cartTable.Count > 0)
             {
@@ -372,6 +375,7 @@ namespace XM.WebVip.Controllers
                     int res = DALUtility.ShoppCart.EditCart(paras);
                 }
             }
+            cartTable.Clear();
         } 
         
         #endregion

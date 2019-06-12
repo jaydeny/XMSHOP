@@ -256,7 +256,7 @@
     <Content Include="Areas\Phone\Views\PhoneProduct\AgoodsList_MB.cshtml" />
     <Content Include="Areas\Phone\Views\PhoneProduct\Search_MB.cshtml" />
     <Content Include="Areas\Phone\Views\PhoneVipInfo\InfoPage_MB.cshtml" />
-    <Content Include="Areas\Phone\Views\PhoneVIP\ShoppingCart_MB.cshtml" />
+    <Content Include="Areas\Phone\Views\PhoneShoppCart\ShoppingCart_MB.cshtml" />
     <Content Include="Areas\Phone\Views\Shared\mobile_model.cshtml" />
     <Content Include="Areas\Phone\Views\web.config" />
     <Content Include="Areas\Phone\Views\_ViewStart.cshtml" />
@@ -412,7 +412,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Phone\Models\" />
-    <Folder Include="Areas\Phone\Views\PhoneShoppCart\" />
+    <Folder Include="Areas\Phone\Views\PhoneVIP\" />
     <Folder Include="Models\" />
     <Folder Include="Views\GameHome\" />
   </ItemGroup>

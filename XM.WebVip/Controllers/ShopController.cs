@@ -100,7 +100,53 @@ namespace XM.WebVip.Controllers
 
             return OperationReturn(true, "vip015");
         }
-        
+
+
+        /// <summary>
+        /// 功能:检查余额,购物
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult BuyToPro(List<BuyStructEntity> buys )
+        {
+            //后续需要修改,有关于选中地址的方式
+            if (QryAdd() == 0)
+            {
+                return OperationReturn(false, "vip012");
+            }
+
+            //获取数据
+           // var vipInfo = QryTOPAdd();
+            DateTime date = DateTime.Now;
+            foreach (BuyStructEntity item in buys)
+            {
+                Dictionary<string, object> param = new Dictionary<string, object>();
+                param.Add("order_date", date);
+                param.Add("order_address", item.AddressID);
+                param.Add("order_mp", item.PhoneNum);
+                param.Add("vip_AN", Session["AN"].ToString());
+                param.Add("agent_AN", Session["Agent_Acc"].ToString());
+                param.Add("order_total", decimal.Parse(item.OrderTotal));
+
+                param.Add("buy_time", date);
+                param.Add("buy_count", item.Count);
+                param.Add("buy_AN", Session["AN"].ToString());
+                param.Add("agoods_id", item.ProID);
+                param.Add("buy_total", decimal.Parse(item.ProTotal));
+
+                int ChooseAcID = int.Parse(item.TcID.ToString());
+
+                //购物方法
+                List<int> AcResult = Shop(param, ChooseAcID);
+                if (AcResult.Contains(1))
+                {
+                    return OperationReturn(false, AcResult.Contains(1) ? "vip013" : "vip014");
+                }
+            }
+            return OperationReturn(true, "vip015");
+        }
+
+
         /// <summary>
         /// 功能：返回购买是否成功
         /// </summary>

@@ -51,6 +51,7 @@
     <Compile Include="AgentInfoDTO.cs" />
     <Compile Include="AgoodsDTO.cs" />
     <Compile Include="BuyEntity.cs" />
+    <Compile Include="BuyStructEntity.cs" />
     <Compile Include="CommonData.cs" />
     <Compile Include="CustomDisEntity.cs" />
     <Compile Include="CustomFullEntity.cs" />
