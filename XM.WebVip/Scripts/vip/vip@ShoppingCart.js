@@ -8,16 +8,7 @@ var bounced = function (obj) {
     })
 }
 
-//点击下单,让用户选择地址
-$("#Orders").click(function () {
-    var obj = {
-        "modal": "#myModal", "dialog": "#dialog", "content": "#content", "body": "#body"
-    };
-    obj.width = "640px";
-    obj.height = "440px";
-    obj.url = "/ShoppingCart/ChooseAddress";
-    bounced(obj);
-})
+
 
 //删除购物车中的一项
 $(".delete").click(function () {
@@ -42,12 +33,12 @@ $(".minus").click(function () {
     var that = $(this).closest("div").children("#count");
     var x = Number($.trim($(that).val()));
     
-    var agoodsID = $(this).closest("div.shopping-row").data("val");
+    var AgoodsID = $(this).closest("div.shopping-row").data("val");
     if (x > 1) {
         $(that).val(x - 1);
         $.ajax({
             url: "/ShoppCart/EditCart",
-            data: { "editType": 1, "itemID": itemID, "count":x-1 },
+            data: { "editType": 1, "AgoodsID": AgoodsID , "count":x-1 },
             success: function (data) {
                 var e = JSON.parse(data)
                 if (e.success) {
@@ -67,12 +58,12 @@ $(".plus").click(function () {
     var that = $(this).closest("div").children("#count");
     var x = Number($.trim($(that).val()));
 
-    var agoodsID = $(this).closest("div.shopping-row").data("val");
+    var AgoodsID = $(this).closest("div.shopping-row").data("val");
     if (x < 50) {
         $(that).val(x + 1);
         $.ajax({
             url: "/ShoppCart/EditCart",
-            data: { "editType": 1, "itemID": itemID, "count": x + 1 },
+            data: { "editType": 1, "AgoodsID": AgoodsID, "count": x + 1 },
             success: function (data) {
                 var e = JSON.parse(data)
                 if (e.success) {
@@ -87,6 +78,16 @@ $(".plus").click(function () {
     }
 })
 
+//点击下单,让用户选择地址
+$("#Orders").click(function () {
+    var obj = {
+        "modal": "#myModal", "dialog": "#dialog", "content": "#content", "body": "#body"
+    };
+    obj.width = "640px";
+    obj.height = "440px";
+    obj.url = "/ShoppingCart/ChooseAddress";
+    bounced(obj);
+})
 
 //提示框弹出方法
 function narn(type, text) {
@@ -110,3 +111,22 @@ function narn(type, text) {
         }]
     })
 }
+
+var list = $("#agoods .check:checked")
+$.each(list, function (index, obj) {
+    $(obj).closest("div.shopping-row");
+    $(obj).closest("div.shopping-row").find("#count");
+})
+
+$("#Orders").click(function () {
+    alert("111")
+    var list = $("#agoods .check:checked")
+    var idList = [];
+    var countList = [];
+    $.each(list, function (index, obj) {
+        idList.push($(obj).closest("div.shopping-row").data("val"));
+        countList.push($(obj).closest("div.shopping-row").find("#count").data("val"));
+    })
+    console.log(x)
+    console.log(y)
+})

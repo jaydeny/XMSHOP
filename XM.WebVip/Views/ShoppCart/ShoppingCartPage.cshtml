@@ -54,10 +54,10 @@
                         </div>
                     </div>
                     <!-- 主体 -->
-                    <form>
+                    <form id="agoods">
                         @foreach (ShoppCartEntity item in (IEnumerable<ShoppCartEntity>)@ViewData["list"])
                         {
-                            <div class="shopping-row" data-val="@item.Agoods_ID">
+                            <div class="shopping-row" data-val="@item.Agoods_ID" data-itemID="@item.item_ID">
                                 <div class="flex-1">
                                     <input class="check" type="checkbox" />
                                     <img class="img" src="~/image/@item.GoodsPicture"/>
@@ -75,7 +75,7 @@
                                                 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                                             </button>
                                         </span>
-                                        <input type="text" id="count" class="form-control" value="1" style="font-size: 18px;text-align: center;padding: 0;">
+                                        <input type="text" id="count" class="form-control" data-val="@item.Agoods_Count" value="@item.Agoods_Count" style="font-size: 18px;text-align: center;padding: 0;">
                                         <span class="input-group-btn">
                                             <button class="btn btn-default plus" type="button">
                                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -84,7 +84,7 @@
                                     </div>
                                 </div>
                                 <div class="flex-1">
-                                    <span class="price">@item.GoodsPrice*@item.Agoods_Count</span>
+                                    <span class="price">@item.GoodsPrice * @item.Agoods_Count</span>
                                 </div>
                                 <div class="flex-1">
                                     <a class="delete" data-val="@item.item_ID">删除</a>
@@ -103,6 +103,7 @@
                                 <p class="hint">已选择<span>6</span>件商品</p>
                             </div>
                         </div>
+                        </form>
                 </div>
             </div>
         </div>
