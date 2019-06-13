@@ -1,26 +1,21 @@
-﻿//弹出商品框
-var bounced = function (obj) {
-    $(obj.dialog).css({ "width": obj.width });
-    $(obj.content).css({ "height": obj.height });
-    $(obj.modal).modal('show');
-    $.post(obj.url, function (data, status, xhr) {
-        $(obj.body).html(data);
-    })
-}
-
+﻿var sp1 = parseInt($("#price").data("val"));
+var sp2 = parseInt($("#count").data("val"));
+(function getMoney(e, r) {
+    var res = parseInt(e * r);
+    $(".priceTotal").text(res)
+}(sp1, sp2));
 
 
 //删除购物车中的一项
 $(".delete").click(function () {
     var itemID = $(this).data("val");
-    alert(itemID)
     $.ajax({
         url: "/ShoppCart/EditCart",
         data: { "editType": 2, "itemID": itemID },
         success: function (data) {
             var e = JSON.parse(data)
             if (e.success) {
-                narn("success", "删除成功")
+                window.location.href = "/ShoppCart/ShoppingCartPage";
             } else {
                 narn("warn", "删除失败")
             }
@@ -42,7 +37,7 @@ $(".minus").click(function () {
             success: function (data) {
                 var e = JSON.parse(data)
                 if (e.success) {
-                    narn("success", "修改成功")
+                    window.location.href = "/ShoppCart/ShoppingCartPage";
                 } else {
                     narn("warn", "修改失败")
                 }
@@ -67,7 +62,7 @@ $(".plus").click(function () {
             success: function (data) {
                 var e = JSON.parse(data)
                 if (e.success) {
-                    narn("success", "修改成功")
+                    window.location.href = "/ShoppCart/ShoppingCartPage";
                 } else {
                     narn("warn", "修改失败")
                 }
@@ -76,17 +71,6 @@ $(".plus").click(function () {
     } else {
         narn("log", "请理性消费")
     }
-})
-
-//点击下单,让用户选择地址
-$("#Orders").click(function () {
-    var obj = {
-        "modal": "#myModal", "dialog": "#dialog", "content": "#content", "body": "#body"
-    };
-    obj.width = "640px";
-    obj.height = "440px";
-    obj.url = "/ShoppingCart/ChooseAddress";
-    bounced(obj);
 })
 
 //提示框弹出方法
@@ -112,13 +96,26 @@ function narn(type, text) {
     })
 }
 
-
-var result = [];
+// 点击下单
 $("#Orders").click(function () {
+    var buys = [];
     var list = $("#agoods .check:checked")
+    var addressID = $("#Add").val();
+    var acID = $("#Ac").val();
+
     $.each(list, function (index, obj) {
-        id = $(obj).closest("div.shopping-row").find("#count").data("val")
-        count = $(obj).closest("div.shopping-row").data("val")
-        result.push({ "addressID": addressID, "count": count, "proID": id, "proTotal": 单价, "tcID":活动id});
+        id = $(obj).closest("div.shopping-row").data("val")
+        count = $(obj).closest("div.shopping-row").data("count")
+        proTotal = $(obj).closest("div.shopping-row").find("#price").data("val")
+        buys.push({ "proID": id, "count": count, "proTotal": proTotal, "addressID": addressID, "acID": acID });
     })
+    $.ajax({
+        url: "/Shop/BuyToPro",
+        method: 'post',
+        contentType: 'application/json',
+        data: JSON.stringify(buys),
+        dataType: "json"
+    }).then((data) => {
+        console.log(data);
+    });
 })

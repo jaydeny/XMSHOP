@@ -120,13 +120,15 @@ namespace XM.WebVip.Controllers
             DateTime date = DateTime.Now;
             foreach (BuyStructEntity item in buys)
             {
+                decimal total = decimal.Parse(item.ProTotal) * item.Count;
+
                 Dictionary<string, object> param = new Dictionary<string, object>();
                 param.Add("order_date", date);
                 param.Add("order_address", item.AddressID);
                 param.Add("order_mp", item.PhoneNum);
                 param.Add("vip_AN", Session["AN"].ToString());
                 param.Add("agent_AN", Session["Agent_Acc"].ToString());
-                param.Add("order_total", decimal.Parse(item.OrderTotal));
+                param.Add("order_total", total);
 
                 param.Add("buy_time", date);
                 param.Add("buy_count", item.Count);
@@ -537,7 +539,7 @@ namespace XM.WebVip.Controllers
         public List<ActivityEntity> GetAllAc()
         {
             Dictionary<string, object> AcDic = new Dictionary<string, object>();
-            AcDic.Add("agent_AN", Agent_Acc.Trim());
+            AcDic.Add("agent_AN", Agent_Acc);
             AcDic.Add("Date", DateTime.Now);
 
             return DALUtility.Activity.QryAC<ActivityEntity>(AcDic);

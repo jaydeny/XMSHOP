@@ -34,10 +34,7 @@ namespace XM.WebVip.Controllers
             var data = DALUtility.ShoppCart.QryDataByVIPID(Convert.ToInt32(ID));
             return OperationReturn(true, "登录状态", data);
         }
-
-
-
-
+        
         /// <summary>
         /// 编辑购物车
         /// editType 操作类型 ， 1，添加/修改  2，删除
@@ -90,8 +87,7 @@ namespace XM.WebVip.Controllers
                 return OperationReturn(false, "操作失败");
             return OperationReturn(true, "操作成功");
         }
-
-
+        
         /// <summary>
         /// 根据用户ID获取对应的购物车项
         /// </summary>
@@ -112,8 +108,35 @@ namespace XM.WebVip.Controllers
 
             var data = DALUtility.ShoppCart.QryDataByVIPID(Convert.ToInt32(ID));
             ViewData["VipAccountName"] = Session["AN"];
+            ViewData["Add"] = GetAllAdd(Session["ID"].ToString());
+            ViewData["Ac"] = GetAllAc(Session["Agent_Acc"].ToString());
             ViewData["list"] = data;
             return View();
+        }
+
+        /// <summary>
+        /// 功能:获取会员的地址
+        /// </summary>
+        /// <returns></returns>
+        public List<AddressEntity> GetAllAdd(string vip_id)
+        {
+            Dictionary<string, object> AddDic = new Dictionary<string, object>();
+            AddDic.Add("vip_id", vip_id);
+
+            return DALUtility.Vip.QryAllAdd(AddDic);
+        }
+
+        /// <summary>
+        /// 功能:获取符合条件的活动
+        /// </summary>
+        /// <returns></returns>
+        public List<ActivityEntity> GetAllAc(string Agent_AN)
+        {
+            Dictionary<string, object> AcDic = new Dictionary<string, object>();
+            AcDic.Add("agent_AN", Agent_AN);
+            AcDic.Add("Date", DateTime.Now);
+
+            return DALUtility.Activity.QryAC<ActivityEntity>(AcDic);
         }
     }
 }
