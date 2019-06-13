@@ -114,8 +114,52 @@ $("#Orders").click(function () {
         method: 'post',
         contentType: 'application/json',
         data: JSON.stringify(buys),
-        dataType: "json"
-    }).then((data) => {
-        console.log(data);
-    });
+        dataType: "json",
+        success: function (data) {
+            if (!data.success) {
+                narn("warn", "余额不足!")
+            } else {
+                narn("success","购物成功")
+            }
+        }
+    })
+})
+
+$("#agoods").on("click", ".check", function () {
+    if ($(this).prop("checked")) {
+        var count = $(this).closest("div.shopping-row").data("count")
+        var price = $(this).closest("div.shopping-row").find("#price").data("val")
+        var result = Number(count * price)
+        var origin = Number($("#total").text())
+        $("#total").text(parseInt(result + origin))
+        $("#choose").text(parseInt(Number($("#choose").text()) + 1))
+    }
+    else {
+        var count = $(this).closest("div.shopping-row").data("count")
+        var price = $(this).closest("div.shopping-row").find("#price").data("val")
+        var result = Number(count * price)
+        var origin = Number($("#total").text())
+        $("#total").text(parseInt(origin - result))
+        $("#choose").text(parseInt($("#choose").text() - 1))
+    }
+})
+
+$(".checkAll").click(function () {
+    var boo = $(this).prop("checked");
+    var list = $("#agoods .check").prop("checked", boo);
+
+    if (boo) {
+        var sum = 0;
+        $("#choose").text(list.length)
+
+        $.each(list, function (index, obj) {
+            var count = Number($(obj).closest("div.shopping-row").data("count"))
+            var price = Number($(obj).closest("div.shopping-row").find("#price").data("val"))
+            sum += parseInt(count * price)
+        })
+        $("#total").text(sum)
+    } else {
+        $("#choose").text(0)
+        $("#total").text(0)
+    }
 })
