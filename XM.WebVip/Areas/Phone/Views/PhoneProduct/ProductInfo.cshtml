@@ -100,7 +100,7 @@
                 <span class="gd-collect-text1">购物车</span>
             </a>
             <div class="gd-collect-sx"></div>
-            <button class="gd-collect-btn1 addcar" v-on:click="addCart" >加入购物车</button>
+            <button class="gd-collect-btn1 addcar" v-on:click="addCart()" >加入购物车</button>
             <button class="gd-collect-btn1 btn2">立即购买</button>
         </div>
 
@@ -109,7 +109,7 @@
 
 
     <script>
-        new Vue({
+      var cart =  new Vue({
             el: "#ProductInfo",
             data: {
                 productID: '',
@@ -123,7 +123,8 @@
                 //编辑购物车
                 editCartURL: "/Phone/PhoneShoppCart/EditCart_MB",
                 count: 0,
-                cartTable: {}
+                cartTable: {},
+                intCount:1
             },
             created: function () {
                 this.init();
@@ -143,6 +144,7 @@
                 init() {
                     const id = this.getParams('id');
                     this.productID = id;
+                    console.log(this.productID)
                     $.ajax({
                         url: "/Phone/PhoneProduct/getGoodsInfo",
                         data: { id: id },
@@ -177,21 +179,29 @@
                 //添加到购物车
                 addCart() {
                     let cartData = this.cartTable;
-                    let i = 1;
+                    
                     
                     $.each(cartData, function (i, v) {
-                        console.log(v)
-                        if (v.Agoods_ID == this.productID) {
-                            i++;
+                        //console.log(v.Agoods_ID)
+                       // console.log(this.productID)
+                        //console.log(cart)
+                        if (v.Agoods_ID == cart._data.productID) {
+                            console.log("aa");
+
                             v.Agoods_Count += 1;
-                            this.editCartData(v.Agoods_Count);
+                            console.log(v.Agoods_Count);
+                            cart._data.intCount = v.Agoods_Count;
+                            console.log(cart._data.intCount)
                         }
                         
                     });
-                    if (i == 0) {
+                    if (this.intCount === 1) {
                         this.count++;
                     }
-
+                    console.log(this.intCount);
+                    this.editCartData(this.intCount);
+                    this.showCartCount();
+                    this.intCount = 1;
                 },
                 //购物车前端显示购物车项的数量
                 showCartCount() {

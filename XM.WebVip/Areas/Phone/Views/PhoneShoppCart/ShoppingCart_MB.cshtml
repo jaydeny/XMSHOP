@@ -14,12 +14,9 @@
             <div class="cart-title">先锋侠需要您的精确坐标</div>
             <div class="cart-title">收货时间 <i>今天30分钟可送达(可预订)</i></div>
             <div class="shop-cart-listbox1">
-                @*<div class="shop-cart-box2">
-                    <input type="checkbox" name="sub2" class="btn1">
-                    <span class="shop-cart-ltext1">自营商品</span>
-                </div>*@
+              
                 <div class="index-goods" v-for="(obj,index) in cartTable" :key="index"> 
-                    <span class="shop-cart-check2"><input type="checkbox" name="sub2" class="shopcart-input1 btn2"></span>
+                    <span class="shop-cart-check2"><input type="checkbox" name="sub2" class="shopcart-input1 btn2" :id="obj.item_ID"></span>
                     <span class="index-goods-img"><img src="https://img11.360buyimg.com/n7/jfs/t30040/100/1290632710/208879/1f7e2225/5cdd0d92Nb78895a6.jpg"></span>
                     <div class="index-goods-textbox">
                         <span class="index-goods-text1">{{obj.GoodsName}}</span>
@@ -100,11 +97,8 @@
                         return show_html.split("").reverse().join("") + "." + sub_xs;
                     }
                 }
-                
-
             }
         })
-
     </script>
 
     <script src="~/Areas/Phone/Script/ShoppingCart/cart.js" type="text/javascript"></script>

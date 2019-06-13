@@ -18,26 +18,17 @@
         TotalPrice();
     });
 
-    //$(".btn1").click(function () {
-    //    var $btn2 = $(this).parent(".shop-cart-box2").siblings(".index-goods").children(".shop-cart-check2").children(".btn2");
-    //    if ($(this).is(':checked')) {
-    //        $btn2.prop("checked", this.checked);
-    //        TotalPrice();
-    //    } else {
-    //        $btn2.removeAttr("checked");
-    //        TotalPrice();
-    //    }
-    //});
+
 
     $(".btn2").click(function () {
         var goods = $(this).closest(".shop-cart-listbox1").find(".btn2");
         var goodsC = $(this).closest(".shop-cart-listbox1").find(".btn2:checked");
-        var Shops = $(this).closest(".shop-cart-listbox1").find(".btn1");
+       
         if (goods.length == goodsC.length) {
-            Shops.prop('checked', true);
+           
             TotalPrice();
         } else {
-            Shops.prop('checked', false);
+          
             TotalPrice();
         }
     });
@@ -61,7 +52,14 @@
     });
 
     $(".delete").click(function () {
+        let ints = []
+
         if ($("#ckAll").is(':checked')) {
+           
+            $(".btn2:checked").each(function () {
+                ints.push($(this)[0].id);
+            })
+           
             $(".shop-cart-listbox1").remove();
             $("#ckAll").prop('checked', false);
             TotalPrice();
@@ -70,11 +68,28 @@
             $(".btn1:checked").closest(".shop-cart-listbox1").remove();
             TotalPrice();
         }
+        
         if ($(".btn2").is(':checked')) {
+            
+            $(".btn2:checked").each(function () {
+                
+                ints.push($(this)[0].id);
+            })
+            
             $(".btn2:checked").parent(".shop-cart-check2").parent(".index-goods").remove();
             TotalPrice();
         }
+        deleCart(ints);
     });
+
+    function deleCart(param) {
+        $.ajax({
+            url: "/Phone/PhoneShoppCart/deleCarts",
+            method:'post',
+            contentType: 'application/json',
+            data: JSON.stringify(param)
+        })
+    };
 
     function TotalPrice() {
         var allprice = 0;
@@ -87,14 +102,16 @@
                     var price = parseFloat($(this).parents(".index-goods").find(".priceJs").text().replace(",", ""));
                    
                     var total = price * num;
+                    
                     oprice += total;
+                    console.log(oprice)
                 }
                 $(this).closest(".shop-cart-listbox1").find(".ShopTotal").text(oprice.toFixed(2));
             });
             var oneprice = parseFloat($(this).find(".ShopTotal").text());
             allprice += oneprice;
         });
-        console.log(allprice)
+        
         $("#AllTotal").text(tranfoMoneyber(allprice.toFixed(2),2));
     };
 

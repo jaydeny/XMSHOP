@@ -87,6 +87,28 @@ namespace XM.WebVip.Controllers
                 return OperationReturn(false, "操作失败");
             return OperationReturn(true, "操作成功");
         }
+
+
+        public ActionResult deleCarts(int[] items) {
+            if(Session["id"] == null)
+            {
+                return OperationReturn(false, "请先登录");
+            }
+            int len = items.Count();
+            foreach (int item in items)
+            {
+                Dictionary<string, object> paras = new Dictionary<string, object>();
+                paras["editType"] = 2;
+                paras["itemID"] = item;
+                paras["vipID"] = ID;
+                paras["AgoodsID"] = 0;
+                paras["count"] = 0;
+
+                int res = DALUtility.ShoppCart.EditCart(paras);
+            }
+            return OperationReturn(true, "操作成功");
+        }
+
         
         /// <summary>
         /// 根据用户ID获取对应的购物车项

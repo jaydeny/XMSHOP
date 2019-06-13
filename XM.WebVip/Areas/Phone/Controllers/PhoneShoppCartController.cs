@@ -13,7 +13,8 @@ namespace XM.WebVip.Areas.Phone.Controllers
         /// 返回购物车页
         /// </summary>
         /// <returns></returns>
-        public ActionResult ShoppingCart_MB() {
+        public ActionResult ShoppingCart_MB()
+        {
             return View();
         }
         /// <summary>
@@ -33,7 +34,11 @@ namespace XM.WebVip.Areas.Phone.Controllers
             return EditCart();
         }
 
-
+        [HttpPost]
+        public ActionResult deleCarts_MB(int[] items)
+        {
+            return deleCarts(items);
+        }
 
     }
 }

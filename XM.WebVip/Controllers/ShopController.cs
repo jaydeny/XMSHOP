@@ -116,7 +116,7 @@ namespace XM.WebVip.Controllers
             }
 
             //获取数据
-           // var vipInfo = QryTOPAdd();
+            var vipInfo = QryTOPAdd();
             DateTime date = DateTime.Now;
             foreach (BuyStructEntity item in buys)
             {
@@ -125,7 +125,7 @@ namespace XM.WebVip.Controllers
                 Dictionary<string, object> param = new Dictionary<string, object>();
                 param.Add("order_date", date);
                 param.Add("order_address", item.AddressID);
-                param.Add("order_mp", item.PhoneNum);
+                param.Add("order_mp", vipInfo.VipMobliePhone);
                 param.Add("vip_AN", Session["AN"].ToString());
                 param.Add("agent_AN", Session["Agent_Acc"].ToString());
                 param.Add("order_total", total);
@@ -136,7 +136,7 @@ namespace XM.WebVip.Controllers
                 param.Add("agoods_id", item.ProID);
                 param.Add("buy_total", decimal.Parse(item.ProTotal));
 
-                int ChooseAcID = int.Parse(item.TcID.ToString());
+                int ChooseAcID = int.Parse(item.AcID.ToString());
 
                 //购物方法
                 List<int> AcResult = Shop(param, ChooseAcID);
