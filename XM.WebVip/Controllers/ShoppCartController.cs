@@ -88,7 +88,7 @@ namespace XM.WebVip.Controllers
             return OperationReturn(true, "操作成功");
         }
 
-
+        [HttpPost]
         public ActionResult deleCarts(int[] items) {
             if(Session["id"] == null)
             {

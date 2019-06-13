@@ -108,6 +108,9 @@ $("#Orders").click(function () {
         count = $(obj).closest("div.shopping-row").data("count");
         proTotal = $(obj).closest("div.shopping-row").find("#price").data("val");
         buys.push({ "proID": id, "count": count, "proTotal": proTotal, "addressID": $("#Add").val(), "acID": $("#Ac").val() });
+
+        itemid = $(obj).closest("div.shopping-row").data("itemid");
+        itemID.push(itemid)
     })
     $.ajax({
         url: "/Shop/BuyToPro",
@@ -119,12 +122,30 @@ $("#Orders").click(function () {
             if (!data.success) {
                 narn("warn", "余额不足!")
             } else {
-                narn("success","购物成功")
+                narn("success", "购物成功")
             }
         }
-    })
+    }).done(function () {
+            BuyDelete(itemID);
+        })
 })
 
+//购物后删除购物车项
+function BuyDelete(items) {
+    console.log(items)
+    $.ajax({
+        url: "/ShoppCart/deleCarts",
+        method: 'post',
+        contentType: 'application/json',
+        data: JSON.stringify(items),
+        success: function (data) {
+            console.log(data)
+            window.location.href = "/ShoppCart/ShoppingCartPage";
+        }
+    })
+}
+
+//选择购物项
 $("#agoods").on("click", ".check", function () {
     if ($(this).prop("checked")) {
         var count = $(this).closest("div.shopping-row").data("count")
@@ -144,6 +165,7 @@ $("#agoods").on("click", ".check", function () {
     }
 })
 
+//全选
 $(".checkAll").click(function () {
     var boo = $(this).prop("checked");
     var list = $("#agoods .check").prop("checked", boo);
@@ -162,4 +184,31 @@ $(".checkAll").click(function () {
         $("#choose").text(0)
         $("#total").text(0)
     }
+})
+
+//批量删除
+$(".deleteAll").click(function () {
+    var list = $("#agoods .check:checked")
+    //购物车项id的集合
+    var itemID = [];
+
+    $.each(list, function (index, obj) {
+        itemid = $(obj).closest("div.shopping-row").data("itemid");
+        itemID.push(itemid)
+    })
+
+    $.ajax({
+        url: "/ShoppCart/deleCarts",
+        method: 'post',
+        contentType: 'application/json',
+        data: JSON.stringify(itemID),
+        success: function (data) {
+            var e = JSON.parse(data)
+            if (e.success) {
+                window.location.href = "/ShoppCart/ShoppingCartPage";
+            } else {
+                narn("warn","删除失败")
+            }
+        }
+    })
 })
