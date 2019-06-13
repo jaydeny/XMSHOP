@@ -100,14 +100,14 @@ function narn(type, text) {
 $("#Orders").click(function () {
     var buys = [];
     var list = $("#agoods .check:checked")
-    var addressID = $("#Add").val();
-    var acID = $("#Ac").val();
+    //购物车项id的集合
+    var itemID = [];
 
     $.each(list, function (index, obj) {
-        id = $(obj).closest("div.shopping-row").data("val")
-        count = $(obj).closest("div.shopping-row").data("count")
-        proTotal = $(obj).closest("div.shopping-row").find("#price").data("val")
-        buys.push({ "proID": id, "count": count, "proTotal": proTotal, "addressID": addressID, "acID": acID });
+        id = $(obj).closest("div.shopping-row").data("val");
+        count = $(obj).closest("div.shopping-row").data("count");
+        proTotal = $(obj).closest("div.shopping-row").find("#price").data("val");
+        buys.push({ "proID": id, "count": count, "proTotal": proTotal, "addressID": $("#Add").val(), "acID": $("#Ac").val() });
     })
     $.ajax({
         url: "/Shop/BuyToPro",
