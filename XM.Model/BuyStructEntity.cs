@@ -14,7 +14,7 @@ namespace XM.Model
         private int count;
         private int proID;
         private string proTotal;
-        private int tcID;
+        private int acID;
 
         public int AddressID { get => addressID; set => addressID = value; }
         
@@ -22,6 +22,6 @@ namespace XM.Model
         public int Count { get => count; set => count = value; }
         public int ProID { get => proID; set => proID = value; }
         public string ProTotal { get => proTotal; set => proTotal = value; }
-        public int TcID { get => tcID; set => tcID = value; }
+        public int AcID { get => acID; set => acID = value; }
     }
 }
