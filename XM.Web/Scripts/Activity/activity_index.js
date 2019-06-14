@@ -53,16 +53,20 @@ function gridList() {
                 label: '结束时间', name: 'EndDate', width: 160, align: 'center',
                 formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' } },
             { label: '发布人', name: 'Publisher', width: 80, align: 'center' }
-            //,
-            //{
-            //    label: '操作', name: '_id', width: 160, align: 'center',
-            //    formatter: function (cellvalue, options, rowObject) {
-            //        //console.log(cellvalue)
-            //        //console.log(options)
-            //        //console.log(rowObject)
-            //        return '<button class="btn-group" data-val="' + rowObject + '" onclick = "btn_edit()">编辑</button >';
-            //    }
-            //}
+            ,
+            {
+                label: '状态', name: 'status_id', width: 160, align: 'center',
+                formatter: function (cellvalue, options, rowObject) {
+                    //console.log(cellvalue)
+                    if (cellvalue == '1008')
+                        return "启用状态"
+                    else if (cellvalue == '1009')
+                        return "冻结状态"
+                    else if (cellvalue == '1011')
+                        return "弃用状态"
+                    
+                }
+            }
         ],
         rowNum: 20,
         rowList: [10, 20, 30, 40, 50],

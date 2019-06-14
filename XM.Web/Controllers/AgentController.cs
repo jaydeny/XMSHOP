@@ -130,5 +130,16 @@ namespace XM.Web.Controllers
             return Content(JsonConvert.SerializeObject(agent));
         }
         #endregion
+
+        #region 
+        public ActionResult MathSar()
+        {
+            Dictionary<string, object> pairs = new Dictionary<string, object>();
+            pairs.Add("agent_AN",Session["Agent_AN"]);
+
+
+            return View();
+        }
+        #endregion
     }
 }

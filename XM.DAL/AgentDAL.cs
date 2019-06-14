@@ -667,6 +667,13 @@ namespace XM.DAL
             string strSql = "select * from v_agent_list";
             return QueryList<T>(strSql);
         }
+
+        public string QryAgoodsByID(int id)
+        {
+           return JsonConvert.SerializeObject(Query("select  * from tbAgoods a join tbgoods g on a.goods_id = g.id where a.id = @id", new { id = id }));
+        }
+
+
         #endregion
 
 

@@ -4,7 +4,7 @@ var myAddress;
 var updateId = 0;
 // 地址模板
 var addressTemplate = function (i, obj) {
-    return "<li><div class='flex-1' ><input type='checkbox' /></div ><div class='flex-2'>" + obj.address_name + "</div><div class='flex-1' data-index='" + i + "'><a class='update'>修改</a>&nbsp;&nbsp;<a class='delete'>删除</a></div></li >";
+    return "<li><div class='flex-1' ><input type='checkbox' /></div ><div class='flex-2'>" + obj.address_name + "</div><div class='flex-1' data-index='" + i + "'><a class='update'>修改</a>&nbsp;&nbsp;<a class='delete'>删除</a></div><div class='flex-2' ><input type='checkbox' style='vertical-align: middle;margin: 0;' data-val='1015' /> <span></span></div ></li >";
 }
 // 清空
 var emptyAddress = function () {
@@ -36,11 +36,11 @@ $(".site-list").on("click", ".delete", function () {
     var address_id = myAddress[$(this).parent().data("index")].id;
     $.get("/vipinfo/DeleteAddress", { "address_id": address_id }, function (data) {
         if (data.success) {
-            narn('success', data.msg) 
+            narn('success', "删除收货地址成功") 
             $(".site-list>ul > li:not(:first-child)").remove();
             addressAll();
         } else {
-            narn('warn', data.msg) 
+            narn('warn', "删除收货地址失败") 
         }
     }, "json")
 })
@@ -64,10 +64,16 @@ $("#btnAddAddress").click(function () {
     }
     $.post("/vipinfo/" + url, { "address_id": updateId, "address_name": site }, function (data) {
         if (data.success) {
-            narn('success', data.msg) 
+            if (data.msg == "vip021") {
+                narn('success', "添加收货地址成功") 
+            }
+            narn('success', "修改收货地址成功") 
             addressAll();
         } else {
-            narn('warn', data.msg) 
+            if (data.msg == "vip022") {
+                narn('warn', "添加收货地址失败")
+            }
+            narn('warn', "修改收货地址失败") 
         }
     }, "json")
 });

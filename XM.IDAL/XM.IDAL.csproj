@@ -58,6 +58,7 @@
     <Compile Include="IRoleDAL.cs" />
     <Compile Include="IMenuDAL.cs" />
     <Compile Include="IRoleMenuDAL.cs" />
+    <Compile Include="IShoppCartDAL.cs" />
     <Compile Include="IStatusDAL.cs" />
     <Compile Include="IUserDAL.cs" />
     <Compile Include="IVipDAL.cs" />

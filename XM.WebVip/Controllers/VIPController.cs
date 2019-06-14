@@ -1,14 +1,17 @@
-﻿using XM.WebVIP.Controllers;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace XM.WebVip.Controllers
 {
-    /// <summary>
-    /// 作者:曾贤鑫
-    /// 日期:2019/4/26
-    /// 功能:vip端会用到的一些行为
-    /// </summary>
-    public class VIPController : BaseController
+    public class VIPController : Controller
     {
-        
+        // GET: VIP
+        public ActionResult Index()
+        {
+            return View("GoodsDetails");
+        }
     }
 }

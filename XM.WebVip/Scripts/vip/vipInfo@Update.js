@@ -14,10 +14,13 @@ $("#btnUpdate").click(function () {
     if (vailEmail("#warningEmail", email) && vailPhone("#warningTel", tel)) {
         $.post("/Home/Update", { "AN": an, "vip_mp": tel, "vip_Email": email }, function (data) {
             if (data.success) {
-                narn('success', data.msg)
+                if (data.msg == "vip007") {
+                    narn('success', "注册成功")
+                }
+                narn('success', "修改成功")
             }
             else {
-                narn('warn', data.msg)
+                narn('warn', "操作失败")
             }
         }, "json");
     }

@@ -17,14 +17,16 @@ namespace XM.Web.Controllers
     public class BaseController : Controller
     {
         #region Session属性
+
+        //这两个字段有可能赋予失败,引用实例失败,数据存入session可以成功,但是存入字段会失败
         /// <summary>
         /// Session对象中的代理名
         /// </summary>
-        public string Agent_AN { get { return Session["AN"].ToString(); } }
+        public string Agent_AN { get { return Session["Agent_AN"].ToString(); } }
         /// <summary>
         /// Session对象中的ID
         /// </summary>
-        public string Agent_ID { get { return Session["id"].ToString(); } }
+        public string Agent_ID { get { return Session["Agent_ID"].ToString(); } }
         #endregion
 
         public static Dictionary<AgentEntity, string> SSOAgent = new Dictionary<AgentEntity, string>();

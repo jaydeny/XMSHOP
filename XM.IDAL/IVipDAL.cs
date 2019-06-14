@@ -59,7 +59,7 @@ namespace XM.IDAL
         /// <param name="paras"></param>
         /// <param name="iCount"></param>
         /// <returns></returns>
-        string QryRecharge(Dictionary<string,object> paras,out int iCount);
+        string QryRecharge(Dictionary<string, object> paras, out int iCount);
         ///作者:曾贤鑫
 
         #region _Signin
@@ -104,7 +104,7 @@ namespace XM.IDAL
         /// <returns></returns>
         int InsertRemainder(Dictionary<string, object> paras);
 
-        
+
         #endregion
 
         #region _Shop
@@ -138,7 +138,7 @@ namespace XM.IDAL
         /// <typeparam name="T"></typeparam>
         /// <param name="paras"></param>
         /// <returns></returns>
-        T QryVipInfo<T>(Dictionary<string, object> paras); 
+        T QryVipInfo<T>(Dictionary<string, object> paras);
 
         /// <summary>
         /// 查询原始密码
@@ -163,7 +163,7 @@ namespace XM.IDAL
         /// <param name="icound"></param>
         /// <returns></returns>
         string QryVipAddress(Dictionary<string, object> paras, out int icound);
-        
+
         /// <summary>
         /// 查询用户余额
         /// </summary>
@@ -172,7 +172,7 @@ namespace XM.IDAL
         /// <returns></returns>
         decimal QryRemainder(Dictionary<string, object> paras);
         #endregion
-        
+
         #region _Address
         /// <summary>
         /// 添加/修改地址
@@ -207,6 +207,13 @@ namespace XM.IDAL
         /// <param name="paras"></param>
         /// <returns></returns>
         int DeleteAddress(Dictionary<string, object> paras);
+
+        /// <summary>
+        /// 功能:查询所有地址
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        List<AddressEntity> QryAllAdd(Dictionary<string,object> paras);
         #endregion
 
         #region _自定义
@@ -224,7 +231,7 @@ namespace XM.IDAL
         /// <param name="paras"></param>
         /// <returns></returns>
         string QryAllVIP(Dictionary<string, object> paras, out int iCount);
-        
+
         /// <summary>
         /// 作者：曾贤鑫
         /// 创建时间:2019-4-28
@@ -241,5 +248,15 @@ namespace XM.IDAL
         /// </summary>
         int NweVIP(Dictionary<string, object> paras);
         #endregion
+
+        #region _商品详情
+        /// <summary>
+        /// 功能:查询商品详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        AgoodsDTO QryAgoodsDetail(int id);
+        #endregion
+
     }
 }

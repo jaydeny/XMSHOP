@@ -20,16 +20,16 @@
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="text" id="inputUserName" class="form-control" placeholder="UserName" required autofocus value="agent0">
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password"  required value="agent0">
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required value="agent0">
 
 
-        <button class="btn btn-lg btn-primary btn-block" type="button"  id="login">登录</button>
-        @*<p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>*@
+        <button class="btn btn-lg btn-primary btn-block" type="button" id="login" >登录</button>
+        
     </form>
 
     <script>
         $(document).ready(function () {
-            $("#login").click(function () {
+            function login() {
                 const inputUserName = $("#inputUserName").val()
                 const inputPassword = $("#inputPassword").val()
                 if (inputUserName.trim() == "" || inputPassword.trim() == "") {
@@ -52,8 +52,17 @@
                         }
                     })
                 }
-            })
-        })
+            }
+            $('#inputPassword').bind('keydown', function (event) {
+                var event = window.event || arguments.callee.caller.arguments[0];
+                if (event.keyCode == 13) {
+                    login();
+                }
+            });
+            $('#login').bind('click', function (event) {
+                    login();
+            });
+        });
     </script>
 </body>
 

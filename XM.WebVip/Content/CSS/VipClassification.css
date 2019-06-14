@@ -87,10 +87,11 @@
 .classification .goods-exhibition .goods-item {
     border: 1px solid #dedede;
     margin: 0 20px 20px 0;
-    height: 362px;
+    height: 375px;
     position: relative;
     text-align: center;
     overflow: hidden;
+    bottom: 30px;
 }
 .classification .goods-exhibition .goods-item:hover {
     border-color: #e01d20;
@@ -149,6 +150,26 @@
     border-color: #e01d20;
 }
 .classification .goods-exhibition .p-button:hover a {
+    color: #ffffff;
+}
+
+.classification .goods-exhibition .c-button {
+    border-top: 1px solid #dedede;
+    position: absolute;
+    left: -1px;
+    bottom: 30px;
+    width: 224px;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.classification .goods-exhibition .c-button:hover {
+    background: #e01d20;
+    border-color: #e01d20;
+}
+
+.classification .goods-exhibition .c-button:hover a {
     color: #ffffff;
 }
 

@@ -78,7 +78,7 @@ var setIntegral = function () {
         if (data.success) {
             window.location.href = "/vipinfo/vipinfopage";
         } else {
-            narn('warn', data.msg)
+            narn('warn', 请登录后重试)
             window.location.href = "/home/index";
         }
     }, "json")
