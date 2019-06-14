@@ -488,6 +488,17 @@ namespace XM.DAL
             List<AddressEntity> result = list.ToList();
             return result ;
         }
+
+        /// <summary>
+        /// 功能:设置默认地址
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public int SiteTolerant(Dictionary<string, object> paras)
+        {
+            int result = QuerySingle<int>("P_address_SiteTolerant", paras, CommandType.StoredProcedure);
+            return result;
+        }
         #endregion
 
         #region _自定义

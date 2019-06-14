@@ -214,6 +214,13 @@ namespace XM.IDAL
         /// <param name="paras"></param>
         /// <returns></returns>
         List<AddressEntity> QryAllAdd(Dictionary<string,object> paras);
+
+        /// <summary>
+        /// 功能:设置默认地址
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        int SiteTolerant(Dictionary<string, object> paras);
         #endregion
 
         #region _自定义
