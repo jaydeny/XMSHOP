@@ -23,7 +23,7 @@ namespace XM.DAL
         /// <typeparam name="ActivityEntity"></typeparam>
         /// <param name="param"></param>
         /// <returns></returns>
-        public List<ActivityEntity> QryAC<ActivityEntity>(Dictionary<string, object> param)
+        public List<ActivityEntity> QryAC<ActivityEntity>(Dictionary <string, object> param)
         {
             string sql = "select * from tbActivity where (Receiver is null or Receiver ='@agent_AN' or  Receiver like '%@agent_AN%') and StartDate < @Date and EndDate > @Date";
             
