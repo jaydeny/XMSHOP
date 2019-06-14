@@ -4,7 +4,7 @@ var myAddress;
 var updateId = 0;
 // 地址模板
 var addressTemplate = function (i, obj) {
-    return "<li><div class='flex-1' ><input type='checkbox' /></div ><div class='flex-2'>" + obj.address_name + "</div><div class='flex-1' data-index='" + i + "'><a class='update'>修改</a>&nbsp;&nbsp;<a class='delete'>删除</a></div></li >";
+    return "<li><div class='flex-1' ><input type='checkbox' /></div ><div class='flex-2'>" + obj.address_name + "</div><div class='flex-1' data-index='" + i + "'><a class='update'>修改</a>&nbsp;&nbsp;<a class='delete'>删除</a></div><div class='flex-2' ><input type='checkbox' style='vertical-align: middle;margin: 0;' data-val='1015' /> <span></span></div ></li >";
 }
 // 清空
 var emptyAddress = function () {

@@ -26,5 +26,9 @@ namespace XM.Model
         /// 会员编号
         /// </summary>
         public int VipID { get; set; }
+        /// <summary>
+        /// 地址状态
+        /// </summary>
+        public int StatusID { get; set; }
     }
 }
