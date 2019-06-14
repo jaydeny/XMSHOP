@@ -243,6 +243,7 @@ namespace XM.WebVip.Controllers
             param.Add("id", ID);
             param.Add("address_name", Request["address_name"]);
             param.Add("vip_id", int.Parse(Session["ID"].ToString()));
+            param.Add("status_id", Request["status_id"]);
             //param.Add("vip_id", Request["vip_id"]);
 
             int iCheck = DALUtility.Vip.SaveAddress(param);

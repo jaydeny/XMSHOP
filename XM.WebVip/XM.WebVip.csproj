@@ -401,6 +401,7 @@
     <Content Include="Views\ShoppCart\Index.cshtml" />
     <Content Include="Views\ShoppingCart\ShoppingCartPage.cshtml" />
     <Content Include="Views\ShoppingCart\ChooseAddress.cshtml" />
+    <Content Include="Views\ShoppCart\ShoppingCartPage.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

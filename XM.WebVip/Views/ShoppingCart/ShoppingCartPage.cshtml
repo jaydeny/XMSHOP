@@ -1,4 +1,5 @@
-﻿
+﻿@using XM.Model
+@model ShoppCartEntity
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -15,7 +16,6 @@
     <div class="shopping_cart">
         <div class="layout">
             <!-- 未登录提示 -->
-
             @*<div class="login-prompt">
                     <p>
                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -55,90 +55,58 @@
                     </div>
                     <!-- 主体 -->
                     <form>
-                        <div class="shopping-row">
-                            <div class="flex-1">
-                                <input class="check" type="checkbox" />
-                                <img class="img" />
+                        @foreach (ShoppCartEntity item in (IEnumerable<ShoppCartEntity>)@ViewData["list"])
+                         {
+                                    <div class="shopping-row">
+                                        <div class="flex-1">
+                                            <input class="check" type="checkbox" />
+                                            <img class="img" src="~/image/@item.GoodsPicture" />
+                                        </div>
+                                        <div class="flex-3">
+                                            商品名
+                                        </div>
+                                        <div class="flex-1">
+                                            @item.GoodsName
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="input-group" style="margin: 0 auto; width: 120px;">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button">
+                                                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                                    </button>
+                                                </span>
+                                                <input type="text" class="form-control" value="1" style="font-size: 18px;text-align: center;padding: 0;">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button">
+                                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="flex-1">
+                                            <span class="price">@item.GoodsPrice</span>
+                                        </div>
+                                        <div class="flex-1" class="">
+                                            <a class="delete">删除</a>
+                                        </div>
+                                    </div>
+                         }
+                        <!-- 底部 -->
+                        <div class="shopping-bottom">
+                            <div class="operation">
+                                <input type="checkbox" class="checkAll" /> 全选
+                                <a class="deleteAll">删除</a>
                             </div>
-                            <div class="flex-3">
-                                商品名
-                            </div>
-                            <div class="flex-1">
-                                ¥ 1499.00
-                            </div>
-                            <div class="flex-1">
-                                <div class="input-group" style="margin: 0 auto; width: 120px;">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button">
-                                            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-                                        </button>
-                                    </span>
-                                    <input type="text" class="form-control" value="1" style="font-size: 18px;text-align: center;padding: 0;">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button">
-                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                        </button>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="flex-1">
-                                <span class="price">¥ 1499.00</span>
-                            </div>
-                            <div class="flex-1" class="">
-                                <a class="delete">删除</a>
-                            </div>
-                        </div>
-                        <div class="shopping-row">
-                            <div class="flex-1">
-                                <input class="check" type="checkbox" />
-                                <img class="img" />
-                            </div>
-                            <div class="flex-3">
-                                商品名
-                            </div>
-                            <div class="flex-1">
-                                ¥ 1499.00
-                            </div>
-                            <div class="flex-1">
-                                <div class="input-group" style="margin: 0 auto; width: 120px;">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button">
-                                            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-                                        </button>
-                                    </span>
-                                    <input type="text" class="form-control" value="1" style="font-size: 18px;text-align: center;padding: 0;">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button">
-                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                        </button>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="flex-1">
-                                <span class="price">¥ 1499.00</span>
-                            </div>
-                            <div class="flex-1" class="">
-                                <a class="delete">删除</a>
+                            <div class="bottom-but"><a class="but-order" id="Orders">立即下单</a></div>
+                            <div class="total">
+                                <p>总计：<span>￥<b>9999</b></span></p>
+                                <p class="hint">已选择<span>6</span>件商品</p>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <!-- 底部 -->
-                <div class="shopping-bottom">
-                    <div class="operation">
-                        <input type="checkbox" class="checkAll" /> 全选
-                        <a class="deleteAll">删除</a>
-                    </div>
-                    <div class="bottom-but"><a class="but-order" id="Orders">立即下单</a></div>
-                    <div class="total">
-                        <p>总计：<span>￥<b>9999</b></span></p>
-                        <p class="hint">已选择<span>6</span>件商品</p>
-                    </div>
-                </div>
+</div>
             </div>
         </div>
-    </div>
-    <script src="~/Scripts/vip/vip@ShoppingCart.js"></script>
+        <script src="~/Scripts/vip/vip@ShoppingCart.js"></script>
 </body>
 </html>
 
