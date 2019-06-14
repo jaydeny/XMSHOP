@@ -367,22 +367,11 @@ namespace XM.DAL
         /// </summary>
         /// <param name="paras"></param>
         /// <returns></returns>
-        public string QryGoods(Dictionary<string, object> paras, out int iCount)
+        public string QryGoods(Dictionary<string, object> paras)
         {
-            WhereBuilder builder = new WhereBuilder();
-            builder.FromSql = "v_goods_list a left join tbagoods b on a.GoodsID=b.goods_id";
-            GridData grid = new GridData()
-            {
-                PageIndex = Convert.ToInt32(paras["pi"]),
-                PageSize = Convert.ToInt32(paras["pageSize"]),
-                SortField = paras["sort"].ToString()
-            };
-            builder.AddWhereAndParameter(paras, "goods_id", "a.id", "in", "null");
-            builder.AddWhereAndParameter(paras, "goods_Name", "a.GoodsName", "LIKE", "'%'+@goods_Name+'%'");
-            builder.AddWhereAndParameter(paras, "agent_AN");
-
-            var s = SortAndPage(builder, grid, out iCount, "a.* ");
-            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = s });
+            var result = Query("select a.* from v_goods_list a left join tbagoods b on a.GoodsID=b.goods_id where b.goods_id is null order by id OFFSET @pi ROWS FETCH NEXT @pageSize ROWS ONLY", paras);
+            var iCount = QuerySingle<int>("select count(0)  from v_goods_list a left join tbagoods b on a.GoodsID=b.goods_id where b.goods_id is null", paras);
+            string retData = JsonConvert.SerializeObject(new { total = iCount, rows = result });
             return retData;
         }
         #endregion
@@ -678,6 +667,13 @@ namespace XM.DAL
             string strSql = "select * from v_agent_list";
             return QueryList<T>(strSql);
         }
+
+        public string QryAgoodsByID(int id)
+        {
+           return JsonConvert.SerializeObject(Query("select  * from tbAgoods a join tbgoods g on a.goods_id = g.id where a.id = @id", new { id = id }));
+        }
+
+
         #endregion
 
 

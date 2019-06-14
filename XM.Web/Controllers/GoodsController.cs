@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -67,28 +68,79 @@ namespace XM.Web.Controllers
         {
             UserEntity user = Session["User"] as UserEntity;
             int id = Request["id"] == "" ? 0 : Convert.ToInt32(Request["id"]);
-            string goodsName = Request["GoodsName"];
-            string goodsIntro = Request["GoodsIntro"];
-            decimal goodsPrice = Convert.ToDecimal(Request["GoodsPrice"]);
+            string goodsName = Request.Form["GoodsName"];
+            int typeId = Convert.ToInt32(Request.Form["GoodsType"]);
+            decimal goodsPrice = Convert.ToDecimal(Request.Form["GoodsPrice"]);
+            string goodsIntro = Request.Form["GoodsIntro"];
             string createBy = user.UserAccountName;
-            string goodsPic = Request["GoodsPicture"];
-            int typeId = Convert.ToInt32(Request["GoodsType"]);
-
+            
+            //获取上传的文件
+            HttpPostedFileBase File = Request.Files["GoodsPicture"];
+            //获取文件名:当前时间+文件名
+            string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + File.FileName;
+            
             Dictionary<string, object> paras = new Dictionary<string, object>();
             paras["id"] = id;
             paras["goods_name"] = goodsName;
             paras["goods_intro"] = goodsIntro;
             paras["goods_CP"] = goodsPrice;
             paras["type_id"] = typeId;
-            paras["goods_pic"] = goodsPic;
+            paras["goods_pic"] = fileName;
+
+            //"D:\\Shop\\img"是服务器路径,调试则修改成本地路径
+            string serverPath = string.Format("{0}\\{1}", "D:\\Shop\\img", fileName);
+            //文件存在,则删除
+            if (System.IO.File.Exists(serverPath))
+            {
+                System.IO.File.Delete(serverPath);
+            }
+            //新建文件,写入用
+            FileStream fs = new FileStream(serverPath, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            fs.Close();
+            Request.Files["GoodsPicture"].SaveAs(serverPath);
+
+            //返回值用的两个参数
+            List<int> resultList = new List<int>();
+            string result = "";
+
+            try
+            {
+                resultList.Add(0);
+                result = "添加图片已成功";
+            }
+            catch (Exception ex)
+            {
+                System.IO.File.Delete(serverPath);
+                resultList.Add(1);
+                result = "添加图片失败";
+            }
+
+            
+
             if (id == 0)
             {
+                //添加操作的时候,需要额外的参数
                 paras["goods_CBY"] = createBy;
                 paras["goods_CDT"] = DateTime.Now;
-                return OperationReturn(DALUtility.Goods.Save(paras) > 0);
-            }
-            return OperationReturn(DALUtility.Goods.Save(paras) > 0);
 
+                int iCheck = DALUtility.Goods.Save(paras);
+
+                resultList.Add(iCheck > 0 ? 0 : 1);
+                result+= iCheck > 0 ? ",操作成功" : ",操作失败";
+            }
+            else
+            {
+                int iCheck = DALUtility.Goods.Save(paras);
+
+                resultList.Add(iCheck > 0 ? 0 : 1);
+                result += iCheck > 0 ? ",操作成功" : ",操作失败";
+            }
+
+            if (resultList.Contains(1))
+            {
+                return OperationReturn(true,result);
+            }
+            return OperationReturn(false, result);
         }
         #endregion
         #region  删除商品
@@ -113,5 +165,6 @@ namespace XM.Web.Controllers
             return Content(JsonConvert.SerializeObject(vip));
         }
         #endregion
+        
     }
 }

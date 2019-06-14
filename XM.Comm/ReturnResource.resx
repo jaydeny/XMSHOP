@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="game001" xml:space="preserve">
+    <value>game001</value>
+    <comment>请登录后进入游戏</comment>
+  </data>
+  <data name="game002" xml:space="preserve">
+    <value>game002</value>
+    <comment>请登录后查询积分</comment>
+  </data>
+  <data name="game003" xml:space="preserve">
+    <value>game003</value>
+    <comment>余额不足,请充值后再试!</comment>
+  </data>
+  <data name="game004" xml:space="preserve">
+    <value>game004</value>
+    <comment>充值成功</comment>
+  </data>
+  <data name="game005" xml:space="preserve">
+    <value>game005</value>
+    <comment>提现成功</comment>
+  </data>
+  <data name="shop001" xml:space="preserve">
+    <value>shop001</value>
+    <comment>添加购物车成功</comment>
+  </data>
+  <data name="shop002" xml:space="preserve">
+    <value>shop002</value>
+    <comment>添加购物车失败</comment>
+  </data>
+  <data name="vip001" xml:space="preserve">
+    <value>vip001</value>
+    <comment>登录成功</comment>
+  </data>
+  <data name="vip002" xml:space="preserve">
+    <value>vip002</value>
+    <comment>用户已被禁用，请您联系管理员</comment>
+  </data>
+  <data name="vip003" xml:space="preserve">
+    <value>vip003</value>
+    <comment>用户名密码错误，请您检查</comment>
+  </data>
+  <data name="vip004" xml:space="preserve">
+    <value>vip004</value>
+    <comment>登录异常</comment>
+  </data>
+  <data name="vip005" xml:space="preserve">
+    <value>vip005</value>
+    <comment>邮件已发送,请登录邮箱进行下一步操作!</comment>
+  </data>
+  <data name="vip006" xml:space="preserve">
+    <value>vip006</value>
+    <comment>修改失败,原始密码出错,请重新输入!</comment>
+  </data>
+  <data name="vip007" xml:space="preserve">
+    <value>vip007</value>
+    <comment>注册成功</comment>
+  </data>
+  <data name="vip008" xml:space="preserve">
+    <value>vip008</value>
+    <comment>修改成功</comment>
+  </data>
+  <data name="vip009" xml:space="preserve">
+    <value>vip009</value>
+    <comment>退出成功</comment>
+  </data>
+  <data name="vip010" xml:space="preserve">
+    <value>vip010</value>
+    <comment>已登录</comment>
+  </data>
+  <data name="vip011" xml:space="preserve">
+    <value>vip011</value>
+    <comment>请登录后重试</comment>
+  </data>
+  <data name="vip012" xml:space="preserve">
+    <value>vip012</value>
+    <comment>请添加地址后购物</comment>
+  </data>
+  <data name="vip013" xml:space="preserve">
+    <value>vip013</value>
+    <comment>用户余额不足,请充值后从试!</comment>
+  </data>
+  <data name="vip014" xml:space="preserve">
+    <value>vip014</value>
+    <comment>购物出错,请重试!</comment>
+  </data>
+  <data name="vip015" xml:space="preserve">
+    <value>vip015</value>
+    <comment>购物成功</comment>
+  </data>
+  <data name="vip016" xml:space="preserve">
+    <value>vip016</value>
+    <comment>请登录后进入个人中心</comment>
+  </data>
+  <data name="vip017" xml:space="preserve">
+    <value>vip017</value>
+    <comment>删除收货地址失败</comment>
+  </data>
+  <data name="vip018" xml:space="preserve">
+    <value>vip018</value>
+    <comment>删除收货地址成功</comment>
+  </data>
+  <data name="vip019" xml:space="preserve">
+    <value>vip019</value>
+    <comment>充值成功,请等待审核!</comment>
+  </data>
+  <data name="vip020" xml:space="preserve">
+    <value>vip020</value>
+    <comment>充值失败</comment>
+  </data>
+  <data name="vip021" xml:space="preserve">
+    <value>vip021</value>
+    <comment>添加收货地址成功</comment>
+  </data>
+  <data name="vip022" xml:space="preserve">
+    <value>vip022</value>
+    <comment>添加收货地址失败</comment>
+  </data>
+  <data name="vip023" xml:space="preserve">
+    <value>vip023</value>
+    <comment>修改收货地址成功</comment>
+  </data>
+  <data name="vip024" xml:space="preserve">
+    <value>vip024</value>
+    <comment>修改收货地址失败</comment>
+  </data>
+</root>

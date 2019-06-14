@@ -13,20 +13,21 @@
 
             <div class="card mb-3">
                 <div class="card-body rounded-soft bg-gradient">
-                    开始时间: <input type="date" v-model="startTime"  style="margin:5px" /> <br />
-                    结束时间: <input type="date" v-model="endTime" style="margin:5px" />
+
+                    开始时间: <input type="text" class="layui-input" id="startDatetime" placeholder="yyyy-MM-dd HH:mm:ss" v-model="startTime" > <br />
+                    结束时间: <input type="text" class="layui-input" id="endDatetime" placeholder="yyyy-MM-dd HH:mm:ss" v-model="endTime">
                     <div class="input-group mb-3" style="margin-top:5px">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" >标题</span>
+                            <span class="input-group-text">标题</span>
                         </div>
-                        <input type="text" class="form-control" v-model="title"  placeholder="标题" aria-label="Username" aria-describedby="basic-addon1">
+                        <input type="text" class="form-control" v-model="title" placeholder="标题" >
                     </div>
 
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">内容</span>
                         </div>
-                        <textarea class="form-control" aria-label="With textarea" v-model="content" ></textarea>
+                        <textarea class="form-control"v-model="content"></textarea>
                     </div>
                     <span style="margin-top:5px">选择用户:</span> <br />
                     <button v-on:click="before()">上一页</button> <span>{{page}}/{{getPageCount}}</span>  <button v-on:click="next()">下一页</button><br />

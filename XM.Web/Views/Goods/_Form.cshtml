@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Form.cshtml";
 }
 <script src="~/Scripts/backEnd/Goods@Form.js"></script>
-<form id="form1">
+<form id="form1" enctype="multipart/form-data">
     <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
         <div style="padding-top: 20px; margin-right: 30px;">
             <table class="form">
@@ -28,7 +28,8 @@
                 <tr>
                     <th class="formTitle">图片</th>
                     <td class="formValue">
-                        <input id="GoodsPicture" name="GoodsPicture" type="text" class="form-control" required />
+                        <input id="GoodsPicture" name="GoodsPicture" type="file" class="form-control" onchange="Pic()" required />
+                        <img id="img" style="width:100px; height:100px" />
                     </td>
                 </tr>
                 <tr>

@@ -2,7 +2,6 @@
     var an = $.trim($("#name").val());
     $.post("/Home/FoundPwd", { "vip_AN": an },
         function (data) {
-            console.log(data.success);
             if (data.success) {
                 $("#btnEmail").text("已发送到邮箱,将关闭页面。");
                 window.setTimeout(function () {

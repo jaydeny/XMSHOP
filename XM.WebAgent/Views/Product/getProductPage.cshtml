@@ -103,7 +103,7 @@
                                 <option :value="index" v-for="(index) in AllGoodsCountFilter" :key="index">{{index}}</option>
                             </select>
                             <div class="input-group-append">
-                                <label class="input-group-text" for="inputGroupSelect0">显示条数</label>
+                                <label class="input-group-text" for="inputGroupSelect0">显示页数</label>
                             </div>
                         </div>
                     </li>
@@ -173,7 +173,7 @@
                                 <option :value="index" v-for="(index) in myGoodsCountFilter" :key="index">{{index}}</option>
                             </select>
                             <div class="input-group-append">
-                                <label class="input-group-text" for="inputGroupSelect0">显示条数</label>
+                                <label class="input-group-text" for="inputGroupSelect0">显示页数</label>
                             </div>
                         </div>
                     </li>
@@ -250,8 +250,8 @@
                                     <div class="input-group-text">状态</div>
                                 </div>
                                 <select class="custom-select d-block w-100" v-model="editStatus" required>
-                                    <option value="1">上架</option>
-                                    <option value="2">下架</option>
+                                    <option value="3">上架</option>
+                                    <option value="4">下架</option>
                                 </select>
                             </div>
                         </div>

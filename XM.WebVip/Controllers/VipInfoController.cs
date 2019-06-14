@@ -51,10 +51,10 @@ namespace XM.WebVip.Controllers
         {
             if (Session["AN"] == null)
             {
-                Url.Action("Index", "Home");
+                return OperationReturn(false, "vip016");
             }
             
-            return OperationReturn(true, "登录状态");
+            return OperationReturn(true, "vip010");
         }
         #endregion
 
@@ -129,9 +129,9 @@ namespace XM.WebVip.Controllers
 
             if (iCheck == 0)
             {
-                return OperationReturn(false, "删除收货地址失败");
+                return OperationReturn(false, "vip017");
             }
-            return OperationReturn(true, "删除收货地址成功");
+            return OperationReturn(true, "vip018");
         }
         #endregion
         
@@ -170,11 +170,11 @@ namespace XM.WebVip.Controllers
 
             int iCheck = DALUtility.Vip.Recharge(param);
 
-            if (iCheck > 0)
+            if (iCheck == 0)
             {
-                return OperationReturn(true, "充值成功,请等待审核!");
+                return OperationReturn(false, "vip020");
             }
-            return OperationReturn(false, "充值失败");
+            return OperationReturn(true, "vip019");
         }
 
         /// <summary>
@@ -243,6 +243,7 @@ namespace XM.WebVip.Controllers
             param.Add("id", ID);
             param.Add("address_name", Request["address_name"]);
             param.Add("vip_id", int.Parse(Session["ID"].ToString()));
+            param.Add("status_id", Request["status_id"]);
             //param.Add("vip_id", Request["vip_id"]);
 
             int iCheck = DALUtility.Vip.SaveAddress(param);
@@ -250,17 +251,17 @@ namespace XM.WebVip.Controllers
             switch (iCheck)
             {
                 case 0:
-                    strResult = OperationReturn(true, "添加收货地址成功");
+                    strResult = OperationReturn(true, "vip021");
                     break;
                 case 1:
-                    strResult = OperationReturn(true, "修改收货地址成功");
+                    strResult = OperationReturn(true, "vip023");
                     break;
                 case 2:
                     if (ID == 0)
                     {
-                        strResult = OperationReturn(false, "添加收货地址失败");
+                        strResult = OperationReturn(false, "vip022");
                     }
-                    strResult = OperationReturn(false, "修改收货地址失败");
+                    strResult = OperationReturn(false, "vip024");
                     break;
             }
             return strResult;
@@ -279,7 +280,7 @@ namespace XM.WebVip.Controllers
             Session.Remove("ID");
             Session.Remove("Agent_ID");
             Session.Remove("Agent_AN");
-            return OperationReturn(true, "退出成功");
+            return OperationReturn(true, "vip009");
         }
 
         /// <summary>

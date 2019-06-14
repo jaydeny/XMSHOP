@@ -49,7 +49,9 @@
     <Compile Include="AgentEntity.cs" />
     <Compile Include="AgentGoodsEntity.cs" />
     <Compile Include="AgentInfoDTO.cs" />
+    <Compile Include="AgoodsDTO.cs" />
     <Compile Include="BuyEntity.cs" />
+    <Compile Include="BuyStructEntity.cs" />
     <Compile Include="CommonData.cs" />
     <Compile Include="CustomDisEntity.cs" />
     <Compile Include="CustomFullEntity.cs" />
@@ -74,6 +76,7 @@
     <Compile Include="RemainderEntity.cs" />
     <Compile Include="RoleEntity.cs" />
     <Compile Include="RoleMenuEntity.cs" />
+    <Compile Include="ShoppCartEntity.cs" />
     <Compile Include="StatusEntity.cs" />
     <Compile Include="TreeViewModel.cs" />
     <Compile Include="UserEntity.cs" />

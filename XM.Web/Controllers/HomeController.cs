@@ -83,9 +83,9 @@ namespace XM.Web.Controllers
             string endtime = Request["endtime"] == null ? "2019-06" : Request["endtime"];
 
             string[] paras = { starttime, endtime };
-            string key = Md5.GetMd5(paras[0] + paras[1]  + KEY);
-            string param = GameReturn(action, key, paras);
-            var result = HttpPost(param);
+            string key = Md5.GetMd5(paras[0] + paras[1]  + GameUtil.KEY);
+            string param = GameUtil.GameReturn(action, key, paras);
+            var result = GameUtil.HttpPost(param);
             return Content(result);
             
         }

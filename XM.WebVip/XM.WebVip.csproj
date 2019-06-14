@@ -131,6 +131,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Phone\Controllers\PhoneHomeController.cs" />
     <Compile Include="Areas\Phone\Controllers\PhoneProductController.cs" />
+    <Compile Include="Areas\Phone\Controllers\PhoneShoppCartController.cs" />
     <Compile Include="Areas\Phone\Controllers\PhoneVIPController.cs" />
     <Compile Include="Areas\Phone\Controllers\PhoneVipInfoController.cs" />
     <Compile Include="Areas\Phone\PhoneAreaRegistration.cs" />
@@ -142,6 +143,8 @@
     <Compile Include="Controllers\NoticeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
+    <Compile Include="Controllers\ShoppCartController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\VIPController.cs" />
     <Compile Include="Controllers\VipInfoController.cs" />
     <Compile Include="Global.asax.cs">
@@ -154,17 +157,33 @@
     <Content Include="Areas\Phone\Content\Home\login.css" />
     <Content Include="Areas\Phone\Content\Model\reset.css" />
     <Content Include="Areas\Phone\Content\Product\classify.css" />
+    <Content Include="Areas\Phone\Content\Product\details.css" />
     <Content Include="Areas\Phone\Content\search\sousSearch.css" />
     <Content Include="Areas\Phone\Content\ShoppingCart\cart.css" />
     <Content Include="Areas\Phone\Content\VipInfo\personal.css" />
     <Content Include="Areas\Phone\img\Headportrait.jpg" />
     <Content Include="Areas\Phone\img\icon-psd.png" />
     <Content Include="Areas\Phone\img\icon-user.png" />
+    <Content Include="Areas\Phone\img\model\icon_douban.png" />
+    <Content Include="Areas\Phone\img\model\icon_qq.png" />
+    <Content Include="Areas\Phone\img\model\icon_qzone.png" />
+    <Content Include="Areas\Phone\img\model\icon_weichat.png" />
+    <Content Include="Areas\Phone\img\model\icon_xinlang.png" />
+    <Content Include="Areas\Phone\img\model\icon_zhifubao.png" />
+    <Content Include="Areas\Phone\img\Product\arrow-left.png" />
+    <Content Include="Areas\Phone\img\Product\arrow-right.png" />
+    <Content Include="Areas\Phone\img\Product\home2.png" />
+    <Content Include="Areas\Phone\img\Product\share.png" />
+    <Content Include="Areas\Phone\img\Product\shop-cart1.png" />
     <Content Include="Areas\Phone\img\search3.png" />
     <Content Include="Areas\Phone\img\topback.png" />
     <Content Include="Areas\Phone\Script\Home\scrolltopcontrol.js" />
     <Content Include="Areas\Phone\Script\Home\TouchSlide.js" />
     <Content Include="Areas\Phone\Script\Model\jquery-3.4.0.min.js" />
+    <Content Include="Areas\Phone\Script\Model\ydui.js" />
+    <Content Include="Areas\Phone\Script\Product\goods-details.js" />
+    <Content Include="Areas\Phone\Script\Product\TouchSlide.1.1.js" />
+    <Content Include="Areas\Phone\Script\Model\ydui.citys.js" />
     <Content Include="Areas\Phone\Script\ShoppingCart\cart.js" />
     <Content Include="Areas\Phone\Script\vue.min.js" />
     <Content Include="Content\bootstrap-3.3.7\css\bootstrap-theme.css" />
@@ -237,12 +256,13 @@
     <Content Include="Areas\Phone\Views\PhoneProduct\AgoodsList_MB.cshtml" />
     <Content Include="Areas\Phone\Views\PhoneProduct\Search_MB.cshtml" />
     <Content Include="Areas\Phone\Views\PhoneVipInfo\InfoPage_MB.cshtml" />
-    <Content Include="Areas\Phone\Views\PhoneVIP\ShoppingCart_MB.cshtml" />
+    <Content Include="Areas\Phone\Views\PhoneShoppCart\ShoppingCart_MB.cshtml" />
     <Content Include="Areas\Phone\Views\Shared\mobile_model.cshtml" />
     <Content Include="Areas\Phone\Views\web.config" />
     <Content Include="Areas\Phone\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Phone\resources\Home\Index.json" />
     <Content Include="Areas\Phone\Views\PhoneHome\Login_MBV.cshtml" />
+    <Content Include="Areas\Phone\Views\PhoneProduct\ProductInfo.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="image\1.png" />
     <Content Include="image\10.png" />
@@ -325,6 +345,9 @@
     <Content Include="Scripts\Game\game%40RecordPage.js" />
     <Content Include="Scripts\Game\game%40DetailPage.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\naranja\naranja.min.js" />
+    <Content Include="Scripts\vip\vip%40AgoodsDetail.js" />
+    <Content Include="Scripts\vip\vip%40ShoppingCart.js" />
     <Content Include="Scripts\xcConfirm.js" />
     <Content Include="Scripts\jquery-3.4.0.js" />
     <Content Include="Scripts\jquery-3.4.0.min.js" />
@@ -354,7 +377,7 @@
     <Content Include="Views\Error\Error404.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Product\AgoodsList.cshtml" />
-    <Content Include="Views\VIP\GoodsDetails.cshtml" />
+    <Content Include="Views\ShoppingCart\AgoodsDetail.cshtml" />
     <Content Include="Views\VIP\PwdFoundPage.cshtml" />
     <Content Include="Views\VIP\Shopping.cshtml" />
     <Content Include="Views\VipInfo\vipinfopage.cshtml" />
@@ -375,6 +398,10 @@
     <Content Include="Views\notice\_Notice.cshtml" />
     <Content Include="Views\VipInfo\_QryRechargePage.cshtml" />
     <Content Include="Views\Shop\ChooseAc.cshtml" />
+    <Content Include="Views\ShoppCart\Index.cshtml" />
+    <Content Include="Views\ShoppingCart\ShoppingCartPage.cshtml" />
+    <Content Include="Views\ShoppingCart\ChooseAddress.cshtml" />
+    <Content Include="Views\ShoppCart\ShoppingCartPage.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -385,6 +412,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Phone\Models\" />
+    <Folder Include="Areas\Phone\Views\PhoneVIP\" />
     <Folder Include="Models\" />
     <Folder Include="Views\GameHome\" />
   </ItemGroup>

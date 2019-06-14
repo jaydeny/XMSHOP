@@ -82,18 +82,19 @@
         $.get("/vipinfo/vipinfo", function (data) {
             if (data.success) {
                 window.location.href = "/vipinfo/vipinfopage";
-            } else {
-                alert(data.msg);
-                window.location.href = "/home/index";
+            }
+            else
+            {
+                narn('warn',"请登录后重试")
             }
         }, "json")
     });
 
 
     // 进入个人信息页
-    $("#vip_name").click(function () {
-        setIntegral();
-    });
+    //$("#vip_name").click(function () {
+    //    setIntegral();
+    //});
 
 
     //进入游戏
@@ -101,11 +102,9 @@
         $.post("/GameHome/Login", function (data) {
             if (data.success) {
                 var e = JSON.parse(data.msg)
-                //window.location.href = e.result;
                 window.open(e.result,"_black");
             } else {
-                alert(data.msg);
-                window.location.href = "/Home/Index";
+                narn('warn',"请登录后进入游戏!")
             }
 
         }, "json")
@@ -113,40 +112,44 @@
 
     //查询积分
     $("#GetCredit").click(function () {
+        var type = 'log';
+        var text;
         $.post("/GameHome/GetCredit", function (data) {
             if (data.success) {
                 var e = JSON.parse(data.msg)
-                alert("你的积分为:"+e.result[0].Integral)
+                type = 'success';
+                text = '您当前的积分:' + e.result[0].Integral
             }
             else {
-                alert(data.msg);
-                window.location.href = "/Home/Index";
+                type = 'warn';
+                text = "请登录后查询积分";
             }
+            narn(type,text)
         }, "json")
     });
 
-    var setIntegral = function () {
-
-        $.post("/GameHome/GetCredit", function (data) {
-
-        }, "json").done(
-                        function (data) {
-                            var e = JSON.parse(data.msg)
-                            $.ajax({
-                                url: "/vipInfo/getCredit",
-                                data: { "Integral": e.result[0].Integral },
-                                success: function () {
-                                    $.get("/vipinfo/vipinfo", function (data) {
-                                        if (data.success) {
-                                            window.location.href = "/vipinfo/vipinfopage";
-                                        } else {
-                                            alert(data.msg);
-                                            window.location.href = "/home/index";
-                                        }
-                                    }, "json")
-                                }
-                            })
-                        }
-                    )
+    
+    //提示框弹出方法
+    function narn(type,text) {
+        naranja()[type]({
+            title: '温馨提示',
+            text: text,
+            timeout: '5000',
+            buttons: [{
+                text: '接受',
+                click: function (e) {
+                    naranja().success({
+                        title: '通知',
+                        text: '通知被接受'
+                    })
+                }
+            }, {
+                text: '取消',
+                click: function (e) {
+                    e.closeNotification()
+                }
+            }]
+        })
     }
+
 }

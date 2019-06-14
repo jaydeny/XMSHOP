@@ -150,6 +150,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Login\Login.css" />
+    <Content Include="Content\naranja\naranja.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -199,7 +200,12 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\laydate\date.js" />
+    <Content Include="Scripts\laydate\laydate.js" />
+    <Content Include="Scripts\laydate\theme\default\font\iconfont.svg" />
+    <Content Include="Scripts\laydate\theme\default\laydate.css" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\naranja\naranja.min.js" />
     <Content Include="Scripts\Notice\Index.js" />
     <Content Include="Scripts\Notice\NoticRecord.js" />
     <Content Include="Scripts\Product\ProductPage.js" />
@@ -231,10 +237,15 @@
     <Content Include="Views\Examine\Index.cshtml" />
     <Content Include="Views\Activity\ActivityIndex.cshtml" />
     <Content Include="Views\Activity\ActivityRecord.cshtml" />
+    <Content Include="Scripts\laydate\theme\default\font\iconfont.eot" />
+    <Content Include="Scripts\laydate\theme\default\font\iconfont.ttf" />
+    <Content Include="Scripts\laydate\theme\default\font\iconfont.woff" />
+    <Content Include="Static\Activity\Index_cn.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\ShoppCart\" />
     <Folder Include="Views\VIP\" />
   </ItemGroup>
   <ItemGroup>
@@ -306,6 +317,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties Static_4Activity_4Index_3cn_1json__JSONSchema="http://json.schemastore.org/appveyor" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

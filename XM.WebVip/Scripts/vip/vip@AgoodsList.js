@@ -1,25 +1,12 @@
-﻿
-// 弹出商品框
-//var bounced = function (obj) {
-//    console.log("ok");
-//    $(obj.dialog).css({ "width": obj.width });
-//    $(obj.content).css({ "height": obj.height });
-//    $(obj.modal).modal('show');
-//    $.post(obj.url, function (data, status, xhr) {
-//        $(obj.body).html(data);
-//    })
-//}
-
-//弹出商品详情
-//$(".goods-exhibition").on("click", "img,.p-title a", function () {
-//    var obj = {
-//        "modal": "#myModal", "dialog": "#dialog", "content": "#content", "body": "#body"
-//    };
-//    obj.width = "640px";
-//    obj.height = "440px";
-//    obj.url = "/home/GoodsDetails";
-//    bounced(obj);
-//});
+﻿//弹出商品框
+var bounced = function (obj) {
+    $(obj.dialog).css({ "width": obj.width });
+    $(obj.content).css({ "height": obj.height });
+    $(obj.modal).modal('show');
+    $.post(obj.url, function (data, status, xhr) {
+        $(obj.body).html(data);
+    })
+}
 
 $(".filter_box").on("click", ".type", function () {
     $(".filter_box .type-action").removeClass("type-action");
@@ -32,8 +19,8 @@ $(".filter_box").on("click", ".type", function () {
 // 商品集合
 var listGoods
 // 商品模板
-var strGoods = function (i,obj) {
-    return "<li><div class='goods-item' ><p class='p-img'><a><img src='/image/" + obj.goods_pic + "'  /></a></p><p class='p-title'><a><span>" + obj.goods_name + "</span><span class='red'>" + obj.goods_intro + "</span></a></p><p class='p-price'><b>￥" + obj.price + "</b></p><div class='p-button' data-id=" + i +" ><a class='' >立即下单</a></div></div ></li >";
+var strGoods = function (i, obj) {
+    return "<li><div class='goods-item' ><p class='p-img d-button' data-id=" + i + "><a><img src='/image/" + obj.goods_pic + "'  /></a></p><p class='p-title'><a><span>" + obj.goods_name + "</span><span class='red'>" + obj.goods_intro + "</span></a></p><p class='p-price'><b>￥" + obj.price + "</b></p><div class='p-button' data-id=" + i + " ><a class='' >立即下单</a></div><div class='c-button' data-id=" + i + " ><a class='' >添加购物车</a></div></div ></li >";
 }
 var getQryAgoods = function (typeId) {
     $.post("/Product/QryAgoods", { rows: paging.pageTotal, page: paging.currentPage, type_id: typeId }, function (data) {
@@ -72,7 +59,7 @@ var goodsRender = function () {
 }
 
 var obj;
-// 立即下单
+// 立即下单,让客户选择活动
 $(".goods-exhibition").on("click", ".p-button", function () {
     obj = listGoods[$(this).data("id")];
 
@@ -86,25 +73,39 @@ $(".goods-exhibition").on("click", ".p-button", function () {
             Form.url = "/Shop/ChooseAc";
             bouncedLogin(Form);
         } else {
-            alert(data.msg);
+            narn('warn',"请登录后重试")
         }
     }, "json")
 
 });
 
+//选择活动后,购物的方法
 $(".choose-main").on("click", "#ChooseAc", function () {
     var Ac = $(this).data('val')
     $.post("/Shop/buy", { agoods_id: obj.id, buy_count: 1, order_total: obj.price, buy_total: obj.price * 1, Ac_id: Ac }, function (data) {
         if (data.success) {
-            alert(data.msg);
+            narn('success', "购物成功")
             $("#myModal").modal('hide');
         } else {
-            alert(data.msg);
+            if (data.msg == "vip013") {
+                narn('warn', "用户余额不足,请充值后从试!")
+            }
+            narn('warn', "购物出错,请重试!")
         }
     }, "json")
 });
 
-
+//弹出商品详情
+$(".goods-exhibition").on("click", ".d-button", function () {
+    var agoods = listGoods[$(this).data("id")];
+    var obj = {
+        "modal": "#myModal", "dialog": "#dialog", "content": "#content", "body": "#body"
+    };
+    obj.width = "640px";
+    obj.height = "440px";
+    obj.url = "/ShoppingCart/AgoodsDetail?id="+agoods.id;
+    bounced(obj);
+});
 
 // 获得url的参数
 function getQueryVariable(variable) {
@@ -121,9 +122,25 @@ goodsRender();
 // 请求商品
 var search = getQueryVariable("search");
 
-//if (search != null && search != "") {
-//    goodsRender({ Agoods_Name: search });
-//}
-//else {
-//    goodsRender();
-//}
+//提示框弹出方法
+function narn(type, text) {
+    naranja()[type]({
+        title: '温馨提示',
+        text: text,
+        timeout: '5000',
+        buttons: [{
+            text: '接受',
+            click: function (e) {
+                naranja().success({
+                    title: '通知',
+                    text: '通知被接受'
+                })
+            }
+        }, {
+            text: '取消',
+            click: function (e) {
+                e.closeNotification()
+            }
+        }]
+    })
+}

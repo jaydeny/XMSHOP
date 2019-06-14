@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 using XM.DAL.comm;
 using XM.IDAL;
@@ -198,6 +199,7 @@ namespace XM.DAL
                 SortDirection = paras["order"].ToString()
             };
             builder.AddWhereAndParameter(paras, "vip_AN", "VipAccountName", "LIKE", "'%'+@vip_AN+'%'");
+            builder.AddWhereAndParameter(paras, "agent_AN", "AgentAccountName");
             return SortAndPage<T>(builder, grid, out iCount);
         }
 
@@ -474,6 +476,18 @@ namespace XM.DAL
         {
             return Execute("delete tbaddress where id=@id and vip_id=@vip_id", paras, CommandType.Text);
         }
+
+        /// <summary>
+        /// 功能:查询所有地址
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public List<AddressEntity> QryAllAdd(Dictionary<string, object> paras)
+        {
+            var list = QueryList<AddressEntity>("select * from v_address_list where vipID = @vip_id", paras);
+            List<AddressEntity> result = list.ToList();
+            return result ;
+        }
         #endregion
 
         #region _自定义
@@ -538,5 +552,17 @@ namespace XM.DAL
         }
         #endregion
 
+        #region _商品详情
+        /// <summary>
+        /// 功能:查询商品详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public AgoodsDTO QryAgoodsDetail(int id)
+        {
+            string sql = "SELECT * FROM tbagoods a join tbgoods b on a.goods_id = b.id WHERE a.id = @id";
+            return QuerySingle<AgoodsDTO>(sql, new { id }, CommandType.Text);
+        }
+        #endregion
     }
 }

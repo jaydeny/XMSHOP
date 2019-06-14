@@ -146,11 +146,17 @@ namespace XM.IDAL
         string QryAgoods(Dictionary<string, object> paras, out int iCount);
 
         /// <summary>
+        /// 根据id去找商品
+        /// </summary>
+        /// <returns></returns>
+        string QryAgoodsByID(int id);
+
+        /// <summary>
         /// 查询所有未上架的后台商品
         /// </summary>
         /// <param name="paras"></param>
         /// <returns></returns>
-        string QryGoods(Dictionary<string, object> paras, out int iCount);
+        string QryGoods(Dictionary<string, object> paras);
         #endregion
 
         #region _Info

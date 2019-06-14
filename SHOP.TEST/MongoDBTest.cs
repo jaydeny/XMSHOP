@@ -18,7 +18,25 @@ namespace YMOA.UnitTest
         {
             var dtNow = DateTime.Now;
             ParticipationAcEntity part = new ParticipationAcEntity();
-            dbService.Add<ParticipationAcEntity>("XMShop", "activity", part);
+            part.Vip_AN = "vip00";
+            part.Ac_id = 1;
+            part.Integral_Target = 100;
+            part.Integral_now = 100;
+            part.Times = 6;
+            part.Times_now = 6;
+            int iCheck = (int)dbService.Update<ParticipationAcEntity>("XMShop", "activity",
+                x => x._id == "602feee4e56f7f51", part);
+
+
+            ParticipationAcEntity part1 = new ParticipationAcEntity();
+            part1.Vip_AN = "vip00";
+            part1.Ac_id = 2;
+            part1.Integral_Target = 0;
+            part1.Integral_now = 8000;
+            part1.Times = 2;
+            part1.Times_now = 2;
+            int iCheck1 = (int)dbService.Update<ParticipationAcEntity>("XMShop", "activity",
+                x => x._id == "73e87d2c29edbc95", part1);
         }
 
         ///// <summary>

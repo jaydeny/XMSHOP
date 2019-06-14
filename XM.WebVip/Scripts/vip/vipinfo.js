@@ -78,14 +78,35 @@ var setIntegral = function () {
         if (data.success) {
             window.location.href = "/vipinfo/vipinfopage";
         } else {
-            alert(data.msg);
+            narn('warn', 请登录后重试)
             window.location.href = "/home/index";
         }
     }, "json")
 }
 
 
-
+//提示框弹出方法
+function narn(type, text) {
+    naranja()[type]({
+        title: '温馨提示',
+        text: text,
+        timeout: '5000',
+        buttons: [{
+            text: '接受',
+            click: function (e) {
+                naranja().success({
+                    title: '通知',
+                    text: '通知被接受'
+                })
+            }
+        }, {
+            text: '取消',
+            click: function (e) {
+                e.closeNotification()
+            }
+        }]
+    })
+}
 
 
 

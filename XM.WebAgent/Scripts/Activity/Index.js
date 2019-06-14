@@ -12,10 +12,18 @@
         count: '',
         pageCount: '',
         typeNum: '',
-        countNum: ''
+        countNum: '',
+        //配置
+        //语言
+        language: "_cn",
+        //配置路径
+        url: "/Static/Activity/Index",
+        //配置文件数据
+        cfg: {}
     },
     created: function () {
-        this.init()
+        this.init();
+        this.initToConfig();
         this.getActivityType();
     },
     computed: {
@@ -23,21 +31,30 @@
             this.pageCount = Math.ceil(this.count / this.rows);
             return this.pageCount;
         }
-
+        
     },
     methods: {
         init() {
             let date = new Date();
-            this.startTime = date.getFullYear() + "-" + this.dateChage(date.getMonth() + 1) + "-" + this.dateChage(date.getDate());
+            this.startTime = date.getFullYear() + "-" + this.dateChage(date.getMonth() + 1) + "-" + this.dateChage(date.getDate()) + " 00:00:00";
             let day = date.getDate();
             date.setDate(day + 7);
-            this.endTime = date.getFullYear() + "-" + this.dateChage(date.getMonth() + 1) + "-" + this.dateChage(date.getDate());
+            this.endTime = date.getFullYear() + "-" + this.dateChage(date.getMonth() + 1) + "-" + this.dateChage(date.getDate()) + " 00:00:00";
         },
         //日期格式变换
         dateChage(date) {
             if (date < 10)
                 date = "0" + date;
             return date
+        },
+        initToConfig() {
+            const url = this.url + this.language+".json";
+            $.ajax({
+                url: url,
+                dataType: 'json'
+            }).then((data) => {
+                this.cfg = data;
+            });
         },
         //获取当前活动类型
         getActivityType() {
@@ -53,30 +70,31 @@
         checkData() {
            
             if (this.title.trim() == '') {
-                alert("标题不能为空");
+                this.narn('warn', this.cfg.js.checkData.title)
                 return false
             }
             else if (this.content.trim() == '') {
-                alert("内容不能为空");
+                this.narn('warn', this.cfg.js.checkData.content)
+                
                 return false
             } else if (this.typeNum == '') {
-                alert("请选择优惠");
+                this.narn('warn', this.cfg.js.checkData.pro)
                 return false
             } else if (this.typeNum == '1002') {
                 
                 if ($("#full").val() == '' || $("#minus").val() == '') {
-                    alert("优惠方案提供数据不完整");
+                    this.narn('warn', this.cfg.js.checkData.proToE)
                     return false
                 }
             } else if (this.typeNum == '1003') {
 
                 if ($("#discount").val() == '') {
-                    alert("优惠方案提供数据不完整");
+                    this.narn('warn', this.cfg.js.checkData.proToE)
                     return false
                 }
             }
             else if (this.count == '') {
-                alert("请选择优惠次数");
+                this.narn('warn', this.cfg.js.checkData.count)
                 return false
             }
             return true
@@ -103,8 +121,8 @@
                 }).then((data) => {
                     if (data.success) { 
                         location.href = "/Activity/ActivityRecord"
-                    } 
-                    alert(data.msg);
+                    }
+                    this.narn('warn', data.msg)
                 });
             }
         },
@@ -112,7 +130,7 @@
         //上一页
         before() {
             if (this.page <= 1) {
-                alert("已经是第一页了")
+                this.narn('log','第一页')
             } else {
                 this.page--;
                 this.getAllVIP();
@@ -121,7 +139,7 @@
         //下一页
         next() {
             if (this.page >= this.pageCount) {
-                alert("已经是最后一页了")
+                this.narn('log', '最后一页')
             } else {
                 this.page++;
                 this.getAllVIP();
@@ -138,6 +156,27 @@
         //删除
         del_sele(index) {
             this.seleTable.splice(index, 1);
+        },
+        narn(type, text) {
+            naranja()[type]({
+                title: '温馨提示',
+                text: text,
+                timeout: '5000',
+                buttons: [{
+                    text: '接受',
+                    click: function (e) {
+                        naranja().success({
+                            title: '通知',
+                            text: '通知被接受'
+                        })
+                    }
+                }, {
+                    text: '取消',
+                    click: function (e) {
+                        e.closeNotification()
+                    }
+                }]
+            })
         }
     }
 });
@@ -153,4 +192,22 @@ vm.$watch('typeNum', function () {
         var text = $(" <span>打</span> <input type='number' value='' id='discount' /> <span>%折扣</span>");
     }
     $("#container").append(text);
+});
+
+
+//开始时间选择器
+laydate.render({
+    elem: '#startDatetime'
+    , type: 'datetime',
+    done: function (val) {
+        vm.startTime = val;
+    }
+});
+//结束时间选择器
+laydate.render({
+    elem: '#endDatetime'
+    , type: 'datetime',
+    done: function (val) {
+        vm.endTime = val;
+    }
 });
