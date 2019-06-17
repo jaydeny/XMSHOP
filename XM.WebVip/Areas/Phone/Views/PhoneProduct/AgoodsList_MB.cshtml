@@ -3,550 +3,70 @@
 <head>
 
     <link href="~/Areas/Phone/Content/Product/classify.css" rel="stylesheet" type="text/css">
+    <link href="~/Areas/Phone/Content/Home/index.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+    <div id="app">
+        <div class="yx-index-top">
+            <div class="index-top-box2">
+                <a href="/Phone/Index" class="d7-sousuo-t1"></a>
+                <span class="fresh-toptext1">XMSHOP</span>
 
-    <div class="yx-index-top">
-        <div class="index-top-box2">
-            <a href="/Phone/Index" class="d7-sousuo-t1"></a>
-            <span class="fresh-toptext1">XMSHOP</span>
-           
-        </div>
-        <a href="/Phone/search" class="index-top-box1">
-            <span class="index-top-img1"><img src="http://www.17sucai.com/preview/1528155/2019-04-18/fresh/images/search3.png" alt=""></span>
-        </a>
-    </div>
-    <div class="classify-bigbox">
-        <div class="classify-left">
-            <div class="classify-perch"></div>
-            <span class="classify-text1 pitch-on2">热销新品</span>
-            <span class="classify-text1">优选水果</span>
-            <span class="classify-text1">卤味熟食</span>
-            <span class="classify-text1">牛奶面包</span>
-            <span class="classify-text1">热饮</span>
-            <span class="classify-text1">冰淇淋</span>
-            <span class="classify-text1">饮料酒水</span>
-            <span class="classify-text1">休闲零食</span>
-            <span class="classify-text1">方便速食</span>
-            <span class="classify-text1">数码家电</span>
-            <span class="classify-text1">环球美食</span>
-            <span class="classify-text1">运动户外</span>
-            <div class="classify-perch2"></div>
-        </div>
-        <div class="classify-right content2">
-            <div class="classify-perch-r"></div>
-            <div class="classify-right-title">
-                <span class="classifyrt-text1">综合排序</span>
-                <span class="classifyrt-text1 price">按价格<i class="sort-img"></i><i class="sort-img2" style="display: none;"></i></span>
-                <span class="classifyrt-text1 list-show">分类</span>
             </div>
-            <div class="classify-list" style="display: none;">
-                <span class="classify-list-text1 pitch-on-cl">全部分类</span>
-                <span class="classify-list-text1">进口水果</span>
-                <span class="classify-list-text1">国产水果</span>
-                <span class="classify-list-text1">柑橘橙柚</span>
-                <span class="classify-list-text1">苹果/梨</span>
-                <span class="classify-list-text1">桃杏梅枣</span>
-            </div>
-            <!--商品列表循环-->
-            <div class="classify-box1">
-                <a href="./goods-details.html" class="classify-box1-img1"><img src="./del/fruits-img7.png" alt=""></a>
-                <div class="classify-box2">
-                    <a href="./goods-details.html" class="classify-box2-text1">新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价</a>
-                    <span class="classify-box2-text2">￥10.8</span>
-                    <div class="shop-cart-box3">
-                        <span class="shop-cart-subtract"></span>
-                        <input type="tel" size="4" value="0" id="tb_count" class="shop-cart-numer">
-                        <span class="shop-cart-add"></span>
-                    </div>
-                </div>
-            </div>
+            <a href="/Phone/search" class="index-top-box1">
+                <span class="index-top-img1"><img src="http://www.17sucai.com/preview/1528155/2019-04-18/fresh/images/search3.png" alt=""></span>
+            </a>
 
-            <div class="classify-box1">
-                <span class="classify-box1-img1"><img src="./del/fruits-img4.png" alt=""></span>
-                <div class="classify-box2">
-                    <span class="classify-box2-text1">新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价</span>
-                    <span class="classify-box2-text2">￥10.8</span>
-                    <div class="shop-cart-box3">
-                        <span class="shop-cart-subtract"></span>
-                        <input type="tel" size="4" value="0" id="tb_count" class="shop-cart-numer">
-                        <span class="shop-cart-add"></span>
-                    </div>
-                </div>
-            </div>
+            <div class="special-sale-box3" style="overflow:auto">
+                <div class="special-sale-box4" v-for="(obj,index) in popular" :key="index" v-on:click="JumpInfo(obj.goods_id)">
+                    <span class="special-sale-img1"><img src="https://img13.360buyimg.com/n7/jfs/t1/16813/39/12659/358796/5c99f002Ee7721cc6/a25a0116a081b6e6.jpg" alt=""></span>
+                    <span class="special-sale-tbox">{{obj.goods_name}}</span>
 
-            <div class="classify-box1">
-                <span class="classify-box1-img1"><img src="./del/fruits-img2.png" alt=""></span>
-                <div class="classify-box2">
-                    <span class="classify-box2-text1">新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价</span>
-                    <span class="classify-box2-text2">￥10.8</span>
-                    <div class="shop-cart-box3">
-                        <span class="shop-cart-subtract"></span>
-                        <input type="tel" size="4" value="0" id="tb_count" class="shop-cart-numer">
-                        <span class="shop-cart-add"></span>
-                    </div>
+                    <span class="special-sale-text2">￥{{obj.price}}</span>
                 </div>
             </div>
-
-            <div class="classify-box1">
-                <span class="classify-box1-img1"><img src="./del/fruits-img8.png" alt=""></span>
-                <div class="classify-box2">
-                    <span class="classify-box2-text1">新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价</span>
-                    <span class="classify-box2-text2">￥10.8</span>
-                    <div class="shop-cart-box3">
-                        <span class="shop-cart-subtract"></span>
-                        <input type="number" size="4" value="0" id="tb_count" class="shop-cart-numer">
-                        <span class="shop-cart-add"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="classify-box1">
-                <span class="classify-box1-img1"><img src="./del/fruits-img9.png" alt=""></span>
-                <div class="classify-box2">
-                    <span class="classify-box2-text1">新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价</span>
-                    <span class="classify-box2-text2">￥10.8</span>
-                    <div class="shop-cart-box3">
-                        <span class="shop-cart-subtract"></span>
-                        <input type="number" size="4" value="0" id="tb_count" class="shop-cart-numer">
-                        <span class="shop-cart-add"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="classify-box1">
-                <span class="classify-box1-img1"><img src="./del/fruits-img10.png" alt=""></span>
-                <div class="classify-box2">
-                    <span class="classify-box2-text1">新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价</span>
-                    <span class="classify-box2-text2">￥10.8</span>
-                    <div class="shop-cart-box3">
-                        <span class="shop-cart-subtract"></span>
-                        <input type="number" size="4" value="0" id="tb_count" class="shop-cart-numer">
-                        <span class="shop-cart-add"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="classify-box1">
-                <span class="classify-box1-img1"><img src="./del/fruits-img11.png" alt=""></span>
-                <div class="classify-box2">
-                    <span class="classify-box2-text1">新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价</span>
-                    <span class="classify-box2-text2">￥10.8</span>
-                    <div class="shop-cart-box3">
-                        <span class="shop-cart-subtract"></span>
-                        <input type="number" size="4" value="0" id="tb_count" class="shop-cart-numer">
-                        <span class="shop-cart-add"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="classify-box1">
-                <span class="classify-box1-img1"><img src="./del/fruits-img12.png" alt=""></span>
-                <div class="classify-box2">
-                    <span class="classify-box2-text1">新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价</span>
-                    <span class="classify-box2-text2">￥10.8</span>
-                    <div class="shop-cart-box3">
-                        <span class="shop-cart-subtract"></span>
-                        <input type="number" size="4" value="0" id="tb_count" class="shop-cart-numer">
-                        <span class="shop-cart-add"></span>
-                    </div>
-                </div>
-            </div>
-
-
-            <!--商品列表循环-->
-            <div class="classify-perch2"></div>
-        </div>
-        <div class="classify-right content2" style="display:none">
-            <div class="classify-perch-r"></div>
-            <div class="classify-right-title">
-                <span class="classifyrt-text1">综合排序</span>
-                <span class="classifyrt-text1 price">按价格<i class="sort-img"></i><i class="sort-img2" style="display: none;"></i></span>
-                <span class="classifyrt-text1 list-show">分类</span>
-            </div>
-            <div class="classify-list" style="display: none;">
-                <span class="classify-list-text1 pitch-on-cl">全部分类</span>
-                <span class="classify-list-text1">进口水果</span>
-                <span class="classify-list-text1">国产水果</span>
-                <span class="classify-list-text1">柑橘橙柚</span>
-                <span class="classify-list-text1">苹果/梨</span>
-                <span class="classify-list-text1">桃杏梅枣</span>
-            </div>
-            <!--商品列表循环-->
-            <div class="classify-box1">
-                <span class="classify-box1-img1"><img src="./del/fruits-img7.png" alt=""></span>
-                <div class="classify-box2">
-                    <span class="classify-box2-text1">新鲜青柠500g/盒新鲜特价2</span>
-                    <span class="classify-box2-text2">￥10.8</span>
-                    <div class="shop-cart-box3">
-                        <span class="shop-cart-subtract"></span>
-                        <input type="tel" size="4" value="0" id="tb_count" class="shop-cart-numer">
-                        <span class="shop-cart-add"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="classify-perch2"></div>
-        </div>
-        <div class="classify-right content2" style="display:none">
-            <div class="classify-perch-r"></div>
-            <div class="classify-right-title">
-                <span class="classifyrt-text1">综合排序</span>
-                <span class="classifyrt-text1 price">按价格<i class="sort-img"></i><i class="sort-img2" style="display: none;"></i></span>
-                <span class="classifyrt-text1 list-show">分类</span>
-            </div>
-            <div class="classify-list" style="display: none;">
-                <span class="classify-list-text1 pitch-on-cl">全部分类</span>
-                <span class="classify-list-text1">进口水果</span>
-                <span class="classify-list-text1">国产水果</span>
-                <span class="classify-list-text1">柑橘橙柚</span>
-                <span class="classify-list-text1">苹果/梨</span>
-                <span class="classify-list-text1">桃杏梅枣</span>
-            </div>
-            <!--商品列表循环-->
-            <div class="classify-box1">
-                <span class="classify-box1-img1"><img src="./del/fruits-img7.png" alt=""></span>
-                <div class="classify-box2">
-                    <span class="classify-box2-text1">新鲜青柠500g/盒新鲜特价3</span>
-                    <span class="classify-box2-text2">￥10.8</span>
-                    <div class="shop-cart-box3">
-                        <span class="shop-cart-subtract"></span>
-                        <input type="tel" size="4" value="0" id="tb_count" class="shop-cart-numer">
-                        <span class="shop-cart-add"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="classify-perch2"></div>
-        </div>
-        <div class="classify-right content2" style="display:none">
-            <div class="classify-perch-r"></div>
-            <div class="classify-right-title">
-                <span class="classifyrt-text1">综合排序</span>
-                <span class="classifyrt-text1 price">按价格<i class="sort-img"></i><i class="sort-img2" style="display: none;"></i></span>
-                <span class="classifyrt-text1 list-show">分类</span>
-            </div>
-            <div class="classify-list" style="display: none;">
-                <span class="classify-list-text1 pitch-on-cl">全部分类</span>
-                <span class="classify-list-text1">进口水果</span>
-                <span class="classify-list-text1">国产水果</span>
-                <span class="classify-list-text1">柑橘橙柚</span>
-                <span class="classify-list-text1">苹果/梨</span>
-                <span class="classify-list-text1">桃杏梅枣</span>
-            </div>
-            <!--商品列表循环-->
-            <div class="classify-box1">
-                <span class="classify-box1-img1"><img src="./del/fruits-img7.png" alt=""></span>
-                <div class="classify-box2">
-                    <span class="classify-box2-text1">新鲜青柠500g/盒新鲜特价4</span>
-                    <span class="classify-box2-text2">￥10.8</span>
-                    <div class="shop-cart-box3">
-                        <span class="shop-cart-subtract"></span>
-                        <input type="tel" size="4" value="0" id="tb_count" class="shop-cart-numer">
-                        <span class="shop-cart-add"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="classify-perch2"></div>
-        </div>
-        <div class="classify-right content2" style="display:none">
-            <div class="classify-perch-r"></div>
-            <div class="classify-right-title">
-                <span class="classifyrt-text1">综合排序</span>
-                <span class="classifyrt-text1 price">按价格<i class="sort-img"></i><i class="sort-img2" style="display: none;"></i></span>
-                <span class="classifyrt-text1 list-show">分类</span>
-            </div>
-            <div class="classify-list" style="display: none;">
-                <span class="classify-list-text1 pitch-on-cl">全部分类</span>
-                <span class="classify-list-text1">进口水果</span>
-                <span class="classify-list-text1">国产水果</span>
-                <span class="classify-list-text1">柑橘橙柚</span>
-                <span class="classify-list-text1">苹果/梨</span>
-                <span class="classify-list-text1">桃杏梅枣</span>
-            </div>
-            <!--商品列表循环-->
-            <div class="classify-box1">
-                <span class="classify-box1-img1"><img src="./del/fruits-img7.png" alt=""></span>
-                <div class="classify-box2">
-                    <span class="classify-box2-text1">新鲜青柠500g/盒新鲜特价5</span>
-                    <span class="classify-box2-text2">￥10.8</span>
-                    <div class="shop-cart-box3">
-                        <span class="shop-cart-subtract"></span>
-                        <input type="tel" size="4" value="0" id="tb_count" class="shop-cart-numer">
-                        <span class="shop-cart-add"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="classify-perch2"></div>
-        </div>
-        <div class="classify-right content2" style="display:none">
-            <div class="classify-perch-r"></div>
-            <div class="classify-right-title">
-                <span class="classifyrt-text1">综合排序</span>
-                <span class="classifyrt-text1 price">按价格<i class="sort-img"></i><i class="sort-img2" style="display: none;"></i></span>
-                <span class="classifyrt-text1 list-show">分类</span>
-            </div>
-            <div class="classify-list" style="display: none;">
-                <span class="classify-list-text1 pitch-on-cl">全部分类</span>
-                <span class="classify-list-text1">进口水果</span>
-                <span class="classify-list-text1">国产水果</span>
-                <span class="classify-list-text1">柑橘橙柚</span>
-                <span class="classify-list-text1">苹果/梨</span>
-                <span class="classify-list-text1">桃杏梅枣</span>
-            </div>
-            <!--商品列表循环-->
-            <div class="classify-box1">
-                <span class="classify-box1-img1"><img src="./del/fruits-img7.png" alt=""></span>
-                <div class="classify-box2">
-                    <span class="classify-box2-text1">新鲜青柠500g/盒新鲜特价56</span>
-                    <span class="classify-box2-text2">￥10.8</span>
-                    <div class="shop-cart-box3">
-                        <span class="shop-cart-subtract"></span>
-                        <input type="tel" size="4" value="0" id="tb_count" class="shop-cart-numer">
-                        <span class="shop-cart-add"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="classify-perch2"></div>
-        </div>
-        <div class="classify-right content2" style="display:none">
-            <div class="classify-perch-r"></div>
-            <div class="classify-right-title">
-                <span class="classifyrt-text1">综合排序</span>
-                <span class="classifyrt-text1 price">按价格<i class="sort-img"></i><i class="sort-img2" style="display: none;"></i></span>
-                <span class="classifyrt-text1 list-show">分类</span>
-            </div>
-            <div class="classify-list" style="display: none;">
-                <span class="classify-list-text1 pitch-on-cl">全部分类</span>
-                <span class="classify-list-text1">进口水果</span>
-                <span class="classify-list-text1">国产水果</span>
-                <span class="classify-list-text1">柑橘橙柚</span>
-                <span class="classify-list-text1">苹果/梨</span>
-                <span class="classify-list-text1">桃杏梅枣</span>
-            </div>
-            <!--商品列表循环-->
-            <div class="classify-box1">
-                <span class="classify-box1-img1"><img src="./del/fruits-img7.png" alt=""></span>
-                <div class="classify-box2">
-                    <span class="classify-box2-text1">新鲜青柠500g/盒新鲜特6</span>
-                    <span class="classify-box2-text2">￥10.8</span>
-                    <div class="shop-cart-box3">
-                        <span class="shop-cart-subtract"></span>
-                        <input type="tel" size="4" value="0" id="tb_count" class="shop-cart-numer">
-                        <span class="shop-cart-add"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="classify-perch2"></div>
-        </div>
-        <div class="classify-right content2" style="display:none">
-            <div class="classify-perch-r"></div>
-            <div class="classify-right-title">
-                <span class="classifyrt-text1">综合排序</span>
-                <span class="classifyrt-text1 price">按价格<i class="sort-img"></i><i class="sort-img2" style="display: none;"></i></span>
-                <span class="classifyrt-text1 list-show">分类</span>
-            </div>
-            <div class="classify-list" style="display: none;">
-                <span class="classify-list-text1 pitch-on-cl">全部分类</span>
-                <span class="classify-list-text1">进口水果</span>
-                <span class="classify-list-text1">国产水果</span>
-                <span class="classify-list-text1">柑橘橙柚</span>
-                <span class="classify-list-text1">苹果/梨</span>
-                <span class="classify-list-text1">桃杏梅枣</span>
-            </div>
-            <!--商品列表循环-->
-            <div class="classify-box1">
-                <span class="classify-box1-img1"><img src="./del/fruits-img7.png" alt=""></span>
-                <div class="classify-box2">
-                    <span class="classify-box2-text1">新鲜青柠500g/盒新鲜特价7</span>
-                    <span class="classify-box2-text2">￥10.8</span>
-                    <div class="shop-cart-box3">
-                        <span class="shop-cart-subtract"></span>
-                        <input type="tel" size="4" value="0" id="tb_count" class="shop-cart-numer">
-                        <span class="shop-cart-add"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="classify-perch2"></div>
-        </div>
-        <div class="classify-right content2" style="display:none">
-            <div class="classify-perch-r"></div>
-            <div class="classify-right-title">
-                <span class="classifyrt-text1">综合排序</span>
-                <span class="classifyrt-text1 price">按价格<i class="sort-img"></i><i class="sort-img2" style="display: none;"></i></span>
-                <span class="classifyrt-text1 list-show">分类</span>
-            </div>
-            <div class="classify-list" style="display: none;">
-                <span class="classify-list-text1 pitch-on-cl">全部分类</span>
-                <span class="classify-list-text1">进口水果</span>
-                <span class="classify-list-text1">国产水果</span>
-                <span class="classify-list-text1">柑橘橙柚</span>
-                <span class="classify-list-text1">苹果/梨</span>
-                <span class="classify-list-text1">桃杏梅枣</span>
-            </div>
-            <!--商品列表循环-->
-            <div class="classify-box1">
-                <span class="classify-box1-img1"><img src="./del/fruits-img7.png" alt=""></span>
-                <div class="classify-box2">
-                    <span class="classify-box2-text1">新鲜青柠500g/盒新鲜特价8</span>
-                    <span class="classify-box2-text2">￥10.8</span>
-                    <div class="shop-cart-box3">
-                        <span class="shop-cart-subtract"></span>
-                        <input type="tel" size="4" value="0" id="tb_count" class="shop-cart-numer">
-                        <span class="shop-cart-add"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="classify-perch2"></div>
-        </div>
-        <div class="classify-right content2" style="display:none">
-            <div class="classify-perch-r"></div>
-            <div class="classify-right-title">
-                <span class="classifyrt-text1">综合排序</span>
-                <span class="classifyrt-text1 price">按价格<i class="sort-img"></i><i class="sort-img2" style="display: none;"></i></span>
-                <span class="classifyrt-text1 list-show">分类</span>
-            </div>
-            <div class="classify-list" style="display: none;">
-                <span class="classify-list-text1 pitch-on-cl">全部分类</span>
-                <span class="classify-list-text1">进口水果</span>
-                <span class="classify-list-text1">国产水果</span>
-                <span class="classify-list-text1">柑橘橙柚</span>
-                <span class="classify-list-text1">苹果/梨</span>
-                <span class="classify-list-text1">桃杏梅枣</span>
-            </div>
-            <!--商品列表循环-->
-            <div class="classify-box1">
-                <span class="classify-box1-img1"><img src="./del/fruits-img7.png" alt=""></span>
-                <div class="classify-box2">
-                    <span class="classify-box2-text1">新鲜青柠500g/盒新鲜特价9</span>
-                    <span class="classify-box2-text2">￥10.8</span>
-                    <div class="shop-cart-box3">
-                        <span class="shop-cart-subtract"></span>
-                        <input type="tel" size="4" value="0" id="tb_count" class="shop-cart-numer">
-                        <span class="shop-cart-add"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="classify-perch2"></div>
-        </div>
-        <div class="classify-right content2" style="display:none">
-            <div class="classify-perch-r"></div>
-            <div class="classify-right-title">
-                <span class="classifyrt-text1">综合排序</span>
-                <span class="classifyrt-text1 price">按价格<i class="sort-img"></i><i class="sort-img2" style="display: none;"></i></span>
-                <span class="classifyrt-text1 list-show">分类</span>
-            </div>
-            <div class="classify-list" style="display: none;">
-                <span class="classify-list-text1 pitch-on-cl">全部分类</span>
-                <span class="classify-list-text1">进口水果</span>
-                <span class="classify-list-text1">国产水果</span>
-                <span class="classify-list-text1">柑橘橙柚</span>
-                <span class="classify-list-text1">苹果/梨</span>
-                <span class="classify-list-text1">桃杏梅枣</span>
-            </div>
-            <!--商品列表循环-->
-            <div class="classify-box1">
-                <span class="classify-box1-img1"><img src="./del/fruits-img7.png" alt=""></span>
-                <div class="classify-box2">
-                    <span class="classify-box2-text1">新鲜青柠500g/盒新鲜特价10</span>
-                    <span class="classify-box2-text2">￥10.8</span>
-                    <div class="shop-cart-box3">
-                        <span class="shop-cart-subtract"></span>
-                        <input type="tel" size="4" value="0" id="tb_count" class="shop-cart-numer">
-                        <span class="shop-cart-add"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="classify-perch2"></div>
         </div>
     </div>
-    <div class="classify-right content2" style="display:none">
-        <div class="classify-perch-r"></div>
-        <div class="classify-right-title">
-            <span class="classifyrt-text1">综合排序</span>
-            <span class="classifyrt-text1 price">按价格<i class="sort-img"></i><i class="sort-img2" style="display: none;"></i></span>
-            <span class="classifyrt-text1 list-show">分类</span>
-        </div>
-        <div class="classify-list" style="display: none;">
-            <span class="classify-list-text1 pitch-on-cl">全部分类</span>
-            <span class="classify-list-text1">进口水果</span>
-            <span class="classify-list-text1">国产水果</span>
-            <span class="classify-list-text1">柑橘橙柚</span>
-            <span class="classify-list-text1">苹果/梨</span>
-            <span class="classify-list-text1">桃杏梅枣</span>
-        </div>
-        <!--商品列表循环-->
-        <div class="classify-box1">
-            <span class="classify-box1-img1"><img src="./del/fruits-img7.png" alt=""></span>
-            <div class="classify-box2">
-                <span class="classify-box2-text1">新鲜青柠500g/盒新鲜特价11</span>
-                <span class="classify-box2-text2">￥10.8</span>
-                <div class="shop-cart-box3">
-                    <span class="shop-cart-subtract"></span>
-                    <input type="tel" size="4" value="0" id="tb_count" class="shop-cart-numer">
-                    <span class="shop-cart-add"></span>
-                </div>
-            </div>
-        </div>
-        <div class="classify-perch2"></div>
-    </div>
-
-
-    <script type="text/javascript">
-        function switab(tab, con, tab_c_css, tab_n_css, no) {
-            $(tab).each(function (i) {
-                if (i == no) {
-                    $(this).addClass(tab_c_css);
-                } else {
-                    $(this).removeClass(tab_c_css);
-                    $(this).addClass(tab_n_css);
-                }
-            })
-            if (con) {
-                $(con).each(function (i) {
-                    if (i == no) {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
+    <script type="text/javascript" src="~/Areas/Phone/Script/Home/scrolltopcontrol.js"></script>
+    <script type="text/javascript" src="~/Areas/Phone/Script/Home/TouchSlide.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                popular: []
+            },
+            created: function () {
+                this.getPopularData();
+            },
+            methods: {
+                getPopularData() {
+                    const param = {
+                        rows: 9000
                     }
-                })
+                    $.ajax({
+                        url: "/Phone/PhoneProduct/getPopular",
+                        data: param,
+                        dataType: 'json'
+                    }).then((data) => {
+                       
+                        this.popular = data.rows;
+                        console.log(data)
+                    });
+                },
+                JumpInfo(id) {
+                    location.href = "/Phone/PhoneProduct/ProductInfo?id=" + id;
+                }
             }
-        }
-        $(document).ready(function () {
-            $(".classify-text1").each(function (i) {
-                $(this).click(function () {
-                    switab('.classify-text1', '.content2', 'pitch-on2', '', i);
-                })
-            })
-        });
-
-        $(".price").click(function () {
-            $(this).children(".sort-img").hide();
-            $(this).children(".sort-img2").show();
-            $(this).children(".sort-img2").toggleClass("img3");
-        });
-        $(".classifyrt-text1").click(function () {
-            $(this).addClass("tcolor-yellow");
-            $(this).siblings(".classifyrt-text1").removeClass("tcolor-yellow");
-        });
-        $(".list-show").click(function () {
-            $(this).parent(".classify-right-title").next(".classify-list").slideToggle();
-        });
-
-        $(".shop-cart-add").click(function () {
-            var multi = 0;
-            var vall = $(this).prev().val();
-            vall++;
-            $(this).prev().val(vall);
-            TotalPrice();
-        });
-        $(".shop-cart-subtract").click(function () {
-            var multi = 0;
-            var vall = $(this).next().val();
-            vall--;
-            if (vall <= 0) {
-                vall = 0;
-            }
-            $(this).next().val(vall);
-            TotalPrice();
+        })
+    </script>
+    <script>
+        TouchSlide({
+            slideCell: "#slideBox",
+            titCell: ".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+            mainCell: ".bd ul",
+            effect: "leftLoop",
+            autoPage: true,//自动分页
+            autoPlay: true, //自动播放
         });
     </script>
 </body>
