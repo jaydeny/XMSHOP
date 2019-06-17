@@ -222,6 +222,7 @@
                         if (data.success) {
                             this.ACTable = data.data;
                             this.ACLen = data.data.length;
+
                         } else {
                             this.isLogin = false;
                             $("#AcTitle").text("请先登录");
@@ -247,8 +248,17 @@
                     }).then((data) => {
                         if (data.success == true) {
                             this.Address = data.data;
+                            console.log(data);
+                            $.each(data.data, function (i, v) {
+                                if (i == 1) {
+                                    cart._data.AddreID = v.AddressID;
+                                    $("#adrTitle").text(v.AddressName);
+                                } else {
+                                    $("#adrTitle").text("请选择收货地址");
+                                }
+                            });
                         }
-                        //console.log(data);
+                        
                     });
                 },
                 //选择地址
@@ -263,15 +273,24 @@
                 },
                 //下单
                 subToOrder() {
+
                     this.subTable = [];
                     const acID = this.AcID;
                     const adID = this.AddreID;
+                    
                     if (this.isLogin) {
-                        $.each($(".btn2"), function (i, v) {
-                            if ($(v).is(":checked")) {
-                                cart.getOrderByID($(this)[0].id, acID, adID);
-                            }
-                        })
+                        if (adID == "") {
+                            console.log("aa")
+                        } else {
+                            $.each($(".btn2"), function (i, v) {
+                                if ($(v).is(":checked")) {
+                                    cart.getOrderByID($(this)[0].id, acID, adID);
+                                }
+                            });
+                            console.log(this.subTable)
+                            this.ajaxToOrder();
+                            $('.delete').trigger("click");
+                        }
                     } else {
                         location.href = "/Phone/PhoneHome/Login_MBV"
                     }
@@ -280,10 +299,10 @@
                 getOrderByID(id,acID,adID) {
                     $.each(this.cartTable, function (i,v) {
                         if (id == v.item_ID) {
-                            cart._data.subTable.push({ AddressID: adID, Count: v.Agoods_Count, ProID: v.Agoods_ID, ProTotal: v.GoodsPrice, AcID: acID });
+                            cart._data.subTable.push({ AddressID: adID, Count: v.Agoods_Count, ProID: v.Agoods_ID, ProTotal: v.GoodsPrice, AcID: acID, OrderTotal: v.Agoods_Count * v.GoodsPrice});
                         }
                     });
-                    this.ajaxToOrder();
+                    
                 },
                 //发送下单请求到后台
                 ajaxToOrder() {
