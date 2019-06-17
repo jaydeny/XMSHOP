@@ -55,7 +55,7 @@ $(".site-list").on("click", ".update", function () {
 $("#btnAddAddress").click(function () {
     var site = $.trim($("#txt_address").val());
     if (site == "") {
-        narn('log', '请输入地址') 
+        narn('log', '请输入地址')
         return false;
     }
     var url = "InsertAddress";

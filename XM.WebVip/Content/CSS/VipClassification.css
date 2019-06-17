@@ -72,6 +72,7 @@
 /*商品展示框*/
 .classification .goods-exhibition {
     margin: 20px -20px -20px 0;
+    padding: 0 0 20px 0;
     min-height: 380px;
     overflow: hidden;
 }
@@ -91,7 +92,6 @@
     position: relative;
     text-align: center;
     overflow: hidden;
-    bottom: 30px;
 }
 .classification .goods-exhibition .goods-item:hover {
     border-color: #e01d20;

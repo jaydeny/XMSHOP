@@ -28,7 +28,7 @@ var orderTemplate = function (obj) {
 
 // 查询订单
 var qryOrder = function () {
-    // 页面条数
+    /*// 页面条数
     paging.pageTotal = 3;
     paging.callbackMethod = function () {
         $.post("/Shop/QryOrder", { rows: paging.pageTotal, page: paging.currentPage }, function (data) {
@@ -48,7 +48,29 @@ var qryOrder = function () {
                 $("#order_box").addClass("hidden");
             }
         }, "json")
-        
+    }
+    // 回调
+    paging.callbackMethod();*/
+    var paging = new Paging("#paging-box");
+    paging.pageTotal = 3;
+    paging.callbackMethod = function () {
+        $.post("/Shop/QryOrder", { rows: paging.pageTotal, page: paging.currentPage }, function (data) {
+            if (data.total > 0) {
+                $("#empty_order").addClass("hidden");
+                $("#order_box").removeClass("hidden");
+                $(".order-list>ul").html("");
+                $.each(data.rows, function (i, n) {
+                    $(".order-list>ul").append(orderTemplate(n));
+                });
+                //总条数
+                paging.total = data.total;
+                paging.renderPaging();
+            }
+            else {
+                $("#empty_order").removeClass("hidden");
+                $("#order_box").addClass("hidden");
+            }
+        }, "json")
     }
     // 回调
     paging.callbackMethod();

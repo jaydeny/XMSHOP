@@ -200,6 +200,7 @@
     <Content Include="Content\CSS\home.css" />
     <Content Include="Content\CSS\HomePage.css" />
     <Content Include="Content\CSS\notice.css" />
+    <Content Include="Content\CSS\paging.css" />
     <Content Include="Content\CSS\shopping.css" />
     <Content Include="Content\CSS\vipAlterPwd.css" />
     <Content Include="Content\CSS\vipChangePwd.css" />

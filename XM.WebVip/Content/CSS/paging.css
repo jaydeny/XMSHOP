@@ -1,0 +1,29 @@
+﻿.pagination .up_page a:hover,
+.pagination .below_page a:hover {
+    color: #fff;
+    border-color: #337ab7;
+    background-color: #337ab7;
+}
+
+.pagination .skipPage {
+    margin: 0 3px;
+    width: 30px;
+    height: 20px;
+    text-align: center;
+}
+
+.pagination {
+    margin: 0;
+}
+
+    .pagination li {
+        cursor: pointer;
+    }
+
+    .pagination .li-btn a {
+        padding: 3px 9px;
+    }
+
+    .pagination .li-btn button {
+        padding: 2px 9px;
+    }
