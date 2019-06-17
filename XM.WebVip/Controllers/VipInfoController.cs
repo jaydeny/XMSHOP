@@ -133,8 +133,30 @@ namespace XM.WebVip.Controllers
             }
             return OperationReturn(true, "vip018");
         }
+
+        /// <summary>
+        /// 作者:曾贤鑫
+        /// 日期:2019/6/14
+        /// 功能:设置默认地址
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult SiteTolerant()
+        {
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("address_id", int.Parse(Request["address_id"]));
+            param.Add("vip_id", int.Parse(Session["ID"].ToString()));
+            //param.Add("vip_id", Request["vip_id"]);
+
+            int iCheck = DALUtility.Vip.SiteTolerant(param);
+
+            if (iCheck > 1)
+            {
+                return OperationReturn(false, "vip024");
+            }
+            return OperationReturn(true, "vip023");
+        }
         #endregion
-        
+
         #region _recharge
         /// <summary>
         /// 作者:曾贤鑫
@@ -243,7 +265,7 @@ namespace XM.WebVip.Controllers
             param.Add("id", ID);
             param.Add("address_name", Request["address_name"]);
             param.Add("vip_id", int.Parse(Session["ID"].ToString()));
-            param.Add("status_id", Request["status_id"]);
+            //param.Add("status_id", Request["status_id"]);
             //param.Add("vip_id", Request["vip_id"]);
 
             int iCheck = DALUtility.Vip.SaveAddress(param);
