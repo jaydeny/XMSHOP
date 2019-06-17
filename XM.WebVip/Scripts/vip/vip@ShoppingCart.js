@@ -1,5 +1,5 @@
-﻿var sp1 = parseInt($("#price").data("val"));
-var sp2 = parseInt($("#count").data("val"));
+﻿var sp1 = parseInt($(".price").data("val"));
+var sp2 = parseInt($(".count").data("val"));
 (function getMoney(e, r) {
     var res = parseInt(e * r);
     $(".priceTotal").text(res)
@@ -25,7 +25,7 @@ $(".delete").click(function () {
 
 //商品数量减一
 $(".minus").click(function () {
-    var that = $(this).closest("div").children("#count");
+    var that = $(this).closest("div").children(".count");
     var x = Number($.trim($(that).val()));
     
     var AgoodsID = $(this).closest("div.shopping-row").data("val");
@@ -50,7 +50,7 @@ $(".minus").click(function () {
 
 //商品数量加一
 $(".plus").click(function () {
-    var that = $(this).closest("div").children("#count");
+    var that = $(this).closest("div").children(".count");
     var x = Number($.trim($(that).val()));
 
     var AgoodsID = $(this).closest("div.shopping-row").data("val");
@@ -106,7 +106,7 @@ $("#Orders").click(function () {
     $.each(list, function (index, obj) {
         id = $(obj).closest("div.shopping-row").data("val");
         count = $(obj).closest("div.shopping-row").data("count");
-        proTotal = $(obj).closest("div.shopping-row").find("#price").data("val");
+        proTotal = $(obj).closest("div.shopping-row").find(".price").data("val");
         buys.push({ "proID": id, "count": count, "proTotal": proTotal, "addressID": $("#Add").val(), "acID": $("#Ac").val() });
 
         itemid = $(obj).closest("div.shopping-row").data("itemid");
@@ -149,7 +149,7 @@ function BuyDelete(items) {
 $("#agoods").on("click", ".check", function () {
     if ($(this).prop("checked")) {
         var count = $(this).closest("div.shopping-row").data("count")
-        var price = $(this).closest("div.shopping-row").find("#price").data("val")
+        var price = $(this).closest("div.shopping-row").find(".price").data("val")
         var result = Number(count * price)
         var origin = Number($("#total").text())
         $("#total").text(parseInt(result + origin))
@@ -157,7 +157,7 @@ $("#agoods").on("click", ".check", function () {
     }
     else {
         var count = $(this).closest("div.shopping-row").data("count")
-        var price = $(this).closest("div.shopping-row").find("#price").data("val")
+        var price = $(this).closest("div.shopping-row").find(".price").data("val")
         var result = Number(count * price)
         var origin = Number($("#total").text())
         $("#total").text(parseInt(origin - result))
@@ -176,7 +176,7 @@ $(".checkAll").click(function () {
 
         $.each(list, function (index, obj) {
             var count = Number($(obj).closest("div.shopping-row").data("count"))
-            var price = Number($(obj).closest("div.shopping-row").find("#price").data("val"))
+            var price = Number($(obj).closest("div.shopping-row").find(".price").data("val"))
             sum += parseInt(count * price)
         })
         $("#total").text(sum)

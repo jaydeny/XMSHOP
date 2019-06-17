@@ -52,7 +52,7 @@
                                 <div class="flex-3">
                                     @item.GoodsName
                                 </div>
-                                <div id="price" class="flex-1" data-val="@item.GoodsPrice">
+                                <div class="flex-1 price" data-val="@item.GoodsPrice">
                                     @item.GoodsPrice
                                 </div>
                                 <div class="flex-1">
@@ -62,7 +62,7 @@
                                                 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                                             </button>
                                         </span>
-                                        <input type="text" id="count" class="form-control" data-val="@item.Agoods_Count" value="@item.Agoods_Count" style="font-size: 18px;text-align: center;padding: 0;" readonly >
+                                        <input type="text" class="form-control count" data-val="@item.Agoods_Count" value="@item.Agoods_Count" style="font-size: 18px;text-align: center;padding: 0;" readonly >
                                         <span class="input-group-btn">
                                             <button class="btn btn-default plus" type="button">
                                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -77,7 +77,6 @@
                                     <a class="delete" data-val="@item.item_ID">删除</a>
                                 </div>
                             </div>
-                            
                         }
 
                             <div class="address-box">
@@ -107,7 +106,6 @@
                                 </select>
                             </div>
 
-
                         <!-- 底部 -->
                         <div class="shopping-bottom">
                             <div class="operation">
@@ -115,11 +113,10 @@
                                 <a class="deleteAll">删除</a>
                             </div>
 
-
                             <div class="bottom-but"><a class="but-order" id="Orders">立即下单</a></div>
                             <div class="total">
-                                <p>总计：<span>￥<b id="total"></b></span></p>
-                                <p class="hint">已选择<span id="choose"></span>件商品</p>
+                                <p>总计：<span>￥<b id="total">0.0</b></span></p>
+                                <p class="hint">已选择<span id="choose">0</span>件商品</p>
                             </div>
                         </div>
                     </form>
