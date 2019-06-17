@@ -62,11 +62,13 @@ $("#btnAddAddress").click(function () {
     if (updateId != 0) {
         url = "UpdateAddress"
     }
-    $.post("/vipinfo/" + url, { "address_id": updateId, "address_name": site }, function (data) {
+    var tolerant = $("#tolerant").prop("checked") == true ? 1 : 0;
+    $.post("/vipinfo/" + url, { "address_id": updateId, "address_name": site, status_id: tolerant }, function (data) {
         if (data.success) {
             if (data.msg == "vip021") {
                 narn('success', "添加收货地址成功") 
             }
+            $("#tolerant").prop("checked", false);
             narn('success', "修改收货地址成功") 
             addressAll();
         } else {
