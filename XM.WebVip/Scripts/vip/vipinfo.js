@@ -1,4 +1,9 @@
 ﻿var last_a;
+function refreshJS(script) {
+    var newScript = document.createElement('script');
+    newScript.src = script + '?' + new Date().getTime();
+    document.body.appendChild(newScript);
+}
 $(".vipinfo-nav a").click(function () {
     if ($(this).hasClass("action")) {
         return false;
@@ -8,9 +13,13 @@ $(".vipinfo-nav a").click(function () {
     last_a = $(this);
     $(this).addClass("action");
     if ($(this).prop("href") != "") {
+        var jsUrl = $(this).data("js");
         $.get($(this).prop("href"), function (data, status, xhr) {
             if (!$(".vipinfo-main .info-head").hasClass("hidden")) {
                 $(".vipinfo-main .info-head").addClass("hidden");
+            }
+            if (jsUrl != undefined) {
+                refreshJS(jsUrl);
             }
             $(".vipinfo-main .info-body").html(data);
         }, "html")
