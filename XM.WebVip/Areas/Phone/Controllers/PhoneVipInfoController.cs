@@ -1,19 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using XM.WebVip.Controllers;
-
+/// <summary>
+/// 作者:梁钧淋
+/// 日期:2019/5/28
+/// </summary>
 namespace XM.WebVip.Areas.Phone.Controllers
 {
+    /// <summary>
+    /// 用户个人中心
+    /// </summary>
     public class PhoneVipInfoController : VipInfoController
     {
-        // GET: Phone/PhoneVipInfo
+        /// <summary>
+        /// 返回个人中心页
+        /// </summary>
+        /// <returns></returns>
         public ActionResult InfoPage_MB()
         {
             return View();
         }
+        /// <summary>
+        /// 获取用户名字
+        /// </summary>
+        /// <returns></returns>
         public ActionResult getName() {
             if (Session["AN"] == null)
                 return OperationReturn(false, "", "请登录...");

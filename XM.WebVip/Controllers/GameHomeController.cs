@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Web;
-using System.Web.Helpers;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using XM.Comm;
 using XM.WebVIP.Controllers;
-
+/// <summary>
+/// 作者:曾贤鑫
+/// 日期:2019/5/13
+/// </summary>
 namespace XM.WebVip.Controllers
 {
+    /// <summary>
+    /// 游戏
+    /// </summary>
     public class GameHomeController : BaseController
     {
-        // GET: GameHome
+      
         /// <summary>
         /// 功能:登录到游戏
         /// </summary>

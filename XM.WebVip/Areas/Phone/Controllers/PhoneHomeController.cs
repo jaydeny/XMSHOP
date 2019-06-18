@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using XM.WebVip.Controllers;
-
+/// <summary>
+/// 作者:梁钧淋
+/// 日期:2019/5/28
+/// </summary>
 namespace XM.WebVip.Areas.Phone.Controllers
 {
-    // GET: Home
     /// <summary>
-    /// 作者:梁钧淋
-    /// 日期:2019/5/16
     /// 功能:会员端手机版操作,登录等方法
     /// </summary>
     /// <returns>页面:首页</returns>
@@ -22,7 +18,10 @@ namespace XM.WebVip.Areas.Phone.Controllers
             return View();
         }
 
-        //手机端登录方法
+        /// <summary>
+        /// 手机端登陆方法
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult SignIn_MB()
         {
@@ -30,12 +29,18 @@ namespace XM.WebVip.Areas.Phone.Controllers
             string pwd = Request["password"];
             return Login(AN, pwd);
         }
-        //登录页面返回
+        /// <summary>
+        /// 返回登陆页面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Login_MBV()
         {
             return View();
         }
-        //用户退出方法
+        /// <summary>
+        /// 用户退出登陆
+        /// </summary>
+        /// <returns></returns>
         public ActionResult SignUp_MB()
         {
             return RemoveSession();

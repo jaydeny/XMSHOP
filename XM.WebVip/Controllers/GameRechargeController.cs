@@ -5,13 +5,17 @@ using System.Web;
 using System.Web.Mvc;
 using XM.Comm;
 using XM.WebVIP.Controllers;
-
+/// <summary>
+/// 作者:曾贤鑫
+/// 日期:2019/5/13
+/// </summary>
 namespace XM.WebVip.Controllers
 {
+    /// <summary>
+    /// 游戏积分
+    /// </summary>
     public class GameRechargeController : BaseController
     {
-
-        // GET: GameRecharge
         /// <summary>
         /// 功能:返回充值,反充值页面
         /// </summary>
@@ -58,7 +62,7 @@ namespace XM.WebVip.Controllers
                     return OperationReturn(false, "game003");
                 }
             }
-
+            
             string code = Guid.NewGuid().ToString();
 
             string[] paras = { Agent_Acc.ToString(), AN, Money,code };

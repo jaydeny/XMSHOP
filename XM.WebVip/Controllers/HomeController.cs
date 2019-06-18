@@ -4,24 +4,19 @@ using System.Web.Mvc;
 using XM.Comm;
 using XM.Model;
 using XM.WebVIP.Controllers;
-
+/// <summary>
+/// 作者：曾贤鑫
+/// 创建时间:2019-5/5
+/// </summary>
 namespace XM.WebVip.Controllers
 {
 
     /// <summary>
-    /// 作者：曾贤鑫
-    /// 创建时间:2019-5/5
-    /// 修改时间：2019-
     /// 功能：登录,注册,修改,安全退出等方法
     /// </summary>
     public class HomeController : BaseController
     {
-
-       
-        // GET: Home
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:返回会员端首页
         /// </summary>
         /// <returns>页面:首页</returns>
@@ -40,8 +35,6 @@ namespace XM.WebVip.Controllers
 
         #region _Login
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:返回会员端登录页面
         /// </summary>
         /// <returns>页面:登录页面</returns>
@@ -51,8 +44,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:会员端进行登入的方法
         /// </summary>
         /// <returns>json值</returns>
@@ -95,8 +86,6 @@ namespace XM.WebVip.Controllers
                             vip_AN = vip.VipAccountName,
                             agent_id = vip.AgentID
                         });
-
-                    return OperationReturn(true, "vip001");
                 }
                 else
                 {
@@ -112,8 +101,6 @@ namespace XM.WebVip.Controllers
 
         #region _Signin
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:返回会员端注册页面
         /// </summary>
         /// <returns>页面:注册时,返回注册页面</returns>
@@ -123,8 +110,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:会员端进行注册
         /// </summary>
         /// <returns>json值</returns>
@@ -137,8 +122,6 @@ namespace XM.WebVip.Controllers
 
         #region _update
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:会员端进入修改信息页面
         /// </summary>
         /// <returns>页面:修改信息页面</returns>
@@ -156,8 +139,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:会员端进行修改信息
         /// </summary>
         /// <returns>json值</returns>
@@ -168,8 +149,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/28
         /// 功能:返回密码找回页面,输入用户名  
         /// 进入修改密码页面  
         /// </summary>
@@ -180,8 +159,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/28
         /// 功能:发送邮件
         /// </summary>
         /// <returns>json值</returns>
@@ -204,8 +181,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/28
         /// 功能:进入找回密码页面
         /// </summary>
         /// <returns>页面</returns>
@@ -216,8 +191,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/28
         /// 功能:根据id找回密码
         /// </summary>
         /// <returns>json值</returns>
@@ -228,8 +201,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/28
         /// 功能:进入修改密码页面
         /// </summary>
         /// <returns>页面</returns>
@@ -239,8 +210,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/28
         /// 功能:根据id修改密码
         /// </summary>
         /// <returns>json值</returns>
@@ -268,8 +237,6 @@ namespace XM.WebVip.Controllers
 
         #region _自定义
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/25
         /// 功能:添加/修改vip公用方法
         /// </summary>
         /// <param name="ID"></param>
@@ -308,9 +275,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者：曾贤鑫
-        /// 创建时间:2019-4-28
-        /// 修改时间：2019-
         /// 功能：获取代理商AN
         /// </summary>
         public string getAgentAN(int id)
@@ -323,9 +287,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者：曾贤鑫
-        /// 创建时间:2019-4-28
-        /// 修改时间：2019-
         /// 功能：获取代理商AN
         /// </summary>
         public decimal getRemainder(string AN)
@@ -338,9 +299,6 @@ namespace XM.WebVip.Controllers
 
 
         /// <summary>
-        /// 作者：曾贤鑫
-        /// 创建时间:2019-4-28
-        /// 修改时间：2019-
         /// 功能：安全退出
         /// </summary>
         public ActionResult RemoveSession() 

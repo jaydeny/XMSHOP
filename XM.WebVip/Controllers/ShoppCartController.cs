@@ -7,12 +7,21 @@ using System.Web;
 using System.Web.Mvc;
 using XM.Model;
 using XM.WebVIP.Controllers;
-
+/// <summary>
+/// 作者:曾贤鑫
+/// 日期:2019/5/13
+/// </summary>
 namespace XM.WebVip.Controllers
 {
+    /// <summary>
+    /// 购物车
+    /// </summary>
     public class ShoppCartController : BaseController
     {
-        // GET: ShoppCart
+        /// <summary>
+        /// 返回购物车页面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();
@@ -35,6 +44,8 @@ namespace XM.WebVip.Controllers
             return OperationReturn(true, "登录状态", data);
         }
         
+
+
         /// <summary>
         /// 编辑购物车
         /// editType 操作类型 ， 1，添加/修改  2，删除
@@ -87,7 +98,11 @@ namespace XM.WebVip.Controllers
                 return OperationReturn(false, "操作失败");
             return OperationReturn(true, "操作成功");
         }
-
+        /// <summary>
+        /// 批量删除购物车项
+        /// </summary>
+        /// <param name="items">购物车项ID数组</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult deleCarts(int[] items) {
             if(Session["id"] == null)

@@ -6,12 +6,21 @@ using System.Web.Mvc;
 using XM.Model;
 using XM.WebVIP.Controllers;
 using YMOA.MongoDB;
-
+/// <summary>
+/// 作者：曾贤鑫
+/// 创建时间:2019-5/5
+/// </summary>
 namespace XM.WebVip.Controllers
 {
+    /// <summary>
+    /// 公告
+    /// </summary>
     public class NoticeController : BaseController
     {
-        // GET: notice
+       /// <summary>
+       /// 返回公共发布页
+       /// </summary>
+       /// <returns></returns>
         public ActionResult Notice()
         {
             return View("_Notice");

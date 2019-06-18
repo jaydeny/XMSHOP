@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using XM.Model;
 using XM.WebVIP.Controllers;
-
+/// <summary>
+/// 作者:曾贤鑫
+/// 日期:2019/5/13
+/// </summary>
 namespace XM.WebVip.Controllers
 {
+    /// <summary>
+    /// 商品购买
+    /// </summary>
     public class ShopController : BaseController
     {
-        // GET: Shop
+        
         #region _chooseAC
         /// <summary>
         /// 功能:进入选择活动类型页面
@@ -396,7 +402,7 @@ namespace XM.WebVip.Controllers
         /// 功能:向tbAc_order和tbReceiveAward添加记录
         /// </summary>
         /// <param name="OrderAndBuyInfoDic"></param>
-        /// <param name="Ac_id"></param>
+        /// <param name="Ac_id">活动ID</param>
         /// <param name="Award">奖励</param>
         /// <param name="Code">标识</param>
         /// <param name="Times">次数</param>
@@ -512,7 +518,7 @@ namespace XM.WebVip.Controllers
         /// 获取活动的类型信息
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="param"></param>
+        /// <param name="Ac_id">活动ID</param>
         /// <returns></returns>
         public T QryACTypeInfoFull<T>(int Ac_id)
         {
@@ -524,7 +530,7 @@ namespace XM.WebVip.Controllers
         /// 获取活动的类型信息
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="param"></param>
+        /// <param name="Ac_id">活动ID</param>
         /// <returns></returns>
         public T QryACTypeInfoDis<T>(int Ac_id)
         {

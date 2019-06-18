@@ -4,17 +4,21 @@ using System.Linq;
 using System.Web.Mvc;
 using XM.Model;
 using XM.WebVIP.Controllers;
-
+/// <summary>
+/// 作者：曾贤鑫
+/// 创建时间:2019-5/5
+/// </summary>
 namespace XM.WebVip.Controllers
 {
+    /// <summary>
+    /// 商品功能
+    /// </summary>
     public class ProductController : BaseController
     {
-        // GET: Product
+       
 
         #region _goods
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:查询所有的代理商商品
         /// </summary>
         /// <returns>json值</returns>
@@ -41,8 +45,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:查询所有的商品
         /// </summary>
         /// <returns>json值</returns>
@@ -73,9 +75,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者：曾贤鑫
-        /// 创建时间:2019-4/30
-        /// 修改时间：2019-
         /// 功能：返回商品筛选页
         /// </summary>
         public ActionResult AgoodsList()
@@ -87,8 +86,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:查询热销单品和精品商品
         /// </summary>
         /// <returns>json值</returns>
@@ -112,8 +109,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:查询热销单品和精品商品
         /// </summary>
         /// <returns>json值</returns>

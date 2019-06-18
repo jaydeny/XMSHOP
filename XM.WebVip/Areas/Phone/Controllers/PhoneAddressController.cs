@@ -1,22 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using XM.Model;
 using XM.WebVIP.Controllers;
-
+/// <summary>
+/// 作者:梁钧淋
+/// 日期:2019/5/28
+/// </summary>
 namespace XM.WebVip.Areas.Phone.Controllers
 {
+    /// <summary>
+    /// 地址
+    /// </summary>
     public class PhoneAddressController : BaseController
     {
-        // GET: Phone/PhoneAddress
+        /// <summary>
+        /// 返回地址页
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();
         }
         /// <summary>
-        /// 获取所有地址
+        /// 获取用户所有地址
         /// </summary>
         /// <returns></returns>
         public ActionResult GetAllAddress()

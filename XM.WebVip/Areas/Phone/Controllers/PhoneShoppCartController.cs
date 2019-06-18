@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using XM.WebVip.Controllers;
-
+/// <summary>
+/// 作者:梁钧淋
+/// 日期:2019/5/28
+/// </summary>
 namespace XM.WebVip.Areas.Phone.Controllers
 {
+    /// <summary>
+    /// 购物车
+    /// </summary>
     public class PhoneShoppCartController : ShoppCartController
     {
         /// <summary>

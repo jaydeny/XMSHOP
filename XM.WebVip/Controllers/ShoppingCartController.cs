@@ -6,12 +6,18 @@ using System.Web.Mvc;
 using XM.Comm;
 using XM.Model;
 using XM.WebVIP.Controllers;
-
+/// <summary>
+/// 作者:曾贤鑫
+/// 日期:2019/5/13
+/// </summary>
 namespace XM.WebVip.Controllers
 {
+    /// <summary>
+    /// pc端购物车
+    /// </summary>
     public class ShoppingCartController : BaseController
     {
-        // GET: ShoppingCart
+        
         /// <summary>
         /// 功能:进入购物车页面
         /// </summary>

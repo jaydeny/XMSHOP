@@ -5,17 +5,21 @@ using System.Web.Routing;
 using XM.Comm;
 using XM.Model;
 using XM.WebVIP.Controllers;
-
+/// <summary>
+/// 作者:曾贤鑫
+/// 日期:2019/5/13
+/// </summary>
 namespace XM.WebVip.Controllers
 {
+    /// <summary>
+    /// 个人中心
+    /// </summary>
     public class VipInfoController : BaseController
     {
 
-        // GET: VipInfo
+        
         #region _vipInfo
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/28
         /// 功能:返回vip个人中心页面
         /// </summary>
         /// <returns>页面</returns>
@@ -41,8 +45,6 @@ namespace XM.WebVip.Controllers
 
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/28
         /// 功能:返回vip个人信息
         /// </summary>
         /// <returns>json值</returns>
@@ -60,8 +62,6 @@ namespace XM.WebVip.Controllers
 
         #region _address
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/28
         /// 功能:返回vip收货地址
         /// </summary>
         /// <returns>页面</returns>
@@ -71,8 +71,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/28
         /// 功能:返回vip收货地址
         /// </summary>
         /// <returns>json值</returns>
@@ -97,8 +95,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/28
         /// 功能:vip地址添加
         /// </summary>
         /// <returns></returns>
@@ -113,8 +109,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/28
         /// 功能:删除收货地址
         /// </summary>
         /// <returns></returns>
@@ -135,8 +129,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/6/14
         /// 功能:设置默认地址
         /// </summary>
         /// <returns></returns>
@@ -159,8 +151,6 @@ namespace XM.WebVip.Controllers
 
         #region _recharge
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:会员端进行充值
         /// </summary>
         /// <param name="vip_AN"></param>
@@ -171,8 +161,6 @@ namespace XM.WebVip.Controllers
         }
         
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:会员端进行充值
         /// </summary>
         /// <param name="vip_AN"></param>
@@ -240,8 +228,6 @@ namespace XM.WebVip.Controllers
 
         #region _invitation
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:会员端进行邀请注册
         /// </summary>
         /// <param name="vip_AN"></param>
@@ -254,8 +240,6 @@ namespace XM.WebVip.Controllers
 
         #region _自定义
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/28
         /// 功能:vip地址的添加或者修改公用方法
         /// </summary>
         /// <returns></returns>
@@ -292,8 +276,6 @@ namespace XM.WebVip.Controllers
         
         /// <summary>
         /// 作者：曾贤鑫
-        /// 创建时间:2019-4-28
-        /// 修改时间：2019-
         /// 功能：安全退出
         /// </summary>
         public ActionResult RemoveSession()

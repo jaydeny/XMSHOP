@@ -1,19 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XM.WebVip.Controllers;
-
+/// <summary>
+/// 作者:梁钧淋
+/// 日期:2019/5/28
+/// </summary>
 namespace XM.WebVip.Areas.Phone.Controllers
 {
+    /// <summary>
+    /// 商品
+    /// </summary>
     public class PhoneProductController : ProductController
     {
-        // GET: Phone/PhoneProduct
+       /// <summary>
+       /// 返回商品列表视图
+       /// </summary>
+       /// <returns></returns>
         public ActionResult AgoodsList_MB()
         {
             return View();
         }
+        /// <summary>
+        /// 返回搜索页面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Search_MB()
         {
             return View();

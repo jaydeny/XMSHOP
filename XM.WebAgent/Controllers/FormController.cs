@@ -18,8 +18,6 @@ namespace XM.WebAgent.Controllers
     {
         #region _Form
         /// <summary>
-        /// 作者:梁钧淋
-        /// 日期:2019/4/29
         /// 功能:返回报表页面 
         /// </summary>
         /// <returns></returns>
