@@ -157,7 +157,6 @@ namespace XM.WebVip.Controllers
             Dictionary<string, object> AcDic = new Dictionary<string, object>();
             AcDic.Add("agent_AN", Agent_AN);
             AcDic.Add("Date", DateTime.Now);
-
             return DALUtility.Activity.QryAC<ActivityEntity>(AcDic);
         }
     }

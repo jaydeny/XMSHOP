@@ -1,4 +1,9 @@
 ﻿var last_a;
+function refreshJS(script) {
+    var newScript = document.createElement('script');
+    newScript.src = script + '?' + new Date().getTime();
+    document.body.appendChild(newScript);
+}
 $(".vipinfo-nav a").click(function () {
     if ($(this).hasClass("action")) {
         return false;
@@ -8,9 +13,13 @@ $(".vipinfo-nav a").click(function () {
     last_a = $(this);
     $(this).addClass("action");
     if ($(this).prop("href") != "") {
+        var jsUrl = $(this).data("js");
         $.get($(this).prop("href"), function (data, status, xhr) {
             if (!$(".vipinfo-main .info-head").hasClass("hidden")) {
                 $(".vipinfo-main .info-head").addClass("hidden");
+            }
+            if (jsUrl != undefined) {
+                refreshJS(jsUrl);
             }
             $(".vipinfo-main .info-body").html(data);
         }, "html")
@@ -28,7 +37,7 @@ var orderTemplate = function (obj) {
 
 // 查询订单
 var qryOrder = function () {
-    // 页面条数
+    /*// 页面条数
     paging.pageTotal = 3;
     paging.callbackMethod = function () {
         $.post("/Shop/QryOrder", { rows: paging.pageTotal, page: paging.currentPage }, function (data) {
@@ -48,7 +57,29 @@ var qryOrder = function () {
                 $("#order_box").addClass("hidden");
             }
         }, "json")
-        
+    }
+    // 回调
+    paging.callbackMethod();*/
+    var paging = new Paging("#paging-box");
+    paging.pageTotal = 3;
+    paging.callbackMethod = function () {
+        $.post("/Shop/QryOrder", { rows: paging.pageTotal, page: paging.currentPage }, function (data) {
+            if (data.total > 0) {
+                $("#empty_order").addClass("hidden");
+                $("#order_box").removeClass("hidden");
+                $(".order-list>ul").html("");
+                $.each(data.rows, function (i, n) {
+                    $(".order-list>ul").append(orderTemplate(n));
+                });
+                //总条数
+                paging.total = data.total;
+                paging.renderPaging();
+            }
+            else {
+                $("#empty_order").removeClass("hidden");
+                $("#order_box").addClass("hidden");
+            }
+        }, "json")
     }
     // 回调
     paging.callbackMethod();

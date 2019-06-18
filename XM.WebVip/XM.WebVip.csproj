@@ -203,6 +203,7 @@
     <Content Include="Content\CSS\home.css" />
     <Content Include="Content\CSS\HomePage.css" />
     <Content Include="Content\CSS\notice.css" />
+    <Content Include="Content\CSS\paging.css" />
     <Content Include="Content\CSS\shopping.css" />
     <Content Include="Content\CSS\vipAlterPwd.css" />
     <Content Include="Content\CSS\vipChangePwd.css" />
@@ -373,7 +374,7 @@
     <Content Include="Scripts\vip\vipInfo%40Update.js" />
     <Content Include="Scripts\vip\vipinfo%40UpdatePwd.js" />
     <Content Include="Scripts\vip\vipinfo.js" />
-    <Content Include="Scripts\vip\vipRetrievePassword.css" />
+    <Content Include="Content\CSS\vipRetrievePassword.css" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

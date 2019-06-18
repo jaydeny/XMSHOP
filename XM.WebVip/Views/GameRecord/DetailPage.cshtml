@@ -1,12 +1,7 @@
-﻿
-@{
-    Layout = null;
-}
-
+﻿<!DOCTYPE html>
 <html>
-
 <head>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="utf-8">
     <title>游戏记录详情</title>
     <link rel="stylesheet" href="~/Content/CSS/vipinfo.css" />
     <style type="text/css">
@@ -51,27 +46,25 @@
                 <ul class="pagination">
 
                     <li class="page-item">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" for="btn_num_Rows_count">条数</label>
-                            </div>
+                        <a>条数</a>
+                    </li>
+                    <li>
+                        <a>
                             <select class="custom-select" id="btn_num_Rows_count" value="10">
                                 <option value="10">10</option>
                                 <option value="20">20</option>
                                 <option value="50">50</option>
                             </select>
-                        </div>
+                        </a>
                     </li>
-
                     <li class="page-item">
-                        <div class="input-group mb-3">
-                            <div class="input-group-append">
-                                <label class="input-group-text" for="btn_num_Page_count">页数</label>
-                            </div>
-                            <select class="custom-select" id="btn_num_Page_count" value="1"></select>
-                        </div>
+                        <a>页数</a>
                     </li>
-
+                    <li>
+                        <a>
+                            <select class="custom-select" id="btn_num_Page_count" value="1"></select>
+                        </a>
+                    </li>
                     <li class="page-item">
                         <a class="page-link" id="before" href="#" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
@@ -91,7 +84,6 @@
                 </ul>
             </nav>
             @*分页*@
-
         </div>
     </div>
     <script src="~/Scripts/Game/game@RecordPage.js"></script>

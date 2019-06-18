@@ -9,6 +9,7 @@
     <meta charset="utf-8">
     <title>会员信息页</title>
     <link rel="stylesheet" href="~/Content/CSS/vipinfo.css" />
+    <link rel="stylesheet" href="~/Content/CSS/paging.css" />
     @* 提示框样式 *@
     <link href="~/Content/naranja/naranja.min.css" rel="stylesheet" />
     <script src="~/Scripts/naranja/naranja.min.js"></script>
@@ -19,7 +20,7 @@
         <div class="layout">
             <!-- 路径栏 -->
             <div class="path_bar fcn">
-                <a>首页</a>&nbsp;>&nbsp;<a>我的商城</a>
+                <a href="/Home/index">首页</a>&nbsp;>&nbsp;<a>我的商城</a>
             </div>
             <div class="row vipinfo-main">
                 <div class="col-lg-2 vipinfo-nav">
@@ -29,9 +30,9 @@
                         <li role="presentation" class=""><a href="/Home/Update" id="myInfo">信息管理</a></li>
                         <li role="presentation" class=""><a href="/Home/UpdatePwdPage">修改密码</a></li>
                         <li role="presentation" class=""><a href="/vipinfo/AddressPage">地址管理</a></li>
-                        <li role="presentation" class=""><a href="/GameRecharge/RechargePage">游戏积分兑换</a></li>
-                        <li role="presentation" class=""><a href="/GameRecord/RecordPage">游戏记录查询</a></li>
-                        <li role="presentation" class=""><a href="/VipInfo/QryRechargePage">充值记录查询</a></li>
+                        <li role="presentation" class=""><a href="/GameRecharge/RechargePage" data-js="/Scripts/Game/game@Recharge.js">游戏积分兑换</a></li>
+                        <li role="presentation" class=""><a href="/GameRecord/RecordPage" data-js="/Scripts/Game/game@RecordPage.js" >游戏记录查询</a></li>
+                        <li role="presentation" class=""><a href="/VipInfo/QryRechargePage" data-js="/Scripts/vip/vipinfo@QryRecharge.js">充值记录查询</a></li>
                     </ul>
                 </div>
                 <div class="vipinfo-form col-lg-10">
@@ -83,7 +84,7 @@
                                     <li class="flex1"><a>已完成</a></li>
                                 </ul>*@
                             <div class="order-list">
-                                <p class="empty-order hidden" id="empty_order">当前无近期订单，前往<a href="/vip/index">首页</a>选购吧～</p>
+                                <p class="empty-order hidden" id="empty_order">当前无近期订单，前往<a href="/Home/index">首页</a>选购吧～</p>
                                 <ul class="" id="order_box">
                                     <li>
                                         <div class="flex-1">订单号</div>
@@ -109,7 +110,7 @@
 
                             @*分页*@
                             <div id="paging-box">
-                                <ul class="pagination"></ul>
+                                @*<ul class="pagination"></ul>*@
                             </div>
                         </div>
                     </div>
