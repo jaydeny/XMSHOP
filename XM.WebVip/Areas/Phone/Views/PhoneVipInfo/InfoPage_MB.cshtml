@@ -74,20 +74,18 @@
                     $.ajax({
                         url: "/Phone/PhoneHome/SignUp_MB"
                     }).then((data) => {
-                        localStorage.setItem("name", '');
                         location.href = "/Phone/PhoneVipInfo/InfoPage_MB";
                     });
                 },
                 //初始化
                 init() {
-                    const name = this.name = localStorage.getItem("name");
-                    if (name == null || name == '') {
-                        this.is_SignIn = false;
-                        this.name = "请登录...";
-                    } else {
-                        this.is_SignIn = true;
-                        this.name = name;
-                    }
+                    $.ajax({
+                        url: "/Phone/PhoneVipInfo/getName",
+                        dataType:'json'
+                    }).then((data) => {
+                        this.is_SignIn = data.success;
+                        this.name = data.data;
+                    });
                 },
                 //点击登陆按钮
                 login() {
