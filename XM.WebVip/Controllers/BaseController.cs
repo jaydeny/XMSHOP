@@ -74,5 +74,7 @@ namespace XM.WebVIP.Controllers
         public string Agent_ID { get { return Session["Agent_ID"].ToString(); } }
         //代理账号
         public string Agent_Acc { get { return Session["Agent_Acc"].ToString(); } }
+
+       
     }
 }
