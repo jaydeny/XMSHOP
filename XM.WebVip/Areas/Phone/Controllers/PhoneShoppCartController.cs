@@ -33,7 +33,11 @@ namespace XM.WebVip.Areas.Phone.Controllers
         {
             return EditCart();
         }
-
+        /// <summary>
+        /// 批量删除购物车项
+        /// </summary>
+        /// <param name="items">购物车项id数组</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult deleCarts_MB(int[] items)
         {

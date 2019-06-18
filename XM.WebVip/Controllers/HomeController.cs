@@ -27,8 +27,15 @@ namespace XM.WebVip.Controllers
         /// <returns>页面:首页</returns>
         public ActionResult Index()
         {
-            ViewData["VipAccountName"] = Session["AN"];
-            return View();
+            string userAgent = HttpContext.Request.UserAgent;
+            if (!userAgent.Contains("Mobile"))
+            {
+                ViewData["VipAccountName"] = Session["AN"];
+                return View();
+            }
+            else {
+                return Redirect("/Phone/PhoneHome/Index_MB");
+            }
         }
 
         #region _Login
