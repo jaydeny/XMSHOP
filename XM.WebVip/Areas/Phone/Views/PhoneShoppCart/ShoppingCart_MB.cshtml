@@ -24,7 +24,7 @@
                         <div class="index-goods-text2">￥<i class="priceJs">{{tranfoMoney(obj.GoodsPrice)}}</i></div>
                         <div class="shop-cart-box3">
                             <span class="shop-cart-subtract" v-on:click="reducePro(index,$event)"></span>
-                            <input type="tel" size="6" :value="obj.Agoods_Count" id="tb_count" class="shop-cart-numer">
+                            <input type="tel" size="6"  onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/" :value="obj.Agoods_Count" id="tb_count" class="shop-cart-numer">
                             <span class="shop-cart-add" v-on:click="addPro(index,$event)"></span>
                         </div>
                     </div>
