@@ -170,7 +170,7 @@
                 },
                 //时间转换
                 chageTime(time) {
-                    //console.log(time)
+                   
                     if (time) {
                         return time.replace("T", " ").substring(0, 19)
                     } else {
@@ -180,19 +180,10 @@
                 //添加到购物车
                 addCart() {
                     let cartData = this.cartTable;
-                    
-                    
                     $.each(cartData, function (i, v) {
-                        //console.log(v.Agoods_ID)
-                       // console.log(this.productID)
-                        //console.log(cart)
                         if (v.Agoods_ID == cart._data.productID) {
-                            console.log("aa");
-
                             v.Agoods_Count += 1;
-                            console.log(v.Agoods_Count);
                             cart._data.intCount = v.Agoods_Count;
-                            console.log(cart._data.intCount)
                         }
                         
                     });

@@ -14,5 +14,10 @@ namespace XM.WebVip.Areas.Phone.Controllers
         {
             return View();
         }
+        public ActionResult getName() {
+            if (Session["AN"] == null)
+                return OperationReturn(false, "", "请登录...");
+            return OperationReturn(true, "", Session["AN"]);
+        }
     }
 }
