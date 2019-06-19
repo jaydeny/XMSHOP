@@ -1,13 +1,28 @@
-﻿using System;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using System;
 using System.Web.Mvc;
 using XM.Comm;
 using XM.WebVIP.Controllers;
 
 namespace XM.WebVip.Controllers
 {
+    /// <summary>
+    /// 游戏记录
+    /// </summary>
     public class GameRecordController : BaseController
     {
-        // GET: GameRecord
+        #region view
+        /// <summary>
+        /// 返回游戏记录页面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult RecordPage()
         {
             DateTime dt = DateTime.Now;
@@ -20,7 +35,21 @@ namespace XM.WebVip.Controllers
             ViewData["EndWeek"] = EndWeek; 
             return View();
         }
+        /// <summary>
+        /// 返回游戏详细记录页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult DetailPage()
+        {
+            return View();
+        }
+        #endregion
 
+        #region Record
+        /// <summary>
+        /// 查询时间段内的游戏记录
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Record()
         {
             //获取前端传过来的数据
@@ -37,13 +66,10 @@ namespace XM.WebVip.Controllers
 
             return Content(result);
         }
-        
-        // GET: GameRecord
-        public ActionResult DetailPage()
-        {
-            return View();
-        }
-
+        /// <summary>
+        /// 返回游戏详细记录数据
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Detail()
         {
             //获取前端数据
@@ -67,6 +93,6 @@ namespace XM.WebVip.Controllers
             var result = GameUtil.HttpPost(param);
             return Content(result);
         }
-
+        #endregion
     }
 }

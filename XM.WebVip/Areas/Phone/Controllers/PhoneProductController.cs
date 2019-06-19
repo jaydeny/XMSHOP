@@ -1,29 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿/*-------------------------------------*
+ * 创建人:         梁钧淋
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       梁钧淋       创建
+ *-------------------------------------*/
+using System;
 using System.Web.Mvc;
 using XM.WebVip.Controllers;
 
 namespace XM.WebVip.Areas.Phone.Controllers
 {
+    /// <summary>
+    /// 商品
+    /// </summary>
     public class PhoneProductController : ProductController
     {
-        // GET: Phone/PhoneProduct
+        #region view
+        /// <summary>
+        /// 返回商品列表视图
+        /// </summary>
+        /// <returns></returns>
         public ActionResult AgoodsList_MB()
         {
             return View();
         }
+        /// <summary>
+        /// 返回搜索页面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Search_MB()
         {
             return View();
         }
         /// <summary>
+        /// 返回商品购物页
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ProductInfo()
+        {
+            return View();
+        }
+        #endregion
+
+        #region product
+        /// <summary>
         /// 获取品牌商品
         /// </summary>
         /// <returns></returns>
         public ActionResult getBrand() {
-           return this.BoutiqueGoods();
+           return BoutiqueGoods();
         }
         /// <summary>
         /// 获取热门商品
@@ -51,14 +78,6 @@ namespace XM.WebVip.Areas.Phone.Controllers
 
             return Content(res);
         }
-
-        /// <summary>
-        /// 返回商品购物页
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult ProductInfo()
-        {
-            return View();
-        }
+        #endregion
     }
 }

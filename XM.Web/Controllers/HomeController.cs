@@ -1,26 +1,31 @@
-﻿using Newtonsoft.Json;
+﻿/*-------------------------------------*
+ * 创建人:         朱茂琛
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       朱茂琛       创建
+ *-------------------------------------*/
+using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XM.Comm;
 using XM.Model;
-using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
     /// <summary>
-    /// 创建人：朱茂琛
-    /// 创建时间：2019/04/22
     /// 首页
     /// </summary>
     public class HomeController : BaseController
     {
         #region  主页面
-        // GET: Home
+        /// <summary>
+        /// 后台主页
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             UserEntity uInfo = Session["User"] as UserEntity;
@@ -33,7 +38,12 @@ namespace XM.Web.Controllers
             return View();
         }
         #endregion
+
         #region  加载菜单方法
+        /// <summary>
+        /// 加载菜单
+        /// </summary>
+        /// <returns></returns>
         public ActionResult LoadMenu()
         {
             IEnumerable<Navbar> objRoleMenu = (IEnumerable<Navbar>)Session["RoleMenu"];
@@ -46,6 +56,12 @@ namespace XM.Web.Controllers
             return PagerData(objMenus.Count,objMenus);
         }
         #endregion
+
+        #region 其他
+        /// <summary>
+        /// 获取权限数据
+        /// </summary>
+        /// <returns></returns>
         public ActionResult GetCommonData()
         {
             CommonDataDTO common = new CommonDataDTO();
@@ -66,6 +82,10 @@ namespace XM.Web.Controllers
         {
             return View();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult GetDefault()
         {
             Dictionary<string, object> paras = new Dictionary<string, object>();
@@ -89,5 +109,6 @@ namespace XM.Web.Controllers
             return Content(result);
             
         }
+        #endregion
     }
 }

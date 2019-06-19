@@ -1,19 +1,23 @@
-﻿using Newtonsoft.Json;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
-using XM.Comm;
 using XM.DALFactory;
 using XM.Model;
 
 namespace XM.Web.Controllers
 {
+    /// <summary>
+    /// 中间层
+    /// </summary>
     public class BaseController : Controller
     {
         #region Session属性
@@ -29,12 +33,19 @@ namespace XM.Web.Controllers
         public string Agent_ID { get { return Session["Agent_ID"].ToString(); } }
         #endregion
 
+        #region SSO
+        /// <summary>
+        /// 代理SSO集合
+        /// </summary>
         public static Dictionary<AgentEntity, string> SSOAgent = new Dictionary<AgentEntity, string>();
+        #endregion
 
+        #region 数据交互接口
         /// <summary>
         /// 数据交互接口
         /// </summary>
         internal DALCore DALUtility => DALCore.GetInstance();
+        #endregion
 
         #region  分页方法（常用）
         /// <param name="totalCount">总记录数</param>
@@ -95,11 +106,6 @@ namespace XM.Web.Controllers
         }
 
         #endregion
-
-
-       
-
-
 
         #region  返回结果
         /// <summary>

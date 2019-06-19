@@ -1,33 +1,36 @@
-﻿using System;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XM.Web.Controllers;
 
 namespace XM.WebAgent.Controllers
 {
-
     /// <summary>
-    /// 作者：梁钧淋
-    /// 创建时间:2019-5/23
-    /// 修改时间：2019-
     /// 功能：充值审核，查询
     /// </summary>
     public class ExamineController : BaseController
     {
-        // GET: Examine
+        #region _view
+        /// <summary>
+        /// 返回审核视图
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();
         }
-
+        #endregion
         #region _RechargeForm
 
         /// <summary>
-        /// 作者：梁钧淋
-        /// 创建时间:2019-5-10
-        /// 修改时间：2019-
         /// 功能：查询充值
         /// </summary>
         public ActionResult QryDayRechargeTotal()
@@ -44,8 +47,6 @@ namespace XM.WebAgent.Controllers
         }
 
         /// <summary>
-        /// 作者:梁钧淋
-        /// 日期:2019/4/26
         /// 功能:查询日期内的记录
         /// </summary>
         /// <returns>json值</returns>

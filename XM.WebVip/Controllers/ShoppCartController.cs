@@ -1,25 +1,63 @@
-﻿using Newtonsoft.Json;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XM.Model;
 using XM.WebVIP.Controllers;
 
 namespace XM.WebVip.Controllers
 {
+    /// <summary>
+    /// 购物车
+    /// </summary>
     public class ShoppCartController : BaseController
     {
-        // GET: ShoppCart
+        #region view
+        /// <summary>
+        /// 返回购物车页面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();
         }
 
-        
+        /// <summary>
+        /// 根据用户ID获取对应的购物车项
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ShoppingCartPage()
+        {
+            if (Session["id"] == null)
+            {
+                List<ShoppCartEntity> list = new List<ShoppCartEntity>();
+                var result = cartTable.Values;
+                foreach (ShoppCartEntity item in result)
+                {
+                    list.Add(item);
+                }
+                ViewData["list"] = list;
+                return View();
+            }
 
+            var data = DALUtility.ShoppCart.QryDataByVIPID(Convert.ToInt32(ID));
+            ViewData["VipAccountName"] = Session["AN"];
+            ViewData["Add"] = GetAllAdd(Session["ID"].ToString());
+            ViewData["Ac"] = GetAllAc(Session["Agent_Acc"].ToString());
+            ViewData["list"] = data;
+            return View();
+        }
+        #endregion
+
+        #region ShoppCart
         /// <summary>
         /// 根据用户ID获取对应的购物车项
         /// </summary>
@@ -34,7 +72,6 @@ namespace XM.WebVip.Controllers
             var data = DALUtility.ShoppCart.QryDataByVIPID(Convert.ToInt32(ID));
             return OperationReturn(true, "登录状态", data);
         }
-        
         /// <summary>
         /// 编辑购物车
         /// editType 操作类型 ， 1，添加/修改  2，删除
@@ -47,8 +84,6 @@ namespace XM.WebVip.Controllers
         /// <returns></returns>
         public ActionResult EditCart()
         {
-
-
             string editType = Request["editType"];
             if (editType == null)
                 return OperationReturn(false, "数据传输错误");
@@ -87,7 +122,11 @@ namespace XM.WebVip.Controllers
                 return OperationReturn(false, "操作失败");
             return OperationReturn(true, "操作成功");
         }
-
+        /// <summary>
+        /// 批量删除购物车项
+        /// </summary>
+        /// <param name="items">购物车项ID数组</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult deleCarts(int[] items) {
             if(Session["id"] == null)
@@ -108,34 +147,9 @@ namespace XM.WebVip.Controllers
             }
             return OperationReturn(true, "操作成功");
         }
+        #endregion
 
-        
-        /// <summary>
-        /// 根据用户ID获取对应的购物车项
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult ShoppingCartPage()
-        {
-            if (Session["id"] == null)
-            {
-                List < ShoppCartEntity > list = new List<ShoppCartEntity>();
-                var result = cartTable.Values;
-                foreach (ShoppCartEntity item in result)
-                {
-                    list.Add(item);
-                }
-                ViewData["list"] = list;
-                return View();
-            }
-
-            var data = DALUtility.ShoppCart.QryDataByVIPID(Convert.ToInt32(ID));
-            ViewData["VipAccountName"] = Session["AN"];
-            ViewData["Add"] = GetAllAdd(Session["ID"].ToString());
-            ViewData["Ac"] = GetAllAc(Session["Agent_Acc"].ToString());
-            ViewData["list"] = data;
-            return View();
-        }
-
+        #region address
         /// <summary>
         /// 功能:获取会员的地址
         /// </summary>
@@ -147,7 +161,9 @@ namespace XM.WebVip.Controllers
 
             return DALUtility.Vip.QryAllAdd(AddDic);
         }
+        #endregion
 
+        #region Actity
         /// <summary>
         /// 功能:获取符合条件的活动
         /// </summary>
@@ -160,5 +176,6 @@ namespace XM.WebVip.Controllers
 
             return DALUtility.Activity.QryAC<ActivityEntity>(AcDic);
         }
+        #endregion
     }
 }

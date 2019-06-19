@@ -1,18 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using XM.Model;
-using System.Web.SessionState;
-using XM.Web.Domain;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using System.Web.SessionState;
+using XM.Model;
+using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
     /// <summary>
-    /// 创建人：朱茂琛
-    /// 创建时间：2019/4/22
     /// 用户
     /// </summary>
     public class UserController : BaseController, IRequiresSessionState

@@ -1,15 +1,25 @@
-﻿using System;
+﻿/*-------------------------------------*
+ * 创建人:         梁钧淋
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       梁钧淋       创建
+ *-------------------------------------*/
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XM.Model;
 using XM.WebVip.Controllers;
 
 namespace XM.WebVip.Areas.Phone.Controllers
 {
+    /// <summary>
+    /// 商品购买
+    /// </summary>
     public class PhoneShopController : ShopController
     {
+        #region select
         /// <summary>
         /// 获取所有活动
         /// </summary>
@@ -54,13 +64,19 @@ namespace XM.WebVip.Areas.Phone.Controllers
             }
            
         }
+        #endregion
 
-
+        #region buy
+        /// <summary>
+        /// 批量购买
+        /// </summary>
+        /// <param name="buys"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult PhoneBuyToPro(List<BuyStructEntity> buys) {
 
             return BuyToPro(buys);
         }
-
+        #endregion
     }
 }

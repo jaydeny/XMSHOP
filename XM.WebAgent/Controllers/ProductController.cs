@@ -1,7 +1,14 @@
-﻿using System;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XM.Model;
 using XM.Web.Controllers;
@@ -16,8 +23,6 @@ namespace XM.WebAgent.Controllers
     {
         #region _Product
         /// <summary>
-        /// 作者:梁钧淋
-        /// 日期:2019/4/26
         /// 功能:返回商品页面
         /// </summary>
         /// <returns></returns>
@@ -30,8 +35,6 @@ namespace XM.WebAgent.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:代理端进行商品上架或者修改
         /// </summary>
         /// <returns>json值</returns>
@@ -55,8 +58,6 @@ namespace XM.WebAgent.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:查询所有的代理商商品
         /// </summary>
         /// <returns>json值</returns>
@@ -110,7 +111,5 @@ namespace XM.WebAgent.Controllers
         }
 
         #endregion
-
-        
     }
 }

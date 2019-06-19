@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -7,14 +15,13 @@ using XM.WebVIP.Controllers;
 
 namespace XM.WebVip.Controllers
 {
+    /// <summary>
+    /// 商品功能
+    /// </summary>
     public class ProductController : BaseController
     {
-        // GET: Product
-
         #region _goods
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:查询所有的代理商商品
         /// </summary>
         /// <returns>json值</returns>
@@ -41,8 +48,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:查询所有的商品
         /// </summary>
         /// <returns>json值</returns>
@@ -73,9 +78,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者：曾贤鑫
-        /// 创建时间:2019-4/30
-        /// 修改时间：2019-
         /// 功能：返回商品筛选页
         /// </summary>
         public ActionResult AgoodsList()
@@ -87,8 +89,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:查询热销单品和精品商品
         /// </summary>
         /// <returns>json值</returns>
@@ -112,8 +112,6 @@ namespace XM.WebVip.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:查询热销单品和精品商品
         /// </summary>
         /// <returns>json值</returns>

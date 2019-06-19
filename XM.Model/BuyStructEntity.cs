@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace XM.Model
+﻿namespace XM.Model
 {
-   /// <summary>
-   /// 购买商品的载体类
-   /// </summary>
+    /// <summary>
+    /// 购买商品的载体类
+    /// </summary>
     public class BuyStructEntity
     {
         private int addressID;
