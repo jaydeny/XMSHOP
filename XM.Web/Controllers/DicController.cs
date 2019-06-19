@@ -1,8 +1,14 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XM.Model;
 using XM.Web.Domain;
@@ -12,12 +18,10 @@ namespace XM.Web.Controllers
 
     /// <summary>
     ///  字典参数
-    ///  创建人: zxy
-    ///  创建时间: 2019年5月23日
     /// </summary>
     public class DicController : BaseController
     {
-
+        #region  view
         [PermissionFilter]
         public ActionResult Index()
         {
@@ -25,7 +29,7 @@ namespace XM.Web.Controllers
             return View();
         }
 
-        #region  添加/修改页面
+        
         [PermissionFilter("Dic", "Index")]
         public ActionResult Form(int id=0,int tag=0)
         {

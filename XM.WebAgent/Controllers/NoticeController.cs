@@ -1,8 +1,15 @@
-﻿using Newtonsoft.Json;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XM.Model;
 using XM.Web.Controllers;
@@ -11,20 +18,23 @@ using YMOA.MongoDB.Model;
 namespace XM.WebAgent.Controllers
 {
     /// <summary>
-    /// 作者：梁钧淋
-    /// 创建时间:2019-5-21
-    /// 修改时间：2019-
     /// 功能：发布公告
     /// </summary>
     public class NoticeController : BaseController
     {
         #region 视图
-        // 返回发布公告主视图
+        /// <summary>
+        /// 返回发布公告主视图
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();
         }
-        //公告记录视图
+        /// <summary>
+        /// 公告记录视图
+        /// </summary>
+        /// <returns></returns>
         public ActionResult NoticRecord()
         {
             return View();
@@ -32,7 +42,10 @@ namespace XM.WebAgent.Controllers
         #endregion
 
         #region 添加
-        //发布公告动作
+        /// <summary>
+        /// 发布公告动作
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ReleaseNotic()
         {
             NoticEntity notic = new NoticEntity();
@@ -85,7 +98,7 @@ namespace XM.WebAgent.Controllers
 
         #region 删除
         /// <summary>
-        /// 功能:返回当前代理用户的发布公告记录
+        /// 功能:删除公告记录
         /// </summary>
         /// <returns></returns>
         public ActionResult Del_NoticbyID()

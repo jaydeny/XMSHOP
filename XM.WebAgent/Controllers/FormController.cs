@@ -1,7 +1,13 @@
-﻿using System;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XM.Web.Controllers;
 
@@ -9,17 +15,12 @@ namespace XM.WebAgent.Controllers
 {
 
     /// <summary>
-    /// 作者：曾贤鑫
-    /// 创建时间:2019-5/5
-    /// 修改时间：2019-
     /// 功能：报表相关方法.跳转页面等
     /// </summary>
     public class FormController : BaseController
     {
         #region _Form
         /// <summary>
-        /// 作者:梁钧淋
-        /// 日期:2019/4/29
         /// 功能:返回报表页面 
         /// </summary>
         /// <returns></returns>
@@ -29,9 +30,6 @@ namespace XM.WebAgent.Controllers
         }
 
         /// <summary>
-        /// 作者：曾贤鑫
-        /// 创建时间:2019-4/29
-        /// 修改时间：2019-
         /// 功能：查询日期,总营业额
         /// </summary>
         public ActionResult QryDayTotal()
@@ -55,8 +53,6 @@ namespace XM.WebAgent.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:查询日期内的记录
         /// </summary>
         /// <returns>json值</returns>
@@ -72,14 +68,10 @@ namespace XM.WebAgent.Controllers
             param.Add("day", Request["day"]);
             param.Add("vip_AN", Request["vip_AN"]);
             param.Add("agent_AN", Session["agent_AN"].ToString());
-            //param.Add("agent_AN", Request["agent_AN"]);
-
             return Content(DALUtility.Agent.QryDayForm(param, out int iCount));
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/5/10
         /// 功能:查询每一笔订单的详细情况
         /// </summary>
         /// <returns>json值</returns>

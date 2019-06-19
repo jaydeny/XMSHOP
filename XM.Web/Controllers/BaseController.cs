@@ -1,26 +1,29 @@
-﻿using Newtonsoft.Json;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
-using XM.Comm;
 using XM.DALFactory;
 using XM.Model;
 
 namespace XM.Web.Controllers
 {
     /// <summary>
-    /// 创建人：朱茂琛
-    /// 创建时间：2019/04/22
     /// 基础Controller
     /// </summary>
     public class BaseController : Controller
     {
+        #region 登录验证
+        /// <summary>
+        /// 设置拦截器进行登录验证
+        /// </summary>
+        /// <param name="filterContext"></param>
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             if (!filterContext.RouteData.Values["controller"].ToString().Equals("Login"))
@@ -32,15 +35,19 @@ namespace XM.Web.Controllers
                 }
             }
         }
+        #endregion
+
         #region 数据交互接口
         internal DALCore DALUtility => DALCore.GetInstance();
         #endregion
+
         #region  分页方法返回（不常用）
         protected ContentResult PagerData(int totalCount, object rows)
         {
             return Content(JsonConvert.SerializeObject(new { total = totalCount.ToString(), rows = rows }));
         }
         #endregion
+        
         #region  分页方法（常用）
         /// <param name="totalCount">总记录数</param>
         /// <param name="rows">数据</param>
@@ -63,6 +70,7 @@ namespace XM.Web.Controllers
             return Content(JsonConvert.SerializeObject(data));
         }
         #endregion
+
         #region  返回操作信息
         protected ContentResult OperationReturn(bool _success, string _msg = "")
         {
@@ -71,6 +79,7 @@ namespace XM.Web.Controllers
         }
         #endregion
     }
+
     #region  返回结果
     public class result_base
     {

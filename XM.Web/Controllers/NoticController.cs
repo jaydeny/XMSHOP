@@ -1,23 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XM.Model;
-using YMOA.MongoDB;
 
 namespace XM.Web.Controllers
 {
 
     /// <summary>
-    /// 作者：曾贤鑫
-    /// 创建时间:2019-5-21
-    /// 修改时间：2019-
     /// 功能：发布公告
     /// </summary>
     public class NoticController : BaseController
     {
-        // GET: Notic
+        #region Notic
         /// <summary>
         /// 功能:发布公告
         /// </summary>
@@ -48,7 +50,9 @@ namespace XM.Web.Controllers
             }
             return OperationReturn(true,"发布公告成功!");
         }
+        #endregion
 
+        #region Agent
         /// <summary>
         /// 功能:获取所有的代理商,并返回
         /// </summary>
@@ -57,5 +61,6 @@ namespace XM.Web.Controllers
         {
             return Content(DALUtility.Notic.GetAllAgent());
         }
+        #endregion
     }
 }

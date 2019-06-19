@@ -1,7 +1,13 @@
-﻿using System;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XM.Model;
 using XM.Web.Controllers;
@@ -10,18 +16,13 @@ namespace XM.WebAgent.Controllers
 {
 
     /// <summary>
-    /// 作者：曾贤鑫
-    /// 创建时间:2019-5/5
-    /// 修改时间：2019-
     /// 功能：查询所有vip,修改vip信息等方法
     /// </summary>
     public class VIPController : BaseController
     {
-        // GET: ManageVIP
+       
         #region _vipInfo
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:代理端获取所有的会员信息,可以分页
         /// </summary>
         /// <returns>json值</returns>
@@ -56,8 +57,6 @@ namespace XM.WebAgent.Controllers
 
         #region _UpdateVIP
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:会员端进入修改信息页面
         /// </summary>
         /// <returns>页面:修改信息页面</returns>
@@ -82,8 +81,6 @@ namespace XM.WebAgent.Controllers
         #region _自定义
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/25
         /// 功能:添加/修改vip公用方法
         /// </summary>
         /// <param name="ID"></param>

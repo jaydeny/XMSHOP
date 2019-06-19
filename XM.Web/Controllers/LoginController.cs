@@ -1,20 +1,21 @@
-﻿using System;
+﻿/*-------------------------------------*
+ * 创建人:         朱茂琛
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       朱茂琛       创建
+ *-------------------------------------*/
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
-using System.Web.Mail;
 using System.Web.Mvc;
 using XM.Comm;
-using XM.DALFactory;
 using XM.Model;
 
 namespace XM.Web.Controllers
 {
     /// <summary>
-    /// 创建人：朱茂琛
-    /// 创建时间：2019/4/22
     /// 登录控制器
     /// </summary>
     public class LoginController : BaseController

@@ -134,7 +134,6 @@
     <Compile Include="Areas\Phone\Controllers\PhoneProductController.cs" />
     <Compile Include="Areas\Phone\Controllers\PhoneShopController.cs" />
     <Compile Include="Areas\Phone\Controllers\PhoneShoppCartController.cs" />
-    <Compile Include="Areas\Phone\Controllers\PhoneVIPController.cs" />
     <Compile Include="Areas\Phone\Controllers\PhoneVipInfoController.cs" />
     <Compile Include="Areas\Phone\PhoneAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />

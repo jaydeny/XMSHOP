@@ -1,21 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Web;
-using System.Web.Helpers;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
 using System.Web.Mvc;
 using XM.Comm;
 using XM.WebVIP.Controllers;
 
 namespace XM.WebVip.Controllers
 {
+    /// <summary>
+    /// 游戏
+    /// </summary>
     public class GameHomeController : BaseController
     {
-        // GET: GameHome
+        #region Login
+
         /// <summary>
         /// 功能:登录到游戏
         /// </summary>
@@ -37,7 +40,9 @@ namespace XM.WebVip.Controllers
             }
             return OperationReturn(false, "game001");
         }
+        #endregion
 
+        #region GetCredit
         /// <summary>
         /// 获取积分
         /// </summary>
@@ -65,6 +70,7 @@ namespace XM.WebVip.Controllers
             }
             return OperationReturn(false, "game002");
         }
+        #endregion
     }
 
 
