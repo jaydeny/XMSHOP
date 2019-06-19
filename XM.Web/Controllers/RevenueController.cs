@@ -1,22 +1,26 @@
-﻿using System;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using XM.Model;
 using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
     /// <summary>
-    /// 创建人：曾贤鑫
-    /// 创建时间：2019/04/26
     /// 报表
     /// </summary>
     public class RevenueController : BaseController
     {
-        [PermissionFilter]
+
         #region _Form
+        [PermissionFilter]
         public ActionResult ReportForm()
         {
             return View();

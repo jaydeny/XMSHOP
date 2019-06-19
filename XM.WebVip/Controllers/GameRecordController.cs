@@ -1,11 +1,16 @@
-﻿using System;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using System;
 using System.Web.Mvc;
 using XM.Comm;
 using XM.WebVIP.Controllers;
-/// <summary>
-/// 作者:曾贤鑫
-/// 日期:2019/5/13
-/// </summary>
+
 namespace XM.WebVip.Controllers
 {
     /// <summary>
@@ -13,6 +18,7 @@ namespace XM.WebVip.Controllers
     /// </summary>
     public class GameRecordController : BaseController
     {
+        #region view
         /// <summary>
         /// 返回游戏记录页面
         /// </summary>
@@ -29,6 +35,17 @@ namespace XM.WebVip.Controllers
             ViewData["EndWeek"] = EndWeek; 
             return View();
         }
+        /// <summary>
+        /// 返回游戏详细记录页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult DetailPage()
+        {
+            return View();
+        }
+        #endregion
+
+        #region Record
         /// <summary>
         /// 查询时间段内的游戏记录
         /// </summary>
@@ -48,15 +65,6 @@ namespace XM.WebVip.Controllers
             var result = GameUtil.HttpPost(param);
 
             return Content(result);
-        }
-        
-       /// <summary>
-       /// 返回游戏详细记录页面
-       /// </summary>
-       /// <returns></returns>
-        public ActionResult DetailPage()
-        {
-            return View();
         }
         /// <summary>
         /// 返回游戏详细记录数据
@@ -85,6 +93,6 @@ namespace XM.WebVip.Controllers
             var result = GameUtil.HttpPost(param);
             return Content(result);
         }
-
+        #endregion
     }
 }

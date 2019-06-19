@@ -1,8 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XM.Model;
 using XM.Web.Domain;
@@ -10,8 +16,6 @@ using XM.Web.Domain;
 namespace XM.Web.Controllers
 {
     /// <summary>
-    /// 创建人：朱茂琛
-    /// 创建时间：2019/4/22
     /// 代理商
     /// </summary>
     public class AgentController : BaseController
@@ -24,6 +28,7 @@ namespace XM.Web.Controllers
             return View();
         }
         #endregion
+
         #region  获取所有代理信息
         [PermissionFilter("Agent", "Index")]
         public ActionResult GetAllUserInfo()
@@ -52,12 +57,14 @@ namespace XM.Web.Controllers
             return PagerData(totalCount, users,pageindex,pagesize);
         }
         #endregion
+
         #region 添加/修改页面
         public ActionResult Form()
         {
             return View("_Form");
         }
         #endregion
+
         #region  添加/修改代理信息
         [PermissionFilter("Agent", "Index",Operationype.Add)]
         public ActionResult Save()
@@ -108,6 +115,7 @@ namespace XM.Web.Controllers
             
         }
         #endregion
+
         #region 删除代理信息
         [PermissionFilter("Agent", "Index",Operationype.Delete)]
         public ActionResult DelUserByIDs()
@@ -123,6 +131,7 @@ namespace XM.Web.Controllers
             }
         }
         #endregion
+
         #region 获取单个代理信息
         public ActionResult GetFormJson(int id)
         {

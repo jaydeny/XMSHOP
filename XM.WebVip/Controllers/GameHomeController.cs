@@ -1,10 +1,15 @@
-﻿using System.Web.Mvc;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using System.Web.Mvc;
 using XM.Comm;
 using XM.WebVIP.Controllers;
-/// <summary>
-/// 作者:曾贤鑫
-/// 日期:2019/5/13
-/// </summary>
+
 namespace XM.WebVip.Controllers
 {
     /// <summary>
@@ -12,7 +17,8 @@ namespace XM.WebVip.Controllers
     /// </summary>
     public class GameHomeController : BaseController
     {
-      
+        #region Login
+
         /// <summary>
         /// 功能:登录到游戏
         /// </summary>
@@ -34,7 +40,9 @@ namespace XM.WebVip.Controllers
             }
             return OperationReturn(false, "game001");
         }
+        #endregion
 
+        #region GetCredit
         /// <summary>
         /// 获取积分
         /// </summary>
@@ -62,6 +70,7 @@ namespace XM.WebVip.Controllers
             }
             return OperationReturn(false, "game002");
         }
+        #endregion
     }
 
 

@@ -1,24 +1,27 @@
-﻿using Newtonsoft.Json;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XM.Model;
-
 namespace XM.Web.Controllers
 {
 
     /// <summary>
-    /// 创建人:梁钧淋
-    /// 创建日期:2019-5-26
-    /// 修改日期:2019-5-30
     /// 功能: 活动
     /// </summary>
     public class ActivityController : BaseController
     {
         #region _View
-        // GET: Activity
+      
+
         public ActionResult Index()
         {
             return View();
@@ -56,6 +59,8 @@ namespace XM.Web.Controllers
             return View("_Edit");
         }
         #endregion
+
+        #region select
         /// <summary>
         /// 获取当前后台用户所发布的活动
         /// </summary>
@@ -165,6 +170,7 @@ namespace XM.Web.Controllers
                 return OperationReturn(true, "修改活动成功!");
             return OperationReturn(false, "发布活动失败!");
         }
+        #endregion
 
     }
 }

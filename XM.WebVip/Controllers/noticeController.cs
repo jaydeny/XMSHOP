@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using System;
 using System.Web.Mvc;
 using XM.Model;
 using XM.WebVIP.Controllers;
 using YMOA.MongoDB;
-/// <summary>
-/// 作者：曾贤鑫
-/// 创建时间:2019-5/5
-/// </summary>
+
 namespace XM.WebVip.Controllers
 {
     /// <summary>
@@ -17,15 +19,18 @@ namespace XM.WebVip.Controllers
     /// </summary>
     public class NoticeController : BaseController
     {
-       /// <summary>
-       /// 返回公共发布页
-       /// </summary>
-       /// <returns></returns>
+        #region view
+        /// <summary>
+        /// 返回公共发布页
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Notice()
         {
             return View("_Notice");
         }
+        #endregion
 
+        #region Notice
         /// <summary>
         ///  获取公告
         /// </summary>
@@ -47,7 +52,6 @@ namespace XM.WebVip.Controllers
                 return PagerData(result.Count, result);
             }
         }
-
         /// <summary>
         ///  添加已读公告
         /// </summary>
@@ -59,6 +63,6 @@ namespace XM.WebVip.Controllers
             var result = DALUtility.MDbS.List<NoticState>("XMShop", "noticstate", x => x.uid.Equals(AN) && x.msgid.Equals(msgid), x => new NoticState() { msgid = x.msgid }, null);
             return OperationReturn(result.Count>0, "");
         }
-
+        #endregion
     }
 }

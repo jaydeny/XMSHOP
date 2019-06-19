@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Drawing;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using System;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 
 namespace XM.Web.Controllers
@@ -13,18 +15,23 @@ namespace XM.Web.Controllers
 
     /// <summary>
     /// 作者：曾贤鑫
-    /// 创建时间:2019-6-3
-    /// 修改时间：2019-
     /// 功能：文件上传下载
     /// </summary>
     public class DocumentController : Controller
     {
-        // GET: Document
+        #region view
+        /// <summary>
+        /// 文件上传下载首页
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();
         }
-
+        /// <summary>
+        /// 文件上传
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult ImportExcel0()
         {
@@ -56,5 +63,6 @@ namespace XM.Web.Controllers
             }
             return View("Index");
         }
+        #endregion
     }
 }

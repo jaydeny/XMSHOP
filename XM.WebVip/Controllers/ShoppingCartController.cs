@@ -1,15 +1,16 @@
-﻿using System;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using XM.Comm;
 using XM.Model;
 using XM.WebVIP.Controllers;
-/// <summary>
-/// 作者:曾贤鑫
-/// 日期:2019/5/13
-/// </summary>
+
 namespace XM.WebVip.Controllers
 {
     /// <summary>
@@ -17,7 +18,7 @@ namespace XM.WebVip.Controllers
     /// </summary>
     public class ShoppingCartController : BaseController
     {
-        
+        #region view
         /// <summary>
         /// 功能:进入购物车页面
         /// </summary>
@@ -55,7 +56,7 @@ namespace XM.WebVip.Controllers
             ViewData["AddList"] = AddList;
             return View();
         }
+        #endregion
 
-        
     }
 }

@@ -1,12 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using Newtonsoft.Json;
 using System.Collections;
 using System.Web.Mvc;
 using XM.DALFactory;
-/// <summary>
-/// 作者:曾贤鑫
-/// 日期:2019/4/28
-/// 作用:作为Cotroller和vipController的一个中间层
-/// </summary>
+
 namespace XM.WebVIP.Controllers
 {
     /// <summary>
@@ -15,12 +19,21 @@ namespace XM.WebVIP.Controllers
     public class BaseController : Controller
     {
 
-        //购物车项
-       public static Hashtable cartTable = new Hashtable();
+        #region 购物车
+        /// <summary>
+        /// 购物车项
+        /// </summary>
+        public static Hashtable cartTable = new Hashtable();
+        #endregion
+
+        #region 数据交互接口
         /// <summary>
         /// 数据交互接口
         /// </summary>
         internal DALCore DALUtility => DALCore.GetInstance();
+        #endregion
+
+        #region 数据转化展示
         /// <summary>
         /// 数据展示
         /// </summary>
@@ -80,11 +93,12 @@ namespace XM.WebVIP.Controllers
             return JsonConvert.SerializeObject(new { action = _action, key = _key, paras = _paras, culture = _culture });
 
         }
+        #endregion
 
+        #region 会员信息
         /// <summary>
         /// 功能:记录会员端的信息
         /// </summary>
-        //会员账号
         public string AN { get { return Session["AN"].ToString(); } }
         /// <summary>
         /// 密码
@@ -111,7 +125,7 @@ namespace XM.WebVIP.Controllers
         /// 会员对应的代理账号
         /// </summary>
         public string Agent_Acc { get { return Session["Agent_Acc"].ToString(); } }
+        #endregion
 
-       
     }
 }

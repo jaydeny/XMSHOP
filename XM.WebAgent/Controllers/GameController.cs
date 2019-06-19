@@ -1,22 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using XM.Comm;
-using System.Web;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
 using System.Web.Mvc;
 using XM.Web.Controllers;
 
 namespace XM.WebAgent.Controllers
 {
     /// <summary>
-    /// 创建人:梁钧淋
-    /// 创建日期:2019-5-17
-    /// 修改日期:2019-5-17
     /// 功能: 对游戏端API接入，进行游戏端数据处理，可视化
     /// </summary>
     public class GameController : BaseController
     {
-        // GET: Game
+        #region view
+        /// <summary>
+        /// 返回代理游戏视图
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();
@@ -29,6 +33,9 @@ namespace XM.WebAgent.Controllers
         public ActionResult GameForm() {
             return View();
         }
+        #endregion
+
+        #region select
         /// <summary>
         /// 获取所有游戏
         /// </summary>
@@ -83,5 +90,6 @@ namespace XM.WebAgent.Controllers
             string[] param = { ID };
             return DALUtility.Game.ReturnRes(param, "GetRecordSpecific");
         }
+        #endregion
     }
 }

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
 using System.Web.Mvc;
-/// <summary>
-/// 作者:曾贤鑫
-/// 日期:2019/5/13
-/// </summary>
+
 namespace XM.WebVip.Controllers
 {
     /// <summary>
@@ -14,6 +15,7 @@ namespace XM.WebVip.Controllers
     /// </summary>
     public class VIPController : Controller
     {
+        #region view
         /// <summary>
         /// 返回用户商品详情页
         /// </summary>
@@ -22,5 +24,6 @@ namespace XM.WebVip.Controllers
         {
             return View("GoodsDetails");
         }
+        #endregion
     }
 }

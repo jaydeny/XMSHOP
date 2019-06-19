@@ -1,7 +1,13 @@
-﻿using System;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XM.Model;
 using XM.Web.Controllers;
@@ -10,18 +16,13 @@ namespace XM.WebAgent.Controllers
 {
 
     /// <summary>
-    /// 作者：曾贤鑫
-    /// 创建时间:2019-5/5
-    /// 修改时间：2019-
     /// 功能：代理商的登录,注册,修改,安全退出等方法
     /// </summary>
     public class HomeController : BaseController
     {
-        // GET: Home
+        
         #region _Login
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:返回代理端登录页
         /// </summary>
         /// <returns>页面:代理端登录页</returns>
@@ -31,8 +32,6 @@ namespace XM.WebAgent.Controllers
         }
 
         /// <summary>
-        /// 作者:梁钧淋
-        /// 日期:2019/5/5
         /// 功能:返回代理端主页
         /// </summary>
         /// <returns>页面:代理端主页</returns>
@@ -43,8 +42,6 @@ namespace XM.WebAgent.Controllers
 
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:代理端进行登入
         /// </summary>
         /// <returns>json值</returns>
@@ -89,8 +86,6 @@ namespace XM.WebAgent.Controllers
 
         #region _Signin
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:返回代理端注册页
         /// </summary>
         /// <returns>页面:代理端注册页</returns>
@@ -100,8 +95,6 @@ namespace XM.WebAgent.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:代理端进行注册
         /// </summary>
         /// <returns>json值</returns>
@@ -114,8 +107,6 @@ namespace XM.WebAgent.Controllers
 
         #region _Update
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:代理端进行修改信息
         /// </summary>
         /// <returns>页面:修改页面</returns>
@@ -125,8 +116,6 @@ namespace XM.WebAgent.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/26
         /// 功能:代理端进行修改信息
         /// </summary>
         /// <returns>json值</returns>
@@ -141,9 +130,6 @@ namespace XM.WebAgent.Controllers
         #region _自定义
 
         /// <summary>
-        /// 作者：曾贤鑫
-        /// 创建时间:2019-4-28
-        /// 修改时间：2019-
         /// 功能：安全退出
         /// </summary>
         /// 
@@ -155,8 +141,6 @@ namespace XM.WebAgent.Controllers
         }
 
         /// <summary>
-        /// 作者:曾贤鑫
-        /// 日期:2019/4/25
         /// 功能:添加/修改代理的公用方法
         /// </summary>
         /// <param name="ID"></param>

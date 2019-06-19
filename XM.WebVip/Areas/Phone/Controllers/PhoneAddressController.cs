@@ -1,11 +1,16 @@
-﻿using System.Collections.Generic;
+﻿/*-------------------------------------*
+ * 创建人:         梁钧淋
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       梁钧淋       创建
+ *-------------------------------------*/
+using System.Collections.Generic;
 using System.Web.Mvc;
 using XM.Model;
 using XM.WebVIP.Controllers;
-/// <summary>
-/// 作者:梁钧淋
-/// 日期:2019/5/28
-/// </summary>
+
 namespace XM.WebVip.Areas.Phone.Controllers
 {
     /// <summary>
@@ -13,6 +18,7 @@ namespace XM.WebVip.Areas.Phone.Controllers
     /// </summary>
     public class PhoneAddressController : BaseController
     {
+        #region view
         /// <summary>
         /// 返回地址页
         /// </summary>
@@ -21,6 +27,9 @@ namespace XM.WebVip.Areas.Phone.Controllers
         {
             return View();
         }
+        #endregion
+
+        #region address
         /// <summary>
         /// 获取用户所有地址
         /// </summary>
@@ -34,6 +43,6 @@ namespace XM.WebVip.Areas.Phone.Controllers
             List<AddressEntity> AddList = DALUtility.Vip.QryAllAdd(param);
             return OperationReturn(true,"成功",AddList);
         }
-
+        #endregion
     }
 }

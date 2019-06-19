@@ -1,13 +1,18 @@
-﻿using System;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using XM.Comm;
 using XM.Model;
 using XM.WebVIP.Controllers;
-/// <summary>
-/// 作者：曾贤鑫
-/// 创建时间:2019-5/5
-/// </summary>
+
 namespace XM.WebVip.Controllers
 {
 
@@ -16,6 +21,7 @@ namespace XM.WebVip.Controllers
     /// </summary>
     public class HomeController : BaseController
     {
+        #region View
         /// <summary>
         /// 功能:返回会员端首页
         /// </summary>
@@ -32,8 +38,14 @@ namespace XM.WebVip.Controllers
                 return Redirect("/Phone/PhoneHome/Index_MB");
             }
         }
-
-        #region _Login
+        /// <summary>
+        /// 功能:返回会员端注册页面
+        /// </summary>
+        /// <returns>页面:注册时,返回注册页面</returns>
+        public ActionResult Signin()
+        {
+            return View("_Signin");
+        }
         /// <summary>
         /// 功能:返回会员端登录页面
         /// </summary>
@@ -42,7 +54,52 @@ namespace XM.WebVip.Controllers
         {
             return View("_Login");
         }
+        /// <summary>
+        /// 功能:会员端进入修改信息页面
+        /// </summary>
+        /// <returns>页面:修改信息页面</returns>
+        public ActionResult Update()
+        {
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("vip_AN", Session["AN"].ToString());
 
+            var result = DALUtility.Vip.QryVipInfo<VipInfoDTO>(param);
+
+            ViewData["VipAccountName"] = Session["AN"];
+            ViewData["Email"] = result.VipEmail;
+            ViewData["MP"] = result.VipMobliePhone;
+            return View("_Update");
+        }
+        /// <summary>
+        /// 功能:返回密码找回页面,输入用户名  
+        /// 进入修改密码页面  
+        /// </summary>
+        /// <returns>页面</returns>
+        public ActionResult FoundPwdPage()
+        {
+            return View("_FoundPwdPage");
+        }
+
+        /// <summary>
+        /// 功能:进入找回密码页面
+        /// </summary>
+        /// <returns>页面</returns>
+        public ActionResult PwdFoundPage()
+        {
+            return View("_PwdFoundPage");
+
+        }
+        /// <summary>
+        /// 功能:进入修改密码页面
+        /// </summary>
+        /// <returns>页面</returns>
+        public ActionResult UpdatePwdPage()
+        {
+            return View("_UpdatePwdPage");
+        }
+        #endregion
+
+        #region _Login
         /// <summary>
         /// 功能:会员端进行登入的方法
         /// </summary>
@@ -101,15 +158,6 @@ namespace XM.WebVip.Controllers
 
         #region _Signin
         /// <summary>
-        /// 功能:返回会员端注册页面
-        /// </summary>
-        /// <returns>页面:注册时,返回注册页面</returns>
-        public ActionResult Signin()
-        {
-            return View("_Signin");
-        }
-
-        /// <summary>
         /// 功能:会员端进行注册
         /// </summary>
         /// <returns>json值</returns>
@@ -122,23 +170,6 @@ namespace XM.WebVip.Controllers
 
         #region _update
         /// <summary>
-        /// 功能:会员端进入修改信息页面
-        /// </summary>
-        /// <returns>页面:修改信息页面</returns>
-        public ActionResult Update()
-        {
-            Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("vip_AN", Session["AN"].ToString());
-
-            var result = DALUtility.Vip.QryVipInfo<VipInfoDTO>(param);
-
-            ViewData["VipAccountName"] = Session["AN"];
-            ViewData["Email"] = result.VipEmail;
-            ViewData["MP"] = result.VipMobliePhone;
-            return View("_Update");
-        }
-
-        /// <summary>
         /// 功能:会员端进行修改信息
         /// </summary>
         /// <returns>json值</returns>
@@ -147,17 +178,6 @@ namespace XM.WebVip.Controllers
         {
             return save(int.Parse(Session["ID"].ToString()));
         }
-
-        /// <summary>
-        /// 功能:返回密码找回页面,输入用户名  
-        /// 进入修改密码页面  
-        /// </summary>
-        /// <returns>页面</returns>
-        public ActionResult FoundPwdPage()
-        {
-            return View("_FoundPwdPage");
-        }
-
         /// <summary>
         /// 功能:发送邮件
         /// </summary>
@@ -179,17 +199,6 @@ namespace XM.WebVip.Controllers
 
             return OperationReturn(boo, "vip005");
         }
-
-        /// <summary>
-        /// 功能:进入找回密码页面
-        /// </summary>
-        /// <returns>页面</returns>
-        public ActionResult PwdFoundPage()
-        {
-            return View("_PwdFoundPage");
-
-        }
-
         /// <summary>
         /// 功能:根据id找回密码
         /// </summary>
@@ -199,16 +208,6 @@ namespace XM.WebVip.Controllers
         {
             return save(int.Parse(Request["vip_id"]));
         }
-
-        /// <summary>
-        /// 功能:进入修改密码页面
-        /// </summary>
-        /// <returns>页面</returns>
-        public ActionResult UpdatePwdPage()
-        {
-            return View("_UpdatePwdPage");
-        }
-
         /// <summary>
         /// 功能:根据id修改密码
         /// </summary>
@@ -296,8 +295,6 @@ namespace XM.WebVip.Controllers
             decimal result = DALUtility.Vip.QryRemainder(Remainder);
             return result;
         }
-
-
         /// <summary>
         /// 功能：安全退出
         /// </summary>

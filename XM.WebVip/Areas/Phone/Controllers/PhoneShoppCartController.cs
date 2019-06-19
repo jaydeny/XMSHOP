@@ -1,9 +1,14 @@
-﻿using System.Web.Mvc;
+﻿/*-------------------------------------*
+ * 创建人:         梁钧淋
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       梁钧淋       创建
+ *-------------------------------------*/
+using System.Web.Mvc;
 using XM.WebVip.Controllers;
-/// <summary>
-/// 作者:梁钧淋
-/// 日期:2019/5/28
-/// </summary>
+
 namespace XM.WebVip.Areas.Phone.Controllers
 {
     /// <summary>
@@ -11,6 +16,7 @@ namespace XM.WebVip.Areas.Phone.Controllers
     /// </summary>
     public class PhoneShoppCartController : ShoppCartController
     {
+        #region view
         /// <summary>
         /// 返回购物车页
         /// </summary>
@@ -19,6 +25,9 @@ namespace XM.WebVip.Areas.Phone.Controllers
         {
             return View();
         }
+        #endregion
+
+        #region select
         /// <summary>
         /// 获取购物车信息方法
         /// </summary>
@@ -27,6 +36,9 @@ namespace XM.WebVip.Areas.Phone.Controllers
         {
             return GetCartByVIPID();
         }
+        #endregion
+
+        #region edit
         /// <summary>
         /// 编辑购物车
         /// </summary>
@@ -35,6 +47,9 @@ namespace XM.WebVip.Areas.Phone.Controllers
         {
             return EditCart();
         }
+        #endregion
+
+        #region delete
         /// <summary>
         /// 批量删除购物车项
         /// </summary>
@@ -45,6 +60,6 @@ namespace XM.WebVip.Areas.Phone.Controllers
         {
             return deleCarts(items);
         }
-
+        #endregion
     }
 }

@@ -1,14 +1,17 @@
-﻿using System;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XM.Comm;
 using XM.WebVIP.Controllers;
-/// <summary>
-/// 作者:曾贤鑫
-/// 日期:2019/5/13
-/// </summary>
+
 namespace XM.WebVip.Controllers
 {
     /// <summary>
@@ -16,6 +19,7 @@ namespace XM.WebVip.Controllers
     /// </summary>
     public class GameRechargeController : BaseController
     {
+        #region view
         /// <summary>
         /// 功能:返回充值,反充值页面
         /// </summary>
@@ -29,7 +33,9 @@ namespace XM.WebVip.Controllers
             ViewData["Integral"] = Integral;
             return View("_Recharge");
         }
+        #endregion
 
+        #region Examine
         /// <summary>
         /// 功能:充值游戏积分
         /// </summary>
@@ -108,7 +114,9 @@ namespace XM.WebVip.Controllers
             var result = GameUtil.HttpPost(param);
             return result;
         }
+        #endregion
 
+        #region integral
         /// <summary>
         /// 功能:刷新积分
         /// </summary>
@@ -133,5 +141,6 @@ namespace XM.WebVip.Controllers
             Integral = y.Substring(1, z - 1) == "[]" ? "0" : y.Substring(1, z - 1);
             Session["Remainder"] = remainder.ToString();
         }
+        #endregion
     }
 }
