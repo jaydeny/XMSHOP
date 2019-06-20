@@ -1,9 +1,15 @@
-﻿using System;
+﻿/*-------------------------------------*
+ * 创建人:         梁钧淋
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       梁钧淋       创建
+ *-------------------------------------*/
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using XM.DAL.comm;
 using XM.IDAL;
 using XM.Model;
@@ -11,8 +17,6 @@ using XM.Model;
 namespace XM.DAL
 {
     /// <summary>
-    /// 作者:梁钧淋
-    /// 创建时间:2019/5/27
     /// 功能: 活动类
     /// </summary>
     public class ActivityDAL : BaseDal, IActivityDAL
@@ -23,11 +27,10 @@ namespace XM.DAL
         /// <typeparam name="ActivityEntity"></typeparam>
         /// <param name="param"></param>
         /// <returns></returns>
-        public List<ActivityEntity> QryAC<ActivityEntity>(Dictionary<string, object> param)
+        public List<ActivityEntity> QryAC<ActivityEntity>(Dictionary <string, object> param)
         {
-            //string sql = "select * from tbActivity where (Receiver is null or Receiver ='@agent_AN' or  Receiver like '%@agent_AN%') and StartDate < @Date and EndDate > @Date";
-
-            string sql = "select * from tbActivity";
+            string sql = "select * from tbActivity where (Receiver is null or Receiver ='@agent_AN' or  Receiver like '%@agent_AN%') and StartDate < @Date and EndDate > @Date";
+            
             IEnumerable<ActivityEntity> list = QueryList<ActivityEntity>(sql, param);
             List<ActivityEntity> result = list.ToList();
             return result ;
@@ -65,13 +68,21 @@ namespace XM.DAL
             builder.AddWhereAndParameter(paras, "id");
             return SortAndPage<T>(builder, grid, out iCount);
         }
-
+        /// <summary>
+        /// 获取折扣活动信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IEnumerable<CustomDisEntity> GetDisByTag(int id)
         {
             string sql = "SELECT * FROM tbCustomDis WHERE Ac_id = @id";
             return QueryList<CustomDisEntity>(sql, new { id });
         }
-
+        /// <summary>
+        /// 获取满减活动信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IEnumerable<CustomFullEntity> GetfullByTag(int id)
         {
             string sql = "SELECT * FROM tbCustomFull WHERE Ac_id = @id";

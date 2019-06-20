@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <link href="~/Areas/Phone/Content/ShoppingCart/cart.css" rel="stylesheet" type="text/css">
@@ -11,25 +12,27 @@
             <span class="shop-cart-htext1">编辑</span>
         </div>
         <div class="shop-cart-bigbox">
-            <div class="cart-title">先锋侠需要您的精确坐标</div>
-            <div class="cart-title">收货时间 <i>今天30分钟可送达(可预订)</i></div>
+            <div class="cart-title" id="adrTitle" v-on:click="seleAddress()">请选择收货地址</div>
+            <div class="cart-title" id="AcTitle" v-on:click="seleAct()">选择活动 <i>{{ACLen}}</i></div>
             <div class="shop-cart-listbox1">
-              
-                <div class="index-goods" v-for="(obj,index) in cartTable" :key="index"> 
-                    <span class="shop-cart-check2"><input type="checkbox" name="sub2" class="shopcart-input1 btn2" :id="obj.item_ID"></span>
+
+                <div class="index-goods" v-for="(obj,index) in cartTable" :key="index">
+                    <span class="shop-cart-check2"><input type="checkbox" name="sub2" class="shopcart-input1 btn2" v-on:click="seleCheck()" :id="obj.item_ID"></span>
                     <span class="index-goods-img"><img src="https://img11.360buyimg.com/n7/jfs/t30040/100/1290632710/208879/1f7e2225/5cdd0d92Nb78895a6.jpg"></span>
                     <div class="index-goods-textbox">
                         <span class="index-goods-text1">{{obj.GoodsName}}</span>
                         <div class="index-goods-text2">￥<i class="priceJs">{{tranfoMoney(obj.GoodsPrice)}}</i></div>
                         <div class="shop-cart-box3">
-                            <span class="shop-cart-subtract"></span>
-                            <input type="tel" size="6" :value="obj.Agoods_Count" id="tb_count" class="shop-cart-numer">
-                            <span class="shop-cart-add"></span>
+                            <span class="shop-cart-subtract" v-on:click="reducePro(index,$event)"></span>
+                            <input type="tel" size="6"  onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/" :value="obj.Agoods_Count" id="tb_count" class="shop-cart-numer">
+                            <span class="shop-cart-add" v-on:click="addPro(index,$event)"></span>
                         </div>
                     </div>
                 </div>
-              
-                <div class="shopPrice">本店总计：￥<span class="ShopTotal">0.00</span></div>
+
+
+
+                <div class="shopPrice">本店总计：￥<span class="ShopTotal">{{tranfoMoney(AllPrice)}}</span></div>
             </div>
 
 
@@ -37,26 +40,75 @@
         </div>
         <div class="shop-cart-total">
             <label class="checkall">
-                <span class="shop-cart-check1"><input type="checkbox" class="" id="ckAll"></span>
+                <span class="shop-cart-check1"><input type="checkbox" class="" id="ckAll" v-on:click="ckAll($event)"></span>
                 全选
             </label>
             <span class="scart-total-text2">合计：￥</span>
-            <span id="AllTotal" class="scart-total-text3">0.00</span>
-            <a href="./indent-details.html" class="scart-total-text4">去结算<i id="selectedTotal"></i></a>
+            <span id="AllTotal" class="scart-total-text3">{{tranfoMoney(AllPrice)}}</span>
+            <a href="./indent-details.html" v-on:click.prevent="subToOrder()" class="scart-total-text4">去结算<i id="selectedTotal"></i></a>
             <span class="delete hide"></span>
         </div>
 
         <input type="hidden" id="ids" value="">
+        @*活动选择层*@
+        <div class="gdetails-layer-bg" id="avtibg" style="display: none;" v-on:click="hidenAc()"></div>
+        <div class="gd-share-layer" style="display: none;overflow:auto" id="avti">
+            <div class="pay-a1" v-for="(obj,index) in ACTable" :key="index">
+                <div class="pay-a1-b1" data-click="false" v-on:click="showContent($event)">
+                    <span class="pay-a1-t1">{{obj.Title}}</span>
+                    <span class="pay-a1-i1"></span>
+                </div>
+                <div class="pay-a1-t2">
+                    <span style="word-wrap: break-word;word-break: break-all;overflow: hidden;">{{obj.Content}}</span>
+
+                    <input type="checkbox" class="shopcart-input1" name="rab" v-on:click="seleAc(obj.id,obj.Title,$event)">
+                </div>
+            </div>
+        </div>
+
+
+        @*地址选择层*@
+        <div class="gdetails-layer-bg" id="addressbg" v-on:click="hidenAc()" style="display: none;"></div>
+        <div class="gd-share-layer" style="display: none;overflow:auto" id="address">
+            <div class="pay-a1" v-for="(obj,index) in Address" :key="index">
+                <div class="pay-a1-b1" data-click="false" v-on:click="showContent($event)">
+                    <div class="shop-cart-box2">
+                        <input type="checkbox" name="addres" class="btn1" v-on:click="seleAddre(obj.AddressID,obj.AddressName,$event)">
+                        <span class="shop-cart-ltext1">{{obj.AddressName.substring(0,10)}}</span>
+                    </div>
+                </div>
+                <div class="pay-a1-t2">
+                    <span style="word-wrap: break-word;word-break: break-all;overflow: hidden;">{{obj.AddressName}}</span>
+                </div>
+            </div>
+        </div>
     </div>
     <script>
-        new Vue({
+        var cart = new Vue({
             el: "#cart",
             data: {
+                isLogin: true,
                 //获取购物车项的数据
                 getCartDataURL: "/Phone/PhoneShoppCart/GetCartByVIPID_MB",
-                cartTable:[]
+                cartTable: [],
+                AllPrice: 0,
+                //活动信息
+                ACTable: [],
+                //活动数量
+                ACLen: "",
+                //活动详情
+                ACInfoTable: [],
+                AcID: '',
+                Address: [],
+                AddreID: '',
+                subTable:[]
             },
             created: function () {
+                //活动
+                this.getAllAc();
+                //地址
+                this.ajaxAddress();
+                //初始化
                 this.init();
             },
             methods: {
@@ -70,9 +122,249 @@
                         url: this.getCartDataURL,
                         dataType: 'json'
                     }).then((data) => {
-                        console.log(data)
+
                         this.cartTable = data.data;
                     });
+                },
+                //复选框的一个通用方法
+                TotalPrice() {
+                    let allprice = 0;
+                    $(".shop-cart-listbox1").each(function () {
+                        var oprice = 0;
+                        $(this).find(".btn2").each(function () {
+                            if ($(this).is(":checked")) {
+                                var num = $(this).parents(".index-goods").find(".shop-cart-numer").val();
+
+                                var price = parseFloat($(this).parents(".index-goods").find(".priceJs").text().replace(",", ""));
+
+                                var total = price * num;
+
+                                oprice += total;
+
+                            }
+                            $(this).closest(".shop-cart-listbox1").find(".ShopTotal").text(oprice.toFixed(2));
+                        });
+                        var oneprice = parseFloat($(this).find(".ShopTotal").text());
+                        allprice += oneprice;
+                    });
+                    this.AllPrice = allprice;
+                },
+                //活动选择层
+                seleAct() {
+                    if (this.isLogin) {
+                        $("#avtibg").show();
+                        $("#avti").show();
+                        $("body").addClass("gdetails-ovrerHide");
+                    } else {
+                        location.href = "/Phone/PhoneHome/Login_MBV"
+                    }
+                    //已经获取到活动的一些信息，我们使用活动类型和ID把全部信息封装成一个数组对象
+                    this.getALLACInfo();
+
+                },
+                hidenAc() {
+                    $(".gdetails-layer-bg").hide();
+                    $(".gd-share-layer").hide();
+                    $("body").removeClass("gdetails-ovrerHide");
+                },
+                //显示详细信息
+                showContent(event) {
+                   // console.log(event)
+                    const data = event.target.dataset.click;
+                    if (data == 'false') {
+                        event.target.dataset.click = 'true';
+                        $(event.target).siblings('div').slideDown(300);
+                    } else {
+                        event.target.dataset.click = 'false';
+                        $(event.target).siblings('div').slideUp(300);
+                    }
+                },
+                //获取活动详细信息
+                getALLACInfo() {
+                    $.each(this.ACTable, function (i, v) {
+                        cart.ajaxAcInfo(v.Ac_type, v.id);
+                    });
+                },
+                //获取活动详细信息
+                ajaxAcInfo(acType, acID) {
+                    const param = {
+                        acType: acType,
+                        acID: acID
+                    }
+                    $.ajax({
+                        url: "/Phone/PhoneShop/GetAcEntity",
+                        data: param,
+                        dataType: 'json'
+                    }).then((data) => {
+
+                        if (data.success) {
+                            this.ACInfoTable.push(data.data);
+                        }
+                    });
+                },
+                //选择活动
+                seleAc(id, title, event) {
+                    $("input[name='addres']").prop("checked", false);
+                    event.target.checked = true;
+                    $("#AcTitle").text(title);
+                    this.AcID = id;
+                    $(".gdetails-layer-bg").hide();
+                    $(".gd-share-layer").hide();
+                    $("body").removeClass("gdetails-ovrerHide");
+                },
+                // 通过活动ID
+                //获取活动
+                getAllAc() {
+                    $.ajax({
+                        url: "/Phone/PhoneShop/GetAllAc_MB",
+                        dataType: "json"
+                    }).then((data) => {
+                        if (data.success) {
+                            this.ACTable = data.data;
+                            this.ACLen = data.data.length;
+
+                        } else {
+                            this.isLogin = false;
+                            $("#AcTitle").text("请先登录");
+                        }
+                    });
+                },
+
+                //地址
+                seleAddress() {
+                    if (this.isLogin) {
+                        $("#addressbg").show();
+                        $("#address").show();
+                        $("body").addClass("gdetails-ovrerHide");
+                    } else {
+                        location.href = "/Phone/PhoneHome/Login_MBV"
+                    }
+                },
+                //发送ajax 获取所有地址信息
+                ajaxAddress() {
+                    $.ajax({
+                        url: "/Phone/PhoneAddress/GetAllAddress",
+                        dataType: "json"
+                    }).then((data) => {
+                        if (data.success == true) {
+                            this.Address = data.data;
+                            console.log(data);
+                            $.each(data.data, function (i, v) {
+                                if (i == 1) {
+                                    cart._data.AddreID = v.AddressID;
+                                    $("#adrTitle").text(v.AddressName);
+                                } else {
+                                    $("#adrTitle").text("请选择收货地址");
+                                }
+                            });
+                        }
+                        
+                    });
+                },
+                //选择地址
+                seleAddre(id, title, event) {
+                    $("input[name='rab']").prop("checked", false);
+                    event.target.checked = true;
+                    $("#adrTitle").text(title);
+                    this.AddreID = id;
+                    $(".gdetails-layer-bg").hide();
+                    $(".gd-share-layer").hide();
+                    $("body").removeClass("gdetails-ovrerHide");
+                },
+                //下单
+                subToOrder() {
+
+                    this.subTable = [];
+                    const acID = this.AcID;
+                    const adID = this.AddreID;
+                    
+                    if (this.isLogin) {
+                        if (adID == "") {
+                            console.log("aa")
+                        } else {
+                            $.each($(".btn2"), function (i, v) {
+                                if ($(v).is(":checked")) {
+                                    cart.getOrderByID($(this)[0].id, acID, adID);
+                                }
+                            });
+                            console.log(this.subTable)
+                            this.ajaxToOrder();
+                            $('.delete').trigger("click");
+                        }
+                    } else {
+                        location.href = "/Phone/PhoneHome/Login_MBV"
+                    }
+                },
+                //根据id将数据进行填充表单
+                getOrderByID(id,acID,adID) {
+                    $.each(this.cartTable, function (i,v) {
+                        if (id == v.item_ID) {
+                            cart._data.subTable.push({ AddressID: adID, Count: v.Agoods_Count, ProID: v.Agoods_ID, ProTotal: v.GoodsPrice, AcID: acID, OrderTotal: v.Agoods_Count * v.GoodsPrice});
+                        }
+                    });
+                    
+                },
+                //发送下单请求到后台
+                ajaxToOrder() {
+                    $.ajax({
+                        url: "/Shop/BuyToPro",
+                        method: 'post',
+                        contentType: 'application/json',
+                        data: JSON.stringify(this.subTable),
+                        dataType: "json"
+                    }).then((data) => {
+                        console.log(data);
+                    });
+                },
+                //添加一个商品数量
+                addPro: function (index, event) {
+
+                    let vall = event.target.previousElementSibling.value;
+                    vall++;
+                    event.target.previousElementSibling.value = vall;
+                    this.editCartData(this.cartTable[index].Agoods_ID, vall);
+                    this.cartTable[index].Agoods_Count = vall;
+
+                    this.TotalPrice();
+                },
+                //减少一个商品数量
+                reducePro(index, event) {
+                    let vall = event.target.nextElementSibling.value;
+                    vall--;
+                    if (vall <= 0) {
+                        vall = 1;
+                    }
+                    event.target.nextElementSibling.value = vall;
+                    this.editCartData(this.cartTable[index].Agoods_ID, vall);
+                    this.cartTable[index].Agoods_Count = vall;
+
+                    this.TotalPrice();
+                },
+                //编辑购物项
+                editCartData(proID, count) {
+                    const param = {
+                        editType: 1,
+                        AgoodsID: proID,
+                        count: count
+                    }
+                    $.ajax({
+                        url: this.editCartURL,
+                        data: param,
+                        dataType: 'json'
+                    }).then((data) => {
+
+                    });
+                },
+                //进行全选动作
+                ckAll(event) {
+                    $("input[name='sub2']").prop("checked", event.target.checked);
+                    this.TotalPrice();
+                },
+                // 选择
+                seleCheck() {
+                    var $subs = $("input[name='sub2']");
+                    $("#ckAll").prop("checked", $subs.length == $subs.filter(":checked").length ? true : false);
+                    this.TotalPrice();
                 },
                 //进行数值和金钱的转化
                 tranfoMoney(num) {
@@ -98,7 +390,11 @@
                     }
                 }
             }
-        })
+        });
+
+
+
+
     </script>
 
     <script src="~/Areas/Phone/Script/ShoppingCart/cart.js" type="text/javascript"></script>

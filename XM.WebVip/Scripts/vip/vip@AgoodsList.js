@@ -13,6 +13,7 @@ var bounced = function (obj) {
 $(".filter_box").on("click", ".type", function () {
     $(".filter_box .type-action").removeClass("type-action");
     $(this).addClass("type-action");
+    $("#typeName").text($(this).text());
     paging.currentPage = 1;
     getQryAgoods();
 });
@@ -36,12 +37,11 @@ $(".filter_box").on("click", ".sort", function () {
     getQryAgoods();
 });
 
-
 // 商品集合
 var listGoods
 // 商品模板
 var strGoods = function (i, obj) {
-    return "<li><div class='goods-item' ><p class='p-img d-button' data-id=" + i + "><a><img src='/image/" + obj.goods_pic + "'  /></a></p><p class='p-title'><a><span>" + obj.goods_name + "</span><span class='red'>" + obj.goods_intro + "</span></a></p><p class='p-price'><b>￥" + obj.price + "</b></p><div class='p-button' data-id=" + i + " ><a class='' >立即下单</a></div><div class='c-button' data-id=" + i + " ><a class='' >添加购物车</a></div></div ></li >";
+    return "<li><div class='goods-item' ><p class='p-img d-button' data-id=" + i + "><a><img src='/image/" + obj.goods_pic + "'  /></a></p><p class='p-title'><a><span>" + obj.goods_name + "</span><span class='red'>" + obj.goods_intro + "</span></a></p><p class='p-price'><b>￥" + obj.price + "</b></p><div class='p-button' data-id=" + i + " ><a class='' >立即下单</a></div></div ></li >";
 }
 var getQryAgoods = function () {
     var typeId = $(".filter_box .type-action").data("id");
@@ -57,7 +57,7 @@ var getQryAgoods = function () {
                 $(".goods-exhibition>ul").append(strGoods(i, n));
             });
             // 回到顶端
-            document.body.scrollTop = document.documentElement.scrollTop = 100;
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
             //总条数
             paging.total = data.total;
             paging.renderPaging();
@@ -140,10 +140,14 @@ function getQueryVariable(variable) {
     }
     return (false);
 }
+
+// 请求商品
+var search = decodeURI(getQueryVariable("search"));
+if (search != "false") {
+    $("#txt_search").val(search);
+}
 // 初始商品
 goodsRender();
-// 请求商品
-var search = getQueryVariable("search");
 
 //提示框弹出方法
 function narn(type, text) {

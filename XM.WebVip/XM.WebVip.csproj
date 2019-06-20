@@ -129,10 +129,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Phone\Controllers\PhoneAddressController.cs" />
     <Compile Include="Areas\Phone\Controllers\PhoneHomeController.cs" />
     <Compile Include="Areas\Phone\Controllers\PhoneProductController.cs" />
+    <Compile Include="Areas\Phone\Controllers\PhoneShopController.cs" />
     <Compile Include="Areas\Phone\Controllers\PhoneShoppCartController.cs" />
-    <Compile Include="Areas\Phone\Controllers\PhoneVIPController.cs" />
     <Compile Include="Areas\Phone\Controllers\PhoneVipInfoController.cs" />
     <Compile Include="Areas\Phone\PhoneAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Phone\Content\Address\adress.css" />
     <Content Include="Areas\Phone\Content\Home\index.css" />
     <Content Include="Areas\Phone\Content\Home\login.css" />
     <Content Include="Areas\Phone\Content\Model\reset.css" />
@@ -264,6 +266,7 @@
     <Content Include="Areas\Phone\resources\Home\Index.json" />
     <Content Include="Areas\Phone\Views\PhoneHome\Login_MBV.cshtml" />
     <Content Include="Areas\Phone\Views\PhoneProduct\ProductInfo.cshtml" />
+    <Content Include="Areas\Phone\Views\PhoneAddress\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="image\1.png" />
     <Content Include="image\10.png" />
@@ -413,6 +416,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Phone\Models\" />
+    <Folder Include="Areas\Phone\Views\PhoneShop\" />
     <Folder Include="Areas\Phone\Views\PhoneVIP\" />
     <Folder Include="Models\" />
     <Folder Include="Views\GameHome\" />

@@ -1,8 +1,15 @@
-﻿using Newtonsoft.Json;
+﻿/*-------------------------------------*
+ * 创建人:         朱茂琛
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       朱茂琛       创建
+ *-------------------------------------*/
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using XM.Model;
@@ -11,8 +18,6 @@ using XM.Web.Domain;
 namespace XM.Web.Controllers
 {
     /// <summary>
-    /// 创建人：朱茂琛
-    /// 创建时间：2019/04/22
     /// 商品
     /// </summary>
     public class GoodsController : BaseController
@@ -25,6 +30,7 @@ namespace XM.Web.Controllers
             return View();
         }
         #endregion
+
         #region 获取所有商品信息
         [PermissionFilter("Goods", "Index")]
         public ActionResult GetAllGoodsInfo()
@@ -56,12 +62,14 @@ namespace XM.Web.Controllers
             return PagerData(totalCount, goods,pageindex,pagesize);
         }
         #endregion
+
         #region  添加/修改页面
         public ActionResult Form()
         {
             return View("_Form");
         }
         #endregion
+
         #region  添加/修改商品信息
         [PermissionFilter("Goods", "Index",Operationype.Add)]
         public ActionResult Save()
@@ -143,6 +151,7 @@ namespace XM.Web.Controllers
             return OperationReturn(false, result);
         }
         #endregion
+
         #region  删除商品
         [PermissionFilter("Goods", "Index", Operationype.Delete)]
         public ActionResult DelGoodsByIDs()
@@ -158,6 +167,7 @@ namespace XM.Web.Controllers
             }
         }
         #endregion
+
         #region 获取单个商品信息
         public ActionResult GetFormJson(string id)
         {

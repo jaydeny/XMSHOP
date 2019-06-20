@@ -136,4 +136,7 @@
 	margin: 0 5px;
 	font-size: 13px;
 }
+.shopping_cart .goods-main {
+    min-height: 400px;
+}
 

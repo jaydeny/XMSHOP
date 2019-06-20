@@ -19,7 +19,7 @@
         </div>
         <!--头部结束-->
         <!--代付款分类开始-->
-        <div class="personal-box1 mbt-05">
+        @*<div class="personal-box1 mbt-05">
             <a href="./my-indent-dfk.html" class="personal-box2 box3">
                 <span class="personal-box1-img1"><img src="http://www.17sucai.com/preview/1528155/2019-04-18/fresh/images/personal-center-img1.png" alt=""></span>
                 <span class="personal-box1-text1">待付款</span>
@@ -40,13 +40,13 @@
                 <span class="personal-box1-img1"><img src="http://www.17sucai.com/preview/1528155/2019-04-18/fresh/images/personal-center-img5.png" alt=""></span>
                 <span class="personal-box1-text1">全部订单</span>
             </a>
-        </div>
+        </div>*@
         <!--代付款分类结束-->
         <!--功能分类开始-->
-        <a href="./discount-coupon.html" class="personal-box5">
+        @*<a href="./discount-coupon.html" class="personal-box5">
             <span class="personal-box5-img1"><img src="http://www.17sucai.com/preview/1528155/2019-04-18/fresh/images/personal-center-img10.png" alt=""></span>
             <span>我的优惠券</span>
-        </a>
+        </a>*@
         <a href="./receiving-adress-list.html" class="personal-box5">
             <span class="personal-box5-img1"><img src="http://www.17sucai.com/preview/1528155/2019-04-18/fresh/images/personal-center-img11.png" alt=""></span>
             <span>收货地址</span>
@@ -74,20 +74,18 @@
                     $.ajax({
                         url: "/Phone/PhoneHome/SignUp_MB"
                     }).then((data) => {
-                        localStorage.setItem("name", '');
                         location.href = "/Phone/PhoneVipInfo/InfoPage_MB";
                     });
                 },
                 //初始化
                 init() {
-                    const name = this.name = localStorage.getItem("name");
-                    if (name == null || name == '') {
-                        this.is_SignIn = false;
-                        this.name = "请登录...";
-                    } else {
-                        this.is_SignIn = true;
-                        this.name = name;
-                    }
+                    $.ajax({
+                        url: "/Phone/PhoneVipInfo/getName",
+                        dataType:'json'
+                    }).then((data) => {
+                        this.is_SignIn = data.success;
+                        this.name = data.data;
+                    });
                 },
                 //点击登陆按钮
                 login() {

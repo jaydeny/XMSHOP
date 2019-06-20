@@ -44,8 +44,9 @@
 	padding-left: 30px;
 }
 .vipinfo-form {
-	padding: 0 0 0 20px;
-	background: #f5f5f5;
+    padding: 0 0 0 20px;
+    background: #f5f5f5;
+    min-height: 510px;
 }
 .info-head {
 	background: #fff;
@@ -91,7 +92,7 @@
 	background: #fff;
 	padding: 1px 30px 10px 30px;
 	border-radius: 10px;
-    min-height: 400px;
+    min-height: 380px;
 }
 .select_order {
 	float: right;

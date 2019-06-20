@@ -163,11 +163,26 @@ $("#agoods").on("click", ".check", function () {
         $("#total").text(parseInt(origin - result))
         $("#choose").text(parseInt($("#choose").text() - 1))
     }
+    var checks = $("#agoods .check");
+    var boo = true;
+    $.each(checks, function (i, val) {
+        if (!$(val).prop("checked")) {
+            boo = false;
+            return;
+        }
+    });
+    if (boo) {
+        $(".checkAll").prop("checked", true);
+    }
+    else {
+        $(".checkAll").prop("checked", false);
+    }
 })
 
 //全选
 $(".checkAll").click(function () {
     var boo = $(this).prop("checked");
+    $(".checkAll").prop("checked", boo);
     var list = $("#agoods .check").prop("checked", boo);
 
     if (boo) {

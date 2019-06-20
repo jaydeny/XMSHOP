@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using XM.Model;
 
 namespace XM.IDAL
@@ -214,6 +209,13 @@ namespace XM.IDAL
         /// <param name="paras"></param>
         /// <returns></returns>
         List<AddressEntity> QryAllAdd(Dictionary<string,object> paras);
+
+        /// <summary>
+        /// 功能:设置默认地址
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        int SiteTolerant(Dictionary<string, object> paras);
         #endregion
 
         #region _自定义

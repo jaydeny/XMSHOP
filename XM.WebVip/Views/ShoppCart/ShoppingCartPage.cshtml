@@ -34,14 +34,14 @@
                             数量
                         </div>
                         @*<div class="flex-1">
-                            小计
-                        </div>*@
+                小计
+            </div>*@
                         <div class="flex-1">
                             操作
                         </div>
                     </div>
                     <!-- 主体 -->
-                    <form id="agoods">
+                    <form id="agoods" class="goods-main">
                         @foreach (ShoppCartEntity item in (IEnumerable<ShoppCartEntity>)@ViewData["list"])
                         {
                             <div class="shopping-row" data-val="@item.Agoods_ID" data-itemID="@item.item_ID" data-count="@item.Agoods_Count">
@@ -62,7 +62,7 @@
                                                 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                                             </button>
                                         </span>
-                                        <input type="text" class="form-control count" data-val="@item.Agoods_Count" value="@item.Agoods_Count" style="font-size: 18px;text-align: center;padding: 0;" readonly >
+                                        <input type="text" class="form-control count" data-val="@item.Agoods_Count" value="@item.Agoods_Count" style="font-size: 18px;text-align: center;padding: 0;" readonly>
                                         <span class="input-group-btn">
                                             <button class="btn btn-default plus" type="button">
                                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -70,56 +70,54 @@
                                         </span>
                                     </div>
                                 </div>
-                                    @*<div class="flex-1">
-                                        <span class="priceTotal" id="price"></span>
-                                    </div>*@
+                                @*<div class="flex-1">
+                        <span class="priceTotal" id="price"></span>
+                    </div>*@
                                 <div class="flex-1">
                                     <a class="delete" data-val="@item.item_ID">删除</a>
                                 </div>
                             </div>
                         }
-
-                            <div class="address-box">
-                                选择地址:
-                                <select id="Add">
-                                    <option value="0">请选择</option>
-                                    @{
-                                        var Add = ViewData["Add"] as List<XM.Model.AddressEntity>;
-
-                                        foreach (var addItem in Add)
-                                        {
-                                            <option value="@addItem.AddressID">@addItem.AddressName</option>
-                                        }
-                                    }
-                                </select>
-                                选择活动
-                                <select id="Ac">
-                                    <option value="0">请选择</option>
-                                    @{
-                                        var Ac = ViewData["Ac"] as List<XM.Model.ActivityEntity>;
-
-                                        foreach (var acItem in Ac)
-                                        {
-                                            <option value="@acItem.id">@acItem.Content</option>
-                                        }
-                                    }
-                                </select>
-                            </div>
-
-                        <!-- 底部 -->
-                        <div class="shopping-bottom">
-                            <div class="operation">
-                                <input type="checkbox" class="checkAll" /> 全选
-                                <a class="deleteAll">删除</a>
-                            </div>
-
-                            <div class="bottom-but"><a class="but-order" id="Orders">立即下单</a></div>
-                            <div class="total">
-                                <p>总计：<span>￥<b id="total">0.0</b></span></p>
-                                <p class="hint">已选择<span id="choose">0</span>件商品</p>
-                            </div>
-                        </div>
                     </form>
+                    <div class="address-box">
+                        选择地址:
+                        <select id="Add">
+                            <option value="0">请选择</option>
+                            @{
+                                var Add = ViewData["Add"] as List<XM.Model.AddressEntity>;
+
+                                foreach (var addItem in Add)
+                                {
+                                    <option value="@addItem.AddressID">@addItem.AddressName</option>
+                                }
+                            }
+                        </select>
+                        选择活动
+                        <select id="Ac">
+                            <option value="0">请选择</option>
+                            @{
+                                var Ac = ViewData["Ac"] as List<XM.Model.ActivityEntity>;
+
+                                foreach (var acItem in Ac)
+                                {
+                                    <option value="@acItem.id">@acItem.Content</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <!-- 底部 -->
+                    <div class="shopping-bottom">
+                        <div class="operation">
+                            <input type="checkbox" class="checkAll" /> 全选
+                            <a class="deleteAll">删除</a>
+                        </div>
+
+                        <div class="bottom-but"><a class="but-order" id="Orders">立即下单</a></div>
+                        <div class="total">
+                            <p>总计：<span>￥<b id="total">0.0</b></span></p>
+                            <p class="hint">已选择<span id="choose">0</span>件商品</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,4 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using Newtonsoft.Json;
 using System;
 using System.Web.Mvc;
 using XM.Comm;
@@ -7,14 +15,36 @@ using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
+    /// <summary>
+    /// 游戏记录
+    /// </summary>
     public class GameRecordController : BaseController
     {
+        #region view
+        /// <summary>
+        /// 游戏记录首页
+        /// </summary>
+        /// <returns></returns>
         [PermissionFilter]
-        // GET: GameRecord
         public ActionResult Index()
         {
             return View();
         }
+        /// <summary>
+        /// 游戏记录页
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetRecord()
+        {
+            return View();
+        }
+        #endregion
+
+        #region Record
+        /// <summary>
+        /// 查看游戏详细记录
+        /// </summary>
+        /// <returns></returns>
         [PermissionFilter("GameRecord", "Index")]
         public ActionResult GetRecordCollect()
         {
@@ -37,10 +67,10 @@ namespace XM.Web.Controllers
             };
             return Content(JsonConvert.SerializeObject(data));
         }
-        public ActionResult GetRecord()
-        {
-            return View();
-        }
+       /// <summary>
+       /// 查看时间段内游戏记录
+       /// </summary>
+       /// <returns></returns>
         [PermissionFilter("GameRecord", "Index")]
         public ActionResult Record()
         {
@@ -71,6 +101,6 @@ namespace XM.Web.Controllers
             }
             
         }
-        
+        #endregion
     }
 }

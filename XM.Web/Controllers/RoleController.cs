@@ -1,17 +1,27 @@
-﻿using Newtonsoft.Json;
+﻿/*-------------------------------------*
+ * 创建人:         曾贤鑫
+ * 创建时间:       2019/06/03
+ * 最后修改时间:    
+ * 最后修改原因:
+ * 修改历史:
+ * 2019/06/03       曾贤鑫       创建
+ *-------------------------------------*/
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using XM.Model;
 using XM.Web.Domain;
 
 namespace XM.Web.Controllers
 {
+    /// <summary>
+    /// 角色
+    /// </summary>
     public class RoleController : BaseController
     {
         #region  角色页面
@@ -112,6 +122,7 @@ namespace XM.Web.Controllers
         }
         #endregion
 
+        #region 获取所有选单
         /// <summary>
         ///  获取所有选单
         /// </summary>
@@ -139,7 +150,7 @@ namespace XM.Web.Controllers
             bool checkstate;
             return Content(JsonConvert.SerializeObject(RoleTree(allMenu.ToList(), rolemenuList.ToList(), out checkstate,0)));
         }
-
+        #endregion
         #region 角色树列图
         /// <summary>
         ///  选单树列图
