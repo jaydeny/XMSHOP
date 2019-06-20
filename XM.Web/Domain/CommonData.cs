@@ -26,7 +26,7 @@ namespace XM.Web.Domain
         /// </summary>
         Delete = 3,
         /// <summary>
-        /// 删除
+        /// 其他
         /// </summary>
         Other = 4
     };
