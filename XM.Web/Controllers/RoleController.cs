@@ -32,6 +32,7 @@ namespace XM.Web.Controllers
             return View();
         }
         #endregion
+
         #region  获取所有角色信息
         [PermissionFilter("Role", "Index")]
         public ActionResult GetALLRoleInfo()
@@ -62,12 +63,14 @@ namespace XM.Web.Controllers
             return PagerData(totalCount, roles,pageindex,pagesize);
         }
         #endregion
+
         #region  添加/修改页面
         public ActionResult Form()
         {
             return View("_Form");
         }
         #endregion
+
         #region  添加/修改操作
         [PermissionFilter("Role", "Index",Operationype.Add)]
         public ActionResult Save(RoleEntity roleEntity)
@@ -99,6 +102,7 @@ namespace XM.Web.Controllers
 
         }
         #endregion
+
         #region 删除操作
         [PermissionFilter("Role", "Index", Operationype.Delete)]
         public ActionResult DelRoleByIds()
@@ -114,6 +118,7 @@ namespace XM.Web.Controllers
             }
         }
         #endregion
+
         #region  角色详细信息
         public ActionResult GetFormJson(string id)
         {
@@ -151,6 +156,7 @@ namespace XM.Web.Controllers
             return Content(JsonConvert.SerializeObject(RoleTree(allMenu.ToList(), rolemenuList.ToList(), out checkstate,0)));
         }
         #endregion
+
         #region 角色树列图
         /// <summary>
         ///  选单树列图

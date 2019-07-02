@@ -28,6 +28,7 @@ namespace XM.Web.Controllers
             return View();
         }
         #endregion
+
         #region  获取所有菜单信息
         [PermissionFilter("Menu", "Index")]
         public ActionResult GetAllMenu()
@@ -58,12 +59,14 @@ namespace XM.Web.Controllers
             return PagerData(totalCount, menus,pageindex,pagesize);
         }
         #endregion
+
         #region  添加/修改菜单页面
         public ActionResult Form()
         {
             return View("_Form");
         }
         #endregion
+
         #region  添加/修改菜单信息
         [PermissionFilter("Menu", "Index",Operationype.Add)]
         public ActionResult Save()
@@ -93,6 +96,7 @@ namespace XM.Web.Controllers
             return OperationReturn(DALUtility.Menu.Save(paras) > 0);
         }
         #endregion
+
         #region 删除菜单信息
         [PermissionFilter("Menu", "Index", Operationype.Delete)]
         public ActionResult DelMenuByIDs()
@@ -108,6 +112,7 @@ namespace XM.Web.Controllers
             }
         }
         #endregion
+
         #region 获取单个菜单信息
         public ActionResult GetFormJson(string id)
         {

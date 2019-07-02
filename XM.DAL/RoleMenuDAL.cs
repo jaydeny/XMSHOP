@@ -7,6 +7,13 @@ namespace XM.DAL
     public class RoleMenuDAL : BaseDal, IRoleMenuDAL
     {
 
+        /// <summary>
+        /// 查询角色列表并分页
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <param name="iCount">总条数</param>
+        /// <returns></returns>
         public IEnumerable<T> QryAllRoleMenu<T>(Dictionary<string, object> paras,out int iCount)
         {
             WhereBuilder builder = new WhereBuilder();
@@ -20,6 +27,7 @@ namespace XM.DAL
             builder.AddWhereAndParameter(paras, "roleId", "Id", "=", "@roleId");
             return SortAndPage<T>(builder, grid, out iCount);
         }
+
         public IEnumerable<T> QryRoleMenu<T>(Dictionary<string, object> paras)
         {
             string strSql = "SELECT r.*,m.Controller AS Controller,m.Action AS Action,m.Name,m.ParentId " +

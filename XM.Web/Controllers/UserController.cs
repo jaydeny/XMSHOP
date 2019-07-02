@@ -29,6 +29,7 @@ namespace XM.Web.Controllers
             return View();
         }
         #endregion
+
         #region 修改密码页面
         public ActionResult PwdUpdate()
         {
@@ -38,6 +39,7 @@ namespace XM.Web.Controllers
             return View();
         }
         #endregion
+
         #region 修改密码操作
         /// <summary>
         /// 更新密码
@@ -69,6 +71,7 @@ namespace XM.Web.Controllers
             }
         }
         #endregion
+
         #region  获取所有用户信息
         /// <summary>
         /// 获取所有用户信息
@@ -107,6 +110,7 @@ namespace XM.Web.Controllers
             return PagerData(totalCount, users, pageindex, pagesize);
         }
         #endregion
+
         #region  添加/修改用户页面
         [PermissionFilter("User", "Index",Operationype.Add)]
         public ActionResult Form()
@@ -114,6 +118,7 @@ namespace XM.Web.Controllers
             return View("_Form");
         }
         #endregion
+
         #region 添加或修改用户信息方法
         public ActionResult Save()
         {
@@ -168,6 +173,7 @@ namespace XM.Web.Controllers
             }
         }
         #endregion 
+
         #region  删除用户信息
         //[PermissionFilter("User", "Index", Operationype.Delete)]
         /// <summary>
@@ -187,6 +193,7 @@ namespace XM.Web.Controllers
             }
         }
         #endregion
+
         #region 获取用户个人信息
         public ActionResult GetFormJson(string id)
         {
@@ -194,6 +201,7 @@ namespace XM.Web.Controllers
             return Content(JsonConvert.SerializeObject(user));
         }
         #endregion
+
         #region 获取当前用户个人信息页面
         public ActionResult UserInfo()
         {
@@ -205,6 +213,7 @@ namespace XM.Web.Controllers
             return View();
         }
         #endregion
+
         #region  获取当前用户
         public ActionResult InfoUser()
         {
@@ -212,6 +221,7 @@ namespace XM.Web.Controllers
             return GetFormJson(user.id.ToString());
         }
         #endregion
+
         #region 修改当前用户信息
         /// <summary>
         ///  修改当前用户信息
@@ -244,5 +254,6 @@ namespace XM.Web.Controllers
             }
         }
         #endregion
+
     }
 }

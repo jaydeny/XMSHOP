@@ -29,6 +29,7 @@ namespace XM.Web.Controllers
             return View();
         }
         #endregion
+
         #region 获取所有vip信息
         [PermissionFilter("Vip","Index")]
         public ActionResult GetAllUserInfo()
@@ -58,12 +59,14 @@ namespace XM.Web.Controllers
             return PagerData(totalCount, users,pageindex,pagesize);
         }
         #endregion
+
         #region  添加/修改页面
         public ActionResult Form()
         {
             return View("_Form");
         }
         #endregion
+
         #region  添加/修改操作
         [PermissionFilter("Vip", "Index",Operationype.Add)]
         public ActionResult Save()
@@ -132,6 +135,7 @@ namespace XM.Web.Controllers
             }
         }
         #endregion
+
         #region 删除操作
         [PermissionFilter("Vip", "Index", Operationype.Delete)]
         public ActionResult DelUserByIDs()
@@ -147,6 +151,7 @@ namespace XM.Web.Controllers
             }
         }
         #endregion
+
         #region  获取VIP个人信息
         public ActionResult GetFormJson(string id)
         {

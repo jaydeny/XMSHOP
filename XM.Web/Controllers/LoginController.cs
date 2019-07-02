@@ -27,6 +27,7 @@ namespace XM.Web.Controllers
             return View();
         }
         #endregion
+
         #region   处理登录的信息
         /// <param name="CookieExpires">cookie有效期</param>
         /// <returns></returns>
@@ -67,12 +68,14 @@ namespace XM.Web.Controllers
             }
         }
         #endregion
+
         #region   忘记密码页面
         public ActionResult ForgetPwd()
         {
             return View();
         }
         #endregion
+
         #region  忘记密码操作
         public ActionResult PwdForget()
         {
@@ -90,6 +93,7 @@ namespace XM.Web.Controllers
             return OperationReturn(f,"邮件已发送！");
         }
         #endregion
+
         #region  安全退出
         public ActionResult UserLoginOut()
         {

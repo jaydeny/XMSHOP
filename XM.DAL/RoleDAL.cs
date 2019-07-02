@@ -56,6 +56,11 @@ namespace XM.DAL
             return SortAndPage<T>(builder, grid, out iCount);
         }
         
+        /// <summary>
+        /// 角色添加/修改
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
         public int Save(Dictionary<string, object> paras)
         {
             DataTable dtRolememu = paras["rolemenu"] as DataTable;
@@ -63,6 +68,7 @@ namespace XM.DAL
             return QuerySingle<int>("P_Role_Save", paras, CommandType.StoredProcedure); 
                 //StandarInsertOrUpdate("tbrole", paras);
         }
+
         /// <summary>
         /// 获取所有角色
         /// </summary>

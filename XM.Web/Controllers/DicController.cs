@@ -17,11 +17,16 @@ namespace XM.Web.Controllers
 {
 
     /// <summary>
-    ///  字典参数
+    ///  字典参数控制器
     /// </summary>
     public class DicController : BaseController
     {
         #region  view
+
+        /// <summary>
+        /// 管理页面
+        /// </summary>
+        /// <returns></returns>
         [PermissionFilter]
         public ActionResult Index()
         {
@@ -29,7 +34,12 @@ namespace XM.Web.Controllers
             return View();
         }
 
-        
+        /// <summary>
+        /// 添加/修改页面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="tag"></param>
+        /// <returns></returns>
         [PermissionFilter("Dic", "Index")]
         public ActionResult Form(int id=0,int tag=0)
         {
@@ -45,6 +55,11 @@ namespace XM.Web.Controllers
         }
         #endregion
 
+        /// <summary>
+        /// 数据列表
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
         [PermissionFilter("Dic", "Index")]
         public ActionResult GetGridJson(int tag = 0)
         {
@@ -54,6 +69,12 @@ namespace XM.Web.Controllers
         }
 
         #region  添加/修改操作
+
+        /// <summary>
+        /// 添加/修改操作
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         [PermissionFilter("Dic", "Index", Operationype.Add)]
         public ActionResult Save(DicEntity entity)
         {
@@ -68,6 +89,12 @@ namespace XM.Web.Controllers
         #endregion
 
         #region  删除操作
+
+        /// <summary>
+        /// 删除操作
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [PermissionFilter("Dic", "Index", Operationype.Delete)]
         public ActionResult Delete(int id)
         {

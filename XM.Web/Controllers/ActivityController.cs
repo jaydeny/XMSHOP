@@ -6,14 +6,13 @@
  * 修改历史:
  * 2019/06/03       曾贤鑫       创建
  *-------------------------------------*/
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 using XM.Model;
 namespace XM.Web.Controllers
 {
-
     /// <summary>
     /// 功能: 活动
     /// </summary>

@@ -28,6 +28,7 @@ namespace XM.Web.Controllers
             return View();
         }
         #endregion
+
         #region  获取所有类型信息
         [PermissionFilter("Type", "Index")]
         public ActionResult GetAllTypeInfo()
@@ -53,12 +54,14 @@ namespace XM.Web.Controllers
             return PagerData(totalCount, type,pageindex,pagesize);
         }
         #endregion
+
         #region  添加/修改页面
         public ActionResult Form()
         {
             return View("_Form");
         }
         #endregion
+
         #region  添加/修改操作
         [PermissionFilter("Type", "Index",Operationype.Add)]
         public ActionResult Save()
@@ -93,6 +96,7 @@ namespace XM.Web.Controllers
             }
         }
         #endregion
+
         #region  删除操作
         [PermissionFilter("Type", "Index",Operationype.Delete)]
         public ActionResult DelTypeByIDs()
@@ -108,6 +112,7 @@ namespace XM.Web.Controllers
             }
         }
         #endregion
+
         #region  获取类型信息
         public ActionResult GetFormJson(string id)
         {

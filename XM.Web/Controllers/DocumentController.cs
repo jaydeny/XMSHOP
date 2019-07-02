@@ -20,6 +20,7 @@ namespace XM.Web.Controllers
     public class DocumentController : Controller
     {
         #region view
+
         /// <summary>
         /// 文件上传下载首页
         /// </summary>
@@ -28,6 +29,7 @@ namespace XM.Web.Controllers
         {
             return View();
         }
+
         /// <summary>
         /// 文件上传
         /// </summary>

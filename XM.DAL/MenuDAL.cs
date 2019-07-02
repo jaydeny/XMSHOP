@@ -6,6 +6,9 @@ using XM.Model;
 
 namespace XM.DAL
 {
+    /// <summary>
+    /// 菜单数据访问
+    /// </summary>
     public class MenuDAL : BaseDal, IMenuDAL
     {
 
@@ -32,7 +35,13 @@ namespace XM.DAL
             }
         }
 
-
+        /// <summary>
+        /// 查询菜单列表并分页
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="paras"></param>
+        /// <param name="iCount">总行数</param>
+        /// <returns></returns>
         public IEnumerable<T> GetAllMenu<T>(Dictionary<string, object> paras,out int iCount)
         {
             iCount = 0;
@@ -67,6 +76,11 @@ namespace XM.DAL
             return QuerySingle<MenuEntity>(strSql, new { ID = Id });
         }
 
+        /// <summary>
+        /// 菜单添加/修改
+        /// </summary>
+        /// <param name="paras"></param>
+        /// <returns></returns>
         public int Save(Dictionary<string, object> paras)
         {
             return StandarInsertOrUpdate("tbMenu", paras);
